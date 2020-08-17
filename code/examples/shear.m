@@ -2,7 +2,7 @@
 close all
 format long e
 format compact
-prams.N =512; % points per body
+prams.N = 128; % points per body
 
 prams.T = 1; % time horizon
 prams.m = 1; % number of time steps
@@ -28,7 +28,7 @@ options.plotAxis = 5*[-1 1 -1 1];
 % xc = [(20*rand(10,1)-10)' ;(20*rand(10,1)-10)' ]; 
 xc = [0;0];
 % xc = [-3 3;1 -1];
-% xc = [-2 2 2 -2; -2 -2 2 2];    
+xc = [-2 2 2 -2; -2 -2 2 2];    
 
 prams.nb = size(xc,2); % number of bodies
 

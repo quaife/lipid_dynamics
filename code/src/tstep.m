@@ -58,6 +58,20 @@ radii = geom.radii;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SOLVE SCREENED LAPLACE SYSTEM USING GMRES
 
+% Line 65 solves the screened Laplace problem with hydrophobic Dirichlet boundary
+% conditions and then evaluates the force and torque [F1 F2 Tq]
+
+addpath("../tests")
+yukawa_force
+
+% outputs: 
+force  = [F1; F2];
+torque = Tq;
+
+eta = 0; eta2 = 0; % variables not used; 
+%!!!! BLOCK COMMENTED OUT THROUGH LINE 246 !!!!
+%{
+
 rhs2 = o.janusbc(X,tau,center);  
 % specify the boundary condition for Janus particles
 rhs2 = rhs2(:);
@@ -229,6 +243,9 @@ for k=1:nb
     end
     
 end
+%}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % solve mobility problem here
