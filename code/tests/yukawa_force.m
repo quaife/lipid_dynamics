@@ -13,8 +13,8 @@ rho = rho;             % screen length of particles
 xt = geom.xt;          % tangent unit vector
 tau1 = xt(1:N,:);      
 tau2 = xt(N+1:2*N,:);
-nu1  = + tau2;         % outward normal : (nu, tau) is right-handed
-nu2  = - tau1;
+nu1  = - tau2;         % outward normal : (nu, tau) is right-handed
+nu2  = + tau1;
 
 dS = geom.sa*2*pi/N;   % Jacobian
 cur = geom.cur;        % curvature
@@ -41,14 +41,15 @@ for p = 1:Nb
 
     tmp     = atan2(x2(:,p) - pc(2,p), x1(:,p) - pc(1,p)); 
     uD(:,p) = 0.5*(1 + cos( tmp - orn(p) ));
+    uD(:,p) = ones(size(tmp));
 
 end 
 
 
 % visualizaion 
-%{
 %clf
 [X1, X2] = meshgrid(linspace(min(x1,[],'all')-2, max(x1,[],'all')+2, 201), linspace(min(x2,[],'all')-2, max(x2,[],'all')+2, 201));
+%{
 plot(x1, x2, 'k');
 hold on
 plot(x1_nbr, x2_nbr, 'm');
@@ -74,9 +75,9 @@ for q = 1:Nb
         Lnu = ( r1.*nu1(j,q) + r2.*nu2(j,q) )./r.^2;
 
         J = (q-1)*N + j;
-        K(:, J) = -1/(2*pi)*(r/rho).*besselk(1, r/rho).*Lnu*dS(j,q);
+        K(:, J) = 1/(2*pi)*(r/rho).*besselk(1, r/rho).*Lnu*dS(j,q);
 
-        K(J, J) = cur(j,q)*dS(j,q)/(4*pi); %removable singularity 
+        K(J, J) = -cur(j,q)*dS(j,q)/(4*pi); %removable singularity 
         
     end
 end
@@ -86,8 +87,10 @@ h   = (1/2*eye(N*Nb) + K)\RHS;
 h   = reshape(h, N, Nb);
 
 % next two commented lines needed only for solution visualization in bulk
-% Dh = evalDL(X1, X2, Nb, N, x1, x2, nu1, nu2, dS, rho, h);
+ Dh = evalDL(X1, X2, Nb, N, x1, x2, nu1, nu2, dS, rho, h);
+% clf
 % surf(X1,X2, Dh,'edgecolor','none')
+% pause
 
 disp('The system of forces and the net force [F1 F2 Tq; sum(F1) sum(F2) sum(Tq)]')
 [F1, F2, Tq] = evalForces(Nb, N, x1_nbr, x2_nbr, nu1_nbr, nu2_nbr, dS_nbr, x1, x2, nu1, nu2, dS, rho, h);
@@ -165,6 +168,19 @@ function Dh = evalDL(X1, X2, Nb, N, x1, x2, nu1, nu2, dS, rho, h)
             
         end
     end
+
+    uexact = besselk(0,sqrt(X1.^2 + X2.^2))/besselk(0,1);
+    for j = 1:numel(X1)
+      if X1(j).^2 + X2(j).^2 < 1.4
+        Dh(j) = 0;
+        uexact(j) = 0;
+      end
+    end
+
+    clf;
+    surf(X1,X2,Dh + 0*uexact)
+    shading interp;
+    pause 
 
 end
 

@@ -1,15 +1,16 @@
 % clc
-close all
+%close all
+clf
 format long e
 format compact
 prams.N = 128; % points per body
 
-prams.T = 1; % time horizon
-prams.m = 1; % number of time steps
+prams.T = 50; % time horizon
+prams.m = 500; % number of time steps
 
 prams.order = 1;
 
-prams.rho = 1.0; % screen length
+prams.rho = 1 ; % screen length
 
 options.farField = 'shear';
 options.janusbc = 2;        % put power of function here
@@ -26,17 +27,18 @@ options.plotAxis = 5*[-1 1 -1 1];
 
 % initial center
 % xc = [(20*rand(10,1)-10)' ;(20*rand(10,1)-10)' ]; 
-xc = [0;0];
-% xc = [-3 3;1 -1];
-xc = [-2 2 2 -2; -2 -2 2 2];    
+%xc = [-1.3;-1.8];
+ xc = [-3 3;1 -1];
+%xc = [-1.5 1.5 1.5 -1.5; -1.5 -1.5 1.5 1.5];    
+%xc = [0;0];
 
 prams.nb = size(xc,2); % number of bodies
 
 [options,prams] = initRigid2D(options,prams);
 
 dtau = 2*pi/prams.nb;
-tau  = (0:dtau:2*pi-dtau)'; % initial incliation angle
-radii = ones(1,prams.nb);
+tau  = (0:dtau:2*pi-dtau); % initial incliation angle
+radii = 2*ones(1,prams.nb);
 ar = ones(1,prams.nb);
 
 prams.tau = tau;

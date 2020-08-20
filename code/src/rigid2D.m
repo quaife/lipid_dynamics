@@ -19,40 +19,45 @@ while time < prams.T
 
   % comupute density function, translational velocity, angular velocity,
   % and the GMRES output
-  [eta,eta2,Up,wp,iter,iter2,iflag,iflag2,res,...
-      res2,Unum,Xtest,Ytest,force,torque] = tt.timeStep(geom);
+%  [eta,eta2,Up,wp,iter,iter2,iflag,iflag2,res,...
+%      res2,Unum,Xtest,Ytest,force,torque] = tt.timeStep(geom);
+  [Up,wp,iterYukawa,iterStokes] = tt.timeStep(geom);
+  msg = ['Yukwa reguired  ' num2str(iterYukawa) ...
+    ' iterations'];
+  om.writeMessage(msg);
+  msg = ['Stokes reguired ' num2str(iterStokes) ...
+    ' iterations'];
+  om.writeMessage(msg);
     
   % write the CPU time and the output of GMRES in Yukawa
-  om.writeMessage(....
-    ['Yukawa Finished t=', num2str(time, '%4.2e'), ' in ' ...
-        num2str(iter2) ' iterations after ', ...
-        num2str(toc(tSingleStep), '%4.2e'), ' seconds (residual ', ...
-        num2str(res2,'%4.2e'), ')']);  
+%  om.writeMessage(....
+%    ['Yukawa Finished t=', num2str(time, '%4.2e'), ' in ' ...
+%        num2str(iter2) ' iterations after ', ...
+%        num2str(toc(tSingleStep), '%4.2e'), ' seconds (residual ', ...
+%        num2str(res2,'%4.2e'), ')']);  
   
   % write the CPU time and the output of GMRES in mobility problem
-  om.writeMessage(....
-    ['Mobility Finished t=', num2str(time, '%4.2e'), ' in ' ...
-        num2str(iter) ' iterations after ', ...
-        num2str(toc(tSingleStep), '%4.2e'), ' seconds (residual ', ...
-        num2str(res,'%4.2e'), ')']);
-
-forcex = force(1:prams.nb)
-forcey = force(prams.nb+1:end)
-torque
+%  om.writeMessage(....
+%    ['Mobility Finished t=', num2str(time, '%4.2e'), ' in ' ...
+%        num2str(iter) ' iterations after ', ...
+%        num2str(toc(tSingleStep), '%4.2e'), ' seconds (residual ', ...
+%        num2str(res,'%4.2e'), ')']);
     
     % plot the shape
-%   om.plotData(geom);
-% caution!!! this plots the solution field for "previous" step
-  om.plotField(geom,Unum,Xtest,Ytest);  
+%  om.plotField(geom,Unum,Xtest,Ytest);  
   
-  % update centres and angles with forward Euler
+  % update centers and angles with forward Euler
   xc = xc + tt.dt*Up;
   tau = tau + tt.dt*wp;
+  geom = capsules(prams,xc,tau);
+  % update geometry
+
+  om.plotData(geom);
+  % plot geometry
 
   % update time
   time = time + tt.dt;    
   % update the shape
-  geom = capsules(prams, xc, tau);
    
   % write the shape to a file
   om.writeData(time,xc,tau,geom.X);

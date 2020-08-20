@@ -1,4 +1,3 @@
-
 classdef monitor
 % Used for doing input/output of data, monitoring runs during execution
 
@@ -128,25 +127,26 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function plotData(o,geom)
+
 if o.usePlot
-    figure(1);
-%   fill(geom.X(1:end/2),geom.X(end/2+1:end),'k')
-    for i=1:geom.nb
-        xind = [geom.X(1:geom.N,i); geom.X(1,i)];
-        yind = [geom.X(geom.N+1:2*geom.N,i); geom.X(geom.N+1,i)];
-        xx = geom.center(1,i);
-        yy = geom.center(2,i);
-        th = geom.tau(i);
-        ra = geom.radii(i);
-        plot(xind,yind,'k');
-        hold on
-        quiver(xx,yy,ra*cos(th),ra*sin(th),'k','linewidth',3);
-        axis equal
-        axis(o.plotAxis);  
-        hold on
-    end
-% pause(0.01);
-hold off
+  figure(1);
+%  fill(geom.X(1:end/2),geom.X(end/2+1:end),'k')
+  for i=1:geom.nb
+    xind = [geom.X(1:geom.N,i); geom.X(1,i)];
+    yind = [geom.X(geom.N+1:2*geom.N,i); geom.X(geom.N+1,i)];
+    xx = geom.center(1,i);
+    yy = geom.center(2,i);
+    th = geom.tau(i);
+    ra = geom.radii(i);
+    plot(xind,yind,'k');
+    hold on
+    quiver(xx,yy,ra*cos(th),ra*sin(th),'k','linewidth',3);
+    axis equal
+    axis(o.plotAxis);  
+    hold on
+  end
+  % pause(0.01);
+  hold off
 end
 
 
@@ -154,32 +154,32 @@ end % plotData
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function plotField(o,geom,Unum,Xtest,Ytest)
+
 if o.usePlot
-        figure(1);
-	surf(Xtest,Ytest,Unum,'edgecolor','none');
-    colorbar
-    caxis([-1 1])
+  figure(1);
+  surf(Xtest,Ytest,Unum,'edgecolor','none');
+  colorbar
+  caxis([-1 1])
     
+  hold on
+  for i=1:geom.nb
+    xind = [geom.X(1:geom.N,i); geom.X(1,i)];
+    yind = [geom.X(geom.N+1:2*geom.N,i); geom.X(geom.N+1,i)];
+    xx = geom.center(1,i);
+    yy = geom.center(2,i);
+    th = geom.tau(i);
+    ra = geom.radii(i);
+    text(xx,yy,['a_' num2str(i)],'fontsize',16);
     hold on
-    for i=1:geom.nb
-        xind = [geom.X(1:geom.N,i); geom.X(1,i)];
-        yind = [geom.X(geom.N+1:2*geom.N,i); geom.X(geom.N+1,i)];
-        xx = geom.center(1,i);
-        yy = geom.center(2,i);
-        th = geom.tau(i);
-        ra = geom.radii(i);
-        text(xx,yy,['a_' num2str(i)],'fontsize',16);
-        hold on
-        plot(xind,yind,'k','linewidth',3);
-        hold on
-        quiver(xx,yy,ra*cos(th),ra*sin(th),'k','linewidth',3,'MaxHeadSize',1);
-        axis equal
-%         axis(o.plotAxis);  
-        hold on
-    end
-view(0,90)
-pause(0.01);
-hold off
+    plot(xind,yind,'k','linewidth',3);
+    hold on
+    quiver(xx,yy,ra*cos(th),ra*sin(th),'k','linewidth',3,'MaxHeadSize',1);
+    axis equal
+    hold on
+  end
+  view(0,90)
+  pause(0.01);
+  hold off
 end
 
 

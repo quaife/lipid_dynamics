@@ -18,8 +18,8 @@ sa;         % Jacobian
 cur;        % curvature
 length;     % total length of each component
 nearStruct; % structure for near-singular integration
-DLP;        % double-layer potential matrix
-DLP2;        % double-layer potential matrix for yukawa
+DLPStokes;  % double-layer potential matrix
+DLPYukawa;  % double-layer potential matrix for yukawa
 end %properties
 
 
@@ -33,30 +33,30 @@ function o = capsules(prams,xc,tau)
 
 o.N = prams.N;
 o.nb = prams.nb;
-o.tau = prams.tau;
 o.radii = prams.radii;
 o.rho = prams.rho;
 o.ar = prams.ar;
+o.center = xc; % center
+o.tau = tau; % inclination angle
 
 oc = curve;
 
 theta = (0:o.N-1)'*2*pi/o.N;
 X = zeros(o.N*2,o.nb);  
 
-
 for i = 1:o.nb
-refX = kron([cos(tau(i)) -sin(tau(i)); +sin(tau(i)) cos(tau(i))],eye(o.N)) * ... 
-      [o.ar(i)*cos(theta);1*sin(theta)];  % shape of particle
+  refX = kron([cos(tau(i)) -sin(tau(i)); +sin(tau(i)) cos(tau(i))],eye(o.N)) * ... 
+      [o.ar(i)*cos(theta);sin(theta)]*o.radii(i);  
+  % shape of particle
 
-% rotated circle
-X(1:o.N,i) = refX(1:o.N) + xc(1,i);
-X(o.N+1:2*o.N,i) = refX(o.N+1:end) + xc(2,i);
-% shift to the correct center
+  % rotated circle
+  X(1:o.N,i) = refX(1:o.N) + xc(1,i);
+  X(o.N+1:2*o.N,i) = refX(o.N+1:end) + xc(2,i);
+  % shift to the correct center
 end
 
 o.X = X;
 
-o.center = xc; % store the center
 [o.sa,o.xt,o.cur] = oc.diffProp(o.X); 
 % compute arlenght, tangent, and curvature
 [~,o.length] = oc.geomProp(o.X);
@@ -499,6 +499,54 @@ dist = sqrt((nearestx - xTar)^2 + (nearesty - ytar)^2);
 % Compute nearest point and its distance from the target point
 
 end % closestPnt
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [xnb,ynb] = nearbyCurves(geom)
+
+oc = curve;
+% extract x and y coordinates
+[x,y] = oc.getXY(geom.X);
+[xc,yc] = oc.getXY(geom.center);
+
+x_nb = zeros(geom.N,geom.nb);
+y_nb = zeros(geom.N,geom.nb);
+
+for k = 1:geom.nb
+  radii = 1 + 10*max(geom.sa(:,k))*2*pi/geom.N;
+  % inflate the radii slightly
+  xnb(:,k) = radii*(x(:,k) - xc(k)) + xc(k);
+  ynb(:,k) = radii*(y(:,k) - yc(k)) + yc(k);
+end
+
+
+end % nearbyCurves
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function rhs = yukawaRHS(geom)
+% Build right-hand side for the Yukawa equaiton solver
+
+
+%oc = curve;
+%[xx,yy] = oc.getXY(geom.X);
+%xx = xx(:); yy = yy(:);
+%rhs = besselk(0,sqrt((xx+1.5).^2 + (yy+1.5).^2)/geom.rho)/...
+%            besselk(0,geom.radii(1)/geom.rho);
+
+%rhs = ones(geom.N*geom.nb,1);
+
+rhs = zeros(geom.N,geom.nb);
+oc = curve;
+[xc,yc] = oc.getXY(geom.center);
+[x,y] = oc.getXY(geom.X);
+for i = 1:geom.nb
+  th = atan2(y(:,i) - yc(i),x(:,i) - xc(i));
+  rhs(:,i) = 0.5*(1 + cos(th - geom.tau(i)));
+end
+
+rhs = rhs(:);
+
+end % yukawaRHS
+
 
 end % methods
 

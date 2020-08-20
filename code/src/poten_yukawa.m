@@ -440,6 +440,10 @@ end % k
 end % yukawaGradDLmatrix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% BQ Aug 18, 2020: Don't need this routine since the DLP formulation for
+% Yukawa equation is not rank deficient. This only happens for Stokes
+% and Laplace
 function N0 = yukawaN0matrix(~,wall)
 % N0 = yukawaN0matrix(vesicle) generates the the integral operator with 
 % kernel normal(x) \otimes normal(y) which removes the rank one defficiency 
@@ -484,6 +488,9 @@ end
 end % exactYukawaDLdiag
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BQ Aug 18, 2020: Don't need this routine since the DLP formulation for
+% Yukawa equation is not rank deficient. This only happens for Stokes
+% and Laplace
 function N0 = exactYukawaN0diag(~,wall,N0,f)
 % DLP = exactYukawaN0diag(vesicle,f) computes the diagonal term of the
 % modification of the double-layer potential due to f around outermost

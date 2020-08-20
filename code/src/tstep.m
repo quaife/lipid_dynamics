@@ -19,6 +19,7 @@ precop          % block-diagonal preconditioner for fibres
 precow          % block-diagonal preconditioner for walls
 potp            % class for fiber layer potentials
 potw            % class for wall layer potentials
+om              % monitor class
 
 end % properties
 
@@ -43,8 +44,7 @@ end % constructor: tstep
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [eta,eta2,Up,wp,iter,iter2,iflag,res, ...
-        iflag2,res2,Unum,Xtest,Ytest,force,torque] = timeStep(o,geom)
+function [Up,wp,iterYukawa,iterStokes] = timeStep(o,geom)
 % Main time stepping routine
 oc = curve;
 N = geom.N;
@@ -55,20 +55,95 @@ center = geom.center;
 rho = geom.rho;
 radii = geom.radii;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SOLVE SCREENED LAPLACE SYSTEM USING GMRES
+% CREATE NEAR SINGULAR INTEGRATION STRUCTURES
+if o.inear
+  geom.nearStruct = geom.getZone([],1);
+end
 
-% Line 65 solves the screened Laplace problem with hydrophobic Dirichlet boundary
-% conditions and then evaluates the force and torque [F1 F2 Tq]
+% START OF SCREENED LAPLACE SOLVE USING GMRES
 
-addpath("../tests")
-yukawa_force
+yukawaRHS = geom.yukawaRHS;
+
+op = poten(geom.N,geom.rho);
+geom.DLPYukawa = op.yukawaDLmatrix(geom);
+
+[sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(@(X) o.timeMatVecYukawa(X,geom),...
+      yukawaRHS,[],o.gmresTol,N*nb);
+iterYukawa = iterYukawa(2);
+
+etaYukawa = zeros(N,nb);
+for k = 1:nb
+  etaYukawa(:,k) = sigma((k-1)*N+1:k*N);
+end
+
+% find points of nearby curves where the force and torque can be
+% evaluated and return the same value as if we were evaluating them on
+% the curves themselves.
+[xnb,ynb] = geom.nearbyCurves;
+%hold on;
+%plot(xnb,ynb,'r--')
+
+
+%% plot solution field of screen laplace problem
+%NX = 50; NY = 50;
+%% 50 x 50 grid
+%
+%xmin = o.plotAxis(1);xmax = o.plotAxis(2);
+%ymin = o.plotAxis(3);ymax = o.plotAxis(4);
+%
+%xx = linspace(xmin,xmax,NX);
+%yy = linspace(ymin,ymax,NY);
+%[xx,yy] = meshgrid(xx,yy);
+%Xtar = [xx;yy];
+%%uexact = besselk(0,sqrt((xx-geom.center(1,1)).^2 + (yy-geom.center(2,1)).^2)/geom.rho)/...
+%%            besselk(0,geom.radii(1)/geom.rho) + ...
+%%         0*besselk(0,sqrt((xx-geom.center(1,2)).^2 + (yy-geom.center(2,2)).^2)/geom.rho)/...
+%%            besselk(0,geom.radii(2)/geom.rho) + ...
+%%         0*besselk(0,sqrt((xx-geom.center(1,3)).^2 + (yy-geom.center(2,3)).^2)/geom.rho)/...
+%%            besselk(0,geom.radii(3)/geom.rho) + ...
+%%         0*besselk(0,sqrt((xx-geom.center(1,4)).^2 + (yy-geom.center(2,4)).^2)/geom.rho)/...
+%%            besselk(0,geom.radii(4)/geom.rho);
+%
+%[~,yukawaDLPtar] = op.exactYukawaDL(geom,etaYukawa,Xtar,1:geom.nb);
+%% BQ: NEED TO PUT N-S Integration IN HERE
+%
+%for k = 1:numel(xx)
+%  for j = 1:geom.nb
+%    if (xx(k)-geom.center(1,j)).^2 + (yy(k)-geom.center(2,j)).^2 ...
+%          < 1.3*geom.radii(j)^2
+%        yukawaDLPtar(k) = 0;
+%    end
+%  end
+%end
+
+%%  if (xx(k)+0).^2 + (yy(k)+0).^2 < 0.6^2
+%  if (xx(k)-geom.center(1,1)).^2 + (yy(k)-geom.center(2,1)).^2 < 1.1*geom.radii(1)^2 || ...
+%     (xx(k)-geom.center(1,2)).^2 + (yy(k)-geom.center(2,2)).^2 < 1.1*geom.radii(2)^2 || ...
+%     (xx(k)-geom.center(1,3)).^2 + (yy(k)-geom.center(2,3)).^2 < 1.1*geom.radii(3)^2 || ...
+%     (xx(k)-geom.center(1,4)).^2 + (yy(k)-geom.center(2,4)).^2 < 1.1*geom.radii(4)^2
+%    yukawaDLPtar(k) = 0;
+%    uexact(k) = 0;
+%  end
+%end 
+clf
+%plot(sigma)
+contour(xx,yy,1*yukawaDLPtar)
+shading interp;
+view(2);
+axis equal
+pause
+
+
+%addpath("../tests")
+%yukawa_force
 
 % outputs: 
-force  = [F1; F2];
-torque = Tq;
+%force  = [F1; F2];
+%torque = Tq;
+force = zeros(2*geom.nb,1);
+torque = zeros(geom.nb,1);
 
-eta = 0; eta2 = 0; % variables not used; 
+%eta = 0; eta2 = 0; % variables not used; 
 %!!!! BLOCK COMMENTED OUT THROUGH LINE 246 !!!!
 %{
 
@@ -254,56 +329,48 @@ end
 rhs = o.farField(X);
 
 
-% CREATE NEAR SINGULAR INTEGRATION STRUCTURES
-if o.inear
-  geom.nearStruct = geom.getZone([],1);
-end
-
-
-
-
 % append body force and torque to the background flow to complete the
 % right hand side fro GMRES
 rhs = [-rhs(:); force; torque];
 
-op = poten(N);
+op = poten(N,rho);
 % build double-layer potential matrix
-geom.DLP = op.stokesDLmatrix(geom);
+geom.DLPStokes = op.stokesDLmatrix(geom);
 
 % max GMRES iterations
 maxit = 2*N*nb; 
 
 % SOLVE SYSTEM USING GMRES
-[Xn,iflag,res,I] = gmres(@(X) o.timeMatVec(X,geom),rhs,[],...
-      o.gmresTol,maxit);
-iter = I(2);
+[sigma,iflagStokes,resStokes,iterStokes] = gmres(@(X) o.timeMatVecStokes(X,geom),...
+      rhs,[],o.gmresTol,maxit);
+iterStokes = iterStokes(2);
 
 % REORGANIZE COLUMN VECTOR INTO MATRIX
 % EXTRACT DENSITY FUNCITONS ON FIBRES AND WALLS
-% each column of eta corresponds to the density function of a rigid body
-eta = zeros(2*N,nb);
+% each column of etaStokes corresponds to the density function of a rigid body
+etaStokes = zeros(2*N,nb);
 for k = 1:nb
-  eta(:,k) = Xn((k-1)*2*N+1:k*2*N);
+  etaStokes(:,k) = sigma((k-1)*2*N+1:k*2*N);
 end
 
 % EXTRACT TRANSLATIONAL VELOCITIES
 Up = zeros(2,nb);
 for k = 1:nb
-  Up(:,k) = Xn(2*N*nb+(k-1)*2+1:2*N*nb+2*k);
+  Up(:,k) = sigma(2*N*nb+(k-1)*2+1:2*N*nb+2*k);
 end
 
 % EXTRACT ROTATIONAL VELOCITIES
 wp = zeros(1,nb);
 for k = 1:nb
-  wp(k) = Xn(2*N*nb+2*nb+k);
+  wp(k) = sigma(2*N*nb+2*nb+k);
 end
 
 end % timeStep
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function Tx = timeMatVec(o,Xn,geom)
-% Tx = timeMatVec(Xn,geom) does a matvec for GMRES 
+function Tx = timeMatVecStokes(o,Xn,geom)
+% Tx = timeMatVecStokes(Xn,geom) does a matvec for GMRES 
 % Xn is a state vector that contains the following in order:
 % fiber1: eta_x, eta_y fiber2: eta_x, eta_y ... fibernv: eta_x, eta_y
 % fiber1: u, v fiber2: u, v ... fibernv: u, v
@@ -311,7 +378,9 @@ function Tx = timeMatVec(o,Xn,geom)
 
 N = geom.N;   % points per body
 nb = geom.nb; % number of bodies
-op = poten(N);
+rho = geom.rho; % screen length
+
+op = poten(N,rho);
 
 % Output of Tx that corresponds to the velocity of the fibers
 valFibers = zeros(2*N,nb);
@@ -339,16 +408,28 @@ end
 % END FORMATTING UNKNOWN VECTOR
 
 % ADD JUMP IN DLP
-valFibers = valFibers - 1/2*eta;
+valFibers = valFibers - 0.5*eta;
 
 % ADD SELF CONTRIBUTION
-valFibers = valFibers + op.exactStokesDLdiag(geom,geom.DLP,eta);
+valFibers = valFibers + op.exactStokesDLdiag(geom,geom.DLPStokes,eta);
 
+% DEFINE STOKES DLP KERNELS
+kernel = @op.exactStokesDL;
+kernelSelf = @(z) +0.5*z + op.exactStokesDLdiag(geom,geom.DLPStokes,z);
+% BQ: NOT SURE WHY THIS IS +0.5 and not -0.5 like it is two lines above
+
+% ADD CONTRIBUTION FROM OTHER FIBERS
+stokesDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
+    kernel,kernel,geom,true,false);
+valFibers = valFibers + stokesDLP;
+
+% ADD TRANSLATIONAL VELOCITY CONTRIBUTION
 for k = 1:nb
   valFibers(1:end/2,k) = valFibers(1:end/2,k) - Up(1,k);
   valFibers(end/2+1:end,k) = valFibers(end/2+1:end,k) - Up(2,k);
 end
 
+% ADD ROTATIONAL VELOCITY CONTRIBUTION
 for k = 1:nb
   valFibers(1:end/2,k) = valFibers(1:end/2,k) ...
                 + (geom.X(end/2+1:end,k) - geom.center(2,k))*wp(k);
@@ -356,13 +437,13 @@ for k = 1:nb
                 - (geom.X(1:end/2,k) - geom.center(1,k))*wp(k);
 end
 
-% EVALUTATE FORCES ON FIBRES
+% EVALUTATE FORCES ON FIBERS
 for k = 1:nb
   valForce(1,k) = sum(eta(1:N,k).*geom.sa(:,k))*2*pi/N;
   valForce(2,k) = sum(eta(N+1:2*N,k).*geom.sa(:,k))*2*pi/N;
 end
 
-% EVALUATE TORQUES ON FIBRES
+% EVALUATE TORQUES ON FIBERS
 for k = 1:nb
   valTorque(k) = sum(((geom.X(N+1:2*N,k)-geom.center(2,k)).*eta(1:N,k) - ...
                      ((geom.X(1:N,k)-geom.center(1,k)).*eta(N+1:2*N,k))).*...
@@ -372,8 +453,47 @@ end
 % CONSTRUCT OUTPUT VECTOR
 Tx = [valFibers(:); -valForce(:);-valTorque(:)];
 
-end % timeMatVec
+end % timeMatVecStokes
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function Tx = timeMatVecYukawa(o,Xn,geom)
+% Tx = timeMatVecYukawa(Xn,geom) does a matvec for GMRES 
+% Xn is a state vector that contains the following in order:
+% fiber1: eta1 fiber2: eta2 ... fibernv: etan
+
+N = geom.N;
+nb = geom.nb;
+rho = geom.rho;
+op = poten(N,rho);
+
+% Store with each column being one part of the matvec. Will columnize
+% the vector at the end of this routine
+Tx = zeros(N,nb);
+
+eta = zeros(N,nb);
+% unstack the density function
+for k = 1:nb
+  eta(:,k) = Xn((k-1)*N+1:k*N);
+end
+
+% ADD JUMP IN DLP
+Tx = Tx + 0.5*eta;
+
+% ADD SELF CONTRIBUTION
+Tx = Tx + op.exactYukawaDLdiag(geom,geom.DLPYukawa,eta);
+
+% DEFINE Yukawa DLP KERNELS
+kernel = @op.exactYukawaDL;
+kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
+
+yukawaDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
+    kernel,kernel,geom,true,false);
+
+Tx = Tx + yukawaDLP(1:geom.N,:);
+
+Tx = Tx(:);
+
+end % timeMatVecYukawa
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function Tx = timeMatVecHalf(o,Xn,geom)
@@ -403,8 +523,6 @@ Tx = Tx - 1/2*eta2;
 Tx = Tx + op.exactYukawaDLdiag(geom,geom.DLP2,eta2);
 Tx = Tx(:);
 end % timeMatVecHalf
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -437,13 +555,11 @@ oc = curve;
 bc = zeros(N,nb);
 
 pow = options.janusbc;
-    for i = 1:nb    
-        xc = center(:,i);
-        th = atan2(y(:,i)-xc(2),x(:,i)-xc(1));
-        bc(:,i) = cos(0.5*(th-tau(i))).^pow;         
-    end
-%     figure(3);
-%     plot(bc)
+for i = 1:nb    
+  xc = center(:,i);
+  th = atan2(y(:,i)-xc(2),x(:,i)-xc(1));
+  bc(:,i) = cos(0.5*(th-tau(i))).^pow;         
+end
 
 
 end % bcfunc
