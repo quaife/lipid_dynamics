@@ -140,6 +140,7 @@ pause
 % outputs: 
 %force  = [F1; F2];
 %torque = Tq;
+
 force = zeros(2*geom.nb,1);
 torque = zeros(geom.nb,1);
 

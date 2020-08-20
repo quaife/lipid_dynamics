@@ -150,6 +150,34 @@ end
 
 end
 
+function Kh = selfEvalDL(Nb, N, x1, x2, nu1, nu2, cur, dS, rho, h)
+
+    % evaluates double layer potential on the boundary curves x1, x2
+
+    Kh = zeros(N*Nb,1);
+    for p = 1:Nb
+        for i = 1:N
+
+            r1 = x1(:) - x1(i,p);
+            r2 = x2(:) - x2(i,p);
+            r = sqrt( r1.^2 + r2.^2 );
+            
+            rdotnu = r1.*nu1(:) + r2.*nu2(:);
+            
+            K1 = besselk(1, r/rho);
+
+            I      = (p-1)*N + i;
+            
+            KI = -1/(2*pi)*(r/rho).*K1.*rdotnu./r.^2.*dS(:);
+
+            KI(I) = cur(i,p)*dS(i,p)/(4*pi);
+            
+            Kh(I)  = dot(KI(:),h(:));
+            
+        end
+    end
+
+end
 
 function Dh = evalDL(X1, X2, Nb, N, x1, x2, nu1, nu2, dS, rho, h)
 
