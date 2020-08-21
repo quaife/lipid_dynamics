@@ -52,7 +52,7 @@ while time < prams.T
   geom = capsules(prams,xc,tau);
   % update geometry
 
-  om.plotData(geom);
+%   om.plotData(geom);
   % plot geometry
 
   % update time

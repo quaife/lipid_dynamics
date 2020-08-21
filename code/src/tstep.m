@@ -94,17 +94,50 @@ end
 %xx = linspace(xmin,xmax,NX);
 %yy = linspace(ymin,ymax,NY);
 %[xx,yy] = meshgrid(xx,yy);
-%Xtar = [xx;yy];
-%%uexact = besselk(0,sqrt((xx-geom.center(1,1)).^2 + (yy-geom.center(2,1)).^2)/geom.rho)/...
+
+
+%% uexact = besselk(0,sqrt((xx-geom.center(1,1)).^2 + (yy-geom.center(2,1)).^2)/geom.rho)/...
 %%            besselk(0,geom.radii(1)/geom.rho) + ...
-%%         0*besselk(0,sqrt((xx-geom.center(1,2)).^2 + (yy-geom.center(2,2)).^2)/geom.rho)/...
-%%            besselk(0,geom.radii(2)/geom.rho) + ...
+%%         besselk(0,sqrt((xx-geom.center(1,2)).^2 + (yy-geom.center(2,2)).^2)/geom.rho)/...
+%%            besselk(0,geom.radii(2)/geom.rho)+ ...
 %%         0*besselk(0,sqrt((xx-geom.center(1,3)).^2 + (yy-geom.center(2,3)).^2)/geom.rho)/...
 %%            besselk(0,geom.radii(3)/geom.rho) + ...
 %%         0*besselk(0,sqrt((xx-geom.center(1,4)).^2 + (yy-geom.center(2,4)).^2)/geom.rho)/...
 %%            besselk(0,geom.radii(4)/geom.rho);
-%
-%[~,yukawaDLPtar] = op.exactYukawaDL(geom,etaYukawa,Xtar,1:geom.nb);
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+xx=-0.0625;
+yy=3;
+
+Xtar = [xx;yy];
+
+uexact = 0;
+% for k=1:nb
+uexact = besselk(0,sqrt((xx-geom.center(1,1)).^2 + (yy-geom.center(2,1)).^2)/geom.rho)/...
+            besselk(0,geom.radii(1)/geom.rho) + ...
+         besselk(0,sqrt((xx-geom.center(1,2)).^2 + (yy-geom.center(2,2)).^2)/geom.rho)/...
+            besselk(0,geom.radii(2)/geom.rho);
+% end
+
+% test = (besselk(0,sqrt((x(:,i)-1.1*xc(i)).^2 + (y(:,i)-1.1*yc(i)).^2)/geom.rho)/...
+%             besselk(0,geom.radii(i)/geom.rho));
+       
+[~,yukawaDLPtar] = op.exactYukawaDL(geom,etaYukawa,Xtar,1:geom.nb);
+
+% calculate the numerical solution  
+  unum=yukawaDLPtar  
+  
+  uexact
+
+  
+% calculate relative error of the numerical solution
+abserr=abs(uexact-unum)  
+relerr=abs(uexact-unum)/abs(uexact)
+%%%%%%%%%%%%%%%%%%%%%%
+
+
 %% BQ: NEED TO PUT N-S Integration IN HERE
 %
 %for k = 1:numel(xx)
@@ -125,14 +158,20 @@ end
 %    uexact(k) = 0;
 %  end
 %end 
-clf
-%plot(sigma)
-contour(xx,yy,1*yukawaDLPtar)
-shading interp;
-view(2);
-axis equal
+% clf
+plot(sigma(end/2+1:end))
+
+% contour(xx,yy,1*yukawaDLPtar)
+% shading interp;
+% view(2);
+% axis equal
 pause
 
+% plot(geom.sa(:,1))
+% pause
+% 
+% surf(geom.DLPYukawa(:,:,1))
+% pause
 
 %addpath("../tests")
 %yukawa_force

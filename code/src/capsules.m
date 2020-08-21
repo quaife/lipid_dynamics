@@ -46,7 +46,7 @@ X = zeros(o.N*2,o.nb);
 
 for i = 1:o.nb
   refX = kron([cos(tau(i)) -sin(tau(i)); +sin(tau(i)) cos(tau(i))],eye(o.N)) * ... 
-      [o.ar(i)*cos(theta);sin(theta)]*o.radii(i);  
+      [o.ar(i)*cos(theta);2*sin(theta)]*o.radii(i);  
   % shape of particle
 
   % rotated circle
@@ -525,23 +525,37 @@ end % nearbyCurves
 function rhs = yukawaRHS(geom)
 % Build right-hand side for the Yukawa equaiton solver
 
-
-%oc = curve;
-%[xx,yy] = oc.getXY(geom.X);
-%xx = xx(:); yy = yy(:);
-%rhs = besselk(0,sqrt((xx+1.5).^2 + (yy+1.5).^2)/geom.rho)/...
+% 
+% oc = curve;
+% [xx,yy] = oc.getXY(geom.X);
+% xx = xx(:); yy = yy(:);
+% rhs = besselk(0,sqrt((xx-1).^2 + (yy).^2)/geom.rho)/...
 %            besselk(0,geom.radii(1)/geom.rho);
 
 %rhs = ones(geom.N*geom.nb,1);
-
+% 
 rhs = zeros(geom.N,geom.nb);
 oc = curve;
 [xc,yc] = oc.getXY(geom.center);
 [x,y] = oc.getXY(geom.X);
-for i = 1:geom.nb
-  th = atan2(y(:,i) - yc(i),x(:,i) - xc(i));
-  rhs(:,i) = 0.5*(1 + cos(th - geom.tau(i)));
+
+% for i = 1:geom.nb
+% %   th = atan2(y(:,i) - yc(i),x(:,i) - xc(i));
+% %   rhs(:,i) = 0.5*(1 + cos(th - geom.tau(i)));
+% rhs(:,i) = (besselk(0,sqrt((x(:,i)-1.1*xc(i)).^2 + (y(:,i)-1.1*yc(i)).^2)/geom.rho)/...
+%             besselk(0,geom.radii(i)/geom.rho));
+%                
+% end
+
+rhs = zeros(geom.N*geom.nb,1);
+
+for i = 1:1 %geom.nb
+rhs = rhs +  (besselk(0,sqrt((x(:)-xc(i)).^2 + (y(:)-yc(i)).^2)/geom.rho)/...
+            besselk(0,geom.radii(i)/geom.rho));
 end
+
+
+% [x(:),y(:),rhs(:)]
 
 rhs = rhs(:);
 
