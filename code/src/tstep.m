@@ -109,16 +109,20 @@ end
 %%%%%%%%%%%%%%%%%%%%%%
 
 xx=-0.0625;
-yy=3;
+xx=4;
+yy=0;
 
 Xtar = [xx;yy];
 
 uexact = 0;
 % for k=1:nb
 uexact = besselk(0,sqrt((xx-geom.center(1,1)).^2 + (yy-geom.center(2,1)).^2)/geom.rho)/...
-            besselk(0,geom.radii(1)/geom.rho) + ...
-         besselk(0,sqrt((xx-geom.center(1,2)).^2 + (yy-geom.center(2,2)).^2)/geom.rho)/...
-            besselk(0,geom.radii(2)/geom.rho);
+            besselk(0,geom.radii(1)/geom.rho);
+
+%uexact = besselk(0,sqrt((xx-geom.center(1,1)).^2 + (yy-geom.center(2,1)).^2)/geom.rho)/...
+%            besselk(0,geom.radii(1)/geom.rho) + ...
+%         besselk(0,sqrt((xx-geom.center(1,2)).^2 + (yy-geom.center(2,2)).^2)/geom.rho)/...
+%            besselk(0,geom.radii(2)/geom.rho);
 % end
 
 % test = (besselk(0,sqrt((x(:,i)-1.1*xc(i)).^2 + (y(:,i)-1.1*yc(i)).^2)/geom.rho)/...
@@ -159,7 +163,8 @@ relerr=abs(uexact-unum)/abs(uexact)
 %  end
 %end 
 % clf
-plot(sigma(end/2+1:end))
+plot(sigma)
+%plot(sigma(end/2+1:end))
 
 % contour(xx,yy,1*yukawaDLPtar)
 % shading interp;

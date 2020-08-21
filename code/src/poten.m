@@ -756,6 +756,7 @@ den = f.*geom.sa*2*pi/geom.N;
 oc = curve;
 [xsou,ysou] = oc.getXY(geom.X(:,K1));
 xsou = xsou(:); ysou = ysou(:);
+xx = xsou; yy = ysou;
 xsou = xsou(:,ones(Ntar,1))';
 ysou = ysou(:,ones(Ntar,1))';
 

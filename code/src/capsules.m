@@ -46,7 +46,7 @@ X = zeros(o.N*2,o.nb);
 
 for i = 1:o.nb
   refX = kron([cos(tau(i)) -sin(tau(i)); +sin(tau(i)) cos(tau(i))],eye(o.N)) * ... 
-      [o.ar(i)*cos(theta);2*sin(theta)]*o.radii(i);  
+      [o.ar(i)*cos(theta);1.01*sin(theta)]*o.radii(i);  
   % shape of particle
 
   % rotated circle

@@ -30,9 +30,9 @@ options.plotAxis = 5*[-1 1 -1 1];
 % initial center
 % xc = [(20*rand(10,1)-10)' ;(20*rand(10,1)-10)' ]; 
 % xc = [-1.3;-1.8];
- xc = [-1.125 3  ;0 0];
+% xc = [-1.125 3  ;0 0];
 % xc = [-1.5 1.5 1.5 -1.5; -1.5 -1.5 1.5 1.5];    
-% xc = [0;0];
+ xc = [0;0];
 
 prams.nb = size(xc,2); % number of bodies
 
