@@ -62,15 +62,21 @@ end
 
 % START OF SCREENED LAPLACE SOLVE USING GMRES
 
+% right hand side for the screened Laplace solver
 yukawaRHS = geom.yukawaRHS;
 
 op = poten(geom.N,geom.rho);
+% build the DLP Yukawa matrix
 geom.DLPYukawa = op.yukawaDLmatrix(geom);
 
-[sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(@(X) o.timeMatVecYukawa(X,geom),...
+% Solve for the density function using GMRES
+[sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
+      @(X) o.timeMatVecYukawa(X,geom),...
       yukawaRHS,[],o.gmresTol,N*nb);
 iterYukawa = iterYukawa(2);
 
+% Unstack the density function so that it is arranged as columns for
+% each body
 etaYukawa = zeros(N,nb);
 for k = 1:nb
   etaYukawa(:,k) = sigma((k-1)*N+1:k*N);
@@ -79,104 +85,85 @@ end
 % find points of nearby curves where the force and torque can be
 % evaluated and return the same value as if we were evaluating them on
 % the curves themselves.
-[xnb,ynb] = geom.nearbyCurves;
+%[xnb,ynb] = geom.nearbyCurves;
 %hold on;
 %plot(xnb,ynb,'r--')
 
 
-%% plot solution field of screen laplace problem
-%NX = 50; NY = 50;
-%% 50 x 50 grid
-%
-%xmin = o.plotAxis(1);xmax = o.plotAxis(2);
-%ymin = o.plotAxis(3);ymax = o.plotAxis(4);
-%
-%xx = linspace(xmin,xmax,NX);
-%yy = linspace(ymin,ymax,NY);
-%[xx,yy] = meshgrid(xx,yy);
+if 0
+% plot solution field of screen laplace problem
+NX = 151; NY = 151;
+% 50 x 50 grid
 
+xmin = o.plotAxis(1);xmax = o.plotAxis(2);
+ymin = o.plotAxis(3);ymax = o.plotAxis(4);
 
-%% uexact = besselk(0,sqrt((xx-geom.center(1,1)).^2 + (yy-geom.center(2,1)).^2)/geom.rho)/...
-%%            besselk(0,geom.radii(1)/geom.rho) + ...
-%%         besselk(0,sqrt((xx-geom.center(1,2)).^2 + (yy-geom.center(2,2)).^2)/geom.rho)/...
-%%            besselk(0,geom.radii(2)/geom.rho)+ ...
-%%         0*besselk(0,sqrt((xx-geom.center(1,3)).^2 + (yy-geom.center(2,3)).^2)/geom.rho)/...
-%%            besselk(0,geom.radii(3)/geom.rho) + ...
-%%         0*besselk(0,sqrt((xx-geom.center(1,4)).^2 + (yy-geom.center(2,4)).^2)/geom.rho)/...
-%%            besselk(0,geom.radii(4)/geom.rho);
+xx = linspace(xmin,xmax,NX);
+yy = linspace(ymin,ymax,NY);
+[xx,yy] = meshgrid(xx,yy);
 
-%%
-%%%%%%%%%%%%%%%%%%%%%%
+Xtar = [xx(:);yy(:)];
+geomTar.X = Xtar;
+geomTar.N = numel(xx);
+geomTar.nb = 1;
+[~,NearOther] = geom.getZone(geomTar,2);
 
-xx=-0.0625;
-xx=4;
-yy=0;
+yukawaExact = zeros(size(xx));
+dist = sqrt((xx - geom.center(1,1)).^2 + (yy - geom.center(2,1)).^2);
+yukawaExact = yukawaExact + ...
+      besselk(0,dist/geom.rho)/besselk(0,radii(1)/geom.rho);
+dist = sqrt((xx - geom.center(1,2)).^2 + (yy - geom.center(2,2)).^2);
+yukawaExact = yukawaExact + ...
+      besselk(0,dist/geom.rho)/besselk(0,radii(2)/geom.rho);
 
-Xtar = [xx;yy];
-
-uexact = 0;
-% for k=1:nb
-uexact = besselk(0,sqrt((xx-geom.center(1,1)).^2 + (yy-geom.center(2,1)).^2)/geom.rho)/...
-            besselk(0,geom.radii(1)/geom.rho);
-
-%uexact = besselk(0,sqrt((xx-geom.center(1,1)).^2 + (yy-geom.center(2,1)).^2)/geom.rho)/...
-%            besselk(0,geom.radii(1)/geom.rho) + ...
-%         besselk(0,sqrt((xx-geom.center(1,2)).^2 + (yy-geom.center(2,2)).^2)/geom.rho)/...
-%            besselk(0,geom.radii(2)/geom.rho);
-% end
-
-% test = (besselk(0,sqrt((x(:,i)-1.1*xc(i)).^2 + (y(:,i)-1.1*yc(i)).^2)/geom.rho)/...
-%             besselk(0,geom.radii(i)/geom.rho));
-       
-[~,yukawaDLPtar] = op.exactYukawaDL(geom,etaYukawa,Xtar,1:geom.nb);
-
+kernel = @op.exactYukawaDL;
+kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
 % calculate the numerical solution  
-  unum=yukawaDLPtar  
-  
-  uexact
+yukawaDLPtar = op.nearSingInt(geom,etaYukawa,kernelSelf,...
+    NearOther,kernel,kernel,geomTar,false,false);
+% Only first half is meaningful since we are solving for a scalar
+yukawaDLPtar = yukawaDLPtar(1:end/2);
+% reshape so its the same size as the target points
+yukawaDLPtar = reshape(yukawaDLPtar,NX,NY);
 
-  
-% calculate relative error of the numerical solution
-abserr=abs(uexact-unum)  
-relerr=abs(uexact-unum)/abs(uexact)
-%%%%%%%%%%%%%%%%%%%%%%
+% zero out points that are in the interior of the geometry
+for j = 1:geom.nb
+  Rot = [cos(tau(j)) sin(tau(j)); -sin(tau(j)) cos(tau(j))];
+  for k = 1:numel(xx)
+    xRot = Rot*[xx(k) - geom.center(1,j);yy(k) - geom.center(2,j)];
+    if (xRot(1).^2/geom.ar(j)^2 + xRot(2).^2 < geom.radii(j)^2)
+        yukawaDLPtar(k) = 0;
+        yukawaExact(k) = 0;
+    end
+  end
+end
+
+% calculate absolute and relative error of the numerical solution
+abserr = norm(yukawaExact - yukawaDLPtar,inf)  
+relerr = norm(yukawaExact - yukawaDLPtar,inf)/norm(yukawaExact,inf)
+
+% Plot solution
+figure(1); clf; hold on;
+surf(xx,yy,yukawaDLPtar)
+shading interp;
+view(2);
+fill3(geom.X(1:end/2,:),geom.X(end/2+1:end,:),10*ones(geom.N,geom.nb),'k')
+axis equal
+axis([xmin xmax ymin ymax])
+
+% Plot error on a log-base-10 scale
+figure(2); clf; hold on;
+surf(xx,yy,log10(abs(yukawaDLPtar - yukawaExact)))
+shading interp;
+view(2);
+fill3(geom.X(1:end/2,:),geom.X(end/2+1:end,:),10*ones(geom.N,geom.nb),'k')
+axis equal
+axis([xmin xmax ymin ymax])
+colorbar
+pause(0.01)
+end
 
 
-%% BQ: NEED TO PUT N-S Integration IN HERE
-%
-%for k = 1:numel(xx)
-%  for j = 1:geom.nb
-%    if (xx(k)-geom.center(1,j)).^2 + (yy(k)-geom.center(2,j)).^2 ...
-%          < 1.3*geom.radii(j)^2
-%        yukawaDLPtar(k) = 0;
-%    end
-%  end
-%end
-
-%%  if (xx(k)+0).^2 + (yy(k)+0).^2 < 0.6^2
-%  if (xx(k)-geom.center(1,1)).^2 + (yy(k)-geom.center(2,1)).^2 < 1.1*geom.radii(1)^2 || ...
-%     (xx(k)-geom.center(1,2)).^2 + (yy(k)-geom.center(2,2)).^2 < 1.1*geom.radii(2)^2 || ...
-%     (xx(k)-geom.center(1,3)).^2 + (yy(k)-geom.center(2,3)).^2 < 1.1*geom.radii(3)^2 || ...
-%     (xx(k)-geom.center(1,4)).^2 + (yy(k)-geom.center(2,4)).^2 < 1.1*geom.radii(4)^2
-%    yukawaDLPtar(k) = 0;
-%    uexact(k) = 0;
-%  end
-%end 
-% clf
-plot(sigma)
-%plot(sigma(end/2+1:end))
-
-% contour(xx,yy,1*yukawaDLPtar)
-% shading interp;
-% view(2);
-% axis equal
-pause
-
-% plot(geom.sa(:,1))
-% pause
-% 
-% surf(geom.DLPYukawa(:,:,1))
-% pause
 
 %addpath("../tests")
 %yukawa_force
@@ -220,7 +207,7 @@ end
 
 %%%%%%%%%%%%%%%%%
 % plot solution field of screen laplace problem
-NX = 50; NY = 50;
+NX = 500; NY = 500;
 % 50 x 50 grid
 
 xmin = o.plotAxis(1);xmax = o.plotAxis(2);
@@ -372,7 +359,6 @@ end
 
 % far field condition
 rhs = o.farField(X);
-
 
 % append body force and torque to the background flow to complete the
 % right hand side fro GMRES

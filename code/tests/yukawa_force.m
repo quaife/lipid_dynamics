@@ -81,6 +81,8 @@ for q = 1:Nb
         
     end
 end
+disp('here')
+pause
 
 RHS = reshape(uD,N*Nb,1);
 h   = (1/2*eye(N*Nb) + K)\RHS;

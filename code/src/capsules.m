@@ -46,7 +46,7 @@ X = zeros(o.N*2,o.nb);
 
 for i = 1:o.nb
   refX = kron([cos(tau(i)) -sin(tau(i)); +sin(tau(i)) cos(tau(i))],eye(o.N)) * ... 
-      [o.ar(i)*cos(theta);1.01*sin(theta)]*o.radii(i);  
+      [o.ar(i)*cos(theta);sin(theta)]*o.radii(i);  
   % shape of particle
 
   % rotated circle
@@ -345,20 +345,20 @@ end % relate == 1 || relate == 3
 % Bin target points with respect to the source points
 if (relate == 2 || relate == 3)
   Np2 = bd2.N; % number of additional targets
-  np2 = bd2.n; % number of additional boundaries
+  nb2 = bd2.nb; % number of additional boundaries
   X2 = bd2.X; % additional target points
   [xtar,ytar] = oc.getXY(X2);
 
   for k = 1:nb
-    distST{k} = spalloc(N1,np2,0);
+    distST{k} = spalloc(N1,nb2,0);
     % dist(n,k,j) is the distance of point n on boundary k to
-    zoneST{k} = spalloc(N1,np2,0);
+    zoneST{k} = spalloc(N1,nb2,0);
     % near or far zone
-    nearestST{k} = spalloc(2*N1,np2,0);
+    nearestST{k} = spalloc(2*N1,nb2,0);
     % nearest point using local interpolant
-    icpST{k} = spalloc(N1,np2,0);
+    icpST{k} = spalloc(N1,nb2,0);
     % index of closest discretization point
-    argnearST{k} = spalloc(N1,np2,0);
+    argnearST{k} = spalloc(N1,nb2,0);
     % argument in [0,1] of local interpolant
   end
   % New way of representing near-singular integration structure so that
@@ -525,37 +525,17 @@ end % nearbyCurves
 function rhs = yukawaRHS(geom)
 % Build right-hand side for the Yukawa equaiton solver
 
-% 
-% oc = curve;
-% [xx,yy] = oc.getXY(geom.X);
-% xx = xx(:); yy = yy(:);
-% rhs = besselk(0,sqrt((xx-1).^2 + (yy).^2)/geom.rho)/...
-%            besselk(0,geom.radii(1)/geom.rho);
-
-%rhs = ones(geom.N*geom.nb,1);
-% 
 rhs = zeros(geom.N,geom.nb);
 oc = curve;
 [xc,yc] = oc.getXY(geom.center);
 [x,y] = oc.getXY(geom.X);
 
-% for i = 1:geom.nb
-% %   th = atan2(y(:,i) - yc(i),x(:,i) - xc(i));
-% %   rhs(:,i) = 0.5*(1 + cos(th - geom.tau(i)));
-% rhs(:,i) = (besselk(0,sqrt((x(:,i)-1.1*xc(i)).^2 + (y(:,i)-1.1*yc(i)).^2)/geom.rho)/...
-%             besselk(0,geom.radii(i)/geom.rho));
-%                
-% end
-
 rhs = zeros(geom.N*geom.nb,1);
 
-for i = 1:1 %geom.nb
-rhs = rhs +  (besselk(0,sqrt((x(:)-xc(i)).^2 + (y(:)-yc(i)).^2)/geom.rho)/...
-            besselk(0,geom.radii(i)/geom.rho));
+for i = 1:2
+  rhs = rhs + besselk(0,sqrt((x(:)-xc(i)).^2 + (y(:)-yc(i)).^2)/geom.rho)/...
+              besselk(0,geom.radii(i)/geom.rho);
 end
-
-
-% [x(:),y(:),rhs(:)]
 
 rhs = rhs(:);
 

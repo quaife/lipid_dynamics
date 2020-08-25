@@ -130,8 +130,8 @@ else % sources ~= targets
 end
 % Use upsampled trapezoid rule to compute layer potential
 
-if size(farField,1) == geomSou.N
-  farField = [farField;zeros(geomSou.N,geomSou.nb)];
+if size(farField,1) == geomTar.N
+  farField = [farField;zeros(geomTar.N,geomTar.nb)];
 end
 
 nearField = zeros(2*Ntar,ntar);
@@ -411,6 +411,10 @@ for k=1:geom.nb  % Loop over curves
   nx = -geom.xt(Ng+1:2*Ng,k);
   ny = geom.xt(1:Ng,k);
   % normal that points into each body (ie. outward normal)
+  nx = nx(:,ones(Ng,1))';
+  ny = ny(:,ones(Ng,1))';
+%  kernel = diffx.*(tysou(ones(Ng,1),:)) - ...
+%            diffy.*(txsou(ones(Ng,1),:));
 
   sa = geom.sa(:,k)'; % Jacobian
   cur = geom.cur(:,k)'; % curvature
@@ -431,7 +435,7 @@ for k=1:geom.nb  % Loop over curves
   
   % r dot n term
   rdotn = diffx.*nx + diffy.*ny;
-  
+
   r2 = diffx.^2 + diffy.^2;
   r12 = r2.^(0.5);
   r12(1:Ng+1:Ng^2) = 0;
@@ -443,16 +447,10 @@ for k=1:geom.nb  % Loop over curves
 %  omega = 1i*geom.rho;
 %  kernel = -1i/4*(omega*r12).*besselh(1,omega*r12);  
 
-%  D11 = kernel./r2.*rdotn.*sa;
-  D11(1:Ng+1:Ng^2) = -0.25/pi*cur.*sa(1,:);
+  D11(1:Ng+1:Ng^2) = +0.25/pi*cur.*sa(1,:);
   D(:,:,k) = D11;
   
-%   figure(2);
-%   surf(D11*2*pi/Ng)
-%   shading interp
-%   pause
-  
-  D(:,:,k) = D(:,:,k)*2*pi/Ng;
+  D(:,:,k) = -D(:,:,k)*2*pi/Ng;
   % scale with the arclength spacing and divide by pi
 end % k
 
@@ -768,6 +766,14 @@ den = den(:,ones(Ntar,1))';
 nx = -ty(:); ny = tx(:);
 normalx = nx(:,ones(Ntar,1))';
 normaly = ny(:,ones(Ntar,1))';
+
+%den = f.*geom.sa*2*pi/geom.N;
+%[xtar,ytar] = oc.getXY(Xtar);
+%rx = xtar - xsou'; ry = ytar - ysou';
+%dis2 = rx.^2 + ry.^2; dis = sqrt(dis2);
+%rdotn = rx.*nx + ry.*ny;
+%kernel = -1/2/pi*besselk(1,dis).*rdotn./dis.*den;
+%yukawaDLPtar = sum(kernel);
 
 for k = 1:ncol % loop over columns of target points
   [xtar,ytar] = oc.getXY(Xtar(:,k));
