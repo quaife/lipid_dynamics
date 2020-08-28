@@ -45,7 +45,7 @@ while time < prams.T
     
     % plot the shape
 %  om.plotField(geom,Unum,Xtest,Ytest);  
-  
+
   % update centers and angles with forward Euler
   xc = xc + tt.dt*Up;
   tau = tau + tt.dt*wp;

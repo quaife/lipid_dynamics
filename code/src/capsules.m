@@ -523,30 +523,62 @@ end % nearbyCurves
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function rhs = yukawaRHS(geom)
-% Build right-hand side for the Yukawa equaiton solver
+% Build right-hand side for the Yukawa equation solver
 
 rhs = zeros(geom.N,geom.nb);
 oc = curve;
 [xc,yc] = oc.getXY(geom.center);
 [x,y] = oc.getXY(geom.X);
 
-rhs = zeros(geom.N*geom.nb,1);
+%RJR rhs = zeros(geom.N*geom.nb,1);
 
-for i = 1:2
-  rhs = rhs + besselk(0,sqrt((x(:)-xc(i)).^2 + (y(:)-yc(i)).^2)/geom.rho)/...
-              besselk(0,geom.radii(i)/geom.rho);
-end
+%RJR for i = 1:2
+%RJR   rhs = rhs + besselk(0,sqrt((x(:)-xc(i)).^2 + (y(:)-yc(i)).^2)/geom.rho)/...
+%RJR               besselk(0,geom.radii(i)/geom.rho);
+%RJR end
+
+rhs = yukawaExact(geom, x, y);
 
 rhs = rhs(:);
 
 end % yukawaRHS
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [z, dz1, dz2] = yukawaExact(geom, Xtar, Ytar)
+% The exact solution used at various places 
+
+oc = curve;
+[xc,yc] = oc.getXY(geom.center);
+
+
+h = 1e-5;
+
+z   = primal(Xtar, Ytar);
+
+dz1 = ( primal(Xtar+h, Ytar) - primal(Xtar-h, Ytar) )/(2*h);
+dz2 = ( primal(Xtar, Ytar+h) - primal(Xtar, Ytar-h) )/(2*h);
+  
+  function z = primal(xx, yy)
+     z = 0*xx;
+     for i = 1:geom.nb
+         th  = atan2( yy - yc(i), xx - xc(i) );
+         rad = sqrt( (xx-xc(i)).^2 + (yy-yc(i)).^2 );
+         j = i;
+         r_ref = min(geom.radii(i)*geom.ar(i), geom.radii(i));
+         z = z + besselk(j,rad/geom.rho).*cos(j*th)/besselk(j,r_ref/geom.rho);
+%         /...
+%                 besselk(i-1,geom.radii(i)/geom.rho).*cos((i-1)*th);
+     end
+  end %primal
+  
+end %yukawaExact 
+
+
 end % methods
 
-
-
 end %capsules
+
 
 
 

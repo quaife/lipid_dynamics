@@ -31,7 +31,7 @@ options.plotAxis = 2.5*[-1 1 -1 1];
 % initial center
 % xc = [(20*rand(10,1)-10)' ;(20*rand(10,1)-10)' ]; 
 % xc = [-1.3;-1.8];
- xc = [-1 0.85;0 0];
+ xc = [-1 2;0 -0.5];
 % xc = [-1.5 1.5 1.5 -1.5; -1.5 -1.5 1.5 1.5];    
 % xc = [0;0];
 
@@ -39,13 +39,13 @@ prams.nb = size(xc,2); % number of bodies
 
 [options,prams] = initRigid2D(options,prams);
 
-dtau = 2*pi/prams.nb;
-tau  = [1 -1]; %(0:dtau:2*pi-dtau); % initial incliation angle
+dtau  = 2*pi/prams.nb;
+tau   = [1 -1]; %(0:dtau:2*pi-dtau); % initial incliation angle
 radii = 1*ones(1,prams.nb);
-ar = [1.8 0.4];
+ar    = [1.8 0.4];
 
-prams.tau = tau;
+prams.tau   = tau;
 prams.radii = radii;
-prams.ar = ar;
-Xfinal = rigid2D(options,prams,xc,tau);
+prams.ar    = ar;
+Xfinal      = rigid2D(options,prams,xc,tau);
 end

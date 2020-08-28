@@ -1,0 +1,307 @@
+
+\documentclass[preprint,11pt]{article}
+\usepackage[numbers,sort]{natbib}
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{courier}
+\usepackage{subfig}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{cleveref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{relsize}
+\usepackage{epstopdf}
+\usepackage{authblk}
+\usepackage{indentfirst}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{commath}
+
+% this is used for numbering in alphabets, for example, (a), (b)...etc
+\newcommand{\subfigimg}[3][,]{%
+  \setbox1=\hbox{\includegraphics[#1]{#3}}% Store image in box
+  \leavevmode\rlap{\usebox1}% Print image
+  \rlap{\hspace*{10pt}\raisebox{\dimexpr\ht1-2\baselineskip}{#2}}% Print label
+  \phantom{\usebox1}% Insert appropriate spcing
+}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+
+\renewcommand{\d}[1]{\mathrm{d}#1}
+\title{{\bf Reciprocal Identities }}
+%\author[1]{Shidong Jiang}
+%\author[2]{Szu-Pei P. Fu}
+%\affil[1]{New Jersey Institute of Technology, Newark, NJ 07102}
+%\affil[2]{Fordham University, Bronx, NY 10458}
+
+\begin{document}
+\maketitle
+\everymath{\displaystyle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\topmargin=-30pt
+\Large
+\noindent
+
+
+Let $-\rho^2 \Delta u + u = 0$ and 
+\begin{equation}
+{\bf T} = \rho^{-1} u^2 {\bf I} + \rho(|\nabla u|^2 {\bf I} - 2 \nabla u \otimes \nabla u)
+\end{equation}
+Using indices and Einstein summation 
+\begin{equation}
+ T_{ij} = \rho^{-1} u^2 \delta_{ij} + \rho(\nabla_k u \nabla_k u \delta_{ij} - 2 \nabla_i u \nabla_j u)
+\end{equation}
+There are solid bodies $U_p$ for $p = 1, 2, \dots N_b$ and $\Sigma_p = \partial U_p$ 
+with outward pointing normal ${\bf n}$.
+The force and torque on the $p$th body are  
+\begin{equation}
+{\bf F}_p = \int_{\Sigma_p} {\bf T} {\bf n} \, \dif S,\quad 
+{\bf G}_p = \int_{\Sigma_p} {\bf x} \times {\bf T} {\bf n} \, \dif S.
+\end{equation}
+The stress ${\bf T}$ is smooth in $\Omega = \mathbb{R}^3 \setminus \cup_{p=1}^{N_b} U_p$.
+
+We observe that 
+\begin{align*}
+(\nabla \cdot {\bf T})_i &= 
+\nabla_j   T_{ij} \\
+&= \rho^{-1} 2u \nabla_i u + \rho(\nabla_{ik}^2 u \nabla_k u + \nabla_k u \nabla_{ik}^2 u - 2 \nabla_{ij}^2 u \nabla_j u 
+- 2 \nabla_i u \nabla_{jj}^2 u )\\
+&=0. 
+\end{align*}
+so that $\nabla \cdot {\bf T} = {\bf 0}.$
+Furthermore, we have the  identity (Leal, Problems 2-1)
+\begin{equation}
+\nabla \cdot ({\bf T} \times {\bf x}) = - {\bf x} \times \nabla \cdot {\bf T} + \varepsilon : {\bf T}
+\end{equation}
+where $\varepsilon$ is the alternating tensor. Because $\nabla \cdot {\bf T} = {\bf 0}$ and ${\bf T}$ is 
+symmetric, we have $\nabla \cdot ({\bf T} \times {\bf x}) = {\bf 0}$ as well. 
+
+Suppose that $U_p \subset U_p'$ where $U_p'$ is disjoint from all 
+other bodies. 
+Then $\nabla \cdot {\bf T} = \nabla \cdot ({\bf T} \times {\bf x}) = {\bf 0}$ in $U_p'\setminus U_p,$ and 
+we get 
+\begin{equation}
+{\bf F}_p = \int_{\Sigma_p'} {\bf T} {\bf n} \, \dif S,\quad 
+{\bf G}_p = \int_{\Sigma_p'} {\bf x} \times {\bf T} {\bf n} \, \dif S
+\end{equation}
+where $\Sigma_p' = \partial U_p'$ and 
+${\bf n}$ having the same outward orientation as on $\Sigma_p$. The benefit
+of this identity is that we can transfer the calculation of the force and torque
+away from the surface $\Sigma_p,$ where the double layer gradient integrations are
+inaccurate, to a nearby surface where they are accurate. 
+
+
+Now consider the situation where 
+\begin{equation}
+u = \sum_{p=1}^{N_b} u_p
+\end{equation}
+where $-\rho^2 \Delta u_p + u_p = 0$ and $u_p \in {\bf C}^{\infty} (\mathbb{R}^3 \setminus U_p)$. This
+situation arises, for example, when $u$ is the double layer potential for separate bodies. Based on this, we 
+expand
+\begin{align*}
+{\bf T} &= \rho^{-1} u^2 {\bf I} + \rho(|\nabla u|^2 {\bf I} - 2 \nabla u \otimes \nabla u)\\
+&= \sum_{p,q = 1}^{N_b} \rho^{-1} u_pu_q {\bf I} + \rho(\nabla u_p \cdot \nabla u_q {\bf I} - 2 \nabla u_p \otimes \nabla u_q)\\
+&= \sum_{p,q = 1}^{N_b} {\bf T}_{p,q}
+\end{align*}
+We also get $\nabla \cdot ({\bf T}_{pq} + {\bf T}_{qp})= {\bf 0}$ because
+\begin{align*}
+&(\nabla \cdot ( {\bf T}_{pq} + {\bf T}_{qp}))_i\\
+& =
+\nabla_j(\rho^{-1} u_pu_q \delta_{ij} + \rho(\nabla_k u_p \nabla_k u_q \delta_{ij} - 2 \nabla_i u_p \otimes \nabla_j u_q))\\
+&+ \nabla_j(\rho^{-1} u_qu_p \delta_{ij} + \rho(\nabla_k u_q  \nabla_k u_p \delta_{ij} - 2 \nabla_i u_q \otimes \nabla_j u_p))\\
+&= \rho^{-1}(2\nabla_iu_p u_q + 2u_p \nabla_i u_q)\\
+&+ \rho(2\nabla_{ik}^2 u_p \nabla_k u_q + 2\nabla_k u_p \nabla_{ik}^2 u_q \\
+&- 2\nabla_{ij}^2 u_p \nabla_j u_q 
+- 2\nabla_{i} u_p \nabla_{jj}^2 u_q 
+- 2\nabla_{ij}^2 u_q \nabla_j u_p 
+- 2\nabla_{i} u_q \nabla_{jj}^2 u_p )\\
+&= 0.
+\end{align*}
+The tensor ${\bf T}_{pq} + {\bf T}_{qp}$ is symmetric and so 
+\nabla \cdot ([{\bf T}_{pq} + {\bf T}_{qp}] \times {\bf x}) = {\bf 0}$ as well.
+
+The divergence free decomposition carries the following ramifications. 
+Consider the force and torque on particle $p$:
+\begin{align*}
+{\bf F}_p 
+&= \int_{\Sigma_p} {\bf T} {\bf n} \, \dif S \\
+&= \int_{\Sigma_p} \sum_{q,r=1}^{N_b}{\bf T}_{qr} {\bf n} \, \dif S \\
+&= \sum_{q=1}^{N_b} \int_{\Sigma_p} {\bf T}_{qq} {\bf n} \, \dif S 
++ \sum_{q<r}  \int_{\Sigma_p} ({\bf T}_{qr}+{\bf T}_{rq}) {\bf n} \, \dif S.
+\end{align*}
+We write SDF for smooth and divergence free. 
+\begin{enumerate}
+\item
+${\bf T}_{pp}$ is SDF  in $U_p^c$ and vanishes exponentially in the far-field.  Therefore 
+\[\int_{\Sigma_p} {\bf T}_{pp} {\bf n} \, \dif S = -\int_{U_p^c} \nabla \cdot {\bf T}_{pp}   \, \dif x = 0.\]
+\item
+${\bf T}_{qq}$ is SDF  in $U_p$ for $q \neq p$.  Therefore 
+\[\int_{\Sigma_p} {\bf T}_{qq} {\bf n} \, \dif S = \int_{U_p} \nabla \cdot {\bf T}_{qq}   \, \dif x = 0.\]
+\item
+Similarly, ${\bf T}_{qr} + {\bf T}_{rq}$ is SDF  in $U_p$ for $q \neq p$, $r \neq p.$  Therefore 
+\[\int_{\Sigma_p} ({\bf T}_{qr}  + {\bf T}_{rq}){\bf n} \, \dif S = \int_{U_p} \nabla \cdot ({\bf T}_{qr}  + {\bf T}_{rq})   \, \dif x = 0.\]
+\end{enumerate}
+The same line of argumentation holds for the torque. 
+That leaves
+\begin{equation}
+{\bf F}_p = \sum_{q \neq p}  \int_{\Sigma_p} ({\bf T}_{pq}+{\bf T}_{qp}) {\bf n} \, \dif S,\quad
+{\bf G}_p = \sum_{q \neq p}  \int_{\Sigma_p} {\bf x} \times ({\bf T}_{pq}+{\bf T}_{qp}) {\bf n} \, \dif S.
+\end{equation}
+
+\section{Jump relations}
+Suppose that $u = Dh$ where $D$ is the double layer operator for the screened Laplace equation
+problem and $h$ a surface density. We have the jump relations 
+\begin{enumerate}
+\item $ \lim_{x \to x_0^\pm \in \Sigma_p} u(x) = \pm\frac{1}{2}h(x_0) + (Dh)(x_0)$
+\item $ \lim_{x \to x_0^+} \nabla u(x) \cdot \mathbf{n}(x_0) = \lim_{x \to x_0^-} \nabla u(x) \cdot \mathbf{n}(x_0)$
+\end{enumerate}
+The layer potential $u = Dh$ satisfies the Dirichlet problem so that 
+\begin{equation}
+f(x_0) = \lim_{x \to x_0^+ \in \Sigma_p} u(x) = \frac{1}{2}h(x_0) + (Dh)(x_0).
+\end{equation}
+We can therefore calculate tangential derivatives as well. 
+
+The definition of $u$ extends into $U_p.$ There, like in the exterior, $u$ is a solution of the screened Laplace
+equation and the stress is divergence free. Therefore
+\begin{align*}
+{\bf 0} 
+&= \int_{U_p} \nabla \cdot  {\bf T} \,\dif x
+= \int_{\Sigma_p} {\bf T}_- {\bf n} \, \dif S\\
+&= \int_{\Sigma_p} [{\bf T}_-  - {\bf T}_+ ]{\bf n} \, \dif S + {\bf F}_p
+\end{align*}
+The $\pm$ subscripts indicates limits from the outside, inside resp., of $\Sigma_p$.
+We can now evaluate the stress jump.
+\begin{align*}
+[{\bf T}_+  - {\bf T}_- ]{\bf n}
+&= \rho^{-1}(u_+^2 - u_-^2){\bf n}\\
+&+ \rho  (|\nabla u_+|^2 - |\nabla u_-|^2 ){\bf n}\\
+& - 2 \rho ( \nabla u_+ \nabla u_+ \cdot {\bf n} - \nabla u_- \nabla u_- \cdot {\bf n} )\\ 
+&= I\rho^{-1}{\bf n} + II\rho{\bf n} -2\rho III
+\end{align*}
+We have
+\begin{enumerate}
+\item Using the jump condition, 
+\begin{align*}
+I 
+&= u_+^2 - u_-^2 \\
+&= (\tfrac{1}{2}h(x_0) + (Dh)(x_0))^2 - (-\tfrac{1}{2}h(x_0) + (Dh)(x_0))^2 \\
+&= 2h(x_0)(Dh)(x_0) 
+\end{align*}
+Now $f(x_0) = \tfrac{1}{2}h(x_0) + (Dh)(x_0)$ implies that $(Dh)(x_0) = f(x_0) - \tfrac{1}{2}h(x_0).$ 
+This tells us that 
+\begin{equation}
+I = 2h(x_0)f(x_0) - h^2(x_0).
+\end{equation}
+\item
+For $II$, the normal derivative is continuous and so it remains to evaluate the jump from tangential derivative. 
+Assume that $\{\tau_1, \tau_2, {\bf n}\}$ are an orthonormal frame.  Then
+\begin{align*}
+II &=  |\nabla u_+|^2 - |\nabla u_-|^2  \\
+&= (\nabla u_+ \cdot \tau_1 )^2 + (\nabla u_+ \cdot \tau_2 )^2 + (\nabla u_+ \cdot {\bf n} )^2\\
+& - (\nabla u_- \cdot \tau_1 )^2 - (\nabla u_- \cdot \tau_2 )^2 - (\nabla u_- \cdot {\bf n} )^2\\
+&= (\nabla u_+ \cdot \tau_1 )^2 - (\nabla u_- \cdot \tau_1 )^2 + (\nabla u_+ \cdot \tau_2 )^2 - \nabla u_- \cdot \tau_2 )^2.
+\end{align*}
+Now for any tangential vector $\tau,$ 
+\begin{gather*}
+u_+ = \tfrac{1}{2}h + (Dh),\quad u_- = -\tfrac{1}{2}h + (Dh)\\
+\nabla u_+ \cdot \tau =  \tfrac{1}{2}\nabla h \cdot \tau + \nabla (Dh) \cdot \tau,\\
+\nabla u_- \cdot \tau = -\tfrac{1}{2}\nabla h \cdot \tau + \nabla (Dh) \cdot \tau
+\end{gather*}
+This gives 
+\begin{align*}
+&(\nabla u_+ \cdot \tau)^2 - (\nabla u_- \cdot \tau)^2\\
+&= (\tfrac{1}{2}\nabla h \cdot \tau + \nabla (Dh) \cdot \tau)^2 - (-\tfrac{1}{2}\nabla h \cdot \tau + \nabla (Dh) \cdot \tau)^2\\
+&= 2\nabla h \cdot \tau \nabla (Dh) \cdot \tau
+\end{align*}
+As above, $\nabla f \cdot \tau = \nabla u \cdot \tau = \tfrac{1}{2}\nabla h \cdot \tau + \nabla (Dh) \cdot \tau$ allows us
+to write the previous displayed expression as 
+\begin{equation}
+2\nabla h \cdot \tau \nabla f \cdot \tau - (\nabla h \cdot \tau)^2.
+\end{equation}
+This finally brings us to
+\begin{align*}
+II 
+&= \nabla h \otimes(2\nabla f - \nabla h): (\tau_1 \otimes \tau_1 + \tau_2 \otimes \tau_2)\\
+&= 2\nabla h \cdot \tau_1 \nabla f \cdot \tau_1 -  (\nabla h \cdot \tau_1)^2 
++ 2\nabla h \cdot \tau_2 \nabla f \cdot \tau_2 -  (\nabla h \cdot \tau_2)^2.
+\end{align*}
+\item Lastly, we analyze the term $III$. The normal derivative is continuous and can therefore 
+be factored out right away. 
+\begin{align*}
+III  
+&= \nabla u_+ \nabla u_+ \cdot {\bf n} - \nabla u_- \nabla u_- \cdot {\bf n}\\
+&= (\nabla u_+ - \nabla u_-) \nabla u_+ \cdot {\bf n}\\
+&= (\nabla u_+\cdot \tau_1 \tau_1 + \nabla u_+\cdot \tau_2 \tau_2 + \nabla u_+\cdot {\bf n}{\bf n}\\
+& -\nabla u_-\cdot \tau_1 \tau_1 - \nabla u_-\cdot \tau_2 \tau_2 - \nabla u_-\cdot {\bf n}{\bf n}) \nabla u_+ \cdot {\bf n}\\
+&= (\nabla h \cdot \tau_1 \tau_1 + \nabla h \cdot \tau_2 \tau_2) \nabla u_+ \cdot {\bf n}
+\end{align*}
+\end{enumerate}
+This gives the simplification
+\begin{align*}
+[{\bf T}_+  - {\bf T}_- ]
+&= (2hf - h^2)\rho^{-1}{\bf n}\\ 
+&+ 
+[2\nabla h \cdot \tau_1 \nabla f \cdot \tau_1 -  (\nabla h \cdot \tau_1)^2 
++ 2\nabla h \cdot \tau_2 \nabla f \cdot \tau_2 -  (\nabla h \cdot \tau_2)^2]\rho {\bf n}\\
+&-2\rho[\nabla h \cdot \tau_1 \tau_1 + \nabla h \cdot \tau_2 \tau_2] \nabla u_+ \cdot {\bf n}
+\end{align*}
+All terms of this expression are known, with the exception of $\nabla u_+ \cdot {\bf n}$, which is the normal derivative 
+of the double layer potential. 
+
+\section{Jumps and reciprocity}
+We focus now on the stress 
+\begin{equation}
+{\bf T}_{pq} + {\bf T}_{qp}
+\end{equation}
+This stress has a jump across $\Sigma_p$ and $\Sigma_q$, but is continuous on all other surfaces.
+On $\Sigma_p$, $u_q$ and $\nabla u_q$ are continuous and the jumps come from $u_p$ and $\nabla u_p$
+as follows. We recall that 
+\begin{align*}
+[u_p] &= h_p\\
+[\nabla u_p] &= \nabla h_p \cdot (\tau_1 \otimes \tau_1 + \tau_2 \otimes \tau_2)
+\end{align*}
+As such 
+\begin{align*}
+J_{pq} &= \{({\bf T}_{pq} + {\bf T}_{qp})_+ - ({\bf T}_{pq} + {\bf T}_{qp})_-\}{\bf n}\\
+&= \rho^{-1} u_{p+}u_q {\bf n} + \rho(\nabla u_{p+} \cdot \nabla u_q {\bf n} - 2 \nabla u_{p+} \nabla u_q   \cdot {\bf n})\\ 
+&+ \rho^{-1} u_qu_{p+} {\bf n} + \rho(\nabla u_q \cdot \nabla u_{p+} {\bf n} - 2 \nabla u_q    \nabla u_{p+}\cdot {\bf n})\\ 
+&- \rho^{-1} u_{p-}u_q {\bf n} - \rho(\nabla u_{p-} \cdot \nabla u_q {\bf n} - 2 \nabla u_{p-} \nabla u_q   \cdot {\bf n})\\
+&- \rho^{-1} u_qu_{p-} {\bf n} - \rho(\nabla u_q \cdot \nabla u_{p-} {\bf n} - 2 \nabla u_q    \nabla u_{p-}\cdot {\bf n})\\
+&= 2\rho^{-1} [u_p] u_q {\bf n} 
++ 2\rho[\nabla u_p] \cdot \nabla u_q {\bf n}
+- 2\rho( [\nabla u_p] \nabla u_q \cdot {\bf n}).
+\end{align*}
+The tensorial term cancels the way it does because $\nabla u_p \cdot {\bf n}$ is continuous
+across $\Sigma_p$. 
+And so, in one dimension, 
+\begin{equation*}
+J_{pq} = 2\rho^{-1} h_p u_q {\bf n} 
++ 2\rho(\nabla h_p \cdot \tau \nabla u_q \cdot \tau) {\bf n} - 2\rho (\nabla h_p \cdot \tau \nabla u_q \cdot {\bf n}) \tau
+\end{equation*}
+To make its use explicit, we calculate 
+\begin{align*}
+{\bf 0} 
+&= \sum_{q \neq p} \int_{U_p} \nabla \cdot ({\bf T}_{pq} + {\bf T}_{qp}) \,\dif x\\
+&= \sum_{q \neq p} \int_{\Sigma_p} ({\bf T}_{pq} + {\bf T}_{qp})_-{\bf n} \,\dif s\\
+&= \sum_{q \neq p} \int_{\Sigma_p} ({\bf T}_{pq} + {\bf T}_{qp})_+{\bf n} - J_{pq}\,\dif s\\
+&= {\bf F}_p - \sum_{q \neq p} \int_{\Sigma_p}J_{pq}\,\dif s
+\end{align*}
+In other words
+\begin{equation}
+{\bf F}_p = \sum_{q \neq p} \int_{\Sigma_p}J_{pq}\,\dif s,\quad
+{\bf G}_p = \sum_{q \neq p} \int_{\Sigma_p} {\bf x} \times J_{pq}\,\dif s
+\end{equation}
+
+\end{document}
+

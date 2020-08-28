@@ -287,7 +287,7 @@ LP = farField + nearField;
 end % nearSingInt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% START OF ROUTINES THAT BUILD LAYER-POTENTIAL MATRICIES
+% START OF ROUTINES THAT BUILD LAYER-POTENTIAL MATRICES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -549,8 +549,6 @@ for k=1:geom.nb  % Loop over curves
 end % k
 
 end % yukawaGradDLmatrix
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function DLP = exactStokesDLdiag(~,geom,D,f)
@@ -821,6 +819,7 @@ if (nargin == 3 && geom.N > 1)
       % double-layer potential for Yukawa
       yukawaDLP(j,k) = yukawaDLP(j,k) - ...
           sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
+
       % BQ: NOT SURE WHY WE NEED A MINUS SIGN HERE, BUT IT MAKES IT WORK
     end
   end
@@ -833,8 +832,6 @@ end
 % oneself
 
 end % exactYukawaDL
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

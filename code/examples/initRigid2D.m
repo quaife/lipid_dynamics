@@ -12,7 +12,7 @@ PramList = {'N','nb','T','number_steps'};
 defaultPram.N = 64;
 defaultPram.nb = 1;
 defaultPram.T = 1;
-defaultPram.rho = 1.0;
+defaultPram.rho = 4.0;
 defaultPram.number_steps = 10;
 
 for k = 1:length(PramList)

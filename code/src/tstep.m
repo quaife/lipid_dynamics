@@ -82,6 +82,67 @@ for k = 1:nb
   etaYukawa(:,k) = sigma((k-1)*N+1:k*N);
 end
 
+om = misc;
+
+N    = geom.N;                % number of points per componenet
+Nb   = geom.nb;               % number of rigid bodies
+x1   = geom.X(1:N,:);         % grid points on curves 
+x2   = geom.X(N+1:2*N,:);            
+pc   = geom.center;           % center of each rigid body
+rho  = geom.rho;              % screen length of particles
+xt   = geom.xt;               % tangent unit vector
+tau1 = xt(1:N,:);      
+tau2 = xt(N+1:2*N,:);
+nu1  = -tau2;                 % outward normal : (nu, tau) is right-handed
+nu2  = +tau1;
+
+dS   = geom.sa*2*pi/N;        % Jacobian
+cur  = geom.cur;              % curvature
+
+[u, u_x1, u_x2] = geom.yukawaExact(x1, x2);
+plot(reshape(yukawaRHS,N,Nb))
+hold on
+plot(u,'.')
+hold off
+
+K = zeros(N*Nb,N*Nb);
+
+for q = 1:Nb
+    for j = 1:N
+
+        r1 = x1(j,q) - x1(:);
+        r2 = x2(j,q) - x2(:);
+        r  = sqrt( r1.^2 + r2.^2 );
+
+        Lnu = ( r1.*nu1(j,q) + r2.*nu2(j,q) )./r.^2;
+
+        J = (q-1)*N + j;
+        K(:, J) = -1/(2*pi)*(r/rho).*besselk(1, r/rho).*Lnu*dS(j,q);
+
+        K(J, J) = cur(j,q)*dS(j,q)/(4*pi); %removable singularity 
+        
+    end
+end
+
+RHS = reshape(yukawaRHS,N*Nb,1);
+h   = (1/2*eye(N*Nb) + K)\RHS;
+h   = reshape(h, N, Nb);
+% 
+ plot(h)
+ hold on
+ plot(etaYukawa,'.')
+ hold off
+ pause 
+
+ [F1, F2, Tq] = om.evalForcesExact(u, u_x1, u_x2, Nb, N, x1, x2, nu1, nu2, dS, rho);
+ [F1, F2, Tq;
+ sum(F1), sum(F2), sum(Tq)]
+
+ [F1, F2, Tq] = om.evalForcesAlt2(Nb, N, x1, x2, nu1, nu2, cur, dS, rho, yukawaRHS, u);
+ [F1, F2, Tq;
+ sum(F1), sum(F2), sum(Tq)]
+
+
 % find points of nearby curves where the force and torque can be
 % evaluated and return the same value as if we were evaluating them on
 % the curves themselves.
@@ -90,7 +151,7 @@ end
 %plot(xnb,ynb,'r--')
 
 
-if 0
+if 1
 % plot solution field of screen laplace problem
 NX = 151; NY = 151;
 % 50 x 50 grid
@@ -108,13 +169,14 @@ geomTar.N = numel(xx);
 geomTar.nb = 1;
 [~,NearOther] = geom.getZone(geomTar,2);
 
-yukawaExact = zeros(size(xx));
-dist = sqrt((xx - geom.center(1,1)).^2 + (yy - geom.center(2,1)).^2);
-yukawaExact = yukawaExact + ...
-      besselk(0,dist/geom.rho)/besselk(0,radii(1)/geom.rho);
-dist = sqrt((xx - geom.center(1,2)).^2 + (yy - geom.center(2,2)).^2);
-yukawaExact = yukawaExact + ...
-      besselk(0,dist/geom.rho)/besselk(0,radii(2)/geom.rho);
+%RJR yukawaExact = zeros(size(xx));
+%RJR dist = sqrt((xx - geom.center(1,1)).^2 + (yy - geom.center(2,1)).^2);
+%RJR yukawaExact = yukawaExact + ...
+%RJR       besselk(0,dist/geom.rho)/besselk(0,radii(1)/geom.rho);
+%RJR dist = sqrt((xx - geom.center(1,2)).^2 + (yy - geom.center(2,2)).^2);
+%RJR yukawaExact = yukawaExact + ...
+%RJR      besselk(0,dist/geom.rho)/besselk(0,radii(2)/geom.rho);
+
 
 kernel = @op.exactYukawaDL;
 kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
@@ -126,28 +188,61 @@ yukawaDLPtar = yukawaDLPtar(1:end/2);
 % reshape so its the same size as the target points
 yukawaDLPtar = reshape(yukawaDLPtar,NX,NY);
 
+[yukawaExact, dyuk1, dyuk2] = geom.yukawaExact(xx, yy);
+
 % zero out points that are in the interior of the geometry
+% using winding number test that works for arbitrary curves 
+
+CUT_OFF = 0*xx;
+
 for j = 1:geom.nb
-  Rot = [cos(tau(j)) sin(tau(j)); -sin(tau(j)) cos(tau(j))];
-  for k = 1:numel(xx)
-    xRot = Rot*[xx(k) - geom.center(1,j);yy(k) - geom.center(2,j)];
-    if (xRot(1).^2/geom.ar(j)^2 + xRot(2).^2 < geom.radii(j)^2)
-        yukawaDLPtar(k) = 0;
-        yukawaExact(k) = 0;
-    end
-  end
+
+  v1 = geom.X(1:end/2,j); 
+  v2 = geom.X(end/2+1:end,j);
+  Nv = geom.N;        
+  v1(N+1) = v1(1);
+  v2(N+1) = v2(1);
+   
+  CUT_OFF = CUT_OFF + om.wn_PnPoly(xx, yy, v1, v2, Nv);
+
+%RJR  surf(xx, yy, CUT_OFF);
+%RJR  pause
+
+%RJR  Rot = [cos(tau(j)) sin(tau(j)); -sin(tau(j)) cos(tau(j))];
+%RJR  for k = 1:numel(xx)
+%RJR    xRot = Rot*[xx(k) - geom.center(1,j);yy(k) - geom.center(2,j)];
+%RJR    if (xRot(1).^2/geom.ar(j)^2 + xRot(2).^2 < geom.radii(j)^2)
+%RJR        yukawaDLPtar(k) = 0;
+%RJR        yukawaExact(k) = 0;
+%RJR    end
+%RJR  end
+
 end
 
+yukawaDLPtar(find(CUT_OFF == 1)) = 0;
+yukawaExact(find(CUT_OFF == 1)) = 0;
+dyuk1(find(CUT_OFF == 1)) = 0;
+dyuk2(find(CUT_OFF == 1)) = 0;
+
+%RJR THERE IS A (-) ERROR IN sigma 
+
 % calculate absolute and relative error of the numerical solution
-abserr = norm(yukawaExact - yukawaDLPtar,inf)  
-relerr = norm(yukawaExact - yukawaDLPtar,inf)/norm(yukawaExact,inf)
+% in the L1-norm 
+abserr = om.trapz2(xx, yy, abs(yukawaExact - yukawaDLPtar))
+relerr = om.trapz2(xx, yy, abs(yukawaExact - yukawaDLPtar))/om.trapz2(xx, yy, abs(yukawaExact))
+%RJR norm(yukawaExact - yukawaDLPtar,inf)
+%RJR relerr = norm(yukawaExact - yukawaDLPtar,inf)/norm(yukawaExact,inf)
 
 % Plot solution
 figure(1); clf; hold on;
-surf(xx,yy,yukawaDLPtar)
-shading interp;
-view(2);
-fill3(geom.X(1:end/2,:),geom.X(end/2+1:end,:),10*ones(geom.N,geom.nb),'k')
+contour(xx,yy,yukawaExact)
+hold on
+quiver(xx,yy,dyuk1,dyuk2);
+hold off
+%surf(xx,yy,yukawaDLPtar)
+%shading interp;
+%view(2);
+%fill3(geom.X(1:end/2,:),geom.X(end/2+1:end,:),10*ones(geom.N,geom.nb),'k')
 axis equal
 axis([xmin xmax ymin ymax])
 
@@ -160,8 +255,8 @@ fill3(geom.X(1:end/2,:),geom.X(end/2+1:end,:),10*ones(geom.N,geom.nb),'k')
 axis equal
 axis([xmin xmax ymin ymax])
 colorbar
-pause(0.01)
-end
+
+end %if
 
 
 
