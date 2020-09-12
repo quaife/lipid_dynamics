@@ -222,6 +222,41 @@ end
 
 end % modes
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function wn = wn_PnPoly(o, p1, p2, v1, v2, N)
+
+% wn_PnPoly(): winding number test for a point in a polygon
+%              useful for zeroing out interior
+%      Input:   P = a point (p1, p2)
+%               V = (v1, v2) = vertex points of a polygon with V(1) = V(N+1)
+%      Return:  wn = the winding number (=0 only when P is outside)
+
+    wn = 0*p1;
+
+    for i = 1:N
+    
+        wn = wn + (v2(i) <= p2).*(v2(i+1)  > p2).*(o.isLeft(v1(i), v2(i), v1(i+1), v2(i+1), p1, p2) > 0);
+        wn = wn - (v2(i)  > p2).*(v2(i+1) <= p2).*(o.isLeft(v1(i), v2(i), v1(i+1), v2(i+1), p1, p2) < 0);
+
+    end
+    
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function out = isLeft(o, p1, p2, q1, q2, r1, r2)
+    %    Input:  three points p, q, and r
+    %    Return: >0 for r left of the line through p and q
+    %            =0 for r  on the line
+    %            <0 for r  right of the line     
+    %http://geomalgorithms.com/a03-_inclusion.html
+
+    out = (q1 - p1) .* (r2 - p2) - (r1 -  p1) .* (q2 - p2) ;
+
+end 
+
+
+
+
 end % methods (Static)
 
 end % classdef

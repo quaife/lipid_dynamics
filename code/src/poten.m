@@ -839,7 +839,306 @@ end % exactYukawaDL
 % WHEN SOURCES ~= TARGETS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START OF ROUTINES THAT CALCULATE FORCES USING JUMP RELATIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [F1, F2, Tq] = evalForcesTaylor(o, Nb, N, x1, x2, nu1, nu2, dS, rho, h)
+
+    % Uses * Tpq + Tqp identity, 
+    %      * Jpq jump value to evaluate on curve itself 
+    %      * Taylor expansion to derive uq and uq_n on curve p, p ~= q
+    %      * FFT for tangential derivatives     
+
+    F1 = zeros(Nb,1);
+    F2 = zeros(Nb,1);
+    Tq = zeros(Nb,1);
+     
+    tol   = 1.0;
+    
+    p_max = 8;
+    r_max = 0.2;
+    r_m   = linspace(0, r_max, p_max+1);
+    r_m   = r_m(2:end)';
+    r_0   = r_m(p_max);
+    pw    = (0:p_max-1);
+    AA    = (r_m - r_0).^pw;
+    BB    = (0 - r_0).^pw;
+
+    %errors = zeros(Nb, 3);
+    
+    IK = 1i*[(0:N/2-1) 0 (-N/2+1:-1)]'; % Fourier modes    
+    dT = 2*pi/N;     % to convert dS to sa
+
+    for p = 1:Nb
+        for q = [1:p-1, p+1:Nb]
+
+            x1p   = x1(:,p);
+            x2p   = x2(:,p);        
+            dSp   = dS(:,p);
+            nu1p  = nu1(:,p);
+            nu2p  = nu2(:,p);
+            tau1p = -nu2p;
+            tau2p =  nu1p;
+            hp    = h(:, p);
+
+            %decide which strategy to use : expansion or standard
+            %evaluation 
+                                  
+            D = pdist2([x1(:,p) x2(:,p)],[x1(:,q), x2(:,q)]);
+            D = min(D, [], "all");
+                                   
+            if D < tol
+
+                [Uq, Uq_x1, Uq_x2] = o.evalDL( x1p - nu1p*r_m', x2p - nu2p*r_m', 1, N, x1(:,q), x2(:,q), nu1(:,q), nu2(:,q), dS(:,q), rho, h(:,q));
+
+                coef    = AA\Uq.';
+                coef_x1 = AA\Uq_x1.';
+                coef_x2 = AA\Uq_x2.';                
+
+                uq      = (BB*coef)';
+                uq_x1   = (BB*coef_x1)';
+                uq_x2   = (BB*coef_x2)';
+
+            else
+                
+                [uq, uq_x1, uq_x2] = o.evalDL( x1p, x2p, 1, N, x1(:,q), x2(:,q), nu1(:,q), nu2(:,q), dS(:,q), rho, h(:,q));
+            
+            end %if D < tol                                               
+
+
+            hp_t           = o.tanDeriv(hp,dSp/dT,IK);
+            uq_t           = o.tanDeriv(uq,dSp/dT,IK);
+            uq_n           = uq_x1.*nu1p  + uq_x2.*nu2p;
+
+            Jpq1           = 2.0/rho*hp.*uq.*nu1p + 2.0*rho*hp_t.*uq_t.*nu1p - 2.0*rho*hp_t.*uq_n.*tau1p;
+            Jpq2           = 2.0/rho*hp.*uq.*nu2p + 2.0*rho*hp_t.*uq_t.*nu2p - 2.0*rho*hp_t.*uq_n.*tau2p;        
+
+            F1(p) = F1(p) + sum( Jpq1.*dSp );
+
+            F2(p) = F2(p) + sum( Jpq2.*dSp );
+
+            Tq(p) = Tq(p) + sum( ( x1p.*Jpq2 - x2p.*Jpq1 ) .* dSp );        
+                                 
+        end    
+    end     
+    
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [F1, F2, Tq] = evalForcesQBX(o, Nb, N, x1, x2, nu1, nu2, dS, rho, h)
+
+    % Uses * Tpq + Tqp identity, 
+    %      * Jpq jump value to evaluate on curve itself 
+    %      * QBX expansion to derive uq and uq_n on curve p, p ~= q
+    %      * FFT for tangential derivatives     
+
+    F1 = zeros(Nb,1);
+    F2 = zeros(Nb,1);
+    Tq = zeros(Nb,1);
+     
+    rad   = 0.2;    m_max = 12;
+    tol   = rad;
+    B_m   = zeros(N,2*m_max + 1);
+    
+    %errors = zeros(Nb, 3);
+
+    IK = 1i*[(0:N/2-1) 0 (-N/2+1:-1)]'; % Fourier modes
+    dT = 2*pi/N;     % to convert dS to sa
+
+    for p = 1:Nb
+        for q = [1:p-1, p+1:Nb]
+
+            x1p   = x1(:,p);
+            x2p   = x2(:,p);        
+            dSp   = dS(:,p);
+            nu1p  = nu1(:,p);
+            nu2p  = nu2(:,p);
+            tau1p = -nu2p;
+            tau2p =  nu1p;
+
+            %setting argin Nb = 1 tricks evaluators to using only one geometry column
+            hp             = h(:, p);
+
+            %decide which strategy to use : expansion or standard
+            %evaluation 
+                                  
+            D = pdist2([x1(:,p) x2(:,p)],[x1(:,q), x2(:,q)]);
+            D = min(D, [], "all");
+            
+            if D < tol
+
+                uq = zeros(N,1);
+                uq_x1 = zeros(N,1);
+                uq_x2 = zeros(N,1);
+                
+                c1 = x1p - rad*nu1p;
+                c2 = x2p - rad*nu2p;
+                
+                for m = -m_max:m_max
+                    B_m(:,m+m_max+1) = o.QBX_coeff(c1, c2, m, x1(:,q), x2(:,q), nu1(:,q), nu2(:,q), dS(:,q), rho, h(:,q)) ;
+                end                
+
+                [uq, uq_x1,  uq_x2]  = o.QBX_exp(x1p, x2p, c1, c2, B_m, m_max, rho); 
+                
+            else
+                [uq, uq_x1, uq_x2]   = o.evalDL(     x1p, x2p, 1, N, x1(:,q), x2(:,q), nu1(:,q), nu2(:,q), dS(:,q), rho, h(:,q));
+            end %if D < tol                                   
+            
+            hp_t           = o.tanDeriv(hp,dSp/dT,IK);
+            uq_t           = o.tanDeriv(uq,dSp/dT,IK);
+            uq_n           = uq_x1.*nu1p  + uq_x2.*nu2p;
+
+            Jpq1           = 2.0/rho*hp.*uq.*nu1p + 2.0*rho*hp_t.*uq_t.*nu1p - 2.0*rho*hp_t.*uq_n.*tau1p;
+            Jpq2           = 2.0/rho*hp.*uq.*nu2p + 2.0*rho*hp_t.*uq_t.*nu2p - 2.0*rho*hp_t.*uq_n.*tau2p;        
+
+            F1(p) = F1(p) + sum( Jpq1.*dSp );
+
+            F2(p) = F2(p) + sum( Jpq2.*dSp );
+
+            Tq(p) = Tq(p) + sum( ( x1p.*Jpq2 - x2p.*Jpq1 ) .* dSp );        
+
+        end    
+
+    end     
+    
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [Dh, Dh_x1, Dh_x2] = QBX_exp(o, X1, X2, c1, c2, A_m, m_max, rho)
+
+    %
+    % (X1, X2)  : target points, arbitrary size 
+    % (c1, c2)  : expansion center, scalars
+    % A_m       : 2*m_max + 1 many expanson coefficients calculated elsewhere 
+    %
+    
+    Dh = 0*X1;
+    Dh_x1  = 0*X1;
+    Dh_x2  = 0*X1;
+    rcX  = sqrt( (X1 - c1).^2 + (X2 - c2).^2 );
+    thcX = atan2( c2 - X2, c1 - X1 );          %the order c minus x is important here
+    for m = -m_max:m_max    
+        
+        I0    = besseli( m-1, rcX / rho );
+        I1    = besseli( m,   rcX / rho );
+        I2    = besseli( m+1, rcX / rho );
+        mm    = m + m_max + 1;
+        Dh    = Dh     + A_m(:,mm).*I1.*exp( 1i*m*thcX );
+        Dh_x1 = Dh_x1  + A_m(:,mm).*(  1/2*(I0 + I2).*(X1-c1)./(rcX*rho) ...
+                              + 1i*m*I1.*(-(X2 - c2))./rcX.^2  ).*exp( 1i*m*thcX );
+        Dh_x2 = Dh_x2  + A_m(:,mm).*(  1/2*(I0 + I2).*(X2-c2)./(rcX*rho) ...
+                              + 1i*m*I1.*(+(X1 - c1))./rcX.^2  ).*exp( 1i*m*thcX );
+    
+    end
+
+    Dh    = real(Dh);
+    Dh_x1 = real(Dh_x1);
+    Dh_x2 = real(Dh_x2);
+    
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function a_m = QBX_coeff(o, c1, c2, m, y1, y2, nu1, nu2, dS, rho, h)
+
+    % evaluates the coefficient : vectorized version 
+    % alpha(m) = int_gamma (-1/2pi) dnu [ K_{-m}(|y-c|/rho)exp( im(pi- arg(y,c))) ]h(y) dS(y)
+    % (c1, c2) is the expansion center
+    
+    % the arc gamma can be one portion of a closed curve, for example, or a dispersed
+    % set of points with normals, for example. 
+    
+    % (c1, c2) and (y1, y2) point sets of differing size
+    % output has size of (c1, c2)
+    
+    c1 = reshape(c1, numel(c1),1); % m elements
+    c2 = reshape(c2, numel(c2),1); 
+    
+    y1 = reshape(y1, 1, numel(y1)); % n elements
+    y2 = reshape(y2, 1, numel(y2));
+    
+    nu1 = reshape(nu1, 1, numel(nu1));
+    nu2 = reshape(nu2, 1, numel(nu2));
+    dS  = reshape(dS, 1, numel(dS));
+    h   = reshape(h, 1, numel(h));
+    
+    r1 = y1 - c1; r2 = y2 - c2; %differences like this are size m by n
+    r = sqrt( r1.^2 + r2.^2 );
+    rdotnu =  r1.*nu1 + r2.*nu2;
+    rpotnu = -r2.*nu1 + r1.*nu2; %r-perp
+    
+    th = atan2( y2-c2 , y1-c1 );
+
+    K0 = besselk(-m-1, r/rho);
+    K1 = besselk(-m,   r/rho);
+    K2 = besselk(-m+1, r/rho);
+    dK = -1/2*(K0 + K2);
+        
+    f = 1/(2*pi)*( dK .* rdotnu./(rho*r) + (-1i*m) * K1 .* rpotnu./r.^2 ) .* exp( 1i*m*( pi - th ) );
+    a_m = sum(f.*h.*dS, 2); % want m by 1 output, second dimension 
+
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [Dh, Dh_X1, Dh_X2] = evalDL(o, X1, X2, Nb, N, x1, x2, nu1, nu2, dS, rho, h)
+
+    % evaluates double layer potential at (X1, X2)
+
+    Dh = 0*X1;
+    Dh_X1 = 0*X1;
+    Dh_X2 = 0*X1; 
+    
+    for q = 1:Nb
+        for j = 1:N
+
+            r1 = X1 - x1(j,q); r2 = X2 - x2(j,q);
+            r = sqrt( r1.^2 + r2.^2 );                        
+            rdotnu = r1.*nu1(j,q) + r2.*nu2(j,q);            
+
+            K0 = besselk(0, r/rho);
+            K1 = besselk(1, r/rho);
+            K2 = besselk(2, r/rho);
+            dK1 = -0.5*(K0 + K2); %see identity https://functions.wolfram.com/Bessel-TypeFunctions/BesselK/20/01/02/
+
+            %using r = x - y; hence lack of minus below
+            Dh = Dh + 1/(2*pi)*(r/rho).*K1.*rdotnu./r.^2.*dS(j,q).*h(j,q);
+
+            Dh_X1 = Dh_X1 + 1/(2*pi)*( ...
+                + r1./(r*rho).*K1.*rdotnu./r.^2 ...
+                + (r/rho).*dK1.*r1./(r*rho).*rdotnu./r.^2 ...
+                + (r/rho).*K1.*(1./r.^2).*(nu1(j,q) - 2*r1.*rdotnu./r.^2) ...
+                )*dS(j,q)*h(j,q);
+            
+            Dh_X2 = Dh_X2 + 1/(2*pi)*( ...
+                + r2./(r*rho).*K1.*rdotnu./r.^2 ...
+                + (r/rho).*dK1.*r2./(r*rho).*rdotnu./r.^2 ...
+                + (r/rho).*K1.*(1./r.^2).*(nu2(j,q) - 2*r2.*rdotnu./r.^2) ...
+                )*dS(j,q)*h(j,q);
+
+        end
+    end
+
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function f_t = tanDeriv(o, f,dS,IK)
+    % calculate tangential derivative of along curve with arclength differential dS
+    
+    f_t = real(ifft(IK.*fft(f)))./dS;
+
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% END OF ROUTINES THAT CALCULATE FORCES USING JUMP RELATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 end % methods
 
 methods(Static)
