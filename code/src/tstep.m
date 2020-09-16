@@ -66,6 +66,7 @@ end
 yukawaRHS = geom.yukawaRHS;
 
 op = poten(geom.N,geom.rho);
+
 % build the DLP Yukawa matrix
 geom.DLPYukawa = op.yukawaDLmatrix(geom);
 
@@ -82,34 +83,54 @@ for k = 1:nb
   etaYukawa(:,k) = sigma((k-1)*N+1:k*N);
 end
 
-om = misc;
+% Bryan's rewrite of Rolf's code to evaluate forces using QBX and Tpq +
+% Tqp identity
+[F1,F2,Tq] = op.evalForcesQBX(geom,etaYukawa);
+
+% Compare local Taylor series expansion with QBX expansion
+%[F12,F22,Tq2] = op.evalForcesTaylor(geom,etaYukawa);
+%F1 - F12
+%F2 - F22
+%Tq - Tq2
+
+[F1, F2, Tq; sum(F1) sum(F2) sum(Tq)]
+
+%outputs: 
+%force  = [F1; F2];
+%torque = Tq;
+
+force = zeros(2*geom.nb,1);
+torque = zeros(geom.nb,1);
+
 
 % dS = velocity*dt = |dx/dt| dt
 % sa = |dx/dt|
 % dt = 2*pi/N
 
-N    = geom.N;                % number of points per componenet
-Nb   = geom.nb;               % number of rigid bodies
-x1   = geom.X(1:N,:);         % grid points on curves 
-x2   = geom.X(N+1:2*N,:);            
-pc   = geom.center;           % center of each rigid body
-rho  = geom.rho;              % screen length of particles
-xt   = geom.xt;               % tangent unit vector
-tau1 = xt(1:N,:);      
-tau2 = xt(N+1:2*N,:);
-nu1  = +tau2;                 % outward normal : (nu, tau) is right-handed
-nu2  = -tau1;
+%N    = geom.N;                % number of points per componenet
+%Nb   = geom.nb;               % number of rigid bodies
+%x1   = geom.X(1:N,:);         % grid points on curves 
+%x2   = geom.X(N+1:2*N,:);            
+%pc   = geom.center;           % center of each rigid body
+%rho  = geom.rho;              % screen length of particles
+%xt   = geom.xt;               % tangent unit vector
+%tau1 = xt(1:N,:);      
+%tau2 = xt(N+1:2*N,:);
+%nu1  = +tau2;                 % outward normal : (nu, tau) is right-handed
+%nu2  = -tau1;
+%
+%dS   = geom.sa*2*pi/N;        % Jacobian
+%cur  = geom.cur;              % curvature
+%h    = etaYukawa;
+%
+%
+%[F1old,F2old,Tqold] = op.evalForcesQBXOld(Nb,N,x1,x2,nu1,nu2,dS,rho,etaYukawa);
+%F1 - F1old
+%F2 - F2old
+%Tq - Tqold
 
-dS   = geom.sa*2*pi/N;        % Jacobian
-cur  = geom.cur;              % curvature
-h    = etaYukawa;
 
-[F1, F2, Tq] = op.evalForcesQBX(Nb, N, x1, x2, nu1, nu2, dS, rho, etaYukawa);
-
-[F1, F2, Tq; sum(F1) sum(F2) sum(Tq)]
-
-
-if 0
+%{
 % plot solution field of screen laplace problem
 NX = 151; NY = 151;
 % 50 x 50 grid
@@ -166,6 +187,7 @@ dyuk2(find(CUT_OFF == 1)) = 0;
 
 % calculate absolute and relative error of the numerical solution
 % in the L1-norm 
+om = misc;
 abserr = om.trapz2(xx, yy, abs(yukawaExact - yukawaDLPtar))
 relerr = om.trapz2(xx, yy, abs(yukawaExact - yukawaDLPtar))/om.trapz2(xx, yy, abs(yukawaExact))
 %RJR norm(yukawaExact - yukawaDLPtar,inf)
@@ -193,18 +215,10 @@ fill3(geom.X(1:end/2,:),geom.X(end/2+1:end,:),10*ones(geom.N,geom.nb),'k')
 axis equal
 axis([xmin xmax ymin ymax])
 colorbar
-
-end %if
-
-%outputs: 
-%force  = [F1; F2];
-%torque = Tq;
-
-force = zeros(2*geom.nb,1);
-torque = zeros(geom.nb,1);
+%}
 
 %eta = 0; eta2 = 0; % variables not used; 
-%!!!! BLOCK COMMENTED OUT THROUGH LINE 246 !!!!
+%!!!! BLOCK COMMENTED OUT THROUGH LINE 381 !!!!
 %{
 
 rhs2 = o.janusbc(X,tau,center);  
@@ -225,7 +239,7 @@ maxit2 = N*nb;
 iter2 = I2(2);
 
 % REORGANIZE COLUMN VECTOR INTO MATRIX
-% EXTRACT DENSITY FUNCITONS ON FIBRES AND WALLS
+% EXTRACT DENSITY FUNCTIONS ON FIBERS AND WALLS
 % each column of eta corresponds to the density function of a rigid body
 eta2 = zeros(N,nb);
 for k = 1:nb
@@ -243,7 +257,6 @@ ymin = o.plotAxis(3);ymax = o.plotAxis(4);
 
 xx = linspace(xmin,xmax,NX);
 yy = linspace(ymin,ymax,NY);
-
 
 % test 07/31/2020 
 % rr = linspace(1.1, 2, NX);
@@ -266,29 +279,29 @@ end
 
 Unum = Xtest; 
 
-  [xsou,ysou] = oc.getXY(geom.X);
-  sa = geom.sa(:,:);
-  sa = sa(:);
-  % Jacobian
-  zt = xsou(:)+1i*ysou(:);
-  normalx = geom.xt(N+1:2*N,:);
-  normaly = -geom.xt(1:N,:);
+[xsou,ysou] = oc.getXY(geom.X);
+sa = geom.sa(:,:);
+sa = sa(:);
+% Jacobian
+zt = xsou(:)+1i*ysou(:);
+normalx = geom.xt(N+1:2*N,:);
+normaly = -geom.xt(1:N,:);
 
 
 for k = 1:NX
-    for j = 1:NY       
-        indtmp = (k-1)*NY+j;
-        xtest = Xtest(indtmp);
-        ytest = Ytest(indtmp);
-        ztest = xtest + 1i*ytest;
-% calculate the term  (xsou-xtar)\cdot normal(y)
-        const = -((xsou(:)-xtest).*normalx(:) + (ysou(:)-ytest).*normaly(:));
-        rr = abs(zt-ztest);
-        tmp = 1i*rho*rr;
-        kernel = besselh(1,tmp);       
-% boundary integration
-        Unum(indtmp)= Xn2'*(-1i/4*tmp.*kernel(:).*const./rr.^2.*sa)*2*pi/N;
-    end
+  for j = 1:NY       
+    indtmp = (k-1)*NY+j;
+    xtest = Xtest(indtmp);
+    ytest = Ytest(indtmp);
+    ztest = xtest + 1i*ytest;
+    % calculate the term  (xsou-xtar)\cdot normal(y)
+    const = -((xsou(:)-xtest).*normalx(:) + (ysou(:)-ytest).*normaly(:));
+    rr = abs(zt-ztest);
+    tmp = 1i*rho*rr;
+    kernel = besselh(1,tmp);       
+    % boundary integration
+    Unum(indtmp)= Xn2'*(-1i/4*tmp.*kernel(:).*const./rr.^2.*sa)*2*pi/N;
+  end
 end
 Unum(ind_int)=0;
 
@@ -381,7 +394,6 @@ end
 %}
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % solve mobility problem here
 
@@ -400,7 +412,8 @@ geom.DLPStokes = op.stokesDLmatrix(geom);
 maxit = 2*N*nb; 
 
 % SOLVE SYSTEM USING GMRES
-[sigma,iflagStokes,resStokes,iterStokes] = gmres(@(X) o.timeMatVecStokes(X,geom),...
+[sigma,iflagStokes,resStokes,iterStokes] = gmres(...
+      @(X) o.timeMatVecStokes(X,geom),...
       rhs,[],o.gmresTol,maxit);
 iterStokes = iterStokes(2);
 

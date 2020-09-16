@@ -10,6 +10,7 @@ tt = tstep(options,prams);
 geom = capsules(prams,xc,tau);
 % plot geometry if usePlot == true
 om.plotData(geom);
+drawnow
 
 time = 0;
 % begin time loop
@@ -28,22 +29,7 @@ while time < prams.T
   msg = ['Stokes reguired ' num2str(iterStokes) ...
     ' iterations'];
   om.writeMessage(msg);
-    
-  % write the CPU time and the output of GMRES in Yukawa
-%  om.writeMessage(....
-%    ['Yukawa Finished t=', num2str(time, '%4.2e'), ' in ' ...
-%        num2str(iter2) ' iterations after ', ...
-%        num2str(toc(tSingleStep), '%4.2e'), ' seconds (residual ', ...
-%        num2str(res2,'%4.2e'), ')']);  
   
-  % write the CPU time and the output of GMRES in mobility problem
-%  om.writeMessage(....
-%    ['Mobility Finished t=', num2str(time, '%4.2e'), ' in ' ...
-%        num2str(iter) ' iterations after ', ...
-%        num2str(toc(tSingleStep), '%4.2e'), ' seconds (residual ', ...
-%        num2str(res,'%4.2e'), ')']);
-    
-    % plot the shape
 %  om.plotField(geom,Unum,Xtest,Ytest);  
 
   % update centers and angles with forward Euler

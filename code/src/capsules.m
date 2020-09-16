@@ -73,7 +73,7 @@ force = zeros(2*o.nb,1);  % original [1;2]
 torque = zeros(o.nb,1);   % original -10
 
 
-end % bodyForce Torque
+end % bodyForceTorque
 
 
 
@@ -501,27 +501,6 @@ dist = sqrt((nearestx - xTar)^2 + (nearesty - ytar)^2);
 end % closestPnt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [xnb,ynb] = nearbyCurves(geom)
-
-oc = curve;
-% extract x and y coordinates
-[x,y] = oc.getXY(geom.X);
-[xc,yc] = oc.getXY(geom.center);
-
-x_nb = zeros(geom.N,geom.nb);
-y_nb = zeros(geom.N,geom.nb);
-
-for k = 1:geom.nb
-  radii = 1 + 10*max(geom.sa(:,k))*2*pi/geom.N;
-  % inflate the radii slightly
-  xnb(:,k) = radii*(x(:,k) - xc(k)) + xc(k);
-  ynb(:,k) = radii*(y(:,k) - yc(k)) + yc(k);
-end
-
-
-end % nearbyCurves
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function rhs = yukawaRHS(geom)
 % Build right-hand side for the Yukawa equation solver
 
@@ -537,7 +516,7 @@ oc = curve;
 %RJR               besselk(0,geom.radii(i)/geom.rho);
 %RJR end
 
-rhs = yukawaExact(geom, x, y);
+rhs = geom.yukawaExact(x,y);
 
 rhs = rhs(:);
 
@@ -548,31 +527,33 @@ end % yukawaRHS
 function [z, dz1, dz2] = yukawaExact(geom, Xtar, Ytar)
 % The exact solution used at various places 
 
-oc = curve;
-[xc,yc] = oc.getXY(geom.center);
-
 
 h = 1e-5;
 
-z   = primal(Xtar, Ytar);
+z = geom.primal(Xtar, Ytar);
 
-dz1 = ( primal(Xtar+h, Ytar) - primal(Xtar-h, Ytar) )/(2*h);
-dz2 = ( primal(Xtar, Ytar+h) - primal(Xtar, Ytar-h) )/(2*h);
+dz1 = (geom.primal(Xtar+h, Ytar) - geom.primal(Xtar-h, Ytar))/(2*h);
+dz2 = (geom.primal(Xtar, Ytar+h) - geom.primal(Xtar, Ytar-h))/(2*h);
   
-  function z = primal(xx, yy)
-     z = 0*xx;
-     for i = 1:geom.nb
-         th  = atan2( yy - yc(i), xx - xc(i) );
-         rad = sqrt( (xx-xc(i)).^2 + (yy-yc(i)).^2 );
-         j = i;
-         r_ref = min(geom.radii(i)*geom.ar(i), geom.radii(i));
-         z = z + besselk(j,rad/geom.rho).*cos(j*th)/besselk(j,r_ref/geom.rho);
-%         /...
-%                 besselk(i-1,geom.radii(i)/geom.rho).*cos((i-1)*th);
-     end
-  end %primal
+end % yukawaExact 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function z = primal(geom,xx,yy)
+
+oc = curve;
+[xc,yc] = oc.getXY(geom.center);
+
+z = 0*xx;
+for i = 1:geom.nb
+  th  = atan2(yy - yc(i), xx - xc(i));
+  rad = sqrt((xx-xc(i)).^2 + (yy-yc(i)).^2);
+  j = i;
+  r_ref = min(geom.radii(i)*geom.ar(i), geom.radii(i));
+  z = z + besselk(j,rad/geom.rho).*cos(j*th)/besselk(j,r_ref/geom.rho);
+end
+
+end % primal
   
-end %yukawaExact 
 
 
 end % methods
