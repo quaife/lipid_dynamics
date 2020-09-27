@@ -507,16 +507,14 @@ function rhs = yukawaRHS(geom)
 rhs = zeros(geom.N,geom.nb);
 oc = curve;
 [xc,yc] = oc.getXY(geom.center);
-[x,y] = oc.getXY(geom.X);
+[x,  y] = oc.getXY(geom.X);
+tau     = geom.tau;
 
-%RJR rhs = zeros(geom.N*geom.nb,1);
+theta   = atan2(y - yc, x - xc);
 
-%RJR for i = 1:2
-%RJR   rhs = rhs + besselk(0,sqrt((x(:)-xc(i)).^2 + (y(:)-yc(i)).^2)/geom.rho)/...
-%RJR               besselk(0,geom.radii(i)/geom.rho);
-%RJR end
+%rhs = geom.yukawaExact(x,y);
 
-rhs = geom.yukawaExact(x,y);
+rhs  = 0.5*(1 + cos(theta - tau));
 
 rhs = rhs(:);
 
@@ -526,7 +524,6 @@ end % yukawaRHS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [z, dz1, dz2] = yukawaExact(geom, Xtar, Ytar)
 % The exact solution used at various places 
-
 
 h = 1e-5;
 
@@ -550,12 +547,11 @@ for i = 1:geom.nb
   j = i;
   r_ref = min(geom.radii(i)*geom.ar(i), geom.radii(i));
   z = z + besselk(j,rad/geom.rho).*cos(j*th)/besselk(j,r_ref/geom.rho);
+
 end
 
 end % primal
   
-
-
 end % methods
 
 end %capsules

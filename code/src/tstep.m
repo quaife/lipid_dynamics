@@ -46,19 +46,28 @@ end % constructor: tstep
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Up,wp,iterYukawa,iterStokes] = timeStep(o,geom)
 % Main time stepping routine
-oc = curve;
-N = geom.N;
-nb = geom.nb;
-X = geom.X;
-tau = geom.tau;
+oc     = curve;
+N      = geom.N;
+nb     = geom.nb;
+X      = geom.X;
+tau    = geom.tau;
 center = geom.center;
-rho = geom.rho;
-radii = geom.radii;
+rho    = geom.rho;
+radii  = geom.radii;
 
 % CREATE NEAR SINGULAR INTEGRATION STRUCTURES
 if o.inear
   geom.nearStruct = geom.getZone([],1);
 end
+
+% START OF REPULSION CALCULATION
+ 
+op = poten(geom.N,geom.rho);
+[R1, R2, RTq] = op.Repul(geom);
+
+
+% END OF REPULSION CALCULATION
+
 
 % START OF SCREENED LAPLACE SOLVE USING GMRES
 
@@ -68,12 +77,13 @@ yukawaRHS = geom.yukawaRHS;
 op = poten(geom.N,geom.rho);
 
 % build the DLP Yukawa matrix
-geom.DLPYukawa = op.yukawaDLmatrix(geom);
+geom.DLPYukawa = op.yukawaDLmatrix(geom); 
 
 % Solve for the density function using GMRES
 [sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
-      @(X) o.timeMatVecYukawa(X,geom),...
-      yukawaRHS,[],o.gmresTol,N*nb);
+      @(X) o.timeMatVecYukawa(X,geom) ,...
+      yukawaRHS, [], o.gmresTol, N*nb); %the result appears insensitive to preconditioning 
+
 iterYukawa = iterYukawa(2);
 
 % Unstack the density function so that it is arranged as columns for
@@ -85,23 +95,24 @@ end
 
 % Bryan's rewrite of Rolf's code to evaluate forces using QBX and Tpq +
 % Tqp identity
+
 [F1,F2,Tq] = op.evalForcesQBX(geom,etaYukawa);
+% lift Tq so that it is for rotation about center (not origin)
 
-% Compare local Taylor series expansion with QBX expansion
-%[F12,F22,Tq2] = op.evalForcesTaylor(geom,etaYukawa);
-%F1 - F12
-%F2 - F22
-%Tq - Tq2
+% F1
+% F2
+% Tq
+% return
 
-[F1, F2, Tq; sum(F1) sum(F2) sum(Tq)]
 
 %outputs: 
-%force  = [F1; F2];
-%torque = Tq;
+force  = [F1 + R1, F2 + R2].';
+force  = force(:);
+torque = (Tq + RTq);
 
-force = zeros(2*geom.nb,1);
-torque = zeros(geom.nb,1);
+format shortg
 
+%[sum(F1 + R1), sum(F2 + R2) Tq' RTq' ]
 
 % dS = velocity*dt = |dx/dt| dt
 % sa = |dx/dt|
@@ -128,7 +139,6 @@ torque = zeros(geom.nb,1);
 %F1 - F1old
 %F2 - F2old
 %Tq - Tqold
-
 
 %{
 % plot solution field of screen laplace problem
@@ -183,8 +193,6 @@ yukawaExact(find(CUT_OFF == 1)) = 0;
 dyuk1(find(CUT_OFF == 1)) = 0;
 dyuk2(find(CUT_OFF == 1)) = 0;
 
-%RJR THERE IS A (-) ERROR IN sigma 
-
 % calculate absolute and relative error of the numerical solution
 % in the L1-norm 
 om = misc;
@@ -217,183 +225,6 @@ axis([xmin xmax ymin ymax])
 colorbar
 %}
 
-%eta = 0; eta2 = 0; % variables not used; 
-%!!!! BLOCK COMMENTED OUT THROUGH LINE 381 !!!!
-%{
-
-rhs2 = o.janusbc(X,tau,center);  
-% specify the boundary condition for Janus particles
-rhs2 = rhs2(:);
-
-op2 = poten_yukawa(N,rho);
-% build double-layer potential matrix
-geom.DLP2 = op2.yukawaDLmatrix(geom);
-
-% max GMRES iterations
-maxit2 = N*nb; 
-
-% SOLVE SYSTEM USING GMRES
-[Xn2,iflag2,res2,I2] = gmres(@(X) o.timeMatVecHalf(X,geom),rhs2,[],...
-      o.gmresTol,maxit2);
-  
-iter2 = I2(2);
-
-% REORGANIZE COLUMN VECTOR INTO MATRIX
-% EXTRACT DENSITY FUNCTIONS ON FIBERS AND WALLS
-% each column of eta corresponds to the density function of a rigid body
-eta2 = zeros(N,nb);
-for k = 1:nb
-  eta2(:,k) = Xn2((k-1)*N+1:k*N);
-end
-
-
-%%%%%%%%%%%%%%%%%
-% plot solution field of screen laplace problem
-NX = 500; NY = 500;
-% 50 x 50 grid
-
-xmin = o.plotAxis(1);xmax = o.plotAxis(2);
-ymin = o.plotAxis(3);ymax = o.plotAxis(4);
-
-xx = linspace(xmin,xmax,NX);
-yy = linspace(ymin,ymax,NY);
-
-% test 07/31/2020 
-% rr = linspace(1.1, 2, NX);
-% tt = linspace(0,2*pi,NY);
-% 
-% [RR, TT] = meshgrid(rr,tt);
-% Uxact = 1/2*(besselk(0,RR/rho)/besselk(0,1/rho)+...
-%             besselk(1,RR/rho)/besselk(1,1/rho).*cos(TT));
-% Xtest = RR.*cos(TT);
-% Ytest = RR.*sin(TT);
-
-[Xtest, Ytest] = meshgrid(xx,yy);
-Ztest = Xtest+1i*Ytest;
-ind_int = []; %indices of grid points inside particles
-% we only want data outside particles
-zc = center(1,:) + 1i*center(2,:);
-for j = 1:nb
-ind_int = [ind_int; find(abs(Ztest-zc(j))<radii(j))];
-end
-
-Unum = Xtest; 
-
-[xsou,ysou] = oc.getXY(geom.X);
-sa = geom.sa(:,:);
-sa = sa(:);
-% Jacobian
-zt = xsou(:)+1i*ysou(:);
-normalx = geom.xt(N+1:2*N,:);
-normaly = -geom.xt(1:N,:);
-
-
-for k = 1:NX
-  for j = 1:NY       
-    indtmp = (k-1)*NY+j;
-    xtest = Xtest(indtmp);
-    ytest = Ytest(indtmp);
-    ztest = xtest + 1i*ytest;
-    % calculate the term  (xsou-xtar)\cdot normal(y)
-    const = -((xsou(:)-xtest).*normalx(:) + (ysou(:)-ytest).*normaly(:));
-    rr = abs(zt-ztest);
-    tmp = 1i*rho*rr;
-    kernel = besselh(1,tmp);       
-    % boundary integration
-    Unum(indtmp)= Xn2'*(-1i/4*tmp.*kernel(:).*const./rr.^2.*sa)*2*pi/N;
-  end
-end
-Unum(ind_int)=0;
-
-% test 07/31/2020 
-% figure(4);
-% surf(Xtest,Ytest,Uxact-Unum)
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% bug is still there
-% compute the body force and torque
-
-force = zeros(2*nb,1);  
-torque = zeros(nb,1);   
-
-GradUmat = op2.yukawaGradDLmatrix(geom);
-% spy(GradUmat)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%           |           |           | %
-%           |x component|     O     | %
-%           |           |           | %
-%  GradUmat=|-----------|-----------| %
-%           |           |           | %
-%           |     O     |y component| %
-%           |           |           | %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
-
-sa = geom.sa(:,:);
-% sa2 = [sa; sa];
-% jacobian
-
-% density = [eta2; eta2];
-
-grad = zeros(2*N,nb);
-sol = zeros(N,nb);
-stress = zeros(2,2,N,nb);
-TdotNorm = zeros(2,N,nb);
-r0 = zeros(2,N,nb);
-
-% everything is on the boundary
-% First, obtain the solution and gradient on the boundary
-% by using double layer potential
-for k = 1:nb
-  sol(:,k) = eta2(:,k)'*(geom.DLP2(:,:,k).*sa(:,k))*2*pi/N;
-  grad(1:N,k) = eta2(:,k)'*(GradUmat(1:N,1:N,k).*sa(:,k))*2*pi/N;
-  grad(N+1:2*N,k) = eta2(:,k)'*(GradUmat(N+1:2*N,N+1:2*N,k).*sa(:,k))*2*pi/N;
-end
-
-figure(3)   % test numerical sol on boundary
-% truesol = 0.5*(1+cos(0:2*pi/512:2*pi-2*pi/512));
-% plot(rhs2-truesol')
-% truegradx = (0.5*sin(1+cos(0:2*pi/512:2*pi-2*pi/512)))'...
-%      ./(1+X(N+1:2*N).^2./X(1:N).^2).*(X(N+1:2*N)./X(1:N).^2);
-%  size(truegradx)
-% plot(truegradx)
-plot(grad(1:N))
-
-normal = [geom.xt(N+1:2*N,:); -geom.xt(1:N,:)]; 
-  
-% Second, calculate the hydrophobic stress, force and, torque.  
-for k=1:nb   
-    for j=1:N
-        gradvec = [grad(j,k); grad(j+N,k)];
-
-% calculuate point stress
-        stress(:,:,j,k) = 1/rho*sol(j,k)^2*eye(2) + ...
-            2*rho*(0.5*norm(gradvec)^2*eye(2)-gradvec*gradvec');
-       
-        normali = [normal(j,k); normal(j+N,k)];
-        
-%         TdotNorm(:,j,k) = (rho*norm(gradvec)^2 + 1/rho*sol(j,k)^2)*normali ...
-%              - 2*rho*gradvec*(gradvec'*normali);
-
-        TdotNorm(:,j,k) = stress(:,:,j,k)'*normali;           
-        TnuVec = TdotNorm(:,j,k);
-
-% we need the vector from center to the correpsonding boundary
-        r0(:,j,k) = [xsou(j,k)-center(1,k); ysou(j,k)-center(2,k)];
-        r0vec = r0(:,j,k);
-        
-        % cross product r0 x TdotN
-        cpval = cross ([r0vec;0], [TnuVec;0]);
-
-% force and torque calculated by using integrations
-        force(k) = force(k) - TnuVec(1)*sa(j,k)*2*pi/N;
-        force(k+nb) = force(k+nb) - TnuVec(2)*sa(j,k)*2*pi/N;
-        torque(k) = torque(k) - cpval(3)*sa(j,k)*2*pi/N;
-    end
-    
-end
-%}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % solve mobility problem here
 
@@ -401,7 +232,7 @@ end
 rhs = o.farField(X);
 
 % append body force and torque to the background flow to complete the
-% right hand side fro GMRES
+% right hand side for GMRES
 rhs = [-rhs(:); force; torque];
 
 op = poten(N,rho);
@@ -412,7 +243,7 @@ geom.DLPStokes = op.stokesDLmatrix(geom);
 maxit = 2*N*nb; 
 
 % SOLVE SYSTEM USING GMRES
-[sigma,iflagStokes,resStokes,iterStokes] = gmres(...
+[sigma, iflagStokes, resStokes, iterStokes] = gmres(...
       @(X) o.timeMatVecStokes(X,geom),...
       rhs,[],o.gmresTol,maxit);
 iterStokes = iterStokes(2);
@@ -503,7 +334,7 @@ end
 
 % ADD ROTATIONAL VELOCITY CONTRIBUTION
 for k = 1:nb
-  valFibers(1:end/2,k) = valFibers(1:end/2,k) ...
+  valFibers(1:end/2,k)     = valFibers(1:end/2,k) ...
                 + (geom.X(end/2+1:end,k) - geom.center(2,k))*wp(k);
   valFibers(end/2+1:end,k) = valFibers(end/2+1:end,k)...
                 - (geom.X(1:end/2,k) - geom.center(1,k))*wp(k);
@@ -605,7 +436,7 @@ nb  = size(X,2);
 oc = curve;
 
 [x,y] = oc.getXY(X);
-shearRate = 0.1; % manually set the shear rate here for now
+shearRate = 0.0; % manually set the shear rate here for now
 
 switch options.farField
   case 'shear'

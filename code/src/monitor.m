@@ -32,7 +32,7 @@ o.save = options.saveData;
 o.dataFile = [o.OUTPUTPATH_DATA, options.fileBase, '.bin'];
 o.logFile = [o.OUTPUTPATH_LOG, options.fileBase, '.log'];
 
-o.usePlot = options.usePlot;
+o.usePlot  = options.usePlot;
 o.plotAxis = options.plotAxis;
 
 % If saving output, reset data and log files and write the number of
