@@ -4,8 +4,9 @@ options.savefig = false;
 
 file = 'shear.bin';
 
-irate = 1; % controls the speed of the visualization
-ax = 5*[-1 1 -1 1];
+irate = 10; % controls the speed of the visualization
+%ax = 5*[-1 1 -1 1];
+ax = [-1 6 -1 4];
 
 [yukawaRHS,posx,posy,xc,tau,time] = loadFile(file);
 % load right hand side for Yukawa solve, positions, centers, inclination
@@ -18,7 +19,7 @@ yukawaRHS = reshape(yukawaRHS,N,nb);
 oc = curve;
 
 figure(1); clf
-for k = 1:ntime;
+for k = 1:irate:ntime;
   xx = posx(:,:,k);
   yy = posy(:,:,k);
   figure(1); clf;
@@ -27,7 +28,7 @@ for k = 1:ntime;
     xx = xc(1,i,k);
     yy = xc(2,i,k);
     th = tau(1,i,k);
-    quiver(xx,yy,0.5*cos(th),0.5*sin(th),'k','linewidth',3);
+    quiver(xx,yy,1*cos(th),1*sin(th),'k','linewidth',3);
   end
 
   x = posx(:,:,k);

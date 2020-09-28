@@ -12,9 +12,9 @@ format compact
 prams.N = 64;
 
 prams.T = 10.0; % time horizon
-prams.m = 400 ; % number of time steps
+prams.m = 1000 ; % number of time steps
 
-prams.order = 1;
+prams.order = 2;
 
 prams.rho = 4.0; % screen length
 prams.RepulLength = 0.3; % repulsion length
