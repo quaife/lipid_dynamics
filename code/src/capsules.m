@@ -5,21 +5,24 @@ classdef capsules < handle
 % include constructing structures required for near-singluar integration
 
 properties
-N;          % number of points per componenet
-nb;         % number of rigid bodies
-X;          % positions of component
-center;     % center of each rigid body
-tau;        % orientation of each rigid body
-radii;      % radius of each rigid body
-rho;        % screen length of particles
-ar;         % aspect ratio of particles
-xt;         % tangent unit vector
-sa;         % Jacobian
-cur;        % curvature
-length;     % total length of each component
-nearStruct; % structure for near-singular integration
-DLPStokes;  % double-layer potential matrix
-DLPYukawa;  % double-layer potential matrix for yukawa
+N;            % number of points per componenet
+nb;           % number of rigid bodies
+X;            % positions of component
+center;       % center of each rigid body
+tau;          % orientation of each rigid body
+radii;        % radius of each rigid body
+rho;          % screen length of particles
+ar;           % aspect ratio of particles
+xt;           % tangent unit vector
+sa;           % Jacobian
+cur;          % curvature
+length;       % total length of each component
+RepulLength   % repulsion length
+RepulStrength % repulusion strength
+
+nearStruct;   % structure for near-singular integration
+DLPStokes;    % double-layer potential matrix
+DLPYukawa;    % double-layer potential matrix for yukawa
 end %properties
 
 
@@ -61,6 +64,10 @@ o.X = X;
 % compute arlenght, tangent, and curvature
 [~,o.length] = oc.geomProp(o.X);
 % compute total length
+
+o.RepulLength = prams.RepulLength;
+o.RepulStrength = prams.RepulStrength;
+% repulsion length and strength
 
 end % capsules: constructor
 

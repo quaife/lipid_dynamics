@@ -82,7 +82,8 @@ geom.DLPYukawa = op.yukawaDLmatrix(geom);
 % Solve for the density function using GMRES
 [sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
       @(X) o.timeMatVecYukawa(X,geom) ,...
-      yukawaRHS, [], o.gmresTol, N*nb); %the result appears insensitive to preconditioning 
+      yukawaRHS, [], o.gmresTol, N*nb); 
+% the result appears insensitive to preconditioning 
 
 iterYukawa = iterYukawa(2);
 
@@ -436,7 +437,8 @@ nb  = size(X,2);
 oc = curve;
 
 [x,y] = oc.getXY(X);
-shearRate = 0.0; % manually set the shear rate here for now
+shearRate = options.shearRate; 
+% shear rate
 
 switch options.farField
   case 'shear'

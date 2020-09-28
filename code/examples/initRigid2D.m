@@ -14,6 +14,8 @@ defaultPram.nb = 1;
 defaultPram.T = 1;
 defaultPram.rho = 4.0;
 defaultPram.number_steps = 10;
+defaultPrams.RepulLength = 0.3;
+defaultPrams.RepulStrength = 0.5;
 
 for k = 1:length(PramList)
   if ~isfield(prams,PramList{k})
@@ -29,6 +31,7 @@ OptionList = {'timeOrder','inear','farField','verbose','usePreco',...
 defaultOption.timeOrder = 1;
 defaultOption.inear = true;
 defaultOption.farField = 'shear';
+defaultOption.shearRate = 1;
 defaultOption.verbose = true;
 defaultOption.usePreco = false;
 defaultOption.gmresTol = 1e-6;

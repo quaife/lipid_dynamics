@@ -17,8 +17,11 @@ prams.m = 400 ; % number of time steps
 prams.order = 1;
 
 prams.rho = 4.0; % screen length
+prams.RepulLength = 0.3; % repulsion length
+prams.RepulStrength = 0.5; % repulsion strength
 
 options.farField  = 'shear';
+options.shearRate = 0;
 options.janusbc   = 2;        % put power of function here
 options.saveData  = true;
 options.fileBase  = 'shear';

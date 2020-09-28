@@ -35,46 +35,40 @@ while step < prams.m
   % and the GMRES output
 
   % Regular Forward Euler
-  if 1 
-      geom = capsules(prams,xc,tau);
-      [Up, wp] = tt.timeStep(geom);
-      xc  = xc  + tt.dt*Up;
-      tau = tau + tt.dt*wp;
-      geom2 = geom;
+  if 0 
+    geom = capsules(prams,xc,tau);
+    [Up, wp] = tt.timeStep(geom);
+    xc  = xc  + tt.dt*Up;
+    tau = tau + tt.dt*wp;
+    geom2 = geom;
   end
   
   %Adams-Bashforth 
-  if 0 
-  
-      if step == 0
-          
-          % update geometry
-          geom0 = capsules(prams,xc0,tau0);
-          [Up0, wp0] = tt.timeStep(geom0);
-          
-          % causes xc2, tau2 to be forward Euler, at step 0
-          xc1  = xc0;
-          tau1 = tau0;
-          
-      end
-      
-      geom1 = capsules(prams,xc1,tau1);
-      [Up1, wp1] = tt.timeStep(geom1);
-      
-      % Applying two-step Adams-Bashforth
-      xc2  = xc1  + tt.dt*( 1.5*Up1 - 0.5*Up0 );
-      tau2 = tau1 + tt.dt*( 1.5*wp1 - 0.5*wp0 );
-      
-      xc0 = xc1; tau0 = tau1; Up0 = Up1; wp0 = wp1;
-      xc1 = xc2; tau1 = tau2;
-      
+  if 1 
+    if step == 0
       % update geometry
-      geom2 = capsules(prams,xc2,tau2);
+      geom0 = capsules(prams,xc0,tau0);
+      [Up0, wp0] = tt.timeStep(geom0);
+      
+      % causes xc2, tau2 to be forward Euler, at step 0
+      xc1  = xc0;
+      tau1 = tau0;
+    end
+      
+    geom1 = capsules(prams,xc1,tau1);
+    [Up1, wp1] = tt.timeStep(geom1);
+      
+    % Applying two-step Adams-Bashforth
+    xc2  = xc1  + tt.dt*( 1.5*Up1 - 0.5*Up0 );
+    tau2 = tau1 + tt.dt*( 1.5*wp1 - 0.5*wp0 );
+      
+    xc0 = xc1; tau0 = tau1; Up0 = Up1; wp0 = wp1;
+    xc1 = xc2; tau1 = tau2;
+      
+    % update geometry
+    geom2 = capsules(prams,xc2,tau2);
       
   end
-  
-  
-  
   
   % update time
   time = time + tt.dt;
