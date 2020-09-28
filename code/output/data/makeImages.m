@@ -7,19 +7,42 @@ file = 'shear.bin';
 irate = 1; % controls the speed of the visualization
 ax = 5*[-1 1 -1 1];
 
-[posx,posy,xc,tau,time] = loadFile(file);
-% load positions, centers, inclination angles, and times
+[yukawaRHS,posx,posy,xc,tau,time] = loadFile(file);
+% load right hand side for Yukawa solve, positions, centers, inclination
+% angles, and times
+N = size(posx,1);
+nb = size(posx,2);
+ntime = size(posx,3);
+yukawaRHS = reshape(yukawaRHS,N,nb);
 
 oc = curve;
 
 figure(1); clf
-for k = 1:numel(time);
+for k = 1:ntime;
   xx = posx(:,:,k);
   yy = posy(:,:,k);
-  clf; hold on;
-  fill(xx,yy,'k')
+  figure(1); clf;
+  hold on
+  for i = 1:nb
+    xx = xc(1,i,k);
+    yy = xc(2,i,k);
+    th = tau(1,i,k);
+    quiver(xx,yy,0.5*cos(th),0.5*sin(th),'k','linewidth',3);
+  end
+
+  x = posx(:,:,k);
+  y = posy(:,:,k);
+  for i = 1:nb
+    z = yukawaRHS(:,i); % color
+    h = cline([x(:,i);x(1,i)],[y(:,i);y(1,i)],[z;z(1)]);
+    set(h,'linewidth',2)
+    colormap(jet);
+  end
   axis equal
-  axis(ax)
+  axis(ax);
+  hold on
+  colorbar
+
   set(gca,'xtick',[])
   set(gca,'ytick',[])
   set(gca,'xcolor','white')

@@ -110,6 +110,24 @@ end % writeMessage
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function initializeFiles(o,geom);
+
+N = geom.N;
+nb = geom.nb;
+yukawaRHS = reshape(geom.yukawaRHS,geom.N,geom.nb);
+oc = curve;
+[x,y] = oc.getXY(geom.X);
+
+if o.save;
+  fid = fopen(o.dataFile,'w');
+  fwrite(fid,[N;nb],'double');
+  fwrite(fid,yukawaRHS(:),'double'); % yukawa right hand side
+  fclose(fid);
+end
+
+end % initializeFiles
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function writeData(o,time,xc,tau,X)
 % writeData(time,xc,tau,X) writes the current time, center, inclination
 % angle, and geometry shape to a data file for postprocessing
@@ -122,29 +140,42 @@ fid = fopen(o.dataFile,'a');
 fwrite(fid,output,'double');
 fclose(fid);
 
-end
-% writeData
+end % writeData
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function plotData(o,geom)
 
 if o.usePlot
-  figure(1);
-%  fill(geom.X(1:end/2),geom.X(end/2+1:end),'k')
-  for i=1:geom.nb
-    xind = [geom.X(1:geom.N,i); geom.X(1,i)];
-    yind = [geom.X(geom.N+1:2*geom.N,i); geom.X(geom.N+1,i)];
+  oc = curve;
+  figure(1); clf;
+  for i = 1:geom.nb
+%    xind = [geom.X(1:geom.N,i); geom.X(1,i)];
+%    yind = [geom.X(geom.N+1:2*geom.N,i); geom.X(geom.N+1,i)];
+%    plot(xind,yind,'k');
     xx = geom.center(1,i);
     yy = geom.center(2,i);
     th = geom.tau(i);
     ra = geom.radii(i);
-    plot(xind,yind,'k');
-    hold on
     quiver(xx,yy,ra*cos(th),ra*sin(th),'k','linewidth',3);
-    axis equal
-    axis(o.plotAxis);  
     hold on
   end
+
+  rhs = reshape(geom.yukawaRHS,geom.N,geom.nb);
+  [x,y] = oc.getXY(geom.X);
+  for i = 1:geom.nb
+    z = rhs(:,i); % color
+    h = cline([x(:,i);x(1,i)],[y(:,i);y(1,i)],[z;z(1)]);
+    set(h,'linewidth',2)
+%    set(h,'EdgeColor','flat');
+%    set(h,'FaceColor','none');
+    colormap(jet);
+  end
+  axis equal
+  axis(o.plotAxis);  
+  hold on
+  colorbar
+  drawnow
+
   % pause(0.01);
   hold off
 end

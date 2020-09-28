@@ -10,13 +10,15 @@ tt = tstep(options,prams);
 geom = capsules(prams,xc,tau);
 % plot geometry if usePlot == true
 om.plotData(geom);
-drawnow
+
+om.initializeFiles(geom);
 
 time = 0;
 step = 0;
 
 xc0  = xc;
 tau0 = tau;
+om.writeData(time,geom.center,geom.tau,geom.X);
 
 trajectory = [xc(1,:) xc(2,:) tau];
 
@@ -35,16 +37,15 @@ while step < prams.m
   % and the GMRES output
 
   % Regular Forward Euler
-  if 0 
+  if prams.order == 1
     geom = capsules(prams,xc,tau);
     [Up, wp] = tt.timeStep(geom);
     xc  = xc  + tt.dt*Up;
     tau = tau + tt.dt*wp;
     geom2 = geom;
-  end
   
   %Adams-Bashforth 
-  if 1 
+  elseif prams.order == 2
     if step == 0
       % update geometry
       geom0 = capsules(prams,xc0,tau0);
@@ -59,41 +60,31 @@ while step < prams.m
     [Up1, wp1] = tt.timeStep(geom1);
       
     % Applying two-step Adams-Bashforth
-    xc2  = xc1  + tt.dt*( 1.5*Up1 - 0.5*Up0 );
-    tau2 = tau1 + tt.dt*( 1.5*wp1 - 0.5*wp0 );
+    xc2  = xc1  + tt.dt*(1.5*Up1 - 0.5*Up0 );
+    tau2 = tau1 + tt.dt*(1.5*wp1 - 0.5*wp0 );
       
     xc0 = xc1; tau0 = tau1; Up0 = Up1; wp0 = wp1;
     xc1 = xc2; tau1 = tau2;
       
     % update geometry
     geom2 = capsules(prams,xc2,tau2);
-      
   end
-  
+
+  om.plotData(geom2);
+    
   % update time
   time = time + tt.dt;
-  
-  % om.plotField(geom2,Unum,Xtest,Ytest);
-  hold off
-  om.plotData(geom2);
-  rhs = reshape(yukawaRHS(geom2), geom2.N, geom2.nb);
-  hold on
-  x1   = geom2.X(1:geom2.N,:);         % grid points on curves 
-  x2   = geom2.X(geom2.N+1:2*geom2.N,:);            
 
-  for p = 1:geom2.nb
-    z = rhs(:,p);      %# colors
-    h = surface([x1(:,p), x1(:,p)], [x2(:,p), x2(:,p)], [z(:), z(:)], ...
-    [z(:), z(:)], 'EdgeColor','flat', 'FaceColor','none');
-    colormap( jet )
-  end
-  drawnow
+  % write current time to console
+  message = ['Completed time ', num2str(time,'%4.2e'), ...
+      ' of time horizon ' , num2str(prams.T,'%4.2e')];
+  om.writeMessage(message);
   
   % write the shape to a file
-    
+  om.writeData(time,geom2.center,geom2.tau,geom2.X);
+
+  % update step counter
   step = step + 1;
-  %[step prams.m time prams.T]
-  
 end
 
 % save final time step
