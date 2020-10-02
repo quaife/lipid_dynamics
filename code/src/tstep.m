@@ -44,7 +44,7 @@ end % constructor: tstep
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Up,wp,iterYukawa,iterStokes] = timeStep(o,geom)
+function [Up,wp,iterYukawa,iterStokes,etaYukawa,etaStokes] = timeStep(o,geom,etaY0,etaS0)
 % Main time stepping routine
 oc     = curve;
 N      = geom.N;
@@ -81,7 +81,7 @@ geom.DLPYukawa = op.yukawaDLmatrix(geom);
 
 % Solve for the density function using GMRES
 [sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
-      @(X) o.timeMatVecYukawa(X,geom) ,...
+      @(etaY0) o.timeMatVecYukawa(etaY0,geom) ,...
       yukawaRHS, [], o.gmresTol, N*nb); 
 % the result appears insensitive to preconditioning 
 
@@ -245,7 +245,7 @@ maxit = 2*N*nb;
 
 % SOLVE SYSTEM USING GMRES
 [sigma, iflagStokes, resStokes, iterStokes] = gmres(...
-      @(X) o.timeMatVecStokes(X,geom),...
+      @(etaS0) o.timeMatVecStokes(etaS0,geom),...
       rhs,[],o.gmresTol,maxit);
 iterStokes = iterStokes(2);
 

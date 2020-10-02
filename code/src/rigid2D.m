@@ -49,7 +49,7 @@ while step < prams.m
     if step == 0
       % update geometry
       geom0 = capsules(prams,xc0,tau0);
-      [Up0, wp0] = tt.timeStep(geom0);
+      [Up0, wp0,~,~,etaY0,etaS0] = tt.timeStep(geom0,geom0.X,geom0.X);
       
       % causes xc2, tau2 to be forward Euler, at step 0
       xc1  = xc0;
@@ -57,7 +57,8 @@ while step < prams.m
     end
       
     geom1 = capsules(prams,xc1,tau1);
-    [Up1, wp1] = tt.timeStep(geom1);
+    [Up1, wp1,~,~,etaY,etaS] = tt.timeStep(geom1,etaY0,etaS0);
+    etaY0 = etaY; etaS0 = etaS;
       
     % Applying two-step Adams-Bashforth
     xc2  = xc1  + tt.dt*(1.5*Up1 - 0.5*Up0 );
