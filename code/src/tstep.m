@@ -5,7 +5,6 @@ classdef tstep < handle
 
 properties
 
-timeOrder       % time stepping order
 dt              % time step size
 Dp              % Stokes DLP for fiber-fiber interaction
 rhs             % Right hand side of mobility problem
@@ -31,7 +30,6 @@ function o = tstep(options, prams)
 % o.tstep(options,prams): constructor.  Initialize class.  Take all
 % elements of options and prams needed by the time stepper
 
-o.timeOrder = options.timeOrder;
 o.inear = options.inear;
 o.dt = prams.T/prams.m;
 o.gmresTol = options.gmresTol;
@@ -236,9 +234,8 @@ colorbar
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % solve mobility problem here
 
-% far field condition
-rhs = o.farField(X);
-% TODO: THIS SHOULD INCLUDE A STOKESLET AND ROTLET TERM
+% far field condition plus the stokeslet and rotlet terms
+rhs = o.farField(X) - o.StokesletRotlet(geom,force,torque);
 
 % append body force and torque to the background flow to complete the
 % right hand side for GMRES
@@ -279,6 +276,7 @@ maxit = 2*N*nb;
 %      @(etaS0) o.timeMatVecStokes(etaS0,geom),...
 %      rhs,[],o.gmresTol,maxit);
 %toc
+
 
 iterStokes = iterStokes(2);
 fprintf('Stokes required %i iterations\n',iterStokes);
@@ -360,7 +358,6 @@ kernelSelf = @(z) +jump*z + op.exactStokesDLdiag(geom,geom.DLPStokes,z);
 stokesDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
     kernel,kernel,geom,true,false);
 valFibers = valFibers + stokesDLP;
-% BQ: FIX THIS 0 WHICH IS IN WHILE BUILDING PRECONDITIONER
 
 % ADD TRANSLATIONAL VELOCITY CONTRIBUTION
 for k = 1:nb
@@ -483,6 +480,39 @@ switch options.farField
 end
     
 end % bgFlow
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function vLets = StokesletRotlet(o,geom,force,torque);
+
+X = geom.X;
+N = size(X,1)/2;
+nb = size(X,2);
+oc = curve;
+
+vLets = zeros(2*N,nb);
+
+for k = 1:nb
+  [x,y] = oc.getXY(X(:,k));
+  [cx,cy] = oc.getXY(geom.center(:,k));
+
+  fx = force(2*(k-1) + 1);
+  fy = force(2*(k-1) + 2);
+  tor = torque(k);
+  % force and torque due to body k
+
+  rx = x - cx;
+  ry = y - cy;
+  rho2 = rx.^2 + ry.^2;
+  rdotf = rx.*fx + ry.*fy;
+  vLets(:,k) = vLets(:,k) + (1/4/pi)*...
+    [-0.5*log(rho2)*fx + rdotf./rho2.*rx; ...
+     -0.5*log(rho2)*fy + rdotf./rho2.*ry];
+
+  vLets(:,k) = vLets(:,k) + tor*[ry./rho2;rx./rho2]; 
+end
+
+
+end % StokesletRotlet
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function bc = bcfunc(~,X,tau,center,options)
