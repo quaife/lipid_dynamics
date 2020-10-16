@@ -11,7 +11,7 @@ format compact
 
 prams.N = 64;
 
-prams.T = 10.0; % time horizon
+prams.T = 1.0; % time horizon
 prams.m = 1000; % number of time steps
 
 prams.order = 2; % time stepping order
@@ -34,7 +34,7 @@ options.usePlot   = true;
 options.plotAxis  = 5*[-1 1 -1 1];
 
 % initial configuration
-xc = [0 2.4 3.4;-0.5 0.0 0.5];
+xc = [2 2.4 3.4;1.0 0.0 0.5];
 tau   = [0.6*pi 0.6*pi pi]; 
 radii = [0.5 0.5 0.5];
 ar    = [1 1 1];
