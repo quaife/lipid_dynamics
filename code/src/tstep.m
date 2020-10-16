@@ -107,7 +107,6 @@ end
 
 % Bryan's rewrite of Rolf's code to evaluate forces using QBX and Tpq +
 % Tqp identity
-
 [F1,F2,Tq] = op.evalForcesQBX(geom,etaYukawa);
 % lift Tq so that it is for rotation about center (not origin)
 
@@ -116,7 +115,7 @@ force  = [F1 + R1, F2 + R2].';
 force  = force(:);
 torque = (Tq + RTq);
 
-format shortg
+%format shortg
 
 %[sum(F1 + R1), sum(F2 + R2) Tq' RTq' ]
 
@@ -235,7 +234,7 @@ colorbar
 % solve mobility problem here
 
 % far field condition plus the stokeslet and rotlet terms
-rhs = o.farField(X) - o.StokesletRotlet(geom,force,torque);
+rhs = o.farField(X) + o.StokesletRotlet(geom,force,torque);
 
 % append body force and torque to the background flow to complete the
 % right hand side for GMRES
@@ -248,6 +247,7 @@ geom.DLPStokes = op.stokesDLmatrix(geom);
 % Build LU factorization of the completed Stokes DLP system of equations
 o.precoStokesMatrix(geom);
 
+% DEBUGGING CODE TO BUILD LINEAR SYSTEM AND PRECONDITIONER AS MATRICIES
 %A = zeros(numel(rhs));
 %P = zeros(numel(rhs));
 %for k = 1:numel(rhs)
@@ -431,36 +431,6 @@ Tx = Tx(:);
 
 end % timeMatVecYukawa
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function Tx = timeMatVecHalf(o,Xn,geom)
-% Tx = timeMatVecHalf(Xn,geom) does a matvec for GMRES 
-% Xn is a state vector that contains the following in order:
-% fiber1: eta1 fiber2: eta2 ... fibernv: etan
-
-N = geom.N;   % points per body
-nb = geom.nb; % number of bodies
-rho = geom.rho; 
-op = poten_yukawa(N,rho);
-
-% Output of Tx that corresponds to the shape of eta
-Tx = zeros(N,nb);
-
-% BEGIN FORMATTING UNKNOWN VECTOR
-% EXTRACT DENSITY FUNCTION FOR FIBRES
-eta2 = zeros(N,nb);
-for k = 1:nb
-  eta2(:,k) = Xn((k-1)*N+1:k*N);
-end
-
-% ADD JUMP IN DLP
-Tx = Tx - 1/2*eta2;
-
-% ADD SELF CONTRIBUTION
-Tx = Tx + op.exactYukawaDLdiag(geom,geom.DLP2,eta2);
-Tx = Tx(:);
-end % timeMatVecHalf
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function vInf = bgFlow(~,X,options)
     
@@ -508,7 +478,7 @@ for k = 1:nb
     [-0.5*log(rho2)*fx + rdotf./rho2.*rx; ...
      -0.5*log(rho2)*fy + rdotf./rho2.*ry];
 
-  vLets(:,k) = vLets(:,k) + tor*[ry./rho2;rx./rho2]; 
+  vLets(:,k) = vLets(:,k) + tor*[ry./rho2;-rx./rho2]; 
 end
 
 
