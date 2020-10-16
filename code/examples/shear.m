@@ -12,16 +12,16 @@ format compact
 prams.N = 64;
 
 prams.T = 10.0; % time horizon
-prams.m = 1000 ; % number of time steps
+prams.m = 1000; % number of time steps
 
-prams.order = 2;
+prams.order = 2; % time stepping order
 
 prams.rho = 4.0; % screen length
 prams.RepulLength = 0.3; % repulsion length
 prams.RepulStrength = 0.5; % repulsion strength
 
 options.farField  = 'shear';
-options.shearRate = 1;
+options.shearRate = 0;
 options.janusbc   = 2;        % put power of function here
 options.saveData  = true;
 options.fileBase  = 'shear';
@@ -29,7 +29,6 @@ options.append    = false;
 options.inear     = true;
 options.usePreco  = false;
 options.verbose   = true;
-options.timeOrder = 1;
 options.gmresTol  = 1e-8;
 options.usePlot   = true;
 options.plotAxis  = 5*[-1 1 -1 1];
@@ -44,10 +43,10 @@ ar    = [1 1 1];
 %tau   = [0.6*pi 0.6*pi]; 
 %radii = [0.5 0.5];
 %ar    = [1 1];
-%
-%tau = [0];
+
+%tau = [pi/2];
 %radii = [0.5]
-%ar = [1];
+%ar = [2];
 %xc = [0;0];
 
 prams.nb = size(xc,2); % number of bodies
