@@ -176,7 +176,7 @@ if o.usePlot
   colorbar
   drawnow
 
-  % pause(0.01);
+  pause(0.01);
   hold off
 end
 

@@ -15,11 +15,12 @@ gmresTol        % GMRES tolerance
 plotAxis        % plot axes
 farField        % background flow
 janusbc         % particle boundary condition
-precop          % block-diagonal preconditioner for fibres
 precow          % block-diagonal preconditioner for walls
 potp            % class for fiber layer potentials
 potw            % class for wall layer potentials
 om              % monitor class
+precoYukawa
+precoStokes
 
 end % properties
 
@@ -65,7 +66,6 @@ end
 op = poten(geom.N,geom.rho);
 [R1, R2, RTq] = op.Repul(geom);
 
-
 % END OF REPULSION CALCULATION
 
 
@@ -78,14 +78,27 @@ op = poten(geom.N,geom.rho);
 
 % build the DLP Yukawa matrix
 geom.DLPYukawa = op.yukawaDLmatrix(geom); 
+o.precoYukawa.L = zeros(N,N,nb);
+o.precoYukawa.U = zeros(N,N,nb);
+for k = 1:nb
+  [o.precoYukawa.L(:,:,k),o.precoYukawa.U(:,:,k)] = ...
+    lu(0.5*eye(N) + geom.DLPYukawa(:,:,k));
+end
 
 % Solve for the density function using GMRES
+%tic
 [sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
       @(etaY0) o.timeMatVecYukawa(etaY0,geom) ,...
-      yukawaRHS, [], o.gmresTol, N*nb); 
+      yukawaRHS, [], o.gmresTol, N*nb, ...
+      @(etaY0) o.precoYukawaBD(etaY0)); 
+%[sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
+%      @(etaY0) o.timeMatVecYukawa(etaY0,geom) ,...
+%      yukawaRHS, [], o.gmresTol, N*nb); 
 % the result appears insensitive to preconditioning 
-
 iterYukawa = iterYukawa(2);
+fprintf('Yukawa required %i iterations\n',iterYukawa);
+%toc
+%pause
 
 % Unstack the density function so that it is arranged as columns for
 % each body
@@ -99,12 +112,6 @@ end
 
 [F1,F2,Tq] = op.evalForcesQBX(geom,etaYukawa);
 % lift Tq so that it is for rotation about center (not origin)
-
-% F1
-% F2
-% Tq
-% return
-
 
 %outputs: 
 force  = [F1 + R1, F2 + R2].';
@@ -231,6 +238,7 @@ colorbar
 
 % far field condition
 rhs = o.farField(X);
+% TODO: THIS SHOULD INCLUDE A STOKESLET AND ROTLET TERM
 
 % append body force and torque to the background flow to complete the
 % right hand side for GMRES
@@ -240,14 +248,40 @@ op = poten(N,rho);
 % build double-layer potential matrix
 geom.DLPStokes = op.stokesDLmatrix(geom);
 
+% Build LU factorization of the completed Stokes DLP system of equations
+o.precoStokesMatrix(geom);
+
+%A = zeros(numel(rhs));
+%P = zeros(numel(rhs));
+%for k = 1:numel(rhs)
+%  e = zeros(numel(rhs),1);
+%  e(k) = 1;
+%  A(:,k) = o.timeMatVecStokes(e,geom);
+%  P(:,k) = o.precoStokesBD(e);
+%end
+%clf
+%surf(A*P - eye(size(P)))
+%invP = inv(P);
+%[invP(end-1:end,end-10:end)' ...
+%A(end-1:end,end-10:end)']
+%pause
+
 % max GMRES iterations
 maxit = 2*N*nb; 
 
 % SOLVE SYSTEM USING GMRES
+%tic
 [sigma, iflagStokes, resStokes, iterStokes] = gmres(...
       @(etaS0) o.timeMatVecStokes(etaS0,geom),...
-      rhs,[],o.gmresTol,maxit);
+      rhs,[],o.gmresTol,maxit,...
+      @(etaY0) o.precoStokesBD(etaY0)); 
+%[sigma, iflagStokes, resStokes, iterStokes] = gmres(...
+%      @(etaS0) o.timeMatVecStokes(etaS0,geom),...
+%      rhs,[],o.gmresTol,maxit);
+%toc
+
 iterStokes = iterStokes(2);
+fprintf('Stokes required %i iterations\n',iterStokes);
 
 % REORGANIZE COLUMN VECTOR INTO MATRIX
 % EXTRACT DENSITY FUNCITONS ON FIBRES AND WALLS
@@ -312,20 +346,21 @@ end
 % END FORMATTING UNKNOWN VECTOR
 
 % ADD JUMP IN DLP
-valFibers = valFibers - 0.5*eta;
+jump = 0.5;
+valFibers = valFibers + jump*eta;
 
 % ADD SELF CONTRIBUTION
 valFibers = valFibers + op.exactStokesDLdiag(geom,geom.DLPStokes,eta);
 
 % DEFINE STOKES DLP KERNELS
 kernel = @op.exactStokesDL;
-kernelSelf = @(z) +0.5*z + op.exactStokesDLdiag(geom,geom.DLPStokes,z);
-% BQ: NOT SURE WHY THIS IS +0.5 and not -0.5 like it is two lines above
+kernelSelf = @(z) +jump*z + op.exactStokesDLdiag(geom,geom.DLPStokes,z);
 
 % ADD CONTRIBUTION FROM OTHER FIBERS
 stokesDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
     kernel,kernel,geom,true,false);
 valFibers = valFibers + stokesDLP;
+% BQ: FIX THIS 0 WHICH IS IN WHILE BUILDING PRECONDITIONER
 
 % ADD TRANSLATIONAL VELOCITY CONTRIBUTION
 for k = 1:nb
@@ -335,7 +370,7 @@ end
 
 % ADD ROTATIONAL VELOCITY CONTRIBUTION
 for k = 1:nb
-  valFibers(1:end/2,k)     = valFibers(1:end/2,k) ...
+  valFibers(1:end/2,k) = valFibers(1:end/2,k) ...
                 + (geom.X(end/2+1:end,k) - geom.center(2,k))*wp(k);
   valFibers(end/2+1:end,k) = valFibers(end/2+1:end,k)...
                 - (geom.X(1:end/2,k) - geom.center(1,k))*wp(k);
@@ -350,7 +385,7 @@ end
 % EVALUATE TORQUES ON FIBERS
 for k = 1:nb
   valTorque(k) = sum(((geom.X(N+1:2*N,k)-geom.center(2,k)).*eta(1:N,k) - ...
-                     ((geom.X(1:N,k)-geom.center(1,k)).*eta(N+1:2*N,k))).*...
+                     (geom.X(1:N,k)-geom.center(1,k)).*eta(N+1:2*N,k)).*...
                      geom.sa(:,k))*2*pi/N;
 end
 
@@ -468,6 +503,106 @@ end
 
 
 end % bcfunc
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function z = precoYukawaBD(o,eta); 
+
+N = size(o.precoYukawa.U,1);
+nb = size(o.precoYukawa.U,3);
+z = zeros(N*nb,1);
+for k = 1:nb
+  istart = (k-1)*N + 1;
+  iend = istart + N - 1;
+  z(istart:iend) = o.precoYukawa.U(:,:,k)\...
+    (o.precoYukawa.L(:,:,k)\eta(istart:iend));
+end
+
+end % precoYukawaBD
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function precoStokesMatrix(o,geom)
+% Build the LU decomposition of the Stokes linear system.
+
+N = geom.N;
+nb = geom.nb;
+o.precoStokes.L = zeros(2*N + 3, 2*N + 3,nb);
+o.precoStokes.U = zeros(2*N + 3, 2*N + 3,nb);
+
+M11 = zeros(2*N,2*N,nb);
+M12 = zeros(2*N,3,nb);
+M21 = zeros(3,2*N,nb);
+% allocate space for 3 of the 4 block matricies coming from the Power
+% and Miranda completed double-layer potential
+jump = +0.5;
+oc = curve;
+for k = 1:nb
+  [x,y] = oc.getXY(geom.X(:,k));
+  [cx,cy] = oc.getXY(geom.center(:,k));
+  sa = geom.sa(:,k)*2*pi/N;
+  M11(:,:,k) = jump*eye(2*N) + geom.DLPStokes(:,:,k);
+
+  M12(:,:,k) = [[-ones(N,1);zeros(N,1)] [zeros(N,1);-ones(N,1)] ...
+      [(y - cy);-(x-cx)]];
+  M21(:,:,k) = [[sa' zeros(1,N)];...
+                [zeros(1,N) sa'];...
+                [(y - cy)'.*sa' -(x - cx)'.*sa']];
+end
+
+for k = 1:nb
+  [o.precoStokes.L(:,:,k),o.precoStokes.U(:,:,k)] = lu(...
+      [M11(:,:,k) M12(:,:,k); -M21(:,:,k) zeros(3)]);
+end
+
+end % precoStokesMatrix
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function z = precoStokesBD(o,eta); 
+
+N = (size(o.precoStokes.U,1) - 3)/2;
+nb = size(o.precoYukawa.U,3);
+
+istart = 1;
+iend = istart + 2*N*nb - 1;
+etaDensity = eta(istart:iend);
+% extract density function part of eta
+
+istart = 2*N*nb+1;
+iend = istart + 2*nb - 1;
+etaTranslational = eta(istart:iend);
+% extract translational velocity part of eta
+
+istart = 2*N*nb + 2*nb + 1;
+iend = istart + 1*nb - 1;
+etaRotational = eta(istart:iend);
+% extract rotational velocity part of eta
+
+zDensity = zeros(2*N*nb,1);
+zTranslational = zeros(2*nb,1);
+zRotational = zeros(nb,1);
+
+for k = 1:nb
+  istart1 = (k-1)*2*N + 1;
+  iend1 = istart1 + 2*N - 1;
+  istart2 = (k-1)*2 + 1;
+  iend2 = istart2 + 1;
+  eta = [etaDensity(istart1:iend1);...
+         etaTranslational(istart2:iend2);...
+         etaRotational(k)];
+
+  eta = o.precoStokes.U(:,:,k)\...
+    (o.precoStokes.L(:,:,k)\eta);
+
+  zDensity(istart1:iend1) = eta(1:2*N);
+  zTranslational(istart2:iend2) = eta(2*N+1:2*N+2);
+  zRotational(k) = eta(2*N + 3);
+end
+
+z = [zDensity;zTranslational;zRotational];
+
+end % precoStokesBD
 
 
 end % methods

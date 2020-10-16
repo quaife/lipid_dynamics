@@ -21,7 +21,7 @@ prams.RepulLength = 0.3; % repulsion length
 prams.RepulStrength = 0.5; % repulsion strength
 
 options.farField  = 'shear';
-options.shearRate = 0;
+options.shearRate = 1;
 options.janusbc   = 2;        % put power of function here
 options.saveData  = true;
 options.fileBase  = 'shear';
@@ -34,23 +34,24 @@ options.gmresTol  = 1e-8;
 options.usePlot   = true;
 options.plotAxis  = 5*[-1 1 -1 1];
 
-% initial center
-% xc = [(20*rand(10,1)-10)' ;(20*rand(10,1)-10)' ]; 
-% xc = [-1.3;-1.8];
-% xc = [-1 0.6; 0 -0.5];
-% xc = [-1.5 1.5 1.5 -1.5; -1.5 -1.5 1.5 1.5];    
-% xc = [0;0];
+% initial configuration
+xc = [0 2.4 3.4;-0.5 0.0 0.5];
+tau   = [0.6*pi 0.6*pi pi]; 
+radii = [0.5 0.5 0.5];
+ar    = [1 1 1];
 
-xc = [0 2.4 4.3; 0 0.0 2.5];
+%xc = [0 2.4;-2.5 0.0];
+%tau   = [0.6*pi 0.6*pi]; 
+%radii = [0.5 0.5];
+%ar    = [1 1];
+%
+%tau = [0];
+%radii = [0.5]
+%ar = [1];
+%xc = [0;0];
 
 prams.nb = size(xc,2); % number of bodies
-
 [options,prams] = initRigid2D(options,prams);
-
-dtau  = 2*pi/prams.nb;
-tau   = [0.6*pi 0.6*pi pi]; %(0:dtau:2*pi-dtau); % initial incliation angle
-radii = [0.5 0.5 0.5];
-ar    = [2 2 2];
 
 prams.tau   = tau;
 prams.radii = radii;

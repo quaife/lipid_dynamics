@@ -54,6 +54,20 @@ while step < prams.m
       % causes xc2, tau2 to be forward Euler, at step 0
       xc1  = xc0;
       tau1 = tau0;
+
+      % update time
+      time = time + tt.dt;
+
+      % write current time to console
+      message = ['Completed time ', num2str(time,'%4.2e'), ...
+          ' of time horizon ' , num2str(prams.T,'%4.2e')];
+      om.writeMessage(message);
+      
+      % write the shape to a file
+      om.writeData(time,geom0.center,geom0.tau,geom0.X);
+
+      % update step counter
+      step = step + 1;
     end
       
     geom1 = capsules(prams,xc1,tau1);

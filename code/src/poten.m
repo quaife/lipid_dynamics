@@ -754,7 +754,6 @@ den = f.*geom.sa*2*pi/geom.N;
 oc = curve;
 [xsou,ysou] = oc.getXY(geom.X(:,K1));
 xsou = xsou(:); ysou = ysou(:);
-xx = xsou; yy = ysou;
 xsou = xsou(:,ones(Ntar,1))';
 ysou = ysou(:,ones(Ntar,1))';
 
@@ -766,14 +765,6 @@ den = den(:,ones(Ntar,1))';
 nx = -ty(:); ny = tx(:);
 normalx = nx(:,ones(Ntar,1))';
 normaly = ny(:,ones(Ntar,1))';
-
-%den = f.*geom.sa*2*pi/geom.N;
-%[xtar,ytar] = oc.getXY(Xtar);
-%rx = xtar - xsou'; ry = ytar - ysou';
-%dis2 = rx.^2 + ry.^2; dis = sqrt(dis2);
-%rdotn = rx.*nx + ry.*ny;
-%kernel = -1/2/pi*besselk(1,dis).*rdotn./dis.*den;
-%yukawaDLPtar = sum(kernel);
 
 for k = 1:ncol % loop over columns of target points
   [xtar,ytar] = oc.getXY(Xtar(:,k));
@@ -789,8 +780,10 @@ for k = 1:ncol % loop over columns of target points
   rdotn = diffx.*normalx + diffy.*normaly;
   % difference dotted with normal
 
-  kernel = -1/2/pi/geom.rho.*besselk(1,dis/geom.rho).*...
-        rdotn./dis.*den;
+  BK1 = besselk(1,dis/geom.rho);
+  kernel = -1/2/pi/geom.rho.*BK1.*rdotn./dis.*den;
+%  kernel = -1/2/pi/geom.rho.*besselk(1,dis/geom.rho).*...
+%        rdotn./dis.*den;
   % BQ: NOT SURE WHY WE NEED A MINUS SIGN HERE, BUT IT MAKES IT WORK
   
   yukawaDLPtar(:,k) = yukawaDLPtar(:,k) + sum(kernel,2);
