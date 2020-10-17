@@ -1,0 +1,43 @@
+Spatial convergence test
+
+Three particles 
+
+prams.rho = 2.0 ; % screen length
+xc        = [-1.5 1.25 1; 0 0.0 2.5];
+tau       = [0.5*pi 0.3*pi -0.6*pi]; 
+radii     = 1*ones(1,prams.nb);
+ar        = [2 2.5 0.4];
+
+N   (r_max, m)  F11                F21               F31               F21               F22               F32               T1                T2                T3
+32  (0.4, 2)    0.508061573745151  1.74342662340361 -3.37474703659194  1.38403498523    -7.50775416659027  8.95237180722581  0.51222585167888  5.54488749680997 -7.66488464858891
+64  (0.3, 6)    0.511155210254739  2.01905613902188 -2.10950184171603  1.38741298608364 -7.78993701946783  5.71658001001377  0.47774383259752  5.92728830327367 -4.97023020086613
+128 (0.3, 12)   0.511192797013978  2.01820597681021 -2.52893145334571  1.38749874874208 -7.7895110268836   6.39159941088886  0.47764169890480  5.92641836684656 -5.48746482409446
+256 (0.2, 12)   0.511194344565955  2.01818913223609 -2.52938345834011  1.38749682860246 -7.78947990356938  6.40198315833214  0.47764200143263  5.92637457033915 -5.49667000786629
+
+The successive (normed) differences are
+
+4.43118445914094
+0.94821185732403 scaled by 0.213986094703865
+0.01388398734016 scaled by 0.0146422840348599
+
+So the forces converges with increased spatial resolution. 
+
+
+Temporal convergence test
+
+Same as above except N = 128 (0.3, 12), and
+xc  = xc = 1.2*[-1.5 1.25 1; 0 0.0 2.5]; 
+tau = [0.6*pi 0.3*pi -0.6*pi];
+
+to avoid collision, allow for more turning.
+
+Run the simulation over the time horizon [0, 1] with increased resolution; compare upsampling. 
+traj4  = load('traj4.dat');
+traj8  = load('traj8.dat');
+traj16 = load('traj16.dat');
+traj32 = load('traj32.dat');
+
+[norm(traj8(1:2:end,:) - traj4)
+norm(traj16(1:2:end,:) - traj8)
+norm(traj32(1:2:end,:) - traj16)]
+
