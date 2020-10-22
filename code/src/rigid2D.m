@@ -1,10 +1,10 @@
-function [Xfinal, trajectory] = rigid2D(options,prams,xc,tau)
+function [Xfinal, trajectory] = rigid2D(options,prams,xc,tau,gam)
 ttotal = tic; % start a timer
 
 om = monitor(options,prams);
 % build object for doing I/O
 
-tt = tstep(options,prams);
+tt = tstep(options,prams,gam);
 
 % build initial condition of rigid body particle
 geom = capsules(prams,xc,tau);

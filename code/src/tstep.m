@@ -18,6 +18,7 @@ precow          % block-diagonal preconditioner for walls
 potp            % class for fiber layer potentials
 potw            % class for wall layer potentials
 om              % monitor class
+gam             % HAP strength
 precoYukawa
 precoStokes
 
@@ -26,7 +27,7 @@ end % properties
 methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function o = tstep(options, prams)
+function o = tstep(options, prams, gam)
 % o.tstep(options,prams): constructor.  Initialize class.  Take all
 % elements of options and prams needed by the time stepper
 
@@ -35,6 +36,7 @@ o.dt = prams.T/prams.m;
 o.gmresTol = options.gmresTol;
 o.plotAxis = options.plotAxis;
 o.farField = @(X) o.bgFlow(X,options); 
+o.gam = gam;
 
 % for screen laplace BVP
 o.janusbc = @(X,tau,center) o.bcfunc(X,tau,center,options);
@@ -112,8 +114,8 @@ end
 
 %outputs: 
 force  = [F1 + R1, F2 + R2].';
-force  = force(:);
-torque = (Tq + RTq);
+force  = o.gam*force(:);
+torque = o.gam*(Tq + RTq);
 
 %format shortg
 

@@ -12,17 +12,20 @@ format compact
 prams.N = 64;
 
 prams.T = 1.0; % time horizon
-prams.m = 1000; % number of time steps
+prams.m = 1; % number of time steps
 
 prams.order = 2; % time stepping order
 
 prams.rho = 4.0; % screen length
+
+gam = 1.0;  % HAP Strength
+
 prams.RepulLength = 0.3; % repulsion length
 prams.RepulStrength = 0.5; % repulsion strength
 
 options.farField  = 'shear';
 options.shearRate = 0;
-options.janusbc   = 2;        % put power of function here
+% options.janusbc   = 2;        % put power of function here
 options.saveData  = true;
 options.fileBase  = 'shear';
 options.append    = false;
@@ -34,10 +37,10 @@ options.usePlot   = true;
 options.plotAxis  = 5*[-1 1 -1 1];
 
 % initial configuration
-xc = [2 2.4 3.4;1.0 0.0 0.5];
-tau   = [0.6*pi 0.6*pi pi]; 
-radii = [0.5 0.5 0.5];
-ar    = [1 1 1];
+% xc = [2 2.4 3.4;1.0 0.0 0.5];
+% tau   = [0.6*pi 0.6*pi pi]; 
+% radii = [0.5 0.5 0.5];
+% ar    = [1 1 1];
 
 %xc = [0 2.4;-2.5 0.0];
 %tau   = [0.6*pi 0.6*pi]; 
@@ -49,6 +52,11 @@ ar    = [1 1 1];
 %ar = [2];
 %xc = [0;0];
 
+xc = [-5 5;0.0 0.0];
+tau   = [0 pi]; 
+radii = [1 1];
+ar    = [1 1];
+
 prams.nb = size(xc,2); % number of bodies
 [options,prams] = initRigid2D(options,prams);
 
@@ -56,5 +64,5 @@ prams.tau   = tau;
 prams.radii = radii;
 prams.ar    = ar;
 
-[Xfinal, trajectory] = rigid2D(options,prams,xc,tau);
+[Xfinal, trajectory] = rigid2D(options,prams,xc,tau,gam);
 %end
