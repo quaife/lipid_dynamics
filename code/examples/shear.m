@@ -12,7 +12,7 @@ format compact
 prams.N = 64;
 
 prams.T = 1.0; % time horizon
-prams.m = 1; % number of time steps
+prams.m = 1000; % number of time steps
 
 prams.order = 2; % time stepping order
 
