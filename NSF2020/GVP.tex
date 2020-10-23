@@ -1,0 +1,144 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{Geometric variational problems}
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\usepackage{amssymb,amsthm,amsmath,mathrsfs,graphics,amsfonts,bbm, commath, accents}
+
+\author{Specific Aim}
+\date{October 2020}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+We aim to derive mathematically a two-dimensional energy of a fluid lipid monolayer and or bilayer from HAP theory in the limit of small particle sizes. In this case, small refers to lengths much smaller than monolayer thickness. Recalling the continuum approach, the HK theory of membrane elasticity derives the two-dimensional energy density of a fluid lipid monolayer using the general expression for a three-dimensional energy of a test volume in the hydrophobic core. As an assumption, the three-dimensional energy density is quadratic in the displacement gradients, and these displacements quantify, up to second order, the change in pairwise interactions that result from the deforming the reference volume. In other words, HK theory assumes a pairwise interaction between lipids. As we have shown, HAP is non-pairwise and so the theory resulting from taking small particle sizes would purportedly include extra effects like non-local energies of integral equation type, along with the local elastic deformations already present in the Helfrich theory. 
+To make progress, it is necessary to understand firstly how HAP behaves under certain mathematical limits. In the case of lipid monolayers, there are limits in the screening length, the particle diameter, a slender body limit, or any combination of the three, for example. Each limit potentially leads to a new variational problem. We illustrates some of these limiting problems and interpret the results physically. Then we pose mathematical conjectures that will help us resolve an effective monolayer energy coming from a hybrid, particle-based approach, going beyond the limitations of elastic theory.
+Boundary layer of water activity. An obvious limit is $\rho \to 0$. This limit is motivated by experimental measurements that place $\rho$ in the range of a few Angstrom, which is small compared to membrane thickness. In this limit, HAP converges to surface energy 
+\begin{equation}
+\lim_{\rho to 0} \min_u \int_{\Omega} \rho |\nabla u|^2 + \rho^{-1} u^2 \,dx = \int_{\partial \Omega} f \,dS 
+\end{equation}
+Here $f$ is the boundary value. As argues in [], the existence of a minimizer is a straight-forward consequence of the closest point theorem for the Sobolev space $H^1(\Omega)$. 
+The $\rho \to 0$ case gives rise to two variational problems: the first is a dilute particle suspension where there is no interaction between particles, and the second is the problem of surface area minimization. If the particles are well-separated relative to the screening length, then \eqref{} states that HAP converges to the surface energy of the particles. That is, the particle interactions vanish in the $\rho \to 0$ limit because the total surface energy of a collection of rigid bodies is constant, and independent of particle position and orientation. This constancy was one of the motivating factors for introducing HAP theory to study lipids. In the case of non-rigid particles or flexible surfaces, the $\rho \to 0$ case corresponds to surface area minimization for the boundary of the domain $\Omega$. 
+To see why \eqref{} holds, we recall briefly some of the properties of the elliptic boundary value problems associated with HAP theory. In HAP theory, the surface interactions are the Dirichlet-type energy of the solution to the screened-Laplace equation boundary value problem. The solution to the boundary value problem is a scalar function, which we call water activity, or just activity for short. Recall that an activity value near 0 represents water that can form hydrogen bonds freely in all directions, and a value near 1 represent water that lacks the ability to form hydrogen bonds in one direction, as is the case for a water molecule adjacent to an apolar surface.
+In the direction normal to a surface, activity behaves like the solution to the one-dimensional problem $\rho^2 u_{xx} + u = 0$, which decays like $exp(x/\rho)$ in the distance r to the boundary. Based on barrier arguments, the activity has a boundary layer of thickness $\rho$. Using the boundary layer estimates, it is possible to show that the HAP three-dimensional energy density converges to two-dimensional surface measure with weight $1 = \int_0^{\infty} \rho (u’)^2 + \rho^{-1} u^2 \,d x$. 
+
+
+It is instructive to consider the boundary layer behavior around a disk of radius $a$. The boundary of the 
+disk is hydrophobic, so we set $u = 1$ there. The solution is 
+\begin{equation}
+    u(x) = \frac{K_0(|x|/\rho)}{K_0(a/\rho)}
+\end{equation}
+where $K_{\nu}(z)$ is the modified Bessel function of the second kind []. We can use integration by parts to calculate
+the hydrophobic interaction (in the case of a single disk, there is no interaction).
+\begin{align*}
+\Phi
+    &= \gamma \int_{|x| > a} \rho |\nabla u|^2 + \rho^{-1} u^2 \,dx \\
+    &= \gamma \int_{|x| = a} \rho  u \nabla u \cdot \nu \, ds + \int_{|x| > a|} \rho^{-1} u (-\rho^2 \Delta u + u) \,dx \\
+    &= \gamma \int_{|x| = a} \rho \frac{\partial u}{\partial \nu} \,ds
+\end{align*}
+The latter simplifications occur because $u$ solves the screened Laplace equation with constant boundary condition. Continuing, for $|x| = a$,
+\begin{align*}
+\Phi 
+&= -2 \pi a \gamma \rho \nabla \frac{K_0(|x|/\rho)}{K_0(a/\rho)}\cdot \frac{x}{|x|}\\
+&= -2 \pi a \gamma \frac{K_0'(a/\rho)}{K_0(a/\rho)}  \\
+&=  2 \pi a \gamma \frac{K_1(a/\rho)}{K_0(a/\rho)}  
+\end{align*}
+where we have used the relationship $K_0'(z) = -K_1(z)$. 
+A particle of vanishing size corresponds to fixing $\rho$ and taking $a = 0.$ Here we 
+utilize $K_1(z) \sim 1/z$ and $K_2(z) \sim \log(2/z)$ as $z \to 0^+$. We find
+\begin{equation}
+    \lim_{a \to 0} \Phi = \lim_{a \to 0} 2\pi  a \gamma \frac{\rho/a}{\log(2\rho/a)} = 0.
+\end{equation}
+This indicates that the energy of a single particle vanishes with the particle diameter.
+The mathematical reason for this is that $(n-2)$-dimensional subsets of $\mathbb{R}^n$ have capacitance $0$. The result for a collection of vanishing particles, with fixed position and screen length, is trivial. (The cross terms vanish linearly in $a$.) One way to get a non-trivial interaction is 
+by letting interfacial tension $\gamma$, or the boundary value of $u$, vary with $a.$
+
+Alternatively, we can fix $a$ and take $\rho \to 0$. The leading asymptotic behavior
+$K_{\nu}(z) \sim \sqrt{\pi/(2z)}e^{-z}$ is independent of $\nu$ for $z \to \infty$. 
+As a result, 
+\begin{equation}
+    \lim_{\rho \to 0} \Phi = 2 \pi a
+\end{equation}
+In other words, the limiting potential is surface energy. 
+
+The situation in three dimensions is similar. Here the fundamental solution takes the form
+$k(z) = e^{-z}/z$ and so the activity around a ball of radius $a$ is 
+\begin{equation}
+    u(x) = \frac{k(|x|/\rho)}{k(a/\rho)}
+\end{equation}
+and we can calculate $\Phi$ for a ball; the result is 
+\begin{equation}
+\Phi = 4 \pi a^2 \gamma ( 1 + \rho/a)
+\end{equation}
+This functional vanishes for $a \to 0$ and converges to surface energy for $\rho \to 0.$
+
+For arbitrary class $C^2$ domains, with $u = 1$ on the boundary, we can write
+\begin{equation}
+    \Phi = \gamma \int_{\partial \Omega} \rho \frac{\partial u}{\partial \nu} \,d \mathcal{H}^{n-1}
+\end{equation}
+where $d \mathcal{H}^{n-1}$ is the arc length differential in two dimensions and the surface area differential in three dimensions. The region $\Omega$ is an exterior domain to a number of particles.
+If the particles are all convex, then we can use \eqref{} or \eqref{} as barrier functions. These 
+show that $\frac{\partial u}{\partial \nu} \to 1$ uniformly as $\rho \to 0$.
+
+It is natural to study slender bodies in the context of  amphiphilic particles. 
+Interesting interactions show up in the case of slender bodies. Using the above results
+and barrier estimates, we can show that in two-dimensions, $\lim_{a \to 0} \Phi \to 2\gamma L$ for a single slender body of fixed length $L$ and vanishing width $a$. 
+
+\subsection{Maximum overlap}
+\subsection{Curve shortening}
+Finally, the last mathematical problem we will study is curve shortening by HAP. Curve shortening refers to the evolution of a simple closed curve along its unit normal
+by a speed proportional to the signed curvature. That is 
+\begin{equation}
+    X_t = -\kappa \mathbf{N}
+\end{equation}
+Hamilton and later Grayson proved that any simple closed curve stays embedded (does not
+self-intersect) under curve shortening, eventually evolves into a convex curve, becoming 
+asymptotic to a circle with vanishing radius $r = \sqrt{2(t_0 - t)}$.
+
+Curve shortening is the equation of steepest gradient descent with respect to the arc length functional. The higher dimensional generalization of curve shortening is motion by mean curvature, and here surfaces do not stay embedded. There have been a number of numerical 
+techniques devised to study curve shortening and motion by mean curvature, including level set, front tracking and phase field methods to mention a few. 
+
+We propose a connection between curve shortening and hydrophobic interactions because, as 
+we have shown above, the HAP function converges to perimeter in the limit $\rho \to 0$, and  
+we have a non-local curvature in the form of the interfacial stress $\sigma_{\text{hydro}}$.
+That is, we propose the evolution equation
+\begin{equation}
+    X_t = - \sigma_{\text{hydro}} \mathbf{N}
+\end{equation}
+This new evolution equation satisfies the energy law 
+\begin{equation}
+    \frac{d}{dt}\Phi(\Omega_t) + \int_{\partial \Omega} |X_t|^2 \,ds = 0  
+\end{equation}
+and is amenable to numerical approximation using the integral equations methods
+described in the previous section. The difference between this a the study of amphiphilic
+self-assembly is that the curve is neither rigid nor arc length conserving.
+We showed above that $\Phi$ vanishes
+in the limit of vanishing diameter and one could expect the curve to vanish under the 
+HAP curve shortening flow much in the way it does for the classic evolution. 
+
+We will address the following mathematical questions motivated by the original studies
+of Hamilton and Grayson: 
+\begin{itemize}
+\item Do curves stay embedded under \eqref{}, and is the limit an asymptotically vanishing disk?
+\item What regularization can one expect from the non-local velocities? 
+\item To what extent does \eqref{} contain \eqref{} in the limit $\rho \to 0$? In other words, do curves remain uniformly close under the two evolution processes? 
+\end{itemize}
+
+The above problem was posed assuming a constant hydrophobic label. We can generalize the 
+situation and consider non-constant hydrophobic labels, representing an interface with a
+a non-uniform hydrophobic coating. Here the Lagrangian evolution is the same, but we must
+account for transport of the hydrophobic parameter:
+\begin{equation}
+     X_t = - \sigma_{\text{hydro}} \mathbf{N},\quad
+     f_t + f_s \cdot X_t = 0,\quad f(s,0) = f_0(s).
+\end{equation}
+where $f_s$ is the arc length derivative of the label. 
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
