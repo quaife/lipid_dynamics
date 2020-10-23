@@ -96,6 +96,7 @@ prams.nb = geomSou.nb;
 prams.tau = geomSou.tau;
 prams.radii = geomSou.radii;
 prams.rho = geomSou.rho;
+prams.gam = geomSou.gam;
 prams.ar = geomSou.ar;
 prams.RepulLength = geomSou.RepulLength;
 prams.RepulStrength = geomSou.RepulStrength;

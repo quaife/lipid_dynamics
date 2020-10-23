@@ -18,7 +18,6 @@ precow          % block-diagonal preconditioner for walls
 potp            % class for fiber layer potentials
 potw            % class for wall layer potentials
 om              % monitor class
-gam             % HAP strength
 precoYukawa
 precoStokes
 
@@ -27,7 +26,7 @@ end % properties
 methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function o = tstep(options, prams, gam)
+function o = tstep(options, prams)
 % o.tstep(options,prams): constructor.  Initialize class.  Take all
 % elements of options and prams needed by the time stepper
 
@@ -36,7 +35,6 @@ o.dt = prams.T/prams.m;
 o.gmresTol = options.gmresTol;
 o.plotAxis = options.plotAxis;
 o.farField = @(X) o.bgFlow(X,options); 
-o.gam = gam;
 
 % for screen laplace BVP
 o.janusbc = @(X,tau,center) o.bcfunc(X,tau,center,options);
@@ -54,6 +52,7 @@ X      = geom.X;
 tau    = geom.tau;
 center = geom.center;
 rho    = geom.rho;
+gam    = geom.gam;
 radii  = geom.radii;
 
 % CREATE NEAR SINGULAR INTEGRATION STRUCTURES
@@ -114,8 +113,8 @@ end
 
 %outputs: 
 force  = [F1 + R1, F2 + R2].';
-force  = o.gam*force(:);
-torque = o.gam*(Tq + RTq);
+force  = gam*force(:);
+torque = gam*(Tq + RTq);
 
 %format shortg
 

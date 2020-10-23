@@ -12,6 +12,7 @@ center;       % center of each rigid body
 tau;          % orientation of each rigid body
 radii;        % radius of each rigid body
 rho;          % screen length of particles
+gam;          % HAP strength
 ar;           % aspect ratio of particles
 xt;           % tangent unit vector
 sa;           % Jacobian
@@ -38,6 +39,7 @@ o.N = prams.N;
 o.nb = prams.nb;
 o.radii = prams.radii;
 o.rho = prams.rho;
+o.gam = prams.gam;
 o.ar = prams.ar;
 o.center = xc; % center
 o.tau = tau; % inclination angle

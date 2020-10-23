@@ -16,9 +16,8 @@ prams.m = 1000; % number of time steps
 
 prams.order = 2; % time stepping order
 
-prams.rho = 4.0; % screen length
-
-gam = 1.0;  % HAP Strength
+prams.rho = 4.0;  % screen length
+prams.gam = 1.0;  % HAP Strength
 
 prams.RepulLength = 0.3; % repulsion length
 prams.RepulStrength = 0.5; % repulsion strength
@@ -64,5 +63,5 @@ prams.tau   = tau;
 prams.radii = radii;
 prams.ar    = ar;
 
-[Xfinal, trajectory] = rigid2D(options,prams,xc,tau,gam);
+[Xfinal, trajectory] = rigid2D(options,prams,xc,tau);
 %end
