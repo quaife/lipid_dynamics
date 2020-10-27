@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+
+%\usepackage{mathpazo}
+\usepackage[utf8]{inputenc}
+\usepackage{NSFProposal}
+%
+\usepackage{url}
+\usepackage{amsfonts,amsmath,amssymb,amsbsy}
+\usepackage{latexsym}
+
+\usepackage{bm}
+\usepackage{comment}
+%\usepackage{upgreek}
+\usepackage{graphics,graphicx}
+\usepackage{psfrag}
+\usepackage{epsfig}
+\usepackage{wrapfig}
+\usepackage{mathrsfs}
+
+\usepackage{pgfgantt}
+\usepackage{subfigure}
+
+\usepackage[square,numbers,comma,sort&compress]{natbib}
+\usepackage{hyperref}
+
+\newcommand{\todo}[1]{%
+  {\bfseries\color{red} XXX TODO: #1}
+}
+
+\usepackage[margin=30pt,font=small,labelfont=bf,
+  labelsep=period,skip=10pt]{caption}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\intd}{\,\mathrm{d}}
+
+
+
+\newcommand{\kBT}{$\mathrm{k}_{\mathrm{B}}\mathrm{T}$}
+\newcommand{\KB}{k_{\mathrm{B}}}
+\newcommand{\KG}{k_{\mathrm{G}}}
+\newcommand{\KT}{k_{\mathrm{T}}}
+\newcommand{\KTH}{k_{\theta}}
+\newcommand{\KA}{k_{\mathrm{A}}}
+\newcommand{\eg}{{\it e.g.~}}
+\newcommand{\ie}{{\it i.e.~}}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\Curl}{Curl}
+
+
+\begin{document}
+
+
+\newpage
+\pagenumbering{arabic}
+%\input{summary}
+
+
+\input{background}
+\input{preliminarywork}
+\input{specificaim1}
+\input{specificaim2}
+\input{specificaim3}
+\input{broaderimpacts}
+
+
+\newpage
+\setcounter{page}{1}
+\addcontentsline{toc}{section}{Bibliography}
+\bibliographystyle{abbrvnat}
+%
+\bibliography{bibs/references,bibs/analysis,bibs/computing,bibs/elastic,bibs/fmm,bibs/functionalmaterials,bibs/hydrophobic,bibs/jiang,bibs/journalnames,bibs/qbx,bibs/selfassembly,bibs/morerefs}
+%\bibliography{bibs/analysis,
+%	bibs/computing,
+%	bibs/elastic,
+%	bibs/fmm,
+%	bibs/functionalmaterials,
+%	bibs/hydrophobic,
+%	bibs/jiang,
+%	bibs/journalnames,
+%	bibs/qbx,
+%	bibs/references,
+%	bibs/selfassembly}
+
+%\input{references}
+
+
+
+\end{document}
