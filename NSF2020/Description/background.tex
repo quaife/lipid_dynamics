@@ -1,0 +1,388 @@
+
+\noindent
+{\bf {Collaborative Research: Mathematical modeling and coarse-grained simulations of self-assembly of amphiphilic Janus particles in a solvent}}\\
+{\it Rolf Ryham (lead PI, Fordham University)}\\
+{\it Shidong Jiang (co-PI, NJIT) and Yuan-Nan Young (PI, NJIT)}
+\section{Background}
+\label{sec:background}
+\subsection{Hydrophobic Forces}
+\label{sec:hydrophobicforce}
+
+The hydrophobic force is a ubiquitous molecular interaction in biology \cite{Israelachvili1954}.
+The word hydrophobic (water fearing) derives from the low solubility of oil (hydrocarbon solute) in water and vice versa. 
+It causes hydrophobic moieties to aggregate and cluster,
+is responsible for the adhesion between hydrophobic surfaces \cite{Ducker2016}, large contact angles on a 
+dewetting surface \cite{Arenas2019,Sandre1999}, accumulation of particles along interfaces \cite{Lee2013,Lee2014}, 
+formation of micelles and bilayers \cite{Israelachvili80}, and protein folding and membrane insertion \cite{Kabelka2018}.
+
+Lipids are amphiphilic molecules whose  structure possesses
+both hydrophobic and hydrophilic parts. 
+The amphiphilic property is what allows lipids to form the membranes and 
+compartments of living cells \cite{Israelachvili80}. 
+More specifically, a lipid consists of 
+an elongated hydrocarbon tail that is hydrophobic, attached to a polar head that is hydrophilic.
+To shield the hydrophobic tails from water, lipids self-assemble into micelles and bilayers. 
+A micelle is a spherical arrangement of lipids with tails terminating at the micelle center. 
+A bilayer consists of two layers of lipids called monolayers, where the lipid tails point 
+from the monolayer surface into the bilayer core. 
+
+The mathematical modeling of a biological membrane is a challenging problem in applied mathematics. 
+Bilayers are elastic and resist deformations like bending, twisting, and stretching.
+Their elastic deformations are well described by the theory of liquid crystals \cite{ANDRIENKO2018520}.
+Lipid bilayer membranes can also be fluidic, and the lateral translation of lipids (or any membrane bound
+proteins) couples nonlocaly to the motion of the aqueous environment \cite{MerkelSackmannEvans1989,StoneAjdari1998_JFM,OppenheimerDiamant2009_BJ,OppenheimerDiamant2011_PRL}. 
+%Finally, the membranes of cellular 
+%compartments are constantly merging and pinching as part of intracellular trafficking. 
+%Therefore monolayer surfaces undergo discontinuous deformations. 
+
+There are two prevailing approaches in membrane modeling, and each has its advantages
+and disadvantages. Molecular dynamics (MD) is to date the only tool capable of resolving granular biological details
+The computational cost of MD, however, grows with the sixth power of the sample diameter and 
+so simulations are severely limited to 
+small system sizes and short time scales \cite{DiCarlo2019}.
+The other approach, continuum mechanics, assumes smooth surfaces and can therefore model 
+realistic systems over physical times. 
+But continuum description of a biological membrane ignores the granularity of lipid molecules, and thus requires some assumptions when a
+membrane ruptures or when two membranes fuse \cite{ChKo08}. 
+%
+%mechanics presumes, rather than predicts, the nucleation of discontinuities. 
+%
+
+Recently the PIs developed a mathematical model called the 
+hydrophobic attraction potential (HAP) \cite{Fu2018_SIAM}.
+This model addresses the major shortcomings of MD and continuum approaches,
+and will hopefully offer an alternative modeling methodology that leads to new mathematical ideas 
+and is both physically accurate and computationally practical. 
+
+The hydrophobic force arises when polar solvent molecules come in contact with a non-polar substance, such as hydrocarbon or vapor.
+In a polar solvent (like water), the dipole-dipole interaction between solvent molecules form a loosely structured hydrogen-bond network where
+each solvent molecule shares bonds with neighboring molecules at any given time 
+\cite{Israelachvili1954}. In the presence of  a non-polar solvent molecule loses the ability to form hydrogen bonds
+in one direction. 
+The decrease in the number of hydrogen bonds causes a reorientation, or structural
+change, in the surrounding water that is energetically very unfavorable \cite{Bjorneholm2016}.
+
+
+The substantial free energy for placing hydrophobic substances in contact with water 
+is roughly proportional to the surface area of the contact region. 
+As a result, hydrocarbon solutes have a large interfacial tension 
+and try to minimize their surface area when in water. 
+At the microscopic level, however, the hydrophobic force is a long-range, surface interaction. 
+This means that two hydrophobic surfaces, separated by
+water over some distance, experience an attractive force \cite{Lum1999,Meyer2006,Hammer2010}.
+Measurements show that the hydrophobic force
+decays exponentially with a decay length like 1 nm 
+\cite{Israelachvili1984, Marcelja1977,Christenson2001,Lin2005}. It is also known that the interaction is not pairwise additive, meaning that the force
+between any two hydrophobic objects is altered by the presence of a third  object. 
+
+As a summary of its mathematical properties,  the hydrophobic force
+is a non-additive, exponentially decaying surface force 
+that possesses a separation of length scales. These properties suggest 
+a boundary value problem formulation of the hydrophobic force.  
+The non-additivity of the hydrophobic force has to do with the fact that there is no superposition
+principle for including subdomains in boundary value problems. 
+The exponential decay is a property of a second order elliptic partial differential equation (PDE). 
+Finally, the separation of scales come from boundary layers, 
+where the energy of the boundary layer in the zero-thickness limit corresponds to macroscopic interfacial tension.
+Overlapping boundary layers correspond to microscopic hydrophobic attraction, 
+and the boundary layer thickness corresponds to the decay length of attraction.
+
+\begin{wrapfigure}[16]{l}{0.22\textwidth}
+\centerline{\includegraphics[width=0.22\textwidth]{figures/BG_fig1.pdf}}
+\caption{The exterior domain $\Omega$ is the solvent region surrounding a
+number of rigid particles $P_1,$ $P_2,$ $P_3,$ \dots 
+The surface $S$ is the solvent-particle interface, indicated by the unit
+normal $\mathbf{n}.$ }\label{fig:domain}
+\end{wrapfigure}
+\subsection{Hydrophobic Attraction Potential (HAP)}
+\label{sec:HAP}
+
+Based on the physical origin of hydrophobicity,  we have devised a functional, called the hydrophobic attraction potential (HAP), to
+model hydrophobic forces \cite{Fu19}. The motivation for HAP concept stemmed from the lead PI's 
+earlier work on the problem of energy barriers in membrane fusion \cite{RyKlYaCo16,Chetal16}.
+There, the lead PI and collaborators resolved the long-standing issue of accounting for the energy of a fissure surface
+during topological transitions, by applying a squared gradient mathematical theory 
+for hydrophobic attraction between planar surfaces \cite{Eriksson1989,Lum1999,Menshikov2017,Marcelja1977} to monolayer fissures.
+Based on the PI Young's coarse-grained membrane modeling work \cite{Fu2017}, 
+the investigators initiated a collaboration to create a gradient theory for arbitrary collections 
+of hydrophobic and amphiphilic particles. This new method 
+eliminates the costly calculation of water by treating the solvent implicitly, 
+and avoids complicated re-meshing schemes of continuum approaches
+by utilizing a particle-based representation.
+
+To define HAP, consider a region $\Omega \subset \mathbb{R}^3$  
+modeling the solvent surrounding a number of particles (Figure \ref{fig:domain}).
+As stated earlier, the HAP must be an energy of the shape of the region
+because hydrophobic attraction is non-additive. 
+The boundary of the region is the water-particle interface and some parts of this
+surface are hydrophobic while others are hydrophilic. 
+Monte Carlo simulations 
+show that water changes structure at hydrophobic interfaces \cite{Luzar1987, Jonsson2006,Varilly2011}.
+Due to rapid fluctuation in the hydrogen bond network,
+restructuring at the interface extends into bulk water.
+This motivates the following definition for the HAP of the particles:
+\begin{equation}
+\label{HAP}
+  \Phi = \gamma \iiint_{\Omega} \rho |\nabla u|^2 + \rho^{-1}u^2 \,dx \,dy \,dz, 
+\end{equation}
+where $u$ is the unique solution of screened Laplace equation boundary value problem 
+\begin{equation}
+  \label{SL}
+  -\rho^2 \Delta u + u = 0 \in \Omega,\quad u = f  \mbox{ on } \partial \Omega, \quad u(x) \to 0 \mbox{ as } x \to \infty.
+\end{equation}
+The scalar function $u(x)$ is called the water activity. Its boundary values $f$ 
+define the degree of hydrophobicity of the water-particle interface. The value 
+1 represents a completely hydrophobic interface, where water has lost rotational freedom. 
+Conversely, the boundary value 0 corresponds to a polar surface where water has the same rotational
+freedom as in bulk water. The parameter $\rho$ is the decay length of attraction, 
+around 1 nm, and the parameter $\gamma$ is the interfacial tension \cite{Israelachvili1954}.
+The parameters $\rho$ and $\gamma$ contain information about the quality
+of the solvent \cite{Discher2002}.
+
+From a phenomenological perspective, (\ref{HAP}--\ref{SL}) 
+is an appropriate model of hydrophobic attraction. Specifically,
+using boundary layer analysis, it is possible 
+to show that $\Phi$ converges to a surface energy in the zero-decay length limit \cite{Lee2018,Lin2015,Shibata2004}.
+For non-zero decay lengths, solutions of \eqref{SL} yield an attractive interaction, e.g. between hydrophobic parallel disks
+separated by water \cite{Eriksson1989}. Also, we have demonstrated with simulation that the forces 
+derived from HAP theory are non-additive, and even deviate significantly from 
+a pairwise potential \cite{Meyer2006,Fu19}. 
+%The hydrophobic force has been implicated in the directed folding of proteins, 
+%adhesion between biological membranes, but it is still unanswered as to whether
+%the hydrophobic force of the form (\ref{HAP}--\ref{SL}) exists between small molecules. 
+
+
+\section{Previous Results by the PIs}
+\label{sec:results}
+
+In our paper \cite{Fu19}, we developed the model (\ref{HAP}--\ref{SL})
+to quantify the macroscopic assembly and mechanics of a lipid bilayer membrane in solvents. 
+%We formulated the boundary value problem as a second-kind
+%integral equation (SKIE), presented in the Section (). 
+%The simulated fluid-particle systems exhibit a variety of multiscale behaviors over both time and length.
+%Over short time scales, the numerical results showed self-assembly for model lipid particles. 
+%For large system simulations, the particles formed realistic configurations like micelles and bilayers. 
+%Our collections showed that these amphiphilic particle bilayers  possessed mechanical properties of a 
+%lipid  bilayer  membrane  that  are  consistent  with other results in the literature.   
+To define the particle dynamics, we considered the exterior domain $\Omega$
+for a finite number of disjoint, rigid and closed particles $P_1$, $P_2$, \dots, $P_n$, each with Lipschitz boundary,
+and boundary data $f$ in the Sobolev space $H^1(\Omega).$ 
+For any fixed configuration, the functional \eqref{HAP} has a unique minimizer $u$
+among all $u - f$ with vanishing trace. This minimizer is a solution to \eqref{SL}.
+Conversely, from maximum principles and energy estimates,  any solution of 
+\eqref{SL} is the minimizer of \eqref{HAP}, and this supplies $\Phi$ with a well-defined value.
+
+The main analytical tool of our manuscript 
+is a formula for the first variation of $\Phi$ \cite{Bandle2015,Schiffer1954,Grinfeld2010}. 
+This first variation  is a symmetric, rank-two tensor called the hydrophobic stress;
+\begin{equation}
+  \label{stress}
+\boldsymbol{\sigma}_{\text{hydro}} = \gamma \rho^{-1} u^2 I + 2\rho \gamma (\tfrac{1}{2}|\nabla u|^2I - \nabla u \nabla u^T).
+\end{equation}
+To obtain \eqref{stress}, we observe that the potential $\Phi$ is a function of the particle position and orientations.
+This is because the particle configuration defines the shape of $\Omega$ and the boundary data $f.$ 
+Taking the derivative of \eqref{HAP} with respect to particle configurations, and using the boundary value problem \eqref{SL}
+in a critical way leads to the surface term \eqref{stress}.  
+By integrating the hydrophobic stress over the surface of particle $P_i,$ we obtaining the hydrophobic force and torque on each particle 
+\begin{equation}
+  \label{forceandtorque}
+  \mathbf{F}_i = \iint_{\partial P_i} \boldsymbol{\sigma}_{\text{hydro}} \cdot \mathbf{n} \,dS,\quad
+  \mathbf{T}_i = \iint_{\partial P_i} \mathbf{x} \times (\boldsymbol{\sigma}_{\text{hydro}} \cdot \mathbf{n}) \,dS.
+\end{equation}
+We verified that this system is force and torque free.
+To supply viscous dissipation, 
+we incorporated the mobility problem in Stokes flow to obtain the rigid body motions; 
+\begin{equation}
+\label{eq:stokes}
+\begin{aligned}
+&-\mu \Delta {\bf u} + \nabla p = 0, \quad \text{in}\ \Omega, \qquad 
+\nabla \cdot {\bf u} = 0,  \quad \text{in}\ \Omega,\\
+&{\bf u}({\bf x}) \to 0 \quad \text{as}\ |{\bf x}|\to \infty,\qquad 
+  \mathbf{u}(\mathbf{x})|_{\partial P_i} = \mathbf{v}_i +
+\boldsymbol{\omega}_i\times(\mathbf{x} - \mathbf{a}_i),\\
+&\int_{\partial P_i}\boldsymbol{\sigma}\cdot {\bf n} dS=-{\bf F}_i, \quad
+\int_{\partial P_i}(\mathbf{x}-\mathbf{a}_i)\times (\boldsymbol{\sigma} \cdot \mathbf{n}) dS=-{\bf T}_i.
+\end{aligned}
+\end{equation}
+Here $\mu$ is the fluid viscosity and the first two equations state
+that the fluid motion is a
+divergence-free Stokes flow; the third equation specifies the fluid
+velocity at infinity;
+the fourth equation enforces a rigid body motion constraint on each
+particle, where
+$\mathbf{v}_i$ and $\boldsymbol{\omega}_i$ are unknown translation and
+angular velocities
+of the $i$-th particle and $\mathbf{a}_i$ is the center of mass of $P_i$;
+the last two equations state that the net forces and torques
+on each particle are given by the quantities ${\bf F}_i$ and ${\bf T}_i$
+from \eqref{forceandtorque}, and $\boldsymbol{\sigma}$ is the fluid shear stress. 
+
+The time integration of particle configurations goes as follows: 
+\textbf{(i)} solve the BVP \eqref{SL} for the screened Laplace equation, 
+\textbf{(ii)} determine the rigid body forces and torques \eqref{forceandtorque}, 
+\textbf{(iii)} solve the Stokes mobility problem \eqref{eq:stokes} for rigid body motion,
+\textbf{(iv)} update the particle configuration. 
+\S \ref{subsec:specific_aim_2}, addresses the numerical challenges in 
+evaluating \eqref{stress} and how these challenges are overcome. 
+
+%%(2YY: 
+%We have intentionally ignored  latency in the variational 
+%calculations. At issue is that any change in the particle position involves the relaxation time 
+%of the hydrogen bond network. To remedy this, we could parametrize a path for the 
+%particles configuration as a function of physical time. Then the rate of change
+%of hydrophobic interaction includes the surface hydrophobic stress as calculated, but also a body term 
+%for time change of activity, assuming we model hydrogen bond relaxation by diffusion. 
+%The diffusion time, however, is extremely small since hydrogen bond lifetimes are on the order 
+%of $10^{-11}$ s \cite{Israelachvili1954}. This setup is analogous  to that of a Kelvin-Voigt material,
+%where viscoelastic deformations exponentially approach the purely elastic deformation.  
+%%)
+
+
+Our simulations used Janus particles to model
+lipid amphiphiles. Janus particles are a popular tool in material science and physics
+for creating functional materials \cite{Lee2014, Lee2013}. 
+This topic is the basis of Specific Aim 3. Janus particles are typically
+spherical with a biphasic material label on either hemisphere,  endowing the particle
+with a directional order. We considered a two-dimensional system, and represented an 
+elongated lipid by elliptical particles with hydrophobic and hydrophilic labels along the ellipse's long axis. 
+
+Under the hydrophobic force, and with an excluded volume to prevent collisions, the 
+Janus particles spontaneously merge and realign to form bilayers. This occurs only as a result
+of energy minimization and does not require artificial inputs. To our knowledge, this is the first demonstration 
+of bilayer self-assembly by a continuum hydrophobic interaction model \cite{Noguchi2001,Farago2003,Brannigan2006,Brooks2009,Wang2013}.  
+
+It is worth emphasizing that the model uses only a few parameters; interfacial tension, decay length, repulsion strength and particle
+shape. For example, an elastic modulus for stretching a vesicle derived from micropipette manipulation 
+directly calibrate our interfacial tension parameter. 
+MD simulators have also made measurements and lately there is better and better agreement with reality. 
+But even the simplest coarse grained models based on pair potentials for lipids has many more parameters \cite{Varilly2011,Wang2013} . 
+
+As a proof of concept, our work has already tested for elastic energies for bending, stretching and tilt of the bilayer assembly.
+Extracting coefficients from the HAP simulations showed strikingly positive agreement with experimentally determined values  \cite{Fu19}.
+Encouraged by these results and the hydrodynamic simulations of the bilayer assembly, the PIs propose to
+further extend the HAP model and the numerical schemes (see \S\ref{sec:proposed-work})
+to make direct comparison with experiments, the continuum liquid crystal results and MD simulations results, to establish that
+the HAP model has the capability and adaptivity to model phenomena across length scales and time scales.
+%
+%
+%The next few years provide the ideal window of opportunity for demonstrating the physical realism 
+%of the HAP model. 
+%
+%
+%
+%The definitions and calculations for fully three-dimensional bilayer elastic energies are described in greater
+%detail in Specific Aim 1. 
+%
+
+
+% 4.1 pN / nm = 4.1 pN nm / nm^2 = 4.1(1e-12)(1e-9) N m/(1e-18) m^2 = 4.1 (1e-3) J/m^2 = 4 mJ/m^2 
+% pN/nm = mJ / m^2 and 1 kT / nm = 4 mJ / m^2 so stretching 40 gives 40  
+% erg / cm^2 =  (1e-7) J/(1e-4) m^2 =   1e-3 J/m^2 =  mJ/m^2  
+% 120 mJ / m^2 
+% 10 erg / cm^2 = 10 pN nm / nm^2 = 2 kT / nm^2 
+%
+
+%\section{Proposed Research}
+%\label{sec:proposed-work}
+%The goal of the proposed research is to develop fast,
+%high-order-accurate, parallel numerical algorithms for large-scale
+%simulations of the collective hydrodynamics of janus particles in a solvent in both two- and three-dimensions.
+%First we summarize some basic formulation and preliminary results \cite{Fu19} in \S~\ref{subsec:bie} and \S~\ref{subsec:3dbie}.
+%We then describe outstanding numerical issues that we propose to address  in \S~\ref{subsec:proposed_research}.
+
+%\section{Proposed Research}
+%\label{sec:proposed-work}
+%The goal of the proposed research is to develop fast,
+%high-order-accurate, parallel numerical algorithms for large-scale
+%simulations of the collective hydrodynamics of  amphiphilic particles in a viscous solvent.
+%%
+%Based on the integral formulation in \S~\ref{subsec:bie} and \S~\ref{subsec:3dbie}, we have demonstrated that 
+%our potential theory approach can efficiently simulate self-assembly of 
+%amphiphilic particles into two-dimensional micelles, bilayer membranes, and vesicles \cite{Fu19}.
+%%
+%While these results show great potentials in simulating the collective hydrodynamics of amphiphilic particles and
+%reproducing mechanical properties of their bilayer assembly, 
+%several outstanding issues need to be addressed for such approach to be efficiently applied to three-dimensional 
+%collective hydrodynamics of amphiphilic particles.
+%
+%the two-dimensional hydrodynamics of amphiphilic particles 
+%
+%the two-dimensional results in \cite{Fu19} are in agreement with the 
+%
+%
+%First we summarize some basic formulation and preliminary results \cite{Fu19} in \S~\ref{subsec:bie} and \S~\ref{subsec:3dbie}.
+%We then describe outstanding numerical issues that we propose to address  in \S~\ref{subsec:proposed_research}.
+% -----------------------------------------------------------------------------
+%\subsection{Proposed research: High-order discretization of surface integrals in three dimensions}\label{subsec:proposed_research}
+%% -----------------------------------------------------------------------------
+%% {{{
+%The practical application of integral equation methods requires the
+%accurate evaluation of boundary integrals with singular, weakly
+%singular or nearly singular kernels.  Historically, these issues have
+%been handled either by low-order product integration rules (computed
+%semi-analytically), by local modifications of a smooth
+%rule~(e.g.~\cite{alpert,kapur,sidi}), by singularity
+%subtraction/cancellation (e.g.~\cite{duffy,bruno1,bruno2,davis_1984,graglia_2008,hackbusch_sauter_1994, jarvenpaa_2003,khayat_2005,kress_boundary_1991,schwab_1992, ying_2006}), by kernel
+%regularization and asymptotic analysis (e.g.~\cite{beale1,beale2,goodman_1990, haroldson_1998, lowengrub_1993,schwab_1992}), or by the
+%construction of special purpose ``generalized Gaussian'' quadrature
+%rules (e.g.~\cite{ggq1,ggq2,ggq3}).
+%In the complex analytic case, additional methods
+%have been developed by \citet{helsing_2008a} for off-surface
+%evaluation. It should be noted that in the two-dimensional case,
+%several of these alternatives provide extremely effective schemes,
+%especially the kernel-splitting method developed by Johan Helsing
+%\cite{helsing_integral_2009,helsing_tutorial_2012,helsing_2008a} since
+%they all permit local adaptivity and high order accuracy.
+%
+%The high-order quadrature rules for the evaluation of surface integrals
+%in three dimensions are much less developed than the line integrals in two
+%dimensions. For example, there are no Gaussian quadratures for integraing
+%polynomials on a flat triangle, even though efficient quadratures
+%\cite{xiao2010cma,vioreanu2014} have been
+%developed recently for such purpose. For weakly singular or singular integrals,
+%\cite{bremer2012jcp,bremer2013jcp} constructed high-order quadratures
+%for surface integrals on a general triangle, while \cite{gimbutas2013sisc}
+%presented a fast algorithm for integrating $1/r$-type singular integrals
+%for surfaces that are homeomorphic to a sphere. We would like to propose
+%to study the so-called quadrature by expansion (QBX) scheme~\cite{klockner2013jcp,qbx2}
+%for the evaluation
+%of both singular and near-singular surface integrals encountered in the
+%discretization of BIEs in three dimensions. Conceptually, the idea of the QBX
+%to evaluate singular, hypersingular and near singular integrals
+%on smooth surfaces is more or less straightforward. That is, the surface is discretized
+%into smooth triangles and smooth high-order quadratures are applied to evaluate
+%the expansion coefficients
+%on all source triangles with the QBX expansion center placed at a point off the surface.
+%One may then form a suitable expansion (for example, a Taylor expansion) around that
+%center and evaluate this expansion back at the target point on the surface (or close
+%to the surface in the near singular case). Compared to the competing aforementioned
+%quadrature schemes, the QBX quadrature is attractive
+%because it offers a clear path for being extended to: \textbf{(1)}
+%handle any ambient and source dimensionality, \textbf{(2)} integrate
+%any kernel, and thereby be usable for a very large range of PDEs and
+%boundary conditions, \textbf{(3)} handle any singularity, including
+%hypersingular operators, \textbf{(4)} be usable with any high-order surface
+%discretization, \textbf{(5)} generate well-conditioned discrete
+%operators to which iterative methods such as GMRES~\cite{gmres} can be
+%applied in a black-box fashion, \textbf{(6)} be computationally
+%efficient enough to be applied on the fly (without the need to store
+%quadrature tables), \textbf{(7)} integrate well with fast algorithms
+%such as the Fast Multipole Method. 
+%
+%In practice, there are still many issues that need to be resolved.
+%For example, there are now many variants of QBX including global and local
+%QBX~\cite{klockner2013jcp,rachh2017jcp}, the target-specific QBX~\cite{siegel2018jcp},
+%kernel-independent QBX~\cite{abtin2018bit}, and
+%quadrature by two expansions~\cite{ding2019arxiv}. The coupling of the QBX
+%and the FMM may also lead to certain instability issues which may require
+%some changes in the fast multipole method~\cite{wala2018jcp}. Similar
+%to other quadrature methods, there have been an extensive study on the QBX
+%methods in two dimensions, while its three dimension
+%version~\cite{wala2019jcp,af2018sisc,siegel2018jcp,wala2019arxiv} has not been
+%fully studied and the implementation is even more scarce. We plan to investigate
+%the accuracy and the convergence order of the various QBX schemes mentioned above,
+%its coupling with the FMM, parallel implementation issues for large-scale
+%problems, and the application to our target problems.
+
+
+
