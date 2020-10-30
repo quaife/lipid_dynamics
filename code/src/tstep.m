@@ -446,6 +446,8 @@ shearRate = options.shearRate;
 switch options.farField
   case 'shear'
     vInf = [shearRate*y;zeros(N,nb)];
+  case 'extensional'
+    vInf = shearRate*[-x;y];
   otherwise
     vInf = zeros(2*N,nb);
 end
