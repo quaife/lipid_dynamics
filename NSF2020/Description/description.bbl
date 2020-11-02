@@ -1,4 +1,4 @@
-\begin{thebibliography}{214}
+\begin{thebibliography}{212}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -120,7 +120,7 @@ Y.~Bao, A.~Donev, B.~E. Griffith, D.~M. McQueen, and C.~S. Peskin.
 
 \bibitem[Bao et~al.(2018)Bao, Rachh, Keaveny, Greengard, and Donev]{Bao18}
 Y.~Bao, M.~Rachh, E.~E. Keaveny, L.~Greengard, and A.~Donev.
-\newblock A fluctuating boundary integral method for brownian suspensions.
+\newblock {A fluctuating boundary integral method for Brownian suspensions}.
 \newblock \emph{J. Comp. Phys.}, 374:\penalty0 1094--1119, 2018.
 \newblock \doi{10.1016/j.jcp.2018.08.021}.
 
@@ -264,8 +264,8 @@ J.~Carrier, L.~Greengard, and V.~Rokhlin.
 \newblock \emph{SIAM J. Sci. Statist. Comput.}, 9\penalty0 (4):\penalty0
   669--686, 1988.
 
-\bibitem[CASPAR and KLUG(1962)]{CASPAR1962}
-D.~L. CASPAR and A.~KLUG.
+\bibitem[Caspar and Klug(1962)]{CASPAR1962}
+D.~L. Caspar and A.~Klug.
 \newblock {Physical principles in the construction of regular viruses.}
 \newblock \emph{Cold Spring Harbor symposia on quantitative biology}, 1962.
 \newblock ISSN 00917451.
@@ -453,25 +453,11 @@ C.~Fran{\c c}ois-Martin, J.~E. Rothman, and F.~Pincet.
 \newblock ISSN 0027-8424.
 \newblock \doi{10.1073/pnas.1621309114}.
 
-\bibitem[Fu et~al.(2015{\natexlab{a}})Fu, Young, and Jiang]{Fu15}
-S.-P. Fu, Y.-N. Young, and S.~Jiang.
-\newblock Efficient brownian dynamics simulation of dna molecules with
-  hydrodynamic interactions in linear flows.
-\newblock \emph{Phys. Rev. E}, 91:\penalty0 063008, 2015{\natexlab{a}}.
-
-\bibitem[Fu et~al.(2015{\natexlab{b}})Fu, Young, and Jiang]{Fu2015_PRE}
-S.-P. Fu, Y.-N. Young, and S.~Jiang.
-\newblock Efficient brownian dynamics simulation of dna molecules with
-  hydrodynamic interactions in linear flows.
-\newblock \emph{Phys. Rev. E}, 91:\penalty0 063008, 2015{\natexlab{b}}.
-\newblock \doi{10.1103/PhysRevE.91.063008}.
-
-\bibitem[Fu et~al.(2015{\natexlab{c}})Fu, Young, and Jiang]{fu2015pre}
+\bibitem[Fu et~al.(2015)Fu, Young, and Jiang]{fu2015pre}
 S.-P. Fu, Y.-N. Young, and S.~Jiang.
 \newblock Efficient {B}rownian dynamics simulation of {DNA} molecules with
   hydrodynamics interactions in linear flows.
-\newblock \emph{Phys. Rev. E (3)}, 91\penalty0 (6):\penalty0 063008, 10,
-  2015{\natexlab{c}}.
+\newblock \emph{Phys. Rev. E (3)}, 91\penalty0 (6):\penalty0 063008, 10, 2015.
 \newblock ISSN 1539-3755.
 \newblock \doi{10.1103/PhysRevE.91.063008}.
 \newblock URL \url{https://doi.org/10.1103/PhysRevE.91.063008}.
@@ -665,7 +651,7 @@ J.~Helsing.
 
 \bibitem[Helsing and Ojala(2008)]{helsing_2008a}
 J.~Helsing and R.~Ojala.
-\newblock {On the evaluation of layer potentials close to their sources}.
+\newblock On the evaluation of layer potentials close to their sources.
 \newblock \emph{Journal of Computational Physics}, 227:\penalty0 2899--2921,
   2008.
 \newblock \doi{10.1016/j.jcp.2007.11.024}.
@@ -758,8 +744,8 @@ S.~Jarvenpää, M.~Taskinen, and P.~Yla-Oijala.
 
 \bibitem[Jiang and Lai(2016)]{jiang2016oe}
 S.~Jiang and J.~Lai.
-\newblock A quantitative study of the effect of cladding thickness on modal
-  confinement loss in photonic waveguides.
+\newblock {A Quantitative Study of the Effect of Cladding Thickness on Modal
+  Confinement Loss in Photonic Waveguides}.
 \newblock \emph{Optics Express}, 24\penalty0 (22):\penalty0 24872--24882, 2016.
 
 \bibitem[Jiang and Luo(2016)]{jiang2016jcp}
@@ -1596,7 +1582,6 @@ S.~Wang, S.~Jiang, and J.~Wang.
 \newblock \emph{J. Sci. Comput.}, 79\penalty0 (2):\penalty0 787--808, 2019.
 \newblock ISSN 0885-7474.
 \newblock \doi{10.1007/s10915-018-0872-x}.
-\newblock URL \url{https://doi.org/10.1007/s10915-018-0872-x}.
 
 \bibitem[Wang et~al.(2013)Wang, Sigurdsson, Brandt, and Atzberger]{Wang2013}
 Y.~Wang, J.~K. Sigurdsson, E.~Brandt, and P.~J. Atzberger.
@@ -1632,7 +1617,8 @@ H.~Xiao and Z.~Gimbutas.
 \bibitem[Yan et~al.(2019)Yan, Corona, Malhotra, Veerapaneni, and
   Shelley]{Yan2019}
 W.~Yan, E.~Corona, D.~Malhotra, S.~Veerapaneni, and M.~Shelley.
-\newblock A scalable computational platform for particulate stokes suspensions.
+\newblock {A scalable computational platform for particulate Stokes
+  suspensions}.
 \newblock \emph{arXiv:1909.06623}, 2019.
 
 \bibitem[Yao et~al.(2013)Yao, Botto, Cavallaro, Bleier, Garbin, and
