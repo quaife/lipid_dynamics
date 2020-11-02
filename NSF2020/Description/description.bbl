@@ -1,4 +1,4 @@
-\begin{thebibliography}{212}
+\begin{thebibliography}{209}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -94,7 +94,8 @@ T.~Auth and G.~Gompper.
 
 \bibitem[Bandle and Wagner(2015)]{Bandle2015}
 C.~Bandle and A.~Wagner.
-\newblock Second domain variation for problems with robin boundary conditions.
+\newblock {Second Domain Variation for Problems with Robin Boundary
+  Conditions}.
 \newblock \emph{Journal of Optimization Theory and Applications}, 167\penalty0
   (2):\penalty0 430--463, Nov 2015.
 \newblock ISSN 1573-2878.
@@ -113,8 +114,8 @@ W.~Bao, S.~Jiang, Q.~Tang, and Y.~Zhang.
 
 \bibitem[Bao et~al.(2017)Bao, Donev, Griffith, McQueen, and Peskin]{Bao17}
 Y.~Bao, A.~Donev, B.~E. Griffith, D.~M. McQueen, and C.~S. Peskin.
-\newblock An immersed boundary method with divergence-free velocity
-  interpolation and force spreading.
+\newblock {An Immersed Boundary method with divergence-free velocity
+  interpolation and force spreading}.
 \newblock \emph{J. Comp. Phys.}, 347:\penalty0 183--206, 2017.
 \newblock \doi{10.1016/j.jcp.2017.06.041}.
 
@@ -180,7 +181,7 @@ O.~Bj{\"{o}}rneholm, M.~H. Hansen, A.~Hodgson, L.~M. Liu, D.~T. Limmer,
 
 \bibitem[Boal(2012)]{Boal}
 D.~Boal.
-\newblock \emph{Mechanics of the Cell Second Edition}.
+\newblock \emph{{Mechanics of the Cell Second Edition}}.
 \newblock Cambridge University Press, Cambridge, United Kingdom, 2012.
 
 \bibitem[Brannigan et~al.(2006)Brannigan, Lin, and Brown]{Brannigan2006}
@@ -292,6 +293,14 @@ L.~V. Chernomordik and M.~M. Kozlov.
 \newblock \emph{Nature Structural \& Molecular Biology}, 15:\penalty0 675--683,
   2008.
 
+\bibitem[Chlanda et~al.(2016)Chlanda, Mekhedov, Waters, Schwartz, Fischer,
+  Ryham, Cohen, Blank, and Zimmerberg]{Chetal16}
+P.~Chlanda, E.~Mekhedov, H.~Waters, C.~L. Schwartz, E.~R. Fischer, R.~J. Ryham,
+  F.~S. Cohen, P.~S. Blank, and J.~Zimmerberg.
+\newblock The hemifusion structure induced by influenza virus haemagglutinin is
+  determined by physical properties of the target membranes.
+\newblock \emph{Nature: Microbiology}, 1:\penalty0 16050, 2016.
+
 \bibitem[Cho et~al.(2010)Cho, Azam, and Gracias]{Cho2010}
 J.~H. Cho, A.~Azam, and D.~H. Gracias.
 \newblock {Three dimensional nanofabrication using surface forces}.
@@ -327,8 +336,8 @@ M.~Deserno.
 
 \bibitem[DiCarlo(2019)]{DiCarlo2019}
 A.~DiCarlo.
-\newblock Continuum mechanics as a computable coarse-grained picture of
-  molecular dynamics.
+\newblock {Continuum Mechanics as a Computable Coarse-Grained Picture of
+  Molecular Dynamics}.
 \newblock \emph{Journal of Elasticity}, 135\penalty0 (1):\penalty0 183--235,
   Apr 2019.
 \newblock ISSN 1573-2681.
@@ -337,8 +346,8 @@ A.~DiCarlo.
 
 \bibitem[Ding et~al.(2019)Ding, Huang, and Marzuola]{ding2019arxiv}
 L.~Ding, J.~Huang, and J.~L. Marzuola.
-\newblock Quadrature by two expansions: Evaluating laplace layer potentials
-  using complex polynomial and plane wave expansions, 2019.
+\newblock {Quadrature by Two Expansions: Evaluating Laplace Layer Potentials
+  using Complex Polynomial and Plane Wave Expansions}, 2019.
 
 \bibitem[Discher and Eisenberg(2002)]{Discher2002}
 D.~E. Discher and A.~Eisenberg.
@@ -348,15 +357,15 @@ D.~E. Discher and A.~Eisenberg.
 \bibitem[Doyeux et~al.(2013)Doyeux, Guyot, Chabannes, Prud'homme, and
   Ismail]{DoyeuxGuyotChabannesEtAl2013_JCAM}
 V.~Doyeux, Y.~Guyot, V.~Chabannes, C.~Prud'homme, and M.~Ismail.
-\newblock Simulation of two-fluid flows using a finite element/level set
-  method. application to bubbles and vesicle dynamics.
+\newblock {Simulation of two-fluid flows using a finite element/level set
+  method. Application to bubbles and vesicle dynamics}.
 \newblock \emph{J. Comput. Appl. Math.}, 246:\penalty0 251--259, 2013.
 \newblock \doi{10.1016/j.cam.2012.05.004}.
 
 \bibitem[Du and Zhang(2008)]{QiangDu08}
 Q.~Du and J.~Zhang.
-\newblock Adaptive finite element method for a phase field bending elasticity
-  model of vesicle membrane deformations.
+\newblock {Adaptive Finite Element Method for a Phase Field Bending Elasticity
+  Model of Vesicle Membrane Deformations}.
 \newblock \emph{SIAM J. Sci. Comput.}, 30\penalty0 (3):\penalty0 1634--1657,
   2008.
 
@@ -370,7 +379,7 @@ Q.~Du, C.~Liu, and X.~Wang.
 \bibitem[Du et~al.(2005{\natexlab{a}})Du, Liu, Ryham, and
   Wang]{0951-7715-18-3-016}
 Q.~Du, C.~Liu, R.~Ryham, and X.~Wang.
-\newblock A phase field formulation of the willmore problem.
+\newblock {A phase field formulation of the Willmore problem}.
 \newblock \emph{Nonlinearity}, 18\penalty0 (3):\penalty0 1249,
   2005{\natexlab{a}}.
 \newblock URL \url{http://stacks.iop.org/0951-7715/18/i=3/a=016}.
@@ -386,8 +395,8 @@ Q.~Du, C.~Liu, R.~Ryham, and X.~Wang.
 
 \bibitem[Du et~al.(2007)Du, Liu, Ryham, and Wang]{DuEuler}
 Q.~Du, C.~Liu, R.~Ryham, and X.~Wang.
-\newblock Diffuse interface energies capturing the euler number: Relaxation and
-  renomalization.
+\newblock {Diffuse Interface Energies Capturing the Euler Number: Relaxation
+  and Renomalization}.
 \newblock \emph{Communications in Mathematical Sciences}, 5:\penalty0 233--242,
   2007.
 
@@ -434,7 +443,7 @@ J.~C. Eriksson, S.~Ljunggren, and P.~M. Claesson.
 
 \bibitem[Farago(2003)]{Farago2003}
 O.~Farago.
-\newblock {"Water-free" computer model for fluid bilayer membranes}.
+\newblock {``Water-free" computer model for fluid bilayer membranes}.
 \newblock \emph{Journal of Chemical Physics}, 2003.
 \newblock ISSN 00219606.
 \newblock \doi{10.1063/1.1578612}.
@@ -462,38 +471,21 @@ S.-P. Fu, Y.-N. Young, and S.~Jiang.
 \newblock \doi{10.1103/PhysRevE.91.063008}.
 \newblock URL \url{https://doi.org/10.1103/PhysRevE.91.063008}.
 
-\bibitem[Fu et~al.(2017{\natexlab{a}})Fu, Peng, Yuan, Kfoury, and Young]{Fu16}
-S.-P. Fu, Z.~Peng, H.~Yuan, R.~Kfoury, and Y.-N. Young.
-\newblock Lennard-jones type pair-potential method for coarse-grained lipid
-  bilayer membrane simulations in lammps.
-\newblock \emph{Computer Physics Communications}, 210:\penalty0 193--203,
-  2017{\natexlab{a}}.
-\newblock ISSN 0010-4655.
-\newblock \doi{10.1016/j.cpc.2016.09.018}.
-
-\bibitem[Fu et~al.(2017{\natexlab{b}})Fu, Peng, Yuan, Kfoury, and
-  Young]{Fu2017}
+\bibitem[Fu et~al.(2017)Fu, Peng, Yuan, Kfoury, and Young]{Fu2017}
 S.~P. Fu, Z.~Peng, H.~Yuan, R.~Kfoury, and Y.~N. Young.
 \newblock {Lennard-Jones type pair-potential method for coarse-grained lipid
   bilayer membrane simulations in LAMMPS}.
-\newblock \emph{Computer Physics Communications}, 210:\penalty0 193--203,
-  2017{\natexlab{b}}.
+\newblock \emph{Computer Physics Communications}, 210:\penalty0 193--203, 2017.
 \newblock ISSN 00104655.
 \newblock \doi{10.1016/j.cpc.2016.09.018}.
 
-\bibitem[Fu et~al.(2018)Fu, Ryham, Klockner, Wala, Jiang, and
+\bibitem[Fu et~al.(2020)Fu, Ryham, Klockner, Wala, Jiang, and
   Young]{Fu2018_SIAM}
 S.-P. Fu, R.~J. Ryham, A.~Klockner, M.~Wala, S.~Jiang, and Y.-N. Young.
 \newblock Simulation of multiscale hydrophobic lipid dynamics via efficient
   integral equation methods.
-\newblock \emph{SIAM J. Multiscale Modeling}, submitted:\penalty0 under review,
-  2018.
-
-\bibitem[Fu et~al.(2019)Fu, Ryham, Kloeckner, Wala, Jiang, and Young]{Fu19}
-S.-P. Fu, R.~J. Ryham, A.~Kloeckner, M.~Wala, S.~Jiang, and Y.-N. Young.
-\newblock Multiscale hydrophobic lipid dynamics simulated by efficient integral
-  equation methods.
-\newblock \emph{SIAM J. Multiscale Modeling}, accepted, 2019.
+\newblock \emph{SIAM J. Multiscale Modeling}, 18\penalty0 (1):\penalty0
+  79--103, 2020.
 
 \bibitem[Gan et~al.(2016)Gan, Jiang, Luijten, and Xu]{gan2016sisc}
 Z.~Gan, S.~Jiang, E.~Luijten, and Z.~Xu.
@@ -508,8 +500,8 @@ Z.~Gan, S.~Jiang, E.~Luijten, and Z.~Xu.
 \bibitem[Garc\'{i}a-S\'{a}ez et~al.(2007)Garc\'{i}a-S\'{a}ez, Chiantia, and
   Schwille]{GarciaSaez}
 A.~J. Garc\'{i}a-S\'{a}ez, S.~Chiantia, and P.~Schwille.
-\newblock Effect of line tension on the lateral organization of lipid
-  membranes.
+\newblock {Effect of Line Tension on the Lateral Organization of Lipid
+  Membranes}.
 \newblock \emph{Journal of Biological Chemistry}, 282\penalty0 (46):\penalty0
   33537--33544, 2007.
 \newblock \doi{10.1074/jbc.M706162200}.
@@ -685,14 +677,14 @@ K.~L. Ho and L.~Ying.
 
 \bibitem[Hu and Lai(2013)]{Hu13}
 W.-F. Hu and M.-C. Lai.
-\newblock Unconditionally energy stable immersed boundary method with
-  application to vesicle dynamics.
+\newblock {Unconditionally Energy Stable Immersed Boundary Method with
+  Application to Vesicle Dynamics}.
 \newblock \emph{East Asian J. Applied Math.}, 3:\penalty0 247--262, 2013.
 
 \bibitem[Hu et~al.(2014)Hu, Kim, and Lai]{Hu}
 W.-F. Hu, Y.~Kim, and M.-C. Lai.
-\newblock An immersed boundary method for simulating the dynamics of
-  three-dimensional axisymmetric vesicles in navier--stokes flows.
+\newblock {An immersed boundary method for simulating the dynamics of
+  three-dimensional axisymmetric vesicles in Navier-Stokes flows}.
 \newblock \emph{J. Comput. Phys.}, 257:\penalty0 670--686, 2014.
 
 \bibitem[Hu et~al.(2016)Hu, Lai, Seol, and Young]{HuLaiSeolEtAl2016_JCP}
@@ -727,8 +719,8 @@ J.~N. Israelachvili, S.~Mar\v{c}elja, and R.~G. Horn.
 
 \bibitem[Jablin et~al.(2014)Jablin, Akabori, and Nagle]{PhysRevLett.113.248102}
 M.~S. Jablin, K.~Akabori, and J.~F. Nagle.
-\newblock Experimental support for tilt-dependent theory of biomembrane
-  mechanics.
+\newblock {Experimental Support for Tilt-Dependent Theory of Biomembrane
+  Mechanics}.
 \newblock \emph{Phys. Rev. Lett.}, 113:\penalty0 248102, Dec 2014.
 \newblock \doi{10.1103/PhysRevLett.113.248102}.
 \newblock URL \url{https://link.aps.org/doi/10.1103/PhysRevLett.113.248102}.
@@ -798,8 +790,8 @@ S.~Jiang, J.~Zhang, Q.~Zhang, and Z.~Zhang.
 \bibitem[J{\"{o}}nsson et~al.(2006)J{\"{o}}nsson, Skep{\"{o}}, and
   Linse]{Jonsson2006}
 M.~J{\"{o}}nsson, M.~Skep{\"{o}}, and P.~Linse.
-\newblock {Monte carlo simulations of the hydrophobic effect in aqueous
-  electrolyte solutions}.
+\newblock {Monte Carlo Simulations of the Hydrophobic Effect in Aqueous
+  Electrolyte Solutions}.
 \newblock \emph{Journal of Physical Chemistry B}, 2006.
 \newblock ISSN 15206106.
 \newblock \doi{10.1021/jp0604241}.
@@ -846,21 +838,11 @@ M.~A. Khayat and D.~R. Wilton.
   (10):\penalty0 3180--3190, 2005.
 \newblock \doi{10.1109/TAP.2005.856342}.
 
-\bibitem[Kim and Lai(2010{\natexlab{a}})]{Kim10}
+\bibitem[Kim and Lai(2010)]{KimLai2010_JCP}
 Y.~Kim and M.-C. Lai.
 \newblock Simulating the dynamics of inextensible vesicles by the penalty
   immersed boundary method.
-\newblock \emph{Journal of Computational Physics}, 229\penalty0 (12):\penalty0
-  4840 -- 4853, 2010{\natexlab{a}}.
-\newblock ISSN 0021-9991.
-\newblock \doi{10.1016/j.jcp.2010.03.020}.
-
-\bibitem[Kim and Lai(2010{\natexlab{b}})]{KimLai2010_JCP}
-Y.~Kim and M.-C. Lai.
-\newblock Simulating the dynamics of inextensible vesicles by the penalty
-  immersed boundary method.
-\newblock \emph{J. Comput. Phys.}, 292:\penalty0 4840--4853,
-  2010{\natexlab{b}}.
+\newblock \emph{J. Comput. Phys.}, 292:\penalty0 4840--4853, 2010.
 \newblock \doi{10.1016/j.jcp.2010.03.020}.
 
 \bibitem[Kim and Lai(2012)]{KimLai2012_PRE}
@@ -873,16 +855,16 @@ Y.~Kim and M.-C. Lai.
 \bibitem[Klauda et~al.(2008{\natexlab{a}})Klauda, Eldho, Gawrisch, Brooks, and
   Pastor]{doi:10.1021/jp075641w}
 J.~B. Klauda, N.~V. Eldho, K.~Gawrisch, B.~R. Brooks, and R.~W. Pastor.
-\newblock Collective and noncollective models of nmr relaxation in lipid
-  vesicles and multilayers.
+\newblock {Collective and Noncollective Models of NMR Relaxation in Lipid
+  Vesicles and Multilayers}.
 \newblock \emph{The Journal of Physical Chemistry B}, 112\penalty0
   (19):\penalty0 5924--5929, 2008{\natexlab{a}}.
 
 \bibitem[Klauda et~al.(2008{\natexlab{b}})Klauda, Roberts, Redfield, Brooks,
   and Pastor]{KLAUDA20083074}
 J.~B. Klauda, M.~F. Roberts, A.~G. Redfield, B.~R. Brooks, and R.~W. Pastor.
-\newblock Rotation of lipids in membranes: Molecular dynamics simulation, 31p
-  spin-lattice relaxation, and rigid-body dynamics.
+\newblock {Rotation of Lipids in Membranes: Molecular Dynamics Simulation, 31P
+  Spin-Lattice Relaxation, and Rigid-Body Dynamics}.
 \newblock \emph{Biophysical Journal}, 94\penalty0 (8):\penalty0 3074--3083,
   2008{\natexlab{b}}.
 \newblock ISSN 0006-3495.
@@ -917,8 +899,8 @@ W.~Y. Kong, J.~Bremer, and V.~Rokhlin.
 
 \bibitem[Kozlov(2007)]{Kozlov2007}
 M.~M. Kozlov.
-\newblock \emph{Determination of Lipid Spontaneous Curvature From X-Ray
-  Examinations of Inverted Hexagonal Phases}, pages 355--366.
+\newblock \emph{{Determination of Lipid Spontaneous Curvature From X-Ray
+  Examinations of Inverted Hexagonal Phases}}, pages 355--366.
 \newblock Humana Press, Totowa, NJ, 2007.
 
 \bibitem[Kress(1991)]{kress_boundary_1991}
@@ -936,8 +918,8 @@ A.~Kumar, B.~J. Park, F.~Tu, and D.~Lee.
 \bibitem[Kuzmin et~al.(2005)Kuzmin, Akimov, Chizmadzhev, Zimmerberg, and
   Cohen]{KUZMIN2005}
 P.~I. Kuzmin, S.~A. Akimov, Y.~A. Chizmadzhev, J.~Zimmerberg, and F.~S. Cohen.
-\newblock Line tension and interaction energies of membrane rafts calculated
-  from lipid splay and tilt.
+\newblock {Line Tension and Interaction Energies of Membrane Rafts Calculated
+  from Lipid Splay and Tilt}.
 \newblock \emph{Biophysical Journal}, 88\penalty0 (2):\penalty0 1120 -- 1133,
   2005.
 \newblock ISSN 0006-3495.
@@ -1006,8 +988,8 @@ T.~G. Leong, P.~A. Lester, T.~L. Koh, E.~K. Call, and D.~H. Gracias.
   Brown]{LeVeWa14}
 Z.~A. Levine, R.~M. Venable, M.~C. Watson, M.~G. Lerner, J.-E. Shea, R.~W.
   Pastor, and F.~L.~H. Brown.
-\newblock Determination of biomembrane bending moduli in fully atomistic
-  simulations.
+\newblock {Determination of Biomembrane Bending Moduli in Fully Atomistic
+  Simulations}.
 \newblock \emph{Journal of the American Chemical Society}, 136\penalty0
   (39):\penalty0 13582--13585, 2014.
 \newblock \doi{10.1021/ja507910r}.
@@ -1048,8 +1030,8 @@ J.~Lowengrub, M.~Shelley, and B.~Merriman.
 
 \bibitem[Lowengrub et~al.(2007)Lowengrub, Xu, and Voigt]{Lowengrub07}
 J.~S. Lowengrub, J.-J. Xu, and A.~Voigt.
-\newblock Surface phase separation and flow in a simple model of multicomponent
-  drops and vesicles.
+\newblock {Surface Phase Separation and Flow in a Simple Model of
+  Multicomponent Drops and Vesicles}.
 \newblock \emph{Fluid Dyn. Mater. Proc.}, 3:\penalty0 1--19, 2007.
 
 \bibitem[Lum et~al.(1999)Lum, Chandler, and Weeks]{Lum1999}
@@ -1113,7 +1095,7 @@ C.~R. Mateo, A.~U.~A. na, and J.~Brochon.
 \bibitem[Menshikov et~al.(2017)Menshikov, Menshikov, and
   Fedichev]{Menshikov2017}
 L.~I. Menshikov, P.~L. Menshikov, and P.~O. Fedichev.
-\newblock Phenomenological model of hydrophobic and hydrophilic interactions.
+\newblock {Phenomenological Model of Hydrophobic and Hydrophilic Interactions}.
 \newblock \emph{Journal of Experimental and Theoretical Physics}, 125\penalty0
   (6):\penalty0 1173--1188, Dec 2017.
 \newblock ISSN 1090-6509.
@@ -1135,7 +1117,7 @@ E.~E. Meyer, K.~J. Rosenberg, and J.~Israelachvili.
 
 \bibitem[Mikucki and Zhou(2017)]{MikuckiZhou17}
 M.~Mikucki and Y.~Zhou.
-\newblock Curvature-driven molecular flow on membrane surface.
+\newblock {Curvature-Driven Molecular Flow on Membrane Surface}.
 \newblock \emph{SIAM Journal on Applied Mathematics}, 77\penalty0 (5):\penalty0
   1587--1605, 2017.
 \newblock \doi{10.1137/16M1076551}.
@@ -1235,7 +1217,7 @@ N.~Oppenheimer and H.~Diamant.
 
 \bibitem[Oppenheimer and Diamant(2011)]{OppenheimerDiamant2011_PRL}
 N.~Oppenheimer and H.~Diamant.
-\newblock In-plane dynamics of membranes with immobile inclusions.
+\newblock {In-Plane Dynamics of Membranes with Immobile Inclusions}.
 \newblock \emph{Phys. Rev. Lett.}, 107:\penalty0 258102, 2011.
 \newblock \doi{10.1103/PhysRevLett.107.258102}.
 
@@ -1257,19 +1239,11 @@ S.~Pandey, M.~Ewing, A.~Kunas, N.~Nguyen, D.~H. Gracias, and G.~Menon.
 
 \bibitem[Parsegian and Rand(1995)]{Parsegian}
 V.~Parsegian and R.~Rand.
-\newblock Chapter 13 - interaction in membrane assemblies.
+\newblock {Chapter 13 - Interaction in Membrane Assemblies}.
 \newblock In R.~Lipowsky and E.~Sackmann, editors, \emph{Structure and Dynamics
   of Membranes}, volume~1 of \emph{Handbook of Biological Physics}, pages 643
   -- 690. North-Holland, 1995.
 \newblock \doi{10.1016/S1383-8121(06)80006-0}.
-
-\bibitem[P.Chlanda et~al.(2016)P.Chlanda, Mekhedov, Waters, Schwartz, Fischer,
-  Ryham, Cohen, Blank, and Zimmerberg]{Chetal16}
-P.Chlanda, E.~Mekhedov, H.~Waters, C.~L. Schwartz, E.~R. Fischer, R.~J. Ryham,
-  F.~S. Cohen, P.~S. Blank, and J.~Zimmerberg.
-\newblock The hemifusion structure induced by influenza virus haemagglutinin is
-  determined by physical properties of the target membranes.
-\newblock \emph{Nature: Microbiology}, 1:\penalty0 16050, 2016.
 
 \bibitem[Peng et~al.(2013)Peng, Li, Pivkin, Dao, Karniadakis, and
   Suresh]{Peng13}
@@ -1351,8 +1325,8 @@ M.~F. Reynolds, K.~L. McGill, M.~A. Wang, H.~Gao, F.~Mujid, K.~Kang, J.~Park,
 
 \bibitem[Rozycki and Lipowsky(2015)]{RoLi15}
 B.~Rozycki and R.~Lipowsky.
-\newblock Spontaneous curvature of bilayer membranes from molecular
-  simulations: Asymmetric lipid densities and asymmetric adsorption.
+\newblock {Spontaneous curvature of bilayer membranes from molecular
+  simulations: Asymmetric lipid densities and asymmetric adsorption}.
 \newblock \emph{The Journal of Chemical Physics}, 142\penalty0 (5):\penalty0
   054101, 2015.
 \newblock \doi{10.1063/1.4906149}.
@@ -1367,8 +1341,8 @@ R.~Ryham, M.~A. Ward, and F.~S. Cohen.
 
 \bibitem[Ryham et~al.(2016)Ryham, Klotz, Yao, and Cohen]{RyKlYaCo16}
 R.~J. Ryham, T.~S. Klotz, L.~Yao, and F.~S. Cohen.
-\newblock Calculating transition energy barriers and characterizing activation
-  states for steps of fusion.
+\newblock {Calculating Transition Energy Barriers and Characterizing Activation
+  States for Steps of Fusion}.
 \newblock \emph{Biophys. J.}, 110:\penalty0 1110--1124, 2016.
 
 \bibitem[Saad and Schultz(1986)]{gmres}
@@ -1413,8 +1387,8 @@ C.~Schwab and W.~L. Wendland.
 
 \bibitem[Seguin and Fried(2015)]{FriedSeguin15}
 B.~Seguin and E.~Fried.
-\newblock \emph{Microphysical derivation of the {C}anham--{H}elfrich
-  free-energy density}, volume 137, pages 647---665.
+\newblock \emph{{Microphysical derivation of the {C}anham--{H}elfrich
+  free-energy density}}, volume 137, pages 647---665.
 \newblock Springer Proceedings in Mathematics \& Statistics, 2015.
 
 \bibitem[Sharifi-Mood et~al.(2015)Sharifi-Mood, Liu, and
@@ -1441,9 +1415,9 @@ A.~Sidi and M.~Israeli.
 
 \bibitem[Siegel and Kozlov(2004)]{SIEGEL2004366}
 D.~Siegel and M.~Kozlov.
-\newblock The gaussian curvature elastic modulus of n-monomethylated
-  dioleoylphosphatidylethanolamine: Relevance to membrane fusion and lipid
-  phase behavior.
+\newblock {The Gaussian Curvature Elastic Modulus of N-Monomethylated
+  Dioleoylphosphatidylethanolamine: Relevance to Membrane Fusion and Lipid
+  Phase Behavior}.
 \newblock \emph{Biophysical Journal}, 87\penalty0 (1):\penalty0 366--374, 2004.
 \newblock ISSN 0006-3495.
 \newblock \doi{https://doi.org/10.1529/biophysj.104.040782}.
@@ -1452,8 +1426,8 @@ D.~Siegel and M.~Kozlov.
 
 \bibitem[Siegel(2008)]{SIEGEL20085200}
 D.~P. Siegel.
-\newblock The gaussian curvature elastic energy of intermediates in membrane
-  fusion.
+\newblock {The Gaussian Curvature Elastic Energy of Intermediates in Membrane
+  Fusion}.
 \newblock \emph{Biophysical Journal}, 95\penalty0 (11):\penalty0 5200--5215,
   2008.
 \newblock ISSN 0006-3495.
@@ -1528,8 +1502,8 @@ P.~Varilly, A.~J. Patel, and D.~Chandler.
 \bibitem[Veerapaneni et~al.(2009)Veerapaneni, Gueyffier, Zorin, and
   Biros]{Shravan09}
 S.~K. Veerapaneni, D.~Gueyffier, D.~Zorin, and G.~Biros.
-\newblock A boundary integral method for simulating the dynamics of
-  inextensible vesicles suspended in a viscous fluid in 2d.
+\newblock {A boundary integral method for simulating the dynamics of
+  inextensible vesicles suspended in a viscous fluid in 2D}.
 \newblock \emph{J. Comput. Phys.}, 228\penalty0 (7):\penalty0 2334--2353, 2009.
 
 \bibitem[Venable et~al.(2015)Venable, Brown, and Pastor]{VeBrPa15}
