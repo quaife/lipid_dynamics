@@ -1,19 +1,18 @@
 \section{Proposed Research}
 \label{sec:proposed-work}
-The goal of the proposed research is to develop fast,
+The proposed research develops fast,
 high-order-accurate, parallel numerical algorithms for large-scale
-simulations of the collective hydrodynamics of  amphiphilic particles in a viscous solvent.
+simulations of the collective hydrodynamics of amphiphilic particles in a viscous solvent.
 %
-We have demonstrated that 
-our potential theory approach can efficiently simulate self-assembly of 
-amphiphilic particles into two-dimensional micelles, bilayer membranes,
-and vesicles \cite{Fu2018_SIAM}.
+We have demonstrated that our potential approach efficiently simulates
+self-assembly of amphiphilic particles into two-dimensional micelles, bilayer membranes, and vesicles \cite{Fu19}, and
+recreates the tank-treading phenomenon in external shear flows \cite{Fu20}.
 %
-While these results show great potentials in simulating the collective hydrodynamics of amphiphilic particles and
-reproducing mechanical properties of their bilayer assembly, 
-several outstanding issues need to be addressed for such approach to be efficiently applied to three-dimensional 
-collective hydrodynamics of amphiphilic particles.
-
+While the results show great promise in the field of collective body hydrodynamics,
+several outstanding issues need to be addressed. These include a thorough 
+analysis of potentially new mechanical properties possessed by HAP bilayers, and 
+efficiently simulating three-dimensional collective hydrodynamics of amphiphilic particles.
+Finally, we must mathematically characterize the variational behavior of HAP under certain homogenized limits.
 
 \subsection{Specific Aim 1: Elastic properties of amphiphile ensembles}
 \label{subsec:specific_aim_1}
@@ -32,8 +31,76 @@ director $\mathbf{d}$ and unit normal $\mathbf{n}$ in local coordinates.
 \end{figure}
 
 
- We conjecture that 
-once assembled, the bilayer shapes possess some or all of the mechanical properties of bilayers from continuum theory. 
+Hamm and Kozlov (HK) pioneered the modern theory of membrane continuum mechanics in the early 2000s \cite{HaKo2000}.
+The HK framework assumes a three-dimensional, internal structure for lipid monolayers and 
+then uses the theory of elasticity to derive an effective, two-dimensional elastic energy.
+The internal structure consists of straight fibers that represent elongated hydrocarbon chains, and these fibers
+tilt and stretch with respect to the dividing surface. The elastic theory assumes an energy density that is
+quadratic in the Green-Lagrange strain tensor. Due to the internal structure ansatz, the elastic energy decomposes into
+four, fundamental and independent deformations: splay, saddle splay, twist and tilt.
+The elastic moduli for each deformation comes from a transversal moment of the internal stress.
+These moduli define the mechanical properties of lipid monolayers and bilayers.
+
+(Importance, take from Akimov PRE and Zimmerberg Soft Matter)
+
+Recently, there has been a revival in interest in the HK theory. The HK framework assumes a quadratic
+elasticity energy density and this has caused researchers in molecular dynamics to question the validity of
+the continuum theory \cite{PRL}. Zimmerberg and Akimov \cite{}, however, showed that for simplified deformations.
+that molecular dynamics and continuum theory agree even at small length scales. 
+
+The elastic energy of monolayer is a function of the material coordinate and its derivatives. 
+That is because the changes in free energy, in elasticity theory, come from changes in spacing between mass points in a material.
+There are a number of mathematical models of membrane elasticity in applied mathematics. Our HAP formulation, however,
+is the first to explicitly consider intermolecular repulsion, and hydrophobic interaction with the solvent 
+to calculate the free energy of a lipids in a monolayer.
+
+What is the mathematical definition of a lipid monolayer and a deformation? 
+The reference state will lipids lying on a flat surface with their tails pointing in the 
+vertical direction. For concreteness, take the reference region to be the triangular prism 
+\begin{equation}
+\mathcal{R}_0 = \{(X_1, X_2, X_3) \mid 0 \leq X_1, 0 \leq X_2, X_1 + X_2 \leq a, 0 \leq X_3 \leq \delta \}
+\end{equation}
+The parameter $\delta$ is the monolayer height and $a$ is the edge length for the triangular base $\mathcal{T}$. 
+The size and shape of the base is arbitrary. 
+
+The deformed state maps the flat base $\mathcal{T}$ to a curved surface $\mathcal{S} = x_0(\mathcal{T})$. 
+The vertical line segments in $\mathcal{R}_0$ represent
+hydrocarbon chains and map to line segments  in the deformed state.
+A director field $\mathbf{n}(\mathbf{x})$ for $\mathbf{x} \in \mathcal{S}$ specifies the direction. 
+Based on these considerations, the deformation takes the form  
+\begin{equation}
+x(X_1, X_2, X_3) = x_0(X_1, X_2) + \zeta(x_0(X_1, X_2), X_3) n(x_0(X_1, X_2))
+\end{equation}    
+To satisfy incompressibility, the chains stretch and compress parallel to their axis, but do not form kinks.
+For a point $P \in \mathcal{S},$ the function $\zeta(P, X_3)$ parametrizes the changes in change length and 
+$n(P)$ is the chain axis.  
+To simplify matters, we perform the calculations at one point on the surface. 
+Thus, assume, without loss of generality, that $x_0(0,0) = (0,0,0) = O$.
+
+The field of membrane continuum mechanics still lacks concensus as to the form of the elastic energy when
+it involves complicated deformations. Recently, Deserno included a tilt gradient term that was proportedly incorrectly neglected from the HK theory.
+Later Akimov and Deserno independently realized that there was inconsitency regarding the transversal invariance
+of tilt in Desrno's earlier work. The latest revision of HK theory by Akimov contains more than ten independent
+contributions to the elastic energy. We have found that the explosion in the number of elastic terms
+is a result of expanding the energy density in an incorrect reference frame, and that using a natural
+reference frame leads to a simplified energy resembling the Frank theory from the study of liquid crystals. 
+
+Our investigations will leave open the possibility that the free energy of monolayers and bilayers is non-local. 
+We have shown that hydrophic attraction is a non-additive force, meaning the force of attraction between two
+particles is dependent on the position a third or more particles. Conceptually, this would arise in continuum theory if two monolayer surfaces
+had different elastic energy density at that point despite having locally identical curvatures and directors.
+
+
+
+Importance of the theory
+
+Mathematical setup and past contributions
+(old material)
+
+Revision 
+
+We conjecture that the monolayer shapes 
+possess some or all of the mechanical properties of bilayers from continuum theory. 
 
 The mechanical properties of bilayer are characterized by the Helfrich Hamiltonian;
 \begin{equation}
@@ -118,7 +185,7 @@ from convexity in energy as a function of radius.
 \subsubsection{Evidence for elastic properties}
 \label{sssec:evidence}
 We tested for elastic properties by subjecting two-dimensional bilayer morphologies
-to external loads \cite{Fu2018_SIAM}, using realistic
+to external loads \cite{Fu19}, using realistic
 values for phospholipid length \cite{Boal},
 the screening length $\rho = 2.5$ nm \cite{Eriksson1989,Lin2005,Parsegian,Israelachvili80,TerziDeserno17}
 and  interfacial tension $\gamma=4.1$ pN nm$^{-1}$  \cite{GarciaSaez, KUZMIN2005, Petelska2012}.
@@ -136,9 +203,7 @@ This analytical solution (red curve) basically overlaps the midplane of the part
 \caption{{\footnotesize (A) Energy barriers for stalk formation (i), hemifusion
 diaphragm expansion (ii) and pore formation (iii). 
 (B) Saddle-splay energy for each change in \emph{monolayer} topology
-calculated in \cite{RyKlYaCo16}. (C)--(F): Shape transition of vesicle
-  at different values of volume to area ratio from coarse-grained
-  simulations of lipid bilayer membranes \cite{Fu2017}.}}
+calculated in \cite{RyKlYaCo16}. (C)--(F): Shape transition of vesicle at different values of volume to area ratio from coarse-grained simulations of lipid bilayer membranes \cite{Fu16}.}}
 \label{fig:barriers}
 \end{wrapfigure}
 Experimental measurements have accurately determined 
@@ -149,7 +214,7 @@ in the range 8.51 -- 13.54 \kBT, which is in
 excellent agreement with the experimentally derived value, especially considering how few parameters the HAP 
 formalism involves. 
 
-We also considered the stretching deformation \cite{Fu2018_SIAM}. 
+We also considered the stretching deformation \cite{Fu19}. 
 Stretching occurs whenever there is an excess monolayer area,
 and it is energetically costly since it exposes hydrocarbon tails to water. 
 %Monolayers are not, strictly speaking, area incompressible,
