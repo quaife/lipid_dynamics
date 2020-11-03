@@ -12,7 +12,7 @@ format compact
 prams.N = 64;
 
 prams.T = 1.0; % time horizon
-prams.m = 1000; % number of time steps
+prams.m = 10; % number of time steps
 
 prams.order = 2; % time stepping order
 
@@ -26,6 +26,7 @@ options.farField  = 'shear';
 options.shearRate = 0;
 % options.janusbc   = 2;        % put power of function here
 options.saveData  = true;
+options.saveVel   = true;
 options.fileBase  = 'shear';
 options.append    = false;
 options.inear     = true;
@@ -51,7 +52,7 @@ options.plotAxis  = 5*[-1 1 -1 1];
 %ar = [2];
 %xc = [0;0];
 
-xc = [-5 5;0.0 0.0];
+xc = [-1.5 1.5;0.0 0.0];
 tau   = [0 pi]; 
 radii = [1 1];
 ar    = [1 1];

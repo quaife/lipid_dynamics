@@ -36,6 +36,7 @@ defaultOption.verbose = true;
 defaultOption.usePreco = false;
 defaultOption.gmresTol = 1e-6;
 defaultOption.saveData = true;
+defaultOption.saveVel = true;
 defaultOption.usePlot = true;
 defaultOption.plotAxis = [-1 1 -1 1];
 

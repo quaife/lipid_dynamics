@@ -5,13 +5,14 @@ properties
 verbose    % write data to console
 save       % save data to the dat files and log file
 dataFile   % name of data file containing fibre centres and orientations
+velFile   % name of data file containing velocities
 logFile    % name of log file
 usePlot    % flag for plotting
 plotAxis   % plotting axis
 
 OUTPUTPATH_DATA % folder in which to save data
 OUTPUTPATH_LOG  % folder in which to save logs
-
+OUTPUTPATH_VEL  % folder in which to save velocities
 end % properties
 
 methods
@@ -23,6 +24,7 @@ function o = monitor(options,prams)
 % This is the constructor
 
 o.OUTPUTPATH_DATA = '../output/data/';
+o.OUTPUTPATH_VEL = '../output/velocity/';
 o.OUTPUTPATH_LOG = '../output/logs/';
 
 o.verbose = options.verbose;
@@ -30,6 +32,7 @@ o.verbose = options.verbose;
 
 o.save = options.saveData;
 o.dataFile = [o.OUTPUTPATH_DATA, options.fileBase, '.bin'];
+o.velFile = [o.OUTPUTPATH_VEL, options.fileBase, '_vel.bin'];
 o.logFile = [o.OUTPUTPATH_LOG, options.fileBase, '.log'];
 
 o.usePlot  = options.usePlot;
@@ -41,7 +44,6 @@ if o.save
   o.clearFiles();
   o.welcomeMessage(prams.N,prams.nb);
 end
-
 
 end % constructor: monitor
 
@@ -55,6 +57,9 @@ fclose(fid1);
 
 fid2 = fopen(o.logFile,'w');
 fclose(fid2);
+
+fid3 = fopen(o.velFile,'w');
+fclose(fid3);
 
 end % clearFiles
 
@@ -123,6 +128,11 @@ if o.save;
   fwrite(fid,[N;nb],'double');
   fwrite(fid,yukawaRHS(:),'double'); % yukawa right hand side
   fclose(fid);
+  
+  fid = fopen(o.velFile,'w');
+  fwrite(fid,[N;nb],'double');
+  fclose(fid);  
+  
 end
 
 end % initializeFiles
@@ -141,6 +151,22 @@ fwrite(fid,output,'double');
 fclose(fid);
 
 end % writeData
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function writeVelData(o,time,Up,wp)
+% writeData(time,xc,tau,X) writes the current time, center, inclination
+% angle, and geometry shape to a data file for postprocessing
+
+Upx = Up(1,:);
+Upy = Up(2,:);
+
+output = [Upx(:); Upy(:); wp(:); time];
+
+fid = fopen(o.velFile,'a');
+fwrite(fid,output,'double');
+fclose(fid);
+
+end % writeVelData
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function plotData(o,geom)
