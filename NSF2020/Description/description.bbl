@@ -1,4 +1,4 @@
-\begin{thebibliography}{209}
+\begin{thebibliography}{204}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -114,6 +114,20 @@ Y.~Bao, M.~Rachh, E.~E. Keaveny, L.~Greengard, and A.~Donev.
 \newblock \emph{J. Comp. Phys.}, 374:\penalty0 1094--1119, 2018.
 \newblock \doi{10.1016/j.jcp.2018.08.021}.
 
+\bibitem[Barnett et~al.(2015)Barnett, Wu, and Veerapaneni]{bar-wu-vee2015}
+A.~Barnett, B.~Wu, and S.~Veerapaneni.
+\newblock Spectrally-accurate quadratures for evaluation of layer potentials
+  close to the boundary for the 2d stokes and laplace equations.
+\newblock \emph{SIAM Journal on Scientific Computing}, 37\penalty0
+  (4):\penalty0 B519--B542, 2015.
+
+\bibitem[Barnett(2014)]{bar2014}
+A.~H. Barnett.
+\newblock {Evaluation of layer potentials close to the boundary for Laplace and
+  Helmholtz problems on analytic planar domains}.
+\newblock \emph{SIAM Journal on Scientific Computing}, 36\penalty0
+  (2):\penalty0 A427--A451, 2014.
+
 \bibitem[{Bartels, S\"oren} et~al.(2010){Bartels, S\"oren}, {Dolzmann, Georg},
   and {Nochetto, Ricardo H.}]{Bartels}
 {Bartels, S\"oren}, {Dolzmann, Georg}, and {Nochetto, Ricardo H.}
@@ -179,23 +193,6 @@ J.~Bremer.
 \newblock A fast direct solver for the integral equations of scattering theory
   on planar curves with corners.
 \newblock \emph{J. Comput. Phys.}, 231\penalty0 (4):\penalty0 1879--1899, 2012.
-
-\bibitem[Bremer and Gimbutas(2012)]{bremer2012jcp}
-J.~Bremer and Z.~Gimbutas.
-\newblock A {N}ystr\"{o}m method for weakly singular integral operators on
-  surfaces.
-\newblock \emph{J. Comput. Phys.}, 231\penalty0 (14):\penalty0 4885--4903,
-  2012.
-\newblock \doi{10.1016/j.jcp.2012.04.003}.
-\newblock URL \url{https://doi.org/10.1016/j.jcp.2012.04.003}.
-
-\bibitem[Bremer and Gimbutas(2013)]{bremer2013jcp}
-J.~Bremer and Z.~Gimbutas.
-\newblock On the numerical evaluation of the singular integrals of scattering
-  theory.
-\newblock \emph{J. Comput. Phys.}, 251:\penalty0 327--343, 2013.
-\newblock \doi{10.1016/j.jcp.2013.05.048}.
-\newblock URL \url{https://doi.org/10.1016/j.jcp.2013.05.048}.
 
 \bibitem[Bremer et~al.(2010)Bremer, Gimbutas, and Rokhlin]{ggq1}
 J.~Bremer, Z.~Gimbutas, and V.~Rokhlin.
@@ -271,6 +268,11 @@ L.~V. Chernomordik and M.~M. Kozlov.
 \newblock Mechanics of membrane fusion.
 \newblock \emph{Nature Structural \& Molecular Biology}, 15:\penalty0 675--683,
   2008.
+
+\bibitem[Chiu et~al.(2020)Chiu, Moore, and Quaife]{chi-moo-qua2020}
+S.-H. Chiu, M.~N.~J. Moore, and B.~Quaife.
+\newblock Viscous transport in eroding porous media.
+\newblock \emph{Journal of Fluid Mechanics}, 893:\penalty0 A3, 2020.
 
 \bibitem[Chlanda et~al.(2016)Chlanda, Mekhedov, Waters, Schwartz, Fischer,
   Ryham, Cohen, Blank, and Zimmerberg]{Chetal16}
@@ -483,15 +485,6 @@ Z.~Gimbutas and V.~Rokhlin.
 \newblock \emph{SIAM J. Sci. Comput.}, 24\penalty0 (3):\penalty0 796--817,
   2002.
 
-\bibitem[Gimbutas and Veerapaneni(2013)]{gimbutas2013sisc}
-Z.~Gimbutas and S.~Veerapaneni.
-\newblock A fast algorithm for spherical grid rotations and its application to
-  singular quadrature.
-\newblock \emph{SIAM J. Sci. Comput.}, 35\penalty0 (6):\penalty0 A2738--A2751,
-  2013.
-\newblock \doi{10.1137/120900587}.
-\newblock URL \url{https://doi.org/10.1137/120900587}.
-
 \bibitem[Goodman et~al.(1990)Goodman, Hou, and Lowengrub]{goodman_1990}
 J.~Goodman, T.~Y. Hou, and J.~Lowengrub.
 \newblock {Convergence of the point vortex method for the 2-D Euler equations}.
@@ -650,6 +643,13 @@ W.-F. Hu, M.-C. Lai, Y.~Seol, and Y.-N. Young.
   and immersed interface method.
 \newblock \emph{J. Comput. Phys.}, 317:\penalty0 66--81, 2016.
 \newblock \doi{10.1016/j.jcp.2016.04.035}.
+
+\bibitem[Ioakimidis et~al.(1991)Ioakimidis, Papadakis, and
+  Perdios]{ioa-pap-per1991}
+N.~I. Ioakimidis, K.~E. Papadakis, and E.~A. Perdios.
+\newblock {Numerical Evaluations of Analytic Functions by Cauchy's Theorem}.
+\newblock \emph{BIT Numerical Mathematics}, 31\penalty0 (2):\penalty0 276--285,
+  1991.
 
 \bibitem[Israelachvili(1954)]{Israelachvili1954}
 J.~N. Israelachvili.
@@ -848,13 +848,6 @@ M.~M. Kozlov.
 \newblock \emph{{Determination of Lipid Spontaneous Curvature From X-Ray
   Examinations of Inverted Hexagonal Phases}}, pages 355--366.
 \newblock Humana Press, Totowa, NJ, 2007.
-
-\bibitem[Kress(1991)]{kress_boundary_1991}
-R.~Kress.
-\newblock Boundary integral equations in time-harmonic acoustic scattering.
-\newblock \emph{Mathematical and Computer Modelling}, 15\penalty0
-  (3–5):\penalty0 229--243, 1991.
-\newblock \doi{10.1016/0895-7177(91)90068-I}.
 
 \bibitem[Kumar et~al.(2013)Kumar, Park, Tu, and Lee]{Kumar2013}
 A.~Kumar, B.~J. Park, F.~Tu, and D.~Lee.
@@ -1214,14 +1207,6 @@ A.~Rahimian, S.~Veerapaneni, D.~Zorin, and G.~Biros.
   contrast in three dimensions.
 \newblock \emph{J. Comput. Phys.}, 298:\penalty0 766--786, 2015.
 
-\bibitem[Rahimian et~al.(2018)Rahimian, Barnett, and Zorin]{abtin2018bit}
-A.~Rahimian, A.~Barnett, and D.~Zorin.
-\newblock Ubiquitous evaluation of layer potentials using quadrature by
-  kernel-independent expansion.
-\newblock \emph{BIT}, 58\penalty0 (2):\penalty0 423--456, 2018.
-\newblock \doi{10.1007/s10543-017-0689-2}.
-\newblock URL \url{https://doi.org/10.1007/s10543-017-0689-2}.
-
 \bibitem[Rangamani and Steigmann(2014)]{Rangamani20140463}
 P.~Rangamani and D.~J. Steigmann.
 \newblock Variable tilt on lipid membranes.
@@ -1260,13 +1245,6 @@ R.~J. Ryham, T.~S. Klotz, L.~Yao, and F.~S. Cohen.
 \newblock {Calculating Transition Energy Barriers and Characterizing Activation
   States for Steps of Fusion}.
 \newblock \emph{Biophys. J.}, 110:\penalty0 1110--1124, 2016.
-
-\bibitem[Saad and Schultz(1986)]{gmres}
-Y.~Saad and M.~H. Schultz.
-\newblock G{MRES}: a generalized minimal residual algorithm for solving
-  nonsymmetric linear systems.
-\newblock \emph{SIAM J. Sci. Statist. Comput.}, 7\penalty0 (3):\penalty0
-  856--869, 1986.
 
 \bibitem[Salib et~al.(2013)Salib, Yong, Crabb, Moellers, McFarlin, Kuksenok,
   and Balazs]{Salib2013}
@@ -1389,6 +1367,11 @@ L.~Tran, M.~O. Lavrentovich, D.~A. Beller, N.~Li, K.~J. Stebe, and R.~D.
   (26):\penalty0 7106--7111, 2016.
 \newblock \doi{10.1073/pnas.1602703113}.
 
+\bibitem[Trefethen and Weideman(2014)]{tre-wei2014}
+L.~N. Trefethen and J.~A.~C. Weideman.
+\newblock {The Exponentially Convergent Trapezoidal Rule}.
+\newblock \emph{SIAM Review}, 56\penalty0 (3):\penalty0 385--458, 2014.
+
 \bibitem[{Van Honschoten} et~al.(2010){Van Honschoten}, Berenschot, Onda{\c
   r}uhu, Sanders, Sundaram, Elwenspoek, and Tas]{VanHonschoten2010}
 J.~W. {Van Honschoten}, J.~W. Berenschot, T.~Onda{\c r}uhu, R.~G. Sanders,
@@ -1419,35 +1402,12 @@ R.~M. Venable, F.~L. Brown, and R.~W. Pastor.
 \newblock \doi{10.1016/j.chemphyslip.2015.07.014}.
 \newblock ORNL workshop on Biomembranes.
 
-\bibitem[Vioreanu and Rokhlin(2014)]{vioreanu2014}
-B.~Vioreanu and V.~Rokhlin.
-\newblock Spectra of multiplication operators as a numerical tool.
-\newblock \emph{SIAM J. Sci. Comput.}, 36\penalty0 (1):\penalty0 A267--A288,
-  2014.
-\newblock \doi{10.1137/110860082}.
-\newblock URL \url{https://doi.org/10.1137/110860082}.
-
-\bibitem[Wala and Kl\"{o}ckner(2018)]{wala2018jcp}
-M.~Wala and A.~Kl\"{o}ckner.
-\newblock A fast algorithm with error bounds for {Q}uadrature by {E}xpansion.
-\newblock \emph{J. Comput. Phys.}, 374:\penalty0 135--162, 2018.
-\newblock \doi{10.1016/j.jcp.2018.05.006}.
-\newblock URL \url{https://doi.org/10.1016/j.jcp.2018.05.006}.
-
 \bibitem[Wala and Kl\"{o}ckner(2019)]{wala2019jcp}
 M.~Wala and A.~Kl\"{o}ckner.
 \newblock A fast algorithm for quadrature by expansion in three dimensions.
 \newblock \emph{J. Comput. Phys.}, 388:\penalty0 655--689, 2019.
 \newblock \doi{10.1016/j.jcp.2019.03.024}.
 \newblock URL \url{https://doi.org/10.1016/j.jcp.2019.03.024}.
-
-\bibitem[Wala and Klöckner(2019)]{wala2019arxiv}
-M.~Wala and A.~Klöckner.
-\newblock Optimization of fast algorithms for global quadrature by expansion
-  using target-specific expansions.
-\newblock \emph{Journal of Computational Physics}, page 108976, Oct 2019.
-\newblock \doi{10.1016/j.jcp.2019.108976}.
-\newblock URL \url{http://dx.doi.org/10.1016/j.jcp.2019.108976}.
 
 \bibitem[Wang et~al.(2019)Wang, Jiang, and Wang]{wang2019jsc}
 S.~Wang, S.~Jiang, and J.~Wang.
@@ -1474,14 +1434,6 @@ T.~R. Weikl.
 \bibitem[Whitesides and Grzybowski(2002)]{Whitesides2002}
 G.~M. Whitesides and B.~Grzybowski.
 \newblock {Self-assembly at all scales}, 2002.
-
-\bibitem[Xiao and Gimbutas(2010)]{xiao2010cma}
-H.~Xiao and Z.~Gimbutas.
-\newblock A numerical algorithm for the construction of efficient quadrature
-  rules in two and higher dimensions.
-\newblock \emph{Comput. Math. Appl.}, 59\penalty0 (2):\penalty0 663--676, 2010.
-\newblock \doi{10.1016/j.camwa.2009.10.027}.
-\newblock URL \url{https://doi.org/10.1016/j.camwa.2009.10.027}.
 
 \bibitem[Yan et~al.(2019)Yan, Corona, Malhotra, Veerapaneni, and
   Shelley]{Yan2019}
