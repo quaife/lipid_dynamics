@@ -19,6 +19,9 @@ step = 0;
 xc0  = xc;
 tau0 = tau;
 om.writeData(time,geom.center,geom.tau,geom.X);
+% write the velocity to a file,initial velocities are 0
+om.writeVelData(time,0*geom.center,0*geom.tau);  
+
 
 trajectory = [xc(1,:) xc(2,:) tau];
 
@@ -66,6 +69,9 @@ while step < prams.m
       % write the shape to a file
       om.writeData(time,geom0.center,geom0.tau,geom0.X);
 
+      % write the velocity to a file
+      om.writeVelData(time,Up0,wp0);
+      
       % update step counter
       step = step + 1;
     end
@@ -98,6 +104,9 @@ while step < prams.m
   % write the shape to a file
   om.writeData(time,geom2.center,geom2.tau,geom2.X);
 
+  % write the velocity to a file
+  om.writeVelData(time,Up0,wp0);  
+  
   % update step counter
   step = step + 1;
 end
