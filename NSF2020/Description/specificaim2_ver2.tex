@@ -53,31 +53,47 @@ linear system as described in Section~\ref{subsec:NumericalIssues}.
 
 % ----------------------------------------------------------------------
 \subsubsection{Nearly touching bodies}
-The trapezoid rule is the workhorse for BIEs since it achieves spectral
-accuracy for smooth periodic functions~\cite{tre-wei2014}. However,
-nearly touching bodies is ubiquitous in self-assembly of amphiphilic
-particles, and such near-contact results in  nearly-singular integrands.
-Quadrature methods to address such integrands has received a lot of
-attention in two and three dimensions~\cite{alpert, kapur, sidi, duffy,
-bruno1, bruno2, davis_1984, graglia_2008, hackbusch_sauter_1994,
-jarvenpaa_2003, khayat_2005, schwab_1992, ying_2006, beale1, beale2,
-goodman_1990, haroldson_1998, lowengrub_1993, schwab_1992, ggq1, ggq2,
-ggq3, helsing_2008a, helsing_integral_2009, helsing_tutorial_2012,
-klockner2013jcp, qbx2, wala2019jcp, af2018sisc, siegel2018jcp,
-rachh2017jcp, ding2019arxiv, bar2014}. For two-dimensional problems, an
-elegant quadrature method, which we will call a {\em barycentric
-quadrature rule}, is a mildly intrusive modification of the trapezoid
-rule relies on analytic function theory~\cite{ioa-pap-per1991}. Since
-the Stokes equations can be cast in terms of analytic functions, the
-barycentric-quadrature rule has recently been
-applied~\cite{bar-wu-vee2015, chi-moo-qua2020}. The PIs plan to extend
+Nearly touching bodies is ubiquitous in self-assembly of amphiphilic
+particles, and such near-contact results in nearly-singular integrands
+in both two and three dimensions. Quadrature methods to address such
+integrands has received a lot of attention in two and three
+dimensions~\cite{alpert, kapur, sidi, duffy, bruno1, bruno2, davis_1984,
+graglia_2008, hackbusch_sauter_1994, jarvenpaa_2003, khayat_2005,
+schwab_1992, ying_2006, beale1, beale2, goodman_1990, haroldson_1998,
+lowengrub_1993, schwab_1992, ggq1, ggq2, ggq3, helsing_2008a,
+helsing_integral_2009, helsing_tutorial_2012, klockner2013jcp, qbx2,
+wala2019jcp, af2018sisc, siegel2018jcp, rachh2017jcp, ding2019arxiv,
+bar2014}. For two-dimensional problems, the trapezoid rule is the
+workhorse for BIEs since it achieves spectral accuracy when integrands
+are not nearly-singular~\cite{tre-wei2014}. To address nearly-singular
+integrands of two dimensional BIEs, we will use a {\em barycentric
+quadrature rule} that only requires a slight modification of the
+trapezoid rule~\cite{ioa-pap-per1991}. In its current form, this method
+requires the layer potential satisfy Laplace or Stokes
+equations~\cite{bar-wu-vee2015, chi-moo-qua2020}. The PIs will extend
 this quadrature rule so that it can be applied to the screened Laplace
-equation. 
+equation. This will be done by recognizing that the fundamental solution
+of the screened Laplace equation can be decomposed as
+$K(\mathbf{x},\mathbf{y}) = K_1(\mathbf{x},\mathbf{y}) +
+K_2(\mathbf{x},\mathbf{y})$, where $K_1(\mathbf{x},\mathbf{y}) =
+-\log\|\mathbf{x} - \mathbf{y}\|$ and $K_2(\mathbf{x},\mathbf{y}) =
+K(\mathbf{x},\mathbf{y}) + \log\|\mathbf{x} - \mathbf{y}\|$. Using this
+decomposition, the layer potential involving $K_1(\mathbf{x}\mathbf{y})$
+can be accurately computed with the barycentric quadrature
+rule~\cite{ioa-pap-per1991}, and the layer potential
+$K_2(\mathbf{x},\mathbf{y})$ can be accurately computed with the
+trapezoid rule since the kernel is bounded for all
+$\mathbf{x}$ and $\mathbf{y}$.
 
+Even with accurate quadrature and time stepping methods (see
+Section~\ref{subsec:NumericalIssues}) methods, rigid body simulations
+can still result in unphysical contact. In our previous work a
+Leonard-Jones potential is used to keep the particles from
+overlapping~\cite{Fu2018_SIAM}. Such steep steric interaction at short
+ranges introduces great numerical stiffness that limit the time step
+size. 
 
-
-
-
+\textcolor{red}{
 Another outstanding numerical issue pertaining to simulating the
 self-assembly of amphiphilic particles (such as lipid macromolecles) in
 a viscous solvent is the collision between amphiphilic particles. The
@@ -91,7 +107,9 @@ simulations. In our previous work a Leonard-Jones potential is used to
 keep the particles from overlapping~\cite{Fu2018_SIAM}. Such steep
 steric interaction at short ranges introduces great numerical stiffness
 that limit the time step size. 
+}
 
+\textcolor{red}{
 Yan {\it et al.} proposed a collision-resolution algorithm within the
 framework of boundary integral methods to resolve the non-smooth
 many-body dynamics due to collisions by formulating the particle
@@ -102,13 +120,16 @@ goals (see above) are achieved. A potential complication in combining
 the algorithms for particle collision into our QBX integral formulation
 is the computational cost for the QBX to refine meshes on particles in
 collision.
+}
 
+\textcolor{red}{
 Once the collision-resolution algorithm is implemented, we will check
 the computing performance first before we embark on incorporating
 fluctuating hydrodynamics~\cite{Bao17,Bao18}, which might be important
 even at the scales of the amphiphilic particle size in some cases. We
 propose to extend the high-order time-integration scheme for a
 stochastic differential equation~\cite{fu2015pre} to this system.
+}
 
 
 % ----------------------------------------------------------------------
@@ -255,6 +276,7 @@ Adaptive high-order time stepping
 
 % ----------------------------------------------------------------------
 \subsubsection{A hybrid method for close-to-touching Janus particles}
+\textcolor{red}{
 The HAP model for membranes will inevitably lead to the case where some
 Janus particles will be very close to each other. Even though QBX can
 handle such case accurately, it may lead to excessively large number of
@@ -270,6 +292,7 @@ the material interfaces. We plan to study the hybrid scheme to treat
 the close-to-touching case for both the screened Laplace equation and
 the mobility problem to further improve the efficiency of the numerical
 algorithm for the HAP model.
+}
 
 
 %% ----------------------------------------------------------------------
