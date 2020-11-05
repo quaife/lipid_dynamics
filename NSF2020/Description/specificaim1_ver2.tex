@@ -16,7 +16,7 @@ analysis of elastic properties of our coarse-grained bilayers, and
 efficiently simulating three-dimensional collective hydrodynamics of amphiphilic particles.
 Finally, we must mathematically characterize the variational behavior of HAP under appropriate homogenized limits.
 
-\subsection{Specific Aim 1: Collective elastic and hydrodynamic properties of amphiphilic particles}
+\subsection{Specific Aim 1: Collective elastic properties of amphiphilic particles}
 \label{subsec:specific_aim_1}
 
 %\begin{figure}
@@ -31,6 +31,12 @@ Finally, we must mathematically characterize the variational behavior of HAP und
 %(H--J) Intermediates of membrane fusion and (K) experimental image of a stalk \cite{Aeffner2012}. }
 %\label{fig:distortions}
 %\end{figure}
+The goal of Specific Aim 1 is characterize the material properties of many-body, self-assembled amphiphiles.
+For amphiphiles assembled into bilayers, these properties are described by membrane continuum mechanics.
+The end-goal is to be able to map the parameters of the particle-based model onto the elastic moduli from continuum theory.
+If we achieve this goal, then simulators can use the hydrophobic attraction force calculations
+to model bilayers with specific composition. These calculations have provably less computational complexity than
+those of molecular dynamics simulations and possess the molecular granularity lacking from continuum models.
 
 The modern theory of membrane continuum mechanics
 was pioneered by Hamm and Kozlov (HK) \cite{HaKo2000}.
@@ -50,6 +56,14 @@ and the energies calculated by these continuum studies (Figure \ref{fig:barriers
 are in agreement with barrier heights derived by molecular dynamics and experimental studies \cite{FrRoPi17}.  
 %analyzed the dependence of energy barriers on
 %lipid composition and 
+
+Recently, there has been a revival in interest in the HK theory. The quadratic assumption
+for the elasticity energy density has caused researchers to question the validity of \eqref{ansatz}
+for situations involving large curavtures \cite{PRL, https://doi.org/10.1016/j.bbamem.2016.02.003}. Zimmerberg and Akimov \cite{https://doi.org/10.1039/C9SM02079A}
+showed that energies derived from molecular dynamics and elasticity agree even in the case of large deformations.
+Part of this proposal will contribute to clarifying some of the mathematical
+assumptions that went into the HK theory. 
+
 
 The HK framework assumes a three-dimensional, internal structure for lipid monolayers.
 The internal structure consists of straight fibers that represent elongated hydrocarbon chains, and these fibers
@@ -81,8 +95,8 @@ splay ($\Div n$), twist ($\Curl n$), saddle splay ($\det \nabla n$) and tilt $T$
 \end{equation}
 Here $\Div n$, $\Curl n$ and $\nabla n$ refer to the surface divergence, surface curl and surface gradient operators
 respectively (Figure \ref{fig:distortions}A--C).
-The deformations come with elastic coefficients: the \emph{bending modulus} $\KB$, \emph{twist modulus} $\KT$ 
-and \emph{saddle-splay modulus} $\KG$ and \emph{tilt modulus} $\KTH$
+The deformations come with elastic coefficients: the bending modulus $\KB$, twist modulus $\KT$ 
+and saddle-splay modulus $\KG$ and tilt modulus $\KTH$
 HK define the tilt vector $T = n/(N\cdot n) - N$ where $N$ is the unit surface normal.
 
 The parameter $k_0$ is the \emph{spontaneous curvature} and it determines the preferred lipid splay \cite{RoLi15,Kozlov2007}. 
@@ -102,22 +116,9 @@ the Canham-Helfrich energy used throughout the fluid-structure literature \cite{
 The Canham-Helfrich energy is actually a special case of \eqref{ansatz3} obtained by setting $n =  \pm N$ (the $\pm$ depending
 on orientation) and collapsing both monolayers onto the membrane midplane. There,
 splay $\Div n$ equal to twice the mean curvature, saddle splay $\det \nabla n$ equal to the Gauss curvature,
-and both twist and tilt equaling zero. 
+and both twist and tilt are equal to zero. 
 
-The form of the elastic energy density \eqref{ansatz3} is the same as
-the Oseen-Frank energy density for nematic liquid crystals \cite{ANDRIENKO2018520,Tran7106}.  In fact,  
-a lipid monolayer acts as one layer in a smectic  phase \cite{REYESMATEO1995978,Rangamani20140463,PhysRevLett.113.248102}. 
-The constants $\KB$, $\KT$  and $\KG$ play the same role as the Frank constants $K_1$, $K_2$ and $K_{24}$
-liquid crystal theory. However, the ``bend'' distortion from nematics  
-is not present in monolayers since the directors have no dependence in the normal direction.
-There is also no ``spontaneous twist'' in monolayers due to invariance under mirror reflection. 
 
-Recently, there has been a revival in interest in the HK theory. The quadratic assumption
-for the elasticity energy density has caused researchers to question the validity of \eqref{ansatz}
-for situations involving large curavtures \cite{PRL}. Zimmerberg and Akimov \cite{https://doi.org/10.1039/C9SM02079A}
-showed that energies derived from molecular dynamics and elasticity agree even in the case of large deformations.
-Part of this proposal will contribute to clarifying some of the mathematical
-assumptions that went into the HK theory. 
 
 %\begin{figure}
 %\begin{center}
@@ -130,22 +131,54 @@ assumptions that went into the HK theory.
 %\label{fig:bend}}
 %\end{figure}
 
-\subsubsection{Evidence for elastic properties}
-\label{sssec:evidence}
-We tested for elastic properties by subjecting two-dimensional bilayer morphologies
-to external loads \cite{Fu19}, using realistic
-values for phospholipid length \cite{Boal},
-the screening length $\rho = 2.5$ nm \cite{Eriksson1989,Lin2005,Parsegian,Israelachvili80,TerziDeserno17}
-and  interfacial tension $\gamma=4.1$ pN nm$^{-1}$  \cite{GarciaSaez, KUZMIN2005, Petelska2012}.
-Throughout the proposal, \kBT\; = 4.11$\times 10^{-21}$ J.
-We first considered a planar bilayer subject to a uniform vertical load on the particle centers (Figure \ref{fig:bend}). 
-The bilayer is clamped and horizontal at one end and the restoring force in the free part 
-of the bilayer opposes the load. Twist and saddle splay are both zero, singling out splay
-as the only distortion.
-% In this situation, the directors are also parallel to the unit surface
-%normal. As such $\Div \mathbf{d} = -2H$ where $H$ is the mean curvature of the surface. 
-Since deformations are small \eqref{ansatz3}, it is possible to solve the bilayer loading in closed form. 
-This analytical solution (red curve) basically overlaps the midplane of the particle based solution (Figure \ref{fig:bend}A). 
+
+% Proposers should address what they want to do,
+% why they want to do it,
+% how they plan to do it,
+% how they will know if they succeed,
+% and what benefits could accrue if the project is successful.
+\begin{center}
+Preliminary results
+\end{center}
+Our preliminary tested for elastic properties by subjecting bilayers to external loads \cite{Fu19}.
+We used realistic values for the phospholipid length $a$ \cite{Boal},
+screening length $\rho = 2.5$ nm \cite{Eriksson1989,Lin2005,Parsegian,Israelachvili80,TerziDeserno17}
+and  interfacial tension $\gamma=4.1$ pN nm$^{-1}$  \cite{GarciaSaez, KUZMIN2005, Petelska2012, Jackson}
+model parameters.
+The repulsion strength, repulsion length scale, particle shape (e.g. disks, ellipses), particle diameter and the hydrophobic boundary condition \eqref{}
+are additional parameters defining the coarse-grained representation. 
+
+To derive a bending modulus, we first considered a planar bilayer subject to a uniform vertical load on the particle centers (Figure \ref{fig:bend}). 
+Using a clamped condition at one end, the restoring force in the free part of the bilayer opposes the load.
+For small deformations, it is possible to solve the bilayer loading in closed form, and 
+this analytical solution (red curve) basically overlaps the midplane of the particle based solution (Figure \ref{fig:bend}A).
+We thereby derived a bending modulus $\KB$ in the range 8.51 -- 13.54 \kBT. Throughout the proposal, \kBT\; = 4.11$\times 10^{-21}$ J.
+Experimental measurements have accurately determined the bending modulus for several lipid types, with 
+typical values lying around 10 \kBT\; \cite{Naetal15,VeBrPa15,NAGLE2000159,PhysRevLett.113.248102}.
+
+We also considered the stretching and tilt deformations \cite{Fu19}. 
+Stretching occurs whenever there is an excess monolayer area,
+and it is energetically costly since it exposes hydrocarbon tails to water.
+To measure an area modulus, we stretched a circular vesicle, modeling the cross-section 
+of a bilayer tube (Figure \ref{fig:bend}B \& C).
+This procedure gave a monolayer area modulus 
+34 $\pm$ 2 \kBT \;nm$^{-2}$. Manipulation experiments give a monolayer area modulus in the range 
+30 -- 40 \kBT\; nm$^{-2}$ \cite{Nagle17, Nagle17-2}. 
+
+Finally, we considered the tilt deformation by applying a fixed tilt angle boundary condition. 
+This boundary condition produces a tilt field that decays with the length scale $l = \sqrt{\KB/\KTH}$ 
+Fitting to this field, our particle based simulation gave $\lambda = 1.2$ nm, which matches
+the value $\KTH \approx 10$ \kBT \; nm$^{-2}$ reported in the literature \cite{https://doi.org/10.1063/1.4932971}.
+
+Our preliminary work is encouraging because in all cases, the bending, stretch, and tilt elastic moduli for the collection of amphiphiles
+were in excellent agreement with the experimental values. This fact is especially remarkable 
+since we assigned the main model parameters $\rho$ and $\gamma$ reasonable physical values, rather than using them as tuning parameter. 
+Nevertheless, the characterization of material properties is incomplete. For one, the preliminary work involved relatively few particles, and we need to
+perform convergence studies with large particle-number systems to arrive at conclusive results. Secondly, we have yet to establish a functional
+relationship between the model parameters and elastic moduli. Finally, to have relevence in physics and biology
+we must incorporate the remaining twist and saddle splay deformations.
+The following outlines the simulations we will use to characterize material properties. 
+
 
 %\begin{wrapfigure}[13]{l}{0.5\textwidth}
 %\centerline{\includegraphics[width=0.5\textwidth]{figures/SA1_fig3.pdf}}
@@ -156,149 +189,119 @@ This analytical solution (red curve) basically overlaps the midplane of the part
 %\label{fig:barriers}
 %\end{wrapfigure}
 
-Experimental measurements have accurately determined 
-the bending modulus for several lipid types, with 
-typical values lying around 10 \kBT\; \cite{Naetal15,VeBrPa15,NAGLE2000159,PhysRevLett.113.248102}.
-By comparing with the exact solution, we derived a bending modulus
-in the range 8.51 -- 13.54 \kBT, which is in 
-excellent agreement with the experimentally derived value, especially considering how few parameters the HAP 
-formalism involves. 
+\begin{center}
+Anticipated model simulations
+\end{center}
+To characterize material properties, we compare the energies and forces generated by
+a collection of amphiphilic particles against the energies and forces of a continuum bilayer.
+The comparison enables us to understand how the model parameters map onto elastic parameters. 
 
-\newpage
+In the preliminary work, bilayer shapes minimized energy with respect to an external force. Energy minimality is somewhat unrealistic because
+biological membranes are constantly in motion. Tracking the evolution of a bilayer is a more robust procedure that does not require minimality.
+Here we start with a particle bilayer in a non-equilibrium shape, and then evolve the particle bilayer according to steepest gradient descent with respect to the
+HARP functional. Gradient descent stabilizes the evolving bilayer shape and gives a monotonically decreasing energy. This gives a relatively large
+data set of energy $E$ versus particle configuration. At the same time, we reconstruct an evolving monolayer dividing surface $\Sigma$ and director field $n$ by
+interpolating the particle centers and orientations. Using \eqref{ansatz}, we calculate a continuum energy $H$ from the interpolated
+bilayer shape. Setting $\Delta E = E - E_0$ and $\Delta H = H - H_0$ normalizes the energies to their respective equilibrium values $E_0$ and $H_0$.
+In certain instances, the bilayer evolution involves only one of the four fundamental deformations.
+When this occurs, the elastic moduli appear as the slope of the linear regression between $\Delta H$ and $\Delta E$. 
 
-\subsubsection{What work will actually be done?}
-% Proposers should address what they want to do,
-% why they want to do it,
-% how they plan to do it,
-% how they will know if they succeed,
-% and what benefits could accrue if the project is successful.
+Bending is the energetically most consequential deformations,
+and so we revisit estimating the bending modulus parameter. 
+In the case of the bending deformation, we deform the midplane of a planar bilayer into the shape of a circular arc.
+This arc stores bending energy in the form of splay $\Div{n}$, while twist, saddle-splay and tilt deformations are zero.
+The splay in the two leaflets approximately cancel when added, making the contribution of spontaneous curvature negligible.
+Since $\Div{n} = -\kappa$ in this setup, we can compute the curvature squared curvature energy 
+$H = \int_C \kappa^2$ of the cross-section $C$, a simple closed curve. Figure \ref{} shows the appoximately linear
+relationship between $\Delta E$ and $\Delta H$ with $\KB$ as the slope.
 
-We will study the elastic properties of particle-based bilayers using static and hydrodynamic, large particle-number simulation. 
-The goal is to connect the deformations of particle bilayers to the deformations of HK theory, and in particular map the parameters of the
-particle-based system onto known, and experimentally measured elastic moduli.
+The twist deformation is a fully three-dimensional deformation. 
+(Specific Aim 3 address outstanding implementation issues like three-dimensional boundary integral solvers.) 
+The twist deformation is closely related to the assumption of lateral fluidity in membranes and so researchers 
+have sometimes assumed $\KT = 0$ \cite{HaKo2000, 10.1063/1.4990404, https://doi.org/10.1039/C9SM02079A, 10.1103/PhysRevE.102.042406}, 
+while molecular dynamics investigations find a twist modulus in the range of 1 to 2 \kBT \cite{LeVeWa14}.
+To measure the elastic response,  we initially twist the bilayer along an $x_1$-coordinate axis.
+In this configuration, the directors behave at leading order as $n = (0, mx_1, \sqrt{1 - m^2x_1^2})$,
+yielding a surface gradient $\nabla n = \begin{pmatrix}0 & 0\\ m & 0\end{pmatrix}$. 
+Here $\Div n = \mathrm{tr}(\nabla n) = 0$, $\det(\nabla n) = 0$ and $\Curl d = (\nabla u)_{12} - (\nabla u)_{21} = m$,
+so that the continuum elastic energy equals $\tfrac{1}{2}\KT m^2 A + O(1)$ for a membrane area $A \gg 1$. (Our particle collections
+conserve membrane area, unless they lie in a strong background flow.) 
+This enables us to plot the HARP energy values derived from steepest gradient descent as a function of $m$, and finally
+yields a value for $\KA$. 
 
-The successful outcomes of our preliminary tests suggest that the HAP particle configurations 
-do behave like an elastic material. To validate our conjecture, we must consider 
-ways to isolate or partially isolate the remaining distortions. 
-
-\subsubsection{Hydrodynamic simulations}
-
-\subsubsection{Static simulations}
-Particle-based bilayers form because of the balance between hydrophobic attraction and excluded volume repulsion.
-As a result, a precise way to measure a certain elastic properties is to set up an externally loaded system,
-and then isolate the desired deformation by solving for the energy minimizer. The following give technical details on how we
-draw these connections in practice.
-In summary, the elastic moduli determine how lipid monolayers and bilayers mechanically behave.
-
-\begin{description}
-\item[Bending modulus] A planar bilayer that is deformed into the shape of a circular arc stores bending energy in the form of splay.
-  Bending isolates the splay deformation $\Div{n}$ because the twist and saddle-splay deformations are zero in two-dimensional bilayers,
-  and both MD and continuum mechanical simulations show that tilt is more or less zero due to lack of inclusions.
-  Moreover, the splay in the two leaflets of an arc approximately cancel when added, due to the smaller head to tail ratio in the inner leaflet and
-  larger head to tail ratio in the outer lealet, and so we can neglect the spontaneous curvature.
-
-  Using steepest gradient descent, the simulation tracks the relaxation of the energies $E$ of a sequence of arc-shaped bilayers tending toward and the equilibrium, planar bilayer.
-  We reconstruct the monolayer dividing surface (a curve $C$) and directors by interpolating the particle centers and orientations. Using spectral differentiation,
-  we can compute the curvature $\kappa$ of $C$ and the squared curvature energy $H = \int_C \kappa^2$. Since $\Div{n} = -\kappa$ in this setup, we can plot
-  the particle based values $\Delta E = E - E_0$ as a function of $\Delta H = H - H_0$ where $E_0$ and $H_0$ are the respective equilibrium values.
-
-  Figure \ref{} shows the appoximately linear relationship between $\Delta E$ and $\Delta H$.
-  The slope of the dashed line gives the bending modulus $\KB = 10$ kT. 
-  The simulation is for a realistic phospholipid length \cite{Boal},
-  the screening length $\rho = 2.5$ nm \cite{Eriksson1989,Lin2005,Parsegian,Israelachvili80,TerziDeserno17}
-  and  interfacial tension $\gamma=4.1$ pN nm$^{-1}$  \cite{GarciaSaez, KUZMIN2005, Petelska2012}.
-
-  The parameters of our hydrophobic attraction formalism map accurately onto the experimentally determined moduli.  
-  The value $\KB = 10$ kT is a reasonable bending modulus for many lipid species \cite{}, and it depends linearly on
-  the interfacial tension parameter $\gamma$ of our model. The $\gamma = 4.1$ pN nm$^{-1}$ is
-  about a third of the surface tension of a typical hydrocarbon-water interface. M. Jackson points out, however, that the smaller interfacial tension parameter is actually the correct value 
-  to describe the free energy for placing molecular lipid into contact with water \cite{}.
-  So not only is the HARP model tunable to experimental parameters, but the results coincide with other properties from physical chemistry.  
-
-\item[Tilt]
-\item[Spontaneous curvature]
-\item[Twist and saddle-splay]
-  We measure the elastic response to twist by following the relaxation
-  dynamics of an initially twisted membrane. Tilt is a fully three-dimensional deformation
-  and so the reference membrane is a pancake-shaped, planar bilayer with diamater
-  much larger than bilayer thickness.  In the initial configuration, the 
-  the directors behave to leading order as $n = (0, mx_1, \sqrt{1 - m^2x_1^2})$
-  where $x_1$ is the twisting axis. At the continuum level, 
-  the surface gradient $\nabla n = \begin{pmatrix}0 & 0\\ m & 0\end{pmatrix}$ that $\Div n = \mathrm{tr}(\nabla n) = 0$,
-  $\det(\nabla n) = 0$ and $\Curl d = (\nabla u)_{12} - (\nabla u)_{21} = m$,
-  so that twist is isolated and the continuum elastic energy equals $\KA m^2 A + O(1)$ where
-  $A \gg 1$ is the membrane area. 
-  
-  
-  The initial bilayer consi
-The twist deformation, for example, has a modulus in the range of 1 to 2 \kBT\; 
-as evaluated by molecular dynamics \cite{LeVeWa14}. 
-But twist is mathematically zero in our two-dimensional monolayers,
-and so we require a computationally efficient means for evaluating the 
-boundary integral equations in a collection of three-dimensional particles. 
-Specific Aim 2 discusses some of the outstanding implementation issues. 
-
-Our eventual three-dimensional calculations must also consider the saddle-splay distortion,
-and the calculations may help resolve some well-known issues in the theory \cite{TerziDeserno17}. 
+We will also determine the effective saddle splay modulus $\KG$. 
 Theoretical analysis of lipid phase transitions predict a negative saddle-splay modulus around $-8$ \kBT\;
-\cite{SIEGEL2004366,SIEGEL20085200}.
-This value, however, 
-predicts an energy barrier for monolayer fusion on the order of 200  \kBT, which runs counter to 
-the value 30 \kBT\; estimated in experiments \cite{RyKlYaCo16,FrRoPi17,Tran7106}.  
-We expect the particle-based approach can shed light on this inconsistency.   
-\item[Stretching]
-We also considered the stretching deformation \cite{Fu19}. 
-Stretching occurs whenever there is an excess monolayer area,
-and it is energetically costly since it exposes hydrocarbon tails to water. 
-%Monolayers are not, strictly speaking, area incompressible,
-%and 
-Manipulation experiments give a monolayer area modulus in the range 
-30 -- 40 \kBT\; nm$^{-2}$ \cite{Nagle17, Nagle17-2}. 
-To measure an area modulus, we stretched a circular vesicle, modeling the cross-section 
-of a bilayer tube (Figure \ref{fig:bend}B \& C).
-%We then stretched the vesicle beyond and beneath equilibrium radius and recorded the change in energy. 
-This procedure gave a monolayer area modulus 
-34 $\pm$ 2 \kBT \;nm$^{-2}$, independently of the vesicle size, which
-is also remarkably close to the experimental value.    
+\cite{SIEGEL2004366,SIEGEL20085200}. Researchers point out, however, that this theoretical value requires a larger energy 
+barrier for monolayer fusion than is found by experiment \cite{FrRoPi17,Tran7106,TerziDeserno17}. 
+The field requires further theoretical work like the what we are proposing to more precisely account for saddle splay.
+  
+The gradient descent technique is ineffective for measuring $\KG$ because
+the saddle splay energy is largely invariant under shape changes.
+In the simplified Canham-Helfrich formulation, saddle splay energy is an indicator of topological transitions, thanks to the  Gauss-Bonnet theorem
+\cite{TerziDeserno17}.
+PI-Ryham showed that saddle splay acts as a topological indicator even in the presence of nonzero tilt \cite{RyKlYaCo16}. 
 
+To evaluate $\KG$, we will combine the string method from PI-Ryham's work on fusion \cite{RyKlYaCo16} with
+the present particle simulations. The string method is a numerical scheme that finds
+least energy pathways separating energy basins \cite{simple_string}.
+Using the string method, we will evaluate the transition energies between the intact pancake shape,
+and one with a pore. Pore formation in a single bilayer decreases the integral of saddle splay from $4\pi$
+to $0$. We can, in principle, detect this drop in energy becuase we have already accounted for the other deformations. 
 
-\item[Fluctuation spectrum]
-\item[Revision of HK Theory]
-  It may come as a surprise that the field of membrane continuum mechanics still lacks concensus as to
+We will also analyze $\KG$ using a helical geometry. In a helicoid with inclination $m$, the director
+gradient is $\nabla n = \begin{pmatrix} 0 & m(m^2+x_1^2)^{-1} \\ m(m^2+x_1^2)^{-1} & 0\end{pmatrix}$ where $x_1$ is the distance to the central
+axis. We observe that saddle splay, twist and tilt are zeros, and $\det \nabla n = m^2(m^2+x_1^2)^{-2}$.
+In the simulations, the particles forming the helicoid will be confined to two, concentric cylinders. The
+continuum energy $\tfrac{1}{2}\KG h(m x_1(m^2+x_1^2)^{-1} + \tan^{-1}(x_1/m)) |_{r_1}^{r_2}$ where $h$, $r_1$ and $r_2$
+are the cylinder heights, inner cylinder radius, and outer cylinder radius, respectively. 
+
+The form of the elastic energy density \eqref{ansatz3} is the same as
+the Oseen-Frank energy density for nematic liquid crystals \cite{ANDRIENKO2018520,Tran7106}.  In fact,  
+a lipid monolayer acts as one layer in a smectic  phase \cite{REYESMATEO1995978,Rangamani20140463,PhysRevLett.113.248102}. 
+The constants $\KB$, $\KT$  and $\KG$ play the same role as the Frank constants $K_1$, $K_2$ and $K_{24}$
+liquid crystal theory. However, the ``bend'' distortion from nematics  
+is not present in monolayers since the directors have no dependence in the normal direction.
+There is also no ``spontaneous twist'' in monolayers due to invariance under mirror reflection. 
+
+ Perhaps surprisingly, the field of membrane continuum mechanics still lacks consensus as to
   whether \eqref{ansatz3} contains a complete list of consistent deformations.
-  The PI Ryham showed, for example, that the tilt energy density is interchangagle, up to second order, with
-  the simplified term $|n \times N|^2$ \cite{RyKlYaCo16}.
-  Recently, \cite{10.1063/1.4990404} derived a tilt curvature term that Hamm and Kozlov had neglected from their analysis \cite{HaKo2000}.
+  The PI Ryham showed, for example, that the tilt vector $T = n/n\cdot N - N$ leads to unphysical cusps when constraining membrane thickness
+ \cite{RyKlYaCo16}.
+  Recently, \cite{10.1063/1.4990404} derived a tilt curvature term that was neglected from the HK analysis \cite{HaKo2000}.
   Later, \cite{https://doi.org/10.1039/C9SM02079A} 
-  and \cite{10.1103/PhysRevE.102.042406} independently identified an inconsitency in the transversal tilt invariance
-  assumption of Desrno's earlier work \cite{10.1063/1.4990404}.
+  and \cite{10.1103/PhysRevE.102.042406} independently identified an inconsistency \cite{10.1063/1.4990404} arising
+  from a transversal tilt invariance assumption. 
 
-  We suspect the reason why, after twenty years, the field has yet to reach a concensus 
-  lies in the asymptotic expansions used to derive the elastic energy density. 
+  We suspect the reason why, after twenty years, the field has yet to reach a consensus 
+  lies in the Taylor expansions used to derive the elastic energy density. 
   Past researchers expressed the strain tensor in
-  terms of the coordinate frame $\{\tau_1, \tau_2, N\}$ with surface tangent vectors $\tau_i$ and surface normal $N$.  
+  terms of the coordinate frame $\{e_1, e_2, N\}$ with surface tangent vectors $e_i$ and surface normal $N$.  
   In this frame, there is a coupling between the gradients of all three terms $x_0,$ $\zeta$ and $n$ of the deformation \eqref{LMdeformation}.
-  The differential geometric arguments needed to determine which terms of the expansion to retain in the expansion are subtle,
-  and have caused \cite{10.1103/PhysRevE.102.042406} to derive an energy density with more than ten elastic parameters, for example. 
+  The recent paper \cite{10.1103/PhysRevE.102.042406} contains an energy density with more than ten elastic parameters, for example.
+  Subtle differential geometric arguments are needed to evaluate the terms in the Taylor expansion.
 
-  However, expanding the strain tensor in terms of the coordinate frame $\{e_1, e_2, n\}$ with $e_i$ perpendicular to $n$
-  decouples a good portion of the gradient terms, leading to simplified expressions. For example,
-  in this coordinate frame, the incompressility condition leads to an exact relationship 
-  \begin{equation}
-    \label{elongation}
-    (1 + \Div n \zeta + \det \nabla n \zeta^2) \zeta' = 1
-  \end{equation}
-  for lipid elongation. \cite{HaKo2000} seem to have been aware of \eqref{elongation} for the special case of zero tilt,
-  but the works \cite{HaKo2000, https://doi.org/10.1039/C9SM02079A, 10.1063/1.4990404} use an approximate form of \eqref{elongation}
-  and \cite{10.1103/PhysRevE.102.042406} reports a form containing an erroneous $|T|^2$ in the $\zeta^0$ coefficient.   
+  We will revisit the HK analysis to see if any inconsitencies can be resolved.
+  As a main analytical innovation, we have found that expanding the strain tensor in
+  terms of the coordinate frame $\{e'_1, e'_2, n\}$ with $e'_i$ perpendicular to $n$
+  greatly simplifies the expansion because it decouples the gradient terms. As an illustration, the prominent works
+  \cite{10.1063/1.4990404, 10.1103/PhysRevE.102.042406, HaKo2000, https://doi.org/10.1039/C9SM02079A} utilize an
+  incompressility condition for the lipid elongation function $\zeta$ from \eqref{LMdeformation} that is only approximately true. 
+  However, when expressed in the $\{e'_1, e'_2, n\}$ coordinate frame, the incompressility condition is exact
+  and is given by a Steiner-type polynomial in terms of $\Div n$ and $\det \nabla n$ \cite{http://www.jstor.org/stable/1993504}.
+  Aside from the special case of zero tilt, \cite{HaKo2000} an coworkers seem to have been unaware of this result.
 
 Our investigations will leave open the possibility that the free energy of monolayers and bilayers is non-local. 
 We have shown that hydrophic attraction is a non-additive force, meaning the force of attraction between two
 particles is dependent on the position a third or more particles. Conceptually, this would arise in continuum theory if two monolayer surfaces
-had different elastic energy density at that point despite having locally identical curvatures and directors.
-
-
-\end{description}
-
+had a different elastic energy density despite having locally identical curvatures and directors.
+The boundary integral formulation described in Specific Aim 3 easily accomodates additional linear PDE and
+we will extend our study to include charge lipids and weak electrolytes \cite{DIMOVA}.
 
 \newpage
+
+Specific Aim 1 dealt with the collective material property of amphiphiles which does not involve the movement  of the solvent.
+In Specific Aim 2, we include hydrodynamics effects. The reason for including hydrodynamic effects is that 
+biologically relevant functions like fusion, fission, pore dynamics involve viscous dissipation of the aqueous environment. 
+Moreover, including hydrodynamics adds relevance to our theory since most coarse-grained and molecular dynamics theories
+include water either explicitly or implicitly in their models. 
+
