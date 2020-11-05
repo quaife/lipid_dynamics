@@ -8,7 +8,6 @@ addpath ../output/data
 addpath ../output/velocity
 
 file = 'shear.bin';
-velfile = 'shear_vel.bin';
 
 [yukawaRHS,posx,posy,xc,tau,time] = loadFile(file);
 
@@ -16,7 +15,7 @@ prams.N = size(posx,1);
 prams.nb = size(posx,2);
 ntime = size(posx,3);
 
-dt = 1;
+dt = 0.05;
 prams.m = ntime ; % number of time steps
 prams.T = prams.m*dt; % time horizon
 
@@ -51,45 +50,37 @@ prams.ar    = ar;
 
 om = monitor(options,prams);
 tt = tstep(options,prams);
-geom = capsules(prams,xc(:,:,1),tau(1,:,1));
 
-% write current time to console
-message = ['Completed time ', num2str(time(1),'%4.2e'), ...
-      ' of time horizon ' , num2str(prams.T,'%4.2e')];
-om.writeMessage(message);
-
-om.writeVelData(time,0*geom.center,0*geom.tau); 
-
-
-% kstart = 0;
+kstart = 0;
+tstart = kstart*dt;
 irate = 10;
+
+if (irate ~= 1)
+    kend = floor(ntime/irate)+1;
+else
+    kend = ntime;
+end
+
+Up = 0*xc;
+wp = 0*tau;
 
 for k = 1:irate:ntime
 % main script
-tt = tstep(options,prams);
 geom = capsules(prams,xc(:,:,k),tau(1,:,k));
-
-[Up, wp,~,~,etaY,etaS] = tt.timeStep(geom,geom.X,geom.X);
+[Up(:,:,k), wp(1,:,k),~,~,etaY,etaS] = tt.timeStep(geom,geom.X,geom.X);
 
 % write current time to console
-message = ['Completed time ', num2str(time(k),'%4.2e'), ...
+message = ['Completed time ', num2str(tstart+time(k),'%4.2e'), ...
       ' of time horizon ' , num2str(prams.T,'%4.2e')];
 om.writeMessage(message);
 
-% write the velocity to a file
-om.writeVelData(time,Up,wp); 
-
 end
 
-
-[velx,vely,torq] = loadVelFile(velfile);
-
-for k = 1 : floor(ntime/irate)+1
+for k = 1 : kend
 ind = (k-1)*irate+1;
-data = [xc(1,:,ind);xc(2,:,ind);tau(1,:,ind);velx(1,:,ind);vely(1,:,ind);torq(1,:,ind)];
-filename = ['../output/velocity/', 'N' num2str(prams.nb) '_' num2str((k-1)*irate),'_vel.dat'];
+data = [xc(1,:,ind);xc(2,:,ind);tau(1,:,ind);Up(1,:,ind);Up(2,:,ind);wp(1,:,ind)];
+filename = ['../output/velocity/', 'N' num2str(prams.nb) '_' num2str((k-1)*irate+kstart),'_vel.dat'];
 fid = fopen(filename,'w');
 fprintf(fid,'%12.4f %12.4f %12.4f %12.4f %12.4f %12.4f\n',data);
 fclose(fid); 
 end
-
