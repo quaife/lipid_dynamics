@@ -81,7 +81,7 @@ multigrid~\cite{hem-sch1981, sch1982} will be investigated.
 \centerline{\includegraphics[width=3.0in]{figures/integrands}}
 \vspace*{-10pt}
 \caption{{\footnotesize The Fourier modes of $K(x_0,y)$ and $K_2(x_0,y)$
-  where $|x_0| = 0.99$ and $\partial\Omega$ is the unit circle. The
+  where $\|x_0\| = 0.99$ and $\partial\Omega$ is the unit circle. The
   trapezoid rule applied to the red integrand has large amounts of
   error. However, the trapezoid rule is much more accurate when applied
   to the blue integrand. Since the difference between the red and blue
@@ -168,16 +168,21 @@ constraint that the configuration is non-overlapping.
 % ----------------------------------------------------------------------
 \subsubsection{Fluctuating hydrodynamics}
 \label{subsec:fluctuating}
-Using DLP formulation for fluctuating hydrodynamics so that we have a
-second-kind BIE
-\textcolor{red}{
-Once the collision-resolution algorithm is implemented, we will check
-the computing performance first before we embark on incorporating
-fluctuating hydrodynamics~\cite{Bao17,Bao18}, which might be important
-even at the scales of the amphiphilic particle size in some cases. We
-propose to extend the high-order time-integration scheme for a
-stochastic differential equation~\cite{fu2015pre} to this system.
-}
+Once algorithms that address quadrature, adaptive time stepping, and
+contact are implemented, we will embark on incorporating fluctuating
+hydrodynamics~\cite{Bao17,Bao18} which are important even at scales of
+the some amphiphilic particles.
+
+\todo[inline]{Using DLP formulation for fluctuating hydrodynamics so
+that we have a second-kind BIE}
+%\textcolor{red}{
+%Once the collision-resolution algorithm is implemented, we will check
+%the computing performance first before we embark on incorporating
+%fluctuating hydrodynamics~\cite{Bao17,Bao18}, which might be important
+%even at the scales of the amphiphilic particle size in some cases. We
+%propose to extend the high-order time-integration scheme for a
+%stochastic differential equation~\cite{fu2015pre} to this system.
+%}
 
 
 
