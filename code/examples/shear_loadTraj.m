@@ -5,7 +5,10 @@ format compact
 
 addpath ../src
 addpath ../output/data
+addpath ../output/velocity
+
 file = 'shear.bin';
+velfile = 'shear_vel.bin';
 
 [yukawaRHS,posx,posy,xc,tau,time] = loadFile(file);
 
@@ -13,11 +16,7 @@ prams.N = size(posx,1);
 prams.nb = size(posx,2);
 ntime = size(posx,3);
 
-% will include this into loop
-irate = 10; % controls the speed of the visualization
-ax = 15*[-1 1 -1 1];
-
-dt = 0.05;
+dt = 1;
 prams.m = ntime ; % number of time steps
 prams.T = prams.m*dt; % time horizon
 
@@ -61,7 +60,11 @@ om.writeMessage(message);
 
 om.writeVelData(time,0*geom.center,0*geom.tau); 
 
-for k = 2:ntime+1
+
+% kstart = 0;
+irate = 10;
+
+for k = 1:irate:ntime
 % main script
 tt = tstep(options,prams);
 geom = capsules(prams,xc(:,:,k),tau(1,:,k));
@@ -75,4 +78,18 @@ om.writeMessage(message);
 
 % write the velocity to a file
 om.writeVelData(time,Up,wp); 
+
 end
+
+
+[velx,vely,torq] = loadVelFile(velfile);
+
+for k = 1 : floor(ntime/irate)+1
+ind = (k-1)*irate+1;
+data = [xc(1,:,ind);xc(2,:,ind);tau(1,:,ind);velx(1,:,ind);vely(1,:,ind);torq(1,:,ind)];
+filename = ['../output/velocity/', 'N' num2str(prams.nb) '_' num2str((k-1)*irate),'_vel.dat'];
+fid = fopen(filename,'w');
+fprintf(fid,'%12.4f %12.4f %12.4f %12.4f %12.4f %12.4f\n',data);
+fclose(fid); 
+end
+
