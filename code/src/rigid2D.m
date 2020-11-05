@@ -52,7 +52,7 @@ while step < prams.m
       [Up0, wp0,~,~,etaY0,etaS0] = tt.timeStep(geom0,geom0.X,geom0.X);
 
       % write the velocity to the file
-      om.writeVelData(time,Up0,wp0);        
+      om.writeVelData(time,Up0,wp0);
       
       % causes xc2, tau2 to be forward Euler, at step 0
       xc1  = xc0;
