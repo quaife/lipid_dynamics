@@ -1,58 +1,68 @@
-\subsection{Specific Aim 3: Efficient high-order numerical algorithm for
+\newpage
+
+\subsection{Specific Aim 3: Efficient high-order numerical methods for
 large-scale simulations}
 \label{subsec:specific_aim_3}
 % ----------------------------------------------------------------------
-\subsubsection{Overview of the potential theory and boundary integral
-equation methods} 
 The HAP model requires solving the exterior Dirichlet problem of the
 screened Laplace equation and the mobility problem of the Stokes flow at
 each time step. If discretizing these equations with stencil-based
 numerical methods, the computational domain must be truncated, the
 volume must be discretized, and artificial boundary conditions must be
-imposed. The artificial boundary conditions introduces an additional
-source of error, and discretizing the volume, particularly in three
-dimensions, results in an excessively large linear system. Moreover, it
-is difficult to obtain high-order discretizations when the boundary
-surfaces are irregular. Since we are solving constant-coefficient
-elliptic PDEs, we apply boundary integral equation (BIE) that remove the
-aforementioned obstacles. BIEs represent the solution as a layer
-potential with an unknown density function. Then, the correct density
-function is found that matching the layer potential with the prescribed
-boundary conditions. By construction, layer potentials satisfy the
-underlying PDE and the far-field conditions. For the exterior Dirichlet
-problem of the screened Laplace equation, the BIE formulation in our
-previous work~\cite{Fu2018_SIAM} can be readily extended to three
-dimensions. For the mobility problem of the Stokes flow in three
-dimensions that takes the hydrodynamic effect into account, an
-well-conditioned BIE is found in~\cite{manasthesis}.
+imposed. The artificial boundary conditions introduces additional error,
+and discretizing the volume results in an excessively large linear
+system. Moreover, it is difficult to obtain high-order discretizations
+when the boundary surfaces are irregular. Since we are solving
+constant-coefficient elliptic PDEs, we represent the solution of the
+PDE of interest as a layer potential 
+\begin{align}
+  \label{eq:LP}
+  u(x) = \int_{\partial\Omega} K(x,y) \sigma(y) ds_y,
+\end{align}
+where $\sigma$ is an unknown density function, and $K(x,y)$ is formed
+with derivatives of the fundamental solution of the underlying PDE.  By
+matching the boundary condition at $x_0 \in \partial\Omega$ with the
+limit of equation~\eqref{eq:LP} as $x\rightarrow x_0 \in
+\partial\Omega$, a BIE for the density function is formed.
+Numerical methods to solve BIE has several advantages over their
+PDE-based counterpart: by construction, $u$ satisfies far-field
+conditions; only $\partial\Omega$ needs to be discretized; carefully
+chosen kernels $K(x,y)$ result in a well-conditioned linear system that
+requires a mesh-independent number of GMRES iterations to converge; and
+high-order or spectral accuracy is attainable by using appropriate
+quadrature methods. In our previous work~\cite{Fu2018_SIAM} we
+demonstrate that BIEs are a powerful tool to simulate two-dimensional
+suspensions of amphiphilic particles. In addition to improving
+two-dimensional simulations, we will extend the results to three
+dimensions using a standard three-dimensional BIE of the screened
+Laplace equation~\cite{ying_2006} and a well-conditioned BIE of the
+mobility problem~\cite{manasthesis}.
 
-Discretizations of BIEs have several advantages when compared to
-stencil-based discretizations. First, the dimension of the problem is
-reduced by one since the unknown density function is defined on the
-boundary of the geometry. Second, by carefully selecting each layer
-potential, the resulting linear system is well-conditioned for any
-resolution and iterative methods such as GMRES require a
-mesh-independent number of iterations to converge. Third, by using
-appropriate quadrature methods, the method converges with spectral or
-very high-order accuracy. The most significant challenges include
-solving dense linear systems, developing preconditioning strategies, and
-developing quadrature methods for integrands that are nearly singular. 
+The most significant challenges of a BIE formulation include solving
+dense linear systems, developing preconditioning strategies, and
+developing quadrature methods for integrands that are nearly singular.
+These challenges are described in Sections~\ref{subsec:NumericalIssues}.
 
-By choosing BIEs that use a mesh-independent number of GMRES iterations,
-the overall cost of a solver is proportional to the complexity of the
-matrix-vector multiplication. The matrix-vector multiplication will be
-accelerated to optimal or near-optimal complexity using the fast
-multipole method (FMM)~\cite{fmm5} and its extensions~\cite{fmm1, fmm2,
-fmm3, fmm4, fmm6, fmm7, fmm8}. Alternatively, fast direct solvers can be
-used~\cite{fds1, fds2, fds3, fds4, fds5, fds6, fds7, fds8, ho2016cpam2,
-ho2016cpam1, minden2016, minden2017siammms}, but since direct solvers
-often require a large amount of initial overhead, they are less
-applicable to problems with moving geometries such as ours.
-Alternatively, fast direct solvers can be used to precondition the
-linear system as described in Section~\ref{subsec:NumericalIssues}.
 
 % ----------------------------------------------------------------------
-\subsubsection{Nearly touching bodies}
+\subsubsection{Numerical issues}
+\label{subsec:NumericalIssues}
+\todo[inline]{Preconditioning}
+\todo[inline]{Adaptive high-order time stepping}
+
+Discretizations of carefully chosen BIEs can be solved with a
+mesh-independent number of GMRES
+iterations~\cite{cam-ips-kel-mey-xue1996}. Therefore, the required CPU
+time is proportional to the cost of a matrix-vector multiplication that
+can be done in optimal or near-optimal time with the fast multiple
+method (FMM)~\cite{fmm5} and its extensions~\cite{fmm1, fmm2, fmm3,
+fmm4, fmm6, fmm7, fmm8}. Alternatively, fast direct solvers can be used
+to avoid any iteration~\cite{fds1, fds2, fds3, fds4, fds5, fds6, fds7,
+fds8, ho2016cpam2, ho2016cpam1, minden2016, minden2017siammms}, but
+direct solvers often require a large amount of initial overhead, and
+this makes them less useful for problems with moving geometries. Alternatively, techniques in fast direct solvers can be used to develop
+efficient preconditioning strategies.
+
 Nearly touching bodies is ubiquitous in self-assembly of amphiphilic
 particles, and such near-contact results in nearly-singular integrands
 in both two and three dimensions. Quadrature methods to address such
@@ -73,17 +83,19 @@ requires the layer potential satisfy Laplace or Stokes
 equations~\cite{bar-wu-vee2015, chi-moo-qua2020}. The PIs will extend
 this quadrature rule so that it can be applied to the screened Laplace
 equation. This will be done by recognizing that the fundamental solution
-of the screened Laplace equation can be decomposed as
-$K(\mathbf{x},\mathbf{y}) = K_1(\mathbf{x},\mathbf{y}) +
-K_2(\mathbf{x},\mathbf{y})$, where $K_1(\mathbf{x},\mathbf{y}) =
--\log\|\mathbf{x} - \mathbf{y}\|$ and $K_2(\mathbf{x},\mathbf{y}) =
-K(\mathbf{x},\mathbf{y}) + \log\|\mathbf{x} - \mathbf{y}\|$. Using this
-decomposition, the layer potential involving $K_1(\mathbf{x}\mathbf{y})$
-can be accurately computed with the barycentric quadrature
-rule~\cite{ioa-pap-per1991}, and the layer potential
-$K_2(\mathbf{x},\mathbf{y})$ can be accurately computed with the
-trapezoid rule since the kernel is bounded for all
-$\mathbf{x}$ and $\mathbf{y}$.
+of the screened Laplace equation can be decomposed as $K(x,y) = K_1(x,y)
++ K_2(x,y)$, where $K_1(x,y) = -\log\|x - y\|$ and $K_2(x,y) = K(x,y) +
+\log\|x - y\|$. Using this decomposition, the layer potential involving
+$K_1(x,y)$ can be accurately computed with the barycentric quadrature
+rule~\cite{ioa-pap-per1991}, and the layer potential $K_2(x,y)$ can be
+accurately computed with the trapezoid rule since the kernel is bounded
+for all $x$ and $y$.
+\todo[inline]{Image here}
+
+% ----------------------------------------------------------------------
+\subsubsection{High-order adaptive time stepping}
+\label{subsec:timeStepping}
+\todo[inline]{Put contact in here as well}
 
 Even with accurate quadrature and time stepping methods (see
 Section~\ref{subsec:NumericalIssues}) methods, rigid body simulations
@@ -137,11 +149,6 @@ stochastic differential equation~\cite{fu2015pre} to this system.
 Using DLP formulation for fluctuating hydrodynamics so that we have a
 second-kind BIE
 
-% ----------------------------------------------------------------------
-\subsubsection{Other numerical issues}
-\label{subsec:NumericalIssues}
-Preconditioning
-Adaptive high-order time stepping
 
 
 %The HAP model requires solving the exterior Dirichlet problem of the
@@ -274,27 +281,27 @@ Adaptive high-order time stepping
 %implementation issues for large-scale problems, and the application to
 %our target problems.
 
-% ----------------------------------------------------------------------
-\subsubsection{A hybrid method for close-to-touching Janus particles}
-\textcolor{red}{
-The HAP model for membranes will inevitably lead to the case where some
-Janus particles will be very close to each other. Even though QBX can
-handle such case accurately, it may lead to excessively large number of
-unknowns in order to resolve the unknown densities at those
-close-to-touching points. In~\cite{gan2016sisc}, a hybrid scheme is
-developed to treat the close-to-touching spheres for the interface
-problem of the Laplace equation. The key idea is to combine the analytic
-image method and spectrally accurate method of moments, where the
-analytic image method will capture the most singular part of the unknown
-density at the close-to-touching points. With the aid of the FMM, the
-scheme achieves linear complexity with much less number of unknowns on
-the material interfaces. We plan to study the hybrid scheme to treat
-the close-to-touching case for both the screened Laplace equation and
-the mobility problem to further improve the efficiency of the numerical
-algorithm for the HAP model.
-}
-
-
+%% ----------------------------------------------------------------------
+%\subsubsection{A hybrid method for close-to-touching Janus particles}
+%\textcolor{red}{
+%The HAP model for membranes will inevitably lead to the case where some
+%Janus particles will be very close to each other. Even though QBX can
+%handle such case accurately, it may lead to excessively large number of
+%unknowns in order to resolve the unknown densities at those
+%close-to-touching points. In~\cite{gan2016sisc}, a hybrid scheme is
+%developed to treat the close-to-touching spheres for the interface
+%problem of the Laplace equation. The key idea is to combine the analytic
+%image method and spectrally accurate method of moments, where the
+%analytic image method will capture the most singular part of the unknown
+%density at the close-to-touching points. With the aid of the FMM, the
+%scheme achieves linear complexity with much less number of unknowns on
+%the material interfaces. We plan to study the hybrid scheme to treat
+%the close-to-touching case for both the screened Laplace equation and
+%the mobility problem to further improve the efficiency of the numerical
+%algorithm for the HAP model.
+%}
+%
+%
 %% ----------------------------------------------------------------------
 %\subsubsection{Other numerical issues}
 %Another outstanding numerical issue pertaining to simulating the
