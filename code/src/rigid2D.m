@@ -51,7 +51,7 @@ while step < prams.m
       geom0 = capsules(prams,xc0,tau0);
       [Up0, wp0,~,~,etaY0,etaS0] = tt.timeStep(geom0,geom0.X,geom0.X);
 
-      % write the velocity to the file
+      % write the velocity to a file
       om.writeVelData(time,Up0,wp0);
       
       % causes xc2, tau2 to be forward Euler, at step 0
