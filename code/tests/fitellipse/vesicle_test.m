@@ -1,4 +1,6 @@
 clear
+% Please extract the zip file "vel_files.zip" first to have test data
+
 figure('Renderer', 'painters', 'Position', [250 250 1500 600])
 N = 16;
 nb = 50;
