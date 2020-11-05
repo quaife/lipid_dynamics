@@ -43,9 +43,12 @@ The most significant challenges of a BIE formulation include solving
 dense linear systems, developing preconditioning strategies, and
 developing quadrature methods for integrands that are nearly singular.
 These challenges are described in section~\ref{subsec:NumericalIssues}.
-Then, in section~\ref{subsec:timeStepping}, time stepping strategies are
-described, and stable BIE formulations for fluctuating hydrodynamics are
-in section~\ref{subsec:fluctuating}.
+Even with accurate quadrature and time stepping methods, rigid body
+simulations can easily result in unphysical contact. We propose two
+techniques to avoid unphysical contact in
+Section~\ref{subsec:timeStepping}. Then, proposed work for well-conditioned BIE
+formulations of fluctuating hydrodynamics are in
+section~\ref{subsec:fluctuating}.
 
 
 % ----------------------------------------------------------------------
@@ -65,12 +68,13 @@ fast direct solvers can be used to avoid any iteration~\cite{fds1, fds2,
 fds3, fds4, fds5, fds6, fds7, fds8, ho2016cpam2, ho2016cpam1,
 minden2016, minden2017siammms}, but direct solvers often require a large
 amount of initial overhead, and this makes them less useful for problems
-with moving geometries.  Alternatively, techniques in fast direct
-solvers can be used to develop efficient preconditioning strategies. PI
-Quaife used the inverse Fast Multipole Method
-(IFMM)~\cite{cou-pou-dar2017, qua-cou-dar2018} to precondition Stokes
-equations in a porous media, and a suite of preconditioners ranging from
-block-diagonal to the IFMM will be considered.  
+with moving geometries. Alternatively, techniques in fast direct solvers
+can be used to develop efficient preconditioning strategies such as the
+inverse Fast Multipole Method (IFMM)~\cite{cou-pou-dar2017}. PI Quaife
+used the IFMM to precondition Stokes equations in a porous
+media~\cite{qua-cou-dar2018}, and a suite of other preconditioners
+including sparse approximate inverses~\cite{che2000} and
+multigrid~\cite{hem-sch1981, sch1982} will be investigated.  
 
 Nearly touching bodies is ubiquitous in self-assembly of amphiphilic
 particles, and such near-contact results in nearly-singular integrands
@@ -99,63 +103,56 @@ $K_1(x,y)$ can be accurately computed with the barycentric quadrature
 rule~\cite{ioa-pap-per1991}, and the layer potential $K_2(x,y)$ can be
 accurately computed with the trapezoid rule since the kernel is bounded
 for all $x$ and $y$.
-\todo[inline]{Image here}
+
+\includegraphics[scale=1]{figures/integrands.pdf}
 
 % ----------------------------------------------------------------------
 \subsubsection{Avoiding contact with adaptive time stepping and
 repulsion}
 \label{subsec:timeStepping}
-\todo[inline]{Put contact in here as well}
-\todo[inline]{Adaptive high-order time stepping}
 
-Even with accurate quadrature and time stepping methods, rigid body
-simulations can still result in unphysical contact. We proposed to use
-two techniques to avoid unphysical contact: high-order adaptive time
-stepping and a repulsion force. PI Quaife developed a high-order
-adaptive time stepping method for hydrodynamic
-suspensions~\cite{qua-bir2016} and he has used it with colleagues to
-investigate mixing and adhesion in suspensions~\cite{qua-vee-you2019,
-kab-qua-bir2017}.
+An outstanding numerical issue when simulating the
+self-assembly of amphiphilic particles in a viscous solvent is the
+collision between amphiphilic particles. The hydrophobic attraction
+potential drives the amphiphilic particles towards one another so to
+minimize exposure to the solvent, and this leads to physical contact in
+finite time. Such particle collisions in a dense rigid body suspension
+is a great challenge and can be a bottleneck in large-scale simulations.
+We propose two algorithms to remedy this computational
+challenge---high-order adaptive time stepping and repulsion forces.
+
+PI Quaife developed a high-order adaptive time stepping method for
+hydrodynamic suspensions~\cite{qua-bir2016} and he has used it with
+colleagues to investigate mixing and adhesion in
+suspensions~\cite{qua-vee-you2019, kab-qua-bir2017}. The method requires
+both a single-step high-order time stepping method and a computationally
+cheap estimate of the error. We plan to use a spectral deferred
+correction method~\cite{dut-gre-rok2000} since it can be used
+iteratively to increase the order of accuracy. To estimate the error,
+instead of using an embedded Runge-Kutta method or step-doubling, we
+will compute the total force and torque of the system which is
+computationally cheap and should be zero. The PIs experience is that
+error estimates based on physical constraints such as force- and
+torque-free conditions appropriately adjusts the time step size so that
+the dynamics are adequately resolved.
+
+Our previous work avoids contact by including a Leonard-Jones potential
+in the body forces~\cite{Fu2018_SIAM}. Such steep steric interaction at
+short ranges introduces great numerical stiffness that limit the time
+step size. To remove this stiffness, we will use a geometry-based
+contact method~\cite{har-pon-sor-zor2011}, and this method has been
+applied to vesicle suspensions~\cite{lu-rah-zor2017} and rigid body
+suspensions in two dimensions~\cite{bys-sha-qua2020} and
+three dimensions~\cite{Yan2019}. These methods determine repulsion
+force by solving a non-linear complementarity problem with a geometric
+constraint that the configuration is non-overlapping.
 
 
-
-In our previous work a
-Leonard-Jones potential is used to keep the particles from
-overlapping~\cite{Fu2018_SIAM}. Such steep steric interaction at short
-ranges introduces great numerical stiffness that limit the time step
-size. 
-\cite{bys-sha-qua2020}
-
-
-\textcolor{red}{
-Another outstanding numerical issue pertaining to simulating the
-self-assembly of amphiphilic particles (such as lipid macromolecles) in
-a viscous solvent is the collision between amphiphilic particles. The
-hydrophobic attraction potential drives the amphiphilic particles to
-move towards each other so to minimize exposure to the solvent. Under
-such attraction force the fluid is being squeezed out as particles move
-toward each other, and the amphiphilic particles can come into physical
-contact in finite time. Such particle collisions in a dense rigid body
-suspension is a great challenge and can be a bottleneck in large-scale
-simulations. In our previous work a Leonard-Jones potential is used to
-keep the particles from overlapping~\cite{Fu2018_SIAM}. Such steep
-steric interaction at short ranges introduces great numerical stiffness
-that limit the time step size. 
-}
-
-\textcolor{red}{
-Yan {\it et al.} proposed a collision-resolution algorithm within the
-framework of boundary integral methods to resolve the non-smooth
-many-body dynamics due to collisions by formulating the particle
-collision process as a linear complementarity problem with geometric
-`non-overlapping' constraint~\cite{Yan2019}. We propose to treat the
-particle collisions based on Yan {\it et al.}'s work after the first two
-goals (see above) are achieved. A potential complication in combining
-the algorithms for particle collision into our QBX integral formulation
-is the computational cost for the QBX to refine meshes on particles in
-collision.
-}
-
+% ----------------------------------------------------------------------
+\subsubsection{Fluctuating hydrodynamics}
+\label{subsec:fluctuating}
+Using DLP formulation for fluctuating hydrodynamics so that we have a
+second-kind BIE
 \textcolor{red}{
 Once the collision-resolution algorithm is implemented, we will check
 the computing performance first before we embark on incorporating
@@ -166,196 +163,5 @@ stochastic differential equation~\cite{fu2015pre} to this system.
 }
 
 
-% ----------------------------------------------------------------------
-\subsubsection{Fluctuating hydrodynamics}
-\label{subsec:fluctuating}
-Using DLP formulation for fluctuating hydrodynamics so that we have a
-second-kind BIE
 
-
-
-%The HAP model requires solving the exterior Dirichlet problem of the
-%screened Laplace equation and the mobility problem of the Stokes flow
-%at each time step. Standard numerical methods such as finite difference
-%and finite element methods have to truncate the infinite domain to a
-%finite computational domain by imposing certain artificial boundary
-%conditions on the truncated domain and need the discretization of the
-%whole volume of the truncated domain. The artificial boundary
-%conditions are very often inexact, introducing another layer of
-%approximation that lowers the accuracy of the solution. The
-%discretization of the whole volume is very expensive for three
-%dimensional problems, leading to excessively large number of unknowns
-%in the linear system. Furthermore, it is rather difficult to obtain
-%high-order discretization when the boundary surfaces are irregular.
-
-%Potential theory and boundary integral equation (BIE) methods remove the
-%aforementioned obstacles in a very elegant way. The starting point is
-%that for constant-coefficient PDEs the fundamental solutions, i.e., the
-%Green's functions, are readily available. This allows us to represent
-%the solution via the so-called layer potentials that are the convolution
-%integrals of a kernel and an unknown density only on the boundary. The
-%kernel is a linear combination of the Green's function and its
-%derivatives, which ensures that the representation satifies the
-%underlying PDE and the condition at infinity automatically. And the
-%boundary condition at the material interfaces together with the jump
-%relation of the layer potential leads to a boundary integral equation
-%for the unknown density.
- 
-%The BIE method removes the need of imposing artificial boundary
-%conditions for exterior problems and reduces the dimension of the
-%problem by one, leading to optimal number of unknowns in the solve
-%phase. Very often, one is able to construct the so-called {\it second
-%kind integral equation} (SKIE) formulation for these problems, where
-%the operator is a sum of the identity operator and a compact operator.
-%It is well-known that the condition number of the resulting linear
-%system for SKIEs is {\it independent} of the mesh size $h$ or
-%equivalently, the number of discretization points. This leads to a
-%constant number of iterations when iterative solvers are applied to
-%solve the resulting linear system. It further improves the accuracy of
-%the solution as the relative error of solution will never increase as
-%the number of total discretization points increases. On the other hand,
-%the condition number of the linear system from finite difference and
-%finite element methods generally increases as a power function of the
-%total number of dicretization points, with the exact power depending on
-%the underlying spatial dimension and the highest order of the
-%differential operator in the PDE. This leads to an increase in the
-%number of iterations (and hence the total computational cost) and an
-%increase in the relative error of the solution as the number of
-%dicretization points increases.
-
-%The discretization of the integral operator often leads to a dense
-%matrix, while finite difference/finite element methods result in sparse
-%matrices, making matrix-vector product much cheaper to compute.
-%However,since the invention of the original fast multipole method
-%(FMM)\cite{fmm5}, there have been many fast
-%algorithms~\cite{fmm1,fmm2,fmm3,fmm4,fmm6,fmm7,fmm8} that reduce the
-%cost of matrix-vector product to linear ($O(N)$) or quasilinear
-%complexity ($O(N \log^kN)$) for dense matrices resulting from the BIE
-%discretization. Fast direct solvers have also been developed
-%recently~\cite{fds1,fds2,fds3,fds4,fds5,fds6,fds7,fds8,ho2016cpam2,ho2016cpam1,minden2016,minden2017siammms}.
-%The development of these fast algorithms have removed a huge hurdle for
-%the use of boundary integral equations, making the BIE method the
-%method of choice for constant-coefficient PDEs with linear boundary
-%conditions.  For the exterior Dirichlet problem of the screened Laplace
-%equation, the SKIE formulation in our previous work~\cite{Fu2018_SIAM}
-%can be readily extened to the 3D case. For the mobility problem of the
-%Stokes flow in three dimensions that takes the hydrodynamic effect into
-%account, an SKIE formulation can be found in~\cite{manasthesis}.
-
-%% ----------------------------------------------------------------------
-%\subsubsection{High-order discretization of surface integrals in three
-%dimensions}
-%The practical application of integral equation methods requires the
-%accurate evaluation of boundary integrals with singular, weakly singular
-%or nearly singular kernels. There are many numerical quadrature schemes
-%for dealing with line integrals in two
-%dimensions~\cite{alpert,kapur,sidi,duffy,bruno1,bruno2,davis_1984,graglia_2008,hackbusch_sauter_1994,
-%jarvenpaa_2003,khayat_2005,kress_boundary_1991,schwab_1992,
-%ying_2006,beale1,beale2,goodman_1990, haroldson_1998,
-%lowengrub_1993,schwab_1992,ggq1,ggq2,ggq3,helsing_2008a,helsing_integral_2009,helsing_tutorial_2012}
-%and some of them are extremely efficient and can achieve arbitrary high
-%order.
-%
-%The high-order quadrature rules for the evaluation of surface integrals
-%in three dimensions, however, are much less developed than the line
-%integrals in two dimensions. For example, there are no Gaussian
-%quadratures for integraing polynomials on a flat triangle, even though
-%efficient quadratures~\cite{xiao2010cma,vioreanu2014} have been
-%developed recently for such purpose. For weakly singular or singular
-%integrals,~\cite{bremer2012jcp,bremer2013jcp} constructed high-order
-%quadratures for surface integrals on a general triangle,
-%while~\cite{gimbutas2013sisc} presented a fast algorithm for integrating
-%$1/r$-type singular integrals for surfaces that are homeomorphic to a
-%sphere. We plan to study the so-called quadrature by expansion (QBX)
-%scheme~\cite{klockner2013jcp,qbx2} for the evaluation of both singular
-%and near-singular surface integrals encountered in the discretization of
-%BIEs in three dimensions. Conceptually, the idea of the QBX to evaluate
-%singular, hypersingular and near singular integrals on smooth surfaces
-%is straightforward. That is, the surface is discretized into smooth
-%triangles and smooth high-order quadratures are applied to evaluate the
-%expansion coefficients on all source triangles with the QBX expansion
-%center placed at a point off the surface. One may then form a suitable
-%expansion (for example, a Taylor expansion) around that center and
-%evaluate this expansion back at the target point on the surface (or
-%close to the surface in the near singular case). Compared to the
-%competing aforementioned quadrature schemes, the QBX quadrature is
-%attractive because it offers a clear path for being extended to:
-%\textbf{(1)} handle any singularity, including hypersingular operators,
-%\textbf{(2)} be usable with any high-order surface discretization,
-%\textbf{(3)} generate well-conditioned discrete operators to which
-%iterative methods such as GMRES~\cite{gmres} can be applied in a
-%black-box fashion, \textbf{(4)} integrate well with fast algorithms such
-%as the FMM. 
-%
-%In practice, there are still many issues that need to be resolved. For
-%example, there are now many variants of QBX including global and local
-%QBX~\cite{klockner2013jcp,rachh2017jcp}, the target-specific
-%QBX~\cite{siegel2018jcp}, kernel-independent QBX~\cite{abtin2018bit},
-%and quadrature by two expansions~\cite{ding2019arxiv}. The coupling of
-%the QBX and the FMM may also lead to certain instability issues which
-%may require some changes in the fast multipole
-%method~\cite{wala2018jcp}. Similar to other quadrature methods, there
-%have been extensive study on the QBX methods in two dimensions, while
-%its three dimension
-%version~\cite{wala2019jcp,af2018sisc,siegel2018jcp,wala2019arxiv} has
-%not been fully studied and the implementation is even more scarce. We
-%plan to investigate the accuracy and the convergence order of the
-%various QBX schemes mentioned above, its coupling with the FMM, parallel
-%implementation issues for large-scale problems, and the application to
-%our target problems.
-
-%% ----------------------------------------------------------------------
-%\subsubsection{A hybrid method for close-to-touching Janus particles}
-%\textcolor{red}{
-%The HAP model for membranes will inevitably lead to the case where some
-%Janus particles will be very close to each other. Even though QBX can
-%handle such case accurately, it may lead to excessively large number of
-%unknowns in order to resolve the unknown densities at those
-%close-to-touching points. In~\cite{gan2016sisc}, a hybrid scheme is
-%developed to treat the close-to-touching spheres for the interface
-%problem of the Laplace equation. The key idea is to combine the analytic
-%image method and spectrally accurate method of moments, where the
-%analytic image method will capture the most singular part of the unknown
-%density at the close-to-touching points. With the aid of the FMM, the
-%scheme achieves linear complexity with much less number of unknowns on
-%the material interfaces. We plan to study the hybrid scheme to treat
-%the close-to-touching case for both the screened Laplace equation and
-%the mobility problem to further improve the efficiency of the numerical
-%algorithm for the HAP model.
-%}
-%
-%
-%% ----------------------------------------------------------------------
-%\subsubsection{Other numerical issues}
-%Another outstanding numerical issue pertaining to simulating the
-%self-assembly of amphiphilic particles (such as lipid macromolecles) in
-%a viscous solvent is the collision between amphiphilic particles. The
-%hydrophobic attraction potential drives the amphiphilic particles to
-%move towards each other so to minimize exposure to the solvent. Under
-%such attraction force the fluid is being squeezed out as particles move
-%toward each other, and the amphiphilic particles can come into physical
-%contact in finite time. Such particle collisions in a dense rigid body
-%suspension is a great challenge and can be a bottleneck in large-scale
-%simulations. In our previous work a Leonard-Jones potential is used to
-%keep the particles from overlapping~\cite{Fu2018_SIAM}. Such steep
-%steric interaction at short ranges introduces great numerical stiffness
-%that limit the time step size. 
-%
-%Yan {\it et al.} proposed a collision-resolution algorithm within the
-%framework of boundary integral methods to resolve the non-smooth
-%many-body dynamics due to collisions by formulating the particle
-%collision process as a linear complementarity problem with geometric
-%`non-overlapping' constraint~\cite{Yan2019}. We propose to treat the
-%particle collisions based on Yan {\it et al.}'s work after the first two
-%goals (see above) are achieved. A potential complication in combining
-%the algorithms for particle collision into our QBX integral formulation
-%is the computational cost for the QBX to refine meshes on particles in
-%collision.
-%
-%Once the collision-resolution algorithm is implemented, we will check
-%the computing performance first before we embark on incorporating
-%fluctuating hydrodynamics~\cite{Bao17,Bao18}, which might be important
-%even at the scales of the amphiphilic particle size in some cases. We
-%propose to extend the high-order time-integration scheme for a
-%stochastic differential equation~\cite{fu2015pre} to this system.
 
