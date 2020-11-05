@@ -76,6 +76,20 @@ media~\cite{qua-cou-dar2018}, and a suite of other preconditioners
 including sparse approximate inverses~\cite{che2000} and
 multigrid~\cite{hem-sch1981, sch1982} will be investigated.  
 
+\begin{wrapfigure}[21]{r}{3.0in}
+%\vspace*{+15pt}
+\centerline{\includegraphics[width=3.0in]{figures/integrands}}
+\vspace*{-10pt}
+\caption{{\footnotesize The Fourier modes of $K(x_0,y)$ and $K_2(x_0,y)$
+  where $|x_0| = 0.99$ and $\partial\Omega$ is the unit circle. The
+  trapezoid rule applied to the red integrand has large amounts of
+  error. However, the trapezoid rule is much more accurate when applied
+  to the blue integrand. Since the difference between the red and blue
+  curves can be accurately computed with the barycentric quadrature
+  rule, the error of this quadrature rule applied to the screened
+  Laplace layer potential will be uniformly bounded in $\Omega$.}}
+\label{fig:integrands}
+\end{wrapfigure}
 Nearly touching bodies is ubiquitous in self-assembly of amphiphilic
 particles, and such near-contact results in nearly-singular integrands
 in both two and three dimensions. Quadrature methods to address such
@@ -102,9 +116,12 @@ of the screened Laplace equation can be decomposed as $K(x,y) = K_1(x,y)
 $K_1(x,y)$ can be accurately computed with the barycentric quadrature
 rule~\cite{ioa-pap-per1991}, and the layer potential $K_2(x,y)$ can be
 accurately computed with the trapezoid rule since the kernel is bounded
-for all $x$ and $y$.
+for all $x$ and $y$. To proposed method is demonstrated in
+Figure~\ref{fig:integrands} where the amplitude of the Fourier modes of
+$K(x_0,y)$ and $K_2(x_0,y)$ are plotted. The quadrature of the trapezoid
+rule is the sum of the Fourier amplitudes not captured at the
+resolution.
 
-\includegraphics[scale=1]{figures/integrands.pdf}
 
 % ----------------------------------------------------------------------
 \subsubsection{Avoiding contact with adaptive time stepping and
