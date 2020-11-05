@@ -61,7 +61,7 @@ om.writeMessage(message);
 
 om.writeVelData(time,0*geom.center,0*geom.tau); 
 
-for k = 2:11 % ntime+1
+for k = 2:ntime+1
 % main script
 tt = tstep(options,prams);
 geom = capsules(prams,xc(:,:,k),tau(1,:,k));
