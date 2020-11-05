@@ -19,9 +19,6 @@ step = 0;
 xc0  = xc;
 tau0 = tau;
 om.writeData(time,geom.center,geom.tau,geom.X);
-% write the velocity to a file,initial velocities are 0
-om.writeVelData(time,0*geom.center,0*geom.tau);  
-
 
 trajectory = [xc(1,:) xc(2,:) tau];
 
@@ -53,6 +50,9 @@ while step < prams.m
       % update geometry
       geom0 = capsules(prams,xc0,tau0);
       [Up0, wp0,~,~,etaY0,etaS0] = tt.timeStep(geom0,geom0.X,geom0.X);
+
+      % write the velocity to the file
+      om.writeVelData(time,Up0,wp0);        
       
       % causes xc2, tau2 to be forward Euler, at step 0
       xc1  = xc0;
