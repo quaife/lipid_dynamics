@@ -1,5 +1,5 @@
 clear
-
+figure('Renderer', 'painters', 'Position', [250 250 1500 600])
 N = 16;
 nb = 50;
 
@@ -12,7 +12,7 @@ radii = 0.5;
 tl=[]; ta=[]; majorm=[]; minorm=[];
 
 irate = 40;
-T=13500;
+T=15000;
 dt = 0.05;
 
 k=1;
@@ -28,6 +28,9 @@ for i = 0:irate:T
 theta = (0:N-1)'*2*pi/N;
 posx = zeros(N,nb); 
 posy = zeros(N,nb); 
+
+tt = 0:irate*dt:T*dt;
+
 for j = 1:nb
   refX = kron([cos(tau(j)) -sin(tau(j)); +sin(tau(j)) cos(tau(j))],eye(N)) * ... 
       [ar*cos(theta);sin(theta)]*radii;  
@@ -42,7 +45,8 @@ end
     
 %%%
     
-figure(1);    
+% figure(1);   
+subplot(1,3,1)
     hold off
     [zo, ao, bo, alphao] = fitellipse([x((outer))';y(outer)'], 'linear', 'constraint', 'trace');
     [zi, ai, bi, alphai] = fitellipse([x(inner)';y(inner)'], 'linear', 'constraint', 'trace');
@@ -98,22 +102,24 @@ Xi = Qi * [ai * cos(t); bi * sin(t)] + repmat(zi, 1, npts);
     
     majorm(k) = am;
     minorm(k) = bm;
-    k=k+1;
-end
 
-figure(2);
-tt = 0:irate*dt:T*dt;
-plot(tt, ta, 'r', 'linewidth',3)
+%%%    
+subplot(1,3,2)
+plot(tt(1:k), ta(1:k), 'r', 'linewidth',3)
 xlabel('time t');
 ylabel('total area');
 set(gca,'fontsize',16);
+axis([0 T*dt ta(1)-40 ta(1)])
 
-
-figure(3);
-% tt = 0:5:tend;
-plot(tt, tl, 'r', 'linewidth',3)
+%%%
+subplot(1,3,3)
+plot(tt(1:k), tl(1:k), 'r', 'linewidth',3)
 xlabel('time t');
 ylabel('total arc length');
 set(gca,'fontsize',16); 
+axis([0 T*dt tl(1)-10 tl(1)])
 
 area=pi*majorm'.*minorm';
+
+k=k+1;
+end
