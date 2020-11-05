@@ -6,49 +6,51 @@ large-scale simulations}
 % ----------------------------------------------------------------------
 The HAP model requires solving the exterior Dirichlet problem of the
 screened Laplace equation and the mobility problem of the Stokes flow at
-each time step. If discretizing these equations with stencil-based
-numerical methods, the computational domain must be truncated, the
-volume must be discretized, and artificial boundary conditions must be
-imposed. The artificial boundary conditions introduces additional error,
-and discretizing the volume results in an excessively large linear
-system. Moreover, it is difficult to obtain high-order discretizations
-when the boundary surfaces are irregular. Since we are solving
-constant-coefficient elliptic PDEs, we represent the solution of the
-PDE of interest as a layer potential 
+each time step in the complex domains such as Figure~\ref{fig:domain}.
+If discretizing these equations with stencil-based numerical methods,
+the computational domain must be truncated, the volume must be
+discretized, and artificial boundary conditions must be imposed. The
+artificial boundary conditions introduces additional error, and
+discretizing the volume results in an excessively large linear system.
+Moreover, it is difficult to obtain high-order discretizations when the
+boundary surfaces are irregular. Since we are solving
+constant-coefficient elliptic PDEs, we represent the solution of the PDE
+of interest as a layer potential 
 \begin{align}
   \label{eq:LP}
   u(x) = \int_{\partial\Omega} K(x,y) \sigma(y) ds_y,
 \end{align}
 where $\sigma$ is an unknown density function, and $K(x,y)$ is formed
-with derivatives of the fundamental solution of the underlying PDE.  By
+with derivatives of the fundamental solution of the underlying PDE. By
 matching the boundary condition at $x_0 \in \partial\Omega$ with the
 limit of equation~\eqref{eq:LP} as $x\rightarrow x_0 \in
 \partial\Omega$, a BIE for the density function is formed.
 Numerical methods to solve BIE has several advantages over their
-PDE-based counterpart: by construction, $u$ satisfies far-field
-conditions; only $\partial\Omega$ needs to be discretized; carefully
-chosen kernels $K(x,y)$ result in a well-conditioned linear system that
-requires a mesh-independent number of GMRES iterations to converge; and
-high-order or spectral accuracy is attainable by using appropriate
-quadrature methods. In our previous work~\cite{Fu2018_SIAM} we
-demonstrate that BIEs are a powerful tool to simulate two-dimensional
-suspensions of amphiphilic particles. In addition to improving
-two-dimensional simulations, we will extend the results to three
-dimensions using a standard three-dimensional BIE of the screened
-Laplace equation~\cite{ying_2006} and a well-conditioned BIE of the
-mobility problem~\cite{manasthesis}.
+PDE-based counterpart: by construction, the layer
+potential~\eqref{eq:LP} satisfies far-field conditions; only
+$\partial\Omega$ needs to be discretized; carefully chosen kernels
+$K(x,y)$ result in a well-conditioned linear system that requires a
+mesh-independent number of GMRES iterations to solve; and high-order or
+spectral accuracy is attainable by using appropriate quadrature methods.
+In our previous work~\cite{Fu2018_SIAM} we demonstrate that BIEs are a
+powerful tool to simulate two-dimensional suspensions of amphiphilic
+particles. In addition to improving two-dimensional simulations, we will
+extend the results to three dimensions using a standard
+three-dimensional BIE of the screened Laplace equation~\cite{ying_2006}
+and a well-conditioned BIE of the mobility problem~\cite{manasthesis}.
 
 The most significant challenges of a BIE formulation include solving
 dense linear systems, developing preconditioning strategies, and
 developing quadrature methods for integrands that are nearly singular.
-These challenges are described in Sections~\ref{subsec:NumericalIssues}.
+These challenges are described in section~\ref{subsec:NumericalIssues}.
+Then, in section~\ref{subsec:timeStepping}, time stepping strategies are
+described, and stable BIE formulations for fluctuating hydrodynamics are
+in section~\label{subsec:fluctuating}.
 
 
 % ----------------------------------------------------------------------
 \subsubsection{Numerical issues}
 \label{subsec:NumericalIssues}
-\todo[inline]{Preconditioning}
-\todo[inline]{Adaptive high-order time stepping}
 
 Discretizations of carefully chosen BIEs can be solved with a
 mesh-independent number of GMRES
@@ -56,12 +58,19 @@ iterations~\cite{cam-ips-kel-mey-xue1996}. Therefore, the required CPU
 time is proportional to the cost of a matrix-vector multiplication that
 can be done in optimal or near-optimal time with the fast multiple
 method (FMM)~\cite{fmm5} and its extensions~\cite{fmm1, fmm2, fmm3,
-fmm4, fmm6, fmm7, fmm8}. Alternatively, fast direct solvers can be used
-to avoid any iteration~\cite{fds1, fds2, fds3, fds4, fds5, fds6, fds7,
-fds8, ho2016cpam2, ho2016cpam1, minden2016, minden2017siammms}, but
-direct solvers often require a large amount of initial overhead, and
-this makes them less useful for problems with moving geometries. Alternatively, techniques in fast direct solvers can be used to develop
-efficient preconditioning strategies.
+fmm4, fmm6, fmm7, fmm8}. PI Quaife is experienced with applying FMMs for
+both the Stokes equation~\cite{qua-bir2014, bys-sha-qua2020} and the
+screened Laplace equation~\cite{kro-qua2011, qua2011}. Alternatively,
+fast direct solvers can be used to avoid any iteration~\cite{fds1, fds2,
+fds3, fds4, fds5, fds6, fds7, fds8, ho2016cpam2, ho2016cpam1,
+minden2016, minden2017siammms}, but direct solvers often require a large
+amount of initial overhead, and this makes them less useful for problems
+with moving geometries.  Alternatively, techniques in fast direct
+solvers can be used to develop efficient preconditioning strategies. PI
+Quaife used the inverse Fast Multipole Method
+(IFMM)~\cite{cou-pou-dar2017, qua-cou-dar2018} to precondition Stokes
+equations in a porous media, and a suite of preconditioners ranging from
+block-diagonal to the IFMM will be considered.  
 
 Nearly touching bodies is ubiquitous in self-assembly of amphiphilic
 particles, and such near-contact results in nearly-singular integrands
@@ -93,17 +102,30 @@ for all $x$ and $y$.
 \todo[inline]{Image here}
 
 % ----------------------------------------------------------------------
-\subsubsection{High-order adaptive time stepping}
+\subsubsection{Avoiding contact with adaptive time stepping and
+repulsion}
 \label{subsec:timeStepping}
 \todo[inline]{Put contact in here as well}
+\todo[inline]{Adaptive high-order time stepping}
 
-Even with accurate quadrature and time stepping methods (see
-Section~\ref{subsec:NumericalIssues}) methods, rigid body simulations
-can still result in unphysical contact. In our previous work a
+Even with accurate quadrature and time stepping methods, rigid body
+simulations can still result in unphysical contact. We proposed to use
+two techniques to avoid unphysical contact: high-order adaptive time
+stepping and a repulsion force. PI Quaife developed a high-order
+adaptive time stepping method for hydrodynamic
+suspensions~\cite{qua-bir2016} and he has used it with colleagues to
+investigate mixing and adhesion in suspensions~\cite{qua-vee-you2019,
+kab-qua-bir2017}.
+
+
+
+In our previous work a
 Leonard-Jones potential is used to keep the particles from
 overlapping~\cite{Fu2018_SIAM}. Such steep steric interaction at short
 ranges introduces great numerical stiffness that limit the time step
 size. 
+\cite{bys-sha-qua2020}
+
 
 \textcolor{red}{
 Another outstanding numerical issue pertaining to simulating the
@@ -146,6 +168,7 @@ stochastic differential equation~\cite{fu2015pre} to this system.
 
 % ----------------------------------------------------------------------
 \subsubsection{Fluctuating hydrodynamics}
+\label{subsec:fluctuating}
 Using DLP formulation for fluctuating hydrodynamics so that we have a
 second-kind BIE
 

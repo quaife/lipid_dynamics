@@ -1,4 +1,4 @@
-\begin{thebibliography}{203}
+\begin{thebibliography}{217}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -226,6 +226,21 @@ O.~P. Bruno and L.~A. Kunyansky.
 \newblock \emph{R. Soc. Lond. Proc. Ser. A Math. Phys. Eng. Sci.}, 457\penalty0
   (2016):\penalty0 2921--2934, 2001{\natexlab{b}}.
 
+\bibitem[Bystricky et~al.(2020)Bystricky, Shanbhag, and
+  Quaife]{bys-sha-qua2020}
+L.~Bystricky, S.~Shanbhag, and B.~Quaife.
+\newblock Stable and contact-free time stepping for dense rigid particle
+  suspension.
+\newblock \emph{International Journal of Numerical Methods in Fluids},
+  92:\penalty0 94--113, 2020.
+
+\bibitem[Campbell et~al.(1996)Campbell, Ipsen, Kelley, Meyer, and
+  Xue]{cam-ips-kel-mey-xue1996}
+S.~L. Campbell, I.~C.~F. Ipsen, C.~T. Kelley, C.~D. Meyer, and Z.~Q. Xue.
+\newblock Convergence estimates for solution of integral equations with gmres.
+\newblock \emph{Journal of Integral Equations and Applications}, 8\penalty0
+  (1):\penalty0 19--34, 1996.
+
 \bibitem[Carrier et~al.(1988)Carrier, Greengard, and Rokhlin]{fmm1}
 J.~Carrier, L.~Greengard, and V.~Rokhlin.
 \newblock A fast adaptive multipole algorithm for particle simulations.
@@ -281,6 +296,13 @@ J.~H. Cho, A.~Azam, and D.~H. Gracias.
 H.~K. Christenson and P.~M. Claesson.
 \newblock {Direct measurements of the force between hydrophobic surfaces in
   water}, 2001.
+
+\bibitem[Coulier et~al.(2017)Coulier, Pouransari, and Darve]{cou-pou-dar2017}
+P.~Coulier, H.~Pouransari, and E.~Darve.
+\newblock {The Inverse Fast Multipole Method: Using a Fast Approximate Diret
+  Solver as a Preconditioner for Dense Linear Systems}.
+\newblock \emph{SIAM Journal on Scientific Computing}, 39\penalty0
+  (3):\penalty0 A761--A796, 2017.
 
 \bibitem[Dasgupta et~al.(2017)Dasgupta, Auth, and Gompper]{Dasgupta2017}
 S.~Dasgupta, T.~Auth, and G.~Gompper.
@@ -420,6 +442,12 @@ C.~Fran{\c c}ois-Martin, J.~E. Rothman, and F.~Pincet.
 \newblock Low energy cost for optimal speed and control of membrane fusion.
 \newblock \emph{Proceedings of the National Academy of Sciences}, 2017.
 \newblock \doi{10.1073/pnas.1621309114}.
+
+\bibitem[Frolov et~al.(2015)Frolov, Escalada, Akimov, and Shnyrova]{FrEsAkSh15}
+V.~Frolov, A.~Escalada, S.~Akimov, and A.~Shnyrova.
+\newblock Geometry of membrane fission.
+\newblock \emph{Chemistry and Physics of Lipids}, 185:\penalty0 129--140, 2015.
+\newblock URL \url{https://doi.org/10.1016/j.chemphyslip.2014.07.006}.
 
 \bibitem[Fu et~al.(2015)Fu, Young, and Jiang]{fu2015pre}
 S.-P. Fu, Y.-N. Young, and S.~Jiang.
@@ -742,6 +770,13 @@ M.~Jur{\'{a}}sek and R.~V{\'{a}}cha.
 \newblock \emph{Soft Matter}, 2017.
 \newblock \doi{10.1039/c7sm01384a}.
 
+\bibitem[Kabacao\u{g}lu et~al.(2017)Kabacao\u{g}lu, Quaife, and
+  Biros]{kab-qua-bir2017}
+G.~Kabacao\u{g}lu, B.~Quaife, and G.~Biros.
+\newblock Quantification of mixing in vesicle suspensions using numerical
+  simulations in two dimensions.
+\newblock \emph{Physics of Fluids}, 29\penalty0 (2):\penalty0 021901, 2017.
+
 \bibitem[Kabelka and V{\'{a}}cha(2018)]{Kabelka2018}
 I.~Kabelka and R.~V{\'{a}}cha.
 \newblock {Optimal Hydrophobicity and Reorientation of Amphiphilic Peptides
@@ -837,6 +872,20 @@ M.~M. Kozlov.
 \newblock \emph{{Determination of Lipid Spontaneous Curvature From X-Ray
   Examinations of Inverted Hexagonal Phases}}, pages 355--366.
 \newblock Humana Press, Totowa, NJ, 2007.
+
+\bibitem[Kozlovsky and Kozlov(2002)]{KoKo2002}
+Y.~Kozlovsky and M.~M. Kozlov.
+\newblock Stalk model of membrane fusion: Solution of energy crisis.
+\newblock \emph{Biophysical Journal}, 82\penalty0 (2):\penalty0 882--895,
+  2020/11/05 2002.
+\newblock \doi{10.1016/S0006-3495(02)75450-7}.
+\newblock URL \url{https://doi.org/10.1016/S0006-3495(02)75450-7}.
+
+\bibitem[Kropinski and Quaife(2011)]{kro-qua2011}
+M.~Kropinski and B.~Quaife.
+\newblock Fast integral equation methods for the modified {H}elmholtz equation.
+\newblock \emph{Journal of Computational Physics}, 230:\penalty0 425--434,
+  2011.
 
 \bibitem[Kumar et~al.(2013)Kumar, Park, Tu, and Lee]{Kumar2013}
 A.~Kumar, B.~J. Park, F.~Tu, and D.~Lee.
@@ -951,6 +1000,15 @@ J.~S. Lowengrub, J.-J. Xu, and A.~Voigt.
   Multicomponent Drops and Vesicles}.
 \newblock \emph{Fluid Dyn. Mater. Proc.}, 3:\penalty0 1--19, 2007.
 
+\bibitem[Lowengrub et~al.(2009)Lowengrub, R\"atz, and
+  Voigt]{PhysRevE.79.031926}
+J.~S. Lowengrub, A.~R\"atz, and A.~Voigt.
+\newblock Phase-field modeling of the dynamics of multicomponent vesicles:
+  Spinodal decomposition, coarsening, budding, and fission.
+\newblock \emph{Phys. Rev. E}, 79:\penalty0 031926, Mar 2009.
+\newblock \doi{10.1103/PhysRevE.79.031926}.
+\newblock URL \url{https://link.aps.org/doi/10.1103/PhysRevE.79.031926}.
+
 \bibitem[Lum et~al.(1999)Lum, Chandler, and Weeks]{Lum1999}
 K.~Lum, D.~Chandler, and J.~D. Weeks.
 \newblock {Hydrophobicity at small and large length scales}.
@@ -1004,6 +1062,15 @@ C.~R. Mateo, A.~U.~A. na, and J.~Brochon.
 \newblock \doi{https://doi.org/10.1016/S0006-3495(95)80273-0}.
 \newblock URL
   \url{http://www.sciencedirect.com/science/article/pii/S0006349595802730}.
+
+\bibitem[Mattila et~al.(2015)Mattila, Shnyrova, Sundborger, Hortelano,
+  Fuhrmans, Neumann, M\"uller, Hinshaw, Schmid, and Frolov]{Maetal15}
+J.~Mattila, A.~Shnyrova, A.~Sundborger, E.~R. Hortelano, M.~Fuhrmans,
+  S.~Neumann, M.~M\"uller, J.~E. Hinshaw, S.~L. Schmid, and V.~A. Frolov.
+\newblock A hemi-fission intermediate links two mechanistically distinct stages
+  of membrane fission.
+\newblock \emph{Nature}, 524:\penalty0 109–113, 2015.
+\newblock URL \url{https://doi.org/10.1038/nature14509}.
 
 \bibitem[Menshikov et~al.(2017)Menshikov, Menshikov, and
   Fedichev]{Menshikov2017}
@@ -1174,6 +1241,37 @@ B.~V. Prasad and M.~F. Schmid.
 \newblock {Principles of virus structural organization}.
 \newblock \emph{Advances in Experimental Medicine and Biology}, 2012.
 \newblock \doi{10.1007/978-1-4614-0980-9_3}.
+
+\bibitem[Quaife(2011)]{qua2011}
+B.~Quaife.
+\newblock \emph{{Fast Integral Equation Methods for the Modified Helmholtz
+  Equation}}.
+\newblock PhD thesis, Simon Fraser University, 2011.
+
+\bibitem[Quaife and Biros(2014)]{qua-bir2014}
+B.~Quaife and G.~Biros.
+\newblock High-volume fraction simulations of two-dimensional vesicle
+  suspensions.
+\newblock \emph{Journal of Computational Physics}, 274:\penalty0 245--267,
+  2014.
+
+\bibitem[Quaife and Biros(2016)]{qua-bir2016}
+B.~Quaife and G.~Biros.
+\newblock {Adaptive time stepping for vesicle simulations}.
+\newblock \emph{Journal of Computational Physics}, 306:\penalty0 478--499,
+  2016.
+
+\bibitem[Quaife et~al.(2018)Quaife, Coulier, and Darve]{qua-cou-dar2018}
+B.~Quaife, P.~Coulier, and E.~Darve.
+\newblock {An efficient preconditioner for the fast simulation of a 2D Stokes
+  flow in porous media}.
+\newblock \emph{International Journal for Numerical Methods in Engineering},
+  113:\penalty0 561--580, 2018.
+
+\bibitem[Quaife et~al.(2019)Quaife, Veerapaneni, and Young]{qua-vee-you2019}
+B.~Quaife, S.~Veerapaneni, and Y.~Young.
+\newblock Hydrodynamics and rheology of a vesicle doublet suspension.
+\newblock \emph{Physical Review Fluids}, 4:\penalty0 103601, 2019.
 
 \bibitem[Rachh(2015)]{manasthesis}
 M.~Rachh.
