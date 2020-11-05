@@ -37,10 +37,10 @@ to model bilayers with specific composition. These calculations have provably le
 those of molecular dynamics simulations and possess the molecular granularity lacking from continuum models.
 
 The modern theory of membrane continuum mechanics
-was pioneered by Hamm and Kozlov (HK) \cite{HaKo2000}.
+was pioneered by Hamm and Kozlov (HK) \cite{Hamm2000}.
 The theory is widely used to describe biological phenomona 
-fission \cite{10.1016/j.chemphyslip.2014.07.006, 10.1038/nature14509, 10.1103/PhysRevE.79.031926},
-fusion \cite{10.1016/S0006-3495(02)75450-7,10.1073/pnas.121191898,10.1073/pnas.1119442109} ,
+fission \cite{FrEsAkSh15, Maetal15, PhysRevE.79.031926},
+fusion \cite{KoKo2002,10.1073/pnas.121191898,10.1073/pnas.1119442109} ,
 poration \cite{10.1016/j.bpj.2019.11.2221}, phase boundaries and interaction with inclusions
 \cite{https://doi.org/10.1038/nrm.2017.16,10.1016/j.bpj.2019.11.2209, https://doi.org/10.1038/s41598-020-61110-2}, which require resolution of the internal structure of the membrane.  
 %The Helfrich hamiltonian is widely used to determine energy barriers of fusion between lipid bilayer membranes \cite{ChKo08}. 
@@ -216,7 +216,7 @@ relationship between $\Delta E$ and $\Delta H$ with $\KB$ as the slope.
 The twist deformation is a fully three-dimensional deformation. 
 (Specific Aim 3 address outstanding implementation issues like three-dimensional boundary integral solvers.) 
 The twist deformation is closely related to the assumption of lateral fluidity in membranes and so researchers 
-have sometimes assumed $\KT = 0$ \cite{HaKo2000, 10.1063/1.4990404, https://doi.org/10.1039/C9SM02079A, 10.1103/PhysRevE.102.042406}, 
+have sometimes assumed $\KT = 0$ \cite{Hamm2000, 10.1063/1.4990404, https://doi.org/10.1039/C9SM02079A, 10.1103/PhysRevE.102.042406}, 
 while molecular dynamics investigations find a twist modulus in the range of 1 to 2 \kBT \cite{LeVeWa14}.
 To measure the elastic response,  we initially twist the bilayer along an $x_1$-coordinate axis.
 In this configuration, the directors behave at leading order as $n = (0, mx_1, \sqrt{1 - m^2x_1^2})$,
@@ -265,7 +265,7 @@ There is also no ``spontaneous twist'' in monolayers due to invariance under mir
   whether \eqref{ansatz3} contains a complete list of consistent deformations.
   The PI Ryham showed, for example, that the tilt vector $T = n/n\cdot N - N$ leads to unphysical cusps when constraining membrane thickness
  \cite{RyKlYaCo16}.
-  Recently, \cite{10.1063/1.4990404} derived a tilt curvature term that was neglected from the HK analysis \cite{HaKo2000}.
+  Recently, \cite{10.1063/1.4990404} derived a tilt curvature term that was neglected from the HK analysis \cite{Hamm2000}.
   Later, \cite{https://doi.org/10.1039/C9SM02079A} 
   and \cite{10.1103/PhysRevE.102.042406} independently identified an inconsistency \cite{10.1063/1.4990404} arising
   from a transversal tilt invariance assumption. 
@@ -282,11 +282,11 @@ There is also no ``spontaneous twist'' in monolayers due to invariance under mir
   As a main analytical innovation, we have found that expanding the strain tensor in
   terms of the coordinate frame $\{e'_1, e'_2, n\}$ with $e'_i$ perpendicular to $n$
   greatly simplifies the expansion because it decouples the gradient terms. As an illustration, the prominent works
-  \cite{10.1063/1.4990404, 10.1103/PhysRevE.102.042406, HaKo2000, https://doi.org/10.1039/C9SM02079A} utilize an
+  \cite{10.1063/1.4990404, 10.1103/PhysRevE.102.042406, Hamm2000, https://doi.org/10.1039/C9SM02079A} utilize an
   incompressility condition for the lipid elongation function $\zeta$ from \eqref{LMdeformation} that is only approximately true. 
   However, when expressed in the $\{e'_1, e'_2, n\}$ coordinate frame, the incompressility condition is exact
   and is given by a Steiner-type polynomial in terms of $\Div n$ and $\det \nabla n$ \cite{http://www.jstor.org/stable/1993504}.
-  Aside from the special case of zero tilt, \cite{HaKo2000} an coworkers seem to have been unaware of this result.
+  Aside from the special case of zero tilt, \cite{Hamm2000} an coworkers seem to have been unaware of this result.
 
 Our investigations will leave open the possibility that the free energy of monolayers and bilayers is non-local. 
 We have shown that hydrophic attraction is a non-additive force, meaning the force of attraction between two
