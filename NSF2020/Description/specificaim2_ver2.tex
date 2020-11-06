@@ -1,19 +1,45 @@
 %\subsection{Specific Aim 2: Functional Materials}
-\subsection{Specific Aim 2: Hydrodynamics and ...}
+\subsection{Specific Aim 2: Hydrodynamics}
 \label{subsec:specific_aim_2}
 Specific Aim 1 dealt with the collective material property of amphiphiles which does not involve the movement  of the solvent.
-In Specific Aim 2, we include hydrodynamics effects. The reason for including hydrodynamic effects is that 
-biologically relevant functions like fusion, fission, pore dynamics involve viscous dissipation of the aqueous environment. 
-Moreover, including hydrodynamics adds relevance to our theory since most coarse-grained and molecular dynamics theories
-include water either explicitly or implicitly in their models. 
+In Specific Aim 2, we include hydrodynamics effects. Hydrodynamic effects are relevant
+because the rates of biological functions like fusion, fission, and pore dynamics rely on viscous dissipation \cite{RYHAM20112929}. 
+Additionally, coarse-grained and molecular dynamics theories include water either explicitly or implicitly in their models. 
+
+A further area of relevance is in the fabrication of complex microscopic three-dimensional structures \cite{Cho2010}.
+Over the past decade, there has been an explosion of interest in small-scale processes that utilize capillary forces dominate,  van der Waals interactions and thermal noise  \cite{Zhang2017},
+to coordinated movement and bind  material subunits. Two prominent fabrication techniques are capillary origami 
+\cite{Pandey2011,Leong2007,Reynolds2019} and colloidal self-assembly \cite{Dasgupta2017,Siontorou2017}. Capillary origami uses principles of elastocapilirity wherein elastic solids deform under surface tension \cite{Bico2018,VanHonschoten2010}. In self-assembly of colloids, 
+particles exhibit similar thermodynamic behavior of molecular systems, except that the behavior occurs over observable, long time scales \cite{Zhang2017}. 
+
+The hydrodynamic interactions enter through the transmission of viscous stresses from one particle to the another.
+We must solve the system 
+\begin{alignat}{3}
+\label{Hupdate1}  & \frac{\dif {\bf a}_i}{\dif t} = {\bf v}_i,      &&  \frac{\dif {\bf R}_i}{\dif t}  = A({\bf w}_i),\quad        \\
+\label{Hupdate2}  & F_i({\bf x},t) = {\bf a}_i + {\bf R_i}{\bf x},  && P_i(t) = F_i(P_{0i},t), \quad && i = 1,\dots, N             \\
+\label{HBVP1} -& \mu \Delta {\bf u} + \nabla p = {\bf 0} , \quad \quad -&& \rho^2 \Delta u +u = 0, \\
+\label{HBVP2}  & \nabla \cdot {\bf u} = 0,                       &&                                                                  && \text{in } \Omega(t) = \mathbb{R}^3 \setminus \cup_{i=1}^N P_i\\
+\label{HBVP3}  & {\bf u }({\bf x}) = {\bf v}_i + {\bf w_i}\times {\bf x} , \quad                &&  u({\bf x}) = f_i({\bf x}),\quad  && \text{for } {\bf x} \in \partial P_i\\
+\label{HBVP4}  & ({\bf u } - {\bf u}_{\infty})({\bf x}) \to {\bf 0} && u({\bf x}) \to 0 && \text{as } {\bf x} \to \infty\\
+\label{HSB1}   & \int_{\partial P_i} (\boldsymbol{\sigma}  + \boldsymbol{\sigma}_{\text{hydro}})\nu \,dS + {\bf F}_{\text{repul},i} = {\bf 0}\span  \span\\
+\label{HSB2}   & \int_{\partial P_i} {\bf x} \times (\boldsymbol{\sigma}  + \boldsymbol{\sigma}_{\text{hydro}})\nu \,dS + {\bf G}_{\text{repul},i} = {\bf 0} \span \span
+\end{alignat}
+At the top, \eqref{Hupdate1} defines the particle velocity and rotation, respectively. Recall that $A({\bf w}_i)$ is the skew-symmetric matrix with axial vector ${\bf w}_i$.
+The second line \eqref{Hupdate2} defines the rigid motions and updates the particle position, respectively. 
+The particle velocity and rotation $({\bf v}_i, {\bf w}_i)$ needed in \eqref{Hupdate1} are outputs of the boundary value problem \eqref{HBVP1}--\eqref{HSB2}.
+To get to these, the activity $u$ solves the screened Laplace equation (\ref{HBVP1}b) with the material label boundary condition (\ref{HBVP3}b)
+and far-field boundary condition (\ref{HBVP4}b).
+This sets up the hydrophobic stress $\boldsymbol{\sigma}_{\text{hydro}}$ through \eqref{stress}.
+In turn, the fluid velocity ${\bf u}$ solves the Stokes equations (\ref{HBVP1}a, \ref{HBVP2}a)
+with background flow boundary condition (\ref{HBVP4}a).
+Due to Fredholm theory, there are precisely $N$ many velocity and rotation pairs $({\bf v}_i, {\bf w}_i)$
+that simultaneously satisfy the rigid motion boundary condition (\ref{HBVP3}a) and
+the requirement that the net force and net torque on each particle is zero; \eqref{HSB1}, \eqref{HSB2}. 
+
 
 
 %The mathematics of this proposal investigates how three-dimensional solids deform under long-range surface tension interaction. The results generalize the physical principles used in the design of functional materials, enabling investigators to simulate sub-micron scale systems that are otherwise impractical to realize experimentally. It supplies new insight into organizational principles in physical and biological sciences. 
 %
-Over the past decade, there has been an explosion of interest in the fabrication of complex microscopic three-dimensional structures 
-\cite{Cho2010}. These fabrication processes utilize the fact that at small scales, capillary forces dominate  van der Waals interactions and thermal noise  \cite{Zhang2017}, enabling the coordinated movement and binding of material subunits. Two prominent fabrication techniques are capillary origami 
-\cite{Pandey2011,Leong2007,Reynolds2019} and colloidal self-assembly \cite{Dasgupta2017,Siontorou2017}. Capillary origami uses principles of elastocapilirity wherein elastic solids deform under surface tension \cite{Bico2018,VanHonschoten2010}. In self-assembly of colloids, 
-particles exhibit similar thermodynamic behavior of molecular systems, except that the behavior occurs over observable, long time scales \cite{Zhang2017}. 
 
 There is inherent intellectual value in fabricating novel three dimensional structures: Living cells construct biological molecules like proteins, membranes and viral capsids using hierarchical assembly \cite{Whitesides2002}. At the same time, elastocapillarity and colloidal self-assembly supply model systems for biological processes, like vesicle adhesion and membrane bound protein interaction \cite{Dasgupta2017}, the hydro-polar model of protein folding \cite{Lau1989,Pandey2011} and viral capsid assembly and \cite{CASPAR1962}. Capillarity can serve as a model for the lock and key mechanism binding between the active site of an enzyme and a substrate molecule \cite{Araujo2018}, or treating viruses like adhered particles 
 \cite{Agudo-Canalejo2017,Agudo-Canalejo2015,Deserno2004}, or studying decorated vesicles 
