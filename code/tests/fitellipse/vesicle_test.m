@@ -87,7 +87,8 @@ Xi = Qi * [ai * cos(t); bi * sin(t)] + repmat(zi, 1, npts);
     set(h,'linewidth',2)
 %     colormap(jet);
   end
-    
+    axis equal
+
     drawnow
     F = getframe;
 %     imwrite(F.cdata, ['File' num2str(i) '.png']);
