@@ -4,40 +4,40 @@
 large-scale simulations}
 \label{subsec:specific_aim_3}
 % ----------------------------------------------------------------------
-The HAP model requires solving the exterior Dirichlet problem of the
-screened Laplace equation and the mobility problem of the Stokes flow at
-each time step in the complex domains such as Figure~\ref{fig:domain}.
-If discretizing these equations with stencil-based numerical methods,
-the computational domain must be truncated, the volume must be
+The HAP model requires solving exterior Dirichlet problems for the
+screened Laplace equation and the Stokes mobility problem at each time
+step in complex domains such as in Figure~\ref{fig:domain}. If
+discretizing these equations with stencil-based numerical methods, the
+computational domain must be truncated, the fluid volume must be
 discretized, and artificial boundary conditions must be imposed. The
 artificial boundary conditions introduces additional error, and
 discretizing the volume results in an excessively large linear system.
 Moreover, it is difficult to obtain high-order discretizations when the
-boundary surfaces are irregular. Since we are solving
-constant-coefficient elliptic PDEs, we represent the solution of the PDE
-of interest as a layer potential 
+boundary surfaces are irregular. Alternatively, since we are solving
+constant-coefficient elliptic PDEs, the solution of the PDE can be
+represented as layer potentials
 \begin{align}
   \label{eq:LP}
-  u(x) = \int_{\partial\Omega} K(x,y) \sigma(y) ds_y,
+  u(x) = \int_{\partial\Omega} K(x,y) \sigma(y)\,ds_y,
 \end{align}
-where $\sigma$ is an unknown density function, and $K(x,y)$ is formed
-with derivatives of the fundamental solution of the underlying PDE. By
+where $\sigma$ is an unknown density function, and $K(x,y)$ is a
+derivative of the fundamental solution of the underlying PDE. By
 matching the boundary condition at $x_0 \in \partial\Omega$ with the
-limit of equation~\eqref{eq:LP} as $x\rightarrow x_0 \in
-\partial\Omega$, a BIE for the density function is formed.
-Numerical methods to solve BIE has several advantages over their
-PDE-based counterpart: by construction, the layer
+limit of equation~\eqref{eq:LP} as $x\rightarrow x_0$, a BIE for the
+density function is formed. Numerical methods to solve BIEs have several
+advantages over their PDE-based counterpart: by construction, the layer
 potential~\eqref{eq:LP} satisfies far-field conditions; only
 $\partial\Omega$ needs to be discretized; carefully chosen kernels
-$K(x,y)$ result in a well-conditioned linear system that requires a
-mesh-independent number of GMRES iterations to solve; and high-order or
-spectral accuracy is attainable by using appropriate quadrature methods.
-In our previous work~\cite{Fu2018_SIAM} we demonstrate that BIEs are a
+$K(x,y)$ result in a well-conditioned linear system that is solved with
+a mesh-independent number of GMRES iterations; and high-order or
+spectral accuracy is attainable with appropriate quadrature methods. In
+our previous work~\cite{Fu2018_SIAM} we demonstrate that BIEs are a
 powerful tool to simulate two-dimensional suspensions of amphiphilic
 particles. In addition to improving two-dimensional simulations, we will
 extend the results to three dimensions using a standard
 three-dimensional BIE of the screened Laplace equation~\cite{ying_2006}
-and a well-conditioned BIE of the mobility problem~\cite{manasthesis}.
+and a well-conditioned BIE of the mobility problem~\cite{manasthesis,
+rac-gre2016}.
 
 The most significant challenges of a BIE formulation include solving
 dense linear systems, developing preconditioning strategies, and
@@ -74,7 +74,7 @@ inverse Fast Multipole Method (IFMM)~\cite{cou-pou-dar2017}. PI Quaife
 used the IFMM to precondition Stokes equations in a porous
 media~\cite{qua-cou-dar2018}, and a suite of other preconditioners
 including sparse approximate inverses~\cite{che2000} and
-multigrid~\cite{hem-sch1981, sch1982} will be investigated.  
+multigrid~\cite{hem-sch1981, sch1982} will be investigated.
 
 \begin{wrapfigure}[21]{r}{3.0in}
 %\vspace*{+15pt}
