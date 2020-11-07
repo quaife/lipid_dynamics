@@ -3,7 +3,8 @@
 \label{subsec:specific_aim_2}
 Specific Aim 1 dealt with the collective material property of amphiphiles which does not involve the movement  of the solvent.
 In Specific Aim 2, we include hydrodynamics effects. Hydrodynamic effects are relevant
-because the rates of biological functions like fusion, fission, and pore dynamics rely on viscous dissipation \cite{RYHAM20112929}. 
+because the rates of biological functions like fusion, fission, and pore dynamics rely on viscous dissipation \cite{RYHAM20112929},
+and can determine which local equilibria the system tends towards. 
 Additionally, coarse-grained and molecular dynamics theories include water either explicitly or implicitly in their models. 
 
 A further area of relevance is in the fabrication of complex microscopic three-dimensional structures \cite{Cho2010}.
@@ -58,9 +59,9 @@ In turn, the fluid velocity ${\bf u}$ solves the Stokes equations (\ref{St1}, \r
 The force and torque equations \eqref{HSB1}, \eqref{HSB2} couple the (\ref{St1}--\ref{St4}) to (\ref{SL1}--\ref{SL3}).
 The outputs are the collection of velocity and rotation pairs $({\bf v}_i, {\bf w}_i)$ that uniquely satisfy the rigid body boundary condition \eqref{St3}. 
 
-The particle velocity and rotation $({\bf v}_i, {\bf w}_i)$ allow us to update the particle position:
+The particle velocity and rotation $({\bf v}_i, {\bf w}_i)$ update the particle configurations:
 \begin{alignat}{3}
-\label{Hupdate1}   \frac{\dif {\bf a}_i}{\dif t} = {\bf v}_i,      \quad  \frac{\dif {\bf R}_i}{\dif t}  = A({\bf w}_i).
+\label{Hupdate1}   \frac{\dif {\bf a}_i}{\dif t} = {\bf v}_i,      \quad  \frac{\dif {\bf R}_i}{\dif t}  = A({\bf w}_i),\quad i = 1, \dots, N.
 \end{alignat}
 Recall that $A({\bf w}_i)$ is the skew-symmetric matrix with axial vector ${\bf w}_i$.
 Also, ${\bf a}_i$ is the particle center the rotation matrix ${\bf R}_i$ defines the orientation.
@@ -68,8 +69,46 @@ That way, the particle configurations come from the flow maps $F_i({\bf x},t) = 
 $P_i(t) = F_i(P_{0i},t)$ and $f_i(F_i({\bf x},t)) = f_{i0}({\bf x})$ where $P_{i0}$ and $f_{i0}$ are the $i$th reference particle
 and material label respectively.
 
+Numerically solving \eqref{St1}--\eqref{HSB2} is a nontrivial matter.
+First, we have to carefully map the particle configurations because the domain $\Omega(t)$ and boundary conditions $f_i$ are constantly changing.
+The particle dynamics in \eqref{Hupdate1} and in \eqref{SGD} both involve solving
+screened Laplace boundary value problems on evolving domains, but differ in that \eqref{Hupdate1} has an additional Stokes flow
+generating the dissipation. When there is no background flow ${\bf u}_{\infty} = {\bf 0}$, the system obeys the energy law
+\begin{equation}
+\frac{\dif}{\dif t} \Phi + \int_{\Omega(t)} \mu |\nabla {\bf u} + \nabla {\bf u}^T|^2 \,dx = 0
+\end{equation}
+and the particle configurations tend toward a local equilibrium.
 
+A nonzero background flow continually injects energy into the system. We deal with the background flow using
+the Power and Miranda representation 
+\begin{equation}
+\label{PowerMiranda}
+{\bf u} = {\bf u}_{\infty} + D\eta + \sum_{i=1}^N S(\cdot, {\bf a}_i) {\bf F}_i + R(\cdot, {\bf a}_i) {\bf G}_i.
+\end{equation}
+where $S(\cdot, {\bf a}_i)$ and $ R(\cdot, {\bf a}_i)$ are stokeslets and rotlets supported at the particle centers ${\bf a}_i.$
+The symbol $D$ denotes the Stokes double layer integral operator (see Specific Aim 3).   
+The representation \eqref{PowerMiranda} automatically satisfies \eqref{St1}, \eqref{St2}, \eqref{St4} and \eqref{HSB1}.
+We solve for the unknown density $\eta : \partial \Omega \to \mathbb{R}$ by requiring that jump in viscous stress
+vanished across $\partial P_i$. This jump condition guarantees that ${\bf u}$ is a rigid motion within each particle,
+and by continuity, equals a rigid motion on the particle boundary as required by \eqref{St3}.
 
+We prove a, what to our knowledge is new, result concerning the evaluation of Maxwell-type stresses. 
+\begin{proposition}
+  \label{prop:recip}
+  Suppose that $u = \sum_{i=1}^N u_i$ where $u_i$ is a solution of the screened Laplace equation
+  in $\mathbb{R}^3 \setminus P_i$ for $i=1,\dots, N.$ Then 
+\begin{equation}
+{\bf F}_i = \sum_{j \neq i} \int_{\partial P_i}[\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S,\quad
+{\bf G}_i = \sum_{j \neq i} \int_{\partial P_i} {\bf x} \times [\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S, \quad i = 1\dots, N.
+\end{equation}
+where $\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i \cdot \nabla u_j {\bf I} - 2 \nabla u_i \otimes \nabla u_j)$ and
+$[\cdot]$ denotes the jump in stress across $\partial \Omega.$ 
+\end{proposition}
+As described in Specific Aim 3, we solve \eqref{SL1}--\eqref{SL3}  using a double layer potential representation.
+While accurate in the far-field, this representation involves a strongly singular integral which
+leads to large numerical errors when evaluating the the hydrophobic stress \eqref{stress} along the particle boundaries.
+The identity in Proposition \ref{prop:recip} gets around this critical problem by utilizing the fact that $u_j$, $j\neq i$ is smooth and the normal derivative
+of  $u_i$ continuous across $\partial P_i$.
 
 
 
