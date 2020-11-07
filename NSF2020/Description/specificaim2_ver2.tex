@@ -13,80 +13,63 @@ to coordinated movement and bind  material subunits. Two prominent fabrication t
 particles exhibit similar thermodynamic behavior of molecular systems, except that the behavior occurs over observable, long time scales \cite{Zhang2017}. 
 
 The hydrodynamic interactions enter through the transmission of viscous stresses from one particle to the another.
-We must solve the system 
-\begin{alignat}{3}
-\label{Hupdate1}  & \frac{\dif {\bf a}_i}{\dif t} = {\bf v}_i,      &&  \frac{\dif {\bf R}_i}{\dif t}  = A({\bf w}_i),\quad        \\
-\label{Hupdate2}  & F_i({\bf x},t) = {\bf a}_i + {\bf R_i}{\bf x},  && P_i(t) = F_i(P_{0i},t), \quad && i = 1,\dots, N             \\
-\label{HBVP1} -& \mu \Delta {\bf u} + \nabla p = {\bf 0} , \quad \quad -&& \rho^2 \Delta u +u = 0, \\
-\label{HBVP2}  & \nabla \cdot {\bf u} = 0,                       &&                                                                  && \text{in } \Omega(t) = \mathbb{R}^3 \setminus \cup_{i=1}^N P_i\\
-\label{HBVP3}  & {\bf u }({\bf x}) = {\bf v}_i + {\bf w_i}\times {\bf x} , \quad                &&  u({\bf x}) = f_i({\bf x}),\quad  && \text{for } {\bf x} \in \partial P_i\\
-\label{HBVP4}  & ({\bf u } - {\bf u}_{\infty})({\bf x}) \to {\bf 0} && u({\bf x}) \to 0 && \text{as } {\bf x} \to \infty\\
-\label{HSB1}   & \int_{\partial P_i} (\boldsymbol{\sigma}  + \boldsymbol{\sigma}_{\text{hydro}})\nu \,dS + {\bf F}_{\text{repul},i} = {\bf 0}\span  \span\\
-\label{HSB2}   & \int_{\partial P_i} {\bf x} \times (\boldsymbol{\sigma}  + \boldsymbol{\sigma}_{\text{hydro}})\nu \,dS + {\bf G}_{\text{repul},i} = {\bf 0} \span \span
+This involves solving the system 
+
+\setcounter{midequation}{\theequation}
+\addtocounter{midequation}{2}
+
+\begin{minipage}[t]{0.44\textwidth}
+\begin{subequations}
+\begin{alignat}{2}
+\label{St1} -& \mu \Delta {\bf u} + \nabla p = {\bf 0}, \\
+\label{St2}  & \nabla \cdot {\bf u} = 0,                &&   \text{in } \Omega\\
+\label{St3}  & {\bf u }({\bf x}) = {\bf v}_i + {\bf w_i}\times {\bf x}, \;  && \text{for } {\bf x} \in \partial P_i\\
+\label{St4}  & ({\bf u } - {\bf u}_{\infty})({\bf x}) \to {\bf 0} && \text{as } {\bf x} \to \infty\\
+\notag \\
+\tag{\themidequation}
+\label{HSB1}  & \int_{\partial P_i} \boldsymbol{\sigma} \boldsymbol{\nu} \,\dif S + {\bf F}_{i} = {\bf 0}\span \span
 \end{alignat}
-At the top, \eqref{Hupdate1} defines the particle velocity and rotation, respectively. Recall that $A({\bf w}_i)$ is the skew-symmetric matrix with axial vector ${\bf w}_i$.
-The second line \eqref{Hupdate2} defines the rigid motions and updates the particle position, respectively. 
-The particle velocity and rotation $({\bf v}_i, {\bf w}_i)$ needed in \eqref{Hupdate1} are outputs of the boundary value problem \eqref{HBVP1}--\eqref{HSB2}.
-To get to these, the activity $u$ solves the screened Laplace equation (\ref{HBVP1}b) with the material label boundary condition (\ref{HBVP3}b)
-and far-field boundary condition (\ref{HBVP4}b).
-This sets up the hydrophobic stress $\boldsymbol{\sigma}_{\text{hydro}}$ through \eqref{stress}.
-In turn, the fluid velocity ${\bf u}$ solves the Stokes equations (\ref{HBVP1}a, \ref{HBVP2}a)
-with background flow boundary condition (\ref{HBVP4}a).
-Due to Fredholm theory, there are precisely $N$ many velocity and rotation pairs $({\bf v}_i, {\bf w}_i)$
-that simultaneously satisfy the rigid motion boundary condition (\ref{HBVP3}a) and
-the requirement that the net force and net torque on each particle is zero; \eqref{HSB1}, \eqref{HSB2}. 
+\end{subequations}
+\end{minipage}
+\addtocounter{equation}{1}
+\setcounter{midequation}{\theequation}
+\addtocounter{midequation}{2}
+\begin{subequations}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{alignat}{2}
+\label{SL1}  - & \rho^2 \Delta u +u = 0, && \text{in } \Omega\\
+\label{SL2}   & u({\bf x}) = f_i({\bf x}),\quad  && \text{for } {\bf x} \in \partial P_i\\
+\label{SL3} &  u({\bf x}) \to 0 && \text{as } {\bf x} \to \infty \\
+\notag \\
+\notag \\
+\tag{\themidequation}
+\label{HSB2}   & \int_{\partial P_i} {\bf x} \times \boldsymbol{\sigma} \boldsymbol{\nu} \,\dif S + {\bf G}_{i} = {\bf 0} \span \span\\
+\notag
+\end{alignat}
+\end{minipage} 
+\end{subequations}
+
+
+\noindent for $i = 1,\dots, N$.
+The inputs to \eqref{St1}--\eqref{HSB2} are the collection of particle configurations.
+Within this system, the activity $u$ solves the screened Laplace equation \eqref{SL1} with the material label boundary condition \eqref{SL2}
+and far-field condition \eqref{SL3}. The forces ${\bf F}_i$ and torques ${\bf G}_i$ come from \eqref{totalFG}.
+In turn, the fluid velocity ${\bf u}$ solves the Stokes equations (\ref{St1}, \ref{St2}) with background flow boundary condition (\ref{St3}).
+The force and torque equations \eqref{HSB1}, \eqref{HSB2} couple the (\ref{St1}--\ref{St4}) to (\ref{SL1}--\ref{SL3}).
+The outputs are the collection of velocity and rotation pairs $({\bf v}_i, {\bf w}_i)$ that uniquely satisfy the rigid body boundary condition \eqref{St3}. 
+
+The particle velocity and rotation $({\bf v}_i, {\bf w}_i)$ allow us to update the particle position:
+\begin{alignat}{3}
+\label{Hupdate1}   \frac{\dif {\bf a}_i}{\dif t} = {\bf v}_i,      \quad  \frac{\dif {\bf R}_i}{\dif t}  = A({\bf w}_i).
+\end{alignat}
+Recall that $A({\bf w}_i)$ is the skew-symmetric matrix with axial vector ${\bf w}_i$.
+Also, ${\bf a}_i$ is the particle center the rotation matrix ${\bf R}_i$ defines the orientation.
+That way, the particle configurations come from the flow maps $F_i({\bf x},t) = {\bf a}_i(t) + {\bf R_i}(t){\bf x}$ with
+$P_i(t) = F_i(P_{0i},t)$ and $f_i(F_i({\bf x},t)) = f_{i0}({\bf x})$ where $P_{i0}$ and $f_{i0}$ are the $i$th reference particle
+and material label respectively.
 
 
 
-%The mathematics of this proposal investigates how three-dimensional solids deform under long-range surface tension interaction. The results generalize the physical principles used in the design of functional materials, enabling investigators to simulate sub-micron scale systems that are otherwise impractical to realize experimentally. It supplies new insight into organizational principles in physical and biological sciences. 
-%
 
-There is inherent intellectual value in fabricating novel three dimensional structures: Living cells construct biological molecules like proteins, membranes and viral capsids using hierarchical assembly \cite{Whitesides2002}. At the same time, elastocapillarity and colloidal self-assembly supply model systems for biological processes, like vesicle adhesion and membrane bound protein interaction \cite{Dasgupta2017}, the hydro-polar model of protein folding \cite{Lau1989,Pandey2011} and viral capsid assembly and \cite{CASPAR1962}. Capillarity can serve as a model for the lock and key mechanism binding between the active site of an enzyme and a substrate molecule \cite{Araujo2018}, or treating viruses like adhered particles 
-\cite{Agudo-Canalejo2017,Agudo-Canalejo2015,Deserno2004}, or studying decorated vesicles 
-\cite{Auth2009,Weikl2002,Atilgan2007}. Although challenging, mathematically analyzing these model systems gives deep insight into biological structure and function.
 
-%Aside from their intellectual value, high-yield batch production of three-dimensional microstructures has application in functional materials engineering \cite{Syms2003,Leong2010,Crane2013}. In mechanics, for instance, elasticapillarity is a guiding principle lithographic etching of electronics \cite{Bico2018}. Researchers have used self-folding structures in the design of micro containers for encapsulated drug delivery \cite{Fernandes2012} and 3D photovoltaic cells \cite{Guo2009}. 
-%In chemical engineering, emulsions stabilize droplets through capillary binding or particulates leading 
-%to colloidosomes capturing proteins, vitamins, flavors, living cells \cite{Dinsmore2002}. 
-%Microsensors, electronic ink and micromotors \cite{Zhang2017,Yan2016} 
-%are potential applications involving Janus-like particles. 
-
-\begin{wrapfigure}[14]{r}{3.0in}
-\vspace*{+15pt}
-\centerline{\includegraphics[width=3.0in]{figures/SA3_fig2.pdf}}
-\vspace*{5pt}
-\caption{{\footnotesize Illustration of self-assembly of hydrophobically labeled faces.
-The thick triangles have a rim-hydrophobic label on one side, and are hydrophilic on the other side.
-These shapes would potentially aggregate into a tetrahedral container. }}
-\label{fig:illustration}
-\end{wrapfigure}
-The HAP theory is ideally suited to the problem of creating microstructures through capillary action. Specifically, the modeling application considers the assembly of polyhedra from smaller subunits. Our developments, which include viscous interactions, thermal fluctuation, and a long range description of capillarity, will pave the way for dynamical understanding to organizational principles in viral capsid formation, for instance \cite{CASPAR1962,Prasad2012}. 
-
-In order to illustrate the novelty of our approach, it is helpful to first describe how current experimental and mathematical techniques deal with polyhedral assembly. Capillary origami uses lithography to etch faces out of a thin, elastic sheet \cite{Pandey2011,Reynolds2019}. The collection of faces form a so-called net, and this net self-folds into a three-dimensional polyhedron (Figure~\ref{fig:illustration}). The motivation is to create micro containers to mimc protein folding \cite{Reynolds2019}. Prediction of geometric structure from its subunits is non-trivial. That is because the final morphology depends on the net structure, physical interactions, and the surrounding media, and researchers have formulated optimality criteria for these nets \cite{Araujo2018,Pandey2011}. 
-
-The experimental shapes are hundreds of microns in diameter. Thus, as a key distinction with HAP approach, the driving force for folding in capillary origami and related processes comes from surface energy of the hinges (e.g. soldered hinges that supply a surface tension once the system is heated). Mathematicians have numerically and analytically described the behavior of these surface tension driven hinges \cite{Bico2018,Peraud2014,Brubaker2016}, making it possible to simulate the mechanical problem, in principle, using slender body theory for plates. 
-
-To study this problem using HAP theory, we form a collection of thin, prism-like particles in Figure \ref{fig:illustration}. 
-Each of these particles serves as a face in the final morphology. The edges of the prisms are labeled hydrophobic according to the boundary condition in the screened Laplace equation boundary value problem. This way, the edges coalesce, forming the desired structures. Furthermore, 
-by manipulating the boundary condition in HAP, it is possible to have faces attach and detach with precision, and form a net or other structures if so desired. Our HAP theory therefore generalizes submillimeter theoretical and experimental work to the micron and nanometer sizes. 
-
-%There is also the possibility to explore new classes of mathematical materials, like wrinkling in polystyrene sheets \cite{Paulsen2016}, that include the interaction between an elastic material, the viscous solvent, and long range hydrophobic (capillary) interactions. In the case of rigid particles and subunits, the rigid body motions come from the so-called mobility boundary value problem for the Stokes equation. Here, the hydrophobic stress balances with the viscous stress coming from the rigid body motion of the particles in the surrounding solvent. If the particles are deformable, like a protein \cite{Elms2012} or as in the capillary induced bending of rods \cite{Schulman2017}, then we can formulate an elastic energy for deformation. These elastic energies account for surface bending or even permanent charge. To deploy this approach, it is a matter of solving the bodies' momentum balance equations coupled to the fluid through the viscous, elastic, and hydrophobic stress balance. 
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\textwidth]{figures/SA3_fig1.pdf}
-\end{center}
-\caption{(A)--(D) shows the spontaneous insertion of two hydrophobic particles into a vesicle bilayer. 
-The driving force is long-range interaction between the hydrophobic, magenta particles and
-the bilayer core.  The particle entrainment cause the vesicle to break apart, analogously to surfactant
-induced lysis.}
-\end{figure}
-Finally, further applications of our modeling approach include colloidal interaction on interfaces. Here, the experimental setups use Janus particles to model, for example, membrane bound proteins \cite{Kumar2013,Lehle2008,Zhang2017}. The idea of an amphiphilic Janus particle was introduced by P. G. de Gennes in 1991 \cite{Zhang2017}. The Investigators have significant experience as Janus particles figure heavily into our particle based description of bilayers, and can adjust our modeling approach to account for proteins. This is done by consider mixtures, consisting of many (hundreds to thousands) long, elongated amphiphilic particles for the lipid phase. Larger particles with hydrophobic patches or stripes model the proteins \cite{Jurasek2017}.
-
-The distinction between macroscopic capillarity and microscopic hydrophobic force are relevant here as well.  Prior models use surface energies to account for interaction between particles in an interface \cite{Dasgupta2017}. 
-However, this may be missing important physics, and here our modeling approach has the advantage in that protein insertion, for instance, is a self-consistent consequence of the formulation, versus an assumption imposed by boundary conditions.  
-The simulations will enable us address important biological questions on how a collection of 
-interface bound colloids interact \cite{Yao2013,Salib2013}, 
-and how configurations dictate 
-macroscopic surface properties and sense background curvature \cite{Cavallaro2011,Liu2018,Sharifi-Mood2015}. 
 
