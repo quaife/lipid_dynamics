@@ -200,13 +200,25 @@ The comparison enables us to understand how the model parameters map onto elasti
 
 In the preliminary work, bilayer shapes minimized energy with respect to an external force. Energy minimality is somewhat unrealistic because
 biological membranes are constantly in motion. Tracking the evolution of a bilayer is a more robust procedure that does not require minimality.
-Here we start with a particle bilayer in a non-equilibrium shape, and then evolve the particle bilayer according to steepest gradient descent with respect to the
-HARP functional. Gradient descent stabilizes the evolving bilayer shape and gives a monotonically decreasing energy. This gives a relatively large
+Here we start with a particle bilayer in a non-equilibrium shape, and then evolve the particle bilayer by steepest gradient descent with respect to the
+HARP functional:
+\begin{equation}
+\label{SGD}   
+\frac{\dif {\bf a}_i}{\dif t} = {\bf F}_i,    \quad  \frac{\dif {\bf R}_i}{\dif t}  = {\bf R}_i A({\bf w}_i),\quad i = 1, \dots, N.
+\end{equation}
+where that particle centers ${\bf a}_i$ and rotation matrices ${\bf R}_i$ determine the particle configuraton; 
+$A({\bf w}_i)$ is the skew-symmetric matrix with axial vector ${\bf w}_i$.
+Gradient descent stabilizes the evolving bilayer shape and gives a monotonically decreasing energy. This gives a relatively large
 data set of energy $E$ versus particle configuration. At the same time, we reconstruct an evolving monolayer dividing surface $\Sigma$ and director field $n$ by
 interpolating the particle centers and orientations. Using \eqref{ansatz3}, we calculate a continuum energy $H$ from the interpolated
 bilayer shape. Setting $\Delta E = E - E_0$ and $\Delta H = H - H_0$ normalizes the energies to their respective equilibrium values $E_0$ and $H_0$.
 In certain instances, the bilayer evolution involves only one of the four fundamental deformations.
 When this occurs, the elastic moduli appear as the slope of the linear regression between $\Delta H$ and $\Delta E$. 
+
+The evolution \eqref{SGD} satisfies the energy dissipation law $\frac{\dif }{\dif t} \Phi \leq 0$. We solve \eqref{SGD} numerically 
+using an Adams–Bashforth linear multistep method. The procedure involves solving \eqref{SL} based off of the current particle configuration.
+We then use the solution $u$ to calculate the collection of forces and torques \eqref{forceandtorque}, and update the particle configuration
+through \eqref{SGD}. 
 
 Bending is the energetically most consequential deformations,
 and so we revisit estimating the bending modulus parameter. 
