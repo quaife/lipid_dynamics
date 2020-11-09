@@ -1,12 +1,14 @@
 \section{Proposed Research}
 \label{sec:proposed-work}
-The proposed research develops fast,
-high-order-accurate, parallel numerical algorithms for large-scale
-simulations of the collective hydrodynamics of amphiphilic particles in a viscous solvent.
-%
+%The proposed research develops fast,
+%high-order-accurate, parallel numerical algorithms for large-scale
+%simulations of the collective hydrodynamics of amphiphilic particles in a viscous solvent.
+%%
 We have demonstrated that our hydrophobic attraction with repulsion potential (HARP) approach efficiently simulates
 self-assembly of amphiphilic particles into two-dimensional micelles, bilayer membranes, and vesicles \cite{Fu2018_SIAM}, and
-recreates the tank-treading phenomenon in external shear flows \cite{Fu20} \textbf{!!let's put a proceedings here so we have something to cite!!}.
+recreates the tank-treading phenomenon in external shear flows
+\cite{Fu20}.
+%\todo[inline]{!!let's put a proceedings here so we have something to cite!!}.
 %
 While the results show great promise in the field of collective body hydrodynamics,
 several outstanding issues need to be addressed. These include a thorough 
@@ -14,7 +16,7 @@ analysis of elastic properties of our coarse-grained bilayers, and
 efficiently simulating three-dimensional collective hydrodynamics of amphiphilic particles.
 Finally, we must mathematically characterize the variational behavior of HARP under appropriate homogenized limits.
 
-\subsection{Specific Aim 1: Collective elastic properties of amphiphilic particles}
+\subsection{Specific Aim 1: Material properties of self-assembly of amphiphiles}
 \label{subsec:specific_aim_1}
 
 %\begin{figure}
@@ -31,8 +33,8 @@ Finally, we must mathematically characterize the variational behavior of HARP un
 %\end{figure}
 The goal of Specific Aim 1 is characterize the material properties of many-body, self-assembled amphiphiles.
 For amphiphiles assembled into bilayers, these properties are described by membrane continuum mechanics.
-The end-goal is to be able to map the parameters of the particle-based model onto the elastic moduli from continuum theory.
-If we achieve this goal, then simulators can use the hydrophobic attraction force calculations
+Our goal is to be able to map the parameters of the particle-based model onto the elastic moduli from continuum theory.
+Results from this goal will facilitate simulators to use the hydrophobic attraction force calculations
 to model bilayers with specific composition. These calculations have provably less computational complexity than
 those of molecular dynamics simulations and possess the molecular granularity lacking from continuum models.
 
@@ -98,16 +100,22 @@ to the negative spontaneous curvature $k_0$ leads to lower energy \cite{Kamal222
 The subtraction of $k_0^2$ makes the energy distortion free
 \cite{Helfrich73,PhysRevLett.113.248102,Hamm2000}.
 
-An interesting and challenging feature of \eqref{ansatz3} is that
-the elastic energy couples director gradients to surface geometry through the tilt vector field.
-In biological contexts, bilayer energy is the sum monolayer energies, and tilt appears at lipid domain boundaries, the edge of nanopores and at the boundary of membrane inclusions \cite{PhysRevE.102.042406}.  
-Under spatial scales much larger than the membrane thickness, membrane energy is well-characterized by
-the Canham-Helfrich energy used throughout the fluid-structure literature 
-\cite{QiangDu09, Lowengrub07,KimLai2010_JCP,Hu,HuLaiSeolEtAl2016_JCP} \textbf{!! YNY and BQ, place your recent works here!!}.
-The Canham-Helfrich energy is actually a special case of \eqref{ansatz3} obtained by setting $n =  \pm N$ (the $\pm$ depending
-on orientation) and collapsing both monolayers onto the membrane midplane. There,
-splay $\Div n$ equal to twice the mean curvature, saddle splay $\det \nabla n$ equal to the Gauss curvature,
-and both twist and tilt are equal to zero. 
+An interesting and challenging feature of \eqref{ansatz3} is that the
+elastic energy couples director gradients to surface geometry through
+the tilt vector field.  In biological contexts, bilayer energy is the
+sum monolayer energies, and tilt appears at lipid domain boundaries, the
+edge of nanopores and at the boundary of membrane inclusions
+\cite{PhysRevE.102.042406}.  Under spatial scales much larger than the
+membrane thickness, membrane energy is well-characterized by the
+Canham-Helfrich energy used throughout the fluid-structure literature
+\cite{QiangDu09, Lowengrub07,KimLai2010_JCP, Hu, HuLaiSeolEtAl2016_JCP,
+qua-bir2014, qua-vee-you2019}. \todo[inline]{YNY: place your recent
+works here} The Canham-Helfrich energy is actually a special case of
+\eqref{ansatz3} obtained by setting $n =  \pm N$ (the $\pm$ depending on
+orientation) and collapsing both monolayers onto the membrane midplane.
+There, splay $\Div n$ equal to twice the mean curvature, saddle splay
+$\det \nabla n$ equal to the Gauss curvature, and both twist and tilt
+are equal to zero. 
 
 
 
@@ -128,13 +136,14 @@ and both twist and tilt are equal to zero.
 % how they plan to do it,
 % how they will know if they succeed,
 % and what benefits could accrue if the project is successful.
-\begin{center}
-Preliminary results
-\end{center}
+%\begin{center}
+%Preliminary results
+%\end{center}
+\subsubsection{Preliminary results}
 Our preliminary tested for elastic properties by subjecting bilayers to external loads \cite{Fu2018_SIAM}.
 We used realistic values for the phospholipid length $a$ \cite{Boal},
 screening length $\rho = 2.5$ nm \cite{Eriksson1989,Lin2005,Parsegian,Israelachvili80,TerziDeserno17}
-and  interfacial tension $\gamma=4.1$ pN nm$^{-1}$  \cite{GarciaSaez, KUZMIN2005, Petelska2012, Jackson}
+and interfacial tension $\gamma=4.1$ pN nm$^{-1}$ \cite{GarciaSaez, KUZMIN2005, Petelska2012, Jackson}
 model parameters.
 The repulsion strength, repulsion length scale, particle shape (e.g. disks, ellipses), 
 particle diameter and the hydrophobic boundary condition \eqref{SL}
@@ -181,22 +190,35 @@ The following simulation outline shows how will achieve aims.
 %\label{fig:barriers}
 %\end{wrapfigure}
 
-\begin{center}
-Anticipated model simulations
-\end{center}
+%\begin{center}
+%Anticipated model simulations
+%\end{center}
+\subsubsection{Anticipated model simulations}
 To characterize material properties, we compare the energies and forces generated by
 a collection of amphiphilic particles against the energies and forces of a continuum bilayer.
 The comparison enables us to understand how the model parameters map onto elastic parameters. 
 
 In the preliminary work, bilayer shapes minimized energy with respect to an external force. Energy minimality is somewhat unrealistic because
 biological membranes are constantly in motion. Tracking the evolution of a bilayer is a more robust procedure that does not require minimality.
-Here we start with a particle bilayer in a non-equilibrium shape, and then evolve the particle bilayer according to steepest gradient descent with respect to the
-HARP functional. Gradient descent stabilizes the evolving bilayer shape and gives a monotonically decreasing energy. This gives a relatively large
+Here we start with a particle bilayer in a non-equilibrium shape, and then evolve the particle bilayer by steepest gradient descent with respect to the
+HARP functional:
+\begin{equation}
+\label{SGD}   
+\frac{\dif {\bf a}_i}{\dif t} = {\bf F}_i,    \quad  \frac{\dif {\bf R}_i}{\dif t}  = {\bf R}_i A({\bf w}_i),\quad i = 1, \dots, N.
+\end{equation}
+where that particle centers ${\bf a}_i$ and rotation matrices ${\bf R}_i$ determine the particle configuraton; 
+$A({\bf w}_i)$ is the skew-symmetric matrix with axial vector ${\bf w}_i$.
+Gradient descent stabilizes the evolving bilayer shape and gives a monotonically decreasing energy. This gives a relatively large
 data set of energy $E$ versus particle configuration. At the same time, we reconstruct an evolving monolayer dividing surface $\Sigma$ and director field $n$ by
 interpolating the particle centers and orientations. Using \eqref{ansatz3}, we calculate a continuum energy $H$ from the interpolated
 bilayer shape. Setting $\Delta E = E - E_0$ and $\Delta H = H - H_0$ normalizes the energies to their respective equilibrium values $E_0$ and $H_0$.
 In certain instances, the bilayer evolution involves only one of the four fundamental deformations.
 When this occurs, the elastic moduli appear as the slope of the linear regression between $\Delta H$ and $\Delta E$. 
+
+The evolution \eqref{SGD} satisfies the energy dissipation law $\frac{\dif }{\dif t} \Phi \leq 0$. We solve \eqref{SGD} numerically 
+using an Adams–Bashforth linear multistep method. The procedure involves solving \eqref{SL} based off of the current particle configuration.
+We then use the solution $u$ to calculate the collection of forces and torques \eqref{forceandtorque}, and update the particle configuration
+through \eqref{SGD}. 
 
 Bending is the energetically most consequential deformations,
 and so we revisit estimating the bending modulus parameter. 

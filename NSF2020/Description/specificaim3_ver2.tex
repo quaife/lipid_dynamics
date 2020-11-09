@@ -1,4 +1,4 @@
-\newpage
+%\newpage
 
 \subsection{Specific Aim 3: Efficient high-order numerical methods for
 large-scale simulations}
@@ -79,7 +79,7 @@ be investigated.
 \begin{wrapfigure}[21]{r}{3.0in}
 %\vspace*{+15pt}
 \centerline{\includegraphics[width=3.0in]{figures/integrands}}
-\vspace*{-10pt}
+\vspace*{-13pt}
 \caption{{\footnotesize The Fourier modes of $K(x_0,y)$ and $K_2(x_0,y)$
   where $\|x_0\| = 0.99$ and $y \in \partial\Omega$, where
   $\partial\Omega$ is the unit circle. The trapezoid rule applied to the
@@ -129,34 +129,33 @@ repulsion}
 \label{subsec:timeStepping}
 
 A numerical issue when simulating the self-assembly of amphiphilic
-particles in a viscous solvent is the collision between the
-particles. The hydrophobic attraction potential drives the amphiphilic
-particles towards one another so to minimize exposure to the solvent,
-and this leads to physical contact in finite time. Such particle
-collisions in a dense rigid body suspension is a great challenge and can
-be a bottleneck in large-scale simulations. We propose two algorithms to
-remedy this computational challenge: high-order adaptive time stepping
-and repulsion forces.
+particles is avoiding particle collision. The hydrophobic attraction
+potential drives the amphiphilic particles towards one another so to
+minimize exposure to the solvent, and this leads to physical contact in
+finite time. Such particle collisions in a dense rigid body suspension
+is a great challenge and can be a bottleneck in large-scale simulations.
+We propose two algorithms to remedy this computational challenge:
+high-order adaptive time stepping and repulsion forces.
 
 PI Quaife developed a high-order adaptive time stepping method for
 hydrodynamic suspensions~\cite{qua-bir2016} and it has served as a
-reliable method to simulate processes including mixing and adhesion in
+robust method to simulate processes including mixing and adhesion in
 suspensions~\cite{qua-vee-you2019, kab-qua-bir2017}. The method uses
 a single-step high-order time stepping method and a computationally
 cheap estimate of the error. The proposed work will use a spectral
-deferred correction method~\cite{dut-gre-rok2000} since it can
-iteratively apply a low-order method to achieve high-order accuracy. To
-estimate the error, we will compute the total force and torque of the
-system which is computationally cheap and physically zero. The PIs
-experience is that error estimates based on physical constraints such as
-force- and torque-free conditions appropriately adjust the time step
-size so that the dynamics are adequately resolved without the
-computational expense of strategies such as embedded Runge-Kutta
+deferred correction method~\cite{dut-gre-rok2000} since it iteratively
+applies a low-order single-step method to achieve high-order accuracy.
+To estimate the error, at each time step we will compute the total force
+and torque of the system which is computationally cheap and physically
+zero. The PIs' experience is that error estimates based on physical
+constraints such as force- and torque-free conditions appropriately
+adjust the time step size so that the dynamics are resolved without the
+computational expense of techniques such as embedded Runge-Kutta
 methods, step-doubling, and Richardson extrapolation.
 
 Our previous work avoids contact by including a Leonard-Jones body
-forces~\cite{Fu2018_SIAM}. Such a steep steric interaction at short ranges
-introduces numerical stiffness and limits the time step size. To
+forces~\cite{Fu2018_SIAM}. Such a steep steric interaction at short
+ranges introduces numerical stiffness and limits the time step size. To
 remove this stiffness, we propose a geometry-based contact
 method~\cite{har-pon-sor-zor2011}, and this method has been applied to
 vesicle suspensions~\cite{lu-rah-zor2017} and rigid body suspensions in
@@ -171,20 +170,19 @@ that the configuration is non-overlapping.
 \label{subsec:fluctuating}
 Once algorithms that address quadrature, adaptive time stepping, and
 contact are implemented, we will embark on incorporating fluctuating
-hydrodynamics~\cite{Bao17,Bao18} which are important even at scales of
-the some amphiphilic particles.
-
-\todo[inline]{Using DLP formulation for fluctuating hydrodynamics so
-that we have a second-kind BIE}
-%\textcolor{red}{
-%Once the collision-resolution algorithm is implemented, we will check
-%the computing performance first before we embark on incorporating
-%fluctuating hydrodynamics~\cite{Bao17,Bao18}, which might be important
-%even at the scales of the amphiphilic particle size in some cases. We
-%propose to extend the high-order time-integration scheme for a
-%stochastic differential equation~\cite{fu2015pre} to this system.
-%}
-
-
+hydrodynamics that are important even at scales of the some amphiphilic
+particles. Bao et al.~\cite{Bao17,Bao18} developed two-dimensional BIE
+formulations for Brownian rigid bodies. To satisfy the covariance of the
+rigid body velocities, an ill-conditioned first-kind integral equation
+method is used. The proposed work will consider a double-layer potential
+formulation that has much better conditioning properties. This strategy
+was attempted in~\cite{Bao18}, but they claim that a necessary
+regularization of the covariance matrix leads to a drastic loss of
+accuracy in numerical fluctuation-dissipation balance. However, they
+only one regularization strategy was considered, and as PI Quaife has
+shown in previous work, the regularization choice significantly affects
+the resulting physics~\cite{ong-chr-qua2017}. Therefore, different
+regularization strategies will be investigated with the goal of
+controlling the accuracy of the fluctuation-dissipation balance.
 
 
