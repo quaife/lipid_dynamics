@@ -1,21 +1,21 @@
 %\subsection{Specific Aim 2: Functional Materials}
 \subsection{Specific Aim 2: Hydrodynamics}
 \label{subsec:specific_aim_2}
-Specific Aim 1 dealt with the collective material property of amphiphiles which does not involve the movement  of the solvent.
-In Specific Aim 2, we include hydrodynamics effects. Hydrodynamic effects are relevant
-because the rates of biological functions like fusion, fission, and pore dynamics rely on viscous dissipation \cite{RYHAM20112929},
-and can determine which local equilibria the system tends towards. 
+Specific Aim 1 dealt with the collective material property of amphiphiles which does not involve the movement of the solvent.
+In Specific Aim 2, we include hydrodynamics effects by embedding the particles in solvent. 
+The fluid is modeled by the Stokes equations an incompressible, zero Reynolds-number fluid, and coupled to the screened-Laplace equation \eqref{SL}
+through the viscous and hydrophobic stress balance. We develope a numerical solver for the mobility problem. 
+This leads to simulations of bilayers in external flows where the bilayers are represented by a self-assebled collection of rigid particles. 
+Finally, we work toward three-dimensional solvers with application in the capillary driven fabrication of micro-materials. 
+
+Hydrodynamic effects are relevant detail 
+because the rates of biological functions like fusion, fission, and pore dynamics rely on viscous dissipation \cite{RYHAM20112929}. 
+The hydrophobic attraction still causes the particles to self-assemble, but the trajectories and even configurations are changed
+by the fact that the particles must now move through an ambient environment. 
 Additionally, coarse-grained and molecular dynamics theories include water either explicitly or implicitly in their models. 
-
-A further area of relevance is in the fabrication of complex microscopic three-dimensional structures \cite{Cho2010}.
-Over the past decade, there has been an explosion of interest in small-scale processes that utilize capillary forces dominate,  van der Waals interactions and thermal noise  \cite{Zhang2017},
-to coordinated movement and bind  material subunits. Two prominent fabrication techniques are capillary origami 
-\cite{Pandey2011,Leong2007,Reynolds2019} and colloidal self-assembly \cite{Dasgupta2017,Siontorou2017}. Capillary origami uses principles of elastocapilirity wherein elastic solids deform under surface tension \cite{Bico2018,VanHonschoten2010}. In self-assembly of colloids, 
-particles exhibit similar thermodynamic behavior of molecular systems, except that the behavior occurs over observable, long time scales \cite{Zhang2017}. 
-
-The hydrodynamic interactions enter through the transmission of viscous stresses from one particle to the another.
-This involves solving the system 
-
+ 
+The hydrodynamic interactions enter through the transmission of viscous stresses from one particle to the another.  
+We must solve the system 
 \setcounter{midequation}{\theequation}
 \addtocounter{midequation}{2}
 
@@ -50,7 +50,6 @@ This involves solving the system
 \end{minipage} 
 \end{subequations}
 
-
 \noindent for $i = 1,\dots, N$.
 The inputs to \eqref{St1}--\eqref{HSB2} are the collection of particle configurations.
 Within this system, the activity $u$ solves the screened Laplace equation \eqref{SL1} with the material label boundary condition \eqref{SL2}
@@ -74,13 +73,14 @@ First, we have to carefully map the particle configurations because the domain $
 The particle dynamics in \eqref{Hupdate1} and in \eqref{SGD} both involve solving
 screened Laplace boundary value problems on evolving domains, but differ in that \eqref{Hupdate1} has an additional Stokes flow
 generating the dissipation. When there is no background flow ${\bf u}_{\infty} = {\bf 0}$, the system obeys the energy law
-\begin{equation}
-\frac{\dif}{\dif t} \Phi + \int_{\Omega(t)} \mu |\nabla {\bf u} + \nabla {\bf u}^T|^2 \,dx = 0
-\end{equation}
+$\frac{\dif}{\dif t} \Phi + \int_{\Omega(t)} \mu |\nabla {\bf u} + \nabla {\bf u}^T|^2 \,dx = 0,$ 
 and the particle configurations tend toward a local equilibrium.
 
-A nonzero background flow continually injects energy into the system. We deal with the background flow using
-the Power and Miranda representation 
+We use \eqref{St1}--\eqref{HSB2} to simulate two-dimensional vesicle bilayer in external flows. 
+The vesicle bialyer is formed by a many-body  collection of amphiphilic particles. The inner, bilayer leaflet consists
+of particles pointing their hydrophobic tails away from the vesicle center; the tails of the outer leaflet point inward.
+We consider two kinds of external flows: shear flow and extensional flow. 
+Specifically, we deal with the background flow using the representation 
 \begin{equation}
 \label{PowerMiranda}
 {\bf u} = {\bf u}_{\infty} + D\eta + \sum_{i=1}^N S(\cdot, {\bf a}_i) {\bf F}_i + R(\cdot, {\bf a}_i) {\bf G}_i.
@@ -92,7 +92,13 @@ We solve for the unknown density $\eta : \partial \Omega \to \mathbb{R}$ by requ
 vanished across $\partial P_i$. This jump condition guarantees that ${\bf u}$ is a rigid motion within each particle,
 and by continuity, equals a rigid motion on the particle boundary as required by \eqref{St3}.
 
-We prove a, what to our knowledge is new, result concerning the evaluation of Maxwell-type stresses. 
+The background flows allow us to study further properties of amphiphilic particle collections. 
+Area conservation
+Volumne conservation
+Analyzing the dynamics compared to previous works
+Interaction between the fluid and membrane 
+
+We prove a, to our knowledge new, result concerning the evaluation of Maxwell-type stresses. 
 \begin{proposition}
   \label{prop:recip}
   Suppose that $u = \sum_{i=1}^N u_i$ where $u_i$ is a solution of the screened Laplace equation
@@ -110,5 +116,10 @@ leads to large numerical errors when evaluating the the hydrophobic stress \eqre
 The identity in Proposition \ref{prop:recip} gets around this critical problem by utilizing the fact that $u_j$, $j\neq i$ is smooth and the normal derivative
 of  $u_i$ continuous across $\partial P_i$.
 
+Additionally, hydrodynamics interactions are also relevant the fabrication of complex microscopic three-dimensional structures \cite{Cho2010}.
+Over the past decade, there has been an explosion of interest in small-scale processes that utilize capillary forces dominate,  van der Waals interactions and thermal noise  \cite{Zhang2017}, to coordinated movement and bind  material subunits. Two prominent fabrication techniques are capillary origami 
+\cite{Pandey2011,Leong2007,Reynolds2019} and colloidal self-assembly \cite{Dasgupta2017,Siontorou2017}. Capillary origami uses principles of elastocapilirity wherein elastic solids deform under surface tension \cite{Bico2018,VanHonschoten2010}. In self-assembly of colloids, 
+particles exhibit similar thermodynamic behavior of molecular systems, except that the behavior occurs over observable, long time scales \cite{Zhang2017}. 
+and can determine which local equilibria the system tends towards.
 
 
