@@ -1,17 +1,19 @@
 %\subsection{Specific Aim 2: Functional Materials}
 \subsection{Specific Aim 2: Hydrodynamics}
 \label{subsec:specific_aim_2}
-Specific Aim 1 dealt with the collective material property of amphiphiles which does not involve the movement of the solvent.
-In Specific Aim 2, we include hydrodynamics effects by embedding the particles in solvent. 
-The fluid is modeled by the Stokes equations an incompressible, zero Reynolds-number fluid, and coupled to the screened-Laplace equation \eqref{SL}
-through the viscous and hydrophobic stress balance. We develope a numerical solver for the mobility problem. 
+Specific Aim 1 dealt with elastic material properties of self-assembled collections of amphiphiles.
+In Specific Aim 2, we include hydrodynamics effects by embedding the particles in a solvent. 
+We divide space into the fluid phase and the rigid particle phase.
+The fluid phase is modeled by the Stokes equations for an incompressible, zero Reynolds-number fluid. These are coupled to the screened-Laplace equation \eqref{SL}
+through viscous and hydrophobic stress balance.
+We develope a numerical solver for the mobility problem. 
 This leads to simulations of bilayers in external flows where the bilayers are represented by a self-assebled collection of rigid particles. 
 Finally, we work toward three-dimensional solvers with application in the capillary driven fabrication of micro-materials. 
 
-Hydrodynamic effects are relevant detail 
+Hydrodynamic effects are a relevant detail 
 because the rates of biological functions like fusion, fission, and pore dynamics rely on viscous dissipation \cite{RYHAM20112929}. 
-The hydrophobic attraction still causes the particles to self-assemble, but the trajectories and even configurations are changed
-by the fact that the particles must now move through an ambient environment. 
+While hydrophobic attraction causes the particles to self-assemble indepedently of the dissipation mechanism, the trajectories and
+equilibrium configurations depend on the fact that the particles travel through a viscous environment. 
 Additionally, coarse-grained and molecular dynamics theories include water either explicitly or implicitly in their models. 
  
 The hydrodynamic interactions enter through the transmission of viscous stresses from one particle to the another.  
@@ -67,18 +69,23 @@ Also, ${\bf a}_i$ is the particle center the rotation matrix ${\bf R}_i$ defines
 That way, the particle configurations come from the flow maps $F_i({\bf x},t) = {\bf a}_i(t) + {\bf R_i}(t){\bf x}$ with
 $P_i(t) = F_i(P_{0i},t)$ and $f_i(F_i({\bf x},t)) = f_{i0}({\bf x})$ where $P_{i0}$ and $f_{i0}$ are the $i$th reference particle
 and material label respectively.
-
-Numerically solving \eqref{St1}--\eqref{HSB2} is a nontrivial matter.
-First, we have to carefully map the particle configurations because the domain $\Omega(t)$ and boundary conditions $f_i$ are constantly changing.
-The particle dynamics in \eqref{Hupdate1} and in \eqref{SGD} both involve solving
-screened Laplace boundary value problems on evolving domains, but differ in that \eqref{Hupdate1} has an additional Stokes flow
-generating the dissipation. When there is no background flow ${\bf u}_{\infty} = {\bf 0}$, the system obeys the energy law
+When there is no background flow ${\bf u}_{\infty} = {\bf 0}$, the system obeys the energy law
 $\frac{\dif}{\dif t} \Phi + \int_{\Omega(t)} \mu |\nabla {\bf u} + \nabla {\bf u}^T|^2 \,dx = 0,$ 
 and the particle configurations tend toward a local equilibrium.
 
-We use \eqref{St1}--\eqref{HSB2} to simulate two-dimensional vesicle bilayer in external flows. 
-The vesicle bialyer is formed by a many-body  collection of amphiphilic particles. The inner, bilayer leaflet consists
-of particles pointing their hydrophobic tails away from the vesicle center; the tails of the outer leaflet point inward.
+Numerically solving \eqref{St1}--\eqref{HSB2} is a nontrivial matter.
+The principle challenges are \textbf{(1)} the domain $\Omega(t)$ and boundary conditions $f_i$ are constantly changing
+with changes in the particle configuration \textbf{(2)} a high degree of spatial accuracy is required to resolve the fields 
+between adjacent particles and \textbf{(3)} the computational complexity grows with the number of particles. 
+Specific Aim 3 describes how we address these challenges. 
+
+We simulate two-dimensional vesicle bilayers in external flows using \eqref{St1}--\eqref{HSB2}.
+The vesicle bilayer is formed by a many-body collection of amphiphilic particles. There are two leaflets: 
+the inner leaflet consisting of particles in contact and pointing their hydrophobic tails away from the vesicle interior;
+the particles in the outer leaflet are in contact with the surrounding fluid and point their tails inward.
+The particle laden flow changes the shape of the bilayer, and in return the hydrophobic stresses coming from the altered shape 
+impart a force on the flow. In other words, there is a two-way coupling between the flow and bilayer shape. 
+
 We consider two kinds of external flows: shear flow and extensional flow. 
 Specifically, we deal with the background flow using the representation 
 \begin{equation}
