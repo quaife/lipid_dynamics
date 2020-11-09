@@ -1,13 +1,14 @@
 \section{Proposed Research}
 \label{sec:proposed-work}
-The proposed research develops fast,
-high-order-accurate, parallel numerical algorithms for large-scale
-simulations of the collective hydrodynamics of amphiphilic particles in a viscous solvent.
-%
+%The proposed research develops fast,
+%high-order-accurate, parallel numerical algorithms for large-scale
+%simulations of the collective hydrodynamics of amphiphilic particles in a viscous solvent.
+%%
 We have demonstrated that our hydrophobic attraction with repulsion potential (HARP) approach efficiently simulates
 self-assembly of amphiphilic particles into two-dimensional micelles, bilayer membranes, and vesicles \cite{Fu2018_SIAM}, and
 recreates the tank-treading phenomenon in external shear flows
-\cite{Fu20} \todo[inline]{!!let's put a proceedings here so we have something to cite!!}.
+\cite{Fu20}.
+%\todo[inline]{!!let's put a proceedings here so we have something to cite!!}.
 %
 While the results show great promise in the field of collective body hydrodynamics,
 several outstanding issues need to be addressed. These include a thorough 
@@ -15,7 +16,7 @@ analysis of elastic properties of our coarse-grained bilayers, and
 efficiently simulating three-dimensional collective hydrodynamics of amphiphilic particles.
 Finally, we must mathematically characterize the variational behavior of HARP under appropriate homogenized limits.
 
-\subsection{Specific Aim 1: Collective elastic properties of amphiphilic particles}
+\subsection{Specific Aim 1: Material properties of self-assembly of amphiphiles}
 \label{subsec:specific_aim_1}
 
 %\begin{figure}
@@ -32,8 +33,8 @@ Finally, we must mathematically characterize the variational behavior of HARP un
 %\end{figure}
 The goal of Specific Aim 1 is characterize the material properties of many-body, self-assembled amphiphiles.
 For amphiphiles assembled into bilayers, these properties are described by membrane continuum mechanics.
-The end-goal is to be able to map the parameters of the particle-based model onto the elastic moduli from continuum theory.
-If we achieve this goal, then simulators can use the hydrophobic attraction force calculations
+Our goal is to be able to map the parameters of the particle-based model onto the elastic moduli from continuum theory.
+Results from this goal will facilitate simulators to use the hydrophobic attraction force calculations
 to model bilayers with specific composition. These calculations have provably less computational complexity than
 those of molecular dynamics simulations and possess the molecular granularity lacking from continuum models.
 

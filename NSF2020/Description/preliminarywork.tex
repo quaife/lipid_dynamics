@@ -17,12 +17,14 @@
 %deformable particle laden flows \cite{Sinha15}. 
 %
 Over the past decades, researchers have used a number of mathematical tools 
-to model vesicles in shear flow, including  phase field \cite{DuLiuWang2004_JCP,BibenKassnerMisbah2005_PRE}, 
+to simulate vesicles in a shear flow, including  lattice Boltzmann \cite{KaouiHartingMisbah2011_PRE}, coarse-grained Brownian dynamics \cite{NoguchiTakasu2002_BJ},
+phase field \cite{DuLiuWang2004_JCP,BibenKassnerMisbah2005_PRE}, 
 level set \cite{DoyeuxGuyotChabannesEtAl2013_JCAM}, boundary integral \cite{Shravan09,Rahimian15} and 
-immersed boundary approaches \cite{KimLai2010_JCP,KimLai2012_PRE,HuLaiSeolEtAl2016_JCP}. All these approaches
+immersed boundary approaches \cite{KimLai2010_JCP,KimLai2012_PRE,HuLaiSeolEtAl2016_JCP}. Most of these approaches
 assume a mathematical surface, whether implicitly or explicitly, 
-and define an elastic bending energy of the surface. The vesicle obeys fluid
-transport and in turn the fluid balances shear stress with the vesicle's bending force. 
+and define an elastic bending energy of the surface. 
+%The vesicle obeys fluid
+%transport and in turn the fluid balances shear stress with the vesicle's bending force. 
 
 Our HAP approach differs from prior methods in a number of respects. 
 First, we do not assume a surface. Rather, we more fundamentally  consider a collection of amphiphilic particles.
@@ -32,31 +34,38 @@ is more complicated than dealing with a stress boundary condition or diffusive s
 because the fluid velocity must be that of a rigid body motion at the particle surfaces.
 
 To implement a vesicle in shear flow in the context of hydrophobic potentials and mobility problem, 
-we consider a shear flow $\mathbf{u}_{\infty} = Uy\mathbf{i}_x$ in the direction of the $x$-axis
+we consider a shear flow in the far-field $\mathbf{u}_{\infty} = Uy\mathbf{i}_x$ in the direction of the $x$-axis
 (Figure \ref{fig:tanktreading}A).
-This field satisfies the linear Stokes system but does not give rise to a rigid motion at the particle interfaces. 
-To have a rigid motion, we change variables $\mathbf{u} = \tilde{\mathbf{u}}+ \mathbf{u}_{\infty}$ and 
-for the new field $\tilde{\mathbf{u}}$ vanishing at infinity we let 
-$\tilde{\mathbf{u}}|_{\partial P_i} = \mathbf{v}_i + \boldsymbol{\omega}_i \times (\mathbf{x} - \mathbf{a}_i)$ 
-where $(\mathbf{v}_i,\boldsymbol{\omega}_i)$ are the unknown translation and angular velocities of the 
-$i$th particle $P_i.$  
-
-\begin{wrapfigure}[17]{l}{0.4\textwidth}
-\centerline{\includegraphics[width=0.4\textwidth]{figures/PW_fig2.pdf}}
-\caption{\label{fig:demixing} An initial assembly of small and 
-large particles spontaneous segregates into two smaller bodies. }
-\end{wrapfigure}
+%
+%This field satisfies the linear Stokes system but does not give rise to a rigid motion at the particle interfaces. 
+%To have a rigid motion, we change variables $\mathbf{u} = \tilde{\mathbf{u}}+ \mathbf{u}_{\infty}$ and 
+%for the new field $\tilde{\mathbf{u}}$ vanishing at infinity we let 
+%$\tilde{\mathbf{u}}|_{\partial P_i} = \mathbf{v}_i + \boldsymbol{\omega}_i \times (\mathbf{x} - \mathbf{a}_i)$ 
+%where $(\mathbf{v}_i,\boldsymbol{\omega}_i)$ are the unknown translation and angular velocities of the 
+%$i$th particle $P_i.$  
+%
+%\begin{wrapfigure}[17]{l}{0.4\textwidth}
+%\centerline{\includegraphics[width=0.4\textwidth]{figures/PW_fig2.pdf}}
+%\caption{\label{fig:demixing} An initial assembly of small and 
+%large particles spontaneous segregates into two smaller bodies. }
+%\end{wrapfigure}
 The HAP simulations show vesicle tank-treading. Under the external shear flow, the initially circular 
 vesicle rotates in the clockwise direction. As the rate of rotation increases, the vesicle approaches
 a steadily tank-treading ellipse. In Figure \ref{fig:tanktreading}B-D, the solid curves are ellipses fit to the particle centers
 and midplane respectively. In the non-dimensionalized system, the particles have diameter 2, on the order of $\rho,$ 
-and the vesicle diameter is about 14. \todo[inline]{missing units. nm?}
+and the vesicle diameter is about 14. 
+%\todo[inline]{missing units. nm?}
+%
+\begin{wrapfigure}[12]{r}{0.2\textwidth}
+\centerline{\includegraphics[width=0.2\textwidth]{figures/PW_fig5.pdf}}
+\caption{\label{fig:rupture} Rupture of tank-treading vesicle under strong shear flow.}
+\end{wrapfigure}
+%
 Figure~\ref{fig:tanktreading}E shows the aspect ratio of the major to minor axes reaching an equilibrium value in the 
 red and blue curves, yet oscillating in the high-shear rate (yellow) curve.
 The tank-treading vesicle elongates and becomes more horizontal 
 with an increase in flow rate or 
 with a decrease in stiffness (effected by decreasing $\rho = 4$ to $\rho = 2$). 
-
 
 
 For large shear flow rates, there is an increase in arc length. Here arc length
@@ -75,10 +84,10 @@ For a large shear rate, the particle separates as the two leaflets slide against
 
 
 
-\begin{wrapfigure}[12]{r}{0.2\textwidth}
-\centerline{\includegraphics[width=0.2\textwidth]{figures/PW_fig5.pdf}}
-\caption{\label{fig:rupture} Rupture of tank-treading vesicle under strong shear flow.}
-\end{wrapfigure}
+%\begin{wrapfigure}[12]{r}{0.2\textwidth}
+%\centerline{\includegraphics[width=0.2\textwidth]{figures/PW_fig5.pdf}}
+%\caption{\label{fig:rupture} Rupture of tank-treading vesicle under strong shear flow.}
+%\end{wrapfigure}
 There are a number of advantages to using our particle based approach.
 For one, the HAP theory automatically accounts for the existence of multiple phases. 
 For example, we can vary lipid length, spontaneous curvature and bending rigidity 
@@ -88,13 +97,19 @@ then satisfy specialized transport equations \cite{Lowengrub07,MikuckiZhou17}.
 As illustrated in Figure \ref{fig:tanktreading}, the particle
 based approach supports inter-leaflet slip, and this can be used to determine inter-leaflet
 and in-plane shear viscosities. 
+\begin{wrapfigure}[17]{l}{0.4\textwidth}
+\centerline{\includegraphics[width=0.4\textwidth]{figures/PW_fig2.pdf}}
+\caption{\label{fig:demixing} An initial assembly of small and 
+large particles spontaneous segregates into two smaller bodies. }
+\end{wrapfigure}
+%
 
 
 
-
-
-The ability to form discontinuities is perhaps the HAP method's greatest 
-strength. Indeed, a strong, extensional shear flow must cause membrane rupture since the 
+The greatest strength of using HAP to model lipid bilayer membrane is the ability
+to form discontinuities (interfacial singularity) from first physical principle without any artificial manipulation to rearrangement the interface.
+%The ability to form discontinuities is perhaps the HAP method's greatest strength.
+ Indeed, a strong hear flow must cause membrane rupture since the 
 energy of stretching must exceed the pore nucleation and widening barriers 
 for sufficiently large flow strengths. 
 Some disadvantages are that the hydrophobic interaction does not constrain vesicle volume. 
@@ -113,6 +128,6 @@ energy minimizing steady equilibrium shapes of lipid bilayer membranes, vesicles
 These approaches range from the finite element method~\cite{Bartels,Peng13,RyKlYaCo16,Sinha15}, 
 phase field method \cite{Du05,QiangDu08,Lowengrub13} to immersed
 boundary method  \cite{Hu,Hu13, KimLai2010_JCP}.
-PI Ryham and collaborators led in part the development of phase field
+PI RR and collaborators led in part the development of phase field
 functionals of membrane elastic energy and approaches to coupling membrane elasticity to fluids  \cite{0951-7715-18-3-016,Du05,DuEuler,QiangDu09}.
 

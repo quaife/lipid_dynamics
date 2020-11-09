@@ -1,73 +1,37 @@
 
 \noindent
 {\bf {Collaborative Research: Mathematical modeling and coarse-grained simulations of self-assembly of amphiphilic Janus particles in a solvent}}\\
-{\it Rolf Ryham (lead PI, Fordham University)}\\
-{\it Bryan Quaife (PI, FSU) and Yuan-Nan Young (PI, NJIT)}
+{\it Rolf Ryham (lead PI, Fordham University)}, {\it Bryan Quaife (PI, FSU) and Y.-N. Young (PI, NJIT)}
 \section{Background}
 \label{sec:background}
-\subsection{Hydrophobic Forces}
-\label{sec:hydrophobicforce}
-
-The hydrophobic force is a ubiquitous molecular interaction in biology \cite{Israelachvili1954}.
-The word hydrophobic (water fearing) derives from the low solubility of oil (hydrocarbon solute) in water and vice versa. 
-It causes hydrophobic moieties to aggregate and cluster,
-is responsible for the adhesion between hydrophobic surfaces \cite{Ducker2016}, large contact angles on a 
-dewetting surface \cite{Arenas2019,Sandre1999}, accumulation of particles along interfaces \cite{Lee2013,Lee2014}, 
-formation of micelles and bilayers \cite{Israelachvili80}, and protein folding and membrane insertion \cite{Kabelka2018}.
-
-Lipids are amphiphilic molecules whose  structure possesses
-both hydrophobic and hydrophilic parts. 
-The amphiphilic property is what allows lipids to form the membranes and 
-compartments of living cells \cite{Israelachvili80}. 
-More specifically, a lipid consists of 
-an elongated hydrocarbon tail that is hydrophobic, attached to a polar head that is hydrophilic.
-To shield the hydrophobic tails from water, lipids self-assemble into micelles and bilayers. 
-A micelle is a spherical arrangement of lipids with tails terminating at the micelle center. 
-A bilayer consists of two layers of lipids called monolayers, where the lipid tails point 
-from the monolayer surface into the bilayer core. 
-
-The mathematical modeling of a biological membrane is a challenging problem in applied mathematics. 
-Bilayers are elastic and resist deformations like bending, twisting, and stretching.
-Their elastic deformations are well described by the theory of liquid crystals \cite{ANDRIENKO2018520}.
-Lipid bilayer membranes can also be fluidic, and the lateral translation of lipids (or any membrane bound
-proteins) couples nonlocaly to the motion of the aqueous environment \cite{MerkelSackmannEvans1989,StoneAjdari1998_JFM,OppenheimerDiamant2009_BJ,OppenheimerDiamant2011_PRL}. 
-%Finally, the membranes of cellular 
-%compartments are constantly merging and pinching as part of intracellular trafficking. 
-%Therefore monolayer surfaces undergo discontinuous deformations. 
-
-There are two prevailing approaches in membrane modeling, and each has its advantages
-and disadvantages. Molecular dynamics (MD) is to date the only tool capable of resolving granular biological details
-The computational cost of MD, however, grows with the sixth power of the sample diameter and 
-so simulations are severely limited to 
-small system sizes and short time scales \cite{DiCarlo2019}.
-The other approach, continuum mechanics, assumes smooth surfaces and can therefore model 
-realistic systems over physical times. 
-But continuum description of a biological membrane ignores the granularity of lipid molecules, and thus requires some assumptions when a
-membrane ruptures or when two membranes fuse \cite{ChKo08}. 
+The goal of this collaborative proposal is to investigate the dynamic self-assembly of amphiphilic particles interacting with each other via hydrophobic forces in a solvent using continuum
+modeling and numerical simulations.  Amphiphilic particles (such as lipid molecules) possess both hydrophobic and hydrophilic structures. In a viscous solvent they
+self-assemble into meso-/macroscopic structures (such as micelles and bilayers of lipids) to shield their hydrophobic parts from contact with the solvent molecules (water).
 %
-%mechanics presumes, rather than predicts, the nucleation of discontinuities. 
+%\subsection{Hydrophobic Forces}
+%\label{sec:hydrophobicforce}
 %
+Such self-assembly of amphiphiles via hydrophobic force is ubiquitous in biology and biophysics \cite{Israelachvili1954},
+%The hydrophobic force is a ubiquitous molecular interaction in biology \cite{Israelachvili1954}, 
+and has been a major source of nonspecific interactions between
+nanoparticles for self-assembly in  soft matter \cite{Sanchez-IglesiasEtAl2012_ACSNano,AltantzisEtAl2013_PSC,XieYangLuEtAl2020_COCIS}. 
+%The proposed research aims to provide fundamental understanding of the self-assembly dynamics of amphiphilic particles so to design smart materials of desirable properties by
+%tuning the geometry and properties of the amphiphilic particles. 
 
-Recently the PIs developed a mathematical model called the 
-hydrophobic attraction potential (HAP) \cite{Fu2018_SIAM}.
-This model addresses the major shortcomings of MD and continuum approaches,
-and will hopefully offer an alternative modeling methodology that leads to new mathematical ideas 
-and is both physically accurate and computationally practical. 
-
-The hydrophobic force arises when polar solvent molecules come in contact with a non-polar substance, such as hydrocarbon or vapor.
-In a polar solvent (like water), the dipole-dipole interaction between solvent molecules form a loosely structured hydrogen-bond network where
-each solvent molecule shares bonds with neighboring molecules at any given time 
-\cite{Israelachvili1954}. In the presence of  a non-polar solvent molecule loses the ability to form hydrogen bonds
-in one direction. 
-The decrease in the number of hydrogen bonds causes a reorientation, or structural
-change, in the surrounding water that is energetically very unfavorable \cite{Bjorneholm2016}.
+%The hydrophobic force arises when polar solvent molecules come in contact with a non-polar substance, such as hydrocarbon or vapor.
+%In a polar solvent (like water), the dipole-dipole interaction between solvent molecules form a loosely structured hydrogen-bond network where
+%each solvent molecule shares bonds with neighboring molecules at any given time 
+%\cite{Israelachvili1954}. In the presence of  a non-polar solvent molecule loses the ability to form hydrogen bonds
+%in one direction. 
+%The decrease in the number of hydrogen bonds causes a reorientation, or structural
+%change, in the surrounding water that is energetically very unfavorable \cite{Bjorneholm2016}.
 
 
 The substantial free energy for placing hydrophobic substances in contact with water 
-is roughly proportional to the surface area of the contact region. 
-As a result, hydrocarbon solutes have a large interfacial tension 
-and try to minimize their surface area when in water. 
-At the microscopic level, however, the hydrophobic force is a long-range, surface interaction. 
+is roughly proportional to the surface area of the contact region \cite{Bjorneholm2016}.  
+%As a result, hydrocarbon solutes have a large interfacial tension 
+%and try to minimize their surface area when in water. 
+At the microscopic level, the hydrophobic force is a long-range, surface interaction. 
 This means that two hydrophobic surfaces, separated by
 water over some distance, experience an attractive force \cite{Lum1999,Meyer2006,Hammer2010}.
 Measurements show that the hydrophobic force
@@ -75,35 +39,75 @@ decays exponentially with a decay length like 1 nm
 \cite{Israelachvili1984, Marcelja1977,Christenson2001,Lin2005}. It is also known that the interaction is not pairwise additive, meaning that the force
 between any two hydrophobic objects is altered by the presence of a third  object. 
 
-As a summary of its mathematical properties,  the hydrophobic force
-is a non-additive, exponentially decaying surface force 
-that possesses a separation of length scales. These properties suggest 
-a boundary value problem formulation of the hydrophobic force.  
-The non-additivity of the hydrophobic force has to do with the fact that there is no superposition
-principle for including subdomains in boundary value problems. 
-The exponential decay is a property of a second order elliptic partial differential equation (PDE). 
-Finally, the separation of scales come from boundary layers, 
-where the energy of the boundary layer in the zero-thickness limit corresponds to macroscopic interfacial tension.
-Overlapping boundary layers correspond to microscopic hydrophobic attraction, 
-and the boundary layer thickness corresponds to the decay length of attraction.
-
-\begin{wrapfigure}[16]{l}{0.22\textwidth}
+\begin{wrapfigure}[16]{r}{0.22\textwidth}
 \centerline{\includegraphics[width=0.22\textwidth]{figures/BG_fig1.pdf}}
 \caption{The exterior domain $\Omega$ is the solvent region surrounding a
 number of rigid particles $P_1,$ $P_2,$ $P_3,$ \dots 
 The surface $S$ is the solvent-particle interface, indicated by the unit
 normal $\mathbf{n}.$ }\label{fig:domain}
 \end{wrapfigure}
+Recently PIs RR and YNY developed a mathematical model called the 
+hydrophobic attraction potential (HAP) \cite{Fu2018_SIAM}.
+This model addresses the major shortcomings of molecular dynamics (MD) and continuum approaches. Based on preliminary results (\S\ref{})
+the PIs propose to extend this HAP model to offer
+ an alternative modeling methodology that leads to new mathematical ideas,
+and is both physically accurate and computationally practical.
+%
+%
+%The word hydrophobic (water fearing) derives from the low solubility of oil (hydrocarbon solute) in water and vice versa. 
+%It causes hydrophobic moieties to aggregate and cluster,
+%is responsible for the adhesion between hydrophobic surfaces \cite{Ducker2016}, large contact angles on a 
+%dewetting surface \cite{Arenas2019,Sandre1999}, accumulation of particles along interfaces \cite{Lee2013,Lee2014}, 
+%formation of micelles and bilayers \cite{Israelachvili80}, and protein folding and membrane insertion \cite{Kabelka2018}.
+%
+%Lipids are amphiphilic molecules whose  structure possesses
+%both hydrophobic and hydrophilic parts. 
+%The amphiphilic property is what allows lipids to form the membranes and 
+%compartments of living cells \cite{Israelachvili80}. 
+%More specifically, a lipid consists of 
+%an elongated hydrocarbon tail that is hydrophobic, attached to a polar head that is hydrophilic.
+%To shield the hydrophobic tails from water, lipids self-assemble into micelles and bilayers. 
+%A micelle is a spherical arrangement of lipids with tails terminating at the micelle center. 
+%A bilayer consists of two layers of lipids called monolayers, where the lipid tails point 
+%from the monolayer surface into the bilayer core. 
+%
+%The mathematical modeling of a biological membrane is a challenging problem in applied mathematics. 
+%Bilayers are elastic and resist deformations like bending, twisting, and stretching.
+%Their elastic deformations are well described by the theory of liquid crystals \cite{ANDRIENKO2018520}.
+%Lipid bilayer membranes can also be fluidic, and the lateral translation of lipids (or any membrane bound
+%proteins) couples nonlocaly to the motion of the aqueous environment \cite{MerkelSackmannEvans1989,StoneAjdari1998_JFM,OppenheimerDiamant2009_BJ,OppenheimerDiamant2011_PRL}. 
+%%Finally, the membranes of cellular 
+%%compartments are constantly merging and pinching as part of intracellular trafficking. 
+%%Therefore monolayer surfaces undergo discontinuous deformations. 
+%
+%There are two prevailing approaches in membrane modeling, and each has its advantages
+%and disadvantages. Molecular dynamics (MD) is to date the only tool capable of resolving granular biological details
+%The computational cost of MD, however, grows with the sixth power of the sample diameter and 
+%so simulations are severely limited to 
+%small system sizes and short time scales \cite{DiCarlo2019}.
+%The other approach, continuum mechanics, assumes smooth surfaces and can therefore model 
+%realistic systems over physical times. 
+%But continuum description of a biological membrane ignores the granularity of lipid molecules, and thus requires some assumptions when a
+%membrane ruptures or when two membranes fuse \cite{ChKo08}. 
+%%
+%%mechanics presumes, rather than predicts, the nucleation of discontinuities. 
+%%
+%
+The proposed research aims to provide fundamental understanding of the self-assembly dynamics of amphiphilic particles.
+These results will facilitate optimal designs of smart materials of desirable properties by
+tuning the geometry and properties of the amphiphilic particles. 
+
+
 \subsection{Hydrophobic Attraction Potential (HAP)}
 \label{sec:HAP}
 
 Based on the physical origin of hydrophobicity,  we have devised a functional, called the hydrophobic attraction potential (HAP), to
-model hydrophobic forces \cite{Fu2018_SIAM}. The motivation for HAP concept stemmed from the lead PI's 
+model hydrophobic forces \cite{Fu2018_SIAM}. The motivation for HAP concept stemmed from PI RR's 
 earlier work on the problem of energy barriers in membrane fusion \cite{RyKlYaCo16,Chetal16}.
-There, the lead PI and collaborators resolved the long-standing issue of accounting for the energy of a fissure surface
+There, PI RR and collaborators resolved the long-standing issue of accounting for the energy of a fissure surface
 during topological transitions, by applying a squared gradient mathematical theory 
 for hydrophobic attraction between planar surfaces \cite{Eriksson1989,Lum1999,Menshikov2017,Marcelja1977} to monolayer fissures.
-Based on the PI Young's coarse-grained membrane modeling work \cite{Fu2017}, 
+Based on the PI YNY's coarse-grained membrane modeling work \cite{Fu2017}, 
 the investigators initiated a collaboration to create a gradient theory for arbitrary collections 
 of hydrophobic and amphiphilic particles. This new method 
 eliminates the costly calculation of water by treating the solvent implicitly, 
@@ -151,20 +155,33 @@ a pairwise potential \cite{Meyer2006,Fu2018_SIAM}.
 %adhesion between biological membranes, but it is still unanswered as to whether
 %the hydrophobic force of the form (\ref{HAP}--\ref{SL}) exists between small molecules. 
 
-
-\section{Previous Results by the PIs}
-\label{sec:results}
-
-In our paper \cite{Fu2018_SIAM}, we developed the model (\ref{HAP}--\ref{SL})
-to quantify the macroscopic assembly and mechanics of a lipid bilayer membrane in solvents. 
-%We formulated the boundary value problem as a second-kind
-%integral equation (SKIE), presented in the Section (). 
-%The simulated fluid-particle systems exhibit a variety of multiscale behaviors over both time and length.
-%Over short time scales, the numerical results showed self-assembly for model lipid particles. 
-%For large system simulations, the particles formed realistic configurations like micelles and bilayers. 
-%Our collections showed that these amphiphilic particle bilayers  possessed mechanical properties of a 
-%lipid  bilayer  membrane  that  are  consistent  with other results in the literature.   
-To define the particle dynamics, we considered the exterior domain $\Omega$
+%As a summary of its mathematical properties,  the hydrophobic force
+%is a non-additive, exponentially decaying surface force 
+%that possesses a separation of length scales. These properties suggest 
+%a boundary value problem formulation of the hydrophobic force.  
+%The non-additivity of the hydrophobic force has to do with the fact that there is no superposition
+%principle for including subdomains in boundary value problems. 
+%The exponential decay is a property of a second order elliptic partial differential equation (PDE). 
+%Finally, the separation of scales come from boundary layers, 
+%where the energy of the boundary layer in the zero-thickness limit corresponds to macroscopic interfacial tension.
+%Overlapping boundary layers correspond to microscopic hydrophobic attraction, 
+%and the boundary layer thickness corresponds to the decay length of attraction.
+%
+%
+%\section{Previous Results by the PIs}
+%\label{sec:results}
+%
+%%In our paper \cite{Fu2018_SIAM}, 
+%PIs RR and YNY developed the HAP model (\ref{HAP}--\ref{SL})
+%to quantify the macroscopic assembly and mechanics of a lipid bilayer membrane in solvents \cite{Fu2018_SIAM}.
+%%We formulated the boundary value problem as a second-kind
+%%integral equation (SKIE), presented in the Section (). 
+%%The simulated fluid-particle systems exhibit a variety of multiscale behaviors over both time and length.
+%%Over short time scales, the numerical results showed self-assembly for model lipid particles. 
+%%For large system simulations, the particles formed realistic configurations like micelles and bilayers. 
+%%Our collections showed that these amphiphilic particle bilayers  possessed mechanical properties of a 
+%%lipid  bilayer  membrane  that  are  consistent  with other results in the literature.   
+To define the particle dynamics, consider the exterior domain $\Omega$
 for a finite number of disjoint, rigid and closed particles $P_1$, $P_2$, \dots, $P_n$, each with Lipschitz boundary,
 and boundary data $f$ in the Sobolev space $H^1(\Omega).$ 
 For any fixed configuration, the functional \eqref{HAP} has a unique minimizer $u$
@@ -172,17 +189,21 @@ among all $u - f$ with vanishing trace. This minimizer is a solution to \eqref{S
 Conversely, from maximum principles and energy estimates,  any solution of 
 \eqref{SL} is the minimizer of \eqref{HAP}, and this supplies $\Phi$ with a well-defined value.
 
-The main analytical tool of our manuscript 
-is a formula for the first variation of $\Phi$ \cite{Bandle2015,Schiffer1954,Grinfeld2010}. 
-This first variation  is a symmetric, rank-two tensor called the hydrophobic stress:
+Taking the derivative of \eqref{HAP} with respect to particle configurations, and using the boundary value problem \eqref{SL}
+in a critical way,
+%leads to the surface term \eqref{stress}.  
+the first variation of the hydrophobic potential $\Phi$  
+yields a symmetric, rank-two tensor \cite{Bandle2015,Schiffer1954,Grinfeld2010} called the hydrophobic stress:
 \begin{equation}
   \label{stress}
 \boldsymbol{\sigma}_{\text{hydro}} = \gamma \rho^{-1} u^2 I + 2\rho \gamma (\tfrac{1}{2}|\nabla u|^2I - \nabla u \nabla u^T).
 \end{equation}
-To obtain \eqref{stress}, we observe that the potential $\Phi$ is a function of the particle position and orientations.
-This is because the particle configuration defines the shape of $\Omega$ and the boundary data $f.$ 
-Taking the derivative of \eqref{HAP} with respect to particle configurations, and using the boundary value problem \eqref{SL}
-in a critical way leads to the surface term \eqref{stress}.  
+%
+%To obtain \eqref{stress}, we observe that the potential $\Phi$ is a function of the particle position and orientations.
+%This is because the particle configuration defines the shape of $\Omega$ and the boundary data $f.$ 
+%Taking the derivative of \eqref{HAP} with respect to particle configurations, and using the boundary value problem \eqref{SL}
+%in a critical way leads to the surface term \eqref{stress}.  
+%
 By integrating the hydrophobic stress over the surface of particle $P_i,$ we obtaining the hydrophobic force and torque on each particle 
 \begin{equation}
   \label{forceandtorque}
@@ -241,8 +262,8 @@ evaluating \eqref{stress} and how these challenges are overcome.
 Our simulations used Janus particles to model
 lipid amphiphiles. Janus particles are a popular tool in material science and physics
 for creating functional materials \cite{Lee2014, Lee2013}. 
-This topic is the basis of Specific Aim 3 \todo[inline]{not true
-anymore}. Janus particles are typically
+%This topic is the basis of Specific Aim 3 \todo[inline]{not true anymore}. 
+Janus particles are typically
 spherical with a biphasic material label on either hemisphere,  endowing the particle
 with a directional order. We considered a two-dimensional system, and represented an 
 elongated lipid by elliptical particles with hydrophobic and hydrophilic labels along the ellipse's long axis. 
@@ -252,11 +273,12 @@ Janus particles spontaneously merge and realign to form bilayers. This occurs on
 of energy minimization and does not require artificial inputs. To our knowledge, this is the first demonstration 
 of bilayer self-assembly by a continuum hydrophobic interaction model \cite{Noguchi2001,Farago2003,Brannigan2006,Brooks2009,Wang2013}.  
 
-It is worth emphasizing that the model uses only a few parameters; interfacial tension, decay length, repulsion strength and particle
-shape. For example, an elastic modulus for stretching a vesicle derived from micropipette manipulation 
-directly calibrate our interfacial tension parameter. 
-MD simulators have also made measurements and lately there is better and better agreement with reality. 
-But even the simplest coarse grained models based on pair potentials for lipids has many more parameters \cite{Varilly2011,Wang2013} . 
+It is worth emphasizing that the HAP model uses only a few parameters; interfacial tension, decay length, repulsion strength and particle
+shape. For example, an elastic modulus for stretching a vesicle from micropipette manipulation 
+directly calibrate our interfacial tension parameter. This is in direct contrast with pair-potential based approaches in
+MD simulations and coarse-grained models where many more parameters are required \cite{Varilly2011,Wang2013}.
+%MD simulators have also made measurements and lately there is better and better agreement with reality. 
+%But even the simplest coarse grained models based on pair potentials for lipids has many more parameters \cite{Varilly2011,Wang2013} . 
 
 As a proof of concept, our work has already tested for elastic energies for bending, stretching and tilt of the bilayer assembly.
 Extracting coefficients from the HAP simulations showed strikingly
