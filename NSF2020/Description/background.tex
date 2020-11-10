@@ -1,15 +1,19 @@
-
 \noindent
 {\bf Collaborative Research: Mathematical modeling and simulations of
 self-assembling amphiphilic particles in a solvent} \\
 %{\bf {Collaborative Research: Mathematical modeling and coarse-grained simulations of self-assembly of amphiphilic Janus particles in a solvent}}\\
-{\it Rolf Ryham (lead PI, Fordham University)}, {\it Bryan Quaife (PI,
+{\em Rolf Ryham (lead PI, Fordham University), Bryan Quaife (PI,
 FSU), and Y.-N. Young (PI, NJIT)}
 \section{Background}
 \label{sec:background}
-The goal of this collaborative proposal is to investigate the dynamic self-assembly of amphiphilic particles interacting with each other via hydrophobic forces in a solvent using continuum
-modeling and numerical simulations.  Amphiphilic particles (such as lipid molecules) possess both hydrophobic and hydrophilic structures. In a viscous solvent they
-self-assemble into meso-/macroscopic structures (such as micelles and bilayers of lipids) to shield their hydrophobic parts from contact with the solvent molecules (water).
+The goal of this collaborative proposal is to use continuum modeling and
+numerical simulations to investigate the dynamic self-assembly of
+amphiphilic particles interacting with each other via hydrophobic forces
+in a solvent. Amphiphilic particles (such as lipid molecules) possess
+both hydrophobic and hydrophilic structures. In a viscous solvent they
+self-assemble into meso-/macroscopic structures (such as micelles and
+bilayers of lipids) to shield their hydrophobic parts from contact with
+the solvent molecules (water).
 %
 %\subsection{Hydrophobic Forces}
 %\label{sec:hydrophobicforce}
@@ -17,7 +21,8 @@ self-assemble into meso-/macroscopic structures (such as micelles and bilayers o
 Such self-assembly of amphiphiles via hydrophobic force is ubiquitous in biology and biophysics \cite{Israelachvili1954},
 %The hydrophobic force is a ubiquitous molecular interaction in biology \cite{Israelachvili1954}, 
 and has been a major source of nonspecific interactions between
-nanoparticles for self-assembly in  soft matter \cite{Sanchez-IglesiasEtAl2012_ACSNano,AltantzisEtAl2013_PSC,XieYangLuEtAl2020_COCIS}. 
+nanoparticles for self-assembly in  soft matter
+\cite{Sanchez-IglesiasEtAl2012_ACSNano,AltantzisEtAl2013_PSC,XieYangLuEtAl2020_COCIS}. 
 %The proposed research aims to provide fundamental understanding of the self-assembly dynamics of amphiphilic particles so to design smart materials of desirable properties by
 %tuning the geometry and properties of the amphiphilic particles. 
 
@@ -34,27 +39,32 @@ The substantial free energy for placing hydrophobic substances in contact with w
 is roughly proportional to the surface area of the contact region \cite{Bjorneholm2016}.  
 %As a result, hydrocarbon solutes have a large interfacial tension 
 %and try to minimize their surface area when in water. 
-At the microscopic level, the hydrophobic force is a long-range, surface interaction. 
-This means that two hydrophobic surfaces, separated by
-water over some distance, experience an attractive force \cite{Lum1999,Meyer2006,Hammer2010}.
-Measurements show that the hydrophobic force
-decays exponentially with a decay length like 1 nm 
-\cite{Israelachvili1984, Marcelja1977,Christenson2001,Lin2005}. It is also known that the interaction is not pairwise additive, meaning that the force
-between any two hydrophobic objects is altered by the presence of a third  object. 
+At the microscopic level, the hydrophobic force is a long-range, surface
+interaction.  This means that two hydrophobic surfaces, separated by
+water over some distance, experience an attractive force
+\cite{Lum1999,Meyer2006,Hammer2010}.  Measurements show that the
+hydrophobic force decays exponentially with a decay length like 1 nm
+\cite{Israelachvili1984, Marcelja1977,Christenson2001,Lin2005}. It is
+also known that the interaction is not pairwise additive, meaning that
+the force between any two hydrophobic objects is altered by the presence
+of a third  object. 
 
 \begin{wrapfigure}[16]{r}{0.22\textwidth}
 \centerline{\includegraphics[width=0.22\textwidth]{figures/BG_fig1.pdf}}
+  \todo[inline]{Change the $\mathbf{n}$ to a $\boldsymbol{\nu}$}
 \caption{The exterior domain $\Omega$ is the solvent region surrounding a
 number of rigid particles $P_1,$ $P_2,$ $P_3,$ \dots 
 The surface $S$ is the solvent-particle interface, indicated by the unit
 normal $\mathbf{n}.$ }\label{fig:domain}
 \end{wrapfigure}
-Recently PIs RR and YNY developed a mathematical model called the 
-hydrophobic attraction potential (HAP) \cite{Fu2018_SIAM}.
-This model addresses the major shortcomings of molecular dynamics (MD) and continuum approaches. Based on preliminary results (\S\ref{sec:preliminary_work})
-the PIs propose to extend this HAP model to offer
- an alternative modeling methodology that leads to new mathematical ideas,
-and is both physically accurate and computationally practical.
+Recently PIs RR and YNY developed a mathematical model called the
+hydrophobic attraction potential (HAP) \cite{Fu2018_SIAM} that is based
+on the physical origin of hydrophobicity.  This model addresses the
+major shortcomings of molecular dynamics (MD) and continuum approaches.
+Based on preliminary results (\S\ref{sec:preliminary_work}) the PIs
+propose to extend this HAP model to offer an alternative modeling
+methodology that leads to new mathematical ideas, and is both physically
+accurate and computationally practical.
 %
 %
 %The word hydrophobic (water fearing) derives from the low solubility of oil (hydrocarbon solute) in water and vice versa. 
@@ -103,19 +113,23 @@ tuning the geometry and properties of the amphiphilic particles.
 
 \subsection{Hydrophobic Attraction Potential (HAP)}
 \label{sec:HAP}
-
-Based on the physical origin of hydrophobicity,  we have devised a functional, called the hydrophobic attraction potential (HAP), to
-model hydrophobic forces \cite{Fu2018_SIAM}. The motivation for HAP concept stemmed from PI RR's 
-earlier work on the problem of energy barriers in membrane fusion \cite{RyKlYaCo16,Chetal16}.
-There, PI RR and collaborators resolved the long-standing issue of accounting for the energy of a fissure surface
-during topological transitions, by applying a squared gradient mathematical theory 
-for hydrophobic attraction between planar surfaces \cite{Eriksson1989,Lum1999,Menshikov2017,Marcelja1977} to monolayer fissures.
-Based on PI RR and YNY's coarse-grained membrane modeling work \cite{Fu2017}, 
-the investigators initiated a collaboration to create a gradient theory for arbitrary collections 
-of hydrophobic and amphiphilic particles. This new method 
-eliminates the costly calculation of water by treating the solvent implicitly, 
-and avoids complicated re-meshing schemes of continuum approaches
-by utilizing a particle-based representation.
+%Based on the physical origin of hydrophobicity,  we have devised a
+%functional, called the hydrophobic attraction potential (HAP), to model
+%hydrophobic forces~\cite{Fu2018_SIAM}. 
+The motivation for the HAP concept
+stemmed from PI RR's earlier work on the problem of energy barriers in
+membrane fusion~\cite{RyKlYaCo16,Chetal16}.  There, PI RR and
+collaborators resolved the long-standing issue of accounting for the
+energy of a fissure surface during topological transitions, by applying
+a squared gradient mathematical theory for hydrophobic attraction
+between planar surfaces~\cite{Eriksson1989,Lum1999,Menshikov2017,Marcelja1977} to monolayer
+fissures.  Based on PI RR and YNY's coarse-grained membrane modeling
+work \cite{Fu2017}, the investigators initiated a collaboration to
+create a gradient theory for arbitrary collections of hydrophobic and
+amphiphilic particles. This new method eliminates the costly calculation
+of water by treating the solvent implicitly, and avoids complicated
+re-meshing schemes of continuum approaches by utilizing a particle-based
+representation.
 
 To define HAP, consider a region $\Omega \subset \mathbb{R}^3$  
 modeling the solvent surrounding a number of particles (Figure \ref{fig:domain}).
