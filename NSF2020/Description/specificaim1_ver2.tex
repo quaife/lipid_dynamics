@@ -59,7 +59,7 @@ that went into the HK theory.
 
 \begin{figure}
   \centering{\includegraphics[width=0.80\textwidth]{Figures/Deformations.pdf}}
-  \caption{
+  \caption{\label{fig:deformations}
     }
 \end{figure}
 
@@ -235,6 +235,13 @@ In the simplified Canham-Helfrich formulation, saddle splay energy is an indicat
 \cite{TerziDeserno17}.
 PI-Ryham showed that saddle splay acts as a topological indicator even in the presence of nonzero tilt \cite{RyKlYaCo16}. 
 
+\begin{wrapfigure}[16]{r}{0.32\textwidth}
+\centerline{\includegraphics[width=0.32\textwidth]{Figures/SaddleSplayDiagram.pdf}}
+\caption{
+\label{fig:saddle_splay}  
+ TBD
+}
+\end{wrapfigure}
 To evaluate $\KG$, we will combine the string method from PI-Ryham's work on fusion \cite{RyKlYaCo16} with
 the present particle simulations. The string method is a numerical scheme that finds
 least energy pathways separating energy basins \cite{doi:10.1063/1.2720838}.
@@ -242,12 +249,12 @@ Using the string method, we will evaluate the transition energies between the in
 and one with a pore. Pore formation in a single bilayer decreases the integral of saddle splay from $4\pi$
 to $0$. We can, in principle, detect this drop in energy because we have already accounted for the other deformations. 
 
-We will also analyze $\KG$ using a helical geometry. In a helicoid with inclination $m$, the director
-gradient is $\nabla n = \begin{pmatrix} 0 & m(m^2+x_1^2)^{-1} \\ m(m^2+x_1^2)^{-1} & 0\end{pmatrix}$ where $x_1$ is the distance to the central
-axis. We observe that saddle splay, twist and tilt are zeros, and $\det \nabla n = m^2(m^2+x_1^2)^{-2}$.
-In the simulations, the particles forming the helicoid will be confined to two, concentric cylinders. The
-continuum energy $\tfrac{1}{2}\KG h(m x_1(m^2+x_1^2)^{-1} + \tan^{-1}(x_1/m)) |_{r_1}^{r_2}$ where $h$, $r_1$ and $r_2$
-are the cylinder heights, inner cylinder radius, and outer cylinder radius, respectively. 
+%We will also analyze $\KG$ using a helical geometry. In a helicoid with inclination $m$, the director
+%gradient is $\nabla n = \begin{pmatrix} 0 & m(m^2+x_1^2)^{-1} \\ m(m^2+x_1^2)^{-1} & 0\end{pmatrix}$ where $x_1$ is the distance to the central
+%axis. We observe that saddle splay, twist and tilt are zeros, and $\det \nabla n = m^2(m^2+x_1^2)^{-2}$.
+%In the simulations, the particles forming the helicoid will be confined to two, concentric cylinders. The
+%continuum energy $\tfrac{1}{2}\KG h(m x_1(m^2+x_1^2)^{-1} + \tan^{-1}(x_1/m)) |_{r_1}^{r_2}$ where $h$, $r_1$ and $r_2$
+%are the cylinder heights, inner cylinder radius, and outer cylinder radius, respectively. 
 
 \subsubsection{New mathematical analysis}
  It may come as a surprise then that the field of membrane continuum mechanics still lacks consensus as to
