@@ -52,10 +52,10 @@ of a third  object.
 \begin{wrapfigure}[16]{r}{0.22\textwidth}
 \centerline{\includegraphics[width=0.22\textwidth]{figures/BG_fig1.pdf}}
   \todo[inline]{Change the $\mathbf{n}$ to a $\boldsymbol{\nu}$}
-\caption{The exterior domain $\Omega$ is the solvent region surrounding a
-number of rigid particles $P_1,$ $P_2,$ $P_3,$ \dots 
-The surface $S$ is the solvent-particle interface, indicated by the unit
-normal $\mathbf{n}.$ }\label{fig:domain}
+\caption{ \footnotesize The exterior domain $\Omega$ is the solvent
+  region surrounding a number of rigid particles $P_1,$ $P_2,$ $P_3,$
+  \dots The surface $S$ is the solvent-particle interface, indicated by
+  the unit normal $\mathbf{n}.$ }\label{fig:domain}
 \end{wrapfigure}
 Recently PIs RR and YNY developed a mathematical model called the
 hydrophobic attraction potential (HAP) \cite{Fu2018_SIAM} that is based
@@ -148,21 +148,22 @@ motivates the following definition for the HAP of the particles:
 where $u$ is the unique solution of the screened Laplace equation boundary value problem 
 \begin{equation}
   \label{SL}
-  -\rho^2 \Delta u + u = 0, \mbox{ } x \in \Omega, \qquad
-  u = f,  \mbox{ } x \in \partial \Omega, \qquad 
-  u(x) \to 0 \mbox{ as } |x| \to \infty.
+  -\rho^2 \Delta u + u = 0, \mbox{ } \mathbf{x} \in \Omega, \qquad
+  u = f,  \mbox{ } \mathbf{x} \in \partial \Omega, \qquad 
+  u(\mathbf{x}) \to 0 \mbox{ as } |\mathbf{x}| \to \infty.
 \end{equation}
-The scalar function $u(x)$ is called the water activity. Its boundary
-values $f$ define the degree of hydrophobicity of the water-particle
-interface. If $f=1$, the interface is hydrophobic and water has lost
-rotational freedom. Conversely, if $f=0$, the interface has the same
-rotational freedom as in bulk water. The parameter $\rho$ is the decay
-length of attraction, around 1 nm, and the parameter $\gamma$ is the
-interfacial tension~\cite{Israelachvili1954}. Both parameters contain
-information about the quality of the solvent~\cite{Discher2002}.
+The scalar function $u(\mathbf{x})$ is called the water activity. Its
+boundary values $f$ define the degree of hydrophobicity of the
+water-particle interface. If $f=1$, the interface is hydrophobic and
+water has lost rotational freedom. Conversely, if $f=0$, the interface
+has the same rotational freedom as in bulk water. The parameter $\rho$
+is the decay length of attraction, around 1 nm, and the parameter
+$\gamma$ is the interfacial tension~\cite{Israelachvili1954}. Both
+parameters contain information about the quality of the
+solvent~\cite{Discher2002}.
 
 From a phenomenological perspective, equations~\eqref{HAP}
-and~\eqref{SL} is an appropriate model of hydrophobic attraction.
+and~\eqref{SL} form an appropriate model of hydrophobic attraction.
 Specifically, using boundary layer analysis, it is possible to show that
 $\Phi$ converges to a surface energy in the zero-decay length
 limit~\cite{Lee2018, Lin2015, Shibata2004}. For non-zero decay lengths,
@@ -207,7 +208,7 @@ $P_2$, \ldots, $P_n$, each with Lipschitz boundary, and boundary data
 $f$ in the Sobolev space $H^1(\Omega)$. For any fixed configuration, the
 minimizer of the functional~\eqref{HAP} among all $u - f$ with vanishing
 trace is the solution of~\eqref{SL}. Conversely, from maximum principles
-and energy estimates, any solution of~\eqref{SL} is the minimizer
+and energy estimates, the solution of~\eqref{SL} is the minimizer
 of~\eqref{HAP}, and this supplies $\Phi$ with a well-defined value.
 Taking the derivative of~\eqref{HAP} with respect to particle
 configurations, and using the boundary value problem~\eqref{SL}, the
@@ -228,20 +229,22 @@ Integrating the hydrophobic stress over the surface of particle $P_i$
 reveals the hydrophobic force and torque on each particle 
 \begin{align}
   \label{forceandtorque}
-  \mathbf{F}_i = \iint_{\partial P_i} \boldsymbol{\sigma}_{\text{hydro}} \cdot \mathbf{n} \,dS,\quad
-  \mathbf{T}_i = \iint_{\partial P_i} \mathbf{x} \times (\boldsymbol{\sigma}_{\text{hydro}} \cdot \mathbf{n}) \,dS.
+  \mathbf{F}_i = \iint_{\partial P_i} \boldsymbol{\sigma}_{\text{hydro}}
+  \cdot \boldsymbol{\nu} \,dS,\quad
+  \mathbf{T}_i = \iint_{\partial P_i} \mathbf{x} \times
+  (\boldsymbol{\sigma}_{\text{hydro}} \cdot \boldsymbol{\nu}) \,dS.
 \end{align}
-Our previous verifies that this system is force- and torque-free and
-\S\ref{subsec:specific_aim_2} addresses the numerical challenges in
+Our previous work verifies that this system is force- and torque-free
+and \S\ref{subsec:specific_aim_2} addresses the numerical challenges in
 evaluating~\eqref{stress} and how these challenges are overcome. To
-supply viscous dissipation, we incorporated the mobility problem in
+supply viscous dissipation, we incorporate the mobility problem in
 Stokes flow to obtain the rigid body motions:
 \begin{equation}
 \label{eq:stokes}
 \begin{aligned}
-&-\mu \Delta {\bf u} + \nabla p = 0, \quad \text{in}\ \Omega, \qquad 
-\nabla \cdot {\bf u} = 0,  \quad \text{in}\ \Omega,\\
-&{\bf u}({\bf x}) \to 0 \quad \text{as}\ |{\bf x}|\to \infty,\qquad 
+  &-\mu \Delta \mathbf{u} + \nabla p = 0, \quad \mathbf{x} \in \Omega, \qquad 
+  \nabla \cdot \mathbf{u} = 0,  \quad \mathbf{x} \in \Omega,\\
+  &{\bf u}(\mathbf{x}) \to 0 \quad \text{as}\ |\mathbf{x}|\to \infty,\qquad 
   \mathbf{u}(\mathbf{x})|_{\partial P_i} = \mathbf{v}_i +
 \boldsymbol{\omega}_i\times(\mathbf{x} - \mathbf{a}_i),\\
 &\int_{\partial P_i}\boldsymbol{\sigma}\cdot {\bf n} dS=-{\bf F}_i, \quad
@@ -250,20 +253,21 @@ Stokes flow to obtain the rigid body motions:
 \end{equation}
 Here $\mu$ is the fluid viscosity and the first two equations state that
 the fluid motion is a divergence-free Stokes flow; the third equation
-specifies the fluid velocity at infinity; the fourth equation enforces a
-rigid body motion constraint on each particle, where $\mathbf{v}_i$ and
-$\boldsymbol{\omega}_i$ are unknown translation and angular velocities
-of the $i$-th particle and $\mathbf{a}_i$ is the center of mass of
-$P_i$; the last two equations state that the net forces and torques on
-each particle are ${\bf F}_i$ and ${\bf T}_i$
-from~\eqref{forceandtorque}, respectively, and $\boldsymbol{\sigma}$ is
-the fluid shear stress. The time integration of particle configurations
-goes as follows: \textbf{(i)} solve the BVP~\eqref{SL} for the screened
-Laplace equation, \textbf{(ii)} determine the rigid body forces and
-torques~\eqref{forceandtorque}, \textbf{(iii)} solve the Stokes mobility
-problem~\eqref{eq:stokes} for rigid body motion, \textbf{(iv)} update
-the particle configuration. Numerical challenges and how these
-challenges are overcome are described in \S\ref{subsec:specific_aim_2}.
+specifies that the fluid velocity vanishes at infinity; the fourth
+equation enforces a rigid body motion on each particle, where
+$\mathbf{v}_i$ and $\boldsymbol{\omega}_i$ are unknown translation and
+angular velocities of the $i$-th particle and $\mathbf{a}_i$ is the
+center of mass of $P_i$; the last two equations state that the net
+forces and torques on each particle are $\mathbf{F}_i$ and
+$\mathbf{T}_i$ from~\eqref{forceandtorque}, respectively, and
+$\boldsymbol{\sigma}$ is the fluid shear stress. The time integration of
+particle configurations goes as follows: \textbf{(i)} solve the
+BVP~\eqref{SL} for the screened Laplace equation, \textbf{(ii)}
+determine the rigid body forces and torques~\eqref{forceandtorque},
+\textbf{(iii)} solve the Stokes mobility problem~\eqref{eq:stokes} for
+rigid body motion, \textbf{(iv)} update the particle configuration.
+Numerical challenges and how these challenges are overcome are described
+in \S\ref{subsec:specific_aim_2}.
 
 %%(2YY: 
 %We have intentionally ignored  latency in the variational 
@@ -303,26 +307,37 @@ parameters are required~\cite{Varilly2011, Wang2013}.
 %But even the simplest coarse grained models based on pair potentials for lipids has many more parameters \cite{Varilly2011,Wang2013} . 
 
 As a proof of concept, our work has already tested for elastic energies
-for bending, stretching and tilt of the bilayer assembly. Extracting
-coefficients from the HAP simulations showed strikingly positive
-agreement with experimentally determined values \cite{Fu2018_SIAM}.
+for bending, stretching, and tilt of the bilayer assembly. Extracting
+coefficients from the HAP simulations shows strikingly positive
+agreement with experimentally determined values~\cite{Fu2018_SIAM}.
 Encouraged by these results and the hydrodynamic simulations of the
-bilayer assembly, the PIs propose to further extend the HAP model and
-the numerical schemes (see \S\ref{sec:proposed-work}) to make direct
+bilayer assembly, the PIs propose to extend the HAP model and the
+numerical schemes (see \S\ref{sec:proposed-work}) to make direct
 comparison with experiments, the continuum liquid crystal results and MD
 simulations results, to establish that the HAP model has the capability
 and adaptivity to model phenomena across length scales and time scales.
 
 Over the past decades, researchers have used a number of mathematical
-tools to simulate vesicles in a shear flow, including lattice Boltzmann
-\cite{KaouiHartingMisbah2011_PRE}, coarse-grained Brownian dynamics
-\cite{NoguchiTakasu2002_BJ}, phase field
-\cite{DuLiuWang2004_JCP,BibenKassnerMisbah2005_PRE}, level set
-\cite{DoyeuxGuyotChabannesEtAl2013_JCAM}, boundary integral
-\cite{Shravan09,Rahimian15} and immersed boundary approaches
-\cite{KimLai2010_JCP,KimLai2012_PRE,HuLaiSeolEtAl2016_JCP}. Most of
-these approaches assume a mathematical surface, whether implicitly or
-explicitly, and define an elastic bending energy of the surface. 
+tools to simulate vesicles in a shear flow, including lattice
+Boltzmann~\cite{KaouiHartingMisbah2011_PRE}, coarse-grained Brownian
+dynamics~\cite{NoguchiTakasu2002_BJ}, phase
+field~\cite{DuLiuWang2004_JCP,BibenKassnerMisbah2005_PRE}, level
+set~\cite{DoyeuxGuyotChabannesEtAl2013_JCAM}, boundary
+integral~\cite{Shravan09,Rahimian15} and immersed boundary
+approaches~\cite{KimLai2010_JCP,KimLai2012_PRE,HuLaiSeolEtAl2016_JCP}.
+Most of these approaches assume a mathematical surface, whether
+implicitly or explicitly, and define an elastic bending energy of the
+surface. Researchers have developed a number of numerical methods for
+calculating energy minimizing steady equilibrium shapes of lipid bilayer
+membranes, vesicles and red blood cells. These approaches range from the
+finite element method~\cite{Bartels,Peng13,RyKlYaCo16,Sinha15}, phase
+field method~\cite{Du05,QiangDu08,Lowengrub13} to immersed boundary
+method~\cite{Hu,Hu13, KimLai2010_JCP}. PI RR and collaborators led in
+part the development of phase field functionals of membrane elastic
+energy and approaches to coupling membrane elasticity to
+fluids~\cite{0951-7715-18-3-016,Du05,DuEuler,QiangDu09}.
+
+
 %The vesicle obeys fluid
 %transport and in turn the fluid balances shear stress with the vesicle's bending force. 
 
@@ -341,29 +356,29 @@ a stress boundary condition or diffusive surface force, because the
 fluid velocity must be that of a rigid body motion at the particle
 surfaces. The HAP model also addresses the existence of multiple phases.
 We can vary lipid length, spontaneous curvature, and bending rigidity by
-introducing differentiating particle shapes and hydrophobic boundary
-conditions (Figure \ref{fig:demixing}). In contrast, continuum theory
+introducing different particle shapes and hydrophobic boundary
+conditions (Figure~\ref{fig:demixing}). In contrast, continuum theory
 deals with multiple phases through additional surface densities that
 must then satisfy specialized transport equations~\cite{Lowengrub07,
 MikuckiZhou17}. 
 %
-\begin{wrapfigure}[17]{l}{0.4\textwidth}
-\centerline{\includegraphics[width=0.4\textwidth]{figures/PW_fig2.pdf}}
-\caption{\label{fig:demixing} An initial assembly of small and 
-large particles spontaneous segregates into two smaller bodies. }
+\begin{wrapfigure}[14]{l}{0.35\textwidth}
+\centerline{\includegraphics[width=0.35\textwidth]{figures/PW_fig2.pdf}}
+  \vspace{-8pt}
+  \caption{\label{fig:demixing} \footnotesize An initial assembly of
+  small and large particles spontaneously segregates into two smaller
+  bodies.}
 \end{wrapfigure}
 The greatest strength of using HAP to model lipid bilayer membrane is
 the ability to form discontinuities (interfacial singularity) from first
-physical principle without any artificial manipulation to rearrangement
-the interface.
-%The ability to form discontinuities is perhaps the HAP method's greatest strength.
-For example, using the HAP model to simulate a vesicle under a shear
-flow that is strong enough to cause the vesicle membrane to rupture, we
-expect the HAP model to capture the reorganization of lipid molecules on
-the scales of membrane thickness ($\sim 5$ nm), which is a nearly
-impossible task using phase-field or immerse boundary method without
-extreme refinement around the membrane and artificial treatment of
-reconnection during the topological change of an interface.
+physical principles without any artificial manipulation to rearrangement
+the interface. For example, using the HAP model to simulate a vesicle
+under a shear flow that is strong enough to cause the vesicle membrane
+to rupture, we expect the HAP model to capture the reorganization of
+lipid molecules on the scales of membrane thickness ($\sim 5$ nm), which
+is a nearly impossible task using phase-field or immerse boundary method
+without extreme refinement around the membrane and artificial treatment
+of reconnection during the topological change of an interface.
 
 %Some disadvantages are that the hydrophobic interaction does not constrain vesicle volume. 
 %Instead, changes in volume are rate limited by inter-particle spacing,
@@ -376,13 +391,6 @@ reconnection during the topological change of an interface.
 %%We point out that some non-Newtonian effects in polymers are a consequence of hydrophobic
 %%and steric molecular interactions like the ones presented in this proposal. 
 
-In recent years, researchers have developed a number of numerical methods for calculating
-energy minimizing steady equilibrium shapes of lipid bilayer membranes, vesicles and red blood cells.
-These approaches range from the finite element method~\cite{Bartels,Peng13,RyKlYaCo16,Sinha15}, 
-phase field method \cite{Du05,QiangDu08,Lowengrub13} to immersed
-boundary method  \cite{Hu,Hu13, KimLai2010_JCP}.
-PI RR and collaborators led in part the development of phase field
-functionals of membrane elastic energy and approaches to coupling membrane elasticity to fluids  \cite{0951-7715-18-3-016,Du05,DuEuler,QiangDu09}.
 
 
 
