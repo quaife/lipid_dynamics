@@ -257,6 +257,17 @@ to $0$. We can, in principle, detect this drop in energy because we have already
 %are the cylinder heights, inner cylinder radius, and outer cylinder radius, respectively. 
 
 \subsubsection{New mathematical analysis}
+
+We will develop some of the mathematical connections between the HAP energy and the energy functional used in the phase field method. 
+The phase field functional approximates the perimeter of sublevel sets of a so-called phase field indicator function. 
+The approximation becomes sharp in the zero interfacial thickness limit and minimizers of the phase field functional converge (after normalization) 
+to the characteristic function of a set solving a perimeter minimization problem 
+\cite{The Gradient Theory of Phase Transitions and the Minimal lnterfaee Criterion, }. 
+Analogously, the HAP energy converges to the surface energy in the limit
+$\rho \to 0$, and the boundary layers of the minimizers (the solutions to the screen Laplace equation) converges to 
+area measures supported on the particle boundaries. We will use boundary layer analysis to study the rate
+of convergence as it depends on \cite{Stephan Luckhaus & Luciano Modica, LeeRyham} 
+
  It may come as a surprise then that the field of membrane continuum mechanics still lacks consensus as to
  whether \eqref{ansatz3} contains a complete list of consistent deformations.
 \textbf{(i)} Researcher have assumed that $\KT = 0$ \cite{Hamm2000, TerziDeserno17, C9SM02079A, PhysRevE.102.042406}.
@@ -293,7 +304,7 @@ There is also no ``spontaneous twist'' in monolayers due to invariance under mir
   Subtle differential geometric arguments are needed to evaluate the terms in the Taylor expansion,
   and these couplings can lead to an energy density with more than ten parameters, for example \cite{PhysRevE.102.042406}.
 
-  We will revisit the HK analysis to see if any inconsitencies can be resolved.
+  We will revisit the HK analysis to see if any of the afore mentioned inconsitencies can be resolved.
   As a main analytical innovation, we have found that expanding the strain tensor in
   terms of the orthonormal frame $\{{\bf e}'_1, {\bf e}'_2, n\}$ with ${\bf e}'_i$ perpendicular to ${\bf n}$
   greatly simplifies the expansion because it decouples the gradient terms. As an illustration, the prominent works
