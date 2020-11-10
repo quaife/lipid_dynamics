@@ -122,7 +122,13 @@ the bilayer is limited by the size of the gaps between the particles, which is a
 Making these gaps smaller comes at the expense of numerical accuracy, and so we will assess if there is a reasonable trade-off
 between approximate volume conservation and simulation complexity. 
 
-Finally, the particle-based vesicle bilayers have two distinct leaflets.
+\begin{wrapfigure}[16]{r}{0.32\textwidth}
+\centerline{\includegraphics[width=0.32\textwidth]{figures/BIError.pdf}}
+\caption{
+\label{fig:bierror}  
+  Gradient error between an exact and boundary integral solution of \eqref{SL}.
+}
+\end{wrapfigure}Finally, the particle-based vesicle bilayers have two distinct leaflets.
 The inner and outer leaflets consists of the particles in contact with the vesicle interior and 
 surrounding fluid respectively. Since there the separation between these layers is roughly fixed,
 about 2 nm, certain fluid mechanical effects arise that are not present in zero-thickness membrane models. 
@@ -137,7 +143,8 @@ We prove a, to our knowledge new, result concerning the evaluation of Maxwell-ty
   \label{prop:recip}
   Suppose that $u = \sum_{i=1}^N u_i$ where $u_i$ is a solution of the screened Laplace equation
   in $\mathbb{R}^3 \setminus P_i$ for $i=1,\dots, N.$ Then 
-\begin{equation}
+  \begin{equation}
+    \label{eq:reciprocal}
 {\bf F}_i = \sum_{j \neq i} \int_{\partial P_i}[\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S,\quad
 {\bf G}_i = \sum_{j \neq i} \int_{\partial P_i} {\bf x} \times [\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S, \quad i = 1\dots, N.
 \end{equation}
@@ -145,10 +152,11 @@ where $\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i \cd
 $[\cdot]$ denotes the jump in stress across $\partial \Omega.$ 
 \end{proposition}
 As described in Specific Aim 3, we solve \eqref{SL1}--\eqref{SL3}  using a double layer potential representation.
-While accurate in the far-field, this representation involves a strongly singular integral which
-leads to large numerical errors when evaluating the the hydrophobic stress \eqref{stress} along the particle boundaries.
-The identity in Proposition \ref{prop:recip} gets around this critical problem by utilizing the fact that $u_j$, $j\neq i$ is smooth and the normal derivative
-of  $u_i$ continuous across $\partial P_i$.
+This representation involves a strongly singular integral, and without the aid of specilized
+quadrature routines, leads to large numerical errors when evaluating the the hydrophobic stress \eqref{stress} along the particle boundaries (see Figure \cite{fig:bierror}).
+The identity in Proposition \ref{prop:recip} gets around this critical issue by utilizing the fact that $u_j$, $j\neq i$ is smooth and the normal derivative
+of  $u_i$ continuous across $\partial P_i$. Despite the large gradient errors in Figure \ref{fig:bierror}, the force and torque
+calculated by \eqref{eq:reciprocal} achieved $10^{-4}$ accuracy.
 
 Additionally, hydrodynamics interactions are also relevant the fabrication of complex microscopic three-dimensional structures \cite{Cho2010}.
 Over the past decade, there has been an explosion of interest in small-scale processes that utilize capillary forces dominate,  van der Waals interactions and thermal noise  \cite{Zhang2017}, to coordinated movement and bind  material subunits. Two prominent fabrication techniques are capillary origami 
