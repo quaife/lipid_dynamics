@@ -51,7 +51,7 @@ normal $\mathbf{n}.$ }\label{fig:domain}
 \end{wrapfigure}
 Recently PIs RR and YNY developed a mathematical model called the 
 hydrophobic attraction potential (HAP) \cite{Fu2018_SIAM}.
-This model addresses the major shortcomings of molecular dynamics (MD) and continuum approaches. Based on preliminary results (\S\ref{})
+This model addresses the major shortcomings of molecular dynamics (MD) and continuum approaches. Based on preliminary results (\S\ref{sec:preliminary_work})
 the PIs propose to extend this HAP model to offer
  an alternative modeling methodology that leads to new mathematical ideas,
 and is both physically accurate and computationally practical.
@@ -110,7 +110,7 @@ earlier work on the problem of energy barriers in membrane fusion \cite{RyKlYaCo
 There, PI RR and collaborators resolved the long-standing issue of accounting for the energy of a fissure surface
 during topological transitions, by applying a squared gradient mathematical theory 
 for hydrophobic attraction between planar surfaces \cite{Eriksson1989,Lum1999,Menshikov2017,Marcelja1977} to monolayer fissures.
-Based on the PI YNY's coarse-grained membrane modeling work \cite{Fu2017}, 
+Based on PI RR and YNY's coarse-grained membrane modeling work \cite{Fu2017}, 
 the investigators initiated a collaboration to create a gradient theory for arbitrary collections 
 of hydrophobic and amphiphilic particles. This new method 
 eliminates the costly calculation of water by treating the solvent implicitly, 
@@ -308,7 +308,7 @@ The collection of amphiphiles minimize hydrophobic interactions by sequestering 
 The second difference lies in the fluid-interface coupling. Here, the associated mobility problem \eqref{eq:stokes} 
 is more complicated than dealing with a stress boundary condition or diffusive surface force, 
 because the fluid velocity must be that of a rigid body motion at the particle surfaces.
-
+%
 \begin{wrapfigure}[17]{l}{0.4\textwidth}
 \centerline{\includegraphics[width=0.4\textwidth]{figures/PW_fig2.pdf}}
 \caption{\label{fig:demixing} An initial assembly of small and 
@@ -317,19 +317,20 @@ large particles spontaneous segregates into two smaller bodies. }
 The greatest strength of using HAP to model lipid bilayer membrane is the ability
 to form discontinuities (interfacial singularity) from first physical principle without any artificial manipulation to rearrangement the interface.
 %The ability to form discontinuities is perhaps the HAP method's greatest strength.
- Indeed, a strong hear flow must cause membrane rupture since the 
-energy of stretching must exceed the pore nucleation and widening barriers 
-for sufficiently large flow strengths. 
-Some disadvantages are that the hydrophobic interaction does not constrain vesicle volume. 
-Instead, changes in volume are rate limited by inter-particle spacing,
-which may be undesirable in case of a mathematically strict volume constraint.
-% set vesicle volume, as is done in the study of liposomes
-%using auxiliary constraint equations for instance. 
-%Also, the boundary integral method formulation
-%relies on linearity of the Stokes equations. There has been some progress in
-%boundary integral methods for the non-linear Navier-Stokes equations [ref].
-%We point out that some non-Newtonian effects in polymers are a consequence of hydrophobic
-%and steric molecular interactions like the ones presented in this proposal. 
+For example, using the HAP model to simulate a vesicle under a shear flow that is strong enough to cause the vesicle membrane to rupture, 
+we expect the HAP model to capture the reorganization of lipid molecules on the scales of membrane thickness ($\sim 5$ nm), which is a nearly impossible
+task using phase-field or immerse boundary method without extreme refinement around the membrane and artificial treatment of reconnection during the topological change of an interface.
+
+%Some disadvantages are that the hydrophobic interaction does not constrain vesicle volume. 
+%Instead, changes in volume are rate limited by inter-particle spacing,
+%which may be undesirable in case of a mathematically strict volume constraint.
+%% set vesicle volume, as is done in the study of liposomes
+%%using auxiliary constraint equations for instance. 
+%%Also, the boundary integral method formulation
+%%relies on linearity of the Stokes equations. There has been some progress in
+%%boundary integral methods for the non-linear Navier-Stokes equations [ref].
+%%We point out that some non-Newtonian effects in polymers are a consequence of hydrophobic
+%%and steric molecular interactions like the ones presented in this proposal. 
 
 In recent years, researchers have developed a number of numerical methods for calculating
 energy minimizing steady equilibrium shapes of lipid bilayer membranes, vesicles and red blood cells.
