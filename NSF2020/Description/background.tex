@@ -344,7 +344,8 @@ using efficient, high-order numerical methods \S\ref{sec:proposed-work}.
   \caption{\label{fig:demixing} \footnotesize An initial assembly of
   small and large particles spontaneously segregates into two smaller
   bodies.}
-\end{wrapfigure}Over the past decades, researchers have used a number of mathematical
+\end{wrapfigure}
+Over the past decades, researchers have used a number of mathematical
 tools to simulate vesicles in a shear flow, including lattice
 Boltzmann~\cite{KaouiHartingMisbah2011_PRE}, coarse-grained Brownian
 dynamics~\cite{NoguchiTakasu2002_BJ}, phase
@@ -387,16 +388,24 @@ must then satisfy specialized transport equations~\cite{Lowengrub07,
 MikuckiZhou17}. 
 
 
+\begin{wrapfigure}[6]{l}{0.35\textwidth}
+\centerline{\includegraphics[width=0.35\textwidth]{figures/Lysis.pdf}}
+  \vspace{-8pt}
+  \caption{\label{fig:lysis} \footnotesize Two hydrophobic particles
+  enter and then lyse the circular bilayer.}
+\end{wrapfigure}
 The greatest strength of using HAP to model lipid bilayer membrane is
 the ability to form discontinuities (interfacial singularity) from first
 physical principles without any artificial manipulation to rearrangement
-the interface. For example, using the HAP model to simulate a vesicle
+the interface (Figures \ref{fig:demixing} and \ref{fig:lysis}).
+For example, using the HAP model to simulate a vesicle
 under a shear flow that is strong enough to cause the vesicle membrane
-to rupture, we expect the HAP model to capture the reorganization of
+to rupture (see \S\ref{sec:preliminary_work}), we expect the HAP model to capture the reorganization of
 lipid molecules on the scales of membrane thickness ($\sim 5$ nm), which
 is a nearly impossible task using phase-field or immerse boundary method
 without extreme refinement around the membrane and artificial treatment
-of reconnection during the topological change of an interface.
+of reconnection during the topological change of an interface
+\cite{doi:10.1063/5.0009734,LiAn-Chang16,doi:10.1098/rspa.2012.0505,doi:10.1137/130941432,Feetzl18,doi:10.1137/16M1108406}.
 
 %Some disadvantages are that the hydrophobic interaction does not constrain vesicle volume. 
 %Instead, changes in volume are rate limited by inter-particle spacing,
