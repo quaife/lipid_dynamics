@@ -6,7 +6,7 @@ self-assembling amphiphilic particles in a solvent} \\
 FSU), and Y.-N. Young (PI, NJIT)}
 \section{Background}
 \label{sec:background}
-The goal of this collaborative proposal is to use continuum modeling and
+The goal of this collaborative proposal is to use mathetical modeling and
 numerical simulations to investigate the dynamic self-assembly of
 amphiphilic particles interacting with each other via hydrophobic forces
 in a solvent. Amphiphilic particles (such as lipid molecules) possess
@@ -21,7 +21,7 @@ the solvent molecules (water).
 Such self-assembly of amphiphiles via hydrophobic force is ubiquitous in biology and biophysics \cite{Israelachvili1954},
 %The hydrophobic force is a ubiquitous molecular interaction in biology \cite{Israelachvili1954}, 
 and has been a major source of nonspecific interactions between
-nanoparticles for self-assembly in  soft matter
+nanoparticles in  soft matter
 \cite{Sanchez-IglesiasEtAl2012_ACSNano,AltantzisEtAl2013_PSC,XieYangLuEtAl2020_COCIS}. 
 %The proposed research aims to provide fundamental understanding of the self-assembly dynamics of amphiphilic particles so to design smart materials of desirable properties by
 %tuning the geometry and properties of the amphiphilic particles. 
@@ -47,15 +47,14 @@ hydrophobic force decays exponentially with a decay length like 1 nm
 \cite{Israelachvili1984, Marcelja1977,Christenson2001,Lin2005}. It is
 also known that the interaction is not pairwise additive, meaning that
 the force between any two hydrophobic objects is altered by the presence
-of a third  object. 
+of a third, hydrophobic or otherwise, object \cite{SilveraBatista1242477}. 
 
-\begin{wrapfigure}[16]{r}{0.22\textwidth}
+\begin{wrapfigure}[10]{r}{0.22\textwidth}
 \centerline{\includegraphics[width=0.22\textwidth]{figures/BG_fig1.pdf}}
-  \todo[inline]{Change the $\mathbf{n}$ to a $\boldsymbol{\nu}$}
-\caption{ \footnotesize The exterior domain $\Omega$ is the solvent
-  region surrounding a number of rigid particles $P_1,$ $P_2,$ $P_3,$
-  \dots The surface $S$ is the solvent-particle interface, indicated by
-  the unit normal $\mathbf{n}.$ }\label{fig:domain}
+\caption{ \footnotesize
+A collection $P_1,$ $P_2,$ $P_3,$ \dots of rigid particles.
+The exterior domain $\Omega$ represents the solvent.}
+  \label{fig:domain}
 \end{wrapfigure}
 Recently PIs RR and YNY developed a mathematical model called the
 hydrophobic attraction potential (HAP) \cite{Fu2018_SIAM} that is based
@@ -106,9 +105,8 @@ accurate and computationally practical.
 %%mechanics presumes, rather than predicts, the nucleation of discontinuities. 
 %%
 %
-The proposed research aims to provide fundamental understanding of the self-assembly dynamics of amphiphilic particles.
-These results will facilitate optimal designs of smart materials of desirable properties by
-tuning the geometry and properties of the amphiphilic particles. 
+The proposed research aims to provide fundamental understanding of the self-assembly dynamics of amphiphilic particles. These results will facilitate optimal design of smart materials by
+tuning the geometry and properties of the amphiphilic particles.
 
 
 \subsection{Hydrophobic Attraction Potential (HAP)}
@@ -127,51 +125,67 @@ Based on PI RR and YNY's coarse-grained membrane modeling
 work~\cite{Fu2017}, the investigators initiated a collaboration to
 create a gradient theory for arbitrary collections of hydrophobic and
 amphiphilic particles. This new method eliminates the costly calculation
-of water by treating the solvent implicitly, and avoids complicated
+of water by treating the solvent implicitly, is capable of representing
+biologically relevant morphologies, and avoids complicated
 re-meshing schemes of continuum approaches by utilizing a particle-based
 representation.
 
-To define HAP, consider a region $\Omega \subset \mathbb{R}^3$  modeling
-the solvent surrounding a number of particles (Figure \ref{fig:domain}).
-The HAP must be an energy of the shape of the region because hydrophobic
-attraction is non-additive. The boundary of the region is the
-water-particle interface and some parts of this surface are hydrophobic
-while others are hydrophilic. Monte Carlo simulations show that water
-changes structure at hydrophobic interfaces~\cite{Luzar1987,
-Jonsson2006, Varilly2011}. Due to rapid fluctuation in the hydrogen bond
-network, restructuring at the interface extends into bulk water. This
-motivates the following definition for the HAP of the particles:
+To define HAP, consider a collection of particles solvent suspended in a solvent. 
+The region $\Omega \subset \mathbb{R}^3$  models 
+the solvent phase (Figure \ref{fig:domain}).
+%The HAP must be an energy of the shape of the region because hydrophobic
+%attraction is non-additive.
+The boundary of the region is the
+water-particle interface.
+Some parts of this interface are hydrophobic
+while others are hydrophilic.
+Hydrophobic interfaces disturb the hydrogen bond structure of water~\cite{Luzar1987,
+Jonsson2006, Varilly2011}. This disturbance comes with an energetic penalty
+that is proportional to interfacial area.
+There is an additional decay length,
+due to rapid fluctuation in the hydrogen bond
+network, describing how far the restructuring extends into bulk water.
+
+The above considerations motivate the following definition for the HAP:
 \begin{align}
 \label{HAP}
-  \Phi = \gamma \iiint_{\Omega} \rho |\nabla u|^2 + \rho^{-1}u^2 \,dx \,dy \,dz, 
+  \Phi = \gamma \int_{\Omega} \rho |\nabla u|^2 + \rho^{-1}u^2 \,\dif V. 
 \end{align}
-where $u$ is the unique solution of the screened Laplace equation boundary value problem 
+The integrand contains
+the decay length $\rho$
+and a scalar function $u(\mathbf{x})$ called the water activity.
+The integrand has units of an inverse length and so
+the volume integral has units of area. Multiplication by interfacial tension
+$\gamma$ makes $\Phi$ an energy. 
+
+To get the effect of attraction, the water activity is not arbitrary, but rather
+is the unique solution of the screened Laplace equation boundary value problem 
 \begin{equation}
   \label{SL}
   -\rho^2 \Delta u + u = 0, \mbox{ } \mathbf{x} \in \Omega, \qquad
   u = f,  \mbox{ } \mathbf{x} \in \partial \Omega, \qquad 
   u(\mathbf{x}) \to 0 \mbox{ as } |\mathbf{x}| \to \infty.
 \end{equation}
-The scalar function $u(\mathbf{x})$ is called the water activity. Its
-boundary values $f$ define the degree of hydrophobicity of the
-water-particle interface. If $f=1$, the interface is hydrophobic and
-water has lost rotational freedom. Conversely, if $f=0$, the interface
-has the same rotational freedom as in bulk water. The parameter $\rho$
-is the decay length of attraction, around 1 nm, and the parameter
-$\gamma$ is the interfacial tension~\cite{Israelachvili1954}. Both
-parameters contain information about the quality of the
-solvent~\cite{Discher2002}.
+The boundary values $f$ define the degree of hydrophobicity of the
+water-particle interface: $f=1$, describes a hydrophobic interface
+and $f=0$ describes a hydrophilic interface. Thus $f$ encodes information
+about the particles and the parameters $\rho$ and $\gamma$ encode information about the quality of the solvent 
+~\cite{Israelachvili1954, Discher2002}. In practice, we use
+\eqref{SL} to integrate by parts to obtain
+\begin{equation}
+\label{eq:HAP_easy}
+\Phi = -\gamma \int_{\partial \Omega} \rho u \nabla u \cdot \boldsymbol{\nu} \,\dif S,
+\end{equation}
+thereby avoiding calculating a volumetric integral.
 
-From a phenomenological perspective, equations~\eqref{HAP}
-and~\eqref{SL} form an appropriate model of hydrophobic attraction.
-Specifically, using boundary layer analysis, it is possible to show that
-$\Phi$ converges to a surface energy in the zero-decay length
-limit~\cite{Lee2018, Lin2015, Shibata2004}. For non-zero decay lengths,
-solutions of~\eqref{SL} yield an attractive interaction between
-hydrophobic parallel disks separated by water~\cite{Eriksson1989}. Also,
-we have demonstrated with simulation that the forces derived from HAP
-theory are non-additive and significantly deviate from a pairwise
-potential~\cite{Meyer2006, Fu2018_SIAM}. 
+
+The equations~\eqref{HAP} and~\eqref{SL} possess number of the mathematical properties
+that capture the phenomenological behavior of hydrophobic attraction.
+Specifically, solutions of~\eqref{SL} yield an attractive interaction between
+hydrophobic bodies separated by water ~\cite{Eriksson1989}.
+Using boundary layer analysis, the HAP converges to a surface energy in the zero-decay length
+limit~\cite{Lee2018, Lin2015, Shibata2004}.
+Finally, we have demonstrated that the forces derived from HAP theory are non-additive~\cite{Meyer2006, Fu2018_SIAM}. 
 %The hydrophobic force has been implicated in the directed folding of proteins, 
 %adhesion between biological membranes, but it is still unanswered as to whether
 %the hydrophobic force of the form (\ref{HAP}--\ref{SL}) exists between small molecules. 
@@ -202,19 +216,16 @@ potential~\cite{Meyer2006, Fu2018_SIAM}.
 %%For large system simulations, the particles formed realistic configurations like micelles and bilayers. 
 %%Our collections showed that these amphiphilic particle bilayers  possessed mechanical properties of a 
 %%lipid  bilayer  membrane  that  are  consistent  with other results in the literature.   
-To define the particle dynamics, consider the exterior domain $\Omega$
-for a finite number of disjoint, rigid and closed particles $P_1$,
-$P_2$, \ldots, $P_n$, each with Lipschitz boundary, and boundary data
-$f$ in the Sobolev space $H^1(\Omega)$. For any fixed configuration, the
-minimizer of the functional~\eqref{HAP} among all $u - f$ with vanishing
-trace is the solution of~\eqref{SL}. Conversely, from maximum principles
-and energy estimates, the solution of~\eqref{SL} is the minimizer
-of~\eqref{HAP}, and this supplies $\Phi$ with a well-defined value.
-Taking the derivative of~\eqref{HAP} with respect to particle
-configurations, and using the boundary value problem~\eqref{SL}, the
-first variation of the hydrophobic potential $\Phi$ yields a symmetric,
-rank-two tensor~\cite{Bandle2015, Schiffer1954, Grinfeld2010} called the
-hydrophobic stress:
+To define the particle dynamics,
+let $P_1$, $P_2$, \ldots, $P_N$,
+be a finite collection of disjoint, rigid and closed particles
+with Lipschitz boundary.
+Assume that the label $f$ is an element of the Sobolev space $H^1(\Omega)$.
+The functional~\eqref{HAP} has a minimizer among all functions $u$ equaling $f$ on the boundary in the sense of trace.
+Conversely, from maximum principles and energy estimates, the solution of~\eqref{SL} is unique and minimizes~\eqref{HAP}.
+Taking the first variation of~\eqref{HAP}, i.e. the derivative with respect to the domain
+~\cite{Bandle2015, Schiffer1954, Grinfeld2010},
+yields a symmetric, rank-two tensor called the hydrophobic stress:
 \begin{align}
   \label{stress}
 \boldsymbol{\sigma}_{\text{hydro}} = \gamma \rho^{-1} u^2 I + 2\rho \gamma (\tfrac{1}{2}|\nabla u|^2I - \nabla u \nabla u^T).
@@ -229,16 +240,25 @@ Integrating the hydrophobic stress over the surface of particle $P_i$
 reveals the hydrophobic force and torque on each particle 
 \begin{align}
   \label{forceandtorque}
-  \mathbf{F}_i = \iint_{\partial P_i} \boldsymbol{\sigma}_{\text{hydro}}
-  \cdot \boldsymbol{\nu} \,dS,\quad
-  \mathbf{T}_i = \iint_{\partial P_i} \mathbf{x} \times
-  (\boldsymbol{\sigma}_{\text{hydro}} \cdot \boldsymbol{\nu}) \,dS.
+  \mathbf{F}_{\text{hydro},i} = \iint_{\partial P_i} \boldsymbol{\sigma}_{\text{hydro}}
+  \cdot \boldsymbol{\nu} \,\dif S,\quad
+  \mathbf{G}_{\text{hydro},i} = \iint_{\partial P_i} (\mathbf{x}-\mathbf{a}_i) \times
+  (\boldsymbol{\sigma}_{\text{hydro}} \cdot \boldsymbol{\nu}) \,\dif S
 \end{align}
-Our previous work verifies that this system is force- and torque-free
-and \S\ref{subsec:specific_aim_2} addresses the numerical challenges in
-evaluating~\eqref{stress} and how these challenges are overcome. To
-supply viscous dissipation, we incorporate the mobility problem in
-Stokes flow to obtain the rigid body motions:
+relative to the center of mass $\mathbf{a}_i$.
+This system is force- and torque-free  \S\ref{subsec:specific_aim_2}.
+To avoid particle collisions, we define an excluded volume potential $\Phi_{\text{repul}}$
+that diverges whenever tubular neighbordhoods of adjacent particles overlap,
+along with the excluded volume repulsions. The total potential, force and torque are then
+\begin{equation}
+\label{eq:total_poten}
+\Phi = \Phi_{\text{hydro}} + \Phi_{\text{repul}},\quad
+\mathbf{F}_{i} = \mathbf{F}_{\text{hydro},i} + \mathbf{F}_{\text{repul},i},\quad
+\mathbf{G}_{i} = \mathbf{G}_{\text{hydro},i} + \mathbf{G}_{\text{repul},i}.
+\end{equation}
+
+To supply viscous dissipation, we incorporate the mobility problem in
+Stokes flow for a rigid body suspension:
 \begin{equation}
 \label{eq:stokes}
 \begin{aligned}
@@ -247,8 +267,8 @@ Stokes flow to obtain the rigid body motions:
   &{\bf u}(\mathbf{x}) \to 0 \quad \text{as}\ |\mathbf{x}|\to \infty,\qquad 
   \mathbf{u}(\mathbf{x})|_{\partial P_i} = \mathbf{v}_i +
 \boldsymbol{\omega}_i\times(\mathbf{x} - \mathbf{a}_i),\\
-&\int_{\partial P_i}\boldsymbol{\sigma}\cdot {\bf n} dS=-{\bf F}_i, \quad
-\int_{\partial P_i}(\mathbf{x}-\mathbf{a}_i)\times (\boldsymbol{\sigma} \cdot \mathbf{n}) dS=-{\bf T}_i.
+&\int_{\partial P_i}\boldsymbol{\sigma}\cdot {\bf n} \dif S=-{\bf F}_i, \quad
+\int_{\partial P_i} (\mathbf{x} - \mathbf{a}_i)\times (\boldsymbol{\sigma} \cdot \mathbf{n}) \dif S =-{\bf G}_i.
 \end{aligned}
 \end{equation}
 Here $\mu$ is the fluid viscosity and the first two equations state that
@@ -256,11 +276,13 @@ the fluid motion is a divergence-free Stokes flow; the third equation
 specifies that the fluid velocity vanishes at infinity; the fourth
 equation enforces a rigid body motion on each particle, where
 $\mathbf{v}_i$ and $\boldsymbol{\omega}_i$ are unknown translation and
-angular velocities of the $i$-th particle and $\mathbf{a}_i$ is the
-center of mass of $P_i$; the last two equations state that the net
-forces and torques on each particle are $\mathbf{F}_i$ and
-$\mathbf{T}_i$ from~\eqref{forceandtorque}, respectively, and
-$\boldsymbol{\sigma}$ is the fluid shear stress. The time integration of
+angular velocities; the last two equations state that the net
+viscous forces and torques with fluid shear stress $\boldsymbol{\sigma}$
+balance \eqref{eq:total_poten}.
+
+
+
+The time integration of
 particle configurations goes as follows: \textbf{(i)} solve the
 BVP~\eqref{SL} for the screened Laplace equation, \textbf{(ii)}
 determine the rigid body forces and torques~\eqref{forceandtorque},
@@ -281,25 +303,24 @@ in \S\ref{subsec:specific_aim_2}.
 %where viscoelastic deformations exponentially approach the purely elastic deformation.  
 %%)
 
+The HAP formulation is, to our knowledge, the first demonstration of bilayer self-assembly
+by a continuum-based interaction model~\cite{Noguchi2001, Farago2003, Brannigan2006,
+Brooks2009, Wang2013}.
 Our simulations use Janus particles to model lipid amphiphiles which are
 popular in material science and physics for creating functional
 materials~\cite{Lee2014, Lee2013}. Janus particles are typically
 spherical with a biphasic material label on either hemisphere, endowing
-the particle with a directional order. We considered a two-dimensional
-system, and represented an elongated lipid by elliptical particles with
-hydrophobic and hydrophilic labels along the ellipse's long axis. Under
-the hydrophobic force, and with an excluded volume to prevent
-collisions, the Janus particles spontaneously merge and realign to form
+the particle with a directional order.
+We model elongated lipid by elliptical particles with the hydrophobic label defined  along the ellipse's axis.
+Under the hydrophobic force, and with an excluded volume,
+the Janus particles spontaneously merge and realign to form
 bilayers. This occurs only as a result of energy minimization and does
-not require artificial inputs. To our knowledge, this is the first
-demonstration of bilayer self-assembly by a continuum hydrophobic
-interaction model~\cite{Noguchi2001, Farago2003, Brannigan2006,
-Brooks2009, Wang2013}.
+not require artificial inputs.
 
 It is worth emphasizing that the HAP model uses only a few parameters;
 interfacial tension, decay length, repulsion strength, and particle
 shape. For example, an elastic modulus for stretching a vesicle from
-micropipette manipulation directly calibrate our interfacial tension
+micropipette manipulation directly calibrates our interfacial tension
 parameter. This is in direct contrast with pair-potential based
 approaches in MD simulations and coarse-grained models where many more
 parameters are required~\cite{Varilly2011, Wang2013}.
@@ -307,16 +328,23 @@ parameters are required~\cite{Varilly2011, Wang2013}.
 %But even the simplest coarse grained models based on pair potentials for lipids has many more parameters \cite{Varilly2011,Wang2013} . 
 
 As a proof of concept, our work has already tested for elastic energies
-for bending, stretching, and tilt of the bilayer assembly. Extracting
-coefficients from the HAP simulations shows strikingly positive
+for bending, stretching, and tilt of the bilayer assembly. 
+The elastic coefficients derived from the HAP simulations show strikingly positive
 agreement with experimentally determined values~\cite{Fu2018_SIAM}.
 Encouraged by these results and the hydrodynamic simulations of the
-bilayer assembly, the PIs propose to extend the HAP model and the
-numerical schemes (see \S\ref{sec:proposed-work}) to make direct
-comparison with experiments, the continuum liquid crystal results and MD
-simulations results, to establish that the HAP model has the capability
-and adaptivity to model phenomena across length scales and time scales.
+bilayer assembly, the PIs propose to extend the HAP model
+to make direct comparison with experimental results  \S\ref{subsec:specific_aim_1},
+to establish that the HAP model has the capability
+and adaptivity to model flow phenomena across length scales and time scales \S\ref{subsec:specific_aim_2},
+using efficient, high-order numerical methods \S\ref{sec:proposed-work}.
 
+\begin{wrapfigure}[14]{l}{0.35\textwidth}
+\centerline{\includegraphics[width=0.35\textwidth]{figures/PW_fig2.pdf}}
+  \vspace{-8pt}
+  \caption{\label{fig:demixing} \footnotesize An initial assembly of
+  small and large particles spontaneously segregates into two smaller
+  bodies.}
+\end{wrapfigure}
 Over the past decades, researchers have used a number of mathematical
 tools to simulate vesicles in a shear flow, including lattice
 Boltzmann~\cite{KaouiHartingMisbah2011_PRE}, coarse-grained Brownian
@@ -341,10 +369,7 @@ fluids~\cite{0951-7715-18-3-016,Du05,DuEuler,QiangDu09}.
 %The vesicle obeys fluid
 %transport and in turn the fluid balances shear stress with the vesicle's bending force. 
 
-
-
-
-Our HAP approach differs from prior methods in a number of respects.
+Our HAP approach differs from these prior methods in a number of respects.
 First, we do not assume a surface. Rather, we more fundamentally
 consider a collection of amphiphilic particles.  The collection of
 amphiphiles minimize hydrophobic interactions by sequestering
@@ -361,24 +386,26 @@ conditions (Figure~\ref{fig:demixing}). In contrast, continuum theory
 deals with multiple phases through additional surface densities that
 must then satisfy specialized transport equations~\cite{Lowengrub07,
 MikuckiZhou17}. 
-%
-\begin{wrapfigure}[14]{l}{0.35\textwidth}
-\centerline{\includegraphics[width=0.35\textwidth]{figures/PW_fig2.pdf}}
+
+
+\begin{wrapfigure}[6]{l}{0.35\textwidth}
+\centerline{\includegraphics[width=0.35\textwidth]{figures/Lysis.pdf}}
   \vspace{-8pt}
-  \caption{\label{fig:demixing} \footnotesize An initial assembly of
-  small and large particles spontaneously segregates into two smaller
-  bodies.}
+  \caption{\label{fig:lysis} \footnotesize Two hydrophobic particles
+  enter and then lyse the circular bilayer.}
 \end{wrapfigure}
 The greatest strength of using HAP to model lipid bilayer membrane is
 the ability to form discontinuities (interfacial singularity) from first
 physical principles without any artificial manipulation to rearrangement
-the interface. For example, using the HAP model to simulate a vesicle
+the interface (Figures \ref{fig:demixing} and \ref{fig:lysis}).
+For example, using the HAP model to simulate a vesicle
 under a shear flow that is strong enough to cause the vesicle membrane
-to rupture, we expect the HAP model to capture the reorganization of
+to rupture (see \S\ref{sec:preliminary_work}), we expect the HAP model to capture the reorganization of
 lipid molecules on the scales of membrane thickness ($\sim 5$ nm), which
 is a nearly impossible task using phase-field or immerse boundary method
 without extreme refinement around the membrane and artificial treatment
-of reconnection during the topological change of an interface.
+of reconnection during the topological change of an interface
+\cite{doi:10.1063/5.0009734,LiAn-Chang16,doi:10.1098/rspa.2012.0505,doi:10.1137/130941432,Feetzl18,doi:10.1137/16M1108406}.
 
 %Some disadvantages are that the hydrophobic interaction does not constrain vesicle volume. 
 %Instead, changes in volume are rate limited by inter-particle spacing,
