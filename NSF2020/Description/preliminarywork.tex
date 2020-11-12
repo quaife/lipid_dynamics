@@ -10,8 +10,20 @@
   inter-leaflet slip.  (E)--(G) Tank-treading reaches a steady state in
   elliptical aspect ratio, major-axis angle, and circumference.}
 \end{figure}
-\section{Preliminary Work on Two-dimensional Vesicle Hydrodynamics in Shear Flow\label{sec:preliminary_work}} 
-%\section{Preliminary work on elastic moduli}
+\section{Preliminary Work on Elasticity and Two-dimensional Vesicle Hydrodynamics in Shear Flow}
+\label{sec:preliminary_work}
+The motivation for Specific Aims 1-3
+stemmed from the successful of demonstration, gradient driven
+self-assembly of amphiphilic particles into two-dimensional micelles,
+bilayer membranes, \cite{Fu2018_SIAM}, and recreation of the vesicles tank-treading phenomenon
+under a new coarse-grained description.
+
+Our preliminary work on membrane elasticity 
+is particulary encouraging because the effective bending, stretch, and tilt elastic moduli we calculated
+for collections of amphiphile were in excellent agreement with the experimental values.
+The initial success is underscored by the fact we assigned reasonable physical values to 
+the main model parameters of the HAP energy, rather than tuning parameter.
+
 To derive a bending modulus, we first considered a planar bilayer subject to a uniform vertical load on the particle centers (Figure \ref{fig:bend}). 
 Using a clamped condition at one end, the restoring force in the free part of the bilayer opposes the load.
 For small deformations, it is possible to solve the bilayer loading in closed form, and 
@@ -34,13 +46,12 @@ This boundary condition produces a tilt field that decays with the length scale 
 Fitting to this field, our particle based simulation gave $\lambda = 1.2$ nm, which matches
 the value $\KTH \approx 10$ \kBT \; nm$^{-2}$ reported in the literature \cite{KUZMIN2005, KoNa15}.
 
-Our preliminary work is encouraging because in all cases, the bending, stretch, and tilt elastic moduli for the collection of amphiphiles
-were in excellent agreement with the experimental values. This fact is especially remarkable 
-since we assigned the main model parameters $\rho$ and $\gamma$ reasonable physical values, rather than using them as tuning parameter. 
+
+
 Nevertheless, the characterization of material properties is incomplete. For one, the preliminary simulations involved relatively low particle numbers (20 to 30), and so we still need to
 perform convergence studies with large particle-number systems to arrive at conclusive results. Secondly, we have yet to establish a functional
-relationship between the model parameters and elastic moduli. Finally, to have relevance in physics and biology
-we must incorporate the remaining twist and saddle splay deformations.
+relationship between the model parameters and elastic moduli.
+Finally, to have relevance in physics and biology we must incorporate the remaining twist and saddle splay deformations.
 The following simulation outline shows how will achieve aims.
 
 \section{Preliminary Work on Two-dimensional Vesicle Hydrodynamics in Shear Flow} 
