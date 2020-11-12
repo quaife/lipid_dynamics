@@ -23,10 +23,12 @@ models. The immediate goal of the present proposal is to simulate
 vesicle bilayers in external flows, where the bilayers are represented
 by a self-assembled collection of rigid particles.
 
-\begin{figure}[h]
-  \centering{\includegraphics[width=0.8\textwidth]{Figures/domain.pdf}}
-    \caption{\label{fig:flow_map}}
-\end{figure}
+%\begin{figure}[h]
+\begin{wrapfigure}[]{r}{0.60\textwidth}
+  \centering{\includegraphics[width=0.6\textwidth]{Figures/domain.pdf}}
+    \caption{\label{fig:flow_map} \todo[inline]{Missing caption}}
+\end{wrapfigure}
+%\end{figure}
 
 
 %We must solve the system 
@@ -65,7 +67,7 @@ by a self-assembled collection of rigid particles.
 %\noindent for $i = 1,\dots, N$.
 
 \subsubsection{Vesicles in background flows}
-Numerically solving the Stokes-screened Laplace system~\eqref{SL}
+Numerically solving the Stokes and screened Laplace system~\eqref{SL}
 and~\eqref{eq:stokes} is nontrivial, and we will develop efficient,
 robust, high-order in time and space algorithms suited to the problem.
 The challenges are: {\bf (1)} the equations express a two-way coupling.
@@ -102,15 +104,14 @@ motion conditions follow by requiring the viscous stress vanishes across
 the particle boundaries.
 
 We will compare the behavior of our particle-based vesicles in Stokes
-flow to well-established results. \todo{What are the known results?}
-Researchers have devised models to enforce area incompressibility and
+flow to well-established models that enforce area incompressibility and
 volume conservation in vesicle membrane
 dynamics~\cite{torres-sanchez_millan_arroyo_2019,
 mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}. Our
 preliminary results show that the particle-based bilayers have the same
 large area modulus as real lipid bilayer membranes, so we expect
 realistic results from our flow simulations. Under moderate shear rates,
-the vesicle elongates and takes on the tank-treading  elliptical shape.
+the vesicle elongates and takes on the tank-treading elliptical shape.
 We can directly check for area compressibility conservation properties
 from the particle simulation by tracking the change in area density of
 the midplane as a function of shear flow rate, along with evaluating the
