@@ -72,15 +72,15 @@ which increases the computational complexity of our simulations.
 
 We include a background flow by replacing the third equation in \eqref{eq:stokes} with the condition
 $(\mathbf{u} - \mathbf{u}_{\infty})(\mathbf{x}) \to \mathbf{0}$ as $|\mathbf{x}| \to \infty.$ 
-One way to ensure this far-field condition is through the represention 
+The main idea to incorporate the far-field flow is to use the representation 
 \begin{equation}
 \label{PowerMiranda}
-{\bf u} = {\bf u}_{\infty} + D\eta + \sum_{i=1}^N S(\cdot, {\bf a}_i) {\bf F}_i + R(\cdot, {\bf a}_i) {\bf G}_i.
+{\bf u} = {\bf u}_{\infty} + K\eta + \sum_{i=1}^N S(\cdot, {\bf a}_i) {\bf F}_i + R(\cdot, {\bf a}_i) {\bf G}_i.
 \end{equation}
 where $S$ and $R$ are stokeslets and rotlets supported at the respective particle centers 
-and $D\eta$ is an appropriate double layer integral operator for an unknown density function $\eta.$ 
-The representation \eqref{PowerMiranda} automatically satisfies all equations with the exception of the rigid motion boundary conditions. 
-These conditions follow by requiring the viscous stress vanishes across the particle boundaries.
+and $K\eta$ is a layer potential for an unknown density function $\eta.$ 
+The representation \eqref{PowerMiranda} automatically satisfies all equations, with the exception of the rigid motion conditions. 
+These rigid motion conditions follow by requiring the viscous stress vanishes across the particle boundaries.
 
 We will compare the behavior of our particle-based vesicles in Stokes flow to well-established results.
 \todo{What are the known results?}
@@ -100,11 +100,11 @@ the bilayer is limited by the size of the gaps between the particles, which is a
 Making these gaps smaller comes at the expense of numerical accuracy, and so we will assess if there is a reasonable trade-off
 between approximate volume conservation and simulation complexity. 
 
-\begin{wrapfigure}[16]{r}{0.32\textwidth}
+\begin{wrapfigure}[13]{r}{0.32\textwidth}
 \centerline{\includegraphics[width=0.32\textwidth]{figures/BIError.pdf}}
 \caption{
 \label{fig:bierror}  
-  Gradient error between an exact and boundary integral solution of \eqref{SL}.
+The numerical error in integral representations blows up near boundaries.
 }
 \end{wrapfigure}
 
@@ -118,9 +118,10 @@ This implies that part of the viscous dissipation in the aqueous phase is enhanc
 slip as a function of shear rate, vesicle diameter and particle geometry. 
 
 \textbf{Novel reciprocal relations.}
-We use a double layer The velocity field  double layer potential representation.
-This representation involves a strongly singular integral, and without the aid of specilized
-quadrature routines, leads to large numerical errors when evaluating the the hydrophobic stress \eqref{stress} along the particle boundaries (see Figure \cite{fig:bierror}).
+We use a boundary integral representation for the velocity field. Due to singular behavior of the
+kernels, the boundary integrals can have large numerical epresentation without the aid of specilized
+quadrature routines, leads to large numerical errors when evaluating the the hydrophobic
+stress \eqref{stress} along the particle boundaries (see Figure \cite{fig:bierror}).
 We prove a, to our knowledge new, result concerning the evaluation of Maxwell-type stresses. 
 \begin{proposition}
   \label{prop:recip}
