@@ -1,114 +1,89 @@
-%\subsection{Specific Aim 2: Functional Materials}
 \subsection{Specific Aim 2: Hydrodynamics}
 \label{subsec:specific_aim_2}
-Specific Aim 1 dealt with elastic material properties of self-assembled collections of amphiphiles.
 In Specific Aim 2, we include hydrodynamics effects by embedding the particles in a solvent. 
-We divide space into the fluid phase and the rigid particle phase.
-The fluid phase is modeled by the Stokes equations for an incompressible, zero Reynolds-number fluid. These are coupled to the screened-Laplace equation \eqref{SL}
-through viscous and hydrophobic stress balance.
-We develope a numerical solver for the mobility problem. 
-This leads to simulations of bilayers in external flows where the bilayers are represented by a self-assebled collection of rigid particles.
-Finally, we work toward three-dimensional solvers with application in the capillary driven fabrication of micro-materials. 
-
-Hydrodynamic effects are a relevant detail 
+As described in \eqref{eq:stokes} and illustrated in Figure \ref{fig:flow_map}, 
+the solvent phase is modeled by the Stokes equations for an incompressible, zero Reynolds-number fluid, 
+and these equations are coupled to the screened-Laplace equation \eqref{SL} through viscous and hydrophobic stress balance.
+Hydrodynamic effects are a relevant detail  
 because the rates of biological functions like fusion, fission, and pore dynamics rely on viscous dissipation \cite{RYHAM20112929}. 
-While hydrophobic attraction causes the particles to self-assemble indepedently of the dissipation mechanism, the trajectories and
-equilibrium configurations depend on the fact that the particles travel through a viscous environment. 
-Additionally, coarse-grained and molecular dynamics theories include water either explicitly or implicitly in their models. 
+%While hydrophobic attraction causes the particles to self-assemble indepedently of the dissipation mechanism, the trajectories and
+%equilibrium configurations depend on the fact that the particles travel through a viscous environment. 
+Additionally, hydrodynamics interactions are central fabrication of complex microscopic three-dimensional structures \cite{Cho2010}.
+Over the past decade, there has been an explosion of interest in small-scale processes that utilize capillary forces dominate,  van der Waals interactions and thermal noise  \cite{Zhang2017}, to coordinated movement and bind  material subunits, \cite{Pandey2011,Leong2007,Reynolds2019, Dasgupta2017,Siontorou2017}.
+Finally, coarse-grained and molecular dynamics theories include water either explicitly or implicitly in their models. 
+The immediate goal of the present proposal
+is to be able to simulate vesicle bilayers in external flows, where the bilayers are represented by a self-assembled collection of rigid particles.
 
-
-\begin{figure}
+\begin{figure}[h]
   \centering{\includegraphics[width=0.8\textwidth]{Figures/domain.pdf}}
-    \caption{\label{fig:flow_map}TBD}
+    \caption{\label{fig:flow_map}}
 \end{figure}
-\textbf{Model equations.}
-The hydrodynamic interactions enter through the transmission of viscous stresses from one particle to the another.  
-We must solve the system 
-\setcounter{midequation}{\theequation}
-\addtocounter{midequation}{2}
 
-\begin{minipage}[t]{0.44\textwidth}
-\begin{subequations}
-\begin{alignat}{2}
-\label{St1} -& \mu \Delta {\bf u} + \nabla p = {\bf 0}, \\
-\label{St2}  & \nabla \cdot {\bf u} = 0,                &&   \text{in } \Omega\\
-\label{St3}  & {\bf u }({\bf x}) = {\bf v}_i + {\bf w_i}\times {\bf x}, \;  && \text{for } {\bf x} \in \partial P_i\\
-\label{St4}  & ({\bf u } - {\bf u}_{\infty})({\bf x}) \to {\bf 0} && \text{as } {\bf x} \to \infty\\
-\notag \\
-\tag{\themidequation}
-\label{HSB1}  & \int_{\partial P_i} \boldsymbol{\sigma} \boldsymbol{\nu} \,\dif S + {\bf F}_{i} = {\bf 0}\span \span
-\end{alignat}
-\end{subequations}
-\end{minipage}
-\addtocounter{equation}{1}
-\setcounter{midequation}{\theequation}
-\addtocounter{midequation}{2}
-\begin{subequations}
-\begin{minipage}[t]{0.5\textwidth}
-\begin{alignat}{2}
-\label{SL1}  - & \rho^2 \Delta u +u = 0, && \text{in } \Omega\\
-\label{SL2}   & u({\bf x}) = f_i({\bf x}),\quad  && \text{for } {\bf x} \in \partial P_i\\
-\label{SL3} &  u({\bf x}) \to 0 && \text{as } {\bf x} \to \infty \\
-\notag \\
-\notag \\
-\tag{\themidequation}
-\label{HSB2}   & \int_{\partial P_i} {\bf x} \times \boldsymbol{\sigma} \boldsymbol{\nu} \,\dif S + {\bf G}_{i} = {\bf 0} \span \span\\
-\notag
-\end{alignat}
-\end{minipage} 
-\end{subequations}
 
-\noindent for $i = 1,\dots, N$.
-The equations \eqref{St1}--\eqref{HSB2} express a two-way coupling between the flow and bilayer shape.
-The particle laden flow changes the shape of the bilayer, and in return the hydrophobic stresses coming
-from the altered shape impart a force on the flow. 
-The inputs to \eqref{St1}--\eqref{HSB2} are the collection of particle configurations.
-Within this system, the activity $u$ solves the screened Laplace equation \eqref{SL1} with the material label boundary condition \eqref{SL2}
-and far-field condition \eqref{SL3}. The forces ${\bf F}_i$ and torques ${\bf G}_i$ come from \eqref{totalFG}.
-In turn, the fluid velocity ${\bf u}$ solves the Stokes equations (\ref{St1}, \ref{St2}) with background flow boundary condition (\ref{St3}).
-The force and torque equations \eqref{HSB1}, \eqref{HSB2} couple the (\ref{St1}--\ref{St4}) to (\ref{SL1}--\ref{SL3}).
-The outputs are the collection of velocity and rotation pairs $({\bf v}_i, {\bf w}_i)$ that uniquely satisfy the rigid body boundary condition \eqref{St3}. 
+%We must solve the system 
+%\setcounter{midequation}{\theequation}
+%\addtocounter{midequation}{2}
+%\begin{minipage}[t]{0.44\textwidth}
+%\begin{subequations}
+%\begin{alignat}{2}
+%\label{St1} -& \mu \Delta {\bf u} + \nabla p = {\bf 0}, \\
+%\label{St2}  & \nabla \cdot {\bf u} = 0,                &&   \text{in } \Omega\\
+%\label{St3}  & {\bf u }({\bf x}) = {\bf v}_i + {\bf w_i}\times {\bf x}, \;  && \text{for } {\bf x} \in \partial P_i\\
+%\label{St4}  & ({\bf u } - {\bf u}_{\infty})({\bf x}) \to {\bf 0} && \text{as } {\bf x} \to \infty\\
+%\notag \\
+%\tag{\themidequation}
+%\label{HSB1}  & \int_{\partial P_i} \boldsymbol{\sigma} \boldsymbol{\nu} \,\dif S + {\bf F}_{i} = {\bf 0}\span \span
+%\end{alignat}
+%\end{subequations}
+%\end{minipage}
+%\addtocounter{equation}{1}
+%\setcounter{midequation}{\theequation}
+%\addtocounter{midequation}{2}
+%\begin{subequations}
+%\begin{minipage}[t]{0.5\textwidth}
+%\begin{alignat}{2}
+%\label{SL1}  - & \rho^2 \Delta u +u = 0, && \text{in } \Omega\\
+%\label{SL2}   & u({\bf x}) = f_i({\bf x}),\quad  && \text{for } {\bf x} \in \partial P_i\\
+%\label{SL3} &  u({\bf x}) \to 0 && \text{as } {\bf x} \to \infty \\
+%\notag \\
+%\notag \\
+%\tag{\themidequation}
+%\label{HSB2}   & \int_{\partial P_i} {\bf x} \times \boldsymbol{\sigma} \boldsymbol{\nu} \,\dif S + {\bf G}_{i} = {\bf 0} \span \span\\
+%\notag
+%\end{alignat}
+%\end{minipage} 
+%\end{subequations}
+%\noindent for $i = 1,\dots, N$.
 
-The particle velocity and rotation $({\bf v}_i, {\bf w}_i)$ update the particle configurations:
-\begin{alignat}{3}
-\label{Hupdate1}   \frac{\dif {\bf a}_i}{\dif t} = {\bf v}_i,      \quad  \frac{\dif {\bf R}_i}{\dif t}  = A({\bf w}_i),\quad i = 1, \dots, N.
-\end{alignat}
-Recall that $A({\bf w}_i)$ is the skew-symmetric matrix with axial vector ${\bf w}_i$.
-Also, ${\bf a}_i$ is the particle center the rotation matrix ${\bf R}_i$ defines the orientation.
-That way, the particle configurations come from the flow maps $F_i({\bf x},t) = {\bf a}_i(t) + {\bf R_i}(t){\bf x}$ with
-$P_i(t) = F_i(P_{0i},t)$ and $f_i(F_i({\bf x},t)) = f_{i0}({\bf x})$ where $P_{i0}$ and $f_{i0}$ are the $i$th reference particle
-and material label respectively.
-When there is no background flow ${\bf u}_{\infty} = {\bf 0}$, the system obeys the energy law
-$\frac{\dif}{\dif t} \Phi + \int_{\Omega(t)} \mu |\nabla {\bf u} + \nabla {\bf u}^T|^2 \,dx = 0,$ 
-and the particle configurations tend toward a local equilibrium.
+\textbf{Vesicles in background flows.}
+Numerically solving the Stokes-screened Laplace system \eqref{SL}, \eqref{eq:stokes} is a nontrivial matter,
+and we will develop an efficient, robust, high-order of accuracy in time and space algorithm suited to the problem. 
+The challenges are: \textbf{(1)} the equations express a two-way coupling.
+This means that the flow changes the shape of the bilayer (or particle suspension, more generally),
+and in return the hydrophobic stresses coming from the altered shape imparts a force on the flow. 
+\textbf{(2)}
+The inputs to the Stokes equations are particle configurations, forces and torques. 
+The outputs are the rigid body translation and angular velocties used to update the particle positions (see Figure \ref{fig:flow_map}).
+Although the underlying equations are linear, the overall problem is highly nonlinear because the domain is constantly changing.
+\textbf{(3)} Self-assembly causes the particles to come into close contact.  
+As a result, a exceptional spatial accuracy is required to resolve the fields between adjacent particles.
+Finally, the physically relevant elastic properties of bilayer become apparent at large length scales and for large particle-numbers,
+which increases the computational complexity of our simulations. 
 
-Numerically solving \eqref{St1}--\eqref{HSB2} is a nontrivial matter.
-The principle challenges are \textbf{(1)} the domain $\Omega(t)$ and boundary conditions $f_i$ are constantly changing
-with changes in the particle configuration \textbf{(2)} a high degree of spatial accuracy is required to resolve the fields 
-between adjacent particles and \textbf{(3)} the computational complexity grows with the number of particles. 
-Specific Aim 3 describes how we address these challenges. 
-
-\textbf{Simulation studies.}
-We simulate two-dimensional vesicle bilayers in external flows using \eqref{St1}--\eqref{HSB2}.
-The vesicle bilayer is formed by a many-body collection of amphiphilic particles.
-At large length scales and for large particle-number, the bilayer behaves as an elastic membrane,
-in two-dimensions an elastic curve. 
-This will lead to a deeper understanding of the elastic properties established by Specific Aim 2.
-
-We consider two kinds of external flows: shear flow and extensional flow. 
-Specifically, we deal with the background flow using the representation 
+We include a background flow by replacing the third equation in \eqref{eq:stokes} with the condition
+$(\mathbf{u} - \mathbf{u}_{\infty})(\mathbf{x}) \to \mathbf{0}$ as $|\mathbf{x}| \to \infty.$ 
+One way to ensure this far-field condition is through the represention 
 \begin{equation}
 \label{PowerMiranda}
 {\bf u} = {\bf u}_{\infty} + D\eta + \sum_{i=1}^N S(\cdot, {\bf a}_i) {\bf F}_i + R(\cdot, {\bf a}_i) {\bf G}_i.
 \end{equation}
-where $S(\cdot, {\bf a}_i)$ and $ R(\cdot, {\bf a}_i)$ are stokeslets and rotlets supported at the particle centers ${\bf a}_i.$
-The symbol $D$ denotes the Stokes double layer integral operator (see Specific Aim 3).   
-The representation \eqref{PowerMiranda} automatically satisfies \eqref{St1}, \eqref{St2}, \eqref{St4} and \eqref{HSB1}.
-We solve for the unknown density $\eta : \partial \Omega \to \mathbb{R}$ by requiring that jump in viscous stress
-vanished across $\partial P_i$. This jump condition guarantees that ${\bf u}$ is a rigid motion within each particle,
-and by continuity, equals a rigid motion on the particle boundary as required by \eqref{St3}.
+where $S$ and $R$ are stokeslets and rotlets supported at the respective particle centers 
+and $D\eta$ is an appropriate double layer integral operator for an unknown density function $\eta.$ 
+The representation \eqref{PowerMiranda} automatically satisfies all equations with the exception of the rigid motion boundary conditions. 
+These conditions follow by requiring the viscous stress vanishes across the particle boundaries.
 
 We will compare the behavior of our particle-based vesicles in Stokes flow to well-established results.
+\todo{What are the known results?}
 To test area incompressibility, we form the bilayer midplane by fitting to the particle centers. Under moderate shear rates,
 the vesicle elongates and takes on an elliptical shape. We will study the increase in midplane area as a function of shear rate.
 Additionally, we will test for tangential divergence of velocity.
@@ -132,6 +107,7 @@ between approximate volume conservation and simulation complexity.
   Gradient error between an exact and boundary integral solution of \eqref{SL}.
 }
 \end{wrapfigure}
+
 Finally, the particle-based vesicle bilayers have two distinct leaflets.
 The inner and outer leaflets consists of the particles in contact with the vesicle interior and 
 surrounding fluid respectively. Since there the separation between these layers is roughly fixed,
@@ -142,6 +118,9 @@ This implies that part of the viscous dissipation in the aqueous phase is enhanc
 slip as a function of shear rate, vesicle diameter and particle geometry. 
 
 \textbf{Novel reciprocal relations.}
+We use a double layer The velocity field  double layer potential representation.
+This representation involves a strongly singular integral, and without the aid of specilized
+quadrature routines, leads to large numerical errors when evaluating the the hydrophobic stress \eqref{stress} along the particle boundaries (see Figure \cite{fig:bierror}).
 We prove a, to our knowledge new, result concerning the evaluation of Maxwell-type stresses. 
 \begin{proposition}
   \label{prop:recip}
@@ -155,17 +134,11 @@ We prove a, to our knowledge new, result concerning the evaluation of Maxwell-ty
 where $\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i \cdot \nabla u_j {\bf I} - 2 \nabla u_i \otimes \nabla u_j)$ and
 $[\cdot]$ denotes the jump in stress across $\partial \Omega.$ 
 \end{proposition}
-As described in Specific Aim 3, we solve \eqref{SL1}--\eqref{SL3}  using a double layer potential representation.
-This representation involves a strongly singular integral, and without the aid of specilized
-quadrature routines, leads to large numerical errors when evaluating the the hydrophobic stress \eqref{stress} along the particle boundaries (see Figure \cite{fig:bierror}).
+
+
 The identity in Proposition \ref{prop:recip} gets around this critical issue by utilizing the fact that $u_j$, $j\neq i$ is smooth and the normal derivative
 of  $u_i$ continuous across $\partial P_i$. Despite the large gradient errors in Figure \ref{fig:bierror}, the force and torque
 calculated by \eqref{eq:reciprocal} achieved $10^{-4}$ accuracy.
 
-Additionally, hydrodynamics interactions are also relevant the fabrication of complex microscopic three-dimensional structures \cite{Cho2010}.
-Over the past decade, there has been an explosion of interest in small-scale processes that utilize capillary forces dominate,  van der Waals interactions and thermal noise  \cite{Zhang2017}, to coordinated movement and bind  material subunits. Two prominent fabrication techniques are capillary origami 
-\cite{Pandey2011,Leong2007,Reynolds2019} and colloidal self-assembly \cite{Dasgupta2017,Siontorou2017}. Capillary origami uses principles of elastocapilirity wherein elastic solids deform under surface tension \cite{Bico2018,VanHonschoten2010}. In self-assembly of colloids, 
-particles exhibit similar thermodynamic behavior of molecular systems, except that the behavior occurs over observable, long time scales \cite{Zhang2017}. 
-and can determine which local equilibria the system tends towards.
 
 
