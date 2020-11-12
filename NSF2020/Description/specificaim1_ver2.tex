@@ -237,20 +237,21 @@ and because the saddle splay, twist and tilt stay zeros, the slope gives the ben
 %
 %An accurate and robust way to measure material properties is to track the evolution of the bilayer. 
 
-Here we start with a particle-based bilayer in a specific non-equilibrium shape that consists of only one component of the displacement in figure~\ref{fig:deformations}, 
-and then evolve the particle system
+Here we start with a particle-based bilayer in a specific non-equilibrium shape that involves only one of the components of the displacement in Figure~\ref{fig:deformations}, and then evolve the particle system according to the time integration for \eqref{eq:stokes}.
+Actually,  elastic properties are independent of dissipation, and so we can forgo solving for fluid velocity and by setting the translational
+velocity and angular velocity directly proportional to force and torque. 
 %bilayer by steepest gradient descent 
-with respect to the HARP functional:
-\begin{equation}
-\label{SGD}   
-\frac{\dif {\bf a}_i}{\dif t} = {\bf F}_i,    \quad  \frac{\dif {\bf R}_i}{\dif t}  = {\bf R}_i A({\bf w}_i),\quad i = 1, \dots, N.
-\end{equation}
-where that particle centers ${\bf a}_i$ and rotation matrices ${\bf R}_i$ determine the particle configuraton; 
-$A({\bf w}_i)$ is the skew-symmetric matrix with axial vector ${\bf w}_i$.
+%with respect to the HARP functional:
+%\begin{equation}
+%\label{SGD}   
+%\frac{\dif {\bf a}_i}{\dif t} = {\bf F}_i,    \quad  \frac{\dif {\bf R}_i}{\dif t}  = {\bf R}_i A({\bf w}_i),\quad i = 1, \dots, N.
+%\end{equation}
+%where that particle centers ${\bf a}_i$ and rotation matrices ${\bf R}_i$ determine the particle configuraton; 
+%$A({\bf w}_i)$ is the skew-symmetric matrix with axial vector ${\bf w}_i$.
 %We solve \eqref{SGD} numerically  using an Adams–Bashforth linear multistep method. 
-The procedure involves solving \eqref{SL} based off of the current particle configuration.
-We then use the solution $u$ to calculate the collection of forces and torques \eqref{forceandtorque}, and update the particle configuration
-through \eqref{SGD}.
+%The procedure involves solving \eqref{SL} based off of the current particle configuration.
+%We then use the solution $u$ to calculate the collection of forces and torques \eqref{forceandtorque}, and update the particle configuration
+%through \eqref{SGD}.
 
 \begin{wrapfigure}[12]{l}{0.32\textwidth}
 \centerline{\includegraphics[width=0.32\textwidth]{Figures/SaddleSplayDiagram.pdf}}
@@ -258,10 +259,9 @@ through \eqref{SGD}.
   saddle splay modulus.}
 \end{wrapfigure}
 %
-The evolution \eqref{SGD} satisfies the energy dissipation law $\frac{\dif }{\dif t} \Phi \leq 0$
-and this stabilizes the evolving bilayer shape.
+In either case there is a dissipation of the total potential \eqref{eq:total_poten}, and this stabilizes the evolving bilayer shape.
 Therefore, we reconstruct an evolving monolayer dividing surface $\Sigma$ and director field ${\bf n}$ by
-interpolating the particle centers and orientations. Using \eqref{ansatz3}, we calculate a continuum energy $E$ from the interpolated shapes.
+interpolating the particle centers and orientations. Using \eqref{ansatz3}, we calculate a continuum energy $\mathbcal{W}$ from the interpolated shapes.
 
 %In certain instances, the bilayer evolution involves only one or a few of the four fundamental deformations.
 %When this occurs, the elastic moduli derive from the coefficients of the linear regression between the HAP energy $\Delta \Phi = \Phi - \Phi_0$
@@ -285,20 +285,21 @@ interpolating the particle centers and orientations. Using \eqref{ansatz3}, we c
 %Figure \ref{} shows the approximately linear relationship between $\Delta \Phi$ and $\Delta E$
 %used to values for infer $\KB$. 
 
-We propose to conduct calculations similar to the example of figure~\ref{fig:flattening} for other elastic moduli such as the effective saddle splay modulus $\KG$:
+We propose to conduct calculations similar to the example of figure~\ref{fig:flattening} for other elastic moduli such as the effective twist modulus $\KT$.
+Molecular dynamics investigations find a twist modulus about 1 \kBT \cite{LeVeWa14}, and here the specific non-equilibrium shape consists of a single layer of amphiphilic particles on a hydrophobic substrate as illustrated by Figure~\ref{fig:deformations}D. Having a nonzero twist requires nonzero tilt, because the surface gradient of the lipid directoy equals the second fundamental form, and is therefore symmetric, whenever tilt is zero locally. The twist deformation is a fully three-dimensional deformation. \S subsec:specific_aim_3 addresses outstanding implementation issues like three-dimensional boundary integral equation solvers.
+
 %for a wide range of particle parameters and physical parameters in HARP to 
 %
 %We will also determine the effective saddle splay modulus $\KG$. 
-The gradient descent technique is ineffective for measuring $\KG$ because
+The gradient descent technique is ineffective for measuring the saddle splay modulus $\KG$ because
 the saddle splay energy is largely invariant under shape changes.
-In the simplified Canham-Helfrich formulation, saddle splay energy is an indicator of topological transitions, thanks to the  Gauss-Bonnet theorem
-\cite{TerziDeserno17}.
-PI-RR showed that saddle splay acts as a topological indicator even in the presence of nonzero tilt \cite{RyKlYaCo16}. 
-
-To evaluate $\KG$, we will combine the string method from PI-Ryham's work on fusion \cite{RyKlYaCo16} with
-the present particle simulations. 
-%The string method is a numerical scheme that finds
-%least energy pathways separating energy basins \cite{doi:10.1063/1.2720838}.
+To evaluate $\KG$, we will combine the present particle simulations with the string method 
+from PI-RR's work on membrane fusion \cite{RyKlYaCo16}. The string method is a numerical scheme that finds
+least energy pathways separating energy basins \cite{doi:10.1063/1.2720838}. 
+In the simplified Canham-Helfrich formulation, saddle splay energy is an exact indicator of topological transitions, 
+thanks to the  Gauss-Bonnet theorem \cite{TerziDeserno17}.
+More generally, PI-RR has shown that saddle splay acts as a topological indicator even in the presence of nonzero tilt \cite{RyKlYaCo16}. 
+As a result, saddle splay can quantified from the transition energies of a least energy path of pore formation (Figure \ref{fig:saddle_splay}).   
 %Using the string method, we will evaluate the transition energies between the intact pancake shape,
 %and one with a pore. Pore formation in a single bilayer decreases the integral of saddle splay from $4\pi$
 %to $0$. We can, in principle, detect this drop in energy because we have already accounted for the other deformations. 
@@ -310,62 +311,50 @@ the present particle simulations.
 %%continuum energy $\tfrac{1}{2}\KG h(m x_1(m^2+x_1^2)^{-1} + \tan^{-1}(x_1/m)) |_{r_1}^{r_2}$ where $h$, $r_1$ and $r_2$
 %%are the cylinder heights, inner cylinder radius, and outer cylinder radius, respectively. 
 %
-The twist deformation is a fully three-dimensional deformation. 
-(Specific Aim 3 address outstanding implementation issues like three-dimensional boundary integral solvers.) 
-It is closely related to the assumption of lateral fluidity in membranes \cite{Hamm2000}. Note that tilt is locally non-zero whenever twist is non-zero.
-That is because the surface gradient $\nabla {\bf n}$ equals the second fundamental form, and is therefore symmetric, whenever ${\bf n} = {\bf N}$ locally. 
 
 %The proposed particle-based simulations of the HARP model in equations~\ref{SGD} also allow direct examination on the assumption of quadratic form of the elastic energy density.
 %As discussed earlier, recent disagreement in elastic moduli between continuum model and MD simulations originates from such assumption. 
 %The particle-based HARP model provides a unique opportunity to examine the validity of the quadratic elastic energy, and the PIs propose to examine how (if) any deviation from the quadratic elastic energy may depend on the microscopic details of the amphiphilic particles and their interactions.
 
 \subsubsection{HK elastic energy form}
-It may come as a surprise then that the field of membrane continuum mechanics still lacks consensus as to
- whether \eqref{ansatz3} contains a complete list of consistent deformations.
-\textbf{(i)} Researcher have assumed that $\KT = 0$ \cite{Hamm2000, TerziDeserno17, C9SM02079A, PhysRevE.102.042406}.
-  Based on \eqref{eq:twist_energy}, a value $\KT = 0$ leads to the
-  unphysical conclusion that there are bilayers with $\nabla {\bf n} \to \infty$ but $E \to 0.$ 
+The field of membrane continuum mechanics still lacks consensus as to whether \eqref{ansatz3} is the appropriate functional for bilayer energy.
+\textbf{(i)} Researcher have assumed that $\KT = 0$ because of the relationship between twist the assumption of lateral fluidity in membranes 
+\cite{Hamm2000, TerziDeserno17, C9SM02079A, PhysRevE.102.042406}. 
+A value $\KT = 0$, however, makes \eqref{ansatz3} noncoercive and leads to the nonphysical conclusion that there are bilayers 
+with $\nabla {\bf n} \to \infty$ but $\mathcal{W} \to 0.$ 
   \textbf{(ii)}
-  Recently, \cite{TerziDeserno17} derived a tilt curvature term that was neglected from the HK analysis \cite{Hamm2000}.
-  Later, \cite{C9SM02079A} 
-  and \cite{PhysRevE.102.042406} independently identified an inconsistency \cite{TerziDeserno17} arising
-  from a transversal tilt invariance assumption.
-  The PI Ryham showed,  that the tilt vector $T = {\bf n}/{\bf n}\cdot {\bf N} - {\bf N}$ leads to unphysical cusps when constraining membrane thickness  \cite{RyKlYaCo16}.  
+Recently, \cite{TerziDeserno17} derived a tilt curvature term that was neglected from the HK analysis \cite{Hamm2000}.
+Later, \cite{C9SM02079A} 
+and \cite{PhysRevE.102.042406} independently identified an inconsistency an the argument used by \cite{TerziDeserno17} arising
+from a transversal tilt invariance assumption.
+In \cite{RyKlYaCo16}, the PI RR and collaborators showed that the tilt vector leads to unphysical cusps depending on how one accounts for membrane thickness.  
   \textbf{(iii)}
   Theoretical analysis of lipid phase transitions predict a negative saddle-splay modulus around $-8$ \kBT\;
 \cite{SIEGEL2004366,SIEGEL20085200}. Researchers point out, however, that this theoretical value requires a larger energy 
 barrier for monolayer fusion than is found by experiment \cite{FrRoPi17,Tran7106,TerziDeserno17}.
-Furthermore, the stability requirements of \eqref{ansatz3} are $\KB > 0$, $K_T > 0$, $\KG \geq -4\KB$
-and $\KG \geq -4\KT$. Molecular dynamics investigations find a twist modulus about 1 \kBT \cite{LeVeWa14},
-suggesting a somewhat smaller magnitude for $\KG$.
+Furthermore, the stability conditions of \eqref{ansatz3} require $\KG \geq -4\min\{\KB,\KT\}$, suggesting a smaller magnitude for $\KG$.
 
-% The form of the elastic energy density \eqref{ansatz3} is the same as
-%the Oseen-Frank energy density for nematic liquid crystals \cite{ANDRIENKO2018520,Tran7106,Helfrich73}.   In fact,  
-%a lipid monolayer acts as one layer in a smectic  phase \cite{REYESMATEO1995978,Rangamani20140463,PhysRevLett.113.248102}. 
-%The constants $\KB$, $\KT$  and $\KG$ play the same role as the Frank constants $K_1$, $K_2$ and $K_{24}$
-%liquid crystal theory. However, the ``bend'' distortion from nematics  
-%is not present in monolayers since the directors have no dependence in the normal direction.
-%There is also no ``spontaneous twist'' in monolayers due to invariance under mirror reflection. 
-  
-  We suspect the reason why, after twenty years, the field has yet to reach a consensus 
-  as to the form of \eqref{ansatz3} has to do with the Taylor expansions used to derive the elastic energy density. 
-  Past researchers expressed the strain tensor in
-  terms of the orthonormal frame $\{{\bf e}_1, {\bf e}_2, {\bf N}\}$ with surface tangent vectors ${\bf e}_i$ and surface normal ${\bf N}$.  
-  In this frame, there is a coupling between the gradients of all three terms ${\bf x}_0,$ $\zeta$ and ${\bf n}$ of the surface deformation field.
-  %\eqref{LMdeformation}.
-  Subtle differential geometric arguments are needed to evaluate the terms in the Taylor expansion,
-  and these couplings can lead to an energy density with more than ten parameters, for example \cite{PhysRevE.102.042406}.
-  
+% The constants $\KB$, $\KT$  and $\KG$ play the same role as the Frank constants $K_1$, $K_2$ and $K_{24}$
+% liquid crystal theory. However, the ``bend'' distortion from nematics  
+% is not present in monolayers since the directors have no dependence in the normal direction.
+% There is also no ``spontaneous twist'' in monolayers due to invariance under mirror reflection. 
+
   We will revisit the HK analysis to see if any of the aforementioned inconsistencies can be resolved.
-  As a main analytical innovation, we have found that expanding the strain tensor in
-  terms of the orthonormal frame $\{{\bf e}'_1, {\bf e}'_2, n\}$ with ${\bf e}'_i$ perpendicular to ${\bf n}$
-  greatly simplifies the expansion because it decouples the gradient terms. As an illustration, the prominent works
-  \cite{TerziDeserno17, PhysRevE.102.042406, Hamm2000, C9SM02079A} utilize an
-  incompressibility condition for the lipid elongation function $\zeta$ from \eqref{LMdeformation} that is only approximately true. 
-  However, we prove that when expressed in the $\{{\bf e}'_1, {\bf e}'_2, n\}$ frame, the incompressility condition is \emph{exact}
-  and is given by a Steiner-type polynomial in terms of $\Div {\bf n}$ and $\det \nabla {\bf n}$ \cite{Fe59}.
-  Aside from the special case of zero tilt, \cite{Hamm2000} and coworkers seem to have been unaware of this result.
+  Past researchers expressed the strain tensor in terms of monolayer tangent plane.   
+  In this frame, however, there is a coupling between the gradients of the monolayer surface, lipid direction, and chain length,
+  and accounting for these couplings by Taylor expansion  
+  can lead to an energy density with an unruly number of parameters \cite{PhysRevE.102.042406}.
 
+The form of the elastic energy density \eqref{ansatz3} is the same as
+  the Oseen-Frank energy density for nematic liquid crystals \cite{ANDRIENKO2018520,Tran7106,Helfrich73}.   In fact,  
+  a lipid monolayer acts as one layer in a smectic  phase \cite{REYESMATEO1995978,Rangamani20140463,PhysRevLett.113.248102}. 
+  Motivated by liquid crystal theory, we have found that the gradient terms completely decouples when 
+  expanding the strain tensor, not in terms of the monolayer tangent plane, but in terms of a plane perpendicular to ${\bf n}$. 
+  Using this observation, we prove an exact identity 
+  that gives the incompressility condition by a Steiner-type polynomial in $\Div {\bf n}$ and $\det \nabla {\bf n}$ \cite{Fe59}.
+  In contrast, the works \cite{TerziDeserno17, PhysRevE.102.042406, Hamm2000, C9SM02079A} utilize an
+  approximate identity for incompressibility, and so we can offer a considerably more accurate analysis of monolayer energy.
+  
 %To measure the twist modulus, we place a single monolayer on a hydrophobic substrate 
 %and take the initial configuration ${\bf n} = (0, f(x_1), \sqrt{1 - f^2(x_1)})$,
 %yielding a surface gradient $\nabla {\bf n} = \begin{pmatrix}0 & 0\\ f'(x_1) & 0\end{pmatrix}$. 
