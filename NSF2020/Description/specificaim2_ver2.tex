@@ -8,8 +8,11 @@ Hydrodynamic effects are a relevant detail
 because the rates of biological functions like fusion, fission, and pore dynamics rely on viscous dissipation \cite{RYHAM20112929}. 
 %While hydrophobic attraction causes the particles to self-assemble indepedently of the dissipation mechanism, the trajectories and
 %equilibrium configurations depend on the fact that the particles travel through a viscous environment. 
-Additionally, coarse-grained and molecular dynamics theories include water either explicitly or implicitly in their models. 
-The goal is to be able to simulate vesicle bilayers in external flows, where the bilayers are represented by a self-assembled collection of rigid particles.
+Additionally, hydrodynamics interactions are central fabrication of complex microscopic three-dimensional structures \cite{Cho2010}.
+Over the past decade, there has been an explosion of interest in small-scale processes that utilize capillary forces dominate,  van der Waals interactions and thermal noise  \cite{Zhang2017}, to coordinated movement and bind  material subunits, \cite{Pandey2011,Leong2007,Reynolds2019, Dasgupta2017,Siontorou2017}.
+Finally, coarse-grained and molecular dynamics theories include water either explicitly or implicitly in their models. 
+The immediate goal of the present proposal
+is to be able to simulate vesicle bilayers in external flows, where the bilayers are represented by a self-assembled collection of rigid particles.
 
 \begin{figure}[h]
   \centering{\includegraphics[width=0.8\textwidth]{Figures/domain.pdf}}
@@ -75,11 +78,12 @@ One way to ensure this far-field condition is through the represention
 {\bf u} = {\bf u}_{\infty} + D\eta + \sum_{i=1}^N S(\cdot, {\bf a}_i) {\bf F}_i + R(\cdot, {\bf a}_i) {\bf G}_i.
 \end{equation}
 where $S$ and $R$ are stokeslets and rotlets supported at the respective particle centers 
-and $D\eta$ is a double layer integral operator for an unknown density function $\eta.$ 
+and $D\eta$ is an appropriate double layer integral operator for an unknown density function $\eta.$ 
 The representation \eqref{PowerMiranda} automatically satisfies all equations with the exception of the rigid motion boundary conditions. 
 These conditions follow by requiring the viscous stress vanishes across the particle boundaries.
 
 We will compare the behavior of our particle-based vesicles in Stokes flow to well-established results.
+\todo{What are the known results?}
 To test area incompressibility, we form the bilayer midplane by fitting to the particle centers. Under moderate shear rates,
 the vesicle elongates and takes on an elliptical shape. We will study the increase in midplane area as a function of shear rate.
 Additionally, we will test for tangential divergence of velocity.
@@ -114,6 +118,9 @@ This implies that part of the viscous dissipation in the aqueous phase is enhanc
 slip as a function of shear rate, vesicle diameter and particle geometry. 
 
 \textbf{Novel reciprocal relations.}
+We use a double layer The velocity field  double layer potential representation.
+This representation involves a strongly singular integral, and without the aid of specilized
+quadrature routines, leads to large numerical errors when evaluating the the hydrophobic stress \eqref{stress} along the particle boundaries (see Figure \cite{fig:bierror}).
 We prove a, to our knowledge new, result concerning the evaluation of Maxwell-type stresses. 
 \begin{proposition}
   \label{prop:recip}
@@ -127,17 +134,11 @@ We prove a, to our knowledge new, result concerning the evaluation of Maxwell-ty
 where $\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i \cdot \nabla u_j {\bf I} - 2 \nabla u_i \otimes \nabla u_j)$ and
 $[\cdot]$ denotes the jump in stress across $\partial \Omega.$ 
 \end{proposition}
-As described in Specific Aim 3, we solve \eqref{SL1}--\eqref{SL3}  using a double layer potential representation.
-This representation involves a strongly singular integral, and without the aid of specilized
-quadrature routines, leads to large numerical errors when evaluating the the hydrophobic stress \eqref{stress} along the particle boundaries (see Figure \cite{fig:bierror}).
+
+
 The identity in Proposition \ref{prop:recip} gets around this critical issue by utilizing the fact that $u_j$, $j\neq i$ is smooth and the normal derivative
 of  $u_i$ continuous across $\partial P_i$. Despite the large gradient errors in Figure \ref{fig:bierror}, the force and torque
 calculated by \eqref{eq:reciprocal} achieved $10^{-4}$ accuracy.
 
-Additionally, hydrodynamics interactions are also relevant the fabrication of complex microscopic three-dimensional structures \cite{Cho2010}.
-Over the past decade, there has been an explosion of interest in small-scale processes that utilize capillary forces dominate,  van der Waals interactions and thermal noise  \cite{Zhang2017}, to coordinated movement and bind  material subunits. Two prominent fabrication techniques are capillary origami 
-\cite{Pandey2011,Leong2007,Reynolds2019} and colloidal self-assembly \cite{Dasgupta2017,Siontorou2017}. Capillary origami uses principles of elastocapilirity wherein elastic solids deform under surface tension \cite{Bico2018,VanHonschoten2010}. In self-assembly of colloids, 
-particles exhibit similar thermodynamic behavior of molecular systems, except that the behavior occurs over observable, long time scales \cite{Zhang2017}. 
-and can determine which local equilibria the system tends towards.
 
 
