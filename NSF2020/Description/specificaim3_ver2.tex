@@ -18,27 +18,45 @@ constant-coefficient elliptic PDEs, the solution of the PDE can be
 represented as layer potentials
 \begin{align}
   \label{eq:LP}
-  u(x) = \int_{\partial\Omega} K(x,y) \sigma(y)\,ds_y,
+  u(\mathbf{x}) = \int_{\partial\Omega} K(\mathbf{x},\mathbf{y})
+  \sigma(\mathbf{y})\,dS,
 \end{align}
-where $\sigma$ is an unknown density function, and $K(x,y)$ is a
-derivative of the fundamental solution of the underlying PDE. By
-matching the boundary condition at $x_0 \in \partial\Omega$ with the
-limit of equation~\eqref{eq:LP} as $x\rightarrow x_0$, a BIE for the
-density function is formed. Numerical methods to solve BIEs have several
-advantages over their PDE-based counterpart: by construction, the layer
-potential~\eqref{eq:LP} satisfies far-field conditions; only
+where $\sigma$ is an unknown density function, and
+$K(\mathbf{x},\mathbf{y})$ is a derivative of the fundamental solution
+of the underlying PDE. By matching the boundary condition at
+$\mathbf{x}_0 \in \partial\Omega$ with the limit of
+equation~\eqref{eq:LP} as $\mathbf{x}\rightarrow \mathbf{x}_0$, a BIE
+for the density function is formed. Numerical methods to solve BIEs have
+several advantages over their PDE-based counterpart: by construction,
+the layer potential~\eqref{eq:LP} satisfies far-field conditions; only
 $\partial\Omega$ needs to be discretized; carefully chosen kernels
-$K(x,y)$ result in a well-conditioned linear system that is solved with
-a mesh-independent number of GMRES iterations; and high-order or
-spectral accuracy is attainable with appropriate quadrature methods. In
-our previous work~\cite{Fu2018_SIAM} we demonstrate that BIEs are a
-powerful tool to simulate two-dimensional suspensions of amphiphilic
-particles. In addition to improving two-dimensional simulations, we will
-extend the results to three dimensions using a standard
-three-dimensional BIE formulation of the screened Laplace
-equation~\cite{ying_2006} and a well-conditioned BIE formulation of the
-mobility problem~\cite{manasthesis, rac-gre2016}.
+$K(\mathbf{x},\mathbf{y})$ result in a well-conditioned linear system
+that is solved with a mesh-independent number of GMRES iterations; and
+high-order or spectral accuracy is attainable with appropriate
+quadrature methods. In our previous work~\cite{Fu2018_SIAM} we
+demonstrate that BIEs are a powerful tool to simulate two-dimensional
+suspensions of amphiphilic particles. In addition to improving
+two-dimensional simulations, we will extend the results to three
+dimensions using a standard three-dimensional BIE formulation of the
+screened Laplace equation~\cite{ying_2006} and a well-conditioned BIE
+formulation of the mobility problem~\cite{manasthesis, rac-gre2016}.
 
+\begin{wrapfigure}[21]{r}{2.5in}
+%\vspace*{+15pt}
+\centerline{\includegraphics[width=2.5in]{figures/integrands}}
+\vspace*{-13pt}
+  \caption{{\footnotesize The Fourier modes of
+  $K(\mathbf{x_0},\mathbf{y})$ and $K_2(\mathbf{x_0},\mathbf{y})$ where
+  $|\mathbf{x_0}| = 0.99$ and $\mathbf{y} \in \partial\Omega$, and
+  $\Omega$ is the unit circle. The trapezoid rule applied to the red
+  integrand has large amounts of error, but the trapezoid rule is much
+  more accurate when applied to the blue integrand. Since the difference
+  between the red and blue curves can be accurately computed with the
+  barycentric quadrature rule, the quadrature error applied to layer
+  potentials for the screen Laplace equation will be uniformly bounded
+  in $\Omega$.}}
+\label{fig:integrands}
+\end{wrapfigure}
 Significant challenges to solve BIEs include solving dense linear
 systems, developing preconditioning strategies, and developing
 quadrature methods for integrands that are nearly singular. These
@@ -76,26 +94,11 @@ of other preconditioners including sparse approximate
 inverses~\cite{che2000} and multigrid~\cite{hem-sch1981, sch1982} will
 be investigated.
 
-\begin{wrapfigure}[21]{r}{3.0in}
-%\vspace*{+15pt}
-\centerline{\includegraphics[width=3.0in]{figures/integrands}}
-\vspace*{-13pt}
-\caption{{\footnotesize The Fourier modes of $K(x_0,y)$ and $K_2(x_0,y)$
-  where $\|x_0\| = 0.99$ and $y \in \partial\Omega$, where
-  $\partial\Omega$ is the unit circle. The trapezoid rule applied to the
-  red integrand has large amounts of error, but the trapezoid rule is
-  much more accurate when applied to the blue integrand. Since the
-  difference between the red and blue curves can be accurately computed
-  with the barycentric quadrature rule, the quadrature error applied to
-  layer potentials for the screen Laplace equation will be uniformly
-  bounded in $\Omega$.}}
-\label{fig:integrands}
-\end{wrapfigure}
 Nearly touching bodies is ubiquitous in self-assembly of amphiphilic
 particles, and this results in nearly-singular integrands. Quadrature
-methods for these integrands has received a lot of attention in
-two and three dimensions~\cite{alpert, kapur, sidi, duffy, bruno1,
-bruno2, davis_1984, graglia_2008, hackbusch_sauter_1994, jarvenpaa_2003,
+methods for these integrands has received a lot of attention in two and
+three dimensions~\cite{alpert, kapur, sidi, duffy, bruno1, bruno2,
+davis_1984, graglia_2008, hackbusch_sauter_1994, jarvenpaa_2003,
 khayat_2005, schwab_1992, ying_2006, beale1, beale2, goodman_1990,
 haroldson_1998, lowengrub_1993, schwab_1992, ggq1, ggq2, ggq3,
 helsing_2008a, helsing_integral_2009, helsing_tutorial_2012,
@@ -110,17 +113,21 @@ layer potential satisfy Laplace or Stokes
 equations~\cite{bar-wu-vee2015, chi-moo-qua2020}. The PIs will extend
 this quadrature method to layer potentials for the screened Laplace
 equation. This will be done by recognizing that the fundamental solution
-of the screened Laplace equation can be decomposed as $K(x,y) = K_1(x,y)
-+ K_2(x,y)$, where $K_1(x,y) = -\log\|x - y\|$ and $K_2(x,y) = K(x,y) +
-\log\|x - y\|$. Using this decomposition, layer potentials involving
-$K_1(x,y)$ can be accurately computed with the barycentric quadrature
-rule~\cite{ioa-pap-per1991}, and layer potentials involving $K_2(x,y)$
-can be accurately computed with the trapezoid rule since the kernel is
-bounded for all $x$ and $y$. The proposed method is demonstrated in
+of the screened Laplace equation can be decomposed as
+$K(\mathbf{x},\mathbf{y}) = K_1(\mathbf{x},\mathbf{y}) +
+K_2(\mathbf{x},\mathbf{y})$, where $K_1(\mathbf{x},\mathbf{y}) =
+-\log|\mathbf{x} - \mathbf{y}|$ and $K_2(\mathbf{x},\mathbf{y}) =
+K(\mathbf{x},\mathbf{y}) + \log|\mathbf{x} - \mathbf{y}|$. Using this
+decomposition, layer potentials involving $K_1(\mathbf{x},\mathbf{y})$
+can be accurately computed with the barycentric quadrature
+rule~\cite{ioa-pap-per1991}, and layer potentials involving
+$K_2(\mathbf{x},\mathbf{y})$ can be accurately computed with the
+trapezoid rule since the kernel is bounded for all $\mathbf{x}$ and
+$\mathbf{y}$. The proposed method is demonstrated in
 Figure~\ref{fig:integrands} where the amplitude of the Fourier modes of
-$K(x_0,y)$ and $K_2(x_0,y)$ are plotted. The quadrature of the trapezoid
-rule is the sum of the Fourier amplitudes not captured at the
-resolution.
+$K(\mathbf{x_0},\mathbf{y})$ and $K_2(\mathbf{x_0},\mathbf{y})$ are
+plotted. The quadrature of the trapezoid rule is the sum of the Fourier
+amplitudes not captured at the resolution.
 
 
 % ----------------------------------------------------------------------

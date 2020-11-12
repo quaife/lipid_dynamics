@@ -10,25 +10,19 @@
   inter-leaflet slip.  (E)--(G) Tank-treading reaches a steady state in
   elliptical aspect ratio, major-axis angle, and circumference.}
 \end{figure}
-\section{Preliminary Work on Elasticity and Two-dimensional Vesicle Hydrodynamics in Shear Flow}
-\label{sec:preliminary_work}
-The motivation for Specific Aims 1-3
-stemmed from the successful of demonstration, gradient driven
-self-assembly of amphiphilic particles into two-dimensional micelles,
-bilayer membranes, \cite{Fu2018_SIAM}, and recreation of the vesicles tank-treading phenomenon
-under a new coarse-grained description.
 
-Our preliminary work on membrane elasticity 
-is particulary encouraging because the effective bending, stretch, and tilt elastic moduli we calculated
-for collections of amphiphile were in excellent agreement with the experimental values.
-The initial success is underscored by the fact we assigned reasonable physical values to 
-the main model parameters of the HAP energy, rather than tuning parameter.
+
+\section{Preliminary work}
+\subsection{Estimating two-dimensional elastic
+moduli}
+%\section{Preliminary Work on Two-dimensional Vesicle Hydrodynamics in Shear Flow\label{sec:preliminary_work}} 
+%\section{Preliminary work on elastic moduli}
 
 To derive a bending modulus, we first considered a planar bilayer subject to a uniform vertical load on the particle centers (Figure \ref{fig:bend}). 
 Using a clamped condition at one end, the restoring force in the free part of the bilayer opposes the load.
 For small deformations, it is possible to solve the bilayer loading in closed form, and 
 this analytical solution (red curve) basically overlaps the midplane of the particle based solution (Figure \ref{fig:bend}A).
-We thereby derived a bending modulus $\KB$ in the range 8.51 -- 13.54 \kBT. Throughout the proposal, \kBT\; = 4.11$\times 10^{-21}$ J.
+We thereby derived a bending modulus $\KB$ in the range 8.51--13.54 \kBT. Throughout the proposal, \kBT\; = 4.11$\times 10^{-21}$ J.
 Experimental measurements have accurately determined the bending modulus for several lipid types, with 
 typical values lying around 10 \kBT\; \cite{Naetal15,VeBrPa15,NAGLE2000159,PhysRevLett.113.248102}.
 
@@ -39,7 +33,7 @@ To measure an area modulus, we stretched a circular vesicle, modeling the cross-
 of a bilayer tube (Figure \ref{fig:bend}B \& C).
 This procedure gave a monolayer area modulus 
 34 $\pm$ 2 \kBT \;nm$^{-2}$. Manipulation experiments give a monolayer area modulus in the range 
-30 -- 40 \kBT\; nm$^{-2}$ \cite{Nagle17, Nagle17-2}. 
+30--40 \kBT\; nm$^{-2}$ \cite{Nagle17, Nagle17-2}. 
 
 Finally, we considered the tilt deformation by applying a fixed tilt angle boundary condition. 
 This boundary condition produces a tilt field that decays with the length scale $l = \sqrt{\KB/\KTH}$ 
@@ -54,7 +48,7 @@ relationship between the model parameters and elastic moduli.
 Finally, to have relevance in physics and biology we must incorporate the remaining twist and saddle splay deformations.
 The following simulation outline shows how will achieve aims.
 
-\section{Preliminary Work on Two-dimensional Vesicle Hydrodynamics in Shear Flow} 
+\subsection{Two-dimensional vesicle hydrodynamics in shear flow} 
 %The motion of vesicles in shear flow is an important
 %problem in the applied mathematics because simulations can reveal mechanical
 %properties of membranes and lead to an enhanced understanding of 
@@ -102,17 +96,17 @@ with a decrease in stiffness (effected by decreasing $\rho = 4$ to $\rho = 2$).
 
 For large shear flow rates, there is an increase in arc length. Here arc
 length refers to the the mid-plane circumference. Thus, some of the
-external force is going into stretching the vesicle--the other part is
+external force is going into stretching the vesicle---the other part is
 going into bending and viscous dissipation. From our experiments, we
 find that the vesicle ruptures once stretching exceeds about 5 \% (see
-Figure \ref{fig:rupture}).  Finally, movies of the tank-treading motion
+Figure \ref{fig:rupture}). Finally, movies of the tank-treading motion
 show a slip velocity between the outer and inner leaflets Figure
 \ref{fig:tanktreading}G. We have illustrated this by tracking the
 distance between two reference particles in the inner and outer leaflet
-(Figure \ref{fig:tanktreading}B \& D, green and blue particles).  With
+(Figure \ref{fig:tanktreading}B \& D, green and blue particles). With
 moderate shear rates or greater adhesion, the particle pair moves in
 tandem (in Figure \ref{fig:tanktreading}H, blue and red curves, their
-distance is more or less constant).  For a large shear rate, the
+distance is more or less constant). For a large shear rate, the
 particle separates as the two leaflets slide against one another. 
 
 
