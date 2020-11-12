@@ -332,19 +332,24 @@ As a result, saddle splay can quantified from the transition energies of a least
 %\subsubsection{HK elastic energy form}
 \noindent{\bf{HK elastic energy form:}}
 The field of membrane continuum mechanics still lacks consensus as to whether \eqref{ansatz3} is the appropriate functional for bilayer energy.
-\textbf{(i)} Researcher have assumed that $\KT = 0$ because of the relationship between twist the assumption of lateral fluidity in membranes 
-\cite{Hamm2000, TerziDeserno17, C9SM02079A, PhysRevE.102.042406}. 
+\textbf{(i)} Researchers have assumed that $\KT = 0$ because of the
+relationship between twist the assumption of lateral fluidity in
+membranes~\cite{Hamm2000, TerziDeserno17, C9SM02079A,
+PhysRevE.102.042406}. 
 %A value $\KT = 0$, however, makes \eqref{ansatz3} noncoercive and leads to the nonphysical conclusion that there are bilayers 
 %with $\nabla {\bf n} \to \infty$ but $\mathcal{W} \to 0.$ 
-\textbf{(ii)}
-Recently, \cite{TerziDeserno17} derived a tilt curvature term that was neglected from the HK analysis \cite{Hamm2000}.
-Later, \cite{C9SM02079A} 
-and \cite{PhysRevE.102.042406} independently identified an inconsistency an the argument used by \cite{TerziDeserno17} arising
+\textbf{(ii)} Recently,~\cite{TerziDeserno17} derived a tilt curvature
+term that was neglected from the HK analysis~\cite{Hamm2000}.
+Later,~\cite{C9SM02079A} and~\cite{PhysRevE.102.042406} independently
+identified an inconsistency an the argument used
+by~\cite{TerziDeserno17} arising
 from a transversal tilt invariance assumption.
-In \cite{RyKlYaCo16}, PI RR and collaborators showed that the tilt vector leads to unphysical cusps depending on how one accounts for membrane thickness.  
-  \textbf{(iii)}
-  Theoretical analysis of lipid phase transitions predict a negative saddle-splay modulus around $-8$ \kBT\;
-\cite{SIEGEL2004366,SIEGEL20085200}, which gives rise to a larger energy barrier for monolayer fusion than is found by experiments \cite{FrRoPi17,Tran7106,TerziDeserno17}.
+In~\cite{RyKlYaCo16}, PI RR and collaborators showed that the tilt vector leads to unphysical cusps depending on how one accounts for membrane thickness.  
+\textbf{(iii)} Theoretical analysis of lipid phase transitions predict a
+negative saddle-splay modulus around $-8$ \kBT~\cite{SIEGEL2004366,
+SIEGEL20085200}, that gives rise to a larger energy barrier for
+monolayer fusion than is found by experiments~\cite{FrRoPi17, Tran7106,
+TerziDeserno17}.
 %
 %
 %Researchers point out, however, that this theoretical value requires a larger energy 
@@ -356,15 +361,22 @@ In \cite{RyKlYaCo16}, PI RR and collaborators showed that the tilt vector leads 
 % is not present in monolayers since the directors have no dependence in the normal direction.
 % There is also no ``spontaneous twist'' in monolayers due to invariance under mirror reflection. 
 
- The form of the elastic energy density \eqref{ansatz3} is the same as
-  the Oseen-Frank energy density for nematic liquid crystals \cite{ANDRIENKO2018520,Tran7106,Helfrich73}.   In fact,  
-  a lipid monolayer acts as one layer in a smectic  phase \cite{REYESMATEO1995978,Rangamani20140463,PhysRevLett.113.248102}. 
-  Based on this observation, we propose to examine the HK analysis to resolve the aforementioned inconsistencies: We expand the strain tensor in terms of a plane
-  perpendicular to ${\bf n}$ (instead of the monolayer tangent plane as done in the past works) so that the gradient terms in the elastic energy completely decouple. 
-  Using this expansion we prove an exact identity 
-  that gives the incompressibility condition by a Steiner-type polynomial in $\Div {\bf n}$ and $\det \nabla {\bf n}$ \cite{Fe59}.
-  In contrast, the works \cite{TerziDeserno17, PhysRevE.102.042406, Hamm2000, C9SM02079A} utilize an
-  approximate identity for incompressibility, and so we can offer a considerably more accurate analysis of monolayer energy.
+The form of the elastic energy density~\eqref{ansatz3} is the same as
+the Oseen-Frank energy density for nematic liquid
+crystals~\cite{ANDRIENKO2018520, Tran7106, Helfrich73}. In fact, a lipid
+monolayer acts as one layer in a smectic phase~\cite{REYESMATEO1995978,
+Rangamani20140463, PhysRevLett.113.248102}. Based on this observation,
+we propose to examine the HK analysis to resolve the aforementioned
+inconsistencies. We will expand the strain tensor in terms of a plane
+perpendicular to ${\bf n}$ (instead of the monolayer tangent plane as
+done in the past works) so that the gradient terms in the elastic energy
+completely decouple. Using this expansion we prove an exact identity
+that gives the incompressibility condition by a Steiner-type polynomial
+in $\Div {\bf n}$ and $\det \nabla {\bf n}$ \cite{Fe59}. In contrast,
+the works~\cite{TerziDeserno17, PhysRevE.102.042406, Hamm2000,
+C9SM02079A} utilize an approximate identity for incompressibility, and
+so we can offer a considerably more accurate analysis of monolayer
+energy.
 
 %  Past researchers expressed the strain tensor in terms of monolayer tangent plane.   
 %  In this frame, however, there is a coupling between the gradients of the monolayer surface, lipid direction, and chain length,
@@ -394,22 +406,31 @@ In \cite{RyKlYaCo16}, PI RR and collaborators showed that the tilt vector leads 
 %%  which we compare to the HAP simulation data.
 %
 \subsubsection{Asymptotic analysis on the limit $\rho\rightarrow 0$ of HAP}
-The HAP energy converges to the surface energy in the limit of vanishing screening length 
-and the boundary layers of the minimizers (the solutions to the screen Laplace equation) converges to 
-area measures supported on the particle boundaries.  This is analogous to the sharp interface limit in the phase-field functional formulation \cite{Modica87, MODICA1987487, LuMo89}. 
-PI RR has worked directly on phase field approximations of membrane bending energy 
-\cite{0951-7715-18-3-016} and asymptotcs in the Poisson-Boltzman equation \cite{1531-3492_2006_2_357,Lee2018}.
-The proposed analysis is a natural outgrowth or prior work because the linearization of the Poisson-Boltzmann equation is the screened Laplace equations \eqref{SL}.
+The HAP energy converges to the surface energy in the limit of vanishing
+screening length and the boundary layers of the minimizers (the
+solutions to the screen Laplace equation) converges to area measures
+supported on the particle boundaries. This is analogous to the sharp
+interface limit in the phase-field functional
+formulation~\cite{Modica87, MODICA1987487, LuMo89}. PI RR has worked
+directly on phase field approximations of membrane bending
+energy~\cite{0951-7715-18-3-016} and asymptotcs in the Poisson-Boltzman
+equation~\cite{1531-3492_2006_2_357, Lee2018}. The proposed analysis is
+a natural outgrowth of prior work because the linearization of the
+Poisson-Boltzmann equation is the screened Laplace equations~\eqref{SL}.
 
-We will develop the mathematical connections between the HAP energy and the energy functionals used in the gradient theory of phase transitions. 
-The phase field functional approximates the perimeter of sublevel sets of a so-called phase field indicator function. 
-The approximation becomes sharp in the zero interfacial thickness limit and minimizers of the phase field functional converge (after normalization) 
-to the characteristic function of a set solving a perimeter minimization problem 
-\cite{Modica87, MODICA1987487, LuMo89}. 
+We will develop the mathematical connections between the HAP energy and
+the energy functionals used in the gradient theory of phase transitions.
+The phase field functional approximates the perimeter of sublevel sets
+of a so-called phase field indicator function. The approximation becomes
+sharp in the zero interfacial thickness limit and minimizers of the
+phase field functional converge (after normalization) to the
+characteristic function of a set solving a perimeter minimization
+problem~\cite{Modica87, MODICA1987487, LuMo89}. 
 %
 %
-One of the basic questions is to establish the HAP convergence rate as a function of particle geometry 
-\cite{LuMo89}, which can be used as an essential benchmark for numerical validation. 
+One of the basic questions is to establish the HAP convergence rate as a
+function of particle geometry~\cite{LuMo89}, which can be used as a
+benchmark for numerical validation. 
 %In the context of microstructure fabrication, the particle configurations maximally sequester hydrophobic surfaces.  
 %As an illustration, consider two fluid-bound plates $P_1$ and $P_2$ that geometrically flat and hydrophobic all sides.
 %We conjecture that in the zero-screening length limit, the plates have overlapping faces, and that 
