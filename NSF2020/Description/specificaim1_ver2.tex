@@ -301,50 +301,12 @@ The twist deformation is a fully three-dimensional deformation.
 It is closely related to the assumption of lateral fluidity in membranes \cite{Hamm2000}. Note that tilt is locally non-zero whenever twist is non-zero.
 That is because the surface gradient $\nabla {\bf n}$ equals the second fundamental form, and is therefore symmetric, whenever ${\bf n} = {\bf N}$ locally. 
 
-The proposed particle-based simulations of the HARP model in equations~\ref{SGD} also allow direct examination on the assumption of quadratic form of the elastic energy density.
-As discussed earlier, recent disagreement in elastic moduli between continuum model and MD simulations originates from such assumption. 
-The particle-based HARP model provides a unique opportunity to examine the validity of the quadratic elastic energy, and the PIs propose to examine how (if) any deviation from the quadratic elastic energy may depend on the microscopic details of the amphiphilic particles and their interactions.
+%The proposed particle-based simulations of the HARP model in equations~\ref{SGD} also allow direct examination on the assumption of quadratic form of the elastic energy density.
+%As discussed earlier, recent disagreement in elastic moduli between continuum model and MD simulations originates from such assumption. 
+%The particle-based HARP model provides a unique opportunity to examine the validity of the quadratic elastic energy, and the PIs propose to examine how (if) any deviation from the quadratic elastic energy may depend on the microscopic details of the amphiphilic particles and their interactions.
 
- 
-%To measure the twist modulus, we place a single monolayer on a hydrophobic substrate 
-%and take the initial configuration ${\bf n} = (0, f(x_1), \sqrt{1 - f^2(x_1)})$,
-%yielding a surface gradient $\nabla {\bf n} = \begin{pmatrix}0 & 0\\ f'(x_1) & 0\end{pmatrix}$. 
-%  Here $\Div {\bf n} = \mathrm{tr}(\nabla {\bf n}) = 0$, $\det(\nabla {\bf n}) = 0$ and
-%  $\Curl {\bf n} = (\nabla u)_{12} - (\nabla u)_{21} = f'(x_1)$.
-%  This gives the continuum elastic energy equals
-%  \begin{equation}
-%    \label{eq:twist_energy}
-%    E = \int_{\Sigma} \tfrac{1}{2}\KT (f'(x_1))^2 + \tfrac{1}{2} \KTH f^2(x_1) \,\dif dx_1 \dif x_2,
-%  \end{equation}
-%  which we compare to the HAP simulation data.
-
-\subsubsection{Asymptotic analysis on the limit $\rho\rightarrow 0$}
-
-We will develop some of the mathematical connections between the HAP energy and the energy functionals used in the gradient theory of phase transitions. 
-The phase field functional approximates the perimeter of sublevel sets of a so-called phase field indicator function. 
-The approximation becomes sharp in the zero interfacial thickness limit and minimizers of the phase field functional converge (after normalization) 
-to the characteristic function of a set solving a perimeter minimization problem 
-\cite{Modica87, MODICA1987487, LuMo89}. 
-
-Analogously, the HAP energy converges to the surface energy in the limit of vanishing screening length 
-and the boundary layers of the minimizers (the solutions to the screen Laplace equation) converges to 
-area measures supported on the particle boundaries. 
-PI RR has worked directly on phase field approximations of membrane bending energy 
-\cite{0951-7715-18-3-016} and asymptotcs in the Poisson-Boltzman equation \cite{1531-3492_2006_2_357,Lee2018}.
-The proposed analysis is a natural outgrowth or prior work because the linearization of the Poisson-Boltzmann equation is the screened Laplace equations \eqref{SL}.
-One of the basic questions is to establish the HAP convergence rate as a function of particle geometry 
-\cite{LuMo89}, which is an essential benchmark for numerical validation. 
-In the context of microstructure fabrication, the particle configurations maximally sequester hydrophobic surfaces.  
-As an illustration, consider two fluid-bound plates $P_1$ and $P_2$ that geometrically flat and hydrophobic all sides.
-We conjecture that in the zero-screening length limit, the plates have overlapping faces, and that 
-\begin{equation}
-\lim_{\rho \to 0} \min \Phi_{\text{hydro}} = \max_{\mathcal{X}} A(P_1 \Delta P_2)
-\end{equation}
-$A(P_1 \Delta P_2)$ is the area of the symmetric difference of the overlap.  
-\cite{https://doi.org/10.1038/s41467-019-09787-6}
-
-
- It may come as a surprise then that the field of membrane continuum mechanics still lacks consensus as to
+\subsubsection{HK elastic energy form}
+It may come as a surprise then that the field of membrane continuum mechanics still lacks consensus as to
  whether \eqref{ansatz3} contains a complete list of consistent deformations.
 \textbf{(i)} Researcher have assumed that $\KT = 0$ \cite{Hamm2000, TerziDeserno17, C9SM02079A, PhysRevE.102.042406}.
   Based on \eqref{eq:twist_energy}, a value $\KT = 0$ leads to the
@@ -363,32 +325,117 @@ Furthermore, the stability requirements of \eqref{ansatz3} are $\KB > 0$, $K_T >
 and $\KG \geq -4\KT$. Molecular dynamics investigations find a twist modulus about 1 \kBT \cite{LeVeWa14},
 suggesting a somewhat smaller magnitude for $\KG$.
 
- 
-The form of the elastic energy density \eqref{ansatz3} is the same as
-the Oseen-Frank energy density for nematic liquid crystals \cite{ANDRIENKO2018520,Tran7106,Helfrich73}.   In fact,  
-a lipid monolayer acts as one layer in a smectic  phase \cite{REYESMATEO1995978,Rangamani20140463,PhysRevLett.113.248102}. 
-The constants $\KB$, $\KT$  and $\KG$ play the same role as the Frank constants $K_1$, $K_2$ and $K_{24}$
-liquid crystal theory. However, the ``bend'' distortion from nematics  
-is not present in monolayers since the directors have no dependence in the normal direction.
-There is also no ``spontaneous twist'' in monolayers due to invariance under mirror reflection. 
+% The form of the elastic energy density \eqref{ansatz3} is the same as
+%the Oseen-Frank energy density for nematic liquid crystals \cite{ANDRIENKO2018520,Tran7106,Helfrich73}.   In fact,  
+%a lipid monolayer acts as one layer in a smectic  phase \cite{REYESMATEO1995978,Rangamani20140463,PhysRevLett.113.248102}. 
+%The constants $\KB$, $\KT$  and $\KG$ play the same role as the Frank constants $K_1$, $K_2$ and $K_{24}$
+%liquid crystal theory. However, the ``bend'' distortion from nematics  
+%is not present in monolayers since the directors have no dependence in the normal direction.
+%There is also no ``spontaneous twist'' in monolayers due to invariance under mirror reflection. 
   
   We suspect the reason why, after twenty years, the field has yet to reach a consensus 
   as to the form of \eqref{ansatz3} has to do with the Taylor expansions used to derive the elastic energy density. 
   Past researchers expressed the strain tensor in
   terms of the orthonormal frame $\{{\bf e}_1, {\bf e}_2, {\bf N}\}$ with surface tangent vectors ${\bf e}_i$ and surface normal ${\bf N}$.  
-  In this frame, there is a coupling between the gradients of all three terms ${\bf x}_0,$ $\zeta$ and ${\bf n}$ of the deformation \eqref{LMdeformation}.
+  In this frame, there is a coupling between the gradients of all three terms ${\bf x}_0,$ $\zeta$ and ${\bf n}$ of the surface deformation field.
+  %\eqref{LMdeformation}.
   Subtle differential geometric arguments are needed to evaluate the terms in the Taylor expansion,
   and these couplings can lead to an energy density with more than ten parameters, for example \cite{PhysRevE.102.042406}.
-
-  We will revisit the HK analysis to see if any of the afore mentioned inconsitencies can be resolved.
+  
+  We will revisit the HK analysis to see if any of the aforementioned inconsistencies can be resolved.
   As a main analytical innovation, we have found that expanding the strain tensor in
   terms of the orthonormal frame $\{{\bf e}'_1, {\bf e}'_2, n\}$ with ${\bf e}'_i$ perpendicular to ${\bf n}$
   greatly simplifies the expansion because it decouples the gradient terms. As an illustration, the prominent works
   \cite{TerziDeserno17, PhysRevE.102.042406, Hamm2000, C9SM02079A} utilize an
-  incompressility condition for the lipid elongation function $\zeta$ from \eqref{LMdeformation} that is only approximately true. 
+  incompressibility condition for the lipid elongation function $\zeta$ from \eqref{LMdeformation} that is only approximately true. 
   However, we prove that when expressed in the $\{{\bf e}'_1, {\bf e}'_2, n\}$ frame, the incompressility condition is \emph{exact}
   and is given by a Steiner-type polynomial in terms of $\Div {\bf n}$ and $\det \nabla {\bf n}$ \cite{Fe59}.
   Aside from the special case of zero tilt, \cite{Hamm2000} and coworkers seem to have been unaware of this result.
+
+%To measure the twist modulus, we place a single monolayer on a hydrophobic substrate 
+%and take the initial configuration ${\bf n} = (0, f(x_1), \sqrt{1 - f^2(x_1)})$,
+%yielding a surface gradient $\nabla {\bf n} = \begin{pmatrix}0 & 0\\ f'(x_1) & 0\end{pmatrix}$. 
+%  Here $\Div {\bf n} = \mathrm{tr}(\nabla {\bf n}) = 0$, $\det(\nabla {\bf n}) = 0$ and
+%  $\Curl {\bf n} = (\nabla u)_{12} - (\nabla u)_{21} = f'(x_1)$.
+%  This gives the continuum elastic energy equals
+%  \begin{equation}
+%    \label{eq:twist_energy}
+%    E = \int_{\Sigma} \tfrac{1}{2}\KT (f'(x_1))^2 + \tfrac{1}{2} \KTH f^2(x_1) \,\dif dx_1 \dif x_2,
+%  \end{equation}
+%  which we compare to the HAP simulation data.
+
+%\subsubsection{Asymptotic analysis on the limit $\rho\rightarrow 0$}
+%The HAP energy converges to the surface energy in the limit of vanishing screening length 
+%and the boundary layers of the minimizers (the solutions to the screen Laplace equation) converges to 
+%area measures supported on the particle boundaries.  This is analogous to the sharp interface limit in the phase-field functional formulation \cite{Modica87, MODICA1987487, LuMo89}. 
+%PI RR has worked directly on phase field approximations of membrane bending energy 
+%\cite{0951-7715-18-3-016} and asymptotcs in the Poisson-Boltzman equation \cite{1531-3492_2006_2_357,Lee2018}.
+%The proposed analysis is a natural outgrowth or prior work because the linearization of the Poisson-Boltzmann equation is the screened Laplace equations \eqref{SL}.
+%
+%We will develop some of the mathematical connections between the HAP energy and the energy functionals used in the gradient theory of phase transitions. 
+%%The phase field functional approximates the perimeter of sublevel sets of a so-called phase field indicator function. 
+%%The approximation becomes sharp in the zero interfacial thickness limit and minimizers of the phase field functional converge (after normalization) 
+%%to the characteristic function of a set solving a perimeter minimization problem 
+%%\cite{Modica87, MODICA1987487, LuMo89}. 
+%%
+%%
+%One of the basic questions is to establish the HAP convergence rate as a function of particle geometry 
+%\cite{LuMo89}, which can be used as an essential benchmark for numerical validation. 
+%In the context of microstructure fabrication, the particle configurations maximally sequester hydrophobic surfaces.  
+%As an illustration, consider two fluid-bound plates $P_1$ and $P_2$ that geometrically flat and hydrophobic all sides.
+%We conjecture that in the zero-screening length limit, the plates have overlapping faces, and that 
+%\begin{equation}
+%\lim_{\rho \to 0} \min \Phi_{\text{hydro}} = \max_{\mathcal{X}} A(P_1 \Delta P_2)
+%\end{equation}
+%$A(P_1 \Delta P_2)$ is the area of the symmetric difference of the overlap.  
+%\cite{https://doi.org/10.1038/s41467-019-09787-6}
+
+
+% It may come as a surprise then that the field of membrane continuum mechanics still lacks consensus as to
+% whether \eqref{ansatz3} contains a complete list of consistent deformations.
+%\textbf{(i)} Researcher have assumed that $\KT = 0$ \cite{Hamm2000, TerziDeserno17, C9SM02079A, PhysRevE.102.042406}.
+%  Based on \eqref{eq:twist_energy}, a value $\KT = 0$ leads to the
+%  unphysical conclusion that there are bilayers with $\nabla {\bf n} \to \infty$ but $E \to 0.$ 
+%  \textbf{(ii)}
+%  Recently, \cite{TerziDeserno17} derived a tilt curvature term that was neglected from the HK analysis \cite{Hamm2000}.
+%  Later, \cite{C9SM02079A} 
+%  and \cite{PhysRevE.102.042406} independently identified an inconsistency \cite{TerziDeserno17} arising
+%  from a transversal tilt invariance assumption.
+%  The PI Ryham showed,  that the tilt vector $T = {\bf n}/{\bf n}\cdot {\bf N} - {\bf N}$ leads to unphysical cusps when constraining membrane thickness  \cite{RyKlYaCo16}.  
+%  \textbf{(iii)}
+%  Theoretical analysis of lipid phase transitions predict a negative saddle-splay modulus around $-8$ \kBT\;
+%\cite{SIEGEL2004366,SIEGEL20085200}. Researchers point out, however, that this theoretical value requires a larger energy 
+%barrier for monolayer fusion than is found by experiment \cite{FrRoPi17,Tran7106,TerziDeserno17}.
+%Furthermore, the stability requirements of \eqref{ansatz3} are $\KB > 0$, $K_T > 0$, $\KG \geq -4\KB$
+%and $\KG \geq -4\KT$. Molecular dynamics investigations find a twist modulus about 1 \kBT \cite{LeVeWa14},
+%suggesting a somewhat smaller magnitude for $\KG$.
+
+ 
+%The form of the elastic energy density \eqref{ansatz3} is the same as
+%the Oseen-Frank energy density for nematic liquid crystals \cite{ANDRIENKO2018520,Tran7106,Helfrich73}.   In fact,  
+%a lipid monolayer acts as one layer in a smectic  phase \cite{REYESMATEO1995978,Rangamani20140463,PhysRevLett.113.248102}. 
+%The constants $\KB$, $\KT$  and $\KG$ play the same role as the Frank constants $K_1$, $K_2$ and $K_{24}$
+%liquid crystal theory. However, the ``bend'' distortion from nematics  
+%is not present in monolayers since the directors have no dependence in the normal direction.
+%There is also no ``spontaneous twist'' in monolayers due to invariance under mirror reflection. 
+%  
+%  We suspect the reason why, after twenty years, the field has yet to reach a consensus 
+%  as to the form of \eqref{ansatz3} has to do with the Taylor expansions used to derive the elastic energy density. 
+%  Past researchers expressed the strain tensor in
+%  terms of the orthonormal frame $\{{\bf e}_1, {\bf e}_2, {\bf N}\}$ with surface tangent vectors ${\bf e}_i$ and surface normal ${\bf N}$.  
+%  In this frame, there is a coupling between the gradients of all three terms ${\bf x}_0,$ $\zeta$ and ${\bf n}$ of the deformation \eqref{LMdeformation}.
+%  Subtle differential geometric arguments are needed to evaluate the terms in the Taylor expansion,
+%  and these couplings can lead to an energy density with more than ten parameters, for example \cite{PhysRevE.102.042406}.
+%
+%  We will revisit the HK analysis to see if any of the aforementioned inconsistencies can be resolved.
+%  As a main analytical innovation, we have found that expanding the strain tensor in
+%  terms of the orthonormal frame $\{{\bf e}'_1, {\bf e}'_2, n\}$ with ${\bf e}'_i$ perpendicular to ${\bf n}$
+%  greatly simplifies the expansion because it decouples the gradient terms. As an illustration, the prominent works
+%  \cite{TerziDeserno17, PhysRevE.102.042406, Hamm2000, C9SM02079A} utilize an
+%  incompressibility condition for the lipid elongation function $\zeta$ from \eqref{LMdeformation} that is only approximately true. 
+%  However, we prove that when expressed in the $\{{\bf e}'_1, {\bf e}'_2, n\}$ frame, the incompressility condition is \emph{exact}
+%  and is given by a Steiner-type polynomial in terms of $\Div {\bf n}$ and $\det \nabla {\bf n}$ \cite{Fe59}.
+%  Aside from the special case of zero tilt, \cite{Hamm2000} and coworkers seem to have been unaware of this result.
 
 Our investigations will leave open the possibility that the free energy of monolayers and bilayers is non-local. 
 We have shown that hydrophic attraction is a non-additive force, meaning the force of attraction between two
