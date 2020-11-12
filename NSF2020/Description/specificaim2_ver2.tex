@@ -150,21 +150,28 @@ control for slip as a function of shear rate, vesicle diameter, and
 particle geometry.
 
 \subsubsection{Novel reciprocal identities}
-In the course of our study, we have found it useful to devise certain reciprocal identities that
-allow us to calculate forces accurately without having to resort to overly complicated numerical integration schemes. 
-At issue is that there is a break-down in numerical accuracy for the gradient of water activity near the particle
-boundaries (see Figure \ref{fig:bierror}).
-This is unfortunate the boundary is exactly where we need the gradients to be accurate in order for the formulas \eqref{forceandtorque}
-to be meaningful. To get around this issue, we prove the following identity
-  \begin{equation}
+The force and torque formulas~\eqref{forceandtorque} require the
+hydrophobic stress along the particle boundaries. Unfortunately,
+standard quadrature formulas to estimate $\nabla u$ on the particle
+boundaries introduces large amounts of quadrature error
+(Figure~\ref{fig:bierror}). Therefore, it is useful to devise reciprocal
+identities for the force and torque on body $i$ that does not
+require integration along body $i$. This is achieved using the identity 
+\begin{align}
     \label{eq:reciprocal}
 {\bf F}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i}[\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S,\quad
-{\bf G}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i} ({\bf x}-\mathbf{a}_i) \times [\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S
-  \end{equation}
-for $i = 1\dots, N$. Here $u = \sum_{i=1}^N u_i$ is a sum of solutions $u_i$ the screened Laplace equation,
-$\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i \cdot \nabla u_j {\bf I} - 2 \nabla u_i \otimes \nabla u_j)$ and
-$[\cdot]$ denotes the jump across $\partial \Omega.$  It turns out that because of \cite{eq:reciprocal},
-we no longer require knowledge of the gradient on the boundary, which is enormously beneficial for calculating force and torque.
+{\bf G}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i} ({\bf
+  x}-\mathbf{a}_i) \times [\boldsymbol{\sigma}_{ij} +
+  \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S, 
+\end{align}
+for $i=1,\ldots,N$, which we have proved. Here $u = \sum_{i=1}^N u_i$ is
+a sum of solutions $u_i$ the screened Laplace equation,
+$\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i
+\cdot \nabla u_j {\bf I} - 2 \nabla u_i \otimes \nabla u_j)$ and
+$[\cdot]$ denotes the jump across $\partial \Omega.$  It turns out that
+because of \eqref{eq:reciprocal}, we no longer require knowledge of the
+gradient on the boundary, which is enormously beneficial for calculating
+force and torque.
 
 
 

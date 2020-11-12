@@ -261,7 +261,7 @@ velocity and angular velocity directly proportional to force and torque.
 %
 In either case there is a dissipation of the total potential \eqref{eq:total_poten}, and this stabilizes the evolving bilayer shape.
 Therefore, we reconstruct an evolving monolayer dividing surface $\Sigma$ and director field ${\bf n}$ by
-interpolating the particle centers and orientations. Using \eqref{ansatz3}, we calculate a continuum energy $\mathbcal{W}$ from the interpolated shapes.
+interpolating the particle centers and orientations. Using \eqref{ansatz3}, we calculate a continuum energy $\mathcal{W}$ from the interpolated shapes.
 
 %In certain instances, the bilayer evolution involves only one or a few of the four fundamental deformations.
 %When this occurs, the elastic moduli derive from the coefficients of the linear regression between the HAP energy $\Delta \Phi = \Phi - \Phi_0$
@@ -286,7 +286,14 @@ interpolating the particle centers and orientations. Using \eqref{ansatz3}, we c
 %used to values for infer $\KB$. 
 
 We propose to conduct calculations similar to the example of figure~\ref{fig:flattening} for other elastic moduli such as the effective twist modulus $\KT$.
-Molecular dynamics investigations find a twist modulus about 1 \kBT \cite{LeVeWa14}, and here the specific non-equilibrium shape consists of a single layer of amphiphilic particles on a hydrophobic substrate as illustrated by Figure~\ref{fig:deformations}D. Having a nonzero twist requires nonzero tilt, because the surface gradient of the lipid directoy equals the second fundamental form, and is therefore symmetric, whenever tilt is zero locally. The twist deformation is a fully three-dimensional deformation. \S subsec:specific_aim_3 addresses outstanding implementation issues like three-dimensional boundary integral equation solvers.
+Molecular dynamics investigations find a twist modulus about 1 \kBT
+\cite{LeVeWa14}, and here the specific non-equilibrium shape consists of
+a single layer of amphiphilic particles on a hydrophobic substrate as
+illustrated by Figure~\ref{fig:deformations}D. Having a nonzero twist
+requires nonzero tilt, because the surface gradient of the lipid
+directoy equals the second fundamental form, and is therefore symmetric,
+whenever tilt is zero locally. The twist deformation is a fully
+three-dimensional deformation. \S\ref{subsec:specific_aim_3} addresses outstanding implementation issues like three-dimensional boundary integral equation solvers.
 
 %for a wide range of particle parameters and physical parameters in HARP to 
 %
