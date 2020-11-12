@@ -1,52 +1,30 @@
-\begin{figure}[!]
-\begin{center}
-\includegraphics[width=1\textwidth]{figures/PW_fig1A-D.pdf}
-\includegraphics[width=1\textwidth]{figures/PW_fig1E-H.pdf}
-\end{center}
-\vspace{-0.3in}
-\caption{\label{fig:tanktreading}\footnotesize (A) A vesicle formed by
-  amphiphilic particles in shear flow, and the tank-treading motion
-  (B)--(D). The separation of particle pairs in (B) and (C) illustrate
-  inter-leaflet slip.  (E)--(G) Tank-treading reaches a steady state in
-  elliptical aspect ratio, major-axis angle, and circumference.}
-\end{figure}
-
-
 \section{Preliminary work}
-\subsection{Estimating two-dimensional elastic
-moduli}
-%\section{Preliminary Work on Two-dimensional Vesicle Hydrodynamics in Shear Flow\label{sec:preliminary_work}} 
-%\section{Preliminary work on elastic moduli}
+\subsection{Estimating two-dimensional elastic moduli}
+The motivation for Specific Aims 1-3 stemmed from the successful demonstration of gradient driven
+self-assembly of amphiphilic particles into two-dimensional micelles,
+bilayer membranes, \cite{Fu2018_SIAM}, and recreation of the vesicles tank-treading phenomenon.
 
-To derive a bending modulus, we first considered a planar bilayer subject to a uniform vertical load on the particle centers (Figure \ref{fig:bend}). 
-Using a clamped condition at one end, the restoring force in the free part of the bilayer opposes the load.
-For small deformations, it is possible to solve the bilayer loading in closed form, and 
-this analytical solution (red curve) basically overlaps the midplane of the particle based solution (Figure \ref{fig:bend}A).
-We thereby derived a bending modulus $\KB$ in the range 8.51--13.54 \kBT. Throughout the proposal, \kBT\; = 4.11$\times 10^{-21}$ J.
-Experimental measurements have accurately determined the bending modulus for several lipid types, with 
-typical values lying around 10 \kBT\; \cite{Naetal15,VeBrPa15,NAGLE2000159,PhysRevLett.113.248102}.
+Our preliminary work on membrane elasticity 
+is particulary encouraging because the effective bending, stretch, and tilt elastic moduli we calculated
+were in excellent agreement with the experimental values (Table \ref{tab:moduli}).
+The agreement is underscored by the fact we assigned reasonable physical values to 
+the main model parameters of HAP energy, rather than tuning parameters.
 
-We also considered the stretching and tilt deformations \cite{Fu2018_SIAM}. 
-Stretching occurs whenever there is an excess monolayer area,
-and it is energetically costly since it exposes hydrocarbon tails to water.
-To measure an area modulus, we stretched a circular vesicle, modeling the cross-section 
-of a bilayer tube (Figure \ref{fig:bend}B \& C).
-This procedure gave a monolayer area modulus 
-34 $\pm$ 2 \kBT \;nm$^{-2}$. Manipulation experiments give a monolayer area modulus in the range 
-30--40 \kBT\; nm$^{-2}$ \cite{Nagle17, Nagle17-2}. 
-
-Finally, we considered the tilt deformation by applying a fixed tilt angle boundary condition. 
-This boundary condition produces a tilt field that decays with the length scale $l = \sqrt{\KB/\KTH}$ 
-Fitting to this field, our particle based simulation gave $\lambda = 1.2$ nm, which matches
-the value $\KTH \approx 10$ \kBT \; nm$^{-2}$ reported in the literature \cite{KUZMIN2005, KoNa15}.
-
-
-
-Nevertheless, the characterization of material properties is incomplete. For one, the preliminary simulations involved relatively low particle numbers (20 to 30), and so we still need to
-perform convergence studies with large particle-number systems to arrive at conclusive results. Secondly, we have yet to establish a functional
-relationship between the model parameters and elastic moduli.
-Finally, to have relevance in physics and biology we must incorporate the remaining twist and saddle splay deformations.
-The following simulation outline shows how will achieve aims.
+\begin{table}[h!]
+\begin{center}
+  \begin{tabular}{|l|p{0.16\textwidth}|l|l|p{0.2\textwidth}|p{0.18\textwidth}}
+    \hline
+          & simulation type & HAP value        & experimental value & reference\\
+    \hline \hline 
+    $\KB$ & {\footnotesize uniform load with clamped condition} & $11 \pm 2.5$ \kBT & 10 \kBT                  & \cite{Naetal15,VeBrPa15,NAGLE2000159,PhysRevLett.113.248102}\\
+    \hline 
+    $\KA$ & {\footnotesize bilayer stretching}  & $34$ \kBT $^{-2}$ & 30--40 \kBT $^{-2}$              & \cite{Nagle17, Nagle17-2}\\
+    \hline 
+    $\KTH$ & {\footnotesize tilt Dirichlet condition} & $12$ \kBT \; nm$^{-2}$ & 10 \kBT $^{-2}$  &  \cite{KUZMIN2005, KoNa15} \\ \hline
+  \end{tabular}
+\end{center}
+\caption{\label{tab:moduli}Comparision of values elastic moduli from the experimental literature and values derived by HAP simulation.}
+\end{table}
 
 \subsection{Two-dimensional vesicle hydrodynamics in shear flow} 
 %The motion of vesicles in shear flow is an important
@@ -109,6 +87,18 @@ tandem (in Figure \ref{fig:tanktreading}H, blue and red curves, their
 distance is more or less constant). For a large shear rate, the
 particle separates as the two leaflets slide against one another. 
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=1\textwidth]{figures/PW_fig1A-D.pdf}
+\includegraphics[width=1\textwidth]{figures/PW_fig1E-H.pdf}
+\end{center}
+\vspace{-0.3in}
+\caption{\label{fig:tanktreading}\footnotesize (A) A vesicle formed by
+  amphiphilic particles in shear flow, and the tank-treading motion
+  (B)--(D). The separation of particle pairs in (B) and (C) illustrate
+  inter-leaflet slip.  (E)--(G) Tank-treading reaches a steady state in
+  elliptical aspect ratio, major-axis angle, and circumference.}
+\end{figure}
 
 
 %\begin{wrapfigure}[12]{r}{0.2\textwidth}
