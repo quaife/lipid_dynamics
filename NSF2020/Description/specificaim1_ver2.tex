@@ -4,17 +4,21 @@
 %high-order-accurate, parallel numerical algorithms for large-scale
 %simulations of the collective hydrodynamics of amphiphilic particles in a viscous solvent.
 %%
-We have demonstrated that our hydrophobic attraction with repulsion potential (HARP) approach efficiently simulates
-self-assembly of amphiphilic particles into two-dimensional micelles, bilayer membranes, and vesicles \cite{Fu2018_SIAM}, and
-recreates the tank-treading phenomenon in external shear flows
-\cite{Fu20}.
+We have demonstrated that our hydrophobic attraction with repulsion
+potential (HARP) approach efficiently simulates self-assembly of
+amphiphilic particles into two-dimensional micelles, bilayer membranes,
+and vesicles \cite{Fu2018_SIAM}, and recreates the tank-treading
+phenomenon in external shear flows \cite{Fu20} \todo{Is this supposed
+to be a reference to our working paper}.
 %\todo[inline]{!!let's put a proceedings here so we have something to cite!!}.
 %
-While the results show great promise in the field of collective body hydrodynamics,
-several outstanding issues need to be addressed. These include a thorough 
-analysis of elastic properties of our coarse-grained bilayers, and 
-efficiently simulating three-dimensional collective hydrodynamics of amphiphilic particles.
-Finally, we must mathematically characterize the variational behavior of HARP under appropriate homogenized limits.
+While the results show great promise in the field of collective body
+hydrodynamics, several outstanding issues need to be addressed. These
+include a thorough analysis of elastic properties of our coarse-grained
+bilayers, and efficiently simulating three-dimensional collective
+hydrodynamics of amphiphilic particles. Finally, we must mathematically
+characterize the variational behavior of HARP under appropriate
+homogenized limits.
 
 \subsection{Specific Aim 1: Measuring material properties of self-assembly of amphiphiles}
 \label{subsec:specific_aim_1}
@@ -44,7 +48,7 @@ the modern theory of membrane continuum mechanics \cite{Hamm2000}, and their the
 is widely used to describe biological phenomona 
 fission \cite{FrEsAkSh15, Maetal15, PhysRevE.79.031926},
 fusion \cite{ChKo08, KoKo2002,Kuzmin7235,Aeffner2012},
-poration \cite{Gaetal20}, phase boundaries and interaction with inclusions
+poration \cite{Gaetal20}, phase boundaries, and interaction with inclusions
 \cite{SeLeMaEg17,Saetal20, Pietal20}, which require resolution of the internal structure of the membrane.  
 Recently, there has been a revival in interest in the HK theory as the quadratic assumption
 for the elasticity energy density has caused
@@ -54,16 +58,21 @@ for the elasticity energy density has caused
 %and the energies calculated by these continuum studies (Figure \ref{fig:barriers}A),
 %are in agreement with barrier heights derived by molecular dynamics and experimental studies \cite{FrRoPi17}.  
 %
-\begin{wrapfigure}[12]{l}{0.47\textwidth}
+\begin{wrapfigure}[11]{l}{0.47\textwidth}
 \centerline{\includegraphics[width=0.47\textwidth]{Figures/Deformations.pdf}}
 %  \centering{\includegraphics[width=0.80\textwidth]{Figures/Deformations.pdf}}
-\caption{\label{fig:deformations}Sketch of the HK membrane model \cite{Hamm2000}.
-    }
+  \vspace{-5pt}
+\caption{\label{fig:deformations} \footnotesize Sketch of the HK
+ membrane model \cite{Hamm2000}.}
 \end{wrapfigure}
 %
- researchers to question the applicability of \eqref{ansatz3} for large curvatures \cite{PhysRevLett.117.188102, ARGUDO20161619}. 
-For example, Galimzyanov {\it et al.} \cite{C9SM02079A} countered that energies derived from molecular dynamics and elasticity agree, even when curvatures are large.
-This proposal will develop much-needed mathematical analysis to resolve these controversies due to the assumptions in the HK theory. 
+researchers to question the applicability of \eqref{ansatz3} \todo{this
+equation hasn't been presented at this point} for large curvatures
+\cite{PhysRevLett.117.188102, ARGUDO20161619}. For example, Galimzyanov
+{\em et al.}~\cite{C9SM02079A} countered that energies derived from
+molecular dynamics and elasticity agree, even when curvatures are large.
+This proposal will develop much-needed mathematical analysis to resolve
+these controversies due to the assumptions in the HK theory. 
 
 %\begin{wrapfigure}[13]{l}{0.5\textwidth}
 %\centerline{\includegraphics[width=0.5\textwidth]{figures/SA1_fig3.pdf}}
@@ -76,7 +85,7 @@ This proposal will develop much-needed mathematical analysis to resolve these co
 
 The HK framework assumes a three-dimensional lipid monolayers with internal structure
 consisting of straight fibers that represent elongated hydrocarbon chains. HK assumed an
-elastic energy density ${\cal W}$ that quadratic in the Green-Lagrange strain tensor for membrane deformation of
+elastic energy density ${\cal W}$ that is quadratic in the Green-Lagrange strain tensor for membrane deformation of
 this striated, internal structure.
 %
 %
@@ -99,15 +108,16 @@ this striated, internal structure.
 %Symmetries with respect to mirror reflection and in-plane rotation, the internal structure assumptions and incompressibility
 %lead to an elastic surface energy over the dividing surface $\Sigma$. 
 %
-This energy decomposes into four, fundamental and independent deformations  (figure~\ref{fig:deformations}):
-splay ($\Div {\bf n}$), twist ($\Curl {\bf n}$), saddle splay ($\det \nabla {\bf n}$) and tilt ${\bf t}={\bf n}/({\bf N}\cdot {\bf n}) - {\bf N}$ where ${\bf N}$ is the unit surface normal:
+This energy decomposes into four fundamental and independent
+deformations (Figure~\ref{fig:deformations}): splay ($\Div {\bf n}$),
+twist ($\Curl {\bf n}$), saddle splay ($\det \nabla {\bf n}$), and tilt
+${\bf t}={\bf n}/({\bf N}\cdot {\bf n}) - {\bf N}$ where ${\bf N}$ is
+the unit surface normal:
 \begin{equation}
 \label{ansatz3}
-\begin{aligned}
 {\cal W} \equiv \int_{\Sigma} 
   \tfrac{1}{2}\KB\left[ \left( \Div {\bf n} + k_0\right)^2 - k_0^2\right] 
 + \tfrac{1}{2}\KT (\Curl {\bf n})^2 + \KG  \det \nabla {\bf n} + \tfrac{1}{2}\KTH |{\bf t}|^2 \,dA.
-\end{aligned}
 \end{equation}
 Here, 
 %$(\nabla {\bf n})_{ij} = \partial_{x_j}{\bf n} \cdot {\bf e}_i$ is the surface gradient with
@@ -116,15 +126,17 @@ Here,
 %Also, the surface divergence 
 %$\Div {\bf n}$ is the trace, and the surface curl $\Curl {\bf n}$ is the anti-trace (sum of the off-diagonal elements), of $\nabla {\bf n}$ respectively.
 %respectively (Figure \ref{fig:distortions}A--C).
-the deformations come with elastic coefficients: the bending modulus $\KB$, twist modulus $\KT$ 
-and saddle-splay modulus $\KG$ and tilt modulus $\KTH$
+the deformations come with elastic coefficients: the bending modulus
+$\KB$, twist modulus $\KT$, saddle-splay modulus $\KG$, and tilt modulus
+$\KTH$.
 %HK define the tilt vector ${\bf t} = {\bf n}/({\bf N}\cdot {\bf n}) - {\bf N}$ where ${\bf N}$ is the unit surface normal.
 %
-The parameter $k_0$ is the  spontaneous curvature and it determines the preferred lipid splay \cite{RoLi15,Kozlov2007}. 
-As an illustration, the lipid DSPC has $k_0 = -0.1$ nm$^{-1}$ 
+The parameter $k_0$ is the spontaneous curvature and determines the
+preferred lipid splay~\cite{RoLi15,Kozlov2007}.  As an illustration, the
+lipid DSPC has $k_0 = -0.1$ nm$^{-1}$ 
 %as a result of  %having a relatively long acyl chain. 
 and these lipids would line the  inner monolayer of a 
-spherical liposome, because the addition of a positive splay $\Div \mathbf{n}$  in \eqref{ansatz3}
+spherical liposome, because the addition of a positive splay $\Div \mathbf{n}$ in~\eqref{ansatz3}
 to the negative spontaneous curvature $k_0$ leads to lower energy \cite{Kamal22245, C3SM51829A, RoLi15,FriedSeguin15}.
 The subtraction of $k_0^2$ makes the energy distortion free
 \cite{Helfrich73,PhysRevLett.113.248102,Hamm2000}.
@@ -196,8 +208,8 @@ An accurate and robust way to measure material properties is to track the evolut
 \centerline{\includegraphics[width=0.4\textwidth]{Figures/Flattening.pdf}}
 %  \centering{\includegraphics[width=0.80\textwidth]{Figures/Deformations.pdf}}
 \vspace{-0.2cm}
-\caption{\label{fig:flattening}Example of computing bending modulus of a lipid bilayer from particle simulation.
-    }
+\caption{\label{fig:flattening} \footnotesize Example of computing
+  bending modulus of a lipid bilayer from particle simulation.}
 \end{wrapfigure}
 it relaxes from an initially non-equilibrium configuration \cite{PhysRevLett.117.188102}.
 Figure~\ref{fig:flattening} shows an example where the initial configuration of a lipid bilayer patch contains only
@@ -240,10 +252,8 @@ through \eqref{SGD}.
 
 \begin{wrapfigure}[12]{l}{0.32\textwidth}
 \centerline{\includegraphics[width=0.32\textwidth]{Figures/SaddleSplayDiagram.pdf}}
-\caption{
-\label{fig:saddle_splay}  
-Determination of saddle splay modulus.
-}
+\caption{\label{fig:saddle_splay} \footnotesize Determination of
+  saddle splay modulus.}
 \end{wrapfigure}
 %
 The evolution \eqref{SGD} satisfies the energy dissipation law $\frac{\dif }{\dif t} \Phi \leq 0$
