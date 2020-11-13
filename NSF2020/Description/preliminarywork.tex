@@ -50,9 +50,52 @@ Table~\ref{tab:moduli}. The agreement is underscored by the fact
 that the two, main HAP parameters $\gamma$ and $\rho$ were assigned
 physical values from the outset, rather than being tuned. 
 
-The PIs BQ, RR, YNY and Peter Fu initiated a collaboration in summer, 2020. 
-The present proposal is the outgrowth of this collaboration. We have created
-a compact numerical solver and included background flow in the simulations. 
+The PIs BQ, RR and YNY initiated a collaboration in summer, 2020 to develop
+the hydrodynamic model of \S \ref{subsec:specific_aim_3}
+To date, we have written solvers for the two-dimensional boundary integral formulatons
+of \eqref{SL} and \eqref{eq:stokes}. The solvers gives third-order spatial accuracy
+up to the boundary for $u$ and $\mathbf{u}$. The specialized reciprocal identity \ref{eq:reciprocal}
+gives spectral accuracy for force and torque (Table \ref{tab:spectral_force}}).
+\begin{wraptable}[10]{l}{0.45\textwidth}
+\begin{center}
+  \begin{tabular}{|l|l|l|l|}
+ $n$   & $\max_{i} \|\mathbf{F}_i-\mathbf{F}_i^{\text{exact}}\|$   &  $\max_{i} \|\mathbf{G}_i-\mathbf{G}_i^{\text{exact}}\|$   \\
+ 32   &  81.4933     &   70.3970\\       
+  64  &   4.9328     &    3.1928 \\
+ 128  &   0.0125     &    0.0030 \\
+256   &   0.0000765   &   0.00003389        
+  \end{tabular}
+\end{center}
+\caption{\label{tab:spectral_force} 
+\footnotesize 
+Numerical error for force and torque as a function of number of grid points $n$ per particle.
+The data is for $N = 5$ particles characteristic diamater 2; two of the particles are nearly touching 
+at a distance 0.02.} 
+\end{wraptable}
+
+We have simulated two-dimensional vesicles in shear flow 
+$\mathbf{u}_{\infty} = \dot{\gamma} x_2 \mathbf{i}_1$ with shear rate $\dot{gamma}$. 
+The particle-based system mimiks the behavior observed in continuous vesicles
+\cite{torres-sanchez_millan_arroyo_2019, mahapatra_saintillan_rangamani_2020, 
+Steigmann99, C6SM02452A}. The basic pattern is that at moderate shear rates,
+the initially circular vesicle bilayer elongates and approaches a steadily 
+tank-treading ellipse. Analyzing any underlying constituative laws, the particles
+reorganize so that there is an initial decrease in vesicle area that plateaus 
+to a steady state area, respectively increase in arc length. This suggests that
+the particle system behaves as a semipermeable vesicle \cite{323e9a2f0c58487ea82518d7a1f96485,YAO2017728}.
+Our preliminary results already showed that the particle-based bilayers have the same
+large area modulus as real lipid bilayer membranes, and permit a small amount of stretching. 
+For large shear rates, the vesicle ruptures and flow carries away segmented membrane patches. 
+
+The above considerations justify using the particle-based model to study material properties 
+as outline in \S \ref{subsec:specific_aim_1}. Furthermore, the particle system allows
+for intermonolayer slip~\cite{SHKULIPA2005823, ShkulipaThesis}.
+Intermonolayer slip enters zero-thickness membrane models as a velocity
+jump boundary condition \cite{schwalbe_vlahovska_miksis_2010}, for example, 
+but in the present model is a consequence of monolayer independence.
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%For Specific Aim 3
 %The background flow enters by replacing the third equation in \eqref{eq:stokes} 
 %with the condition $(\mathbf{u} -\mathbf{u}_{\infty})(\mathbf{x}) 
@@ -105,49 +148,6 @@ a compact numerical solver and included background flow in the simulations.
 %Because of the double layer potential jump relations, \eqref{eq:reciprocal} 
 %does not require knowledge of $\nabla u$ on the particle boundary, and this
 %is enormously beneficial for calculating force and torque.
-
-\subsubsection{Two-dimensional vesicles in shear flow}
-We have simulated two-dimensional vesicles in the background shear flow
-$\mathbf{u}_{\infty} = \dot{\gamma} x_2 \mathbf{i}_1$. The numerical solver
-is written in the Matlab language runs on a desktop without parallelization. 
-The initially circular vesicle bilayers rotate and elongate with the shear flow, 
-and approach a steadily tank-treading ellipse.
-
-There are a number of well-established mathematical models of vesicles
-in shear flow \cite{torres-sanchez_millan_arroyo_2019, mahapatra_saintillan_rangamani_2020, 
-Steigmann99, C6SM02452A}. We are trying to assess which constituative
-assumption the particle-based bilayer satisfies. 
-Our preliminary results show that the particle-based bilayers have the same
-large area modulus as real lipid bilayer membranes, so we expect
-realistic results from our flow simulations. Under moderate shear rates,
-the vesicle elongates and takes on the tank-treading elliptical shape.
-We can directly check for area compressibility conservation properties
-from the particle simulation by tracking the change in area density of
-the midplane as a function of shear flow rate, along with evaluating the
-tangential divergence of the velocity.
-
-Bilayer membranes have a small permeability to water
-\cite{323e9a2f0c58487ea82518d7a1f96485}, and modelers often assume a
-vesicle membrane that conserves volume. In our particle-based approach,
-water motion across the bilayer is limited by the size of the gaps
-between the particles, which is an artifact of coarse-graining.  Making
-these gaps smaller comes at the expense of numerical accuracy, and we
-will assess if there is a reasonable trade-off between approximate
-volume conservation and simulation complexity. 
-
-Finally, the particle-based vesicle bilayers have two distinct leaflets
-consisting of the particles in contact with the vesicle interior, and
-those in contact with the surrounding fluid. Since there is a nonzero
-separation between these layers, an important effect we observe is that
-the leaflets slide against one another under shear flow.  This implies
-that part of the viscous dissipation in the aqueous phase is enhanced by
-intermonolayer friction~\cite{SHKULIPA2005823, ShkulipaThesis}.
-Intermonolayer slip enters zero-thickness membrane models as a velocity
-jump boundary condition and leads to multiple solution
-states~\cite{schwalbe_vlahovska_miksis_2010}.  In the present proposal,
-intermonolayer slip is an artifact of monolayer independence  and we can
-control for slip as a function of shear rate, vesicle diameter, and
-particle geometry.
 
 
 
