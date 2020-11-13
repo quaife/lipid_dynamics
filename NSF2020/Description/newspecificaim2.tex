@@ -4,21 +4,31 @@
 large-scale simulations}
 \label{subsec:specific_aim_2}
 %\begin{figure}[h]
-\begin{wrapfigure}[]{r}{0.60\textwidth}
-  \centering{\includegraphics[width=0.6\textwidth]{Figures/domain.pdf}}
-    \caption{\label{fig:flow_map} \todo[inline]{Missing caption}}
+\begin{wrapfigure}[13]{r}{0.61\textwidth}
+  \centering{\includegraphics[width=0.61\textwidth]{Figures/domain.pdf}}
+    \vspace{-20pt}
+    \caption{\label{fig:flow_map} \footnotesize A suspension of 3D
+    amphiphilic particles suspended in a solvent. The solvent satisfies
+    the Stokes equations, and the hydrophobic forces depend on the
+    solvent activity that satisfies the screened Laplace equation. The
+    geometry is updated by solving the mobility problem.} 
 \end{wrapfigure}
 %\end{figure}
 % ----------------------------------------------------------------------
 Over the past decade, there has been an explosion of interest in
 small-scale processes that utilize capillary forces, van der Waals
 interactions, and thermal noise~\cite{Zhang2017}, to coordinate movement
-and bind nano-legos in a solvent \cite{Pandey2011, Leong2007, Reynolds2019,
-Dasgupta2017, Siontorou2017}. Additionally, hydrodynamic interactions are central for complex
-microscopic three-dimensional structures to fabricate~\cite{Cho2010}.
+and bind nano-legos in a solvent~\cite{Pandey2011, Leong2007,
+Reynolds2019, Dasgupta2017, Siontorou2017}. Additionally, hydrodynamic
+interactions are central to fabricate for complex microscopic
+three-dimensional structures~\cite{Cho2010}. Hydrodynamic effects can
+not be ignored since the rates of biological functions like fusion,
+fission, and pore dynamics rely on viscous
+dissipation~\cite{RYHAM20112929}.
 %
-In Specific Aim 2, we propose to develop efficient high-order numerical methods to simulate dynamic
-assembly of particles under HAP potential in a viscous solvent. 
+In Specific Aim 2, we propose to develop efficient high-order numerical
+methods to simulate dynamic assembly of particles under HAP potential in
+a viscous solvent. 
 %
 %
 %hydrodynamics effects by em
@@ -33,15 +43,12 @@ assembly of particles under HAP potential in a viscous solvent.
 %vesicle bilayers in external flows, where the bilayers are represented
 %by a self-assembled collection of rigid particles.
 %
-As described in~\eqref{eq:stokes} and
-illustrated in Figure~\ref{fig:flow_map}, the solvent phase is modeled
-by the Stokes equations for an incompressible viscous fluid, and these
-equations are coupled to the screened-Laplace equation~\eqref{SL}
-through viscous and hydrophobic stress balance. 
-Hydrodynamic effects can
-not be ignored since the rates of biological functions like fusion,
-fission, and pore dynamics rely on viscous
-dissipation~\cite{RYHAM20112929}. 
+As described in~\eqref{eq:stokes} and illustrated in
+Figure~\ref{fig:flow_map}, the solvent phase is modeled by the Stokes
+equations for an incompressible viscous fluid, and these equations are
+coupled to the screened-Laplace equation~\eqref{SL} through viscous and
+hydrophobic stress balance. 
+ 
 %While hydrophobic attraction causes the particles to self-assemble indepedently of the dissipation mechanism, the trajectories and
 %equilibrium configurations depend on the fact that the particles travel through a viscous environment. 
 
@@ -54,11 +61,11 @@ discretizing these equations with stencil-based numerical methods, the
 computational domain must be truncated, the fluid volume must be
 discretized, and artificial boundary conditions must be imposed. The
 artificial boundary conditions introduce additional error, and
-discretizing the volume results in an excessively large linear system.
-Moreover, it is difficult to obtain high-order discretizations when the
-boundary surfaces are irregular. Alternatively, since we are solving
-constant-coefficient elliptic PDEs, the solution of the PDEs can be
-represented as layer potentials
+discretizing the volume results in an excessively large system of
+equations. Moreover, it is difficult to obtain high-order
+discretizations when the boundary surfaces are irregular. Alternatively,
+since we are solving constant-coefficient linear elliptic PDEs, its
+solution can be represented with layer potentials
 \begin{align}
   \label{eq:LP}
   u(\mathbf{x}) = \int_{\partial\Omega} K(\mathbf{x},\mathbf{y})
@@ -66,15 +73,14 @@ represented as layer potentials
 \end{align}
 where $\sigma$ is an unknown density function, and
 $K(\mathbf{x},\mathbf{y})$ is a derivative of the fundamental solution
-of the underlying PDE. By matching the boundary condition at
+of the PDE. By matching the prescribed boundary condition at
 $\mathbf{x}_0 \in \partial\Omega$ with the limit of
 equation~\eqref{eq:LP} as $\mathbf{x}\rightarrow \mathbf{x}_0$, a BIE
 for the density function is formed. 
 
-
-Numerical methods to solve BIEs have
-several advantages over their PDE-based counterpart: by construction,
-the layer potential~\eqref{eq:LP} satisfies far-field conditions; only
+Numerical methods to solve BIEs have several advantages over their
+PDE-based counterpart: by construction, the layer
+potential~\eqref{eq:LP} satisfies far-field conditions; only
 $\partial\Omega$ needs to be discretized; carefully chosen kernels
 $K(\mathbf{x},\mathbf{y})$ result in a well-conditioned linear system
 that is solved with a mesh-independent number of GMRES iterations; and
@@ -93,8 +99,10 @@ quadrature methods for integrands that are nearly singular. These
 challenges are described in \S\ref{subsec:NumericalIssues}. However,
 numerical errors can still lead to unphysical contact between bodies. We
 propose two algorithms to avoid contact in \S\ref{subsec:timeStepping}.
-Then, proposed work for well-conditioned BIE formulations of fluctuating
-hydrodynamics are described in \S\ref{subsec:fluctuating}.
+An identity to accurately compute the hydrophobic stress is in
+\S\ref{subsec:reciprocal}. Then, proposed work for well-conditioned BIE
+formulations of fluctuating hydrodynamics are described in
+\S\ref{subsec:fluctuating}.
 
 
 
@@ -106,23 +114,21 @@ Discretizations of carefully chosen BIEs can be solved with a
 mesh-independent number of GMRES
 iterations~\cite{cam-ips-kel-mey-xue1996}. Therefore, the required CPU
 time is proportional to the cost of a matrix-vector multiplication that
-can be done in optimal or near-optimal time with the fast multipole
+can be performed in optimal or near-optimal time with the fast multipole
 method (FMM)~\cite{fmm5} and its extensions~\cite{fmm1, fmm2, fmm3,
-fmm4, fmm6, fmm7, fmm8}. PI BQ is experienced with applying FMMs to
-BIE formulations of the Stokes equation~\cite{qua-bir2014,
-bys-sha-qua2020} and the screened Laplace equation~\cite{kro-qua2011,
-qua2011}. Alternatively, fast direct solvers can be used to avoid
-iteration~\cite{fds1, fds2, fds3, fds4, fds5, fds6, fds7, fds8,
-ho2016cpam2, ho2016cpam1, minden2016, minden2017siammms}, but direct
-solvers often require a large amount of computational overhead, and this
-makes them less practical for problems with moving geometries.
-Alternatively, techniques in fast direct solvers can be used to develop
-efficient preconditioning strategies such as the inverse Fast Multipole
-Method (IFMM)~\cite{cou-pou-dar2017}. PI BQ used the IFMM to
-precondition Stokes equations in a porous media~\cite{qua-cou-dar2018},
-and a suite of other preconditioners including sparse approximate
-inverses~\cite{che2000} and multigrid~\cite{hem-sch1981, sch1982} will
-be investigated.
+fmm4, fmm6, fmm7, fmm8}. PI BQ is experienced with applying FMMs for the
+Stokes equation~\cite{qua-bir2014, bys-sha-qua2020} and the screened
+Laplace equation~\cite{kro-qua2011, qua2011}.  Alternatively, fast
+direct solvers avoid iteration~\cite{fds2, fds3, fds4, fds5, fds6, fds7,
+ho2016cpam1, minden2016, minden2017siammms}, but direct solvers often
+require a large amount of computational overhead, and this makes them
+less practical for problems with moving geometries. Alternatively, fast
+direct solvers techniques can be used to develop efficient
+preconditioning strategies such as the inverse Fast Multipole Method
+(IFMM)~\cite{cou-pou-dar2017}. PI BQ used the IFMM to precondition
+Stokes equations~\cite{qua-cou-dar2018}, and a suite of other
+preconditioners including sparse approximate inverses~\cite{che2000} and
+multigrid~\cite{hem-sch1981, sch1982} will be investigated.
 
 %
 \begin{wrapfigure}[21]{r}{2.5in}
@@ -146,30 +152,28 @@ particles, and this results in nearly-singular integrands. Quadrature
 methods for these integrands has received a lot of attention in two and
 three dimensions~\cite{alpert, kapur, sidi, duffy, bruno1, bruno2,
 davis_1984, graglia_2008, hackbusch_sauter_1994, jarvenpaa_2003,
-khayat_2005, schwab_1992, ying_2006, beale1, beale2, goodman_1990,
-haroldson_1998, lowengrub_1993, schwab_1992, ggq1, ggq2, ggq3,
-helsing_2008a, helsing_integral_2009, helsing_tutorial_2012,
-klockner2013jcp, qbx2, wala2019jcp, af2018sisc, siegel2018jcp,
-rachh2017jcp, ding2019arxiv, bar2014}. The trapezoid rule is the
-workhorse for two-dimensional BIEs since it achieves spectral accuracy
-when integrands are not nearly-singular~\cite{tre-wei2014}. To address
-nearly-singular integrands of two-dimensional BIEs, we will use a {\em
-barycentric quadrature rule} that only requires a slight modification of
-the trapezoid rule~\cite{ioa-pap-per1991}. In its current form, this
-method requires the layer potential to satisfy Laplace or Stokes
-equations~\cite{bar-wu-vee2015, chi-moo-qua2020}, but the PIs will extend
-the method to layer potentials for the screened Laplace
-equation. This will be done by recognizing that the fundamental solution
-of the screened Laplace equation can be decomposed as
-$K(\mathbf{x},\mathbf{y}) = K_1(\mathbf{x},\mathbf{y}) +
-K_2(\mathbf{x},\mathbf{y})$, where $K_1(\mathbf{x},\mathbf{y}) =
--\log|\mathbf{x} - \mathbf{y}|$ and $K_2(\mathbf{x},\mathbf{y}) =
-K(\mathbf{x},\mathbf{y}) + \log|\mathbf{x} - \mathbf{y}|$. Using this
-decomposition, layer potentials involving $K_1(\mathbf{x},\mathbf{y})$
-can be accurately computed with the barycentric quadrature
-rule~\cite{ioa-pap-per1991}, and layer potentials involving
-$K_2(\mathbf{x},\mathbf{y})$ can be accurately computed with the
-trapezoid rule since the kernel is bounded for all $\mathbf{x}$ and
+khayat_2005, schwab_1992, ying_2006, beale1, schwab_1992, ggq1, ggq2,
+ggq3, helsing_2008a, helsing_tutorial_2012, klockner2013jcp, qbx2,
+wala2019jcp, af2018sisc, siegel2018jcp, rachh2017jcp, ding2019arxiv,
+bar2014}. The trapezoid rule is the workhorse for two-dimensional BIEs
+since it achieves spectral accuracy when integrands are not
+nearly-singular~\cite{tre-wei2014}. To address nearly-singular
+integrands of two-dimensional BIEs, we will use a {\em barycentric
+quadrature rule} that only requires a slight modification of the
+trapezoid rule~\cite{ioa-pap-per1991}. In its current form, this method
+requires the layer potential to satisfy Laplace or Stokes
+equations~\cite{bar-wu-vee2015, chi-moo-qua2020}, but the PIs will
+extend the method to layer potentials for the screened Laplace equation.
+This will be done by recognizing that the fundamental solution of the
+screened Laplace equation can be decomposed as $K(\mathbf{x},\mathbf{y})
+= K_1(\mathbf{x},\mathbf{y}) + K_2(\mathbf{x},\mathbf{y})$, where
+$K_1(\mathbf{x},\mathbf{y}) = -\log|\mathbf{x} - \mathbf{y}|$ and
+$K_2(\mathbf{x},\mathbf{y}) = K(\mathbf{x},\mathbf{y}) + \log|\mathbf{x}
+- \mathbf{y}|$. Then, layer potentials involving
+$K_1(\mathbf{x},\mathbf{y})$ can be accurately computed with the
+barycentric quadrature rule~\cite{ioa-pap-per1991}, and layer potentials
+involving $K_2(\mathbf{x},\mathbf{y})$ can be accurately computed with
+the trapezoid rule since the kernel is bounded for all $\mathbf{x}$ and
 $\mathbf{y}$. The proposed method is demonstrated in
 Figure~\ref{fig:integrands} where the amplitude of the Fourier modes of
 $K(\mathbf{x_0},\mathbf{y})$ and $K_2(\mathbf{x_0},\mathbf{y})$ are
@@ -203,9 +207,10 @@ To estimate the error, at each time step we will compute the total force
 and torque of the system which is computationally cheap and physically
 zero. PI BQ's experience is that error estimates based on physical
 constraints such as force- and torque-free conditions appropriately
-adjust the time step size so that the dynamics are resolved without the
-computational expense of techniques such as embedded Runge-Kutta
-methods, step-doubling, and Richardson extrapolation.
+determine how the time step should be adjusted so that the dynamics are
+resolved without the computational expense of techniques such as
+embedded Runge-Kutta methods, step-doubling, and Richardson
+extrapolation.
 
 %
 \begin{wrapfigure}[13]{r}{0.30\textwidth}
@@ -218,7 +223,7 @@ methods, step-doubling, and Richardson extrapolation.
   color bar is for $\log_{10}.$}
 \end{wrapfigure}
 %
-Our previous work avoids contact by including a Leonard-Jones body
+Our previous work avoids contact by including a Lennard-Jones body
 forces~\cite{Fu2018_SIAM}. Such a steep steric interaction at short
 ranges introduces numerical stiffness and limits the time step size. To
 remove this stiffness, we propose a geometry-based contact
@@ -227,16 +232,19 @@ vesicle suspensions~\cite{lu-rah-zor2017} and rigid body suspensions in
 two dimensions~\cite{bys-sha-qua2020} and three
 dimensions~\cite{Yan2019}. These methods determine repulsion force by
 solving a non-linear complementarity problem with a geometric constraint
-that the configuration is non-overlapping.
+that the configuration is non-overlapping. In this manner, contact is
+avoided without the excessively small time steps required by stiff
+Lennard-Jones forces.
 
 %-------------------------------------------------------------------------------
 \subsubsection{Novel reciprocal identities}
+\label{subsec:reciprocal}
 The force and torque formulas~\eqref{forceandtorque} require the
 hydrophobic stress along the particle boundaries. Unfortunately,
-standard quadrature formulas to estimate $\nabla u$ on the particle
-boundaries introduces large amounts of quadrature error
-(Figure~\ref{fig:bierror}). Therefore, it is useful to devise reciprocal
-identities for the force and torque on body $i$ that does not
+layer potentials for $\nabla u$ involve hyper-singular integrals and
+this introduces large amounts of quadrature error on the particle
+boundaries (Figure~\ref{fig:bierror}). Therefore, it is useful to devise
+reciprocal identities for the force and torque on body $i$ that does not
 require integration along body $i$. One identity, that we have proved,
 is
 \begin{align}
@@ -248,22 +256,22 @@ is
 \end{align}
 for $i=1,\ldots,N$. Here, $u_i$ is the solution of the screened Laplace
 equation when only the contribution from particle $i$ is considered and
-$\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i
-\cdot \nabla u_j {\bf I} - 2 \nabla u_i \otimes \nabla u_j)$.
-Equation~\eqref{eq:reciprocal} does not require knowledge of $\nabla u$
-on the particle boundary, and this is enormously beneficial for
-calculating force and torque.
+$\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j \mathbf{I} +
+\rho\left((\nabla u_i \cdot \nabla u_j) \mathbf{I} - 2 \nabla u_i
+\otimes \nabla u_j\right)$. Equation~\eqref{eq:reciprocal} does not
+require knowledge of $\nabla u$ on the particle boundary, and this is
+enormously beneficial for calculating the hydrophobic force and torque.
 
 % ----------------------------------------------------------------------
 \subsubsection{Fluctuating hydrodynamics}
 \label{subsec:fluctuating}
 Once algorithms that address quadrature, adaptive time stepping, and
 contact are implemented, we will embark on incorporating fluctuating
-hydrodynamics that are important even at scales of the some amphiphilic
+hydrodynamics that are important even at scales of some amphiphilic
 particles. Bao et al.~\cite{Bao17,Bao18} developed two-dimensional BIE
 formulations for Brownian rigid bodies. To satisfy the covariance of the
-rigid body velocities, an ill-conditioned first-kind integral equation
-method is used. The proposed work will consider a double-layer potential
+rigid body velocities, they use an ill-conditioned first-kind integral
+equation method. The proposed work will consider a layer potential
 formulation that has much better conditioning properties. This strategy
 was attempted in~\cite{Bao18}, but they claim that a necessary
 regularization of the covariance matrix leads to a drastic loss of
