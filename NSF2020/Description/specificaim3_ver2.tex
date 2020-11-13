@@ -125,8 +125,8 @@ trapezoid rule since the kernel is bounded for all $\mathbf{x}$ and
 $\mathbf{y}$. The proposed method is demonstrated in
 Figure~\ref{fig:integrands} where the amplitude of the Fourier modes of
 $K(\mathbf{x_0},\mathbf{y})$ and $K_2(\mathbf{x_0},\mathbf{y})$ are
-plotted. The quadrature of the trapezoid rule is the sum of the Fourier
-amplitudes not captured at the resolution.
+plotted. The quadrature error of the trapezoid rule is the sum of the
+unresolved Fourier modes.
 
 
 % ----------------------------------------------------------------------
@@ -153,7 +153,7 @@ deferred correction method~\cite{dut-gre-rok2000} since it iteratively
 applies a low-order single-step method to achieve high-order accuracy.
 To estimate the error, at each time step we will compute the total force
 and torque of the system which is computationally cheap and physically
-zero. The PIs' experience is that error estimates based on physical
+zero. PI BQ's experience is that error estimates based on physical
 constraints such as force- and torque-free conditions appropriately
 adjust the time step size so that the dynamics are resolved without the
 computational expense of techniques such as embedded Runge-Kutta
@@ -184,10 +184,10 @@ method is used. The proposed work will consider a double-layer potential
 formulation that has much better conditioning properties. This strategy
 was attempted in~\cite{Bao18}, but they claim that a necessary
 regularization of the covariance matrix leads to a drastic loss of
-accuracy in numerical fluctuation-dissipation balance. However, they
-only one regularization strategy was considered, and as PI BQ has
-shown in previous work, the regularization choice significantly affects
-the resulting physics~\cite{ong-chr-qua2017}. Therefore, different
+accuracy in numerical fluctuation-dissipation balance. However, only one
+regularization strategy was considered, and as PI BQ has shown in
+previous work, the regularization choice significantly affects the
+resulting physics~\cite{ong-chr-qua2017}. Therefore, different
 regularization strategies will be investigated with the goal of
 controlling the accuracy of the fluctuation-dissipation balance.
 
