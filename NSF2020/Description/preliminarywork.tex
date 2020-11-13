@@ -91,7 +91,8 @@ require integration along body $i$. One identity, that we have proved,
 is
 \begin{align}
     \label{eq:reciprocal}
-{\bf F}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i}[\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S,\quad
+{\bf F}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i}
+[\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S,\quad
 {\bf G}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i} ({\bf
   x}-\mathbf{a}_i) \times [\boldsymbol{\sigma}_{ij} +
   \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S, 
@@ -100,17 +101,22 @@ for $i=1,\ldots,N$. Here, $u_i$ is the solution of the screened Laplace
 equation when only the contribution from particle $i$ is considered and
 $\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i
 \cdot \nabla u_j {\bf I} - 2 \nabla u_i \otimes \nabla u_j)$.
-Equation~\eqref{eq:reciprocal} does not require knowledge of $\nabla u$
-on the particle boundary, and this is enormously beneficial for
-calculating force and torque.
+Because of the double layer potential jump relations, \eqref{eq:reciprocal} 
+does not require knowledge of $\nabla u$ on the particle boundary, and this
+is enormously beneficial for calculating force and torque.
 
 \subsubsection{Two-dimensional vesicles in shear flow}
-We will compare the behavior of our particle-based vesicles in Stokes
-flow to well-established models that enforce area incompressibility and
-volume conservation in vesicle membrane
-dynamics~\cite{torres-sanchez_millan_arroyo_2019,
-mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}. Our
-preliminary results show that the particle-based bilayers have the same
+We have simulated two-dimensional vesicles in the background shear flow
+$\mathbf{u}_{\infty} = \dot{\gamma} x_2 \mathbf{i}_1$. The numerical solver
+is written in the Matlab language runs on a desktop without parallelization. 
+The initially circular vesicle bilayers rotate and elongate with the shear flow, 
+and approach a steadily tank-treading ellipse.
+
+There are a number of well-established mathematical models of vesicles
+in shear flow \cite{torres-sanchez_millan_arroyo_2019, mahapatra_saintillan_rangamani_2020, 
+Steigmann99, C6SM02452A}. We are trying to assess which constituative
+assumption the particle-based bilayer satisfies. 
+Our preliminary results show that the particle-based bilayers have the same
 large area modulus as real lipid bilayer membranes, so we expect
 realistic results from our flow simulations. Under moderate shear rates,
 the vesicle elongates and takes on the tank-treading elliptical shape.
@@ -127,8 +133,6 @@ between the particles, which is an artifact of coarse-graining.  Making
 these gaps smaller comes at the expense of numerical accuracy, and we
 will assess if there is a reasonable trade-off between approximate
 volume conservation and simulation complexity. 
-
-
 
 Finally, the particle-based vesicle bilayers have two distinct leaflets
 consisting of the particles in contact with the vesicle interior, and
