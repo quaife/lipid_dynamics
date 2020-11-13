@@ -53,57 +53,58 @@ physical values from the outset, rather than being tuned.
 The PIs BQ, RR, YNY and Peter Fu initiated a collaboration in summer, 2020. 
 The present proposal is the outgrowth of this collaboration. We have created
 a compact numerical solver and included background flow in the simulations. 
-The background flow enters by replacing the third equation in \eqref{eq:stokes} 
-with the condition $(\mathbf{u} -\mathbf{u}_{\infty})(\mathbf{x}) 
-\to \mathbf{0}$ as $|\mathbf{x}| \to \infty$. To incorporate the far-field flow, 
-and using the representation 
-\begin{align}
-\label{PowerMiranda}
-  {\bf u} = {\bf u}_{\infty} + K\boldsymbol{\eta} + 
-    \sum_{i=1}^N S(\cdot, {\bf a}_i) {\bf F}_i + 
-                 R(\cdot, {\bf a}_i) {\bf G}_i.
-\end{align}
-The symbols $S$ and $R$ are stokeslets and rotlets supported at the respective
-particle centers \cite{leal_2007} and $K\boldsymbol{eta}$ is a layer potential for the
-unknown density function $\boldsymbol{\eta}.$ The
-representation~\eqref{PowerMiranda} automatically satisfies all
-equations, with the exception of the rigid motion conditions. The rigid
-motion conditions follow by requiring the viscous stress vanishes across
-the particle boundaries.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%For Specific Aim 3
+%The background flow enters by replacing the third equation in \eqref{eq:stokes} 
+%with the condition $(\mathbf{u} -\mathbf{u}_{\infty})(\mathbf{x}) 
+%\to \mathbf{0}$ as $|\mathbf{x}| \to \infty$. To incorporate the far-field flow, 
+%and using the representation 
+%\begin{align}
+%\label{PowerMiranda}
+%  {\bf u} = {\bf u}_{\infty} + K\boldsymbol{\eta} + 
+%    \sum_{i=1}^N S(\cdot, {\bf a}_i) {\bf F}_i + 
+%                 R(\cdot, {\bf a}_i) {\bf G}_i.
+%\end{align}
+%The symbols $S$ and $R$ are Stokeslets and rotlets supported at the respective
+%particle centers \cite{leal_2007} and $K\boldsymbol{eta}$ is a layer potential for the
+%unknown density function $\boldsymbol{\eta}.$ The
+%representation~\eqref{PowerMiranda} automatically satisfies all
+%equations, with the exception of the rigid motion conditions. The rigid
+%motion conditions follow by requiring the viscous stress vanishes across
+%the particle boundaries.
 
-\begin{wrapfigure}[13]{l}{0.30\textwidth}
-\centerline{\includegraphics[width=0.30\textwidth]{figures/BIError.pdf}}
-  \vspace{-8pt}
-\caption{
-\label{fig:bierror}  
-\footnotesize The false color map shows how numerical quadrature of
-  layer potentials loses accuracy near the particle boundaries.  The
-  color bar is for $\log_{10}.$}
-\end{wrapfigure}
-\textbf{Novel reciprocal identities.} 
-The force and torque formulas~\eqref{forceandtorque} require the
-hydrophobic stress along the particle boundaries. Unfortunately,
-standard quadrature formulas to estimate $\nabla u$ on the particle
-boundaries introduces large amounts of quadrature error
-(Figure~\ref{fig:bierror}). Therefore, it is useful to devise reciprocal
-identities for the force and torque on body $i$ that does not
-require integration along body $i$. One identity, that we have proved,
-is
-\begin{align}
-    \label{eq:reciprocal}
-{\bf F}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i}
-[\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S,\quad
-{\bf G}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i} ({\bf
-  x}-\mathbf{a}_i) \times [\boldsymbol{\sigma}_{ij} +
-  \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S, 
-\end{align}
-for $i=1,\ldots,N$. Here, $u_i$ is the solution of the screened Laplace
-equation when only the contribution from particle $i$ is considered and
-$\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i
-\cdot \nabla u_j {\bf I} - 2 \nabla u_i \otimes \nabla u_j)$.
-Because of the double layer potential jump relations, \eqref{eq:reciprocal} 
-does not require knowledge of $\nabla u$ on the particle boundary, and this
-is enormously beneficial for calculating force and torque.
+%\begin{wrapfigure}[13]{l}{0.30\textwidth}
+%\centerline{\includegraphics[width=0.30\textwidth]{figures/BIError.pdf}}
+%  \vspace{-8pt}
+%\caption{
+%\label{fig:bierror}  
+%\footnotesize The false color map shows how numerical quadrature of
+%  layer potentials loses accuracy near the particle boundaries.  The
+%  color bar is for $\log_{10}.$}
+%\end{wrapfigure}
+%\textbf{Novel reciprocal identities.} 
+%The force and torque formulas~\eqref{forceandtorque} require the
+%hydrophobic stress along the particle boundaries. Unfortunately,
+%standard quadrature formulas to estimate $\nabla u$ on the particle
+%boundaries introduces large amounts of quadrature error
+%(Figure~\ref{fig:bierror}). Therefore, it is useful to devise reciprocal
+%identities for the force and torque on body $i$ that does not
+%require integration along body $i$. One identity, that we have proved,
+%is
+%\begin{align}
+%    \label{eq:reciprocal}
+%{\bf F}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i}
+%[\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S,\quad
+%{\bf G}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i} ({\bf
+%  x}-\mathbf{a}_i) \times [\boldsymbol{\sigma}_{ij} +
+%  \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S, 
+%\end{align}
+%for $i=1,\ldots,N$. Here, $u_i$ is the solution of the screened Laplace
+%equation when only the contribution from particle $i$ is considered and
+%$\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i
+%\cdot \nabla u_j {\bf I} - 2 \nabla u_i \otimes \nabla u_j)$.
+%Because of the double layer potential jump relations, \eqref{eq:reciprocal} 
+%does not require knowledge of $\nabla u$ on the particle boundary, and this
+%is enormously beneficial for calculating force and torque.
 
 \subsubsection{Two-dimensional vesicles in shear flow}
 We have simulated two-dimensional vesicles in the background shear flow
