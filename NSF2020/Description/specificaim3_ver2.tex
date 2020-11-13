@@ -10,11 +10,11 @@ step in complex domains such as in Figure~\ref{fig:domain}. If
 discretizing these equations with stencil-based numerical methods, the
 computational domain must be truncated, the fluid volume must be
 discretized, and artificial boundary conditions must be imposed. The
-artificial boundary conditions introduces additional error, and
+artificial boundary conditions introduce additional error, and
 discretizing the volume results in an excessively large linear system.
 Moreover, it is difficult to obtain high-order discretizations when the
 boundary surfaces are irregular. Alternatively, since we are solving
-constant-coefficient elliptic PDEs, the solution of the PDE can be
+constant-coefficient elliptic PDEs, the solution of the PDEs can be
 represented as layer potentials
 \begin{align}
   \label{eq:LP}
@@ -60,12 +60,11 @@ formulation of the mobility problem~\cite{manasthesis, rac-gre2016}.
 Significant challenges to solve BIEs include solving dense linear
 systems, developing preconditioning strategies, and developing
 quadrature methods for integrands that are nearly singular. These
-challenges are described in section~\ref{subsec:NumericalIssues}.
-However, numerical errors can still lead to unphysical contact between
-bodies. We propose two algorithms to avoid contact in
-Section~\ref{subsec:timeStepping}. Then, proposed work for
-well-conditioned BIE formulations of fluctuating hydrodynamics are
-described in Section~\ref{subsec:fluctuating}.
+challenges are described in \S\ref{subsec:NumericalIssues}. However,
+numerical errors can still lead to unphysical contact between bodies. We
+propose two algorithms to avoid contact in \S\ref{subsec:timeStepping}.
+Then, proposed work for well-conditioned BIE formulations of fluctuating
+hydrodynamics are described in \S\ref{subsec:fluctuating}.
 
 
 % ----------------------------------------------------------------------
@@ -84,13 +83,13 @@ bys-sha-qua2020} and the screened Laplace equation~\cite{kro-qua2011,
 qua2011}. Alternatively, fast direct solvers can be used to avoid
 iteration~\cite{fds1, fds2, fds3, fds4, fds5, fds6, fds7, fds8,
 ho2016cpam2, ho2016cpam1, minden2016, minden2017siammms}, but direct
-solvers often require a large amount of initial overhead, and this makes
-them less practical for problems with moving geometries. Alternatively,
-techniques in fast direct solvers can be used to develop efficient
-preconditioning strategies such as the inverse Fast Multipole Method
-(IFMM)~\cite{cou-pou-dar2017}. PI BQ used the IFMM to precondition
-Stokes equations in a porous media~\cite{qua-cou-dar2018}, and a suite
-of other preconditioners including sparse approximate
+solvers often require a large amount of computational overhead, and this
+makes them less practical for problems with moving geometries.
+Alternatively, techniques in fast direct solvers can be used to develop
+efficient preconditioning strategies such as the inverse Fast Multipole
+Method (IFMM)~\cite{cou-pou-dar2017}. PI BQ used the IFMM to
+precondition Stokes equations in a porous media~\cite{qua-cou-dar2018},
+and a suite of other preconditioners including sparse approximate
 inverses~\cite{che2000} and multigrid~\cite{hem-sch1981, sch1982} will
 be investigated.
 
@@ -108,10 +107,10 @@ workhorse for two-dimensional BIEs since it achieves spectral accuracy
 when integrands are not nearly-singular~\cite{tre-wei2014}. To address
 nearly-singular integrands of two-dimensional BIEs, we will use a {\em
 barycentric quadrature rule} that only requires a slight modification of
-the trapezoid rule~\cite{ioa-pap-per1991}. This method requires the
-layer potential satisfy Laplace or Stokes
-equations~\cite{bar-wu-vee2015, chi-moo-qua2020}. The PIs will extend
-this quadrature method to layer potentials for the screened Laplace
+the trapezoid rule~\cite{ioa-pap-per1991}. In its current form, this
+method requires the layer potential to satisfy Laplace or Stokes
+equations~\cite{bar-wu-vee2015, chi-moo-qua2020}, but the PIs will extend
+the method to layer potentials for the screened Laplace
 equation. This will be done by recognizing that the fundamental solution
 of the screened Laplace equation can be decomposed as
 $K(\mathbf{x},\mathbf{y}) = K_1(\mathbf{x},\mathbf{y}) +
