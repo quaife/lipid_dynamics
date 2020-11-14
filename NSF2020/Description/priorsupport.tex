@@ -2,9 +2,12 @@
 \noindent {\bf Rolf Ryham}: no prior NSF support.
 
 \noindent
-{\bf Yuan-Nan Young}: {\it NSF-DMS-1222550, Mathematical and experimental study of lipid bilayer 
-shape and dynamics mediated by surfactants and proteins}, \$212,603, 9/15/2012 - 08/31/2016 (with no-cost extension), PI. 
-{\it Intellectual merit:} The focus of this grant is modeling the interaction between a pure lipid bilayer membrane (LBM) with surfactant, cholesterol and protein.
+{\bf Yuan-Nan Young}: {\em NSF-DMS-1222550, Mathematical and
+experimental study of lipid bilayer shape and dynamics mediated by
+surfactants and proteins}, \$212,603, 9/15/2012 - 08/31/2016 (with
+no-cost extension), PI. {\em Intellectual merit:} The focus of this
+grant is modeling the interaction between a pure lipid bilayer membrane
+with surfactant, cholesterol and protein.
 %Hence, there is no overlap between these grants and the current proposal.
 
 %YNY and collaborators have studied (1) asymmetry of lipid bilayer due to its interaction
@@ -18,7 +21,7 @@ One PhD student (Szu-Pei Fu) was funded to work with YNY, and work has
 resulted in seven papers
 \cite{Nganguia2013_PoF,Nganguia2013_PRE,Young2014_JFM,Young2015_PoF,Nganguia2015_CiCP,Pak2015_PNAS,fu2015pre}.
 YNY has been actively involved with promotion of underrepresented
-students at NJIT.  The other PhD student (Herve Nganguia) is African.
+students at NJIT. The other PhD student (Herve Nganguia) is African.
 YNY has taught a broad spectrum of courses in fluid mechanics and
 applied math modeling.
 
@@ -40,12 +43,13 @@ Research Tasks}
 \setlength{\parindent}{0pt}
 % N.B. wrapfigure is not compatible with \noindent.
 
-\begin{wrapfigure}{r}{0.56\textwidth}
+\begin{wrapfigure}[9]{r}{0.56\textwidth}
+\vspace{-15pt}
 \definecolor{barblue}{RGB}{51,102,254}
-\renewcommand\sfdefault{phv}
-\renewcommand\mddefault{mc}
-\renewcommand\bfdefault{bc}
-\sffamily
+%\renewcommand\sfdefault{phv}
+%\renewcommand\mddefault{mc}
+%\renewcommand\bfdefault{bc}
+%\sffamily
 \begin{ganttchart}[
     canvas/.append style={fill=none, draw=black!5, line width=.75pt},
         x unit =4.5mm,
@@ -53,10 +57,11 @@ Research Tasks}
     hgrid style/.style={draw=black!5, line width=.75pt},
     vgrid={*1{draw=black!5, line width=.75pt}},
     title/.style={draw=none, fill=none},
-    title label font=\bfseries\footnotesize,
+    title label font=\bfseries\footnotesize, % numbers across the top
     title label node/.append style={below=3pt},
     include title in canvas=false,
-    bar label font=\mdseries\small\color{black!70},
+    bar label font=\mdseries\footnotesize\color{black!70}, 
+    % titles across the left
     %bar label node/.append style={left=2cm},
     bar/.append style={draw=none, fill=barblue},
     bar incomplete/.append style={fill=barblue},
@@ -73,15 +78,16 @@ Research Tasks}
     title label node/.append style={below left=3pt and -6pt}
 ]{QUARTERS:\quad1}{1}
 \gantttitlelist{2,...,12}{1} \\
-\ganttgroup{Tasks\hfill}{1}{12}\\
-\ganttbar{Specific Aim 1}{1}{6}\\
-\ganttbar{Specific Aim 2}{1}{9}\\
-\ganttbar{Specific Aim 3}{1}{9}\\
-\ganttbar{Program management}{1}{12}\\
+%\ganttgroup{Tasks\hfill}{1}{12}\\
+  \ganttbar{Specific Aim 1 (2D)}{1}{4} \\
+  \ganttbar{Specific Aim 1 (3D)}{8}{12}\\
+\ganttbar{Specific Aim 2}{1}{8}\\
+\ganttbar{Specific Aim 3}{1}{12}\\
+\ganttbar{Program management}{1}{12}
 \end{ganttchart}
-\caption{Schedule for the proposed work, measured in quarters from the
-  beginning of the project.}
-  \todo[inline]{Need to update Gantt table}
+  \vspace{-8pt}
+\caption{\footnotesize Schedule for the proposed work, measured in
+  quarters from the beginning of the project.}
 \label{fig:schedule}
 \end{wrapfigure}
 \textbf{Project management}: 
@@ -113,6 +119,7 @@ software repository.
 \medskip
 
 \textbf{Research Schedule:} The detailed schedule for the proposed work
-is shown in Fig.~\ref{fig:schedule}.
+is shown in Figure~\ref{fig:schedule}. Specific Aim 1 is split over two
+periods to allow time for 3D code to be developed.
 
 
