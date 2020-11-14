@@ -18,17 +18,20 @@
 \end{wraptable}
 \section{Preliminary work}
 \label{sec:preliminary_work}
-The HAP project was initiated in 2017 by PI RR and YNY. The lead author
-on our first paper~\cite{Fu2018_SIAM} was Szu-Pei Fu, who was PI YNY's
-PhD student and is currently a postdoc with PI RR. The collaboration
-involved theoretical work and simulation. The theoretical work included
-model development, proving the first variation formula~\eqref{stress}
-and force-free law, and an energy-based uniqueness theorem for the
-exterior domain problem~\eqref{SL}. Coauthors Andreas Kl\"ockner
-(Computer Science, UIUC, NSF CAREER \#1654756) and his PhD student Matt
-Wala provided their Quadrature by Expansion, or QBX algorithm and Fu ran
-simulations on NJIT clusters.
-
+PIs RR and YNY started work on HAP modeling with Szu-Pei Fu (then PI YNY's student and now PI RR's postdoc) and collaborators in 2017. 
+%
+%The HAP project was initiated in 2017 by PI RR and YNY. The lead author
+%on our first paper~\cite{Fu2018_SIAM} was Szu-Pei Fu, who was PI YNY's
+%PhD student and is currently a postdoc with PI RR. The collaboration
+%involved theoretical work and simulation. The theoretical work included
+%model development, proving the first variation formula~\eqref{stress}
+%and force-free law, and an energy-based uniqueness theorem for the
+%exterior domain problem~\eqref{SL}. 
+%Coauthors Andreas Kl\"ockner
+%(Computer Science, UIUC, NSF CAREER \#1654756) and his PhD student Matt
+%Wala provided their Quadrature by Expansion, or QBX algorithm and Fu ran
+%simulations on NJIT clusters.
+%
 \begin{wraptable}[11]{l}{0.42\textwidth}
 \centering{
   \begin{tabular}{|l|l|l|l|}
@@ -53,33 +56,30 @@ simulations on NJIT clusters.
   the particles are nearly touching at a distance 1\% of particle
   diameter.} 
 \end{wraptable}
-The simulation results were encouraging. Small particle-number
-simulations successfully demonstrated gradient-driven self-assembly of
-amphiphilic particles into two-dimensional micelles and bilayer membranes.
-The model parameters were the decay length $\rho$, interfacial tension
-$\gamma$, particle geometry, and repulsion strength. The particle
-diameters were the physical monolayer thickness, 2.0 nm~\cite{Boal}, and
-we chose a repulsion strength that gave adequate interparticle spacing.
-For the decay length, we used $\rho = 2.5$ nm based on measurements of
+The results are summarized in \cite{Fu2018_SIAM}, where
+small particle-number simulations successfully demonstrated gradient-driven self-assembly of
+amphiphilic particles into two-dimensional micelles and bilayer membranes with realistic values of
+the model parameters:  decay length $\rho=2.5$ nm (based on measurements of
 hydrophobic attraction between surfactant-coated
-membranes~\cite{Eriksson1989, Lin2005, Parsegian, Israelachvili80}. For
-the interfacial tension, we used $\gamma = 4$ pN nm$^{-1}$ based on
+membranes~\cite{Eriksson1989, Lin2005, Parsegian, Israelachvili80}),
+particle diameter 2.0 nm (the physical monolayer thickness, 2.0 nm~\cite{Boal}),
+and interfacial tension $\gamma = 4$ pN nm$^{-1}$ based on
 measurements for single-component bilayer lipid
 membranes~\cite{GarciaSaez, KUZMIN2005, Petelska2012, Jackson2016}.
 
-\begin{wrapfigure}[]{r}{0.5\textwidth}
-  \centering{\includegraphics[width=0.5\textwidth]{Figures/TankTreading.pdf}}
-  \vspace{-25pt}
-  \caption{\label{fig:tank_treading} \footnotesize
-    Panel A shows water activity and flow direction for  a two-dimensional
-    particle-based vesicle in a shear flow; $\mu  = 1$ mPa s,
-    $\dot{\gamma} = 0.5$ $\mu$s$^{-1}$. Panel B plots the
-    mean angular velocities for the outer leaflet and the inner
-    respectively.  Panel C shows that the trajectory of the particle
-    centers forms two ellipses with well-defined inclination angle
-    $\Theta$. Panel D shows the evolution of the inclination angle.
-    Panels B and D share the same time axis.}
-\end{wrapfigure}
+%\begin{wrapfigure}[]{r}{0.5\textwidth}
+%  \centering{\includegraphics[width=0.5\textwidth]{Figures/TankTreading.pdf}}
+%  \vspace{-25pt}
+%  \caption{\label{fig:tank_treading} \footnotesize
+%    Panel A shows water activity and flow direction for  a two-dimensional
+%    particle-based vesicle in a shear flow; $\mu  = 1$ mPa s,
+%    $\dot{\gamma} = 0.5$ $\mu$s$^{-1}$. Panel B plots the
+%    mean angular velocities for the outer leaflet and the inner
+%    respectively.  Panel C shows that the trajectory of the particle
+%    centers forms two ellipses with well-defined inclination angle
+%    $\Theta$. Panel D shows the evolution of the inclination angle.
+%    Panels B and D share the same time axis.}
+%\end{wrapfigure}
 The paper \cite{Fu2018_SIAM} considered three types of simulations. The first measured bending by
 loading a partially clamped planar bilayer. The second used a harmonic
 bond to dilate a circular bilayer. The third measured tilt using a decay
@@ -91,13 +91,26 @@ The agreement is underscored by the fact that the two main HAP
 parameters, $\gamma$ and $\rho$, were assigned physical values from the
 outset rather than being tuned to fit data. 
 
-The PI BQ, RR and YNY initiated a collaboration in Summer 2020 to
+PIs BQ, RR and YNY initiated a collaboration in Summer 2020 to
 develop the hydrodynamic model of \S\ref{subsec:specific_aim_3}.  To
 date, we have written solvers for the two-dimensional boundary integral
 formulations of~\eqref{SL} and~\eqref{eq:stokes} that achieve
 third-order accuracy up to the boundary. The specialized reciprocal
 identity~\eqref{eq:reciprocal} gives spectral accuracy for force and
 torque (Table~\ref{tab:spectral_force}).
+\begin{wrapfigure}[]{r}{0.5\textwidth}
+  \centering{\includegraphics[width=0.5\textwidth]{Figures/TankTreading.pdf}}
+  \vspace{-25pt}
+  \caption{\label{fig:tank_treading} \footnotesize
+    Panel A: A two-dimensional
+    particle-based vesicle in a shear flow (arrows); $\mu  = 1$ mPa s,
+    $\dot{\gamma} = 0.5$ $\mu$s$^{-1}$. The color coding is for HAP. Panel B: The
+    mean angular velocities for the outer leaflet and the inner
+    respectively.  Panel C: The trajectory of the particle
+    centers forms two ellipses with well-defined inclination angle
+    $\Theta$. Panel D: The evolution of the inclination angle.
+    Panels B and D share the same time axis.}
+\end{wrapfigure}
 
 We have simulated two-dimensional vesicles in shear flow
 $\mathbf{u}_{\infty} = \dot{\gamma} x_2 \mathbf{i}_1$ with shear rate
@@ -122,6 +135,7 @@ and our particle-based simulation follows this prediction
 (Figure~\ref{fig:tank_treading}D), albeit with some higher frequency oscillation
 coming from particle reorganization.
 
+
 Analyzing for any underlying constitutive laws, the particles reorganize
 so that there is an initial increase and then plateauing of vesicle
 circumference. As is the case with real lipid bilayer membranes, the
@@ -131,7 +145,7 @@ agrees with our measured increase in length. The simulations also
 suggest that the particle system behaves as a semipermeable
 vesicle~\cite{323e9a2f0c58487ea82518d7a1f96485, YAO2017728}.
 
-\begin{wrapfigure}[11]{r}{0.22\textwidth}
+\begin{wrapfigure}[11]{l}{0.22\textwidth}
   \centering{\includegraphics[width=0.22\textwidth]{Figures/PW_fig5.pdf}}
   \caption{\label{fig:flow_rupture} \footnotesize Rupture of a
   two-dimensional vesicle at large shear rates.}

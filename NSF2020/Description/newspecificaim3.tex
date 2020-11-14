@@ -38,43 +38,45 @@ representation~\eqref{PowerMiranda} automatically satisfies all the
 hydrodynamic equations including the far-field condition. The rigid
 motion conditions follow by requiring the viscous stress vanishes across
 the particle boundaries.
-
+%
 We will compare the behavior of our particle-based vesicles in Stokes
 flow to well-established models that enforce area incompressibility and
 volume conservation in vesicle membrane
-dynamics~\cite{torres-sanchez_millan_arroyo_2019,
-mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}. Our
-preliminary results show that the particle-based bilayers have the same
-large area modulus as real lipid bilayer membranes, so we expect
-realistic results from our flow simulations. Under moderate shear rates,
-the vesicle elongates and takes on the tank-treading elliptical shape.
-We can directly check for area compressibility and volume conservation
-properties from particle simulations by tracking the change in area
-density of the midplane as a function of shear flow rate, along with
-evaluating the tangential divergence of the velocity.
-
-Bilayer membranes have a small permeability to
-water~\cite{323e9a2f0c58487ea82518d7a1f96485}, and modelers often assume
-a vesicle membrane that conserves volume. In our particle-based
-approach, water motion across the bilayer is limited by the size of the
-gaps between the particles, which is an artifact of coarse-graining.
-Making these gaps smaller comes at the expense of numerical accuracy,
-and we will assess if there is a reasonable trade-off between
-approximate volume conservation and simulation complexity. 
-
-Finally, the particle-based vesicle bilayers have two distinct leaflets
-consisting of the particles in contact with the vesicle interior, and
-those in contact with the surrounding fluid. Since there is a nonzero
-separation between these layers, an important effect we observe is that
-the leaflets slide against one another under shear flow. This implies
-that part of the viscous dissipation in the aqueous phase is enhanced by
-intermonolayer friction~\cite{SHKULIPA2005823, ShkulipaThesis}.
-Intermonolayer slip enters zero-thickness membrane models as a velocity
-jump boundary condition and leads to multiple solution
-states~\cite{schwalbe_vlahovska_miksis_2010}. In the present proposal,
-intermonolayer slip is an artifact of monolayer independence and we can
-control for slip as a function of shear rate, vesicle diameter, and
-particle geometry.
+dynamics~\cite{torres-sanchez_millan_arroyo_2019,mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}.
+Some preliminary results are in \S \ref{sec:preliminary_work}. 
+%
+%Our
+%preliminary results show that the particle-based bilayers have the same
+%large area modulus as real lipid bilayer membranes, so we expect
+%realistic results from our flow simulations. Under moderate shear rates,
+%the vesicle elongates and takes on the tank-treading elliptical shape.
+%We can directly check for area compressibility and volume conservation
+%properties from particle simulations by tracking the change in area
+%density of the midplane as a function of shear flow rate, along with
+%evaluating the tangential divergence of the velocity.
+%
+%Bilayer membranes have a small permeability to
+%water~\cite{323e9a2f0c58487ea82518d7a1f96485}, and modelers often assume
+%a vesicle membrane that conserves volume. In our particle-based
+%approach, water motion across the bilayer is limited by the size of the
+%gaps between the particles, which is an artifact of coarse-graining.
+%Making these gaps smaller comes at the expense of numerical accuracy,
+%and we will assess if there is a reasonable trade-off between
+%approximate volume conservation and simulation complexity. 
+%
+%Finally, the particle-based vesicle bilayers have two distinct leaflets
+%consisting of the particles in contact with the vesicle interior, and
+%those in contact with the surrounding fluid. Since there is a nonzero
+%separation between these layers, an important effect we observe is that
+%the leaflets slide against one another under shear flow. This implies
+%that part of the viscous dissipation in the aqueous phase is enhanced by
+%intermonolayer friction~\cite{SHKULIPA2005823, ShkulipaThesis}.
+%Intermonolayer slip enters zero-thickness membrane models as a velocity
+%jump boundary condition and leads to multiple solution
+%states~\cite{schwalbe_vlahovska_miksis_2010}. In the present proposal,
+%intermonolayer slip is an artifact of monolayer independence and we can
+%control for slip as a function of shear rate, vesicle diameter, and
+%particle geometry.
 
 \subsubsection{Electromechanical effects on the dynamic assembly of amphiphiles \label{subsubsec:em_effects}}
 Using flicker spectroscopy of the shape fluctuations of a giant
