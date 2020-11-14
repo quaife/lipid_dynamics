@@ -18,7 +18,7 @@
 \end{wraptable}
 \section{Preliminary work}
 \label{sec:preliminary_work}
-The HAP project was initiated in 2017 by PIs RR and YNY. The lead author
+The HAP project was initiated in 2017 by PI RR and YNY. The lead author
 on our first paper~\cite{Fu2018_SIAM} was Szu-Pei Fu, who was PI YNY's
 PhD student and is currently a postdoc with PI RR. The collaboration
 involved theoretical work and simulation. The theoretical work included
@@ -70,24 +70,17 @@ membranes~\cite{GarciaSaez, KUZMIN2005, Petelska2012, Jackson2016}.
 \begin{wrapfigure}[]{r}{0.5\textwidth}
   \centering{\includegraphics[width=0.5\textwidth]{Figures/TankTreading.pdf}}
   \vspace{-25pt}
-    \caption{\label{fig:tank_treading} \footnotesize A two-dimensional
-    particle-based vesicle in a shear flow. Panel A shows the particles,
-    water activity, and background flow direction. Panel B plots the
+  \caption{\label{fig:tank_treading} \footnotesize
+    Panel A shows water activity and flow direction for  a two-dimensional
+    particle-based vesicle in a shear flow; $\mu  = 1$ mPa s,
+    $\dot{\gamma} = 0.5$ $\mu$s$^{-1}$. Panel B plots the
     mean angular velocities for the outer leaflet and the inner
     respectively.  Panel C shows that the trajectory of the particle
     centers forms two ellipses with well-defined inclination angle
     $\Theta$. Panel D shows the evolution of the inclination angle.
     Panels B and D share the same time axis.}
 \end{wrapfigure}
-The PIs BQ, RR and YNY initiated a collaboration in Summer 2020 to
-develop the hydrodynamic model of \S\ref{subsec:specific_aim_3}.  To
-date, we have written solvers for the two-dimensional boundary integral
-formulations of~\eqref{SL} and~\eqref{eq:stokes} that achieve
-third-order accuracy up to the boundary. The specialized reciprocal
-identity~\eqref{eq:reciprocal} gives spectral accuracy for force and
-torque (Table~\ref{tab:spectral_force}).
-
-We performed three types of simulations. The first measured bending by
+The paper \cite{Fu2018_SIAM} considered three types of simulations. The first measured bending by
 loading a partially clamped planar bilayer. The second used a harmonic
 bond to dilate a circular bilayer. The third measured tilt using a decay
 equation from~\cite{KUZMIN2005}. These simulations isolated three of the
@@ -98,6 +91,13 @@ The agreement is underscored by the fact that the two main HAP
 parameters, $\gamma$ and $\rho$, were assigned physical values from the
 outset rather than being tuned to fit data. 
 
+The PI BQ, RR and YNY initiated a collaboration in Summer 2020 to
+develop the hydrodynamic model of \S\ref{subsec:specific_aim_3}.  To
+date, we have written solvers for the two-dimensional boundary integral
+formulations of~\eqref{SL} and~\eqref{eq:stokes} that achieve
+third-order accuracy up to the boundary. The specialized reciprocal
+identity~\eqref{eq:reciprocal} gives spectral accuracy for force and
+torque (Table~\ref{tab:spectral_force}).
 
 We have simulated two-dimensional vesicles in shear flow
 $\mathbf{u}_{\infty} = \dot{\gamma} x_2 \mathbf{i}_1$ with shear rate
@@ -109,8 +109,9 @@ mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}. The basic
 pattern is that the vesicle bilayer approaches a steady tank-treading
 ellipse (Figure~\ref{fig:tank_treading}C). We analyzed the simulation
 data in the context of theoretical work on
-tank-treading~\cite{Finken2008}. Jeffrey's equation predicts a
-tank-treading frequency $\dot{\gamma}/2$ (dashed line in
+tank-treading~\cite{Finken2008, PhysRevLett.106.158103}.
+Jeffrey's equation predicts a
+tank-treading frequency $-\dot{\gamma}/2$ (dashed line in
 Figure~\ref{fig:tank_treading}B). In the particle simulation, the
 tank-treading frequency corresponds to the mean of the particle angular
 velocities, and these approach a value within 7\% of the theoretical
@@ -118,14 +119,14 @@ prediction (dotted and solid curves in Figure~\ref{fig:tank_treading}B).
 In the low viscosity-contrast regime of our simulation, Jeffrey's
 equation predicts a decrease in the ellipse's inclination angle $\Theta$
 and our particle-based simulation follows this prediction
-(Figure~\ref{fig:tank_treading}D). The higher frequency oscillation
-comes from particle reorganization.
+(Figure~\ref{fig:tank_treading}D), albeit with some higher frequency oscillation
+coming from particle reorganization.
 
 Analyzing for any underlying constitutive laws, the particles reorganize
 so that there is an initial increase and then plateauing of vesicle
 circumference. As is the case with real lipid bilayer membranes, the
 particle collection permits a small amount of stretching. The
-theoretical calculations give an increase of length by 3.6\% which
+theoretical calculations give an increase of length by 3.6\% and this amount
 agrees with our measured increase in length. The simulations also
 suggest that the particle system behaves as a semipermeable
 vesicle~\cite{323e9a2f0c58487ea82518d7a1f96485, YAO2017728}.
@@ -148,11 +149,11 @@ rates, viscous forces exceed the hydrophobic attraction and the vesicle
 ruptures; the flow carries away segmented membrane patches (Figure
 \ref{fig:flow_rupture}). 
 
-
-
-
-
-
+In conclusion, the HAP model accurately mimics the behavior of continuous
+membranes, while at the same time capturing the
+reconnection during the topological change of 
+lipid molecules on the scales of membrane thickness,
+overcoming one of the long-standing challenges of continuum modeling.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%For Specific Aim 3
 %The background flow enters by replacing the third equation in \eqref{eq:stokes} 
