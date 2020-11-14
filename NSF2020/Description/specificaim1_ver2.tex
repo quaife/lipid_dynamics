@@ -5,7 +5,7 @@
 %simulations of the collective hydrodynamics of amphiphilic particles in a viscous solvent.
 %%
 We have demonstrated that our hydrophobic attraction with repulsion
-potential (HARP) approach efficiently simulates self-assembly of
+potential (HAP) approach efficiently simulates self-assembly of
 amphiphilic particles into two-dimensional micelles, bilayer membranes,
 and vesicles \cite{Fu2018_SIAM}, and recreates the tank-treading
 phenomenon in external shear flows \cite{Fu20} \todo{Is this supposed
@@ -16,9 +16,12 @@ While the results show great promise in the field of collective body
 hydrodynamics, several outstanding issues need to be addressed. These
 include a thorough analysis of elastic properties of our coarse-grained
 bilayers, and efficiently simulating three-dimensional collective
-hydrodynamics of amphiphilic particles. Finally, we must mathematically
-characterize the variational behavior of HARP under appropriate
-homogenized limits.
+hydrodynamics of amphiphilic particles.
+Finally, we must incorporate electric charge and account
+for how external fields control for particle self-assembly. 
+%mathematically
+%characterize the variational behavior of HARP under appropriate
+%homogenized limits.
 
 \subsection{Specific Aim 1: Measuring material properties of self-assembly of amphiphiles}
 \label{subsec:specific_aim_1}
@@ -45,11 +48,12 @@ those of molecular dynamics simulations and possess the molecular granularity la
 Hamm and Kozlov (HK) pioneered 
 the modern theory of membrane continuum mechanics \cite{Hamm2000}, and their theory
 %was pioneered by Hamm and Kozlov (HK) \cite{Hamm2000}. The theory 
-is widely used to describe biological phenomona 
+is widely used to describe biological phenomena 
 fission \cite{FrEsAkSh15, Maetal15, PhysRevE.79.031926},
 fusion \cite{ChKo08, KoKo2002,Kuzmin7235,Aeffner2012},
 poration \cite{Gaetal20}, phase boundaries, and interaction with inclusions
-\cite{SeLeMaEg17,Saetal20, Pietal20}, which require resolution of the internal structure of the membrane.  
+\cite{SeLeMaEg17,Saetal20, Pietal20}. These phenomena
+require resolution of the internal structure of the membrane.  
 Recently, there has been a revival in interest in the HK theory as the quadratic assumption
 for the elasticity energy density has caused
 researchers to question the applicability of the theory 
@@ -83,9 +87,10 @@ these controversies due to the assumptions in the HK theory.
 %\label{fig:barriers}
 %\end{wrapfigure}
 
-The HK framework assumes a three-dimensional lipid monolayers with internal structure
-consisting of straight fibers that represent elongated hydrocarbon chains. HK assumed an
-elastic energy density ${\cal W}$ that is quadratic in the Green-Lagrange strain tensor for membrane deformation of
+The HK framework assumes a three-dimensional lipid monolayer with internal structure
+consisting of straight fibers that represent elongated hydrocarbon chains.
+The framework assumes an elastic energy density ${\cal W}$ that is quadratic in the
+Green-Lagrange strain tensor for membrane deformation of
 this striated, internal structure.
 %
 %
@@ -108,7 +113,7 @@ this striated, internal structure.
 %Symmetries with respect to mirror reflection and in-plane rotation, the internal structure assumptions and incompressibility
 %lead to an elastic surface energy over the dividing surface $\Sigma$. 
 %
-This energy decomposes into four fundamental and independent
+This energy density decomposes into four, fundamental, and independent
 deformations (Figure~\ref{fig:deformations}): splay ($\Div {\bf n}$),
 twist ($\Curl {\bf n}$), saddle splay ($\det \nabla {\bf n}$), and tilt
 ${\bf t}={\bf n}/({\bf N}\cdot {\bf n}) - {\bf N}$ where ${\bf N}$ is
@@ -203,8 +208,9 @@ We propose to
 %as the corresponding energies in the particle system for all reasonable deformation.
 %If this is the case we will 
 %
-{\bf (i)} determine the value of the elastic moduli $\KB$,
-$\KT$, $\KG$, and $\KTH$, and then {\bf (ii)} understand how the model parameters $\rho,$ $\gamma$, and particle shape map onto elastic moduli. 
+{\bf (i)} determine the value of effective elastic moduli $\KB$,
+$\KT$, $\KG$, and $\KTH$, and then {\bf (ii)} understand how the model parameters $\rho,$ $\gamma$, and
+particle shape map onto elastic moduli. 
 An accurate and robust way to measure material properties is to track the evolution of the bilayer as
 %
 \begin{wrapfigure}[10]{r}{0.4\textwidth}
@@ -261,11 +267,12 @@ velocity and angular velocity directly proportional to force and torque.
 \begin{wrapfigure}[11]{l}{0.32\textwidth}
 \centerline{\includegraphics[width=0.32\textwidth]{Figures/SaddleSplayDiagram.pdf}}
   \vspace{-8pt}
-\caption{\label{fig:saddle_splay} \footnotesize Determination of
+\caption{\label{fig:saddle_splay} \footnotesize Example of determining the
   saddle splay modulus.}
 \end{wrapfigure}
 %
-In either case there is a dissipation of the total potential \eqref{eq:total_poten}, and this stabilizes the evolving bilayer shape.
+This yields a dissipation of the total potential \eqref{eq:total_poten}, which
+stabilizes the evolving bilayer shape.
 Therefore, we reconstruct an evolving monolayer dividing surface $\Sigma$ and director field ${\bf n}$ by
 interpolating the particle centers and orientations. Using \eqref{ansatz3}, we calculate a continuum energy $\mathcal{W}$ from the interpolated shapes.
 
@@ -296,9 +303,10 @@ Molecular dynamics investigations find a twist modulus about 1
 \kBT~\cite{LeVeWa14}, and here the specific non-equilibrium shape consists of
 a single layer of amphiphilic particles on a hydrophobic substrate as
 illustrated by Figure~\ref{fig:deformations}D. Having a nonzero twist
-requires nonzero tilt, because the surface gradient of the lipid
-directoy equals the second fundamental form, and is therefore symmetric,
-whenever tilt is zero locally. The twist deformation is a fully
+requires nonzero tilt (the surface gradient of the lipid
+director equals the second fundamental form
+%, and is therefore symmetric,
+whenever tilt is zero locally). The twist deformation is a fully
 three-dimensional deformation. \S\ref{subsec:specific_aim_3} addresses outstanding implementation issues like three-dimensional boundary integral equation solvers.
 
 %for a wide range of particle parameters and physical parameters in HARP to 
@@ -312,7 +320,7 @@ least energy pathways separating energy basins \cite{doi:10.1063/1.2720838}.
 In the simplified Canham-Helfrich formulation, saddle splay energy is an exact indicator of topological transitions, 
 thanks to the  Gauss-Bonnet theorem \cite{TerziDeserno17}.
 More generally, PI RR has shown that saddle splay acts as a topological indicator even in the presence of nonzero tilt \cite{RyKlYaCo16}. 
-As a result, saddle splay can quantified from the transition energies of a least energy path of pore formation (Figure \ref{fig:saddle_splay}).   
+As a result, saddle splay can be quantified from the transition energies of a least energy path of pore formation (Figure \ref{fig:saddle_splay}).   
 %Using the string method, we will evaluate the transition energies between the intact pancake shape,
 %and one with a pore. Pore formation in a single bilayer decreases the integral of saddle splay from $4\pi$
 %to $0$. We can, in principle, detect this drop in energy because we have already accounted for the other deformations. 
@@ -336,7 +344,8 @@ The field of membrane continuum mechanics still lacks consensus as to whether \e
 relationship between twist the assumption of lateral fluidity in
 membranes~\cite{Hamm2000, TerziDeserno17, C9SM02079A,
 PhysRevE.102.042406}. 
-%A value $\KT = 0$, however, makes \eqref{ansatz3} noncoercive and leads to the nonphysical conclusion that there are bilayers 
+A value $\KT = 0$, however, makes \eqref{ansatz3} a noncoercive functional.
+%and leads to the nonphysical conclusion that there are bilayers 
 %with $\nabla {\bf n} \to \infty$ but $\mathcal{W} \to 0.$ 
 \textbf{(ii)} Recently,~\cite{TerziDeserno17} derived a tilt curvature
 term that was neglected from the HK analysis~\cite{Hamm2000}.
@@ -407,30 +416,34 @@ energy.
 %
 \subsubsection{Asymptotic analysis on the limit $\rho\rightarrow 0$ of HAP}
 The HAP energy converges to the surface energy in the limit of vanishing
-screening length and the boundary layers of the minimizers (the
-solutions to the screen Laplace equation) converges to area measures
-supported on the particle boundaries. This is analogous to the sharp
-interface limit in the phase-field functional
+screening length. Also, the boundary layers of the solutions to the screen Laplace equation
+converge to area measures supported on the particle boundaries.
+This phenomena are analogous to the sharp interface limit in the phase-field functional
 formulation~\cite{Modica87, MODICA1987487, LuMo89}. PI RR has worked
-directly on phase field approximations of membrane bending
+on phase field approximations of membrane bending
 energy~\cite{0951-7715-18-3-016} and asymptotcs in the Poisson-Boltzman
-equation~\cite{1531-3492_2006_2_357, Lee2018}. The proposed analysis is
+equation~\cite{1531-3492_2006_2_357, Lee2018}.
+
+
+The following proposed analysis is
 a natural outgrowth of prior work because the linearization of the
 Poisson-Boltzmann equation is the screened Laplace equations~\eqref{SL}.
-
 We will develop the mathematical connections between the HAP energy and
 the energy functionals used in the gradient theory of phase transitions.
-The phase field functional approximates the perimeter of sublevel sets
-of a so-called phase field indicator function. The approximation becomes
-sharp in the zero interfacial thickness limit and minimizers of the
-phase field functional converge (after normalization) to the
-characteristic function of a set solving a perimeter minimization
-problem~\cite{Modica87, MODICA1987487, LuMo89}. 
+%The phase field functional approximates the perimeter of sublevel sets
+%of a so-called phase field indicator function. The approximation becomes
+%sharp in the zero interfacial thickness limit and minimizers of the
+%phase field functional converge (after normalization) to the
+%characteristic function of a set solving a perimeter minimization
+%problem
+~\cite{Modica87, MODICA1987487, LuMo89}. 
 %
 %
-One of the basic questions is to establish the HAP convergence rate as a
+One set of questions is to establish the HAP convergence rate as a
 function of particle geometry~\cite{LuMo89}, which can be used as a
-benchmark for numerical validation. 
+benchmark for numerical validation.
+Another set of questions is to establish the so-called $\Gamma$-convergence of energy minimizing
+particle configurations in the zero-decay length limit \cite{Roger2006, Mugnai2013}. 
 %In the context of microstructure fabrication, the particle configurations maximally sequester hydrophobic surfaces.  
 %As an illustration, consider two fluid-bound plates $P_1$ and $P_2$ that geometrically flat and hydrophobic all sides.
 %We conjecture that in the zero-screening length limit, the plates have overlapping faces, and that 
