@@ -7,23 +7,20 @@
 We have demonstrated that our hydrophobic attraction with repulsion
 potential (HAP) approach efficiently simulates self-assembly of
 amphiphilic particles into two-dimensional micelles, bilayer membranes,
-and vesicles \cite{Fu2018_SIAM}, and recreates the tank-treading
-phenomenon in external shear flows \cite{Fu20} \todo{Is this supposed
-to be a reference to our working paper}.
-%\todo[inline]{!!let's put a proceedings here so we have something to cite!!}.
-%
+and vesicles \cite{Fu2018_SIAM} and recreates the tank-treading
+phenomenon in external shear flows \cite{FuQuRyYo20}.
 While the results show great promise in the field of collective body
 hydrodynamics, several outstanding issues need to be addressed. These
 include a thorough analysis of elastic properties of our coarse-grained
-bilayers, and efficiently simulating three-dimensional collective
+bilayers and efficiently simulating three-dimensional collective
 hydrodynamics of amphiphilic particles.
-Finally, we must incorporate electric charge and account
-for how external fields control for particle self-assembly. 
+We must also incorporate electric charge and account
+for how external fields control particle self-assembly. 
 %mathematically
 %characterize the variational behavior of HARP under appropriate
 %homogenized limits.
 
-\subsection{Specific Aim 1: Measuring material properties of self-assembly of amphiphiles}
+\subsection{Specific Aim 1: Measuring material properties of amphiphile self-assembly}
 \label{subsec:specific_aim_1}
 
 %\begin{figure}
@@ -40,7 +37,7 @@ for how external fields control for particle self-assembly.
 %\end{figure}
 The goal of Specific Aim 1 is to characterize the material properties of many-body, self-assembled amphiphiles.
 For amphiphiles assembled into bilayers, these properties are described by membrane continuum mechanics.
-Our goal is to be able to map the parameters of the particle-based model onto the elastic moduli from continuum theory.
+Our goal is to map the parameters of the particle-based model onto the elastic moduli from continuum theory.
 Results from this goal will facilitate simulators to use the hydrophobic attraction force calculations
 to model bilayers with specific composition. These calculations have provably less computational complexity than
 those of molecular dynamics simulations and possess the molecular granularity lacking from continuum models.
@@ -48,7 +45,7 @@ those of molecular dynamics simulations and possess the molecular granularity la
 Hamm and Kozlov (HK) pioneered 
 the modern theory of membrane continuum mechanics \cite{Hamm2000}, and their theory
 %was pioneered by Hamm and Kozlov (HK) \cite{Hamm2000}. The theory 
-is widely used to describe biological phenomena 
+is widely used to describe biological phenomena, including 
 fission \cite{FrEsAkSh15, Maetal15, PhysRevE.79.031926},
 fusion \cite{ChKo08, KoKo2002,Kuzmin7235,Aeffner2012},
 poration \cite{Gaetal20}, phase boundaries, and interaction with inclusions
@@ -87,11 +84,10 @@ these controversies due to the assumptions in the HK theory.
 %\label{fig:barriers}
 %\end{wrapfigure}
 
-The HK framework assumes a three-dimensional lipid monolayer with internal structure
-consisting of straight fibers that represent elongated hydrocarbon chains.
-The framework assumes an elastic energy density ${\cal W}$ that is quadratic in the
-Green-Lagrange strain tensor for membrane deformation of
-this striated, internal structure.
+The HK framework assumes a three-dimensional lipid monolayer where the internal structure
+consists of straight fibers that represent elongated hydrocarbon chains.
+The elastic energy density ${\cal W}$ is quadratic in the Green-Lagrange strain
+tensor for this striated, internal structure.
 %
 %
 %
@@ -117,7 +113,7 @@ This energy density decomposes into four, fundamental, and independent
 deformations (Figure~\ref{fig:deformations}): splay ($\Div {\bf n}$),
 twist ($\Curl {\bf n}$), saddle splay ($\det \nabla {\bf n}$), and tilt
 ${\bf t}={\bf n}/({\bf N}\cdot {\bf n}) - {\bf N}$ where ${\bf N}$ is
-the unit surface normal:
+the unit surface normal;
 \begin{equation}
 \label{ansatz3}
 {\cal W} \equiv \int_{\Sigma} 
@@ -153,8 +149,7 @@ molecular dynamics and those derived from \eqref{ansatz3} are in agreement, even
 Under spatial scales much larger than the
 membrane thickness, membrane energy is well-characterized by the
 Canham-Helfrich energy used throughout the fluid-structure literature
-\cite{QiangDu09, Lowengrub07,KimLai2010_JCP, Hu, HuLaiSeolEtAl2016_JCP,
-  qua-bir2014, qua-vee-you2019}.
+\cite{QiangDu09, Lowengrub07,KimLai2010_JCP, Hu, HuLaiSeolEtAl2016_JCP, qua-bir2014, qua-vee-you2019}.
 %\todo[inline]{YNY: place your recent works here}
 The Canham-Helfrich energy is actually a special case of
 \eqref{ansatz3} obtained by setting ${\bf n} =  \pm {\bf N}$ (the $\pm$ depending on
@@ -209,7 +204,7 @@ We propose to
 %If this is the case we will 
 %
 {\bf (i)} determine the value of effective elastic moduli $\KB$,
-$\KT$, $\KG$, and $\KTH$, and then {\bf (ii)} understand how the model parameters $\rho,$ $\gamma$, and
+$\KT$, $\KG$, and $\KTH$ and then {\bf (ii)} understand how the model parameters $\rho,$ $\gamma$, and
 particle shape map onto elastic moduli. 
 An accurate and robust way to measure material properties is to track the evolution of the bilayer as
 %
@@ -225,11 +220,10 @@ it relaxes from an initially non-equilibrium
 configuration~\cite{PhysRevLett.117.188102}. Figure~\ref{fig:flattening}
 shows an example where the initial configuration of a lipid bilayer
 patch contains only splay deformation without any other components
-(saddle splay, twist and tilt). As the bent membrane flattens we find
+(saddle splay, twist and tilt). As the bent membrane flattens, we find
 that both the membrane self-interaction energy $\Phi$ and the elastic
 energy ${\cal W}$ decrease, and because the saddle splay, twist, and
 tilt stay zero, the slope gives the bending modulus in this case. 
-
 
 %To characterize material properties of a bilayer, we compare the energies and forces generated by
 %a collection of amphiphilic particles against the energies and forces of a continuum bilayer.
@@ -249,7 +243,8 @@ tilt stay zero, the slope gives the bending modulus in this case.
 %An accurate and robust way to measure material properties is to track the evolution of the bilayer. 
 
 Here we start with a particle-based bilayer in a specific non-equilibrium shape that involves only one of the components of the displacement in Figure~\ref{fig:deformations}, and then evolve the particle system according to the time integration for \eqref{eq:stokes}.
-Actually,  elastic properties are independent of dissipation, and so we can forgo solving for fluid velocity and by setting the translational
+Because elastic properties are independent of dissipation,
+we can forgo solving for fluid velocity and set the translational
 velocity and angular velocity directly proportional to force and torque. 
 %bilayer by steepest gradient descent 
 %with respect to the HARP functional:
@@ -257,13 +252,13 @@ velocity and angular velocity directly proportional to force and torque.
 %\label{SGD}   
 %\frac{\dif {\bf a}_i}{\dif t} = {\bf F}_i,    \quad  \frac{\dif {\bf R}_i}{\dif t}  = {\bf R}_i A({\bf w}_i),\quad i = 1, \dots, N.
 %\end{equation}
-%where that particle centers ${\bf a}_i$ and rotation matrices ${\bf R}_i$ determine the particle configuraton; 
+%where that particle centers ${\bf a}_i$ and rotation matrices ${\bf R}_i$ determine the particle configuraton; %
 %$A({\bf w}_i)$ is the skew-symmetric matrix with axial vector ${\bf w}_i$.
 %We solve \eqref{SGD} numerically  using an Adams–Bashforth linear multistep method. 
 %The procedure involves solving \eqref{SL} based off of the current particle configuration.
 %We then use the solution $u$ to calculate the collection of forces and torques \eqref{forceandtorque}, and update the particle configuration
 %through \eqref{SGD}.
-
+%
 \begin{wrapfigure}[11]{l}{0.32\textwidth}
 \centerline{\includegraphics[width=0.32\textwidth]{Figures/SaddleSplayDiagram.pdf}}
   \vspace{-8pt}
@@ -298,15 +293,16 @@ interpolating the particle centers and orientations. Using \eqref{ansatz3}, we c
 %Figure \ref{} shows the approximately linear relationship between $\Delta \Phi$ and $\Delta E$
 %used to values for infer $\KB$. 
 
-We propose to conduct calculations similar to the example of Figure~\ref{fig:flattening} for other elastic moduli such as the effective twist modulus $\KT$.
+We propose to conduct calculations similar to the example of Figure~\ref{fig:flattening}
+for other elastic moduli such as the effective twist modulus $\KT$.
 Molecular dynamics investigations find a twist modulus about 1
-\kBT~\cite{LeVeWa14}, and here the specific non-equilibrium shape consists of
+\kBT~\cite{LeVeWa14}, and here, the specific non-equilibrium shape consists of
 a single layer of amphiphilic particles on a hydrophobic substrate as
 illustrated by Figure~\ref{fig:deformations}D. Having a nonzero twist
-requires nonzero tilt (the surface gradient of the lipid
+requires nonzero tilt because the surface gradient of the lipid
 director equals the second fundamental form
 %, and is therefore symmetric,
-whenever tilt is zero locally). The twist deformation is a fully
+whenever tilt is zero locally. The twist deformation is a fully
 three-dimensional deformation. \S\ref{subsec:specific_aim_3} addresses outstanding implementation issues like three-dimensional boundary integral equation solvers.
 
 %for a wide range of particle parameters and physical parameters in HARP to 
@@ -340,8 +336,7 @@ As a result, saddle splay can be quantified from the transition energies of a le
 %\subsubsection{HK elastic energy form}
 \noindent{\bf{HK elastic energy form:}}
 The field of membrane continuum mechanics still lacks consensus as to whether \eqref{ansatz3} is the appropriate functional for bilayer energy.
-\textbf{(i)} Researchers have assumed that $\KT = 0$ because of the
-relationship between twist the assumption of lateral fluidity in
+\textbf{(i)} Researchers have assumed that $\KT = 0$ to effect lateral fluidity in
 membranes~\cite{Hamm2000, TerziDeserno17, C9SM02079A,
 PhysRevE.102.042406}. 
 A value $\KT = 0$, however, makes \eqref{ansatz3} a noncoercive functional.
@@ -350,13 +345,13 @@ A value $\KT = 0$, however, makes \eqref{ansatz3} a noncoercive functional.
 \textbf{(ii)} Recently,~\cite{TerziDeserno17} derived a tilt curvature
 term that was neglected from the HK analysis~\cite{Hamm2000}.
 Later,~\cite{C9SM02079A} and~\cite{PhysRevE.102.042406} independently
-identified an inconsistency an the argument used
+identified an inconsistency in the argument used
 by~\cite{TerziDeserno17} arising
 from a transversal tilt invariance assumption.
 In~\cite{RyKlYaCo16}, PI RR and collaborators showed that the tilt vector leads to unphysical cusps depending on how one accounts for membrane thickness.  
 \textbf{(iii)} Theoretical analysis of lipid phase transitions predict a
 negative saddle-splay modulus around $-8$ \kBT~\cite{SIEGEL2004366,
-SIEGEL20085200}, that gives rise to a larger energy barrier for
+SIEGEL20085200} that gives rise to a larger energy barrier for
 monolayer fusion than is found by experiments~\cite{FrRoPi17, Tran7106,
 TerziDeserno17}.
 %
@@ -383,9 +378,8 @@ completely decouple. Using this expansion we prove an exact identity
 that gives the incompressibility condition by a Steiner-type polynomial
 in $\Div {\bf n}$ and $\det \nabla {\bf n}$ \cite{Fe59}. In contrast,
 the works~\cite{TerziDeserno17, PhysRevE.102.042406, Hamm2000,
-C9SM02079A} utilize an approximate identity for incompressibility, and
-so we can offer a considerably more accurate analysis of monolayer
-energy.
+C9SM02079A} utilize an approximate identity for incompressibility as a base,
+so we can considerably improve upon the analysis of monolayer energy.
 
 %  Past researchers expressed the strain tensor in terms of monolayer tangent plane.   
 %  In this frame, however, there is a coupling between the gradients of the monolayer surface, lipid direction, and chain length,
