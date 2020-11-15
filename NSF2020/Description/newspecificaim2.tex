@@ -1,5 +1,3 @@
-%\newpage
-
 \subsection{Specific Aim 2: Efficient high-order numerical methods for
 large-scale simulations}
 \label{subsec:specific_aim_2}
@@ -7,8 +5,8 @@ large-scale simulations}
 \begin{wrapfigure}[13]{r}{0.61\textwidth}
   \centering{\includegraphics[width=0.61\textwidth]{Figures/domain.pdf}}
     \vspace{-20pt}
-    \caption{\label{fig:flow_map} \footnotesize A suspension of 3D
-    amphiphilic particles suspended in a solvent. The solvent satisfies
+    \caption{\label{fig:flow_map} \footnotesize The diagram depicts a collection of 3D
+    amphiphilic particles suspended in a solvent. The solvent velocity satisfies
     the Stokes equations, and the hydrophobic forces depend on the
     solvent activity that satisfies the screened Laplace equation. The
     geometry is updated by solving the mobility problem.} 
@@ -16,14 +14,14 @@ large-scale simulations}
 %\end{figure}
 % ----------------------------------------------------------------------
 Over the past decade, there has been an explosion of interest in
-small-scale processes that utilize capillary forces, van der Waals
-interactions, and thermal noise~\cite{Zhang2017}, to coordinate movement
-and bind nano-legos in a solvent~\cite{Pandey2011, Leong2007,
-Reynolds2019, Dasgupta2017, Siontorou2017}. Additionally, hydrodynamic
-interactions are central to fabricate for complex microscopic
-three-dimensional structures~\cite{Cho2010}. Hydrodynamic effects can
-not be ignored since the rates of biological functions like fusion,
-fission, and pore dynamics rely on viscous
+small-scale processes that utilize capillary forces and van der Waals
+interactions to coordinate movement
+and bind microscopic components in solvent~\cite{Pandey2011, Zhang2017, Siontorou2017}.
+Additionally, hydrodynamic interactions are central to fabricating complex,
+three-dimensional microstructures~\cite{Dasgupta2017, Leong2007, Reynolds2019, Cho2010}.
+Hydrodynamic effects cannot
+be ignored since they, like the rates of biological functions like fusion,
+fission, and pore dynamics, determine rely on viscous
 dissipation~\cite{RYHAM20112929}.
 %
 In Specific Aim 2, we propose to develop efficient high-order numerical
@@ -45,13 +43,12 @@ a viscous solvent.
 %
 As described in~\eqref{eq:stokes} and illustrated in
 Figure~\ref{fig:flow_map}, the solvent phase is modeled by the Stokes
-equations for an incompressible viscous fluid, and these equations are
+equations for an incompressible, viscous fluid, and these equations are
 coupled to the screened-Laplace equation~\eqref{SL} through viscous and
 hydrophobic stress balance. 
  
 %While hydrophobic attraction causes the particles to self-assemble indepedently of the dissipation mechanism, the trajectories and
 %equilibrium configurations depend on the fact that the particles travel through a viscous environment. 
-
 
 
 The HAP model requires solving exterior Dirichlet problems for the
@@ -64,8 +61,9 @@ artificial boundary conditions introduce additional error, and
 discretizing the volume results in an excessively large system of
 equations. Moreover, it is difficult to obtain high-order
 discretizations when the boundary surfaces are irregular. Alternatively,
-since we are solving constant-coefficient linear elliptic PDEs, its
-solution can be represented with layer potentials
+since we are solving constant-coefficient linear elliptic
+partial differential equations (PDEs), their
+solutions can be represented with layer potentials
 \begin{align}
   \label{eq:LP}
   u(\mathbf{x}) = \int_{\partial\Omega} K(\mathbf{x},\mathbf{y})
@@ -75,8 +73,8 @@ where $\sigma$ is an unknown density function, and
 $K(\mathbf{x},\mathbf{y})$ is a derivative of the fundamental solution
 of the PDE. By matching the prescribed boundary condition at
 $\mathbf{x}_0 \in \partial\Omega$ with the limit of
-equation~\eqref{eq:LP} as $\mathbf{x}\rightarrow \mathbf{x}_0$, a BIE
-for the density function is formed. 
+equation~\eqref{eq:LP} as $\mathbf{x}\rightarrow \mathbf{x}_0$, a
+boundary integral equation (BIE) for the density function is formed. 
 
 Numerical methods to solve BIEs have several advantages over their
 PDE-based counterpart: by construction, the layer
@@ -85,17 +83,17 @@ $\partial\Omega$ needs to be discretized; carefully chosen kernels
 $K(\mathbf{x},\mathbf{y})$ result in a well-conditioned linear system
 that is solved with a mesh-independent number of GMRES iterations; and
 high-order or spectral accuracy is attainable with appropriate
-quadrature methods. In our previous work~\cite{Fu2018_SIAM} we
-demonstrate that BIEs are a powerful tool to simulate two-dimensional
+quadrature methods. PI RR and YNY's previous work~\cite{Fu2018_SIAM}
+demonstrated that BIEs are a powerful tool to simulate two-dimensional
 suspensions of amphiphilic particles. In addition to improving
-two-dimensional simulations, we will extend the results to three
-dimensions using a standard three-dimensional BIE formulation of the
+two-dimensional simulations, the present proposal extends the results to three
+dimensions using a three-dimensional BIE formulation of the
 screened Laplace equation~\cite{ying_2006} and a well-conditioned BIE
 formulation of the mobility problem~\cite{manasthesis, rac-gre2016}.
 
-Significant challenges to solve BIEs include solving dense linear
+Significant challenges to solving BIEs include solving dense linear
 systems, developing preconditioning strategies, and developing
-quadrature methods for integrands that are nearly singular. These
+quadrature methods for nearly singular integrands. These
 challenges are described in \S\ref{subsec:NumericalIssues}. However,
 numerical errors can still lead to unphysical contact between bodies. We
 propose two algorithms to avoid contact in \S\ref{subsec:timeStepping}.
@@ -126,7 +124,7 @@ less practical for problems with moving geometries. Alternatively, fast
 direct solvers techniques can be used to develop efficient
 preconditioning strategies such as the inverse Fast Multipole Method
 (IFMM)~\cite{cou-pou-dar2017}. PI BQ used the IFMM to precondition
-Stokes equations~\cite{qua-cou-dar2018}, and a suite of other
+Stokes equations~\cite{qua-cou-dar2018}. A suite of other
 preconditioners including sparse approximate inverses~\cite{che2000} and
 multigrid~\cite{hem-sch1981, sch1982} will be investigated.
 
@@ -137,19 +135,19 @@ multigrid~\cite{hem-sch1981, sch1982} will be investigated.
 \vspace*{-13pt}
   \caption{{\footnotesize The Fourier modes of
   $K(\mathbf{x_0},\mathbf{y})$ and $K_2(\mathbf{x_0},\mathbf{y})$ where
-  $|\mathbf{x_0}| = 0.99$ and $\mathbf{y} \in \partial\Omega$, and
-  $\Omega$ is the unit circle. The trapezoid rule applied to the red
+  $|\mathbf{x_0}| = 0.99$, $\mathbf{y} \in \partial\Omega$, and
+  $\Omega$ is the unit disk. The trapezoid rule applied to the red
   integrand has large amounts of error, but the trapezoid rule is much
   more accurate when applied to the blue integrand. Since the difference
   between the red and blue curves can be accurately computed with the
   barycentric quadrature rule, the quadrature error applied to layer
-  potentials for the screen Laplace equation will be uniformly bounded
+  potentials for the screened Laplace equation will be uniformly bounded
   in $\Omega$.}}
 \label{fig:integrands}
 \end{wrapfigure}
 Nearly touching bodies is ubiquitous in self-assembly of amphiphilic
 particles, and this results in nearly-singular integrands. Quadrature
-methods for these integrands has received a lot of attention in two and
+methods for these integrands have received a lot of attention in two and
 three dimensions~\cite{alpert, kapur, sidi, duffy, bruno1, bruno2,
 davis_1984, graglia_2008, hackbusch_sauter_1994, jarvenpaa_2003,
 khayat_2005, schwab_1992, ying_2006, beale1, schwab_1992, ggq1, ggq2,
@@ -175,7 +173,7 @@ barycentric quadrature rule~\cite{ioa-pap-per1991}, and layer potentials
 involving $K_2(\mathbf{x},\mathbf{y})$ can be accurately computed with
 the trapezoid rule since the kernel is bounded for all $\mathbf{x}$ and
 $\mathbf{y}$. The proposed method is demonstrated in
-Figure~\ref{fig:integrands} where the amplitude of the Fourier modes of
+Figure~\ref{fig:integrands}, where the amplitude of the Fourier modes of
 $K(\mathbf{x_0},\mathbf{y})$ and $K_2(\mathbf{x_0},\mathbf{y})$ are
 plotted. The quadrature error of the trapezoid rule is the sum of the
 unresolved Fourier modes.
@@ -188,22 +186,22 @@ repulsion}
 
 A numerical issue when simulating the self-assembly of amphiphilic
 particles is avoiding particle collision. The hydrophobic attraction
-potential drives the amphiphilic particles towards one another so to
-minimize exposure to the solvent, and this leads to physical contact in
-finite time. Such particle collisions in a dense rigid body suspension
-is a great challenge and can be a bottleneck in large-scale simulations.
+potential drives the amphiphilic particles towards one another and
+this leads to physical contact in
+finite time. Such particle collisions in a dense, rigid-body suspension
+are a great challenge and can be a bottleneck in large-scale simulations.
 We propose two algorithms to remedy this computational challenge:
 high-order adaptive time stepping and repulsion forces.
 
 PI BQ developed a high-order adaptive time stepping method for
-hydrodynamic suspensions~\cite{qua-bir2016} and it has served as a
+hydrodynamic suspensions~\cite{qua-bir2016}, and it has served as a
 robust method to simulate processes including mixing and adhesion in
 suspensions~\cite{qua-vee-you2019, kab-qua-bir2017}. The method uses
-a single-step high-order time stepping method and a computationally
+a single-step, high-order time stepping method and a computationally
 cheap estimate of the error. The proposed work will use a spectral
 deferred correction method~\cite{dut-gre-rok2000} since it iteratively
-applies a low-order single-step method to achieve high-order accuracy.
-To estimate the error, at each time step we will compute the total force
+applies a low-order, single-step method to achieve high-order accuracy.
+To estimate the error, at each time step, we will compute the total force
 and torque of the system which is computationally cheap and physically
 zero. PI BQ's experience is that error estimates based on physical
 constraints such as force- and torque-free conditions appropriately
@@ -223,12 +221,12 @@ extrapolation.
   color bar is for $\log_{10}.$}
 \end{wrapfigure}
 %
-Our previous work avoids contact by including a Lennard-Jones body
-forces~\cite{Fu2018_SIAM}. Such a steep steric interaction at short
-ranges introduces numerical stiffness and limits the time step size. To
+Our previous work avoided particle contact through Lennard-Jones body
+forces~\cite{Fu2018_SIAM}. Such steep, short-range, steric interactions 
+introduce numerical stiffness and limit the time step size. To
 remove this stiffness, we propose a geometry-based contact
-method~\cite{har-pon-sor-zor2011}, and this method has been applied to
-vesicle suspensions~\cite{lu-rah-zor2017} and rigid body suspensions in
+method~\cite{har-pon-sor-zor2011}. This method has been applied to
+vesicle suspensions~\cite{lu-rah-zor2017} and to rigid body suspensions in
 two dimensions~\cite{bys-sha-qua2020} and three
 dimensions~\cite{Yan2019}. These methods determine repulsion force by
 solving a non-linear complementarity problem with a geometric constraint
@@ -239,12 +237,12 @@ Lennard-Jones forces.
 %-------------------------------------------------------------------------------
 \subsubsection{Novel reciprocal identities}
 \label{subsec:reciprocal}
-The force and torque formulas~\eqref{forceandtorque} require the
+The force and torque formulas~\eqref{forceandtorque} use the
 hydrophobic stress along the particle boundaries. Unfortunately,
 layer potentials for $\nabla u$ involve hyper-singular integrals and
 this introduces large amounts of quadrature error on the particle
 boundaries (Figure~\ref{fig:bierror}). Therefore, it is useful to devise
-reciprocal identities for the force and torque on body $i$ that does not
+reciprocal identities for the force and torque on body $i$ that do not
 require integration along body $i$. One identity, that we have proved,
 is
 \begin{align}
@@ -267,10 +265,10 @@ enormously beneficial for calculating the hydrophobic force and torque.
 \label{subsec:fluctuating}
 Once algorithms that address quadrature, adaptive time stepping, and
 contact are implemented, we will embark on incorporating fluctuating
-hydrodynamics that are important even at scales of some amphiphilic
+hydrodynamics that are especially important at scales of amphiphilic
 particles. Bao et al.~\cite{Bao17,Bao18} developed two-dimensional BIE
 formulations for Brownian rigid bodies. To satisfy the covariance of the
-rigid body velocities, they use an ill-conditioned first-kind integral
+rigid body velocities, they use an ill-conditioned, first-kind integral
 equation method. The proposed work will consider a layer potential
 formulation that has much better conditioning properties. This strategy
 was attempted in~\cite{Bao18}, but they claim that a necessary

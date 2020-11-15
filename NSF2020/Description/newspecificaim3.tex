@@ -4,10 +4,10 @@
 \subsubsection{Vesicles in background flows}
 Numerically solving the Stokes and screened Laplace system~\eqref{SL}
 and~\eqref{eq:stokes} is nontrivial, and we will develop efficient,
-robust, high-order in time and space algorithms suited to the problem.
-The challenges are: {\bf (1)} The equations express a two-way coupling
+robust, high-order-in-time and -space algorithms suited to the problem.
+There are a few challenges. {\bf (1)} The equations express a two-way coupling
 since the flow changes the position of the suspended particles,
-and in return the geometry-dependent hydrophobic stresses impart a force
+and in return, the geometry-dependent hydrophobic stresses impart a force
 on the flow. {\bf (2)} The inputs to the Stokes equations are particle
 configurations, forces, and torques. The outputs are the rigid body
 translation and angular velocities used to update the particle positions
@@ -15,8 +15,8 @@ translation and angular velocities used to update the particle positions
 linear, the overall problem is highly nonlinear because the domain is
 constantly changing. {\bf (3)} Self-assembly causes the particles to
 come into close contact. As a result, an exceptional spatial accuracy is
-required to resolve the fields between adjacent particles. Finally, the
-physically relevant elastic properties of bilayer become apparent at
+required to resolve the fields between adjacent particles. Furthermore, 
+physically relevant elastic properties of bilayers become apparent at
 large length scales and for large particle-numbers, which increases the
 computational complexity of our simulations. 
 
@@ -26,24 +26,24 @@ We include a background flow by replacing the third equation in
 \infty$. To incorporate the far-field flow, we use the representation 
 \begin{align}
 \label{PowerMiranda}
-  {\bf u} = {\bf u}_{\infty} + K\boldsymbol{\eta} + 
+  {\bf u} = {\bf u}_{\infty} + L\boldsymbol{\eta} + 
     \sum_{i=1}^N \left(S(\cdot, {\bf a}_i) {\bf F}_i + 
                  R(\cdot, {\bf a}_i) {\bf G}_i\right),
 \end{align}
 where $S$ and $R$ are stokeslets and rotlets supported at the respective
-particle centers~\cite{leal_2007} and $K\boldsymbol{\eta}$ is a layer
+particle centers~\cite{leal_2007} and $L\boldsymbol{\eta}$ is a layer
 potential for the unknown density function $\boldsymbol{\eta}$. With the
 exception of the rigid body conditions, the
 representation~\eqref{PowerMiranda} automatically satisfies all the
 hydrodynamic equations including the far-field condition. The rigid
-motion conditions follow by requiring the viscous stress vanishes across
+body conditions follow by requiring the viscous stresses to vanish across
 the particle boundaries.
 %
 We will compare the behavior of our particle-based vesicles in Stokes
 flow to well-established models that enforce area incompressibility and
 volume conservation in vesicle membrane
 dynamics~\cite{torres-sanchez_millan_arroyo_2019,mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}.
-Some preliminary results are in \S \ref{sec:preliminary_work}. 
+\S \ref{sec:preliminary_work} contains our preliminary results.
 %
 %Our
 %preliminary results show that the particle-based bilayers have the same
