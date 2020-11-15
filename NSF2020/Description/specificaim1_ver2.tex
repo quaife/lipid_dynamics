@@ -409,23 +409,58 @@ so we can considerably improve upon the analysis of monolayer energy.
 %%  \end{equation}
 %%  which we compare to the HAP simulation data.
 %
+\subsubsection{Existence of minimizers}
+The HK functional \eqref{ansatz3} has had tremendous impact in understanding
+biological function, but has received little attention in terms of mathematical
+analysis. In the calculus of variations, the principal question is whether a
+minimizer of an energy functional exists. But in the case of \eqref{ansatz3},
+this answer is presently unknown. With regard to the simpler, Canham-Helfrich
+energy, \cite{Simon1993} proved the existence of minimizing surfaces without boundary, 
+and \cite{doi:10.1137/18M1195851} proved the well-posedness of a spatially periodic,
+time-dependent elastic interface problem. An analytical challenge 
+for the HK functional \eqref{ansatz3} is that coupling to a director field makes it
+possible to have bounded energy monolayers with corners, and such
+pathological examples must be ruled out before carrying over the arguments
+for the Canham-Helfrich functional to the present setting.
+
 \subsubsection{Asymptotic analysis on the limit $\rho\rightarrow 0$ of HAP}
-The HAP energy converges to the surface energy in the limit of vanishing screening length~\cite{Shibata2004}.
-Also, the boundary layers of the solutions to the screen Laplace equation
-converge to area measures supported on the particle boundaries \cite{Lee2018, Lin2015, Shibata2004}.
-These phenomena are analogous to the sharp interface limit in the phase-field functional,
-and motivate developing the mathematical connections between the HAP energy and
-the energy functionals used in the gradient theory of phase transitions.
-formulation~\cite{Modica87, MODICA1987487, LuMo89}.
-PI RR has worked on phase field approximations of membrane bending
-energy~\cite{0951-7715-18-3-016} and asymptotcs in the Poisson-Boltzman
-equation~\cite{1531-3492_2006_2_357, Lee2018}.
-The screened-Laplace equations~\eqref{SL} is the linearization of the Poisson-Boltzmann equation.
-One set of questions is to establish the HAP convergence rate as a
-function of particle geometry~\cite{LuMo89}, which can be used as a
-benchmark for numerical validation.
-Ultimately, we will be able to address the so-called $\Gamma$-convergence of energy minimizing
-particle configurations in the zero-decay length limit \cite{Roger2006, Mugnai2013}. 
+Our long term goal is to develop tools that can explain functionals like
+\eqref{ansatz3} from first principles in terms of HAP. The papers
+\cite{doi:10.1063/5.0009734,Seguin2012,Seguin2014} give statistical
+mechanical/mean field derivations of the Canham-Helfrich energy from a
+pair-potential for rod-like molecules, but do not include tilt, which is an
+indispensable deformation at biological scales. To make progress, we must
+first understand how the HAP functional behaves under various limits.
+
+We first consider HAP in the limit of vanishing screening length.
+As a concrete, model problem we consider a collection of colloidal polyhedral
+where the binding energy of this system can be described by a
+discrete, lower semicontinuous functional $\Phi_0$ whose value is the total
+surface area of the polyhedra minus two times the area of any overlapping faces.
+We conjecture that the $\Phi$ energy $\Gamma$-converges to $\Phi_0$
+\cite{Mugnai2013}, meaning that any cluster points of minimizers of $\Phi$
+converge to a minimum of $\Phi_0$ in the limit $\rho \to 0$. 
+To address this conjecture, we employ boundary layer analysis for the screened
+Laplace equation \cite{Lee2018, Lin2015, Shibata2004,1531-3492_2006_2_357, Lee2018}.
+The technique of $\Gamma$-convergence is a powerful tool for numerical approximations
+and with it we can help explain unexcepted phenomena like hierarchical self-assembly \cite{Luo2019}.
+
+%The HAP energy converges to the surface energy in the limit of vanishing screening length~\cite{Shibata2004}.
+%Also, the boundary layers of the solutions to the screen Laplace equation
+%converge to area measures supported on the particle boundaries \cite{Lee2018, Lin2015, Shibata2004}.
+%These phenomena are analogous to the sharp interface limit in the phase-field functional,
+%and motivate developing the mathematical connections between the HAP energy and
+%the energy functionals used in the gradient theory of phase transitions.
+%formulation~\cite{Modica87, MODICA1987487, LuMo89}.
+%PI RR has worked on phase field approximations of membrane bending
+%energy~\cite{0951-7715-18-3-016} and asymptotcs in the Poisson-Boltzman
+%equation~\cite{1531-3492_2006_2_357, Lee2018}.
+%The screened-Laplace equations~\eqref{SL} is the linearization of the Poisson-Boltzmann equation.
+%One set of questions is to establish the HAP convergence rate as a
+%function of particle geometry~\cite{LuMo89}, which can be used as a
+%benchmark for numerical validation.
+%Ultimately, we will be able to address the so-called $\Gamma$-convergence of energy minimizing
+%particle configurations in the zero-decay length limit \cite{Roger2006, Mugnai2013}. 
 %The phase field functional approximates the perimeter of sublevel sets
 %of a so-called phase field indicator function. The approximation becomes
 %sharp in the zero interfacial thickness limit and minimizers of the

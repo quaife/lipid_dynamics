@@ -107,6 +107,23 @@ formulations of fluctuating hydrodynamics are described in
 \subsubsection{Numerical issues}
 \label{subsec:NumericalIssues}
 
+%
+\begin{wrapfigure}[21]{r}{2.5in}
+%\vspace*{+15pt}
+\centerline{\includegraphics[width=2.5in]{figures/integrands}}
+\vspace*{-13pt}
+  \caption{{\footnotesize The Fourier modes of
+  $K(\mathbf{x_0},\mathbf{y})$ and $K_2(\mathbf{x_0},\mathbf{y})$ where
+  $|\mathbf{x_0}| = 0.99$, $\mathbf{y} \in \partial\Omega$, and
+  $\Omega$ is the unit disk. The trapezoid rule applied to the red
+  integrand has large amounts of error, but the trapezoid rule is much
+  more accurate when applied to the blue integrand. Since the difference
+  between the red and blue curves can be accurately computed with the
+  barycentric quadrature rule, the quadrature error applied to layer
+  potentials for the screened Laplace equation will be uniformly bounded
+  in $\Omega$.}}
+\label{fig:integrands}
+\end{wrapfigure}
 Discretizations of carefully chosen BIEs can be solved with a
 mesh-independent number of GMRES
 iterations~\cite{cam-ips-kel-mey-xue1996}. Therefore, the required CPU
@@ -127,23 +144,6 @@ Stokes equations~\cite{qua-cou-dar2018}. A suite of other
 preconditioners including sparse approximate inverses~\cite{che2000} and
 multigrid~\cite{hem-sch1981, sch1982} will be investigated.
 
-%
-\begin{wrapfigure}[21]{r}{2.5in}
-%\vspace*{+15pt}
-\centerline{\includegraphics[width=2.5in]{figures/integrands}}
-\vspace*{-13pt}
-  \caption{{\footnotesize The Fourier modes of
-  $K(\mathbf{x_0},\mathbf{y})$ and $K_2(\mathbf{x_0},\mathbf{y})$ where
-  $|\mathbf{x_0}| = 0.99$, $\mathbf{y} \in \partial\Omega$, and
-  $\Omega$ is the unit disk. The trapezoid rule applied to the red
-  integrand has large amounts of error, but the trapezoid rule is much
-  more accurate when applied to the blue integrand. Since the difference
-  between the red and blue curves can be accurately computed with the
-  barycentric quadrature rule, the quadrature error applied to layer
-  potentials for the screened Laplace equation will be uniformly bounded
-  in $\Omega$.}}
-\label{fig:integrands}
-\end{wrapfigure}
 Nearly touching bodies is ubiquitous in self-assembly of amphiphilic
 particles, and this results in nearly-singular integrands. Quadrature
 methods for these integrands have received a lot of attention in two and
