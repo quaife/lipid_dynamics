@@ -1,17 +1,5 @@
 \subsection{Specific Aim 2: Efficient high-order numerical methods for
 large-scale simulations}
-\label{subsec:specific_aim_2}
-%\begin{figure}[h]
-\begin{wrapfigure}[13]{r}{0.61\textwidth}
-  \centering{\includegraphics[width=0.61\textwidth]{Figures/domain.pdf}}
-    \vspace{-20pt}
-    \caption{\label{fig:flow_map} \footnotesize The diagram depicts a collection of 3D
-    amphiphilic particles suspended in a solvent. The solvent velocity satisfies
-    the Stokes equations, and the hydrophobic forces depend on the
-    solvent activity that satisfies the screened Laplace equation. The
-    geometry is updated by solving the mobility problem.} 
-\end{wrapfigure}
-%\end{figure}
 % ----------------------------------------------------------------------
 Over the past decade, there has been an explosion of interest in
 small-scale processes that utilize capillary forces and van der Waals
@@ -50,6 +38,18 @@ hydrophobic stress balance.
 %equilibrium configurations depend on the fact that the particles travel through a viscous environment. 
 
 
+\label{subsec:specific_aim_2}
+%\begin{figure}[h]
+\begin{wrapfigure}[14]{r}{0.61\textwidth}
+  \centering{\includegraphics[width=0.61\textwidth]{Figures/domain.pdf}}
+    \vspace{-20pt}
+    \caption{\label{fig:flow_map} \footnotesize The diagram depicts a collection of 3D
+    amphiphilic particles suspended in a solvent. The solvent velocity satisfies
+    the Stokes equations, and the hydrophobic forces depend on the
+    solvent activity that satisfies the screened Laplace equation. The
+    geometry is updated by solving the mobility problem.} 
+\end{wrapfigure}
+%\end{figure}
 The HAP model requires solving exterior Dirichlet problems for the
 screened Laplace equation and the Stokes mobility problem at each time
 step in complex domains such as in Figure~\ref{fig:domain}. If
