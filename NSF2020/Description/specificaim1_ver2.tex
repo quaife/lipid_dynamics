@@ -35,27 +35,28 @@ for how external fields control particle self-assembly.
 %(H--J) Intermediates of membrane fusion and (K) experimental image of a stalk \cite{Aeffner2012}. }
 %\label{fig:distortions}
 %\end{figure}
-The goal of Specific Aim 1 is to characterize the material properties of many-body, self-assembled amphiphiles.
-For amphiphiles assembled into bilayers, these properties are described by membrane continuum mechanics.
-Our goal is to map the parameters of the particle-based model onto the elastic moduli from continuum theory.
-Results from this goal will facilitate simulators to use the hydrophobic attraction force calculations
-to model bilayers with specific composition. These calculations have provably less computational complexity than
-those of molecular dynamics simulations and possess the molecular granularity lacking from continuum models.
+The goal of Specific Aim 1 is to characterize the material properties of
+many-body, self-assembled amphiphiles.  For amphiphiles assembled into
+bilayers, these properties are described by membrane continuum
+mechanics.  Our goal is to map the parameters of the particle-based
+model onto the elastic moduli from continuum theory.  Results from this
+goal will facilitate simulators to use the hydrophobic attraction force
+calculations to model bilayers with specific composition. These
+calculations have provably less computational complexity than those of
+molecular dynamics simulations and possess the molecular granularity
+lacking from continuum models.
 
-Hamm and Kozlov (HK) pioneered 
-the modern theory of membrane continuum mechanics \cite{Hamm2000}, and their theory
-%was pioneered by Hamm and Kozlov (HK) \cite{Hamm2000}. The theory 
-is widely used to describe biological phenomena, including 
-fission \cite{FrEsAkSh15, Maetal15, PhysRevE.79.031926},
-fusion \cite{ChKo08, KoKo2002,Kuzmin7235,Aeffner2012},
-poration \cite{Gaetal20}, phase boundaries, and interaction with inclusions
-\cite{SeLeMaEg17,Saetal20, Pietal20}. These phenomena
-require resolution of the internal structure of the membrane.  
-Recently, there has been a revival in interest in the HK theory as the quadratic assumption
-for the elasticity energy density has caused
-researchers to question the applicability of the theory 
-for large curvatures
-\cite{PhysRevLett.117.188102, ARGUDO20161619}.
+Hamm and Kozlov (HK) pioneered the modern theory of membrane continuum
+mechanics~\cite{Hamm2000}, and their theory is widely used to describe
+biological phenomena, including fission \cite{FrEsAkSh15, Maetal15,
+PhysRevE.79.031926}, fusion \cite{ChKo08,
+KoKo2002,Kuzmin7235,Aeffner2012}, poration~\cite{Gaetal20}, phase
+boundaries, and interaction with inclusions~\cite{SeLeMaEg17,Saetal20,
+Pietal20}. These phenomena require resolution of the internal structure
+of the membrane.  Recently, there has been a revival of interest in the
+HK theory as the quadratic assumption for the elasticity energy density
+has caused researchers to question the applicability of the theory for
+large curvatures~\cite{PhysRevLett.117.188102, ARGUDO20161619}.
 %
 \begin{wrapfigure}[11]{l}{0.47\textwidth}
 \centerline{\includegraphics[width=0.47\textwidth]{Figures/Deformations.pdf}}
@@ -146,14 +147,14 @@ preferred lipid splay~\cite{RoLi15,Kozlov2007}.
 Although the HK elastic theory assumes small deformations, 
 Galimzyanov {\em et al.}~\cite{C9SM02079A} have shown that energies derived from
 molecular dynamics and those derived from \eqref{ansatz3} are in agreement, even when curvatures are large.
-Under spatial scales much larger than the
-membrane thickness, membrane energy is well-characterized by the
-Canham-Helfrich energy used throughout the fluid-structure literature
-\cite{QiangDu09, Lowengrub07,KimLai2010_JCP, Hu, HuLaiSeolEtAl2016_JCP, qua-bir2014, qua-vee-you2019}.
-%\todo[inline]{YNY: place your recent works here}
-The Canham-Helfrich energy is actually a special case of
-\eqref{ansatz3} obtained by setting ${\bf n} =  \pm {\bf N}$ (the $\pm$ depending on
-orientation) and collapsing both monolayers onto the membrane midplane.
+Under spatial scales much larger than the membrane thickness, membrane
+energy is well-characterized by the Canham-Helfrich energy used
+throughout the fluid-structure literature \cite{QiangDu09,
+Lowengrub07,KimLai2010_JCP, Hu, HuLaiSeolEtAl2016_JCP, qua-bir2014,
+qua-vee-you2019}. The Canham-Helfrich energy is actually a special case
+of \eqref{ansatz3} obtained by setting ${\bf n} =  \pm {\bf N}$ (the
+$\pm$ depending on orientation) and collapsing both monolayers onto the
+membrane midplane.
 %There, splay $\Div n$ equal to twice the mean curvature, saddle splay
 %$\det \nabla n$ equal to the Gauss curvature, and both twist and tilt
 %are equal to zero. 
@@ -204,26 +205,27 @@ and energy}
 %as the corresponding energies in the particle system for all reasonable deformation.
 %If this is the case we will 
 %
-\begin{wrapfigure}[10]{r}{0.4\textwidth}
-\vspace{-0.3cm}
-\centerline{\includegraphics[width=0.4\textwidth]{Figures/Flattening.pdf}}
+\begin{wrapfigure}[9]{r}{0.43\textwidth}
+\vspace{-0.4cm}
+\centerline{\includegraphics[width=0.43\textwidth]{Figures/Flattening.pdf}}
 %  \centering{\includegraphics[width=0.80\textwidth]{Figures/Deformations.pdf}}
-\vspace{-0.2cm}
+\vspace{-0.5cm}
 \caption{\label{fig:flattening} \footnotesize Example of computing
   bending modulus of a lipid bilayer from particle simulation.}
 \end{wrapfigure}
-We propose to {\bf (i)} determine the value of effective elastic moduli $\KB$,
-$\KT$, $\KG$, and $\KTH$ and then {\bf (ii)} understand how the model parameters $\rho,$ $\gamma$, and
-particle shape map onto elastic moduli. 
-An accurate and robust way to measure material properties is to track the evolution of the bilayer as
-it relaxes from an initially non-equilibrium
-configuration~\cite{PhysRevLett.117.188102}. Figure~\ref{fig:flattening}
-shows an example where the initial configuration of a bilayer
-patch containing the splay deformation without any other components
-(saddle splay, twist and tilt). As the bent membrane flattens, 
-both the self-interaction energy $\Phi$ and the elastic
-energy ${\cal W}$ decrease, and because the saddle splay, twist, and
-tilt stay zero, the slope gives the bending modulus in this case. 
+We propose to {\bf (i)} determine the value of effective elastic moduli
+$\KB$, $\KT$, $\KG$, and $\KTH$ and then {\bf (ii)} understand how the
+model parameters $\rho,$ $\gamma$, and the particle shape map onto
+elastic moduli. An accurate and robust way to measure material
+properties is to track the evolution of the bilayer as it relaxes from
+an initially non-equilibrium
+configuration~\cite{PhysRevLett.117.188102}.
+Figure~\ref{fig:flattening} shows an example where the initial
+configuration of a bilayer patch containing the splay deformation
+without any other components (saddle splay, twist and tilt). As the bent
+membrane flattens, both the self-interaction energy $\Phi$ and the
+elastic energy ${\cal W}$ decrease, and because the saddle splay, twist,
+and tilt stay zero, the slope gives the bending modulus in this case. 
 
 %To characterize material properties of a bilayer, we compare the energies and forces generated by
 %a collection of amphiphilic particles against the energies and forces of a continuum bilayer.
@@ -242,10 +244,14 @@ tilt stay zero, the slope gives the bending modulus in this case.
 %
 %An accurate and robust way to measure material properties is to track the evolution of the bilayer. 
 
-Here we start with a particle-based bilayer in a specific non-equilibrium shape that involves only one of the components of the displacement in Figure~\ref{fig:deformations}, and then evolve the particle system according to the time integration for \eqref{eq:stokes}.
-Because elastic properties are independent of dissipation,
-we can forgo solving for fluid velocity and set the translational
-velocity and angular velocity directly proportional to force and torque. 
+Here we start with a particle-based bilayer in a specific
+non-equilibrium shape that involves only one of the components of the
+displacement in Figure~\ref{fig:deformations}, and then evolve the
+particle system according to the time integration for \eqref{eq:stokes}.
+Because elastic properties are independent of dissipation, we can forgo
+solving for fluid velocity and set the translational velocity and
+angular velocity directly proportional to the force and torque,
+respectively. 
 %bilayer by steepest gradient descent 
 %with respect to the HARP functional:
 %\begin{equation}
@@ -340,7 +346,7 @@ The field of membrane continuum mechanics still lacks consensus as to whether \e
 \textbf{(i)} Researchers have assumed that $\KT = 0$ to effect lateral fluidity in
 membranes~\cite{Hamm2000, TerziDeserno17, C9SM02079A,
 PhysRevE.102.042406}. 
-A value $\KT = 0$, however, makes \eqref{ansatz3} a noncoercive functional.
+A value $\KT = 0$, however, makes~\eqref{ansatz3} a noncoercive functional.
 %and leads to the nonphysical conclusion that there are bilayers 
 %with $\nabla {\bf n} \to \infty$ but $\mathcal{W} \to 0.$ 
 \textbf{(ii)} Recently,~\cite{TerziDeserno17} derived a tilt curvature
@@ -410,41 +416,46 @@ so we can considerably improve upon the analysis of monolayer energy.
 %%  which we compare to the HAP simulation data.
 %
 \subsubsection{Analysis on the HAP model in terms of the HK functional}
-The HK functional \eqref{ansatz3} has had tremendous impact in understanding
-biological membranes, but has received little attention in terms of mathematical
-analysis. In the calculus of variations, the principal question is whether a
-minimizer of an energy functional exists. But in the case of \eqref{ansatz3},
-this answer is presently unknown. With regard to the simpler, Canham-Helfrich
-energy, \cite{Simon1993} proved the existence of minimizing surfaces without boundary, 
-and \cite{doi:10.1137/18M1195851} proved the well-posedness of a spatially periodic,
-time-dependent elastic interface problem. An analytical challenge 
-for the HK functional \eqref{ansatz3} is that surface-director coupling makes it
-possible to have bounded energy monolayers with corners, and such
-pathological examples must be ruled out before carrying over the arguments
-for the Canham-Helfrich functional to the present setting.
+The HK functional~\eqref{ansatz3} has had tremendous impact in
+understanding biological membranes, but has received little attention in
+terms of mathematical analysis. In the calculus of variations, the
+principal question is whether a minimizer of an energy functional
+exists. In the case of~\eqref{ansatz3}, the answer is presently unknown.
+With regard to the simpler Canham-Helfrich energy,~\cite{Simon1993}
+proved the existence of minimizing surfaces without boundary,
+and~\cite{doi:10.1137/18M1195851} proved the well-posedness of a
+spatially periodic, time-dependent elastic interface problem. An
+analytical challenge for the HK functional~\eqref{ansatz3} is that
+surface-director coupling makes it possible to have bounded energy
+monolayers with corners, and such pathological examples must be ruled
+out before carrying over the arguments for the Canham-Helfrich
+functional to the present setting.
 
-%\subsubsection{Asymptotic analysis on the limit $\rho\rightarrow 0$ of HAP}
-Our goal here is to develop tools that can explain functionals like
-\eqref{ansatz3} from first principles in terms of HAP. The papers
-\cite{doi:10.1063/5.0009734,Seguin2012,Seguin2014} give statistical
-mechanical/mean field derivations of the Canham-Helfrich energy from a
-pair-potential for rod-like molecules, but do not include tilt, which is an
-indispensable deformation at biological scales. To make progress, we must
-first understand how the HAP functional behaves under various limits.
+%\subsubsection{Asymptotic analysis on the limit $\rho\rightarrow 0$ of
+%HAP}
+Our goal here is to develop tools that can explain functionals
+like~\eqref{ansatz3} from first principles in terms of HAP. The
+papers~\cite{doi:10.1063/5.0009734, Seguin2012, Seguin2014} give
+statistical mechanical/mean field derivations of the Canham-Helfrich
+energy from a pair-potential for rod-like molecules, but do not include
+tilt, which is an indispensable deformation at biological scales. To
+make progress, we must first understand how the HAP functional behaves
+under various limits.
 
-We first consider HAP in the limit of vanishing screening length.
-As a concrete, model problem we consider a collection of colloidal polyhedral
-where the binding energy of this system can be described by a
-discrete, lower semicontinuous functional $\Phi_0$ whose value is the total
-surface area of the polyhedra minus two times the area of any overlapping faces.
-We conjecture that the $\Phi$ energy $\Gamma$-converges to $\Phi_0$
-\cite{Mugnai2013}, meaning that any cluster points of minimizers of $\Phi$
-converge to a minimum of $\Phi_0$ in the limit $\rho \to 0$. 
-To address this conjecture, we employ boundary layer analysis for the screened
-Laplace equation \cite{Lee2018, Lin2015, Shibata2004,1531-3492_2006_2_357, Lee2018}.
-The technique of $\Gamma$-convergence is a powerful tool for numerical approximations
-and with it we can help explain unexcepted phenomena like hierarchical self-assembly in
-colloidal systems \cite{Luo2019}.
+We first consider HAP in the limit of vanishing screening length. As a
+concrete model problem, we consider a collection of colloidal polyhedral
+where the binding energy of this system can be described by a discrete,
+lower semicontinuous functional $\Phi_0$ whose value is the total
+surface area of the polyhedra minus two times the area of any
+overlapping faces. We conjecture that the $\Phi$ energy
+$\Gamma$-converges to $\Phi_0$ \cite{Mugnai2013}, meaning that any
+cluster points of minimizers of $\Phi$ converge to a minimum of $\Phi_0$
+in the limit $\rho \to 0$. To address this conjecture, we employ
+boundary layer analysis for the screened Laplace equation~\cite{Lee2018,
+Lin2015, Shibata2004,1531-3492_2006_2_357, Lee2018}. The technique of
+$\Gamma$-convergence is a powerful tool for numerical approximations and
+with it we can help explain unexpected phenomena like hierarchical
+self-assembly in colloidal systems~\cite{Luo2019}.
 
 %The HAP energy converges to the surface energy in the limit of vanishing screening length~\cite{Shibata2004}.
 %Also, the boundary layers of the solutions to the screen Laplace equation
