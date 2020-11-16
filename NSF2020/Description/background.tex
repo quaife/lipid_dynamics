@@ -9,7 +9,7 @@ Florida State University), and Young-Nan Young (PI, New Jersey Institute of Tech
 The goal of this collaborative proposal is to use mathematical modeling
 and numerical simulations to investigate the dynamic self-assembly of
 amphiphilic particles interacting via hydrophobic forces
-in a solvent. Amphiphilic particles (such as lipid molecules) possess
+in solvent. Amphiphilic particles (such as lipid molecules) possess
 both hydrophobic and hydrophilic structures. In a viscous solvent they
 self-assemble into meso-/macroscopic structures (such as micelles and
 bilayers of lipids) to shield their hydrophobic parts from contact with
@@ -315,11 +315,21 @@ creating functional materials~\cite{Lee2014, Lee2013}. Janus particles
 are typically spherical with a biphasic material label on either
 hemisphere, endowing the particle with a directional order. We model an
 elongated lipid by elliptical particles with the hydrophobic label
-defined along the ellipse's axis. Under the hydrophobic force, with
+defined along the ellipse's axis. 
+\begin{wrapfigure}[14]{l}{0.35\textwidth}
+\centerline{\includegraphics[width=0.35\textwidth]{figures/PW_fig2.pdf}}
+  \vspace{-8pt}
+  \caption{\label{fig:demixing} \footnotesize An initial assembly of
+  small and large particles spontaneously segregates into two smaller
+  bodies.}
+\end{wrapfigure}
+Under the hydrophobic force, with
 excluded volume, the Janus particles spontaneously merge and realign
 to form bilayers. This occurs only as a result of energy minimization
 and does not require artificial inputs.
+%
 
+%
 It is worth emphasizing that the HAP model uses only a few parameters:
 interfacial tension, decay length, repulsion strength, and particle
 shape. For example, an elastic modulus for stretching a vesicle from
@@ -330,25 +340,25 @@ parameters are required~\cite{Varilly2011, Wang2013}.
 %MD simulators have also made measurements and lately there is better and better agreement with reality. 
 %But even the simplest coarse grained models based on pair potentials for lipids has many more parameters \cite{Varilly2011,Wang2013} . 
 
-As a proof of concept, our work has already tested for elastic energies
-for bending, stretching, and tilt of the bilayer assembly. The elastic
-coefficients derived from the HAP simulations show strikingly positive
-agreement with experimentally determined values~\cite{Fu2018_SIAM}.
-Encouraged by these results and the hydrodynamic simulations of
-bilayer assembly, the PIs propose to extend the HAP model to make direct
-comparisons with experimental results \S\ref{subsec:specific_aim_1} and to
-establish that the HAP model has the capability to model
-flow phenomena across length scales and time scales
-\S\ref{subsec:specific_aim_2} using efficient, high-order numerical
-methods \S\ref{subsec:specific_aim_3}.
+%As a proof of concept, our work has already tested for elastic energies
+%for bending, stretching, and tilt of the bilayer assembly. The elastic
+%coefficients derived from the HAP simulations show strikingly positive
+%agreement with experimentally determined values~\cite{Fu2018_SIAM}.
+%Encouraged by these results and the hydrodynamic simulations of
+%bilayer assembly, the PIs propose to extend the HAP model to make direct
+%comparisons with experimental results \S\ref{subsec:specific_aim_1} and to
+%establish that the HAP model has the capability to model
+%flow phenomena across length scales and time scales
+%\S\ref{subsec:specific_aim_2} using efficient, high-order numerical
+%methods \S\ref{subsec:specific_aim_3}.
 
-\begin{wrapfigure}[14]{l}{0.35\textwidth}
-\centerline{\includegraphics[width=0.35\textwidth]{figures/PW_fig2.pdf}}
-  \vspace{-8pt}
-  \caption{\label{fig:demixing} \footnotesize An initial assembly of
-  small and large particles spontaneously segregates into two smaller
-  bodies.}
-\end{wrapfigure}
+%\begin{wrapfigure}[14]{l}{0.35\textwidth}
+%\centerline{\includegraphics[width=0.35\textwidth]{figures/PW_fig2.pdf}}
+%  \vspace{-8pt}
+%  \caption{\label{fig:demixing} \footnotesize An initial assembly of
+%  small and large particles spontaneously segregates into two smaller
+%  bodies.}
+%\end{wrapfigure}
 Over the past decades, researchers have used a number of mathematical
 tools to simulate vesicles in a shear flow, including lattice
 Boltzmann~\cite{KaouiHartingMisbah2011_PRE}, coarse-grained Brownian
