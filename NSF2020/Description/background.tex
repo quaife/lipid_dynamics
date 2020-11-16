@@ -49,13 +49,6 @@ Additionally, the interaction is not pairwise additive, meaning that
 the force between any two hydrophobic objects is altered by the presence
 of a third object, hydrophobic or otherwise \cite{SilveraBatista1242477}. 
 
-\begin{wrapfigure}[10]{r}{0.22\textwidth}
-\centerline{\includegraphics[width=0.22\textwidth]{figures/BG_fig1.pdf}}
-\caption{ \footnotesize
-A collection of rigid particles: $P_1,$ $P_2,$ $P_3, \ldots$. The
-exterior domain $\Omega$ represents the solvent.}
-  \label{fig:domain}
-\end{wrapfigure}
 Recently, PIs RR and YNY developed a mathematical model, called the
 hydrophobic attraction potential (HAP) model \cite{Fu2018_SIAM}, that is based
 on the physical origin of hydrophobicity. This model addresses the major
@@ -109,6 +102,14 @@ The proposed research aims to provide fundamental understanding of the self-asse
 tuning the geometry and properties of the amphiphilic particles.
 
 
+\begin{wrapfigure}[9]{r}{0.24\textwidth}
+  \vspace{-20pt}
+\centerline{\includegraphics[width=0.24\textwidth]{figures/BG_fig1.pdf}}
+\caption{ \footnotesize
+A collection of rigid particles: $P_1,$ $P_2,$ $P_3, \ldots$. The
+exterior domain $\Omega$ represents the solvent.}
+  \label{fig:domain}
+\end{wrapfigure}
 \subsection{Hydrophobic Attraction Potential (HAP)}
 \label{sec:HAP}
 %Based on the physical origin of hydrophobicity,  we have devised a
@@ -233,7 +234,8 @@ symmetric, rank-two tensor called the hydrophobic stress (equation (2.3)
 in~\cite{Fu2018_SIAM}):
 \begin{align}
   \label{stress}
-\boldsymbol{\sigma}_{\text{hydro}} = \gamma \rho^{-1} u^2 I + 2\rho \gamma (\tfrac{1}{2}|\nabla u|^2I - \nabla u \nabla u^T).
+\boldsymbol{\sigma}_{\text{hydro}} = \gamma \rho^{-1} u^2 I + 2\rho
+  \gamma \left(\frac{1}{2}|\nabla u|^2I - \nabla u \nabla u^T\right).
 \end{align}
 %
 %To obtain \eqref{stress}, we observe that the potential $\Phi$ is a function of the particle position and orientations.
@@ -286,15 +288,13 @@ viscous forces and torques with fluid shear stress $\boldsymbol{\sigma}$
 balance \eqref{eq:total_poten}.
 
 
-
-The time integration of
-particle configurations goes as follows: \textbf{(i)} solve the
-BVP~\eqref{SL} for the screened Laplace equation, \textbf{(ii)}
-determine the rigid body forces and torques~\eqref{forceandtorque},
-\textbf{(iii)} solve the Stokes mobility problem~\eqref{eq:stokes} for
-rigid body motion, and \textbf{(iv)} update the particle configuration.
-Numerical challenges and how these challenges are overcome are described
-in \S\ref{subsec:specific_aim_2}.
+The time integration of particle configurations goes as follows:
+\textbf{(i)} solve the BVP~\eqref{SL} for the screened Laplace equation,
+\textbf{(ii)} determine the rigid body forces and
+torques~\eqref{forceandtorque}, \textbf{(iii)} solve the Stokes mobility
+problem~\eqref{eq:stokes} for the rigid body motions, and \textbf{(iv)}
+update the particle configuration.  Numerical challenges and how these
+challenges are overcome are described in \S\ref{subsec:specific_aim_2}.
 
 %%(2YY: 
 %We have intentionally ignored  latency in the variational 
