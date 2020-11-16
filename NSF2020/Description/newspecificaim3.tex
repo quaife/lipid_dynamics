@@ -5,20 +5,21 @@
 Numerically solving the Stokes and screened Laplace system~\eqref{SL}
 and~\eqref{eq:stokes} is nontrivial, and we will develop efficient,
 robust, high-order-in-time and -space algorithms suited to the problem.
-There are a few challenges. {\bf (1)} The equations express a two-way coupling
-since the flow changes the position of the suspended particles,
-and in return, the geometry-dependent hydrophobic stresses impart a force
-on the flow. {\bf (2)} The inputs to the Stokes equations are particle
-configurations, forces, and torques. The outputs are the rigid body
-translation and angular velocities used to update the particle positions
-(see Figure~\ref{fig:flow_map}). Although the underlying equations are
-linear, the overall problem is highly nonlinear because the domain is
-constantly changing. {\bf (3)} Self-assembly causes the particles to
-come into close contact. As a result, an exceptional spatial accuracy is
-required to resolve the fields between adjacent particles. Furthermore, 
-physically relevant elastic properties of bilayers become apparent at
-large length scales and for large particle-numbers, which increases the
-computational complexity of our simulations. 
+There are a few challenges. {\bf (i)} The equations express a two-way
+coupling since the flow changes the position of the suspended particles,
+and in return, the geometry-dependent hydrophobic stresses impart a
+force on the flow. {\bf (ii)} The inputs to the Stokes equations are
+particle configurations, forces, and torques. The outputs are the rigid
+body translation and angular velocities used to update the particle
+positions (see Figure~\ref{fig:flow_map}). Although the underlying
+equations are linear, the overall problem is highly nonlinear because
+the domain is constantly changing. {\bf (iii)} Self-assembly causes the
+particles to come into close contact. As a result, an exceptional
+spatial accuracy is required to resolve the fields between adjacent
+particles. Furthermore, physically relevant elastic properties of
+bilayers become apparent at large length scales and for large
+particle-numbers, which increases the computational complexity of our
+simulations. 
 
 We include a background flow by replacing the third equation in
 \eqref{eq:stokes} with the condition $\mathbf{u}(\mathbf{x})
@@ -26,12 +27,12 @@ We include a background flow by replacing the third equation in
 \infty$. To incorporate the far-field flow, we use the representation 
 \begin{align}
 \label{PowerMiranda}
-  {\bf u} = {\bf u}_{\infty} + L\boldsymbol{\eta} + 
+  {\bf u} = {\bf u}_{\infty} + \mathcal{K}\boldsymbol{\eta} + 
     \sum_{i=1}^N \left(S(\cdot, {\bf a}_i) {\bf F}_i + 
                  R(\cdot, {\bf a}_i) {\bf G}_i\right),
 \end{align}
 where $S$ and $R$ are stokeslets and rotlets supported at the respective
-particle centers~\cite{leal_2007} and $L\boldsymbol{\eta}$ is a layer
+particle centers~\cite{leal_2007} and $\mathcal{K}\boldsymbol{\eta}$ is a layer
 potential for the unknown density function $\boldsymbol{\eta}$. With the
 exception of the rigid body conditions, the
 representation~\eqref{PowerMiranda} automatically satisfies all the
@@ -79,34 +80,35 @@ dynamics~\cite{torres-sanchez_millan_arroyo_2019,mahapatra_saintillan_rangamani_
 %particle geometry.
 
 \subsubsection{Electromechanical effects on the dynamic assembly of amphiphiles \label{subsubsec:em_effects}}
-In recent experiments~\cite{FaizEtAl2019_SoftMatt}, membrane bending rigidity
-was determined as a function of lipid composition from 0 to 100 mol $\%$ of
-charged lipids using flicker spectroscopy of the shape fluctuations of a giant
-unilamellar vesicle (GUV).
+In recent experiments~\cite{FaizEtAl2019_SoftMatt}, membrane bending
+rigidity was determined as a function of lipid composition from 0 to 100
+mol $\%$ of charged lipids using flicker spectroscopy of the shape
+fluctuations of a giant unilamellar vesicle (GUV).
 %the bending rigidity is determined as a
 %function of lipid composition from 0 to 100 mol $\%$ of charged lipids
 %in recent experiments~\cite{FaizEtAl2019_SoftMatt}---
-Membrane bending rigidity increases with increasing lipid surface charge,
-while decreases with increasing salt concentration in the bulk solution
-due to the screening of the lipid surface charge. This
-agrees with several theoretical models~\cite{Kralchevsky1996_JCIS,
+Membrane bending rigidity increases with increasing lipid surface
+charge, while decreases with increasing salt concentration in the bulk
+solution due to the screening of the lipid surface charge. This agrees
+with several theoretical models~\cite{Kralchevsky1996_JCIS,
 May1996_JChemPhys, LoubetEtAl2013_PRE} that also assume the quadratic
 form of the elastic energy density in the presence of surface charge and
 bulk charge~\cite{DuplantierGoldstein1990_PRL, Winterhalter1992_JPC}. As
 the electrostatic interaction is non-local in nature, we expect that the
 controversy of the HK elastic energy form (see
 \S\ref{subsec:specific_aim_1}) would worsen in the presence of
-electrostatic interactions and electrokinetics. The PIs will extend
-the approaches in \S\ref{subsec:specific_aim_1} to charged lipids to
+electrostatic interactions and electrokinetics. The PIs will extend the
+approaches in \S\ref{subsec:specific_aim_1} to charged lipids to
 calculate the bending moduli and compare against the experimental
 results in~\cite{FaizEtAl2019_SoftMatt}. We propose to incorporate an
 explicit surface charge on each particle boundary $P_i$ and compute the
 electrostatic potential as a functional of particle configuration.
-Adding the electrostatic forces to the hydrophobic attraction forces
-between particles to compute the particle assembly dynamics, we can then
-calculate elastic moduli as outlined in \S\ref{subsec:specific_aim_1}.
-Results from these proposed calculations will provide further comparisons and
-validations of the HAP model against the continuum mechanics.
+Adding the electrostatic force to the hydrophobic attraction force
+between particles, we will assess the dependence of elastic moduli on
+electric charges using the methods described in
+\S\ref{subsec:specific_aim_1}. Results from these proposed calculations
+will provide further comparisons and validations of the HAP model
+against the continuum mechanics.
 
 Once the effects of lipid charges on the moduli are verified, the PIs
 propose to examine how to use an external electric field to control the
