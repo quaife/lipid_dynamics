@@ -14,8 +14,8 @@
   \end{tabular}
 }
   \vspace{-8pt}
-\caption{\label{tab:moduli} \footnotesize Comparision of values elastic
-  moduli from the experimental literature and values derived by HAP
+\caption{\label{tab:moduli} \footnotesize Comparison of values of elastic
+  moduli from the experimental literature and derived by HAP
   simulation.} 
 \end{wraptable}
 \section{Preliminary work}
@@ -62,13 +62,13 @@ PIs RR and YNY started work on HAP modeling with Szu-Pei Fu (then PI YNY's stude
 The results are summarized in \cite{Fu2018_SIAM}, where
 small particle-number simulations successfully demonstrated gradient-driven self-assembly of
 amphiphilic particles into two-dimensional micelles and bilayer membranes with realistic values of
-the model parameters:  decay length $\rho=2.5$ nm (based on measurements of
+the model parameters: decay length $\rho=2.5$ nm (based on measurements of
 hydrophobic attraction between surfactant-coated
 membranes~\cite{Eriksson1989, Lin2005, Parsegian, Israelachvili80}),
-particle diameter 2.0 nm (the physical monolayer thickness, 2.0 nm~\cite{Boal}),
-and interfacial tension $\gamma = 4$ pN nm$^{-1}$ based on
+particle diameter $\delta = 2.0$ nm (the physical monolayer thickness~\cite{Boal}),
+and interfacial tension $\gamma = 4$ pN nm$^{-1}$ (based on
 measurements for single-component bilayer lipid
-membranes~\cite{GarciaSaez, KUZMIN2005, Petelska2012, Jackson2016}.
+membranes~\cite{GarciaSaez, KUZMIN2005, Petelska2012, Jackson2016}).
 
 %\begin{wrapfigure}[]{r}{0.5\textwidth}
 %  \centering{\includegraphics[width=0.5\textwidth]{Figures/TankTreading.pdf}}
@@ -113,12 +113,12 @@ outset rather than being tuned to fit data.
   \|\mathbf{F}_i-\mathbf{F}_i^{\text{exact}}\|/\|\mathbf{F}_i^{\text{exact}}\|$
   and (rel.~err.)$_G = \max_{i}
   \|\mathbf{G}_i-\mathbf{G}_i^{\text{exact}}\|/\|\mathbf{G}_i^{\text{exact}}\|$
-  for force and torque respectively as a function of number of grid
-  points $n$ per particle.  The data is for $N = 5$ particles; two of
+  for force and torque, respectively, as a function of number of grid
+  points $n$ per particle. The data is for $N = 5$ particles; two of
   the particles are nearly touching at a distance 1\% of particle
   diameter.} 
 \end{wraptable}
-PIs BQ, RR and YNY initiated a collaboration in Summer 2020 to
+PIs BQ, RR, and YNY initiated a collaboration in Summer 2020 to
 develop the hydrodynamic model of \S\ref{subsec:specific_aim_3}.  To
 date, we have written solvers for the two-dimensional boundary integral
 formulations of~\eqref{SL} and~\eqref{eq:stokes} that achieve
@@ -130,11 +130,11 @@ torque (Table~\ref{tab:spectral_force}).
   \centering{\includegraphics[width=0.5\textwidth]{Figures/TankTreading.pdf}}
   \vspace{-25pt}
   \caption{\label{fig:tank_treading} \footnotesize
-    Panel A: A two-dimensional
-    particle-based vesicle in a shear flow (arrows); $\mu  = 1$ mPa s,
+    Panel A: A two-dimensional,
+    particle-based vesicle in a shear flow (arrows); $\mu  = 1$ mPa s and
     $\dot{\gamma} = 0.5$ $\mu$s$^{-1}$. The color coding is for HAP. Panel B: The
-    mean angular velocities for the outer leaflet and the inner
-    respectively.  Panel C: The trajectory of the particle
+    mean angular velocities for the outer and the inner leaflets, 
+    respectively. Panel C: The trajectory of the particle
     centers forms two ellipses with well-defined inclination angle
     $\Theta$. Panel D: The evolution of the inclination angle.
     Panels B and D share the same time axis.}
@@ -147,27 +147,25 @@ $\dot{\gamma}$,
 and the particle-based system mimics the behavior observed in continuous
 vesicles~\cite{torres-sanchez_millan_arroyo_2019,
 mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}. The basic
-pattern is that the vesicle bilayer approaches a steady tank-treading
+pattern is that of a vesicle bilayer approaching a steady, tank-treading
 ellipse (Figure~\ref{fig:tank_treading}C). We analyzed the simulation
 data in the context of theoretical work on
 tank-treading~\cite{Finken2008, PhysRevLett.106.158103}.
-Jeffrey's equation predicts a
-tank-treading frequency $-\dot{\gamma}/2$ (dashed line in
-Figure~\ref{fig:tank_treading}B). In the particle simulation, the
-tank-treading frequency corresponds to the mean of the particle angular
-velocities, and these approach a value within 7\% of the theoretical
-prediction (dotted and solid curves in Figure~\ref{fig:tank_treading}B).
-In the low viscosity-contrast regime of our simulation, Jeffrey's
-equation predicts a decrease in the ellipse's inclination angle $\Theta$
-and our particle-based simulation follows this prediction
-(Figure~\ref{fig:tank_treading}D), albeit with some higher frequency oscillation
+Jeffrey's equation predicts a tank-treading frequency $-\dot{\gamma}/2$ (dashed line in
+Figure~\ref{fig:tank_treading}B). In the particle simulation, we measured
+a tank-treading frequency as the mean, particle angular
+velocities. The measured steady-state frequencies were within 7\% of the predicted 
+frequency (dotted and solid curves in Figure~\ref{fig:tank_treading}B).
+The inclincation angle of the particle-based simulation also
+follows the inclination angle $\Theta$ predicted by Jeffrey's
+equation (Figure~\ref{fig:tank_treading}D), albeit with some higher frequency oscillation
 coming from particle reorganization.
 
 Analyzing for any underlying constitutive laws, the particles reorganize
-so that there is an initial increase and then plateauing of vesicle
+so that there is an initial increase and then plateau in vesicle
 circumference. As is the case with real lipid bilayer membranes, the
 particle collection permits a small amount of stretching. The
-theoretical calculations give an increase of length by 3.6\% and this amount
+theoretical calculations give an increase of length by 3.6\%, and this amount
 agrees with our measured increase in length. The simulations also
 suggest that the particle system behaves as a semipermeable
 vesicle~\cite{323e9a2f0c58487ea82518d7a1f96485, YAO2017728}.
@@ -187,11 +185,11 @@ zero-thickness membrane models as a velocity jump boundary condition
 \cite{schwalbe_vlahovska_miksis_2010}, for example, but in the present
 model, it is a consequence of monolayer independence. For large shear
 rates, viscous forces exceed the hydrophobic attraction to the point that
-the vesicle ruptures. The flow carries away segmented membrane patches
+the vesicle ruptures, and the flow carries away segmented membrane patches
 (Figure \ref{fig:flow_rupture}). 
 
 In conclusion, the HAP model accurately mimics the behavior of continuous
-membranes, while at the same time capturing the
+membranes while at the same time capturing the
 reconnection during the topological change of 
 lipid molecules on the scales of membrane thickness,
 overcoming one of the long-standing challenges of continuum modeling.
