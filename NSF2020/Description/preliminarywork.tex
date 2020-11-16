@@ -35,30 +35,30 @@ PIs RR and YNY started work on HAP modeling with Szu-Pei Fu (then PI YNY's stude
 %Wala provided their Quadrature by Expansion, or QBX algorithm and Fu ran
 %simulations on NJIT clusters.
 %
-\begin{wraptable}[11]{l}{0.43\textwidth}
-\centering{
-  \begin{tabular}{|l|l|l|l|}
-    $n$   & (rel.~err.)$_F$
-    &  (rel.~err.)$_G$ \\
-    \hline
-% 32   &   4.07466     &   1.56437\\
-% 64   &   0.24664     &   0.03476\\
-% 128  &   0.00063     &   0.00006\\
-  32  & $4.07 \times 10^{+0}$ & $1.56 \times 10^{+0}$ \\
-  64  & $2.47 \times 10^{-1}$ & $3.48 \times 10^{-2}$ \\
-  128 & $6.30 \times 10^{-4}$ & $6.00 \times 10^{-5}$ 
-  \end{tabular}}
-\vspace{-5pt}
-\caption{\label{tab:spectral_force} 
-\footnotesize  Relative numerical errors (rel.~err.)$_F = \max_{i}
-  \|\mathbf{F}_i-\mathbf{F}_i^{\text{exact}}\|/\|\mathbf{F}_i^{\text{exact}}\|$
-  and (rel.~err.)$_G = \max_{i}
-  \|\mathbf{G}_i-\mathbf{G}_i^{\text{exact}}\|/\|\mathbf{G}_i^{\text{exact}}\|$
-  for force and torque respectively as a function of number of grid
-  points $n$ per particle.  The data is for $N = 5$ particles; two of
-  the particles are nearly touching at a distance 1\% of particle
-  diameter.} 
-\end{wraptable}
+%\begin{wraptable}[11]{l}{0.43\textwidth}
+%\centering{
+%  \begin{tabular}{|l|l|l|l|}
+%    $n$   & (rel.~err.)$_F$
+%    &  (rel.~err.)$_G$ \\
+%    \hline
+%% 32   &   4.07466     &   1.56437\\
+%% 64   &   0.24664     &   0.03476\\
+%% 128  &   0.00063     &   0.00006\\
+%  32  & $4.07 \times 10^{+0}$ & $1.56 \times 10^{+0}$ \\
+%  64  & $2.47 \times 10^{-1}$ & $3.48 \times 10^{-2}$ \\
+%  128 & $6.30 \times 10^{-4}$ & $6.00 \times 10^{-5}$ 
+%  \end{tabular}}
+%\vspace{-5pt}
+%\caption{\label{tab:spectral_force} 
+%\footnotesize  Relative numerical errors (rel.~err.)$_F = \max_{i}
+%  \|\mathbf{F}_i-\mathbf{F}_i^{\text{exact}}\|/\|\mathbf{F}_i^{\text{exact}}\|$
+%  and (rel.~err.)$_G = \max_{i}
+%  \|\mathbf{G}_i-\mathbf{G}_i^{\text{exact}}\|/\|\mathbf{G}_i^{\text{exact}}\|$
+%  for force and torque respectively as a function of number of grid
+%  points $n$ per particle.  The data is for $N = 5$ particles; two of
+%  the particles are nearly touching at a distance 1\% of particle
+%  diameter.} 
+%\end{wraptable}
 The results are summarized in \cite{Fu2018_SIAM}, where
 small particle-number simulations successfully demonstrated gradient-driven self-assembly of
 amphiphilic particles into two-dimensional micelles and bilayer membranes with realistic values of
@@ -94,6 +94,30 @@ The agreement is underscored by the fact that the two main HAP
 parameters, $\gamma$ and $\rho$, were assigned physical values from the
 outset rather than being tuned to fit data. 
 
+\begin{wraptable}[11]{l}{0.43\textwidth}
+\centering{
+  \begin{tabular}{|l|l|l|l|}
+    $n$   & (rel.~err.)$_F$
+    &  (rel.~err.)$_G$ \\
+    \hline
+% 32   &   4.07466     &   1.56437\\
+% 64   &   0.24664     &   0.03476\\
+% 128  &   0.00063     &   0.00006\\
+  32  & $4.07 \times 10^{+0}$ & $1.56 \times 10^{+0}$ \\
+  64  & $2.47 \times 10^{-1}$ & $3.48 \times 10^{-2}$ \\
+  128 & $6.30 \times 10^{-4}$ & $6.00 \times 10^{-5}$ 
+  \end{tabular}}
+\vspace{-5pt}
+\caption{\label{tab:spectral_force} 
+\footnotesize  Relative numerical errors (rel.~err.)$_F = \max_{i}
+  \|\mathbf{F}_i-\mathbf{F}_i^{\text{exact}}\|/\|\mathbf{F}_i^{\text{exact}}\|$
+  and (rel.~err.)$_G = \max_{i}
+  \|\mathbf{G}_i-\mathbf{G}_i^{\text{exact}}\|/\|\mathbf{G}_i^{\text{exact}}\|$
+  for force and torque respectively as a function of number of grid
+  points $n$ per particle.  The data is for $N = 5$ particles; two of
+  the particles are nearly touching at a distance 1\% of particle
+  diameter.} 
+\end{wraptable}
 PIs BQ, RR and YNY initiated a collaboration in Summer 2020 to
 develop the hydrodynamic model of \S\ref{subsec:specific_aim_3}.  To
 date, we have written solvers for the two-dimensional boundary integral
@@ -101,6 +125,7 @@ formulations of~\eqref{SL} and~\eqref{eq:stokes} that achieve
 third-order accuracy up to the boundary. The specialized reciprocal
 identity~\eqref{eq:reciprocal} gives spectral accuracy for force and
 torque (Table~\ref{tab:spectral_force}).
+
 \begin{wrapfigure}[]{r}{0.5\textwidth}
   \centering{\includegraphics[width=0.5\textwidth]{Figures/TankTreading.pdf}}
   \vspace{-25pt}
