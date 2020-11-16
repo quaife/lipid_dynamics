@@ -170,7 +170,9 @@ water-particle interface: $f=1$ describes a hydrophobic interface, and
 $f=0$ describes a hydrophilic interface. Thus, $f$ encodes information
 about the particles, and the parameters $\rho$ and $\gamma$ encode
 information about the quality of the solvent~\cite{Israelachvili1954,
-Discher2002}. In practice, we integrate~\eqref{HAP} by parts and
+Discher2002}.
+In the figures throughout the proposal, red is for $u = 1$ and blue is for $u = 0$.
+In practice, we integrate~\eqref{HAP} by parts and
 use~\eqref{SL} to obtain
 \begin{equation}
 \label{eq:HAP_easy}
@@ -306,16 +308,6 @@ in \S\ref{subsec:specific_aim_2}.
 %where viscoelastic deformations exponentially approach the purely elastic deformation.  
 %%)
 
-The HAP formulation is, to our knowledge, the first demonstration of
-bilayer self-assembly by a continuum-based interaction
-model~\cite{Noguchi2001, Farago2003, Brannigan2006, Brooks2009,
-Wang2013}. Our simulations use Janus particles to model lipid
-amphiphiles which are popular in material science and physics for
-creating functional materials~\cite{Lee2014, Lee2013}. Janus particles
-are typically spherical with a biphasic material label on either
-hemisphere, endowing the particle with a directional order. We model an
-elongated lipid by elliptical particles with the hydrophobic label
-defined along the ellipse's axis. 
 \begin{wrapfigure}[14]{l}{0.35\textwidth}
 \centerline{\includegraphics[width=0.35\textwidth]{figures/PW_fig2.pdf}}
   \vspace{-8pt}
@@ -323,6 +315,17 @@ defined along the ellipse's axis.
   small and large particles spontaneously segregates into two smaller
   bodies.}
 \end{wrapfigure}
+The HAP formulation is, to our knowledge, the first demonstration of
+bilayer self-assembly by a continuum-based interaction
+model~\cite{Noguchi2001, Farago2003, Brannigan2006, Brooks2009,
+Wang2013}. Our simulations use Janus particles to model lipid
+amphiphiles which are popular in material science and physics for
+creating functional materials~\cite{Lee2014, Lee2013}. Janus particles
+are typically spherical with a biphasic material label on either
+hemisphere, endowing the particle with
+a directional order. We model an
+elongated lipid by elliptical particles with the hydrophobic label
+defined along the ellipse's axis. 
 Under the hydrophobic force, with
 excluded volume, the Janus particles spontaneously merge and realign
 to form bilayers. This occurs only as a result of energy minimization
@@ -333,7 +336,7 @@ and does not require artificial inputs.
 It is worth emphasizing that the HAP model uses only a few parameters:
 interfacial tension, decay length, repulsion strength, and particle
 shape. For example, an elastic modulus for stretching a vesicle from
-micropipette manipulation directly calibrates our interfacial tension
+micropipette manipulation calibrates our interfacial tension
 parameter. This is in direct contrast with pair-potential-based
 approaches in MD simulations and coarse-grained models where many more
 parameters are required~\cite{Varilly2011, Wang2013}.

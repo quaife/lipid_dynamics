@@ -1,5 +1,5 @@
 \vspace{-0.1cm}
-\begin{wraptable}[8]{r}{0.53\textwidth}
+\begin{wraptable}[8]{r}{0.55\textwidth}
 \vspace{-0.1cm}
 \centering{
   \begin{tabular}{|l|r|r|p{0.1\textwidth}|}
@@ -64,7 +64,7 @@ small particle-number simulations successfully demonstrated gradient-driven self
 amphiphilic particles into two-dimensional micelles and bilayer membranes with realistic values of
 the model parameters: decay length $\rho=2.5$ nm (based on measurements of
 hydrophobic attraction between surfactant-coated
-membranes~\cite{Eriksson1989, Lin2005, Parsegian, Israelachvili80}),
+surfaces~\cite{Eriksson1989, Lin2005, Parsegian, Israelachvili80}),
 particle diameter $\delta = 2.0$ nm (the physical monolayer thickness~\cite{Boal}),
 and interfacial tension $\gamma = 4$ pN nm$^{-1}$ (based on
 measurements for single-component bilayer lipid
@@ -83,18 +83,7 @@ membranes~\cite{GarciaSaez, KUZMIN2005, Petelska2012, Jackson2016}).
 %    $\Theta$. Panel D shows the evolution of the inclination angle.
 %    Panels B and D share the same time axis.}
 %\end{wrapfigure}
-The paper \cite{Fu2018_SIAM} considered three types of simulations. The first measured bending by
-loading a partially clamped planar bilayer. The second used a harmonic
-bond to dilate a circular bilayer. The third measured tilt using a decay
-equation from~\cite{KUZMIN2005}. These simulations isolated three of the
-five deformations of~\eqref{ansatz3}, enabling us to read off elastic
-moduli from simulation data. The results agreed remarkably well with the
-values reported in the experimental literature (Table~\ref{tab:moduli}).
-The agreement is underscored by the fact that the two main HAP
-parameters, $\gamma$ and $\rho$, were assigned physical values from the
-outset rather than being tuned to fit data. 
-
-\begin{wraptable}[11]{l}{0.43\textwidth}
+\begin{wraptable}[10]{l}{0.43\textwidth}
 \centering{
   \begin{tabular}{|l|l|l|l|}
     $n$   & (rel.~err.)$_F$
@@ -118,7 +107,18 @@ outset rather than being tuned to fit data.
   the particles are nearly touching at a distance 1\% of particle
   diameter.} 
 \end{wraptable}
-PIs BQ, RR, and YNY initiated a collaboration in Summer 2020 to
+The paper \cite{Fu2018_SIAM} considered three types of simulations. The first measured bending by
+loading a partially clamped planar bilayer. The second used a harmonic
+bond to dilate a circular bilayer. The third measured tilt using a decay
+equation from~\cite{KUZMIN2005}. These simulations isolated three of the
+five deformations of~\eqref{ansatz3}, enabling us to read off elastic
+moduli from simulation data. The results agreed remarkably well with the
+values reported in the experimental literature (Table~\ref{tab:moduli}).
+The agreement is underscored by the fact that the two main HAP
+parameters, $\gamma$ and $\rho$, were assigned physical values from the
+outset rather than being tuned to fit data. 
+
+PIs BQ, RR, and YNY initiated a collaboration in summer 2020 to
 develop the hydrodynamic model of \S\ref{subsec:specific_aim_3}.  To
 date, we have written solvers for the two-dimensional boundary integral
 formulations of~\eqref{SL} and~\eqref{eq:stokes} that achieve
@@ -131,16 +131,15 @@ torque (Table~\ref{tab:spectral_force}).
   \centering{\includegraphics[width=0.5\textwidth]{Figures/TankTreading.pdf}}
   \vspace{-25pt}
   \caption{\label{fig:tank_treading} \footnotesize
-    Panel A: A two-dimensional,
+    Panel A: A two-dimensional, 
     particle-based vesicle in a shear flow (arrows); $\mu  = 1$ mPa s and
-    $\dot{\gamma} = 0.5$ $\mu$s$^{-1}$. The color coding is for HAP. Panel B: The
-    mean angular velocities for the outer and the inner leaflets, 
-    respectively. Panel C: The trajectory of the particle
+    $\dot{\gamma} = 0.5$ $\mu$s$^{-1}$. (Compare with \cite{Brandner2019}).
+    Panel B: Angular velocities for the outer and the inner leaflets.
+    Panel C: The trajectory of the particle
     centers forms two ellipses with well-defined inclination angle
     $\Theta$. Panel D: The evolution of the inclination angle.
     Panels B and D share the same time axis.}
 \end{wrapfigure}
-
 We have simulated two-dimensional vesicles in shear flow
 $\mathbf{u}_{\infty} = \dot{\gamma} x_2 \mathbf{i}_1$ with shear rate
 $\dot{\gamma}$,
@@ -154,28 +153,28 @@ data in the context of theoretical work on
 tank-treading~\cite{Finken2008, PhysRevLett.106.158103}.
 Jeffrey's equation predicts a tank-treading frequency $-\dot{\gamma}/2$ (dashed line in
 Figure~\ref{fig:tank_treading}B). In the particle simulation, we measured
-a tank-treading frequency as the mean, particle angular
-velocities. The measured steady-state frequencies were within 7\% of the predicted 
+a tank-treading frequency as the mean of the particle angular
+velocities. The measured steady-state freque ncies were within 7\% of the predicted 
 frequency (dotted and solid curves in Figure~\ref{fig:tank_treading}B).
 The inclincation angle of the particle-based simulation also
 follows the inclination angle $\Theta$ predicted by Jeffrey's
-equation (Figure~\ref{fig:tank_treading}D), albeit with some higher frequency oscillation
+equation (Figure~\ref{fig:tank_treading}D), albeit with higher frequency oscillation
 coming from particle reorganization.
 
 Analyzing for any underlying constitutive laws, the particles reorganize
 so that there is an initial increase and then plateau in vesicle
 circumference. As is the case with real lipid bilayer membranes, the
 particle collection permits a small amount of stretching. The
-theoretical calculations give an increase of length by 3.6\%, and this amount
-agrees with our measured increase in length. The simulations also
+theoretical calculations give an increase of length by 3.6\%, in
+agreement with our measured length increase. The simulations also
 suggest that the particle system behaves as a semipermeable
 vesicle~\cite{323e9a2f0c58487ea82518d7a1f96485, YAO2017728}.
 
 
-\begin{wrapfigure}[11]{l}{0.22\textwidth}
+\begin{wrapfigure}[10]{l}{0.22\textwidth}
 % \vspace{-5pt}
   \centering{\includegraphics[width=0.22\textwidth]{Figures/PW_fig5.pdf}}
- \vspace{-5pt}
+ \vspace{-20pt}
   \caption{\label{fig:flow_rupture} \footnotesize Rupture of a
   two-dimensional vesicle at large shear rates.}
 \end{wrapfigure}
@@ -188,8 +187,8 @@ less than the outer angular velocity. Intermonolayer slip enters
 zero-thickness membrane models as a velocity jump boundary condition
 \cite{schwalbe_vlahovska_miksis_2010}, for example, but in the present
 model, it is a consequence of monolayer independence. For large shear
-rates, viscous forces exceed the hydrophobic attraction to the point that
-the vesicle ruptures, and the flow carries away segmented membrane patches
+rates, viscous forces exceed the hydrophobic attraction leading to
+ vesicle rupture~\cite{C8SM01501E}, at which point the flow carries away segmented membrane patches
 (Figure \ref{fig:flow_rupture}). 
 
 In conclusion, the HAP model accurately mimics the behavior of continuous
