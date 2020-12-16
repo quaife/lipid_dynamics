@@ -941,8 +941,10 @@ function [F1, F2, Tq] = evalForcesQBX(o,geom,eta)
 %      * QBX expansion to derive uq and uq_n on curve p, p ~= q
 %      * FFT for tangential derivatives     
 
-oc = curve;
-N = geom.N;
+oc  = curve;
+N   = geom.N;
+gam = geom.gam;
+
 [x1,x2]     = oc.getXY(geom.X);
 [tau1,tau2] = oc.getXY(geom.xt);
 nu1 = +tau2;
@@ -956,18 +958,19 @@ Tq = zeros(geom.nb,1);
 pc1 = geom.center(1,:).';
 pc2 = geom.center(2,:).';
 
-if N == 32
+rad   = 0.3;
+m_max = 6;
+
+if N <= 32
     rad = 0.4; m_max = 2;
-elseif N == 64
+elseif N <= 64
     rad = 0.3; m_max = 6;
-elseif N == 128
+elseif N <= 128
     rad = 0.3; m_max = 12;
-elseif N >= 256
+else 
     rad = 0.2; m_max = 12;
 end
 
-rad   = 0.3;
-m_max = 12;
 tol   = rad;
 B_m   = zeros(N,2*m_max + 1);
 
@@ -1044,6 +1047,10 @@ for p = 1:geom.nb
 end     
 
 %F1, F2 and Tq have numerically mean zero
+
+F1 = gam*F1;
+F2 = gam*F2;
+Tq = gam*Tq;
 
 end % evalForcesQBX
 
@@ -1145,8 +1152,8 @@ F1 = zeros(Nb,1);
 F2 = zeros(Nb,1);
 Tq = zeros(Nb,1);
 
-rad   = 0.2;
-m_max = 12;
+rad   = 0.3;
+m_max = 6;
 tol   = rad;
 B_m   = zeros(N,2*m_max + 1);
 
@@ -1390,73 +1397,79 @@ R1 = zeros(geom.nb,1); % repulsive force
 R2 = zeros(geom.nb,1); % repulsize force  
 RTq = zeros(geom.nb,1); % repulsive torque
 
+
 for p = 1:Nb
   [iq, qq, jp] = find(icp{p}); %an N by nb sparse matrix         
   % point iq(l) in curve qq(l) is within l0 of curve p, and 
   % the jp(l) is the point in curve p closest to iq(l) 
+   
+  
+  q_list = unique(qq); %set of q within l0 of curve p
 
-  for k = 1:length(iq)                      
+  for k = 1:length(q_list)
+      
+    q  = q_list(k); %curve q within l0 of p
+    in = find(qq == q); 
+      
+    i = jp(in); %vertex (i, p) closest to following point 
+    j = iq(in); %vertex (j, q) within l0 of p curve
 
-    i = iq(k);
-    q = qq(k);
-    j = jp(k);
+    %goal: find point on q curve closest to current, p curve      
+    dist = (x1(i,p) - x1(j,q)).^2 + (x2(i,p) - x2(j,q)).^2;
+      
+    [dist, arg] = min(dist);
+      
+    jjp = i(arg);
+    jjq = j(arg); 
 
-    x1tar = x1(i,q);
-    x2tar = x2(i,q);
+    [dist,x1nrt,x2nrt,y1nrt,y2nrt] = geom.closestPntPair(geom.X,p,q,jjp,jjq);      
 
-    [dist, x1nrt, x2nrt, ~] = geom.closestPnt(geom.X, x1tar, x2tar, p, j);
+    %(x1nrt, x2nrt) and (y1nrt, y2nrt) are the nearest points in curves
+    %p, q respectively
+    
+    r1 = x1nrt - y1nrt;
+    r2 = x2nrt - y2nrt;
 
-    r1 = x1nrt - x1tar;
-    r2 = x2nrt - x2tar;
-
-    nrm = sqrt(r1^2 + r2^2);
-    r1 = r1/nrm;
-    r2 = r2/nrm;            
+    r1 = r1/(dist+eps);
+    r2 = r2/(dist+eps);            
 
     % repulsion profile
     [~, dR] = o.Repul_profile(dist/l0);
 
     % weight and chain rule
-    dR = M*dR/l0;
-    r1 = dR*r1;
-    r2 = dR*r2; 
+    dR = M*dR/l0; %<---repulsive strength multiplied here
+    r1 = -dR*r1;
+    r2 = -dR*r2; 
 
-    R1(q)  = R1(q) + r1;
-    R2(q)  = R2(q) + r2;            
-    RTq(q) = RTq(q) + r1.*(x2tar-pc2(q)) - r2.*(x1tar-pc1(q));
-
-%    hold off
-%    plot(x1, x2, 'k.-');
-%    hold on
-%    plot(x1tar, x2tar, 'r*', x1(j,p), x2(j,p), 'bo', x1nrt, x2nrt, 'bs');
-%             
-%    rr = norm( [x1tar - x1(j,p), x2tar - x2(j,p)] );                        
-%    plot(x1tar + rr*cos(t), x2tar + rr*sin(t),'k');
-%    plot(x1tar + dist*cos(t), x2tar + dist*sin(t),'m')
-%             
-%    t = linspace(0, 2*pi);
-%    for l = 1:N
-%      plot(x1(l,p) + l0*cos(t), x2(l,p) + l0*sin(t),'g')
-%    end
-%    quiver(x1nrt, x2nrt, dR*r1, dR*r2, 0)
-%             
-%    axis equal
-%    pause
-
+    R1(p)  = R1(p) + r1;
+    R2(p)  = R2(p) + r2;            
+    RTq(p) = RTq(p) + r1.*(x2nrt-pc2(p)) - r2.*(x1nrt-pc1(p));
+    
+%     hold off
+%     plot(x1, x2, 'k');
+%     hold on
+%     plot(pc1(p), pc2(p), 'o', pc1(q_list), pc2(q_list), '*')
+%     plot(x1(:,p), x2(:,p), 'r');
+%     plot(x1(:,q), x2(:,q), 'm'); 
+%     plot(x1nrt, x2nrt, 'r+');
+%     plot(y1nrt, y2nrt, 'm+');
+%     plot([pc1(p) pc1(q)], [pc2(p) pc2(q)])
+%     quiver( pc1(p), pc2(p), r1, r2, 'k') 
+%     pause
+ 
   end
+    
 end
 
-% R1  = R1 - mean(R1);
-% R2  = R2 - mean(R2);
-% RTq = RTq - mean(RTq);
+%system computes force free
+%[mean(R1)/mean(abs(R1)) mean(R2)/mean(abs(R2))]
+%pause
 
-% size(pc1)
-% size(R1)
-% hold off
-% plot(x1, x2, 'k.-');
-% hold on
-% quiver(pc1', pc2', R1, R2);
-% pause
+%  hold off
+%  plot(x1, x2, 'k.-');
+%  hold on
+%  quiver(pc1', pc2', R1, R2);
+%  pause
 
 % restore h value   
 geom.length = h_store;

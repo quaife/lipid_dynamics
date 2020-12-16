@@ -510,6 +510,112 @@ dist = sqrt((nearestx - xTar)^2 + (nearesty - ytar)^2);
 end % closestPnt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [dist,x1,x2,y1,y2] = closestPntPair(~,X,...
+        k,l,jk,jl)
+% [dist,x1,x2,y1,y2] = closestPntPair(X,k,l,icp,jcp)
+% computes the closest pair of points (x1, x2) and (y1, y2) 
+% between boundaries k and l using a Lagrange interpolant.  
+% jk, jl are the indeces of points on the discrete mesh used as an 
+% initial guess
+
+N = size(X,1)/2; % Number of points per boundary 
+A = poten.lagrangeInterp;
+interpOrder = size(A,1);
+% need interpolation matrix and its size
+
+p = ceil((interpOrder+1)/2);
+% Accommodate for either an even or odd number of interpolation
+% points
+pn = mod((jk-p+1:jk-p+interpOrder)' - 1,N) + 1;
+qn = mod((jl-p+1:jl-p+interpOrder)' - 1,N) + 1;
+% band of points around icp, jcp respectively.  The -1,+1 combination sets index
+% 0 to N as required by the code
+
+p1 = A*X(pn,  k); % polynomial interpolant of x1-coordinate
+p2 = A*X(pn+N,k); % polynomial interpolant of x2-coordinate
+
+q1 = A*X(qn,  l); % polynomial interpolant of x1-coordinate
+q2 = A*X(qn+N,l); % polynomial interpolant of x2-coordinate
+
+Dp1 = p1(1:end-1).*(interpOrder-1:-1:1)';
+Dp2 = p2(1:end-1).*(interpOrder-1:-1:1)';
+
+Dq1 = q1(1:end-1).*(interpOrder-1:-1:1)';
+Dq2 = q2(1:end-1).*(interpOrder-1:-1:1)';
+
+DDp1 = Dp1(1:end-1).*(interpOrder-2:-1:1)';
+DDp2 = Dp2(1:end-1).*(interpOrder-2:-1:1)';
+
+DDq1 = Dq1(1:end-1).*(interpOrder-2:-1:1)';
+DDq2 = Dq2(1:end-1).*(interpOrder-2:-1:1)';
+
+% To do Newton's method, need two derivatives
+
+s = 1/2;
+t = 1/2;
+% midpoint is a good initial guess
+for newton = 1:2
+  u1 = filter(1,[1,-s],p1); u1 = u1(end);  
+  u2 = filter(1,[1,-s],p2); u2 = u2(end);  
+    
+  v1 = filter(1,[1,-t],q1); v1 = v1(end);  
+  v2 = filter(1,[1,-t],q2); v2 = v2(end);  
+
+  Du1 = filter(1,[1,-s],Dp1); Du1 = Du1(end);  
+  Du2 = filter(1,[1,-s],Dp2); Du2 = Du2(end);  
+    
+  Dv1 = filter(1,[1,-t],Dq1); Dv1 = Dv1(end);  
+  Dv2 = filter(1,[1,-t],Dq2); Dv2 = Dv2(end);  
+
+  DDu1 = filter(1,[1,-s],DDp1); DDu1 = DDu1(end);  
+  DDu2 = filter(1,[1,-s],DDp2); DDu2 = DDu2(end);  
+    
+  DDv1 = filter(1,[1,-t],DDq1); DDv1 = DDv1(end);  
+  DDv2 = filter(1,[1,-t],DDq2); DDv2 = DDv2(end);  
+  % Using filter is the same as polyval, but it is much
+  % faster when only requiring a single polyval such as here.
+
+  % f(s,t) = (u1(s) - v1(t))^2 + (u2(s) - v2(t))^2 
+  % f_s(s,t) =  2*(u1(s) - v1(t))*Du1(s) + 2*(u2(s) - v2(t))*Du2(s) 
+  % f_t(s,t) = -2*(u1(s) - v1(t))*Dv1(t) - 2*(u2(s) - v2(t))*Dv2(t) 
+  % ... 
+
+  f   = 0.5*(u1 - v1)^2 + 0.5*(u2 - v2)^2;
+  f_s = (u1 - v1)*Du1 + (u2 - v2)*Du2;
+  f_t = (v1 - u1)*Dv1 + (v2 - u2)*Dv2;
+  
+  f_ss = Du1*Du1 + (u1 - v1)*DDu1 + Du2*Du2 + (u2 - v2)*DDu2;
+  f_st = -Dv1*Du1 - Dv2*Du2;
+  f_ts = -Du1*Dv1 - Du2*Dv2;
+  f_tt = Dv1*Dv1 + (v1 - u1)*DDv1 + Dv2*Dv2 + (v2 - u2)*DDv2;
+
+  w = -inv([f_ss f_st; f_ts f_tt])*[f_s; f_t];
+  
+  s = s + w(1);
+  t = t + w(2);
+  % one step of Newton's method
+  
+end
+% Do a few (no more than 3) Newton iterations
+
+x1 = filter(1,[1,-s],p1);
+x1 = x1(end);
+x2 = filter(1,[1,-s],p2);
+x2 = x2(end);
+
+y1 = filter(1,[1,-t],q1);
+y1 = y1(end);
+y2 = filter(1,[1,-t],q2);
+y2 = y2(end);
+
+dist = sqrt((x1 - y1)^2 + (x2 - y2)^2);
+% Compute nearest point and its distance from the target point
+
+end % closestPntPair
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function rhs = yukawaRHS(geom)
 % Build right-hand side for the Yukawa equation solver
 

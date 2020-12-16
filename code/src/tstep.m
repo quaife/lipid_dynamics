@@ -113,8 +113,8 @@ end
 
 %outputs: 
 force  = [F1 + R1, F2 + R2].';
-force  = gam*force(:);
-torque = gam*(Tq + RTq);
+force  = force(:);
+torque = Tq + RTq;
 
 %format shortg
 
