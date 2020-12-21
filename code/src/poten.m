@@ -1360,7 +1360,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % START OF ROUTINES THAT CALCULATE REPULSION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1403,7 +1403,6 @@ for p = 1:Nb
   % point iq(l) in curve qq(l) is within l0 of curve p, and 
   % the jp(l) is the point in curve p closest to iq(l) 
    
-  
   q_list = unique(qq); %set of q within l0 of curve p
 
   for k = 1:length(q_list)
@@ -1456,9 +1455,9 @@ for p = 1:Nb
 %     plot([pc1(p) pc1(q)], [pc2(p) pc2(q)])
 %     quiver( pc1(p), pc2(p), r1, r2, 'k') 
 %     pause
- 
+
   end
-    
+
 end
 
 %system computes force free
@@ -1482,8 +1481,8 @@ function [R, dR] = Repul_profile(o, z)
 % a repulsion profile with cut-off. Cut-off must occur at z = 1 (inside function)
 % ie dist = l0 on outside call. 
 
-R  =  (1 - sin(z*pi/2)).*( z < 1 );
-dR =  -pi/2*cos(z*pi/2).*( z < 1 );
+R  =  exp(-z); %(1 - sin(z*pi/2)).*( z < 1 );
+dR = -exp(-z); %-pi/2*cos(z*pi/2).*( z < 1 );
     
 end % Repul_profile
 
