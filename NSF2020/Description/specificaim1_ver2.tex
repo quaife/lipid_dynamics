@@ -59,7 +59,7 @@ has caused researchers to question the applicability of the theory for
 large curvatures~\cite{PhysRevLett.117.188102, ARGUDO20161619}.
 %
 \begin{wrapfigure}[11]{l}{0.47\textwidth}
-\centerline{\includegraphics[width=0.47\textwidth]{Figures/Deformations.pdf}}
+\centerline{\includegraphics[width=0.46\textwidth]{Figures/Deformations.pdf}}
 %  \centering{\includegraphics[width=0.80\textwidth]{Figures/Deformations.pdf}}
   \vspace{-5pt}
 \caption{\label{fig:deformations} \footnotesize Sketch of the HK
@@ -206,11 +206,11 @@ and energy}
 %as the corresponding energies in the particle system for all reasonable deformation.
 %If this is the case we will 
 %
-\begin{wrapfigure}[9]{r}{0.43\textwidth}
-\vspace{-0.4cm}
-\centerline{\includegraphics[width=0.43\textwidth]{Figures/Flattening.pdf}}
+\begin{wrapfigure}[11]{r}{0.43\textwidth}
+%\vspace{-0.4cm}
+\centerline{\includegraphics[width=0.42\textwidth]{Figures/Flattening.pdf}}
 %  \centering{\includegraphics[width=0.80\textwidth]{Figures/Deformations.pdf}}
-\vspace{-0.5cm}
+%\vspace{-0.5cm}
 \caption{\label{fig:flattening} \footnotesize Example of computing
   bending modulus of a lipid bilayer from particle simulation.}
 \end{wrapfigure}
@@ -266,6 +266,8 @@ respectively.
 %We then use the solution $u$ to calculate the collection of forces and torques \eqref{forceandtorque}, and update the particle configuration
 %through \eqref{SGD}.
 %
+
+
 This yields a dissipation of the total potential \eqref{eq:total_poten}, which
 stabilizes the evolving bilayer shape.
 Therefore, we reconstruct an evolving monolayer dividing surface $\Sigma$ and director field ${\bf n}$ by
@@ -294,12 +296,6 @@ interpolating the particle centers and orientations. Using \eqref{ansatz3}, we c
 %used to values for infer $\KB$. 
 
 %
-\begin{wrapfigure}[11]{l}{0.32\textwidth}
-\centerline{\includegraphics[width=0.32\textwidth]{Figures/SaddleSplayDiagram.pdf}}
-  \vspace{-8pt}
-\caption{\label{fig:saddle_splay} \footnotesize Example of determining the
-  saddle splay modulus.}
-\end{wrapfigure}
 We propose to conduct calculations similar to the example of Figure~\ref{fig:flattening}
 for other elastic moduli such as the effective twist modulus $\KT$.
 Molecular dynamics investigations find a twist modulus about 1
@@ -323,7 +319,9 @@ least energy pathways separating energy basins \cite{doi:10.1063/1.2720838}.
 In the simplified Canham-Helfrich formulation, saddle splay energy is an exact indicator of topological transitions, 
 thanks to the  Gauss-Bonnet theorem \cite{TerziDeserno17}.
 More generally, PI RR has shown that saddle splay acts as a topological indicator even in the presence of nonzero tilt \cite{RyKlYaCo16}. 
-As a result, saddle splay can be quantified from the transition energies of a least energy path of pore formation (Figure \ref{fig:saddle_splay}).   
+As a result, saddle splay can be quantified from the transition energies
+of a least energy path of pore formation  (Figure 6).
+%(Figure \ref{fig:saddle_splay}).   
 %Using the string method, we will evaluate the transition energies between the intact pancake shape,
 %and one with a pore. Pore formation in a single bilayer decreases the integral of saddle splay from $4\pi$
 %to $0$. We can, in principle, detect this drop in energy because we have already accounted for the other deformations. 
@@ -335,15 +333,14 @@ As a result, saddle splay can be quantified from the transition energies of a le
 %%continuum energy $\tfrac{1}{2}\KG h(m x_1(m^2+x_1^2)^{-1} + \tan^{-1}(x_1/m)) |_{r_1}^{r_2}$ where $h$, $r_1$ and $r_2$
 %%are the cylinder heights, inner cylinder radius, and outer cylinder radius, respectively. 
 %
-
 %The proposed particle-based simulations of the HARP model in equations~\ref{SGD} also allow direct examination on the assumption of quadratic form of the elastic energy density.
 %As discussed earlier, recent disagreement in elastic moduli between continuum model and MD simulations originates from such assumption. 
 %The particle-based HARP model provides a unique opportunity to examine the validity of the quadratic elastic energy, and the PIs propose to examine how (if) any deviation from the quadratic elastic energy may depend on the microscopic details of the amphiphilic particles and their interactions.
-
 %\subsubsection{HK elastic energy form}
 
-\noindent{\bf{HK elastic energy form:}}
-The field of membrane continuum mechanics still lacks consensus as to whether \eqref{ansatz3} is the appropriate functional for bilayer energy.
+%\noindent{\bf{HK elastic energy form:}}
+The field of membrane continuum mechanics still lacks consensus as to
+whether HK energy is the appropriate functional for bilayer energy.
 \textbf{(i)} Researchers have assumed that $\KT = 0$ to effect lateral fluidity in
 membranes~\cite{Hamm2000, TerziDeserno17, C9SM02079A,
 PhysRevE.102.042406}. 
@@ -362,6 +359,12 @@ negative saddle-splay modulus around $-8$ \kBT~\cite{SIEGEL2004366,
 SIEGEL20085200} that gives rise to a larger energy barrier for
 monolayer fusion than is found by experiments~\cite{FrRoPi17, Tran7106,
 TerziDeserno17}.
+\begin{wrapfigure}[11]{l}{0.32\textwidth}
+\centerline{\includegraphics[width=0.31\textwidth]{Figures/SaddleSplayDiagram.pdf}}
+%  \vspace{-8pt}
+\caption{\label{fig:saddle_splay} \footnotesize Example of determining the
+  saddle splay modulus.}
+\end{wrapfigure}
 %
 %
 %Researchers point out, however, that this theoretical value requires a larger energy 
