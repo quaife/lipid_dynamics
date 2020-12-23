@@ -105,10 +105,13 @@ while step < prams.m
   om.writeData(time,geom2.center,geom2.tau,geom2.X);
 
   % write the velocity to a file
-  om.writeVelData(time,Up0,wp0);  
+%  om.writeVelData(time,Up0,wp0);  
   
   % update step counter
   step = step + 1;
+  message = ['Time Step required ' ...
+    num2str(toc(tSingleStep),'%4.2e'), ' seconds'];
+  om.writeMessage(message)
 end
 
 % save final time step
