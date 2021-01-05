@@ -1385,7 +1385,7 @@ h_store = geom.length;
 geom.length = l0*geom.N/2;
 
 NearOther = geom.getZone([],1); % get near structure 
-]
+
 % identifies which pairs of particles have distance < l0
 nf = NearOther.nearFibers; 
 
