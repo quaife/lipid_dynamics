@@ -1382,10 +1382,10 @@ M  = geom.RepulStrength; % repulsion strength
 % temporarily alter geom.length parameter  
 % for present purposes
 h_store = geom.length;          
-geom.length = l0*geom.N/4;
+geom.length = l0*geom.N/2;
 
 NearOther = geom.getZone([],1); % get near structure 
-
+]
 % identifies which pairs of particles have distance < l0
 nf = NearOther.nearFibers; 
 
@@ -1481,8 +1481,10 @@ function [R, dR] = Repul_profile(o, z)
 % a repulsion profile with cut-off. Cut-off must occur at z = 1 (inside function)
 % ie dist = l0 on outside call. 
 
-R  =  exp(-z); %(1 - sin(z*pi/2)).*( z < 1 );
-dR = -exp(-z); %-pi/2*cos(z*pi/2).*( z < 1 );
+%R  =  exp(-z); 
+R  =  (1 - sin(z*pi/2)).*( z < 1 );
+%dR = -exp(-z); 
+dR = -pi/2*cos(z*pi/2).*( z < 1 );
     
 end % Repul_profile
 
