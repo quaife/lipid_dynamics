@@ -43,7 +43,7 @@ end % constructor: tstep
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Up,wp,iterYukawa,iterStokes,etaYukawa,etaStokes] = timeStep(o,geom,etaY0,etaS0)
+function [Up,wp,iterYukawa,iterStokes,etaYukawa,etaStokes, fforce, torque] = timeStep(o,geom,etaY0,etaS0)
 % Main time stepping routine
 oc     = curve;
 N      = geom.N;
@@ -63,7 +63,7 @@ end
 % START OF REPULSION CALCULATION
  
 op = poten(geom.N,geom.rho);
-[R1, R2, RTq] = op.Repul(geom);
+[R1, R2, RTq, pp] = op.Repul(geom);
 
 % END OF REPULSION CALCULATION
 
@@ -111,135 +111,37 @@ end
 [F1,F2,Tq] = op.evalForcesQBX(geom,etaYukawa);
 % lift Tq so that it is for rotation about center (not origin)
 
+% tst = fopen("HAP_force_distance.dat", "r");
+% if tst == -1
+%     fid = fopen("HAP_force_distance.dat", "w");
+% else 
+%     fclose(tst);
+%     fid = fopen("HAP_force_distance.dat", "a");
+% end
+% fprintf(fid,"%d %d\n", [geom.center(1,2) - geom.center(1,1) - 2,  F1(1)]');
+% fclose(fid);
+%fprintf("%d %d\n", [geom.center(1,2) - geom.center(1,1) - 2,  F1(1)]');
+
+
+
 %outputs: 
-force  = [F1 + R1, F2 + R2].';
-force  = force(:);
-torque = Tq + RTq;
-
-%format shortg
-
-%[sum(F1 + R1), sum(F2 + R2) Tq' RTq' ]
-
-% dS = velocity*dt = |dx/dt| dt
-% sa = |dx/dt|
-% dt = 2*pi/N
-
-%N    = geom.N;                % number of points per componenet
-%Nb   = geom.nb;               % number of rigid bodies
-%x1   = geom.X(1:N,:);         % grid points on curves 
-%x2   = geom.X(N+1:2*N,:);            
-%pc   = geom.center;           % center of each rigid body
-%rho  = geom.rho;              % screen length of particles
-%xt   = geom.xt;               % tangent unit vector
-%tau1 = xt(1:N,:);      
-%tau2 = xt(N+1:2*N,:);
-%nu1  = +tau2;                 % outward normal : (nu, tau) is right-handed
-%nu2  = -tau1;
-%
-%dS   = geom.sa*2*pi/N;        % Jacobian
-%cur  = geom.cur;              % curvature
-%h    = etaYukawa;
-%
-%
-%[F1old,F2old,Tqold] = op.evalForcesQBXOld(Nb,N,x1,x2,nu1,nu2,dS,rho,etaYukawa);
-%F1 - F1old
-%F2 - F2old
-%Tq - Tqold
-
-%{
-% plot solution field of screen laplace problem
-NX = 151; NY = 151;
-% 50 x 50 grid
-
-xmin = o.plotAxis(1);xmax = o.plotAxis(2);
-ymin = o.plotAxis(3);ymax = o.plotAxis(4);
-
-xx = linspace(xmin,xmax,NX);
-yy = linspace(ymin,ymax,NY);
-[xx,yy] = meshgrid(xx,yy);
-
-Xtar = [xx(:);yy(:)];
-geomTar.X = Xtar;
-geomTar.N = numel(xx);
-geomTar.nb = 1;
-[~,NearOther] = geom.getZone(geomTar,2);
-
-
-kernel = @op.exactYukawaDL;
-kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
-% calculate the numerical solution  
-yukawaDLPtar = op.nearSingInt(geom,etaYukawa,kernelSelf,...
-    NearOther,kernel,kernel,geomTar,false,false);
-% Only first half is meaningful since we are solving for a scalar
-yukawaDLPtar = yukawaDLPtar(1:end/2);
-% reshape so its the same size as the target points
-yukawaDLPtar = reshape(yukawaDLPtar,NX,NY);
-
-[yukawaExact, dyuk1, dyuk2] = geom.yukawaExact(xx, yy);
-
-% zero out points that are in the interior of the geometry
-% using winding number test that works for arbitrary curves 
-
-CUT_OFF = 0*xx;
-
-for j = 1:geom.nb
-
-  v1 = geom.X(1:end/2,j); 
-  v2 = geom.X(end/2+1:end,j);
-  Nv = geom.N;        
-  v1(N+1) = v1(1);
-  v2(N+1) = v2(1);
-   
-  CUT_OFF = CUT_OFF + oc.wn_PnPoly(xx, yy, v1, v2, Nv);
-
-end
-
-yukawaDLPtar(find(CUT_OFF == 1)) = 0;
-yukawaExact(find(CUT_OFF == 1)) = 0;
-dyuk1(find(CUT_OFF == 1)) = 0;
-dyuk2(find(CUT_OFF == 1)) = 0;
-
-% calculate absolute and relative error of the numerical solution
-% in the L1-norm 
-om = misc;
-abserr = om.trapz2(xx, yy, abs(yukawaExact - yukawaDLPtar))
-relerr = om.trapz2(xx, yy, abs(yukawaExact - yukawaDLPtar))/om.trapz2(xx, yy, abs(yukawaExact))
-%RJR norm(yukawaExact - yukawaDLPtar,inf)
-%RJR relerr = norm(yukawaExact - yukawaDLPtar,inf)/norm(yukawaExact,inf)
-
-% Plot solution
-figure(1); clf; hold on;
-contour(xx,yy,yukawaExact)
-hold on
-quiver(xx,yy,dyuk1,dyuk2);
-hold off
-%surf(xx,yy,yukawaDLPtar)
-%shading interp;
-%view(2);
-%fill3(geom.X(1:end/2,:),geom.X(end/2+1:end,:),10*ones(geom.N,geom.nb),'k')
-axis equal
-axis([xmin xmax ymin ymax])
-
-% Plot error on a log-base-10 scale
-figure(2); clf; hold on;
-surf(xx,yy,log10(abs(yukawaDLPtar - yukawaExact)))
-shading interp;
-view(2);
-fill3(geom.X(1:end/2,:),geom.X(end/2+1:end,:),10*ones(geom.N,geom.nb),'k')
-axis equal
-axis([xmin xmax ymin ymax])
-colorbar
-%}
+fforce  = [F1 + R1, F2 + R2].';
+% size(fforce)
+% pause
+% force  = fforce(:);
+fforce = [0, -3; 0, 3; 0, 0 ].';
+force  = fforce(:);
+% torque = 0*Tq + 0*RTq;
+torque = 0*[1; 2; 3];
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % solve mobility problem here
-
 % far field condition plus the stokeslet and rotlet terms
 rhs = o.farField(X) + o.StokesletRotlet(geom,force,torque);
 
 % append body force and torque to the background flow to complete the
 % right hand side for GMRES
-rhs = [-rhs(:); force; torque];
+rhs = [-rhs(:); 0*force; 0*torque]; %force and torque already lifted into rhs 
 
 op = poten(N,rho);
 % build double-layer potential matrix
@@ -269,15 +171,16 @@ maxit = 2*N*nb;
 
 % SOLVE SYSTEM USING GMRES
 %tic
+
 [sigma, iflagStokes, resStokes, iterStokes] = gmres(...
       @(etaS0) o.timeMatVecStokes(etaS0,geom),...
       rhs,[],o.gmresTol,maxit,...
-      @(etaY0) o.precoStokesBD(etaY0)); 
+      @(etaS0) o.precoStokesBD(etaS0));
+      
 %[sigma, iflagStokes, resStokes, iterStokes] = gmres(...
 %      @(etaS0) o.timeMatVecStokes(etaS0,geom),...
 %      rhs,[],o.gmresTol,maxit);
 %toc
-
 
 iterStokes = iterStokes(2);
 fprintf('Stokes required %i iterations\n',iterStokes);
@@ -290,17 +193,43 @@ for k = 1:nb
   etaStokes(:,k) = sigma((k-1)*2*N+1:k*2*N);
 end
 
+sigma(2*nb*N+1:end)
+pause
+
 % EXTRACT TRANSLATIONAL VELOCITIES
 Up = zeros(2,nb);
 for k = 1:nb
   Up(:,k) = sigma(2*N*nb+(k-1)*2+1:2*N*nb+2*k);
 end
 
+
 % EXTRACT ROTATIONAL VELOCITIES
 wp = zeros(1,nb);
 for k = 1:nb
   wp(k) = sigma(2*N*nb+2*nb+k);
 end
+
+%Up = Up - [mean(Up(1,:)); mean(Up(2,:))];
+[mean(Up(1,:)) mean(Up(2,:))]
+[mean(fforce(1,:)) mean(fforce(2,:))]
+
+% th = linspace(0, 2*pi)'; 
+% hold off
+% plot(center(1,:), center(2,:), 'ob');
+% hold on
+% for kk = 1:nb
+% plot([X(1:N,kk); X(1,kk)], [X(N+1:end,kk); X(N+1,kk)], 'k');
+% end
+
+%plot(center(1,:) + radii.*cos(th), center(2,:) + radii.*sin(th), 'b');
+%quiver(center(1,:), center(2,:), (F1+R1)', (F2+R2)', 'r');
+%quiver(center(1,:), center(2,:), Up(1,:), Up(2,:),   'k');
+
+
+% axis([-6, 6, -6, 6]);
+% axis equal
+pause(0.1)
+
 
 end % timeStep
 
@@ -383,12 +312,13 @@ end
 % EVALUATE TORQUES ON FIBERS
 for k = 1:nb
   valTorque(k) = sum(((geom.X(N+1:2*N,k)-geom.center(2,k)).*eta(1:N,k) - ...
-                     (geom.X(1:N,k)-geom.center(1,k)).*eta(N+1:2*N,k)).*...
+                      (geom.X(1:N,k)    -geom.center(1,k)).*eta(N+1:2*N,k)).*...
                      geom.sa(:,k))*2*pi/N;
 end
 
 % CONSTRUCT OUTPUT VECTOR
 Tx = [valFibers(:); -valForce(:);-valTorque(:)];
+
 
 end % timeMatVecStokes
 
@@ -421,7 +351,7 @@ Tx = Tx + op.exactYukawaDLdiag(geom,geom.DLPYukawa,eta);
 
 % DEFINE Yukawa DLP KERNELS
 kernel = @op.exactYukawaDL;
-kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
+kernelSelf = @(z) + 0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
 
 yukawaDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
     kernel,kernel,geom,true,false);
@@ -442,7 +372,6 @@ oc = curve;
 [x,y] = oc.getXY(X);
 shearRate = options.shearRate; 
 % shear rate
-
 switch options.farField
   case 'shear'
     vInf = [shearRate*y;zeros(N,nb)];
@@ -455,17 +384,18 @@ end
 end % bgFlow
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function vLets = StokesletRotlet(o,geom,force,torque);
+function vLets = StokesletRotlet_tar(o,geom,force,torque,X_tar);
 
-X = geom.X;
+X = X_tar; %geom.X;
 N = size(X,1)/2;
-nb = size(X,2);
+nb = size(geom.X,2);
 oc = curve;
 
-vLets = zeros(2*N,nb);
+vLets = zeros(size(X));
 
+[x,y] = oc.getXY(X);
 for k = 1:nb
-  [x,y] = oc.getXY(X(:,k));
+    
   [cx,cy] = oc.getXY(geom.center(:,k));
 
   fx = force(2*(k-1) + 1);
@@ -477,11 +407,48 @@ for k = 1:nb
   ry = y - cy;
   rho2 = rx.^2 + ry.^2;
   rdotf = rx.*fx + ry.*fy;
-  vLets(:,k) = vLets(:,k) + (1/4/pi)*...
+
+  vLets(:) = vLets(:) + (1/4/pi)*...
     [-0.5*log(rho2)*fx + rdotf./rho2.*rx; ...
      -0.5*log(rho2)*fy + rdotf./rho2.*ry];
 
-  vLets(:,k) = vLets(:,k) + tor*[ry./rho2;-rx./rho2]; 
+  vLets(:) = vLets(:) + tor*[ry./rho2;-rx./rho2]; 
+  
+end
+
+end % StokesletRotlet_tar
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function vLets = StokesletRotlet(o,geom,force,torque);
+
+X = geom.X;
+N = size(X,1)/2;
+nb = size(X,2);
+oc = curve;
+
+vLets = zeros(2*N,nb);
+
+[x,y] = oc.getXY(X);
+
+for k = 1:nb    
+  
+  [cx,cy] = oc.getXY(geom.center(:,k));
+
+  fx = force(2*(k-1) + 1);
+  fy = force(2*(k-1) + 2);
+  tor = torque(k);
+  % force and torque due to body k
+
+  rx = x - cx;
+  ry = y - cy;
+  rho2 = rx.^2 + ry.^2;
+  rdotf = rx.*fx + ry.*fy;
+  vLets = vLets + (1/4/pi)*...
+    [-0.5*log(rho2)*fx + rdotf./rho2.*rx; ...
+     -0.5*log(rho2)*fy + rdotf./rho2.*ry];
+
+  vLets = vLets + (1/4/pi)*tor*[ry./rho2;-rx./rho2]; 
+  
 end
 
 
