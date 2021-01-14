@@ -14,7 +14,9 @@ om.plotData(geom);
 om.initializeFiles(geom);
 
 time = 0;
-step = 0;
+step0 = 0;
+
+step = step0;
 
 xc0  = xc;
 tau0 = tau;
@@ -46,10 +48,10 @@ while step < prams.m
   
   %Adams-Bashforth 
   elseif prams.order == 2
-    if step == 0
+    if step == step0
       % update geometry
       geom0 = capsules(prams,xc0,tau0);
-      [Up0, wp0,~,~,etaY0,etaS0] = tt.timeStep(geom0,geom0.X,geom0.X);
+      [Up0, wp0,~,~,etaY0,etaS0,force,torque] = tt.timeStep(geom0,geom0.X,geom0.X);
 
       % write the velocity to a file
       om.writeVelData(time,Up0,wp0);
@@ -62,9 +64,9 @@ while step < prams.m
       time = time + tt.dt;
 
       % write current time to console
-      message = ['Completed time ', num2str(time,'%4.2e'), ...
-          ' of time horizon ' , num2str(prams.T,'%4.2e')];
-      om.writeMessage(message);
+      %message = ['Completed time ', num2str(time,'%4.2e'), ...
+      %           ' of time horizon ' , num2str(prams.T,'%4.2e')];
+      %om.writeMessage(message);
       
       % write the shape to a file
       om.writeData(time,geom0.center,geom0.tau,geom0.X);
@@ -77,7 +79,7 @@ while step < prams.m
     end
       
     geom1 = capsules(prams,xc1,tau1);
-    [Up1, wp1,~,~,etaY,etaS] = tt.timeStep(geom1,etaY0,etaS0);
+    [Up1, wp1,~,~,etaY,etaS,force,torque] = tt.timeStep(geom1,etaY0,etaS0);
     etaY0 = etaY; etaS0 = etaS;
       
     % Applying two-step Adams-Bashforth
@@ -91,8 +93,8 @@ while step < prams.m
     geom2 = capsules(prams,xc2,tau2);
   end
 
-  om.plotData(geom2);
-    
+  % om.plotData(geom2);
+  
   % update time
   time = time + tt.dt;
 
@@ -102,16 +104,17 @@ while step < prams.m
   om.writeMessage(message);
   
   % write the shape to a file
-  om.writeData(time,geom2.center,geom2.tau,geom2.X);
+  %om.writeData(time,geom2.center,geom2.tau,geom2.X);
 
   % write the velocity to a file
-%  om.writeVelData(time,Up0,wp0);  
+  %om.writeVelData(time,Up,wp);  
   
   % update step counter
   step = step + 1;
-  message = ['Time Step required ' ...
-    num2str(toc(tSingleStep),'%4.2e'), ' seconds'];
-  om.writeMessage(message)
+  
+  DATA = [xc1(1,:)' xc1(2,:)' tau1' force(1,:)' force(2,:)' torque];
+  fileName = sprintf("../output/data/frames/N%d_%f_%d.dat", geom2.nb, options.shearRate, step);
+  save("-ascii", fileName, "DATA");
 end
 
 % save final time step

@@ -1365,8 +1365,10 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [R1, R2, RTq] = Repul(o, geom)
-    
+function [R1, R2, RTq, pp] = Repul(o, geom)
+
+%pp are point pairs (p1, p2, q1, q2) of interacting points
+
 N    = geom.N;                % number of points per componenet
 Nb   = geom.nb;               % number of rigid bodies
 x1   = geom.X(1:N,:);         % grid points on curves
@@ -1382,7 +1384,8 @@ M  = geom.RepulStrength; % repulsion strength
 % temporarily alter geom.length parameter  
 % for present purposes
 h_store = geom.length;          
-geom.length = l0*geom.N/2;
+
+geom.length = l0*N/2;
 
 NearOther = geom.getZone([],1); % get near structure 
 
@@ -1396,7 +1399,7 @@ icp = NearOther.icp;
 R1 = zeros(geom.nb,1); % repulsive force 
 R2 = zeros(geom.nb,1); % repulsize force  
 RTq = zeros(geom.nb,1); % repulsive torque
-
+pp  = [];
 
 for p = 1:Nb
   [iq, qq, jp] = find(icp{p}); %an N by nb sparse matrix         
@@ -1440,21 +1443,23 @@ for p = 1:Nb
     r1 = -dR*r1;
     r2 = -dR*r2; 
 
-    R1(p)  = R1(p) + r1;
-    R2(p)  = R2(p) + r2;            
+    R1(p)  = R1(p)  + r1;
+    R2(p)  = R2(p)  + r2;            
     RTq(p) = RTq(p) + r1.*(x2nrt-pc2(p)) - r2.*(x1nrt-pc1(p));
-    
-%     hold off
-%     plot(x1, x2, 'k');
-%     hold on
-%     plot(pc1(p), pc2(p), 'o', pc1(q_list), pc2(q_list), '*')
-%     plot(x1(:,p), x2(:,p), 'r');
-%     plot(x1(:,q), x2(:,q), 'm'); 
-%     plot(x1nrt, x2nrt, 'r+');
-%     plot(y1nrt, y2nrt, 'm+');
-%     plot([pc1(p) pc1(q)], [pc2(p) pc2(q)])
-%     quiver( pc1(p), pc2(p), r1, r2, 'k') 
-%     pause
+%{    
+     hold off
+     plot(x1, x2, 'k');
+     hold on
+     plot(pc1(p), pc2(p), 'o', pc1(q_list), pc2(q_list), '*')
+     plot(x1(:,p), x2(:,p), 'r');
+     plot(x1(:,q), x2(:,q), 'm'); 
+     plot(x1nrt, x2nrt, 'r+');
+     plot(y1nrt, y2nrt, 'm+');
+     plot([pc1(p) pc1(q)], [pc2(p) pc2(q)])
+     quiver( pc1(p), pc2(p), r1, r2, 'k') 
+     pause
+%}
+    pp = [pp; x1nrt, x2nrt, y1nrt, y2nrt];
 
   end
 
@@ -1481,9 +1486,9 @@ function [R, dR] = Repul_profile(o, z)
 % a repulsion profile with cut-off. Cut-off must occur at z = 1 (inside function)
 % ie dist = l0 on outside call. 
 
-%R  =  exp(-z); 
-R  =  (1 - sin(z*pi/2)).*( z < 1 );
-%dR = -exp(-z); 
+%R  =  exp(-z); %
+R  = (1 - sin(z*pi/2)).*( z < 1 );
+%dR = -exp(-z); %
 dR = -pi/2*cos(z*pi/2).*( z < 1 );
     
 end % Repul_profile

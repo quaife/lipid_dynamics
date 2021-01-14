@@ -95,20 +95,21 @@ function [NearSelf,NearOther] = getZone(o,bd2,relate)
 % contains additional target points.  The
 % values of relate corresond to
 % relate == 1  => only require NearSelf  (ie. bd1 to bd1)
-% relate == 2  => only requirpe NearOther (ie. bd1 to bd2)
+% relate == 2  => only require NearOther (ie. bd1 to bd2)
 % relate == 3  => require both NearSelf and NearOther
 
 NearSelf = [];
 NearOther = [];
 
-N1 = o.N; % number of source/target points
+N1 = o.N;  % number of source/target points per boundary component
 nb = o.nb; % number of source/target boundaries
-X1 = o.X; % source and target points
+X1 = o.X;  % source and target points
 oc = curve;
 [xsou,ysou] = oc.getXY(X1);
 % separate targets into x and y coordinates
 
 h = max(o.length)/N1;
+
 % smallest arclength over all boundaries
 ptsperbox = 10;
 % Estimate for number of points per box.  This simply sets the

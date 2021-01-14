@@ -30,10 +30,10 @@ o.OUTPUTPATH_LOG = '../output/logs/';
 o.verbose = options.verbose;
 % write data to console
 
-o.save = options.saveData;
+o.save     = options.saveData;
 o.dataFile = [o.OUTPUTPATH_DATA, options.fileBase, '.bin'];
-o.velFile = [o.OUTPUTPATH_VEL, options.fileBase, '_vel.bin'];
-o.logFile = [o.OUTPUTPATH_LOG, options.fileBase, '.log'];
+o.velFile  = [o.OUTPUTPATH_VEL, options.fileBase, '_vel.bin'];
+o.logFile  = [o.OUTPUTPATH_LOG, options.fileBase, '.log'];
 
 o.usePlot  = options.usePlot;
 o.plotAxis = options.plotAxis;
@@ -128,11 +128,10 @@ if o.save;
   fwrite(fid,[N;nb],'double');
   fwrite(fid,yukawaRHS(:),'double'); % yukawa right hand side
   fclose(fid);
-  
+
   fid = fopen(o.velFile,'w');
   fwrite(fid,[N;nb],'double');
   fclose(fid);  
-  
 end
 
 end % initializeFiles
