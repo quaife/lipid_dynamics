@@ -1,0 +1,84 @@
+\documentclass[12pt,letterpaper, onecolumn]{article}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{epsfig}
+\usepackage{subcaption}
+\usepackage{sectsty}
+\usepackage{amssymb}
+\usepackage{amsmath,empheq}
+\usepackage[top=1in, bottom=1in, left=0.5in, right=0.5in]{geometry}
+
+
+\begin{document}
+\topmargin=-100pt
+\title{Nondimensionalization of Lipid Dynamics Model}
+\maketitle
+
+\Large
+Length scale: a half of lipid length $[L]=1.25\ \text{nm}$\\
+
+water viscosity at $20^\circ$C$=293.15^\circ$K: $\mu=1\ \text{cP}= 10^{-12}\ \frac{\text{kg}}{\text{sec}\cdot\text{nm}}$  \\
+
+Line tension $\gamma=\frac{45}{11}$ mJ/nm$=1\ $kT/nm $\approx 4.1$ pN nm\\
+
+set force scale $[F]=\gamma$, we obtain\\
+
+time scale $\displaystyle [T] = \frac{\mu [L]^2}{[F]} = \frac{11\cdot 10^{-12}\ \frac{\text{kg}}{\text{sec}\cdot\text{nm}}\cdot 1.25^2\ \text{nm}^2}
+{4.5\cdot10^{-2}\ \frac{\text{kg}\cdot\text{nm}}{\text{sec}^2}} 
+\approx 3.82\times10^{-10}\ $sec\\
+
+Energy scale $[E] = [F][L] = 1\cdot1.25\ $kT $= 5.13\ $pN nm\\
+
+
+\newpage
+dimensionless shear rate $\chi = \dot\gamma [T]$\\
+
+
+(ref. Finken, Eur. Phys. J. E. {\bf 25}, 2008) 
+
+
+For $N=50$ vesicle simulations, the initial radius of the vesicle is \\ $R_0=6.75 [L] = 8.4375$ nm, the bending rigidity $\kappa=8.51$ kT $\approx35$ pN nm (SIAM MMS paper)\\
+
+\Large
+$\chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa} = \dot\gamma \cdot\frac{  10^{-12}\frac{\text{ kg}}{\text{sec $\cdot$ nm}} \times 8.4375^3 \text{ nm}^3}{ 35\times 10^{-3} \frac{\text{ kg}\cdot\text{nm}^2}{\text{sec}^2}} = \dot\gamma \cdot 17.16\times10^{-9}$ sec $ = \dot\gamma \cdot 44.92[T]$. \\
+
+
+(ref. Brandner et al.)
+In Figure 7, the shear rates are \\(a) $\dot\gamma = 3.7\times10^7\ s^{-1}$; (b) $\dot\gamma = 1.9\times10^9\ s^{-1}$; (c) $\dot\gamma = 3.7\times10^9\ s^{-1}$\\
+
+By applying our timescale [T], we have all dimensionless shear rates: \\
+(a) $\chi = 0.0141$; (b) $\chi = 0.7258$; (c) $\chi = 1.41$.\\
+%Moreover, the paper mentions that the time step is 10 fs. This suggests that we can 
+%use $\Delta t \approx 2.5\times10^{-5}$\\
+
+
+If we adopt the scaling law from Finken's paper with $R_0=10$ nm, then we have 
+$\chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa} \approx \dot\gamma \cdot 75[T]$. 
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
