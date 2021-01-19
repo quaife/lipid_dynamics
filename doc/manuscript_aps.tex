@@ -69,7 +69,7 @@
 \author{Bryan Quaife}%
 % \email{bquaife@fsu.edu }
 \affiliation{%
- 1Department of Scientific Computing, \\Florida State University, Tallahassee, Florida 32306, USA
+Department of Scientific Computing, \\Florida State University, Tallahassee, Florida 32306, USA
 }%
 
 %\collaboration{MUSO Collaboration}%\noaffiliation
@@ -90,18 +90,18 @@ Department of Mathematical Sciences, New Jersey Institute of Technology,\\ Newar
              %  but any date may be explicitly specified
 
 \begin{abstract}
-Abstract here
+
 
 %Below: From aps sample
 %An article usually includes an abstract, a concise summary of the work
 %covered at length in the main body of the article. 
-%\begin{description}
-%\item[Usage]
-%Secondary publications and information retrieval purposes.
-%\item[Structure]
-%You may use the \texttt{description} environment to structure your abstract;
-%use the optional argument of the \verb+\item+ command to give the category of each item. 
-%\end{description}
+\begin{description}
+\item[Usage]
+Secondary publications and information retrieval purposes.
+\item[Structure]
+You may use the \texttt{description} environment to structure your abstract;
+use the optional argument of the \verb+\item+ command to give the category of each item. 
+\end{description}
 \end{abstract}
 
 
@@ -114,6 +114,126 @@ Abstract here
 
 \maketitle
 
+
+\section{\label{intro}Introduction}
+
+
+
+
+
+
+\subsection{Hydrophobic Attraction Potential}
+
+
+
+
+
+\begin{equation}
+\label{eq:main}
+\Phi(\Omega,f) = \gamma  \min_{u \in \mathcal{A}} I[u],
+ \end{equation}
+
+\begin{equation}
+\label{eq:main2}
+ I[u]  = \int_{\Omega} \rho |\nabla u|^2 + \rho^{-1} u^2 \,dx.
+\end{equation}
+
+
+\begin{equation}
+\label{eq:stress}
+\mathbf{T}
+= \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma (\tfrac{1}{2}|\nabla u|^2 \mathbf{I} - \nabla u\otimes \nabla u),
+\end{equation}
+
+
+\begin{equation}
+        \label{SL}
+\begin{cases}
+ -\rho^2 \Delta u + u =0 & \text{ in } \Omega,\\
+  u(x) = f(x)  &\text{ on }\Sigma, \\
+   u(x) \to 0, &\text{ as } x \to \infty.
+\end{cases}
+\end{equation}
+
+\subsection{Nondimensionalizations}
+
+\begin{equation}
+\chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa}
+\end{equation}
+
+
+
+
+\section{\label{mobility}Mobility Problem}
+
+
+
+
+\begin{gather}
+	-\Delta {\bf U} + \nabla P = 0 \qquad \text{in }\Sigma\\
+	\nabla\cdot {\bf U}=0 \qquad \text{in }\Sigma\\
+	{\bf U}({\bf x}) \to {\bf u}_\infty \quad \text{as}\quad |{\bf x}|\to \infty
+\end{gather}
+
+
+%\begin{gather}
+%\int_{\Gamma_i}(\sigma_{hyd}+\sigma_\infty)\cdot {\bf n} ds = -{\bf F}_i \\
+%	\int_{\Gamma_i}(\sigma_{hyd}+\sigma_\infty)\times({\bf x}-{\bf a}_i)\cdot {\bf n} ds =-\tau_i\\
+%\end{gather}
+
+
+
+
+\begin{equation}
+\begin{aligned}
+{\bf v}_i + &\omega_i\times({\bf x}-{\bf a}_i)\\
+ =& -\frac12\sigma_{hyd}({\bf x}) + D[\sigma_{hyd}]({\bf x}) \\
+&- \sum_{i=1}^N\big({\bf S}({\bf x}, {\bf a}_i){\bf F}_i+ {\bf R}({\bf x}, {\bf a}_i)\tau_i\big)+{\bf u}_\infty, \quad {\bf x}\in\Gamma \\
+\end{aligned}
+\end{equation}
+%
+\begin{gather}
+\int_{\partial M_i}\sigma_{hyd}\cdot {\bf n} ds = {\bf 0}\\
+	\int_{\partial M_i}\sigma_{hyd}\times({\bf x}-{\bf a}_i)\cdot {\bf n} ds ={\bf 0}
+\end{gather}
+where 
+\begin{equation}
+\begin{aligned}
+{\bf S}({\bf x}, {\bf a}) &= \frac{1}{4\pi}\left(-\log \rho{\bf I}+\frac{{\bf r}\otimes{\bf r}}{\rho^2}\right), \quad \text{and} \\ {\bf R}({\bf x},{\bf a})&=\frac{{\bf r}^\perp}{4\pi\rho^2}, \\
+&{\bf r}={\bf x}-{\bf a}\quad  \text{and} \quad \rho=|{\bf r}|
+\end{aligned}
+\end{equation}
+%
+
+
+
+\section{\label{IEM}Integral Equation Method}
+
+
+
+\subsection{Short Range Repulsion}
+
+
+
+\section{\label{results}Numerical Results}
+
+
+\subsection{Tank-Treading Vesicles}
+
+
+\subsection{Membrane Ruptures}
+
+
+\section{\label{conclusion}Conclusion}
+
+
+\begin{acknowledgments}
+%We would like to acknowledge 
+\end{acknowledgments}
+
+\appendix
+
+\section{Appendixes}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%% sample commented %%%%%%%%%%
