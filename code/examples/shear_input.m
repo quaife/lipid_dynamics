@@ -5,8 +5,8 @@ format compact
 
 prams.N = 32;
 
-dt      = 0.1;
-prams.m = 50;      % number of time steps
+dt      = 5*0.1;
+prams.m = 5*50;      % number of time steps
 prams.T = prams.m*dt; % time horizon
 
 prams.order = 2;      % time-stepping order 
@@ -26,13 +26,13 @@ options.inear     = true;
 options.usePreco  = false;
 options.verbose   = true;
 options.timeOrder = 1;
-options.gmresTol  = 1e-5;
+options.gmresTol  = 1e-10;
 options.usePlot   = true; %false;
-options.plotAxis  = 30*[-1 1 -1 1];
+options.plotAxis  = 5*[-1 1 -1 1];
 
 % initial centers
 data = load('N3_0.dat');
-x = 5*data(:,1)';
+x = data(:,1)';
 y = data(:,2)';
 xc = [x;y];
 

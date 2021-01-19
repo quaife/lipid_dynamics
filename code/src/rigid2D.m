@@ -52,6 +52,8 @@ while step < prams.m
       % update geometry
       geom0 = capsules(prams,xc0,tau0);
       [Up0, wp0,~,~,etaY0,etaS0,force,torque] = tt.timeStep(geom0,geom0.X,geom0.X);
+      sum(Up0')
+      sum(wp0)
 
       % write the velocity to a file
       om.writeVelData(time,Up0,wp0);
@@ -81,6 +83,8 @@ while step < prams.m
     geom1 = capsules(prams,xc1,tau1);
     [Up1, wp1,~,~,etaY,etaS,force,torque] = tt.timeStep(geom1,etaY0,etaS0);
     etaY0 = etaY; etaS0 = etaS;
+    sum(Up1')
+    sum(wp1)
       
     % Applying two-step Adams-Bashforth
     xc2  = xc1  + tt.dt*(1.5*Up1 - 0.5*Up0 );
@@ -93,7 +97,7 @@ while step < prams.m
     geom2 = capsules(prams,xc2,tau2);
   end
 
-  % om.plotData(geom2);
+  om.plotData(geom2);
   
   % update time
   time = time + tt.dt;

@@ -9,7 +9,7 @@ format compact
 % for jj=0:3
 % prams.N = 2^jj*32; % points per body
 
-prams.N = 64;
+prams.N = 32;
 
 prams.T = 1.0; % time horizon
 prams.m = 10; % number of time steps
@@ -23,7 +23,7 @@ prams.RepulLength = 0.3; % repulsion length
 prams.RepulStrength = 0.5; % repulsion strength
 
 options.farField  = 'shear';
-options.shearRate = 0;
+options.shearRate = 0.1;
 % options.janusbc   = 2;        % put power of function here
 options.saveData  = true;
 options.saveVel   = true;

@@ -153,7 +153,7 @@ rhs = o.farField(X) + o.StokesletRotlet(geom,force,torque);
 
 % append body force and torque to the background flow to complete the
 % right hand side for GMRES
-rhs = [-rhs(:); 0*force; 0*torque];
+rhs = [-rhs(:); force; torque];
 
 op = poten(N,rho);
 % build double-layer potential matrix
@@ -384,7 +384,6 @@ vLets = zeros(2*N,nb);
 
 [x,y] = oc.getXY(X);
 for k = 1:nb
-
   [cx,cy] = oc.getXY(geom.center(:,k));
 
   fx = force(2*(k-1) + 1);
