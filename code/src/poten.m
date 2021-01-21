@@ -673,7 +673,7 @@ for k = 1:ncol % loop over columns of target points
   xtar = xtar(:,ones(geom.N*numel(K1),1));
   ytar = ytar(:,ones(geom.N*numel(K1),1));
   
-  diffx = xtar-xsou; diffy = ytar-ysou;
+  diffx = xtar - xsou; diffy = ytar - ysou;
   dis2 = (diffx).^2 + (diffy).^2;
   % difference of source and target location and distance squared
   
@@ -962,13 +962,13 @@ rad   = 0.3;
 m_max = 6;
 
 if N <= 32
-    rad = 0.4; m_max = 2;
+  rad = 0.4; m_max = 2;
 elseif N <= 64
-    rad = 0.3; m_max = 6;
+  rad = 0.3; m_max = 6;
 elseif N <= 128
-    rad = 0.3; m_max = 12;
+  rad = 0.3; m_max = 12;
 else 
-    rad = 0.2; m_max = 12;
+  rad = 0.2; m_max = 12;
 end
 
 tol   = rad;
@@ -977,9 +977,7 @@ B_m   = zeros(N,2*m_max + 1);
 IK = oc.modes(N,1); % Fourier modes;
 
 for p = 1:geom.nb
-
   for q = [1:p-1, p+1:geom.nb]
-
     x1pc = pc1(p);
     x2pc = pc2(p);    
 
@@ -1496,6 +1494,98 @@ end % Repul_profile
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % END OF ROUTINES THAT CALCULATE REPULSION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function bulkVelocity(o,geom,eta,Up,wp,force,torque);
+% form the velocity in the fluid bulk and along rigid bodies and plot
+% them.
+
+oc = curve;
+X = geom.X;
+[x,y] = oc.getXY(X);
+
+% create mesh grid with target points
+xmin = min(min(x)) - 1;
+xmax = max(max(x)) + 1;
+ymin = min(min(y)) - 1;
+ymax = max(max(y)) + 1;
+
+xmin = -3;
+xmax = 3;
+ymin = -3;
+ymax = 3;
+dx = 0.1;
+dy = 0.1;
+[xx,yy] = meshgrid(xmin:dx:xmax,ymin:dy:ymax);
+
+% put in capsules-like structure so that it can be passed into getZone
+bd2.N = numel(xx);
+bd2.nb = 1;
+bd2.X = [xx(:); yy(:)];
+
+% Construct near-singular integration structure so that velocity can be
+% evaulated in bulk.
+[~,NearOther] = geom.getZone(bd2,2);
+
+jump = 0.5;
+kernel = @o.exactStokesDL;
+kernelSelf = @(z) +jump*z + o.exactStokesDLdiag(geom,geom.DLPStokes,z);
+
+vel = o.nearSingInt(geom,eta,kernelSelf,NearOther,...
+    kernel,kernel,bd2,false,false);
+
+
+% Add on Rotlets and Stokeslets
+for k = 1:geom.nb
+  [cx,cy] = oc.getXY(geom.center(:,k));
+
+  fx = force(2*(k-1) + 1);
+  fy = force(2*(k-1) + 2);
+  tor = torque(k);
+
+  rx = xx(:) - cx;
+  ry = yy(:) - cy;
+  rho2 = rx.^2 + ry.^2;
+  rdotf = rx*fx + ry*fy;
+  vel = vel + (1/4/pi)*...
+      [-0.5*log(rho2)*fx + rdotf./rho2.*rx;...
+       -0.5*log(rho2)*fy + rdotf./rho2.*ry];
+
+  vel = vel + (1/4/pi)*tor*[-ry./rho2;+rx./rho2];
+end
+
+[velx,vely] = oc.getXY(vel);
+velx = reshape(velx,size(xx,1),size(xx,2));
+vely = reshape(vely,size(xx,1),size(xx,2));
+
+for k = 1:geom.nb
+  [cx,cy] = oc.getXY(geom.center(:,k));
+  rx = xx - cx;
+  ry = yy - cy;
+  rho2 = rx.^2 + ry.^2;
+  s = find(rho2 <= 1);
+
+  velx(s) = 1*(Up(1,k) - wp(k)*ry(s));
+  vely(s) = 1*(Up(2,k) + wp(k)*rx(s));
+end
+
+clf;
+%hold on
+quiver(xx,yy,velx,vely)
+%surf(xx,yy,velx)
+%plot(xx(ceil(end/20),:),vely(ceil(end/2),:),'b-o')
+%plot(xx(ceil(end/20),:),velx(ceil(end/2),:),'r-o')
+torque'
+wp
+axis equal
+pause
+
+
+
+
+end % bulkVelocity
+
 
 end % methods
 

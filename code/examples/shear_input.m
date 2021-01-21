@@ -5,8 +5,8 @@ format compact
 
 prams.N = 32;
 
-dt      = 5*0.1;
-prams.m = 5*50;      % number of time steps
+dt      = 0.1*10;
+prams.m = 50*10;      % number of time steps
 prams.T = prams.m*dt; % time horizon
 
 prams.order = 2;      % time-stepping order 
@@ -18,7 +18,7 @@ prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
 options.farField  = 'shear';
-options.shearRate = 0.0;
+options.shearRate = 0.1;
 options.saveData  = false;
 options.fileBase  = 'shear';
 options.append    = false;
@@ -28,10 +28,10 @@ options.verbose   = true;
 options.timeOrder = 1;
 options.gmresTol  = 1e-10;
 options.usePlot   = true; %false;
-options.plotAxis  = 5*[-1 1 -1 1];
+options.plotAxis  = 5*[-3 3 -3 3];
 
 % initial centers
-data = load('N3_0.dat');
+data = load('N2_0.dat');
 x = data(:,1)';
 y = data(:,2)';
 xc = [x;y];

@@ -26,7 +26,7 @@ end % properties
 methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function o = tstep(options, prams)
+function o = tstep(options,prams)
 % o.tstep(options,prams): constructor.  Initialize class.  Take all
 % elements of options and prams needed by the time stepper
 
@@ -143,7 +143,12 @@ pause(0.01)
 %outputs: 
 fforce  = [F1 + R1, F2 + R2].';
 force  = fforce(:);
-torque = Tq + RTq;
+% NOTE (BQ): I believe there was a sign error in the torque coming from
+% the hydrophobic interaction
+torque = -Tq + RTq;
+
+%force = 0*[-2;1;0;0;2;-1];
+%torque = 1*[-10;0;+10];
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % solve mobility problem here
@@ -194,7 +199,6 @@ maxit = 2*N*nb;
 %      rhs,[],o.gmresTol,maxit);
 %toc
 
-
 iterStokes = iterStokes(2);
 fprintf('Stokes required %i iterations\n',iterStokes);
 
@@ -218,7 +222,12 @@ for k = 1:nb
   wp(k) = sigma(2*N*nb+2*nb+k);
 end
 
-Up = Up - [mean(Up(1,:)); mean(Up(2,:))];
+%Up = Up - [mean(Up(1,:)); mean(Up(2,:))];
+
+% Routine to compute the velocity in the bulk and use the rigid body
+% motion to define a velocity in rigid bodies. The goal is to see
+% something cotinuous
+%op.bulkVelocity(geom,etaStokes,Up,wp,force,torque);
 
 end % timeStep
 
@@ -263,7 +272,7 @@ end
 % END FORMATTING UNKNOWN VECTOR
 
 % ADD JUMP IN DLP
-jump = 0.5;
+jump = +0.5;
 valFibers = valFibers + jump*eta;
 
 % ADD SELF CONTRIBUTION
@@ -286,27 +295,29 @@ end
 
 % ADD ROTATIONAL VELOCITY CONTRIBUTION
 for k = 1:nb
-  valFibers(1:end/2,k) = valFibers(1:end/2,k) ...
-                + (geom.X(end/2+1:end,k) - geom.center(2,k))*wp(k);
-  valFibers(end/2+1:end,k) = valFibers(end/2+1:end,k)...
-                - (geom.X(1:end/2,k) - geom.center(1,k))*wp(k);
+  valFibers(1:end/2,k) = valFibers(1:end/2,k) - ...
+                (-(geom.X(end/2+1:end,k) - geom.center(2,k)))*wp(k);
+  valFibers(end/2+1:end,k) = valFibers(end/2+1:end,k) - ...
+                (+(geom.X(1:end/2,k) - geom.center(1,k)))*wp(k);
 end
 
+%TODO: See equation (37) in Lu, Rahimian, and Zorin
 % EVALUTATE FORCES ON FIBERS
 for k = 1:nb
-  valForce(1,k) = sum(eta(1:N,k).*geom.sa(:,k))*2*pi/N;
-  valForce(2,k) = sum(eta(N+1:2*N,k).*geom.sa(:,k))*2*pi/N;
+  valForce(1,k) = 1/(2*pi)*sum(eta(1:N,k).*geom.sa(:,k))*2*pi/N;
+  valForce(2,k) = 1/(2*pi)*sum(eta(N+1:2*N,k).*geom.sa(:,k))*2*pi/N;
 end
 
+%TODO: See equation (37) in Lu, Rahimian, and Zorin
 % EVALUATE TORQUES ON FIBERS
 for k = 1:nb
-  valTorque(k) = sum(((geom.X(N+1:2*N,k)-geom.center(2,k)).*eta(1:N,k) - ...
+  valTorque(k) = 1/(2*pi)*sum((-(geom.X(N+1:2*N,k)-geom.center(2,k)).*eta(1:N,k) + ...
                      (geom.X(1:N,k)-geom.center(1,k)).*eta(N+1:2*N,k)).*...
                      geom.sa(:,k))*2*pi/N;
 end
 
 % CONSTRUCT OUTPUT VECTOR
-Tx = [valFibers(:); -valForce(:);-valTorque(:)];
+Tx = [valFibers(:);+valForce(:);+valTorque(:)];
 
 end % timeMatVecStokes
 
@@ -394,13 +405,19 @@ for k = 1:nb
   rx = x - cx;
   ry = y - cy;
   rho2 = rx.^2 + ry.^2;
-  rdotf = rx.*fx + ry.*fy;
+  rdotf = rx*fx + ry*fy;
   vLets = vLets + (1/4/pi)*...
     [-0.5*log(rho2)*fx + rdotf./rho2.*rx; ...
      -0.5*log(rho2)*fy + rdotf./rho2.*ry];
 
-  vLets = vLets + (1/4/pi)*tor*[ry./rho2;-rx./rho2]; 
+  vLets = vLets + (1/4/pi)*tor*[-ry./rho2;+rx./rho2]; 
 end
+%clf; hold on
+%plot(vLets(1:end/2,2));
+%plot(vLets(1+end/2:end,2),'r');
+%quiver(x,y,vLets(1:end/2,:),vLets(end/2+1:end,:))
+%[x(:,2) y(:,2) vLets(1:end/2,2) vLets(end/2+1:end,2)]
+%pause
 
 
 end % StokesletRotlet
