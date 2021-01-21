@@ -143,9 +143,7 @@ pause(0.01)
 %outputs: 
 fforce  = [F1 + R1, F2 + R2].';
 force  = fforce(:);
-% NOTE (BQ): I believe there was a sign error in the torque coming from
-% the hydrophobic interaction
-torque = -Tq + RTq;
+torque = Tq + RTq;
 
 %force = 0*[-2;1;0;0;2;-1];
 %torque = 1*[-10;0;+10];

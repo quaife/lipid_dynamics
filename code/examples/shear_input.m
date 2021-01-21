@@ -5,7 +5,7 @@ format compact
 
 prams.N = 32;
 
-dt      = 0.1*10;
+dt      = 0.3;
 prams.m = 50*10;      % number of time steps
 prams.T = prams.m*dt; % time horizon
 
@@ -18,7 +18,7 @@ prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
 options.farField  = 'shear';
-options.shearRate = 0.1;
+options.shearRate = 0.0;
 options.saveData  = false;
 options.fileBase  = 'shear';
 options.append    = false;
@@ -28,7 +28,7 @@ options.verbose   = true;
 options.timeOrder = 1;
 options.gmresTol  = 1e-10;
 options.usePlot   = true; %false;
-options.plotAxis  = 5*[-3 3 -3 3];
+options.plotAxis  = 2*[-3 3 -3 3];
 
 % initial centers
 data = load('N2_0.dat');
@@ -42,7 +42,7 @@ prams.nb = size(xc,2); % number of bodies
 
 tau   = data(:,3)';
 radii = 1*ones(1,prams.nb);
-ar    = 1*ones(1,prams.nb);
+ar    = 2*ones(1,prams.nb);
 
 prams.tau   = tau;
 prams.radii = radii;

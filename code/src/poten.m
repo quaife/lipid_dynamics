@@ -1039,7 +1039,7 @@ for p = 1:geom.nb
 
     F1(p) = F1(p) + sum(Jpq1.*dSp);
     F2(p) = F2(p) + sum(Jpq2.*dSp);
-    Tq(p) = Tq(p) + sum(( - (x1p - pc1(p)).* Jpq2 + (x2p - pc2(p)).* Jpq1 ) .* dSp);
+    Tq(p) = Tq(p) + sum(( + (x1p - pc1(p)).* Jpq2 - (x2p - pc2(p)).* Jpq1 ) .* dSp);
     
   end    
 end     
@@ -1131,7 +1131,7 @@ for p = 1:Nb
 
     F2(p) = F2(p) + sum(Jpq2.*dSp);
 
-    Tq(p) = Tq(p) + sum(( -(x1p - x1pc).*Jpq2 + (x2p - x2pc).*Jpq1 ) .* dSp);
+    Tq(p) = Tq(p) + sum(( + (x1p - x1pc).*Jpq2 - (x2p - x2pc).*Jpq1 ) .* dSp);
 
   end    
 end     
@@ -1211,7 +1211,7 @@ for p = 1:Nb
 
     F1(p) = F1(p) + sum(Jpq1.*dSp);
     F2(p) = F2(p) + sum(Jpq2.*dSp);
-    Tq(p) = Tq(p) + sum(( -(x1p - x1pc).*Jpq2 + (x2p - x2pc).*Jpq1 ) .* dSp);
+    Tq(p) = Tq(p) + sum(( + (x1p - x1pc).*Jpq2 - (x2p - x2pc).*Jpq1 ) .* dSp);
 
   end    
 
