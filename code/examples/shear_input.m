@@ -18,7 +18,7 @@ prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
 options.farField  = 'shear';
-options.shearRate = 0.0;
+options.shearRate = 0.1;
 options.saveData  = false;
 options.fileBase  = 'shear';
 options.append    = false;
