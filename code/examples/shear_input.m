@@ -25,13 +25,13 @@ options.append    = false;
 options.inear     = true;
 options.usePreco  = false;
 options.verbose   = true;
-options.timeOrder = 1;
+options.timeOrder = 2;
 options.gmresTol  = 1e-10;
 options.usePlot   = true; %false;
 options.plotAxis  = 3*[-3 3 -3 3];
 
 % initial centers
-data = load('N2_0.dat');
+data = load('N3_0.dat');
 x = data(:,1)';
 y = data(:,2)';
 xc = [x;y];
@@ -42,7 +42,7 @@ prams.nb = size(xc,2); % number of bodies
 
 tau   = data(:,3)';
 radii = 1.0*ones(1,prams.nb);
-ar    = 1.0*ones(1,prams.nb);
+ar    = 1.5*ones(1,prams.nb);
 
 prams.tau   = tau;
 prams.radii = radii;

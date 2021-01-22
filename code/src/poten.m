@@ -1497,7 +1497,7 @@ end % Repul_profile
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function bulkVelocity(o,geom,eta,Up,wp,force,torque);
+function bulkVelocity(o,geom,eta,Up,wp,force,torque,hFarField);
 % form the velocity in the fluid bulk and along rigid bodies and plot
 % them.
 
@@ -1506,18 +1506,23 @@ X = geom.X;
 [x,y] = oc.getXY(X);
 
 % create mesh grid with target points
-xmin = min(min(x)) - 1;
-xmax = max(max(x)) + 1;
-ymin = min(min(y)) - 1;
-ymax = max(max(y)) + 1;
+% xmin = min(min(x)) - 1;
+% xmax = max(max(x)) + 1;
+% ymin = min(min(y)) - 1;
+% ymax = max(max(y)) + 1;
+% 
+% xmin = -3;
+% xmax = 3;
+% ymin = -3;
+% ymax = 3;
+% dx = 0.1;
+% dy = 0.1;
+% [xx,yy] = meshgrid(xmin:dx:xmax,ymin:dy:ymax);
 
-xmin = -3;
-xmax = 3;
-ymin = -3;
-ymax = 3;
-dx = 0.1;
-dy = 0.1;
-[xx,yy] = meshgrid(xmin:dx:xmax,ymin:dy:ymax);
+% load tracers as target points
+X_tar = load("../examples/tracers.dat");
+xx = X_tar(:,1);
+yy = X_tar(:,2);
 
 % put in capsules-like structure so that it can be passed into getZone
 bd2.N = numel(xx);
@@ -1535,7 +1540,6 @@ kernelSelf = @(z) +jump*z + o.exactStokesDLdiag(geom,geom.DLPStokes,z);
 vel = o.nearSingInt(geom,eta,kernelSelf,NearOther,...
     kernel,kernel,bd2,false,false);
 
-
 % Add on Rotlets and Stokeslets
 for k = 1:geom.nb
   [cx,cy] = oc.getXY(geom.center(:,k));
@@ -1544,45 +1548,55 @@ for k = 1:geom.nb
   fy = force(2*(k-1) + 2);
   tor = torque(k);
 
-  rx = xx(:) - cx;
-  ry = yy(:) - cy;
-  rho2 = rx.^2 + ry.^2;
+  rx    = xx(:) - cx;
+  ry    = yy(:) - cy;
+  rho2  = rx.^2 + ry.^2;
   rdotf = rx*fx + ry*fy;
+  
   vel = vel + (1/4/pi)*...
       [-0.5*log(rho2)*fx + rdotf./rho2.*rx;...
        -0.5*log(rho2)*fy + rdotf./rho2.*ry];
 
   vel = vel + (1/4/pi)*tor*[-ry./rho2;+rx./rho2];
+  
 end
+
+% Add on Background flow 
+
+vel = vel + hFarField(bd2.X);
 
 [velx,vely] = oc.getXY(vel);
 velx = reshape(velx,size(xx,1),size(xx,2));
 vely = reshape(vely,size(xx,1),size(xx,2));
 
 for k = 1:geom.nb
+
   [cx,cy] = oc.getXY(geom.center(:,k));
   rx = xx - cx;
   ry = yy - cy;
-  rho2 = rx.^2 + ry.^2;
-  s = find(rho2 <= 1);
 
+  bx = X(1:geom.N,k);     bx = [bx; bx(1)]; %and boundary curve
+  by = X(geom.N+1:end,k); by = [by; by(1)];    
+  wn = o.wn_PnPoly(xx, yy, bx, by, geom.N); %winding number to calculate interior of shapes 
+
+  s = find(wn > 0.5);
+  
   velx(s) = 1*(Up(1,k) - wp(k)*ry(s));
   vely(s) = 1*(Up(2,k) + wp(k)*rx(s));
+  
 end
 
-clf;
+VEL = [velx vely];
+save("-ascii", "../examples/tracer_vel.dat", "VEL");
+
+%clf;
 %hold on
-quiver(xx,yy,velx,vely)
-%surf(xx,yy,velx)
+%quiver(xx,yy,velx,vely)
+%surf(xx,yy,vely)
 %plot(xx(ceil(end/20),:),vely(ceil(end/2),:),'b-o')
 %plot(xx(ceil(end/20),:),velx(ceil(end/2),:),'r-o')
-torque'
-wp
-axis equal
-pause
-
-
-
+%axis equal
+%pause
 
 end % bulkVelocity
 
@@ -1644,6 +1658,7 @@ Vy   = 0*y_tar;
 COFF = 0*x_tar;
 
 for p = 1:geom.nb
+    
     [cx,cy] = oc.getXY(geom.center(:,p)); %center
     
     bx = X(1:geom.N,p);     bx = [bx; bx(1)]; %and boundary curve
