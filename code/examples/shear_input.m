@@ -18,11 +18,7 @@ prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
 options.farField  = 'shear';
-<<<<<<< HEAD
-options.shearRate = 0.2;
-=======
 options.shearRate = 0.1;
->>>>>>> 9f7fe9d2af7a26f4ffebff473627289c70eed513
 options.saveData  = false;
 options.fileBase  = 'shear';
 options.append    = false;
@@ -35,7 +31,7 @@ options.usePlot   = true; %false;
 options.plotAxis  = 3*[-3 3 -3 3];
 
 % initial centers
-data = load('N18_0.dat');
+data = load('N2_0.dat');
 x = data(:,1)';
 y = data(:,2)';
 xc = [x;y];
