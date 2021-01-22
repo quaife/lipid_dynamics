@@ -1586,7 +1586,120 @@ pause
 
 end % bulkVelocity
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function tracerVelocity(o,geom,eta,Up,wp,force,torque);
+% form the velocity in the fluid bulk and along rigid bodies and plot
+% them.
 
+oc = curve;
+X = geom.X;
+[x,y] = oc.getXY(X);
+
+% load tracers as target points
+X_tar = load("../examples/tracers.dat");
+x_tar = X_tar(:,1);
+y_tar = X_tar(:,2);
+
+% put in capsules-like structure so that it can be passed into getZone
+bd2.N  = numel(x_tar);
+bd2.nb = 1;
+bd2.X  = [x_tar; y_tar];
+
+% Construct near-singular integration structure so that velocity can be
+% evaulated in bulk.
+[~,NearOther] = geom.getZone(bd2,2);
+
+jump = 0.5;
+kernel = @o.exactStokesDL;
+kernelSelf = @(z) +jump*z + o.exactStokesDLdiag(geom,geom.DLPStokes,z);
+
+vel = o.nearSingInt(geom,eta,kernelSelf,NearOther,...
+    kernel,kernel,bd2,false,false);
+
+% Add on Rotlets and Stokeslets
+for k = 1:geom.nb
+  [cx,cy] = oc.getXY(geom.center(:,k));
+
+  fx = force(2*(k-1) + 1);
+  fy = force(2*(k-1) + 2);
+  tor = torque(k);
+
+  rx = x_tar(:) - cx;
+  ry = y_tar(:) - cy;
+  rho2 = rx.^2 + ry.^2;
+  rdotf = rx*fx + ry*fy;
+  vel = vel + (1/4/pi)*...
+      [-0.5*log(rho2)*fx + rdotf./rho2.*rx;...
+       -0.5*log(rho2)*fy + rdotf./rho2.*ry];
+
+  vel = vel + (1/4/pi)*tor*[-ry./rho2;+rx./rho2];
+end
+
+[velx,vely] = oc.getXY(vel);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% calculate some cutoffs 
+Vx   = 0*x_tar;
+Vy   = 0*y_tar;
+COFF = 0*x_tar;
+
+for p = 1:geom.nb
+    [cx,cy] = oc.getXY(geom.center(:,p)); %center
+    
+    bx = X(1:geom.N,p);     bx = [bx; bx(1)]; %and boundary curve
+    by = X(geom.N+1:end,p); by = [by; by(1)];    
+
+    wn = o.wn_PnPoly(x_tar, y_tar, bx, by, geom.N);
+
+    COFF = COFF  + wn;
+
+    %impose rigid motion for tracers within particles
+    Vx = Vx + wn.*( Up(1,p) - wp(p)*(y_tar - cx) );
+    Vy = Vy + wn.*( Up(2,p) + wp(p)*(x_tar - cy) );
+    
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+velx = velx.*(1-COFF) + Vx;
+vely = vely.*(1-COFF) + Vy;
+
+VELS = [velx vely];
+save("-ascii", "vels.dat", "VELS")
+
+quiver(x_tar, y_tar, velx, vely);
+
+end % tracerVelocity
+
+function wn = wn_PnPoly(o, p1, p2, v1, v2, N)
+
+% wn_PnPoly(): winding number test for a point in a polygon
+%      Input:   P = a point (p1, p2)
+%               V = (v1, v2) = vertex points of a polygon with V(1) = V(N+1)
+%      Return:  wn = the winding number (=0 only when P is outside)
+
+    wn = 0*p1;
+
+    for i = 1:N
+    
+        wn = wn + (v2(i) <= p2).*(v2(i+1)  > p2).*(o.isLeft(v1(i), v2(i), v1(i+1), v2(i+1), p1, p2) > 0);
+        wn = wn - (v2(i)  > p2).*(v2(i+1) <= p2).*(o.isLeft(v1(i), v2(i), v1(i+1), v2(i+1), p1, p2) < 0);
+
+    end
+    
+end
+
+function out = isLeft(o, p1, p2, q1, q2, r1, r2)
+    %    Input:  three points p, q, and r
+    %    Return: >0 for r left of the line through p and q
+    %            =0 for r  on the line
+    %            <0 for r  right of the line     
+    %http://geomalgorithms.com/a03-_inclusion.html
+
+    out = (q1 - p1) .* (r2 - p2) - (r1 -  p1) .* (q2 - p2) ;
+
+end
+    
 end % methods
 
 methods(Static)
