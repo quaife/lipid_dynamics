@@ -220,12 +220,13 @@ for k = 1:nb
   wp(k) = sigma(2*N*nb+2*nb+k);
 end
 
+[mean(Up(1,:)); mean(Up(2,:))]
 %Up = Up - [mean(Up(1,:)); mean(Up(2,:))];
 
 % Routine to compute the velocity in the bulk and use the rigid body
 % motion to define a velocity in rigid bodies. The goal is to see
 % something cotinuous
-%op.bulkVelocity(geom,etaStokes,Up,wp,force,torque);
+% op.bulkVelocity(geom,etaStokes,Up,wp,force,torque);
 
 end % timeStep
 

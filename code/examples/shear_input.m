@@ -5,7 +5,7 @@ format compact
 
 prams.N = 32;
 
-dt      = 0.3;
+dt      = 0.1;
 prams.m = 50*10;      % number of time steps
 prams.T = prams.m*dt; % time horizon
 
@@ -28,7 +28,7 @@ options.verbose   = true;
 options.timeOrder = 1;
 options.gmresTol  = 1e-10;
 options.usePlot   = true; %false;
-options.plotAxis  = 2*[-3 3 -3 3];
+options.plotAxis  = 3*[-3 3 -3 3];
 
 % initial centers
 data = load('N2_0.dat');

@@ -122,6 +122,7 @@ while step < prams.m
   DATA = [xc1(1,:)' xc1(2,:)' tau1' force(1,:)' force(2,:)' torque];
   fileName = sprintf("../output/data/frames/N%d_%f_%d.dat", geom2.nb, options.shearRate, step);
   save("-ascii", fileName, "DATA");
+
 end
 
 % save final time step
