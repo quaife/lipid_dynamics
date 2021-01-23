@@ -119,10 +119,7 @@ while step < prams.m
   % update step counter
   step = step + 1;
   
-  DATA = [xc1(1,:)' xc1(2,:)' tau1' force(1,:)' force(2,:)' torque];
-  fileName = sprintf("../output/data/frames/N%d_%f_%d.dat", geom2.nb, options.shearRate, step);
-  save("-ascii", fileName, "DATA");
-
+  
   % update tracers
   XX = load("../examples/tracers.dat");
   UU = load("../examples/tracer_vel.dat");
@@ -141,9 +138,16 @@ while step < prams.m
   XX(it,2) = options.plotAxis(3);
   
   save("-ascii", "../examples/tracers.dat", "XX");
+  
+  % output data
+  
+  DATA = [xc1(1,:)' xc1(2,:)' tau1' force(1,:)' force(2,:)' torque];
+  fileName = sprintf("../output/data/frames/N%d_%f_%d.dat", geom2.nb, options.shearRate, step);
+  save("-ascii", fileName, "DATA");
+ 
   fileName = sprintf("../output/data/frames/N%d_%f_%d.tracer", geom2.nb, options.shearRate, step);
   save("-ascii", fileName, "XX");  
-  
+
 end
 
 % save final time step
