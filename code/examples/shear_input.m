@@ -18,7 +18,7 @@ prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
 options.farField  = 'shear';
-options.shearRate = 0.1;
+options.shearRate = 0.07;
 options.saveData  = false;
 options.fileBase  = 'shear';
 options.append    = false;
@@ -28,7 +28,15 @@ options.verbose   = true;
 options.timeOrder = 2;
 options.gmresTol  = 1e-10;
 options.usePlot   = true; %false;
-options.plotAxis  = 3*[-3 3 -3 3];
+options.plotAxis  = [-10 10 -4 4];
+
+% tracers 
+axs = options.plotAxis;
+N = 1000;
+xx = (axs(2) - axs(1)).*rand(N,1) + axs(1);
+yy = (axs(4) - axs(3)).*rand(N,1) + axs(3);
+XX = [xx yy];
+save("-ascii", "tracers.dat", "XX");
 
 % initial centers
 data = load('N3_0.dat');

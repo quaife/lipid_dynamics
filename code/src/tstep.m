@@ -226,8 +226,7 @@ end
 % Routine to compute the velocity in the bulk and use the rigid body
 % motion to define a velocity in rigid bodies. The goal is to see
 % something cotinuous
-op.bulkVelocity(geom,etaStokes,Up,wp,force,torque, o.dt, @(X) o.farField(X));
-%op.tracerVelocity(geom,etaStokes,Up,wp,force,torque);
+op.bulkVelocity(geom,etaStokes,Up,wp,force,torque, @(X) o.farField(X));
 
 end % timeStep
 

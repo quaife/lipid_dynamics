@@ -197,10 +197,11 @@ if o.usePlot
   end
   axis equal
   axis(o.plotAxis);  
-  hold on
+  hold on  
   colorbar
-  drawnow
-
+  XX = load("../examples/tracers.dat");
+  plot(XX(:,1),XX(:,2),'k.');  
+  drawnow  
   pause(0.01);
   hold off
 end
