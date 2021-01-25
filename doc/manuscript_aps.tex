@@ -191,6 +191,7 @@ where ${\bf u}$ is the velocity, $p$ is the pressure, and ${\bf u}_\infty$ is th
 %
 The mobility problem for $N_b$-body system in a Stokes flow leads to a second-kind boundary integral equations (BIE) with a density function $\eta({\bf x}$ that is given by \cite{Lukas19}
 \begin{equation}
+\label{mobility}
 \begin{aligned}
 {\bf v}_i + &\omega_i\times({\bf x}-{\bf a}_i)\\
  =& -\frac12\eta({\bf x}) + D[\eta]({\bf x}) \\
@@ -199,12 +200,22 @@ The mobility problem for $N_b$-body system in a Stokes flow leads to a second-ki
 \end{equation}
 %
 with two constraints 
-
-\begin{gather}
-\int_{\partial \Gamma_i}\eta\cdot \nu ds = {\bf 0}\\
-	\int_{\partial \Gamma_i}\eta\times({\bf x}-{\bf a}_i)\cdot \nu ds ={\bf 0},
-\end{gather}
-where the two-diensional Stokeslet and the Rotlet are
+%
+\begin{center}
+\begin{equation}
+\label{mobility2}
+\int_{\partial \Gamma_i}\eta\cdot \nu ds = {\bf 0},
+\end{equation}
+\end{center}
+%
+\begin{center}
+\begin{equation}
+\label{mobility3}
+\int_{\partial \Gamma_i}\eta\times({\bf x}-{\bf a}_i)\cdot \nu ds ={\bf 0},
+\end{equation}
+\end{center}
+%
+where the two-dimensional Stokeslet and the Rotlet are
 %
 \begin{gather}
 {\bf S}({\bf x}, {\bf a}) = \frac{1}{4\pi}\left(-\log(|({\bf x}-{\bf a})|){\bf I}+\frac{({\bf x}-{\bf a})\otimes({\bf x}-{\bf a})}{|({\bf x}-{\bf a})|^2}\right) \\ 
@@ -212,7 +223,7 @@ where the two-diensional Stokeslet and the Rotlet are
 \end{gather}
 %
 %Here ${\bf r}={\bf x}-{\bf a}$ and $\rho=|{\bf r}|$.
-${\bf F}_i$ and $t_i$ are particle force and torque calculated from action of hydrophobic attractions. From equations above, we have translational velocity ${\bf v}_i$, angular velocity $\omega_i$, and density function $\eta$ as unknowns.
+${\bf F}_i$ and $t_i$ are particle force and torque calculated from action of hydrophobic attractions. From equations~\eqref{mobility}--\eqref{mobility3}, we have translational velocity ${\bf v}_i$, angular velocity $\omega_i$, and density function $\eta$ as unknowns.
 This system of equations is then solvable with the use of an iterative method such as GMRES or conjugate gradient iterations.
 
 \section{\label{IEM}Integral Equation Method}
