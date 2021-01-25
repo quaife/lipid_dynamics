@@ -91,7 +91,7 @@ Department of Mathematical Sciences, New Jersey Institute of Technology,\\ Newar
              %  but any date may be explicitly specified
 
 \begin{abstract}
-In this work, we study the dynamics of many-body systems immersed in a viscous fluid with a specified interparticle force. In particular, we apply a hydrophobic attraction potential (HAP) using a Janus type granular system to model lipid bilayer membranes. Coupling with an efficient integral equation method for rigid bodies in Stokes flow and an previous developed HAP solver, the deformations of a two-dimensional vesicle such as tank-treading motion and membrane ruptures can be observed under different values of the shear rate. Moreover, an efficient integral equation method is adopted for solving the screened Laplace equation and the mobility problem where it can accurately calculate interactions between near touched boundaries.
+In this work, we study the dynamics of many-body systems immersed in a viscous fluid with a specified interparticle force. In particular, we apply a hydrophobic attraction potential (HAP) using a Janus type granular system to model lipid bilayer membranes. Coupling with an efficient integral equation method for rigid bodies in Stokes flow and an previous developed HAP solver, the deformations of a two-dimensional vesicle such as tank-treading motion and membrane ruptures can be observed under different values of the shear rate. Moreover, an efficient integral equation method is adopted for solving the screened Laplace equation and the mobility problem where it can accurately calculate hydrophobic and hydrodynamic interactions between near touched boundaries.
 %Below: From aps sample
 %An article usually includes an abstract, a concise summary of the work
 %covered at length in the main body of the article. 
@@ -205,15 +205,15 @@ with two constraints
 	\int_{\partial \Gamma_i}\eta\times({\bf x}-{\bf a}_i)\cdot \nu ds ={\bf 0},
 \end{gather}
 where the two-diensional Stokeslet and the Rotlet are
-\begin{equation}
-\begin{aligned}
-{\bf S}({\bf x}, {\bf a}) &= \frac{1}{4\pi}\left(-\log(|({\bf x}-{\bf a})|){\bf I}+\frac{({\bf x}-{\bf a})\otimes({\bf x}-{\bf a})}{|({\bf x}-{\bf a})|^2}\right) \\ 
-{\bf R}({\bf x},{\bf a})&=\frac{({\bf x}-{\bf a})^\perp}{4\pi|({\bf x}-{\bf a})|^2}.
-\end{aligned}
-\end{equation}
+%
+\begin{gather}
+{\bf S}({\bf x}, {\bf a}) = \frac{1}{4\pi}\left(-\log(|({\bf x}-{\bf a})|){\bf I}+\frac{({\bf x}-{\bf a})\otimes({\bf x}-{\bf a})}{|({\bf x}-{\bf a})|^2}\right) \\ 
+{\bf R}({\bf x},{\bf a})=\frac{({\bf x}-{\bf a})^\perp}{4\pi|({\bf x}-{\bf a})|^2}.
+\end{gather}
 %
 %Here ${\bf r}={\bf x}-{\bf a}$ and $\rho=|{\bf r}|$.
-${\bf F}_i$ and $t_i$ are particle force and torque calculated from action of hydrophobic attractions.
+${\bf F}_i$ and $t_i$ are particle force and torque calculated from action of hydrophobic attractions. From equations above, we have translational velocity ${\bf v}_i$, angular velocity $\omega_i$, and density function $\eta$ as unknowns.
+This system of equations is then solvable with the use of an iterative method such as GMRES or conjugate gradient iterations.
 
 \section{\label{IEM}Integral Equation Method}
 
