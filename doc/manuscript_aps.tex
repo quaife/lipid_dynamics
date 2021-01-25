@@ -59,7 +59,8 @@
 
 \preprint{APS/123-QED}
 
-\title{Manuscript Title:\\with Forced Linebreak}% Force line breaks with \\
+%\title{Manuscript Title:\\with Forced Linebreak}% Force line breaks with \\
+\title{Behavior of a Two-Dimensional Vesicle Under a Shear Flow \\via Integral Equation Method}
 \thanks{A footnote to the article title}%
 
 \author{Rolf Ryham}
@@ -90,8 +91,7 @@ Department of Mathematical Sciences, New Jersey Institute of Technology,\\ Newar
              %  but any date may be explicitly specified
 
 \begin{abstract}
-
-
+In this work, we study the dynamics of many-body systems immersed in a viscous fluid with a specified interparticle force. In particular, we apply a hydrophobic attraction potential (HAP) using a Janus type granular system to model lipid bilayer membranes. Coupling with an efficient integral equation method for rigid bodies in Stokes flow and an previous developed HAP solver, the deformations of a two-dimensional vesicle such as tank-treading motion and membrane ruptures can be observed under different values of the shear rate. Moreover, an efficient integral equation method is adopted for solving the screened Laplace equation and the mobility problem where it can accurately calculate hydrophobic and hydrodynamic interactions between near touched boundaries.
 %Below: From aps sample
 %An article usually includes an abstract, a concise summary of the work
 %covered at length in the main body of the article. 
@@ -103,10 +103,6 @@ You may use the \texttt{description} environment to structure your abstract;
 use the optional argument of the \verb+\item+ command to give the category of each item. 
 \end{description}
 \end{abstract}
-
-
-
-
 
 %\keywords{Suggested keywords}%Use showkeys class option if keyword
                               %display desired
@@ -122,90 +118,109 @@ use the optional argument of the \verb+\item+ command to give the category of ea
 
 
 
-\subsection{Hydrophobic Attraction Potential}
+\subsection{Hydrophobic Attraction Potential (HAP)}
 
 
-
-
-
+The Hydrophobic attraction potential (HAP) is given by
 \begin{equation}
 \label{eq:main}
-\Phi(\Omega,f) = \gamma  \min_{u \in \mathcal{A}} I[u],
- \end{equation}
-
-\begin{equation}
-\label{eq:main2}
- I[u]  = \int_{\Omega} \rho |\nabla u|^2 + \rho^{-1} u^2 \,dx.
+\Phi(\Omega,f) = \gamma  \min_{u \in \mathcal{A}}
+ I[u]  = \int_{\Omega} \rho |\nabla u|^2 + \rho^{-1} u^2 \,dx,
 \end{equation}
-
+%
+where $\gamma$ the interfacial tension, $\rho$ the screened length, and this domain functional describes the energy associated with hydrophobic surfaces~\cite{Fu20}. From the first domain variation of HAP, we obtain a hydrophobic stress tensor which is given as follows, 
 
 \begin{equation}
 \label{eq:stress}
 \mathbf{T}
-= \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma (\tfrac{1}{2}|\nabla u|^2 \mathbf{I} - \nabla u\otimes \nabla u),
+= \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma (\tfrac{1}{2}|\nabla u|^2 \mathbf{I} - \nabla u\otimes \nabla u).
 \end{equation}
-
+%
+The integration over boundaries gives force and torque due to the hydrophobic attraction and they are given by 
 
 \begin{equation}
-        \label{SL}
-\begin{cases}
- -\rho^2 \Delta u + u =0 & \text{ in } \Omega,\\
-  u(x) = f(x)  &\text{ on }\Sigma, \\
-   u(x) \to 0, &\text{ as } x \to \infty.
-\end{cases}
+\int_{\Gamma_i} {\bf T}\cdot \nu_i dS ,\quad \int_{\Gamma_i} ({\bf x}-{\bf a}_i)\times ({\bf T}\cdot \nu_i) dS,
 \end{equation}
+%
+where ${\bf x}$ are points on the boundary $\Gamma_i$, ${\bf a}_i$ is the $i^{th}$ particle center, and $\nu_i$ is the outward normal to the $i^{th}$ particle.
+
+
+%\begin{equation}
+%        \label{SL}
+%\begin{cases}
+% -\rho^2 \Delta u + u =0 & \text{ in } \Omega,\\
+%  u(x) = f(x)  &\text{ on }\Sigma, \\
+%   u(x) \to 0, &\text{ as } x \to \infty.
+%\end{cases}
+%\end{equation}
 
 \subsection{Nondimensionalizations}
 
-\begin{equation}
-\chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa}
-\end{equation}
 
+
+For a two-dimensional vesicle, we denote a constant initial radius $R_0$ and 
+the dimensionless shear rate is
+\begin{equation}
+\chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa},
+\end{equation}
+%
+where $\dot\gamma$ the shear rate, $\kappa$ the bending rigidity, and $\mu$ the fluid viscosity~\cite{Finken08}.
 
 
 
 \section{\label{mobility}Mobility Problem}
 
-
-
-
+The governing equation of $N_b$-body bodies suspended in the domain $\Sigma$ is
+ 
 \begin{gather}
-	-\Delta {\bf U} + \nabla P = 0 \qquad \text{in }\Sigma\\
-	\nabla\cdot {\bf U}=0 \qquad \text{in }\Sigma\\
-	{\bf U}({\bf x}) \to {\bf u}_\infty \quad \text{as}\quad |{\bf x}|\to \infty
+	-\Delta {\bf u} + \mu\nabla p = 0 \qquad \text{in }\Sigma\\
+	\nabla\cdot {\bf u}=0 \qquad \text{in }\Sigma\\
+	{\bf u}({\bf x}) \to {\bf u}_\infty \quad \text{as}\quad |{\bf x}|\to \infty
 \end{gather}
-
-
+%
+where ${\bf u}$ is the velocity, $p$ is the pressure, and ${\bf u}_\infty$ is the background flow. 
+%
 %\begin{gather}
 %\int_{\Gamma_i}(\sigma_{hyd}+\sigma_\infty)\cdot {\bf n} ds = -{\bf F}_i \\
 %	\int_{\Gamma_i}(\sigma_{hyd}+\sigma_\infty)\times({\bf x}-{\bf a}_i)\cdot {\bf n} ds =-\tau_i\\
 %\end{gather}
-
-
-
-
+%
+The mobility problem for $N_b$-body system in a Stokes flow leads to a second-kind boundary integral equations (BIE) with a density function $\eta({\bf x}$ that is given by \cite{Lukas19}
 \begin{equation}
+\label{mobility}
 \begin{aligned}
 {\bf v}_i + &\omega_i\times({\bf x}-{\bf a}_i)\\
- =& -\frac12\sigma_{hyd}({\bf x}) + D[\sigma_{hyd}]({\bf x}) \\
-&- \sum_{i=1}^N\big({\bf S}({\bf x}, {\bf a}_i){\bf F}_i+ {\bf R}({\bf x}, {\bf a}_i)\tau_i\big)+{\bf u}_\infty, \quad {\bf x}\in\Gamma \\
+ =& -\frac12\eta({\bf x}) + D[\eta]({\bf x}) \\
+&+ \sum_{i=1}^N\big({\bf S}({\bf x}, {\bf a}_i){\bf F}_i+ {\bf R}({\bf x}, {\bf a}_i)t_i\big)+{\bf u}_\infty, \quad {\bf x}\in\Gamma \\
 \end{aligned}
 \end{equation}
+%
+with two constraints 
+%
+\begin{center}
+\begin{equation}
+\label{mobility2}
+\int_{\partial \Gamma_i}\eta\cdot \nu ds = {\bf 0},
+\end{equation}
+\end{center}
+%
+\begin{center}
+\begin{equation}
+\label{mobility3}
+\int_{\partial \Gamma_i}\eta\times({\bf x}-{\bf a}_i)\cdot \nu ds ={\bf 0},
+\end{equation}
+\end{center}
+%
+where the two-dimensional Stokeslet and the Rotlet are
 %
 \begin{gather}
-\int_{\partial M_i}\sigma_{hyd}\cdot {\bf n} ds = {\bf 0}\\
-	\int_{\partial M_i}\sigma_{hyd}\times({\bf x}-{\bf a}_i)\cdot {\bf n} ds ={\bf 0}
+{\bf S}({\bf x}, {\bf a}) = \frac{1}{4\pi}\left(-\log(|({\bf x}-{\bf a})|){\bf I}+\frac{({\bf x}-{\bf a})\otimes({\bf x}-{\bf a})}{|({\bf x}-{\bf a})|^2}\right) \\ 
+{\bf R}({\bf x},{\bf a})=\frac{({\bf x}-{\bf a})^\perp}{4\pi|({\bf x}-{\bf a})|^2}.
 \end{gather}
-where 
-\begin{equation}
-\begin{aligned}
-{\bf S}({\bf x}, {\bf a}) &= \frac{1}{4\pi}\left(-\log \rho{\bf I}+\frac{{\bf r}\otimes{\bf r}}{\rho^2}\right), \quad \text{and} \\ {\bf R}({\bf x},{\bf a})&=\frac{{\bf r}^\perp}{4\pi\rho^2}, \\
-&{\bf r}={\bf x}-{\bf a}\quad  \text{and} \quad \rho=|{\bf r}|
-\end{aligned}
-\end{equation}
 %
-
-
+%Here ${\bf r}={\bf x}-{\bf a}$ and $\rho=|{\bf r}|$.
+${\bf F}_i$ and $t_i$ are particle force and torque calculated from action of hydrophobic attractions. From equations~\eqref{mobility}--\eqref{mobility3}, we have translational velocity ${\bf v}_i$, angular velocity $\omega_i$, and density function $\eta$ as unknowns.
+This system of equations is then solvable with the use of an iterative method such as GMRES or conjugate gradient iterations.
 
 \section{\label{IEM}Integral Equation Method}
 
@@ -213,15 +228,39 @@ where
 
 \subsection{Short Range Repulsion}
 
+At each time step, we examine the nearest grid points between each pair of body  boundaries. Within a specified distance $d$, we introduce a short range repulsive potential as follows
+
+\begin{equation}
+\Phi_{repul} = 1- \sin\left(\frac{\pi}{2} d\right).
+\end{equation}
+
+Here we would like to make a remark about the time marching scheme. From the mobility problem, we obtain velocity and torque profiles of an $N_b$-body system. A second order Adam-Bashforth scheme is used for updating the dynamics but body collisions may occur during the simulation while a relatively large time step is chosen. We therefore impose a short range repulsion that it will be turned on when the distance between two boundary points on different bodies are within one characteristic length.
 
 
 \section{\label{results}Numerical Results}
+
+\subsection{Single Particle Validations}
+
+Jeffery orbits for single elliptic particle under a shear flow.
+
+
 
 
 \subsection{Tank-Treading Vesicles}
 
 
+We tune the shear rates, vesicle sizes and .....
+
+
+Theoretical tank-treading frequency is given by $\dot\gamma/2$.
+
+
+We also compare the inclination angle against the Jeffery's equation [].
+
 \subsection{Membrane Ruptures}
+
+With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. 
+
 
 
 \section{\label{conclusion}Conclusion}
@@ -234,6 +273,21 @@ where
 \appendix
 
 \section{Appendixes}
+
+
+
+
+\bibliography{reference}% Produces the bibliography via BibTeX.
+
+\end{document}
+
+
+
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%% sample commented %%%%%%%%%%
@@ -874,14 +928,6 @@ where
 % most likely will not want to use it.
 %\nocite{*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-\bibliography{reference}% Produces the bibliography via BibTeX.
-
-\end{document}
-
 
 %
 % ****** End of file apssamp.tex ******

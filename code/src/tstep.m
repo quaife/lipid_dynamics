@@ -30,14 +30,14 @@ function o = tstep(options,prams)
 % o.tstep(options,prams): constructor.  Initialize class.  Take all
 % elements of options and prams needed by the time stepper
 
-o.inear = options.inear;
-o.dt = prams.T/prams.m;
+o.inear    = options.inear;
+o.dt       = prams.T/prams.m;
 o.gmresTol = options.gmresTol;
 o.plotAxis = options.plotAxis;
 o.farField = @(X) o.bgFlow(X,options); 
 
 % for screen laplace BVP
-o.janusbc = @(X,tau,center) o.bcfunc(X,tau,center,options);
+o.janusbc  = @(X,tau,center) o.bcfunc(X,tau,center,options);
 
 end % constructor: tstep
 
@@ -226,7 +226,7 @@ end
 % Routine to compute the velocity in the bulk and use the rigid body
 % motion to define a velocity in rigid bodies. The goal is to see
 % something cotinuous
-% op.bulkVelocity(geom,etaStokes,Up,wp,force,torque);
+op.bulkVelocity(geom,etaStokes,Up,wp,force,torque, @(X) o.farField(X));
 
 end % timeStep
 
