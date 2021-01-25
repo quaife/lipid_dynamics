@@ -220,7 +220,7 @@ for k = 1:nb
   wp(k) = sigma(2*N*nb+2*nb+k);
 end
 
-[mean(Up(1,:)); mean(Up(2,:))]
+%[mean(Up(1,:)); mean(Up(2,:))]
 %Up = Up - [mean(Up(1,:)); mean(Up(2,:))];
 
 % Routine to compute the velocity in the bulk and use the rigid body
@@ -300,14 +300,12 @@ for k = 1:nb
                 (+(geom.X(1:end/2,k) - geom.center(1,k)))*wp(k);
 end
 
-%TODO: See equation (37) in Lu, Rahimian, and Zorin
 % EVALUTATE FORCES ON FIBERS
 for k = 1:nb
   valForce(1,k) = 1/(2*pi)*sum(eta(1:N,k).*geom.sa(:,k))*2*pi/N;
   valForce(2,k) = 1/(2*pi)*sum(eta(N+1:2*N,k).*geom.sa(:,k))*2*pi/N;
 end
 
-%TODO: See equation (37) in Lu, Rahimian, and Zorin
 % EVALUATE TORQUES ON FIBERS
 for k = 1:nb
   valTorque(k) = 1/(2*pi)*sum((-(geom.X(N+1:2*N,k)-geom.center(2,k)).*eta(1:N,k) + ...
@@ -376,6 +374,8 @@ switch options.farField
     vInf = [shearRate*y;zeros(N,nb)];
   case 'extensional'
     vInf = shearRate*[-x;y];
+  case 'taylorgreen'
+    vInf = shearRate*[-cos(x).*sin(y);sin(x).*cos(y)];
   otherwise
     vInf = zeros(2*N,nb);
 end
