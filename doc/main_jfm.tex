@@ -1,0 +1,344 @@
+
+\documentclass[lineno]{jfm}
+
+\usepackage{graphicx}
+%\usepackage{epstopdf,epsfig}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{natbib}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    urlcolor   = blue,
+    citecolor  = black,
+}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\RomanNumeralCaps}[1]
+\linenumbers
+
+
+% {\MakeUppercase{\romannumeral #1}}
+
+\title{Behavior of a Two-Dimensional Vesicle Under a Shear Flow via Integral Equation Method}
+
+%\author{Alan N. Jones\aff{1}
+%  \corresp{\email{JFMEditorial@cambridge.org}},
+%  H.-C. Smith\aff{1}
+% \and J.Q. Long\aff{2}}
+%
+%\affiliation{\aff{1}STM Journals, Cambridge University Press, The Printing House, Shaftesbury Road, Cambridge CB2 8BS, UK
+%\aff{2}DAMTP, Centre for Mathematical Sciences, Wilberforce Road, Cambridge CB3 0WA, UK}
+
+
+\author{Rolf Ryham\aff{1},
+Bryan Quaife\aff{2},
+Szu-Pei Fu\aff{1}
+\and Yuan-Nan Young\aff{3}
+}
+ \affiliation{
+\aff{1} Department of Mathematics, \\Fordham University, Bronx, New York 10458, USA
+\aff{2}Department of Scientific Computing, \\Florida State University, Tallahassee, Florida 32306, USA
+\aff{3}Department of Mathematical Sciences, New Jersey Institute of Technology,\\ Newark, New Jersey 07102, USA
+ }
+
+
+
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this work, we study the dynamics of many-body systems immersed in a viscous fluid with a specified interparticle force. In particular, we apply a hydrophobic attraction potential (HAP) using a Janus type granular system to model lipid bilayer membranes. Coupling with an efficient integral equation method for rigid bodies in Stokes flow and an previous developed HAP solver, the deformations of a two-dimensional vesicle such as tank-treading motion and membrane ruptures can be observed under different values of the shear rate. Moreover, an efficient integral equation method is adopted for solving the screened Laplace equation and the mobility problem where it can accurately calculate hydrophobic and hydrodynamic interactions between near touched boundaries.
+\end{abstract}
+
+
+\begin{keywords}
+Authors should not enter keywords on the manuscript, as these must be chosen by the author during the online submission process and will then be added during the typesetting process (see \href{https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/information/list-of-keywords}{Keyword PDF} for the full list).  Other classifications will be added at the same time.
+\end{keywords}
+
+{\bf MSC Codes }  {\it(Optional)} Please enter your MSC Codes here
+
+
+
+\section{\label{intro}Introduction}
+
+%Nature of amphiphilic lipid molecules, small vesicle, GUVs, RBCs, hydrophobic tails interacting with fluid, 
+
+
+%Tank-treading, tumbling, swing vesicles, viscosity ratio
+
+% two-dimensional vesicle, membrane fusion/fissure, self-assembly property, 
+
+%crystallization, membrane jiggling can be observed when... the hydrophobicity
+
+%mobility problem, particle suspension, a wide range of study, numerical methods including boundary integral equation method, immersed boundary method, level set method, RCIP kernel splitting method,   vesicle deformations,  
+
+% Stokesian dynamics
+
+%The mobility problem can be solved in the fashion of considering propagating waves through rigid bodies where the the external and hydrodynamic forces act as incident fields and scattered field evaluated on the object boundaries.
+
+%The Helfrich membrane energy is well known in continuum modeling/theory. Here we combine the framework in coarse-grained modeling using Janus-type configurations. However, 
+
+%Thermal fluctuation effect not considered but the granular system in a fluid
+
+%
+
+
+%our approach combines the 
+
+\subsection{Hydrophobic Attraction Potential (HAP)}
+
+
+The Hydrophobic attraction potential (HAP) is given by
+\begin{equation}
+\label{eq:main}
+\Phi(\Omega,f) = \gamma  \min_{u \in \mathcal{A}}
+ I[u]  = \int_{\Omega} \rho |\nabla u|^2 + \rho^{-1} u^2 \,dx,
+\end{equation}
+%
+where $\gamma$ the interfacial tension, $\rho$ the screened length, and this domain functional describes the energy associated with hydrophobic surfaces~\cite{Fu20}. From the first domain variation of HAP, we obtain a hydrophobic stress tensor which is given as follows, 
+
+\begin{equation}
+\label{eq:stress}
+\mathbf{T}
+= \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma (\tfrac{1}{2}|\nabla u|^2 \mathbf{I} - \nabla u\otimes \nabla u).
+\end{equation}
+%
+The integration over boundaries gives force and torque due to the hydrophobic attraction and they are given by 
+
+\begin{equation}
+\int_{\Gamma_i} {\bf T}\cdot \nu_i dS ,\quad \int_{\Gamma_i} ({\bf x}-{\bf a}_i)\times ({\bf T}\cdot \nu_i) dS,
+\end{equation}
+%
+where ${\bf x}$ are points on the boundary $\Gamma_i$, ${\bf a}_i$ is the $i^{th}$ particle center, and $\nu_i$ is the outward normal to the $i^{th}$ particle.
+
+
+%\begin{equation}
+%        \label{SL}
+%\begin{cases}
+% -\rho^2 \Delta u + u =0 & \text{ in } \Omega,\\
+%  u(x) = f(x)  &\text{ on }\Sigma, \\
+%   u(x) \to 0, &\text{ as } x \to \infty.
+%\end{cases}
+%\end{equation}
+
+\subsection{Nondimensionalizations}
+
+
+
+For a two-dimensional vesicle, we denote a constant initial radius $R_0$ and 
+the dimensionless shear rate is
+\begin{equation}
+\chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa},
+\end{equation}
+%
+where $\dot\gamma$ the shear rate, $\kappa$ the bending rigidity, and $\mu$ the fluid viscosity~\cite{Finken08}.
+
+
+%This paper is organized as follows. Chapter 2 introduces the mobility problem..... The integral equation method for solving $N_b$-body system with details of .... are included in Chapter 3. We provide numerical results of vesicle simulations in Chapter 4. Finally, we conclude the work and briefly give the picture of our future work.
+
+
+
+
+
+
+
+
+
+\section{\label{mobility}Mobility Problem}
+
+The governing equation of $N_b$-body bodies suspended in the domain $\Sigma$ is
+ 
+\begin{gather}
+	-\Delta {\bf u} + \mu\nabla p = 0 \qquad \text{in }\Sigma\\
+	\nabla\cdot {\bf u}=0 \qquad \text{in }\Sigma\\
+	{\bf u}({\bf x}) \to {\bf u}_\infty \quad \text{as}\quad |{\bf x}|\to \infty
+\end{gather}
+%
+where ${\bf u}$ is the velocity, $p$ is the pressure, and ${\bf u}_\infty$ is the background flow. 
+%
+%\begin{gather}
+%\int_{\Gamma_i}(\sigma_{hyd}+\sigma_\infty)\cdot {\bf n} ds = -{\bf F}_i \\
+%	\int_{\Gamma_i}(\sigma_{hyd}+\sigma_\infty)\times({\bf x}-{\bf a}_i)\cdot {\bf n} ds =-\tau_i\\
+%\end{gather}
+%
+The mobility problem for $N_b$-body system in a Stokes flow leads to a second-kind boundary integral equations (BIE) with a density function $\eta({\bf x}$ that is given by \cite{Lukas19}
+\begin{equation}
+\label{mobility}
+\begin{aligned}
+{\bf v}_i + &\omega_i\times({\bf x}-{\bf a}_i)\\
+ =& -\frac12\eta({\bf x}) + D[\eta]({\bf x}) \\
+&+ \sum_{i=1}^N\big({\bf S}({\bf x}, {\bf a}_i){\bf F}_i+ {\bf R}({\bf x}, {\bf a}_i)t_i\big)+{\bf u}_\infty, \quad {\bf x}\in\Gamma \\
+\end{aligned}
+\end{equation}
+%
+with two constraints 
+%
+\begin{center}
+\begin{equation}
+\label{mobility2}
+\int_{\partial \Gamma_i}\eta\cdot \nu ds = {\bf 0},
+\end{equation}
+\end{center}
+%
+\begin{center}
+\begin{equation}
+\label{mobility3}
+\int_{\partial \Gamma_i}\eta\times({\bf x}-{\bf a}_i)\cdot \nu ds ={\bf 0},
+\end{equation}
+\end{center}
+%
+where the two-dimensional Stokeslet and the Rotlet are
+%
+\begin{gather}
+{\bf S}({\bf x}, {\bf a}) = \frac{1}{4\pi}\left(-\log(|({\bf x}-{\bf a})|){\bf I}+\frac{({\bf x}-{\bf a})\otimes({\bf x}-{\bf a})}{|({\bf x}-{\bf a})|^2}\right) \\ 
+{\bf R}({\bf x},{\bf a})=\frac{({\bf x}-{\bf a})^\perp}{4\pi|({\bf x}-{\bf a})|^2}.
+\end{gather}
+%
+%Here ${\bf r}={\bf x}-{\bf a}$ and $\rho=|{\bf r}|$.
+${\bf F}_i$ and $t_i$ are particle force and torque calculated from action of hydrophobic attractions. From equations~\eqref{mobility}--\eqref{mobility3}, we have translational velocity ${\bf v}_i$, angular velocity $\omega_i$, and density function $\eta$ as unknowns.
+This system of equations is then solvable with the use of an iterative method such as GMRES or conjugate gradient iterations.
+
+\section{\label{IEM}Integral Equation Method}
+
+
+
+\subsection{Short Range Repulsion}
+
+At each time step, we examine the nearest grid points between each pair of body  boundaries. Within a specified distance $d$, we introduce a short range repulsive potential as follows
+
+\begin{equation}
+\Phi_{repul} = 1- \sin\left(\frac{\pi}{2} d\right).
+\end{equation}
+
+Here we would like to make a remark about the time marching scheme. From the mobility problem, we obtain velocity and torque profiles of an $N_b$-body system. A second order Adam-Bashforth scheme is used for updating the dynamics but body collisions may occur during the simulation while a relatively large time step is chosen. We therefore impose a short range repulsion that it will be turned on when the distance between two boundary points on different bodies are within one characteristic length.
+
+
+\section{\label{results}Numerical Results}
+
+\subsection{Single Particle Validations}
+
+Jeffery orbits for single elliptic particle under a shear flow.
+
+
+
+
+\subsection{Tank-Treading Vesicles}
+
+
+We tune the shear rates, vesicle sizes and .....
+
+
+Theoretical tank-treading frequency is given by $\dot\gamma/2$.
+
+
+We also compare the inclination angle against the Jeffery's equation [].
+
+\subsection{Membrane Ruptures}
+
+With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. 
+
+
+
+\subsection{Two Vesicles in an Extensional Flow}
+
+
+
+\section{\label{conclusion}Conclusion}
+
+
+\begin{acknowledgments}
+%We would like to acknowledge 
+\end{acknowledgments}
+
+\appendix
+
+\section{Appendixes}
+
+
+%\bibliographystyle{jfm}
+\bibliography{reference}% Produces the bibliography via BibTeX.
+
+
+
+
+
+%\bibliographystyle{jfm}
+%\bibliography{jfm}
+%Use of the above commands will create a bibliography using the .bib file. Shown below is a bibliography built from individual items.
+
+
+%\bibliography{jfm2esam}
+
+%\begin{thebibliography}{99}
+%
+%\expandafter\ifx\csname natexlab\endcsname\relax
+%\def\natexlab#1{#1}\fi
+%\expandafter\ifx\csname selectlanguage\endcsname\relax
+%\def\selectlanguage#1{\relax}\fi
+%
+%\bibitem[Batchelor (1971)]{Batchelor59}
+%{\sc Batchelor, G.K.} 1971 {Small-scale variation of convected quantities like temperature in turbulent fluid part1, general discussion and the case of small conductivity}, {\it J. Fluid Mech.}, {\bf 5}, pp. 3-113-133.
+%
+%\bibitem [Bouguet (2008)]{Bouguet01}
+%{\sc Bouguet, J.-Y} 2008 Camera Calibration Toolbox for Matlab {\url{http://www.vision.caltech.edu/bouguetj/calib_doc/}}.
+%
+% \bibitem[Briukhanovetal et al (1967)] {Briukhanovetal1967}
+%{\sc Briukhanov, A. V.,   Grigorian, S. S., Miagkov,  S. M., Plam, M. Y.,   I. E. Shurova, I. E.,   Eglit, M. E. and Yakimov, Y. L.} 1967
+%{On some new approaches to the dynamics of snow avalanches},
+%{\it Physics of Snow and Ice,  Proceedings of the International Conference on Low Temperature Science}
+%{Vol 1} pp. 1221--1241 {Institute of Low Temperature Science, Hokkaido University, Sapporo, Hokkaido, Japan}.
+%
+%\bibitem[Brownell (2004)]{Brownell04}
+% {\sc Brownell,  C.J.  and Su,  L.K.} 2004  {Planar measurements of differential diffusion in turbulent jets}, {\it AIAA Paper},  pp. 2004-2335.
+%
+%\bibitem[Brownell and Su (2007)] {Brownell07}
+%  {\sc Brownell, C.J. and  Su, L.K.} 2007 {Scale relations and spatial spectra in a differentially diffusing jet}, {\it AIAA Paper}, pp 2007-1314.
+%
+%\bibitem [Dennis (1985)] {Dennis85}
+% {\sc  Dennis, S.C.R.} 1985 {Compact explicit finite difference approximations to the Navier--Stokes equation},  { In \it Ninth Intl Conf. on Numerical Methods in Fluid Dynamics},  {ed Soubbaramayer and J.P. Boujot},  {Vol 218}, {\it Lecture Notes in Physics}, pp. 23-51. Springer.
+%
+%\bibitem [Edwards et al. (2017)]{EdwardsVirouletKokelaarGray2017}
+%{\sc Edwards, A. N., Viroulet, S., Kokelaar, B. P. and Gray, J. M. N. T.} 2017 Formation of levees, troughs and elevated channels by avalanches on erodible slopes {\it J. Fluid Mech.}, {\bf 823}, pp. 278-315.
+%
+%\bibitem[Hwang et al (1970)] {Hwang70}
+% {\sc Hwang,  L.-S.  and  Tuck, E.O.} 1970 On the oscillations of harbours of arbitrary shape {\it J.~Fluid Mech.}, {\bf42}, pp 447-464.
+%
+%\bibitem[Josep and Saut (1990)] {JosephSaut1990}
+% {\sc Joseph, Daniel D. and Saut, Jean Claude} 1990 Short-wave instabilities and ill-posed initial-value problems {\it Theoretical and Computational Fluid Dynamics}, {\bf 1},  pp.191--227,  {\url{http://dx.doi.org/10.1007/BF00418002}}.
+%
+%\bibitem[Worster (1992)] {Worster92}
+%{ \sc  Worster, M.G.} 1992 The dynamics of mushy layers {\it Interactive dynamics of convection and solidification},
+%{(ed. S.H. Davis and H.E. Huppert and W. Muller and M.G. Worster)}, pp. 113--138 {Kluwer}.
+%
+%\bibitem[Koch(1983)] {Koch83}
+%{\sc Koch, W.} 1983 Resonant acoustic frequencies of flat plate cascades {\it J.~Sound Vib.}, {\bf 88}, pp. 233-242.
+%
+%\bibitem[Lee(1971)] {Lee71}
+%{\sc Lee,  J.-J.}  1971 Wave-induced oscillations in harbours of arbitrary geometry {\it J.~Fluid Mech.}, {\bf 45}, pp. 375-394.
+%
+%\bibitem[Linton and  Evans (1992)] {Linton92}
+% {\sc  Linton, C.M. and  Evans, D.V.} 1992 The radiation and scattering of surface waves by a vertical circular cylinder in a channel {\it Phil.\ Trans.\ R. Soc.\ Lond.}, {\bf 338}, pp. 325-357.
+%
+%\bibitem [Martin(1980] {Martin80}
+% {\sc  Martin, P.A.} 1980 On the null-field equations for the exterior problems of acoustics {\it Q.~J. Mech.\ Appl.\ Maths},{\bf 33}, pp. 385--396.
+%
+%\bibitem [Rogallo(1981)] {Rogallo81}
+% {\sc Rogallo,  R.S.} 1981 Numerical experiments in homogeneous turbulence  { {\it Tech. Rep.} 81835}  {NASA Tech.\ Mem}.
+%
+%\bibitem[Ursell(1950)] {Ursell50}
+%{\sc  Ursell, F.} 1950 Surface waves on deep water in the presence of a submerged cylinder i {\it Proc.\ Camb.\ Phil.\ Soc.}, {\bf 46}, pp.141--152.
+%
+%\bibitem[Wijngaarden (1968)]{Wijngaarden68}
+%{\sc van Wijngaarden, L.} 1968 On the oscillations Near and at resonance in open pipes {\it J.~Engng Maths},{\bf 2}, pp. 225--240.
+%
+%\bibitem[Miller (1991)]{Miller91}
+%{ \sc  Miller, P.L.} 1991 Mixing in high Schmidt number turbulent jets {school {PhD thesis}} {California Institute of Technology}.
+%
+%\end{thebibliography}
+
+%% End of file `jfm2esam.bib'.
+
+\end{document}
