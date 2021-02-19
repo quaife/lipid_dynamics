@@ -5,7 +5,7 @@ format compact
 
 prams.N = 16;
 
-dt      = 0.2;
+dt      = 0.4;
 prams.m = 500*10;      % number of time steps
 prams.T = prams.m*dt; % time horizon
 
@@ -18,7 +18,7 @@ prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
 options.farField  = 'shear';
-options.shearRate = 0.001;
+options.shearRate = 0.000001;
 options.saveData  = false;
 options.fileBase  = 'shear';
 options.append    = false;
@@ -39,7 +39,7 @@ XX = [xx yy];
 save("-ascii", "tracers.dat", "XX");
 
 % initial centers
-data = load('N52_0.dat');
+data = load('N52_0.000000_3616.dat');
 x = data(:,1)';
 y = data(:,2)';
 xc = [x;y];
