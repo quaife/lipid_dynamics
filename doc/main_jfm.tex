@@ -141,13 +141,6 @@ where $\dot\gamma$ the shear rate, $\kappa$ the bending rigidity, and $\mu$ the 
 %This paper is organized as follows. Chapter 2 introduces the mobility problem..... The integral equation method for solving $N_b$-body system with details of .... are included in Chapter 3. We provide numerical results of vesicle simulations in Chapter 4. Finally, we conclude the work and briefly give the picture of our future work.
 
 
-
-
-
-
-
-
-
 \section{\label{mobility}Mobility Problem}
 
 The governing equation of $N_b$-body bodies suspended in the domain $\Sigma$ is
@@ -220,14 +213,10 @@ Here we would like to make a remark about the time marching scheme. From the mob
 \section{\label{results}Numerical Results}
 
 \subsection{Single Particle Validations}
-
 Jeffery orbits for single elliptic particle under a shear flow.
 
 
-
-
 \subsection{Tank-Treading Vesicles}
-
 
 We tune the shear rates, vesicle sizes and .....
 
@@ -256,8 +245,168 @@ With the choice of a large shear rate, a pore formation or a complete membrane r
 
 \appendix
 
-\section{Appendixes}
+\section{Appendices}
+The stress ${\bf T}$ contains the gradient of the double layer potential. This 
+introduces an inherent difficulty in evaluating stress on the boundary.
+To overcome the difficulty of evaluation on $\Sigma_p$, for instance, we decompose $u$ into singular and nonsingular parts:
+\begin{equation}
+u = u_p + v_p
+\end{equation}
+where  
+\begin{equation}
+u_p(x) = \int_{\Sigma_p} \frac{\partial G(x,y)}{\partial \nu} \eta(y) \,\dif S(y).
+\end{equation}
+It turns out that the contribution to the force and torque coming from the singular
+part vanishes. In particular, we will prove the identity
+\begin{equation}
+\label{eq:recipforcetorque}
+F_p + iG_p= \int_{\Sigma_p} ({\bf I}+i{\bf X})J_{p} \,\dif S
+\end{equation}
+where
+ \begin{equation}
+\label{eq:jumpstress1}
+J_{p} &= 2\rho^{-1} \eta  v_p \nu 
++ 2\rho \nabla \eta \cdot \tau_i(\nabla v_p \cdot \tau_i \nu -  \nabla v_p \cdot \nu \tau_i).
+\end{equation}
+Here $\nu$ is the unit normal, $\{\tau_i\}_{i=1}^2$ are orthonormal tangent vectors,
+and ${\bf X}$ is the skew symmetric matrix with axial vector $x$, i.e.
+\[X_{ij} = \varepsilon_{ikj}x_k,\quad {\bf X}v = x\times v\]
+where $\boldsymbol{\varepsilon}$ is the third-order alternating tensor.
+We employ the Einstein summation convention and use complex vectors to streamline the presentation, $i^2 = -1$.
 
+The benefit of using \eqref{eq:recipforcetorque} is that the integrand  is nonsingular.
+The density function $\eta$ has the same smoothness as the boundary data
+and $v_p$ is real-analytic in a neighborhood of $\Sigma_p$.
+
+To prove \eqref{eq:recipforcetorque}, write
+\begin{align*}
+  {\bf T}
+  &=
+  \sigma[u_p,u_p]
+  +(\sigma[u_p,v_p]
+  +\sigma[v_p,u_p])
+  +\sigma[v_p,v_p] \\
+  &= {\bf T}_1 + {\bf T}_2 + {\bf T}_3
+\end{align*}
+where
+\[
+\sigma[u,v]
+= \rho^{-1} uv {\bf I} + \rho \nabla u \cdot \nabla v {\bf I} - 2 \rho \nabla u \otimes \nabla v.
+\]
+\begin{lemma}
+  \label{eq:stress_div_lemma}
+  \begin{equation}
+    \label{eq:decompdivfree}
+    \nabla \cdot {\bf T}_j = 0, \quad
+    \nabla \cdot (x \times {\bf T}_j) = 0,\quad j = 1, 2, 3.
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  Observe that
+  \begin{align*}
+    (\nabla \cdot {\bf T})_j &=
+    \nabla_k   T_{jk} \\
+    &= \rho^{-1} 2u \nabla_j u + \rho(2\nabla_{kl}^2 u \nabla_l u  - 2 \nabla_{kj}^2 u \nabla_k u
+    - 2 \nabla_j u \nabla_{kk}^2 u )\\
+    &=2\rho^{-1}(-\rho^2 \Delta u + u)\nabla_k u .
+  \end{align*}
+  However, $-\rho^2 \Delta u + u = 0$ and so we get $\nabla \cdot {\bf T} = 0.$
+  Furthermore,
+  \begin{align*}
+    (\nabla \cdot (x\times {\bf T} ))_j
+    &= (\nabla \cdot ({\bf X} {\bf T} ))_j
+    = \nabla_k (X_{jl} T_{lk})
+    = \nabla_k (\epsilon_{jml}x_m T_{lk})\\
+    &= \varepsilon_{jml} T_{lm} + \varepsilon_{jml}x_m \nabla_k T_{lk}\\
+    &= (\boldsymbol{\varepsilon}:{\bf T} + {\bf x} \times \nabla \cdot {\bf T})_j.
+  \end{align*}
+  Since ${\bf T}$ is symmetric $\boldsymbol{\varepsilon}:{\bf T} = {\bf 0}$, and we get
+  $\nabla \cdot (x \times {\bf T}) = 0$ as well.
+
+  The functions $u_p$ and $v_p$ also solve the equation $-\rho^2 \Delta u + u = 0$.  Thus
+  \eqref{eq:decompdivfree} holds for $j = 1, 3$. Finally,
+  \eqref{eq:decompdivfree} holds for $j = 2$ because
+  ${\bf T}_2 = {\bf T} - {\bf T}_1 - {\bf T}_3$.
+\end{proof}
+
+
+Using Lemma \ref{eq:stress_div_lemma}, we will establish that
+\begin{equation}
+  \label{eq:prejump}
+  F_p + i G_p = \int_{\Sigma_p}  ({\bf U}_2\nu)^+ - ({\bf U}_2\nu)^-\,\dif S
+\end{equation}
+where ${\bf U}_j = ({\bf I} + i {\bf X}){\bf T}_j$ for $j = 1, 2, 3.$
+The stress ${\bf U}_2$ has a jump discontinuity at $\Sigma_p.$
+The plus and minus superscripts denote
+the limit taken along points in $U_p^c$ and along points in $U_p$
+respectively.
+${\bf U}_1$ and ${\bf U}_3$ are real-analytic in a neighborhood of $\overline{U_p}$
+and have no jump-discontinuity at $\Sigma_p$.
+To derive \eqref{eq:prejump}, we expand
+\begin{align*}
+  F_p + i G_p
+  &= \int_{\Sigma_p} {\bf T} \nu + ix \times {\bf T} \nu \,\dif S \\
+  &= \int_{\Sigma_p}  {\bf U}_1\nu  + ({\bf U}_2\nu)^+ + {\bf U}_3\nu\,\dif S
+\end{align*}
+The function $u_p$ is real-analytic and
+$\nabla \cdot {\bf U}_1 = 0$ throughout $\mathbb{R}^n \setminus U_p$.
+By the divergence theorem, we get
+\begin{equation*}
+  \int_{\Sigma_p}  {\bf U}_1 \nu\,\dif S
+  = \int_{\mathrr{R}^n \setminus U_p} \nabla \cdot {\bf U}_1 \,dx = 0.
+\end{equation*}
+Next, $v_p$ is real-analytic and
+$\nabla \cdot {\bf U}_3 = 0$ in $U_p$. Therefore
+\begin{equation*}
+  \int_{\Sigma_p}  {\bf U}_3 \nu\,\dif S
+  = -\int_{U_p} \nabla \cdot {\bf U}_3 \,dx = 0.
+\end{equation*}
+Finally, $\nabla \cdot {\bf U}_2= 0$ in $U_p$. This gives
+\[
+0 = -\int_{U_p} \nabla \cdot {\bf U}_2 \,dx = \int_{\Sigma_p}  ({\bf U}_2 \nu)^-\,\dif S.
+\]
+Combining the last four equations give \eqref{eq:prejump}.
+
+\begin{proof}[Proof of \eqref{eq:recipforcetorque}]
+  The main ingredients of the proof are the jump relations
+  for $u_p$. For $x_0 \in \Sigma_p$,
+  \begin{enumerate}
+  \item $ \lim_{x \to x_0^\pm } u_p(x) = \pm\frac{1}{2}\eta(x_0) + (D\eta)(x_0)$
+  \item $ \lim_{x \to x_0^+ } (\nabla u_p \cdot \nu) (x) = \lim_{x \to x_0^-} (\nabla u \cdot \nu)(x)$
+  \end{enumerate}
+  Furthermore,
+  combining 1. and 2. give
+  \begin{align*}
+    \nabla u_p^+ - \nabla u_p^-
+    &= \nabla (u_p^+ - u_p^-) \cdot t_i t_i +  (\nabla  u_p^+\cdot \nu  - \nabla u_p^- \cdot \nu) \nu\\
+    &= \nabla \eta \cdot \tau_i \tau_i
+  \end{align*}
+  where $\{\tau_i\}_{i=1}^n$ are an orthonormal tangent vectors.
+  We can use these relationships to derive an expression for the jump in
+  normal stress.
+  \begin{align*}
+    &({\bf T}_2\nu)^+ - ({\bf T}_2\nu)^-
+    \\
+    &= 2\rho^{-1} u_p^+v_p \nu + 2\rho \nabla u_p^+ \cdot \nabla v_p \nu
+    - 2 \rho \nabla u_p^+  \nabla v_p \cdot \nu
+    - 2 \rho \nabla v_p  \nabla u_p^+ \cdot \nu\\
+    &-2\rho^{-1} u_p^-v_p \nu - 2\rho \nabla u_p^- \cdot \nabla v_p \nu
+    + 2 \rho \nabla u_p^-  \nabla v_p \cdot \nu
+    + 2 \rho \nabla v_p  \nabla u_p^- \cdot \nu\\
+    &= 2\rho^{-1} \eta v_p \nu + 2\rho \nabla \eta \cdot \tau_i \tau_i \cdot \nabla v_p \nu
+    - 2\rho \nabla \eta \cdot \tau_i \tau_i \nabla v_p \cdot \nu + 0\\
+    &= J_p.
+  \end{align*}
+
+  Applying the above relations to the integrand of \eqref{eq:prejump} yields
+  \[
+  ({\bf U}_2\nu)^+ - ({\bf U}_2\nu)^-
+  =
+  ({\bf I} + i {\bf X})(({\bf T}_2\nu)^+ - ({\bf T}_2\nu)^-)
+  = ({\bf I} + i {\bf X})J_p
+  \]
+  This completes the proof of \eqref{eq:recipforcetorque}.
+\end{proof}
 
 %\bibliographystyle{jfm}
 \bibliography{reference}% Produces the bibliography via BibTeX.
