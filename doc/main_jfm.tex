@@ -7,6 +7,8 @@
 \usepackage{newtxmath}
 \usepackage{natbib}
 \usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{commath}
 \hypersetup{
     colorlinks = true,
     urlcolor   = blue,
@@ -260,12 +262,12 @@ It turns out that the contribution to the force and torque coming from the singu
 part vanishes. In particular, we will prove the identity
 \begin{equation}
 \label{eq:recipforcetorque}
-F_p + iG_p= \int_{\Sigma_p} ({\bf I}+i{\bf X})J_{p} \,\dif S
+F_p + iG_p= \int_{\Sigma_p} \gamma ({\bf I}+i{\bf X})J_{p} \,\dif S
 \end{equation}
 where
  \begin{equation}
 \label{eq:jumpstress1}
-J_{p} &= 2\rho^{-1} \eta  v_p \nu 
+J_{p} = 2\rho^{-1} \eta  v_p \nu 
 + 2\rho \nabla \eta \cdot \tau_i(\nabla v_p \cdot \tau_i \nu -  \nabla v_p \cdot \nu \tau_i).
 \end{equation}
 Here $\nu$ is the unit normal, $\{\tau_i\}_{i=1}^2$ are orthonormal tangent vectors,
@@ -333,7 +335,7 @@ where
 Using Lemma \ref{eq:stress_div_lemma}, we will establish that
 \begin{equation}
   \label{eq:prejump}
-  F_p + i G_p = \int_{\Sigma_p}  ({\bf U}_2\nu)^+ - ({\bf U}_2\nu)^-\,\dif S
+  F_p + i G_p = \gamma \int_{\Sigma_p}  ({\bf U}_2\nu)^+ - ({\bf U}_2\nu)^-\,\dif S
 \end{equation}
 where ${\bf U}_j = ({\bf I} + i {\bf X}){\bf T}_j$ for $j = 1, 2, 3.$
 The stress ${\bf U}_2$ has a jump discontinuity at $\Sigma_p.$
@@ -345,15 +347,15 @@ and have no jump-discontinuity at $\Sigma_p$.
 To derive \eqref{eq:prejump}, we expand
 \begin{align*}
   F_p + i G_p
-  &= \int_{\Sigma_p} {\bf T} \nu + ix \times {\bf T} \nu \,\dif S \\
-  &= \int_{\Sigma_p}  {\bf U}_1\nu  + ({\bf U}_2\nu)^+ + {\bf U}_3\nu\,\dif S
+  &= \gamma \int_{\Sigma_p} {\bf T} \nu + ix \times {\bf T} \nu \,\dif S \\
+  &= \gamma \int_{\Sigma_p}  {\bf U}_1\nu  + ({\bf U}_2\nu)^+ + {\bf U}_3\nu\,\dif S
 \end{align*}
 The function $u_p$ is real-analytic and
 $\nabla \cdot {\bf U}_1 = 0$ throughout $\mathbb{R}^n \setminus U_p$.
 By the divergence theorem, we get
 \begin{equation*}
   \int_{\Sigma_p}  {\bf U}_1 \nu\,\dif S
-  = \int_{\mathrr{R}^n \setminus U_p} \nabla \cdot {\bf U}_1 \,dx = 0.
+  = \int_{\mathbb{R}^n \setminus U_p} \nabla \cdot {\bf U}_1 \,dx = 0.
 \end{equation*}
 Next, $v_p$ is real-analytic and
 $\nabla \cdot {\bf U}_3 = 0$ in $U_p$. Therefore
@@ -375,7 +377,7 @@ Combining the last four equations give \eqref{eq:prejump}.
   \item $ \lim_{x \to x_0^+ } (\nabla u_p \cdot \nu) (x) = \lim_{x \to x_0^-} (\nabla u \cdot \nu)(x)$
   \end{enumerate}
   Furthermore,
-  combining 1. and 2. give
+  combining (i) and (ii) gives
   \begin{align*}
     \nabla u_p^+ - \nabla u_p^-
     &= \nabla (u_p^+ - u_p^-) \cdot t_i t_i +  (\nabla  u_p^+\cdot \nu  - \nabla u_p^- \cdot \nu) \nu\\
