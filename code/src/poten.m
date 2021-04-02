@@ -727,6 +727,231 @@ end
 
 end % exactStokesDL
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [stokesDLPpressure,stokesDLPpressuretar] = ...
+      exactStokesDLpressure(~,geom,f,Xtar,K1)
+% [stokesDLPpressure,stokesDLPpressuretar] =
+% exactStokesDLpressure(geom,f,Xtar,K1) computes the pressure tensor of
+% the double-layer potential due to f around all parts of the geometry
+% except itself. Also can pass a set of target points Xtar and a
+% collection of geom K1 and the double-layer potential due to components
+% of the geometry in K1 will be evaluated at Xtar. Everything but Xtar
+% is in the 2*N x n format Xtar is in the 2*Ntar x ncol format
+
+if nargin == 5
+  Ntar = size(Xtar,1)/2;
+  ncol = size(Xtar,2);
+  stokesDLPpresstar = zeros(Ntar,ncol);
+else
+  K1 = [];
+  stokesDLPpressuretar = [];
+  ncol = 0;
+  Ntar = 0;
+  % if nargin ~= 5, the user does not need the pressure at arbitrary
+  % points
+end
+den = f.*[geom.sa;geom.sa]*2*pi/geom.N;
+% jacobian term and 2*pi/N accounted for here
+
+oc = curve;
+[xsou,ysou] = oc.getXY(geom.X(:,K1));
+xsou = xsou(:); ysou = ysou(:);
+xsou = xsou(:,ones(Ntar,1))';
+ysou = ysou(:,ones(Ntar,1))';
+
+[denx,deny] = oc.getXY(den(:,K1));
+denx = denx(:); deny = deny(:);
+denx = denx(:,ones(Ntar,1))';
+deny = deny(:,ones(Ntar,1))';
+
+[nx,ny] = oc.getXYperp(geom.xt(:,K1));
+nx = nx(:); ny = ny(:);
+nx = nx(:,ones(Ntar,1))';
+ny = ny(:,ones(Ntar,1))';
+
+for k = 1:ncol % loop over columns of target points
+  [xtar,ytar] = oc.getXY(Xtar(:,k));
+  xtar = xtar(:,ones(geom.N*numel(K1),1));
+  ytar = ytar(:,ones(geom.N*numel(K1),1));
+  
+  rx = xtar - xsou; ry = ytar - ysou;
+  rho2 = rx.^2 + ry.^2;
+  % difference of source and target location and distance squared
+
+  ndotf = nx.*denx + ny.*deny;
+  rdotn = rx.*nx + ry.*ny;
+  rdotf = rx.*denx + ry.*deny;
+  % dot products in the equation for the pressure of the DLP
+
+  stokesDLPpressuretar(1:Ntar,k) = sum(...
+      ndotf./rho2 - 2*rdotn.*rdotf./rho2.^2,2);
+  % pressure
+end
+stokesDLPpressuretar = -stokesDLPpressuretar/pi;
+% pressure of the double-layer potential due to geometry components
+% indexed over K1 evaluated at arbitrary points
+
+stokesDLPpressure = [];
+% April 1, 2021, BQ: THIS CODE HAS NOT BEEN UPDATED SINCE I DON'T
+% BELIEVE WE'LL USE IT
+%if (nargin == 4 && geom.nb > 1)
+%  for k = 1:geom.n
+%    K = [(1:k-1) (k+1:geom.nb)];
+%    [x,y] = oc.getXY(geom.X(:,K));
+%    [nx,ny] = oc.getXYperp(geom.xt(:,K));
+%    [denx,deny] = oc.getXY(den(:,K));
+%    for j=1:geom.N
+%      diffxy = [geom.X(j,k) - x ; geom.X(j+geom.N,k) - y];
+%      dis2 = diffxy(1:geom.N,:).^2 + ...
+%          diffxy(geom.N+1:2*geom.N,:).^2;
+%      % difference of source and target location and distance squared
+%
+%      rdotfTIMESrdotn = ...
+%        (diffxy(1:geom.N,:).*nx + ...
+%        diffxy(geom.N+1:2*geom.N,:).*ny)./dis2.^2 .* ...
+%        (diffxy(1:geom.N,:).*denx + ...
+%        diffxy(geom.N+1:2*geom.N,:).*deny);
+%      % \frac{(r \dot n)(r \dot density)}{\rho^{4}} term
+%
+%      stokesDLP(j,k) = stokesDLP(j,k) + ...
+%          sum(sum(rdotfTIMESrdotn.*diffxy(1:geom.N,:)));
+%      stokesDLP(j+geom.N,k) = stokesDLP(j+geom.N,k) + ...
+%          sum(sum(rdotfTIMESrdotn.*diffxy(geom.N+1:2*geom.N,:)));
+%      % double-layer potential for Stokes
+%    end
+%  end
+%
+%  stokesDLP = stokesDLP/pi;
+%  % 1/pi is the coefficient in front of the double-layer potential
+%end
+%% double-layer potential due to all components of the geometry except
+%% oneself
+
+end % exactStokesDLstress
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [stokesDLPstress,stokesDLPstresstar] = ...
+      exactStokesDLstress(~,geom,f,Xtar,K1)
+% [stokesDLPstress,stokesDLPstresstar] =
+% exactStokesDLstress(geom,f,Xtar,K1) computes the stress tensor of the
+% double-layer potential due to f around all parts of the geometry
+% except itself. Also can pass a set of target points Xtar and a
+% collection of geom K1 and the double-layer potential due to components
+% of the geometry in K1 will be evaluated at Xtar. Everything but Xtar
+% is in the 2*N x n format Xtar is in the 2*Ntar x ncol format
+
+if nargin == 5
+  Ntar = size(Xtar,1)/2;
+  ncol = size(Xtar,2);
+  stokesDLPstresstar = zeros(3*Ntar,ncol);
+else
+  K1 = [];
+  stokesDLPstresstar = [];
+  ncol = 0;
+  Ntar = 0;
+  % if nargin ~= 5, the user does not need the stress at arbitrary
+  % points
+end
+den = f.*[geom.sa;geom.sa]*2*pi/geom.N;
+% jacobian term and 2*pi/N accounted for here
+
+oc = curve;
+[xsou,ysou] = oc.getXY(geom.X(:,K1));
+xsou = xsou(:); ysou = ysou(:);
+xsou = xsou(:,ones(Ntar,1))';
+ysou = ysou(:,ones(Ntar,1))';
+
+[denx,deny] = oc.getXY(den(:,K1));
+denx = denx(:); deny = deny(:);
+denx = denx(:,ones(Ntar,1))';
+deny = deny(:,ones(Ntar,1))';
+
+[nx,ny] = oc.getXYperp(geom.xt(:,K1));
+nx = nx(:); ny = ny(:);
+% need a negative so normal points into the body
+nx = nx(:,ones(Ntar,1))';
+ny = ny(:,ones(Ntar,1))';
+
+for k = 1:ncol % loop over columns of target points
+  [xtar,ytar] = oc.getXY(Xtar(:,k));
+  xtar = xtar(:,ones(geom.N*numel(K1),1));
+  ytar = ytar(:,ones(geom.N*numel(K1),1));
+  
+  rx = xtar - xsou; ry = ytar - ysou;
+  rho2 = rx.^2 + ry.^2;
+  % difference of source and target location and distance squared
+
+  ndotf = nx.*denx + ny.*deny;
+  rdotn = rx.*nx + ry.*ny;
+  rdotf = rx.*denx + ry.*deny;
+  % dot products in the equation for the stress of the DLP
+
+  stokesDLPstresstar(1:Ntar,k) = sum(...
+      +1*ndotf./rho2 ...
+      -8*rdotn.*rdotf.*rx.^2./rho2.^3 ...
+      +2*rdotn.*rx.*denx./rho2.^2 ...
+      +2*rdotf.*rx.*nx./rho2.^2,2);
+  % (1,1) component of stress tensor
+
+  stokesDLPstresstar(Ntar+1:2*Ntar,k) = sum(...
+      -8*rdotn.*rdotf.*rx.*ry./rho2.^3 ...
+      +1*rdotn.*(rx.*deny + ry.*denx)./rho2.^2 ...
+      +1*rdotf.*(rx.*ny + ry.*nx)./rho2.^2,2);
+  % (2,1) or (1,2) (it's symmetric) component of stress tensor
+
+  stokesDLPstresstar(2*Ntar+1:3*Ntar,k) = sum(...
+      +1*ndotf./rho2 ...
+      -8*rdotn.*rdotf.*ry.^2./rho2.^3 ...
+      +2*rdotn.*ry.*deny./rho2.^2 ...
+      +2*rdotf.*ry.*ny./rho2.^2,2);
+  % (2,2) component of stress tensor
+end
+stokesDLPstresstar = stokesDLPstresstar/pi;
+% stress of the double-layer potential due to geometry components
+% indexed over K1 evaluated at arbitrary points
+
+%stokesDLPstress = zeros(3*geom.N,geom.nb);
+stokesDLPstress = [];
+% April 1, 2021, BQ: THIS CODE HAS NOT BEEN UPDATED SINCE I DON'T
+% BELIEVE WE'LL USE IT
+%if (nargin == 4 && geom.nb > 1)
+%  for k = 1:geom.n
+%    K = [(1:k-1) (k+1:geom.nb)];
+%    [x,y] = oc.getXY(geom.X(:,K));
+%    [nx,ny] = oc.getXYperp(geom.xt(:,K));
+%    [denx,deny] = oc.getXY(den(:,K));
+%    for j=1:geom.N
+%      diffxy = [geom.X(j,k) - x ; geom.X(j+geom.N,k) - y];
+%      dis2 = diffxy(1:geom.N,:).^2 + ...
+%          diffxy(geom.N+1:2*geom.N,:).^2;
+%      % difference of source and target location and distance squared
+%
+%      rdotfTIMESrdotn = ...
+%        (diffxy(1:geom.N,:).*nx + ...
+%        diffxy(geom.N+1:2*geom.N,:).*ny)./dis2.^2 .* ...
+%        (diffxy(1:geom.N,:).*denx + ...
+%        diffxy(geom.N+1:2*geom.N,:).*deny);
+%      % \frac{(r \dot n)(r \dot density)}{\rho^{4}} term
+%
+%      stokesDLP(j,k) = stokesDLP(j,k) + ...
+%          sum(sum(rdotfTIMESrdotn.*diffxy(1:geom.N,:)));
+%      stokesDLP(j+geom.N,k) = stokesDLP(j+geom.N,k) + ...
+%          sum(sum(rdotfTIMESrdotn.*diffxy(geom.N+1:2*geom.N,:)));
+%      % double-layer potential for Stokes
+%    end
+%  end
+%
+%  stokesDLP = stokesDLP/pi;
+%  % 1/pi is the coefficient in front of the double-layer potential
+%end
+%% double-layer potential due to all components of the geometry except
+%% oneself
+
+end % exactStokesDLstress
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [yukawaDLP,yukawaDLPtar] = exactYukawaDL(~,geom,f,Xtar,K1)
 % [yukawaDLP,yukawaDLPtar] = exactYukawaDL(geom,f,Xtar,K1) computes the
@@ -1602,6 +1827,7 @@ end % bulkVelocity
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function wn = wn_PnPoly(o, p1, p2, v1, v2, N)
 
 % wn_PnPoly(): winding number test for a point in a polygon
@@ -1620,6 +1846,7 @@ function wn = wn_PnPoly(o, p1, p2, v1, v2, N)
     
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function out = isLeft(o, p1, p2, q1, q2, r1, r2)
     %    Input:  three points p, q, and r
     %    Return: >0 for r left of the line through p and q
@@ -1633,9 +1860,10 @@ end
     
 end % methods
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 methods(Static)
 
-    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function LP = lagrangeInterp(~)
 % interpMap = lagrangeInterp builds the Lagrange interpolation
 % matrix that takes seven function values equally distributed
