@@ -199,8 +199,8 @@ if o.usePlot
   axis(o.plotAxis);  
   hold on  
   colorbar
-  XX = load("../examples/tracers.dat");
-  plot(XX(:,1),XX(:,2),'k.');  
+%  XX = load("../examples/tracers.dat");
+%  plot(XX(:,1),XX(:,2),'k.');  
   drawnow  
   pause(0.01);
   hold off

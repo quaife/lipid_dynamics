@@ -152,7 +152,7 @@ torque = Tq + RTq;
 % solve mobility problem here
 
 % far field condition plus the stokeslet and rotlet terms
-rhs = o.farField(X) + o.StokesletRotlet(geom,force,torque);
+rhs = o.farField(X) + op.StokesletRotlet(geom,force,torque);
 
 % append body force and torque to the background flow to complete the
 % right hand side for GMRES
@@ -226,7 +226,7 @@ end
 % Routine to compute the velocity in the bulk and use the rigid body
 % motion to define a velocity in rigid bodies. The goal is to see
 % something cotinuous
-op.bulkVelocity(geom,etaStokes,Up,wp,force,torque, @(X) o.farField(X));
+%op.bulkVelocity(geom,etaStokes,Up,wp,force,torque, @(X) o.farField(X));
 
 end % timeStep
 
@@ -382,44 +382,6 @@ end
     
 end % bgFlow
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function vLets = StokesletRotlet(o,geom,force,torque);
-
-X = geom.X;
-N = size(X,1)/2;
-nb = size(X,2);
-oc = curve;
-
-vLets = zeros(2*N,nb);
-
-[x,y] = oc.getXY(X);
-for k = 1:nb
-  [cx,cy] = oc.getXY(geom.center(:,k));
-
-  fx = force(2*(k-1) + 1);
-  fy = force(2*(k-1) + 2);
-  tor = torque(k);
-  % force and torque due to body k
-
-  rx = x - cx;
-  ry = y - cy;
-  rho2 = rx.^2 + ry.^2;
-  rdotf = rx*fx + ry*fy;
-  vLets = vLets + (1/4/pi)*...
-    [-0.5*log(rho2)*fx + rdotf./rho2.*rx; ...
-     -0.5*log(rho2)*fy + rdotf./rho2.*ry];
-
-  vLets = vLets + (1/4/pi)*tor*[-ry./rho2;+rx./rho2]; 
-end
-%clf; hold on
-%plot(vLets(1:end/2,2));
-%plot(vLets(1+end/2:end,2),'r');
-%quiver(x,y,vLets(1:end/2,:),vLets(end/2+1:end,:))
-%[x(:,2) y(:,2) vLets(1:end/2,2) vLets(end/2+1:end,2)]
-%pause
-
-
-end % StokesletRotlet
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function bc = bcfunc(~,X,tau,center,options)

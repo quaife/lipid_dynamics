@@ -950,6 +950,166 @@ stokesDLPstress = [];
 
 end % exactStokesDLstress
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [vLets,vLetsTar] = StokesletRotlet(o,geom,force,torque,Xtar,K1)
+% [vLets,vLetsTar] = StokesletRotlet(geom,force,torque,Xtar,K1) computes
+% the velocity due to stokeslets and rotlets. Also can pass a set of
+% target points Xtar and a collection of geom K1 and the Stokeslet and
+% Rotlet velocities due to components of the geometry in K1 will be
+% evaluated at Xtar. Everything but Xtar is in the 2*nb x n format Xtar
+% is in the 2*Ntar x ncol format
+
+if nargin == 6
+  Ntar = size(Xtar,1)/2;
+  ncol = size(Xtar,2);
+  vLetsTar = zeros(2*Ntar,ncol);
+else
+  K1 = [];
+  vLetsTar = [];
+  ncol = 0;
+  Ntar = 0;
+  % if nargin ~= 6, the user does not need the velocity at arbitrary
+  % points
+end
+
+oc = curve;
+X = geom.X;
+N = size(X,1)/2;
+nb = size(X,2);
+
+% stokeslet and torques at the target points (if there are any)
+for k = 1:ncol % loop over columns of target points
+  [xtar,ytar] = oc.getXY(Xtar(:,k));
+  for j = K1
+    [cx,cy] = oc.getXY(geom.center(:,j));
+    fx = force(2*(j-1) + 1);
+    fy = force(2*(j-1) + 2);
+    tor = torque(j);
+    % force and torque due to body j
+
+    rx = xtar - cx;
+    ry = ytar - cy;
+    rho2 = rx.^2 + ry.^2;
+    rdotf = rx*fx + ry*fy;
+    vLetsTar(:,k) = vLetsTar(:,k) + (1/4/pi)*...
+      [-0.5*log(rho2)*fx + rdotf./rho2.*rx; ...
+      -0.5*log(rho2)*fy + rdotf./rho2.*ry];
+
+    vLetsTar = vLetsTar + (1/4/pi)*tor*[-ry./rho2;+rx./rho2]; 
+  end
+end
+
+
+% stokeslet and torques along the bodies
+vLets = zeros(2*N,nb);
+
+[x,y] = oc.getXY(X);
+for j = 1:nb
+  [cx,cy] = oc.getXY(geom.center(:,j));
+
+  fx = force(2*(j-1) + 1);
+  fy = force(2*(j-1) + 2);
+  tor = torque(j);
+  % force and torque due to body j
+
+  rx = x - cx;
+  ry = y - cy;
+  rho2 = rx.^2 + ry.^2;
+  rdotf = rx*fx + ry*fy;
+  vLets = vLets + 1/4/pi*...
+    [-0.5*log(rho2)*fx + rdotf./rho2.*rx; ...
+     -0.5*log(rho2)*fy + rdotf./rho2.*ry];
+
+  vLets = vLets + (1/4/pi)*tor*[-ry./rho2;+rx./rho2]; 
+end
+%clf; hold on
+%plot(vLets(1:end/2,2));
+%plot(vLets(1+end/2:end,2),'r');
+%quiver(x,y,vLets(1:end/2,:),vLets(end/2+1:end,:))
+%[x(:,2) y(:,2) vLets(1:end/2,2) vLets(end/2+1:end,2)]
+%pause
+
+end % StokesletRotlet
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function pressure = RSpressure(~,geom,force,torque,Xtar,K1)
+% pressure = RSpressure(geom,force,torque,Xtar,K1) computes the pressure
+% due to the Stokeslets and Rotlets at a collection of target points.
+% Only looks at contribution due to bodies indexed inside K1.
+
+Ntar = size(Xtar,1)/2;
+ncol = size(Xtar,2);
+pressure = zeros(Ntar,ncol);
+
+oc = curve;
+
+for k = 1:ncol % loop over columns of target points
+  [xtar,ytar] = oc.getXY(Xtar(:,k));
+  for j = K1
+    [cx,cy] = oc.getXY(geom.center(:,j));
+    fx = force(2*(j-1) + 1);
+    fy = force(2*(j-1) + 2);
+%    tor = torque(j);
+    % force and torque due to body j
+
+    rx = xtar - cx;
+    ry = ytar - cy;
+    rho2 = rx.^2 + ry.^2;
+    rdotf = rx*fx + ry*fy;
+    % pressure of the stokeslet
+    pressure(:,k) = pressure(:,k) + 1/2/pi*rdotf./rho2;
+
+    % ROTLET HAS NO PRESSURE.
+  end
+end
+% pressure of the Rotlet and Stokeslets due to geometry components
+% indexed over K1 evaluated at arbitrary points
+
+end % RSpressure
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function stress = RSstress(~,geom,force,torque,Xtar,K1)
+% stress = RSstress(geom,force,torque,Xtar,K1) computes the stress due
+% to the Stokeslets and Rotlets at a collection of target points. Only
+% looks at contribution due to bodies indexed inside K1.
+
+Ntar = size(Xtar,1)/2;
+ncol = size(Xtar,2);
+stress = zeros(3*Ntar,ncol);
+
+oc = curve;
+
+for k = 1:ncol % loop over columns of target points
+  [xtar,ytar] = oc.getXY(Xtar(:,k));
+  for j = K1
+    [cx,cy] = oc.getXY(geom.center(:,j));
+    fx = force(2*(j-1) + 1);
+    fy = force(2*(j-1) + 2);
+    tor = torque(j);
+    % force and torque due to body j
+
+    rx = xtar - cx;
+    ry = ytar - cy;
+    rho2 = rx.^2 + ry.^2;
+    rdotf = rx*fx + ry*fy;
+
+    stress(1:Ntar,k) = stress(1:Ntar,k) - ...
+        1/pi*rdotf./rho2.^2.*rx.^2 + ...
+        1/pi*rx.*ry./rho2.^2*tor;
+    stress(Ntar+1:2*Ntar,k) = stress(Ntar+1:2*Ntar,k) - ...
+        1/pi*(rx.*ry.*rdotf)./rho2.^2 + ...
+        1/2/pi*tor*(ry.^2 - rx.^2)./rho2.^2;
+    stress(2*Ntar+1:3*Ntar,k) = stress(2*Ntar+1:3*Ntar,k) - ...
+        1/pi*rdotf./rho2.^2.*ry.^2 - ...
+        1/pi*rx.*ry./rho2.^2*tor;
+
+  end
+end
+% pressure of the Rotlet and Stokeslets due to geometry components
+% indexed over K1 evaluated at arbitrary points
+
+end % RSstress
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

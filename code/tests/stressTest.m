@@ -15,20 +15,38 @@ geom = capsules(prams,xc,tau);
 
 op = poten(prams.N,prams.rho);
 
-
 % define a somewhat arbitrary density function
 theta = (0:prams.N-1)'*2*pi/prams.N;
 f = [exp(cos(theta));sin(5*sin(theta))];
 f = [f f];
-%f = [cos(theta);zeros(prams.N,1)];
+force = 10*[1;2;3;-4];
+torque = 10*[2;-3];
 
 dx = 0.01;
 [xtar,ytar] = meshgrid(2:dx:4,2:dx:4);
 Ntar = numel(xtar);
-[~,velocity] = op.exactStokesDL(geom,f,[xtar(:);ytar(:)],(1:2));
-[~,pressure] = op.exactStokesDLpressure(geom,f,[xtar(:);ytar(:)],(1:2));
-%pressure = -pressure;
-[~,stress] = op.exactStokesDLstress(geom,f,[xtar(:);ytar(:)],(1:2));
+
+% velocity due to the double-layer potential
+[~,velocityDL] = op.exactStokesDL(geom,f,[xtar(:);ytar(:)],(1:2));
+% velocity due to Stokeslets and Rotlets
+[~,velocityRS] = op.StokesletRotlet(geom,force,torque,...
+      [xtar(:);ytar(:)],(1:2));
+% total velocity
+velocity = velocityDL + velocityRS;
+
+% pressure due to the double-layer potential
+[~,pressureDL] = op.exactStokesDLpressure(geom,f,[xtar(:);ytar(:)],(1:2));
+% pressure due to the Stokeslets and Rotlets
+pressureRS = op.RSpressure(geom,force,torque,[xtar(:);ytar(:)],(1:2));
+% total pressure
+pressure = pressureDL + pressureRS;
+
+% stress due to the double-layer potential
+[~,stressDL] = op.exactStokesDLstress(geom,f,[xtar(:);ytar(:)],(1:2));
+% stess due to the Stokeslets and Rotlets
+stressRS = op.RSstress(geom,force,torque,[xtar(:);ytar(:)],(1:2));
+% total stress
+stress = stressDL + stressRS;
 
 u = reshape(velocity(1:Ntar),size(xtar));
 v = reshape(velocity(Ntar+1:end),size(xtar));
@@ -60,21 +78,27 @@ Lp = (p(2:end-1,3:end) + p(2:end-1,1:end-2) + ...
       p(3:end,2:end-1) + p(1:end-2,2:end-1) - ...
       4*p(2:end-1,2:end-1))/dx^2;
 
+% remove boundary values
 u = u(2:end-1,2:end-1);
 v = v(2:end-1,2:end-1);
 p = p(2:end-1,2:end-1);
-sxx2 = -p + 2*ux;
-sxy2 = uy + vx;
-syy2 = -p + 2*vy;
 sxx = sxx(2:end-1,2:end-1);
 sxy = sxy(2:end-1,2:end-1);
 syy = syy(2:end-1,2:end-1);
 xtar = xtar(2:end-1,2:end-1);
 ytar = ytar(2:end-1,2:end-1);
 
+% stress tensor using finite differences
+sxx2 = -p + 2*ux;
+sxy2 = uy + vx;
+syy2 = -p + 2*vy;
+
+% compute the norms of the difference of the two methods to compute the
+% stress
 disp(norm(sxx(:) - sxx2(:),inf)/norm(sxx(:),inf))
 disp(norm(sxy(:) - sxy2(:),inf)/norm(sxy(:),inf))
 disp(norm(syy(:) - syy2(:),inf)/norm(syy(:),inf))
+% compute the error in the momentum equation
 disp(norm(Lu(:) - px(:),inf)/norm(Lu(:),inf));
 disp(norm(Lv(:) - py(:),inf)/norm(Lv(:),inf));
 
