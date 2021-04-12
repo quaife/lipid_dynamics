@@ -6,6 +6,7 @@ classdef tstep < handle
 properties
 
 dt              % time step size
+sstep           % starting step
 Dp              % Stokes DLP for fiber-fiber interaction
 rhs             % Right hand side of mobility problem
 rhs2            % Right hand side of screen laplace problem
@@ -14,6 +15,7 @@ gmresTol        % GMRES tolerance
 plotAxis        % plot axes
 farField        % background flow
 janusbc         % particle boundary condition
+tracer          % flag for tracer
 precow          % block-diagonal preconditioner for walls
 potp            % class for fiber layer potentials
 potw            % class for wall layer potentials
@@ -32,9 +34,11 @@ function o = tstep(options,prams)
 
 o.inear    = options.inear;
 o.dt       = prams.T/prams.m;
+o.sstep    = prams.sstep;
 o.gmresTol = options.gmresTol;
 o.plotAxis = options.plotAxis;
-o.farField = @(X) o.bgFlow(X,options); 
+o.farField = @(X) o.bgFlow(X,options);
+o.tracer   = options.tracer;
 
 % for screen laplace BVP
 o.janusbc  = @(X,tau,center) o.bcfunc(X,tau,center,options);
@@ -226,7 +230,9 @@ end
 % Routine to compute the velocity in the bulk and use the rigid body
 % motion to define a velocity in rigid bodies. The goal is to see
 % something cotinuous
-%op.bulkVelocity(geom,etaStokes,Up,wp,force,torque, @(X) o.farField(X));
+if o.tracer
+    op.bulkVelocity(geom,etaStokes,Up,wp,force,torque, @(X) o.farField(X));
+end
 
 end % timeStep
 

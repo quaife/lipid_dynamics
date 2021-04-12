@@ -13,7 +13,9 @@ om.plotData(geom);
 
 om.initializeFiles(geom);
 
-time = 0;
+% time = 0;
+tt.sstep
+time = tt.dt*tt.sstep;
 step0 = 0;
 
 step = step0;
@@ -26,7 +28,7 @@ trajectory = [xc(1,:) xc(2,:) tau];
 
 % begin time loop
 %while time < prams.T
-while step < prams.m
+while step <= prams.m
   % start a timer for this particular time step
   tSingleStep = tic;   
 
@@ -114,40 +116,42 @@ while step < prams.m
   %om.writeData(time,geom2.center,geom2.tau,geom2.X);
 
   % write the velocity to a file
-  %om.writeVelData(time,Up,wp);  
+  %om.writeVelData(time,Up,wp); 
+  
+  % update tracers
+  if options.tracer
+  XX = load("../examples/tracers.dat");
+  UU = load("../examples/tracer_vel.dat");
+   
+  XX = XX + tt.dt*UU;
+  
+  % pacman correction for points wandering out-of-bounds
+  il = find(XX(:,1) < options.plotAxis(1)); 
+  ir = find(XX(:,1) > options.plotAxis(2)); 
+  ib = find(XX(:,2) < options.plotAxis(3)); 
+  it = find(XX(:,2) > options.plotAxis(4)); 
+  
+  XX(il,1) = options.plotAxis(2);
+  XX(ir,1) = options.plotAxis(1);
+  XX(ib,2) = options.plotAxis(4);
+  XX(it,2) = options.plotAxis(3);
+  
+  save("-ascii", "../examples/tracers.dat", "XX");
+  end
+  
+  % output data
+  
+  DATA = [xc1(1,:)' xc1(2,:)' tau1' force(1,:)' force(2,:)' torque];
+  fileName = sprintf("../output/data/frames/N%d_%f_%d.dat", geom2.nb, options.shearRate, step+tt.sstep);
+  save("-ascii", fileName, "DATA");
+ 
+  if options.tracer
+  fileName = sprintf("../output/data/frames/N%d_%f_%d.tracer", geom2.nb, options.shearRate, step+tt.sstep);
+  save("-ascii", fileName, "XX");  
+  end
   
   % update step counter
   step = step + 1;
-  
-  
-%  % update tracers
-%  XX = load("../examples/tracers.dat");
-%  UU = load("../examples/tracer_vel.dat");
-%  
-%  XX = XX + tt.dt*UU;
-%  
-%  % pacman correction for points wandering out-of-bounds
-%  il = find(XX(:,1) < options.plotAxis(1)); 
-%  ir = find(XX(:,1) > options.plotAxis(2)); 
-%  ib = find(XX(:,2) < options.plotAxis(3)); 
-%  it = find(XX(:,2) > options.plotAxis(4)); 
-%  
-%  XX(il,1) = options.plotAxis(2);
-%  XX(ir,1) = options.plotAxis(1);
-%  XX(ib,2) = options.plotAxis(4);
-%  XX(it,2) = options.plotAxis(3);
-%  
-%  save("-ascii", "../examples/tracers.dat", "XX");
-%  
-%  % output data
-%  
-%  DATA = [xc1(1,:)' xc1(2,:)' tau1' force(1,:)' force(2,:)' torque];
-%  fileName = sprintf("../output/data/frames/N%d_%f_%d.dat", geom2.nb, options.shearRate, step);
-%  save("-ascii", fileName, "DATA");
-% 
-%  fileName = sprintf("../output/data/frames/N%d_%f_%d.tracer", geom2.nb, options.shearRate, step);
-%  save("-ascii", fileName, "XX");  
-
 end
 
 % save final time step

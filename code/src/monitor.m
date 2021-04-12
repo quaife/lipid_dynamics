@@ -9,6 +9,7 @@ velFile   % name of data file containing velocities
 logFile    % name of log file
 usePlot    % flag for plotting
 plotAxis   % plotting axis
+tracer     % flag for tracer
 
 OUTPUTPATH_DATA % folder in which to save data
 OUTPUTPATH_LOG  % folder in which to save logs
@@ -37,6 +38,7 @@ o.logFile  = [o.OUTPUTPATH_LOG, options.fileBase, '.log'];
 
 o.usePlot  = options.usePlot;
 o.plotAxis = options.plotAxis;
+o.tracer   = options.tracer;
 
 % If saving output, reset data and log files and write the number of
 % points on each body and number of bodies
@@ -199,8 +201,10 @@ if o.usePlot
   axis(o.plotAxis);  
   hold on  
   colorbar
-%  XX = load("../examples/tracers.dat");
-%  plot(XX(:,1),XX(:,2),'k.');  
+  if o.tracer
+    XX = load("../examples/tracers.dat");
+    plot(XX(:,1),XX(:,2),'k.');  
+  end
   drawnow  
   pause(0.01);
   hold off
