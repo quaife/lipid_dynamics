@@ -20,6 +20,8 @@ cur;          % curvature
 length;       % total length of each component
 RepulLength   % repulsion length
 RepulStrength % repulusion strength
+bcShift       % boundary condition shifting parameter
+bcType        % type of the boundary condition
 
 nearStruct;   % structure for near-singular integration
 DLPStokes;    % double-layer potential matrix
@@ -43,6 +45,8 @@ o.gam = prams.gam;
 o.ar = prams.ar;
 o.center = xc; % center
 o.tau = tau; % inclination angle
+o.bcShift = prams.bcShift;
+o.bcType = prams.bcType;
 
 oc = curve;
 
@@ -629,8 +633,12 @@ tau     = geom.tau;
 theta   = atan2(y - yc, x - xc);
 
 %rhs = geom.yukawaExact(x,y);
-
-rhs  = 0.5*(1 + cos(theta - tau));
+switch geom.bcType
+  case 'cosine'
+    rhs  = 0.5*(1 + cos(theta - tau)) + geom.bcShift;
+  case 'vonMises'
+    rhs  = exp(geom.bcShift*cos(theta - tau))/2/pi/besseli(0,geom.bcShift);
+end
 
 rhs = rhs(:);
 

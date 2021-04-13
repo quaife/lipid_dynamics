@@ -100,6 +100,9 @@ prams.gam = geomSou.gam;
 prams.ar = geomSou.ar;
 prams.RepulLength = geomSou.RepulLength;
 prams.RepulStrength = geomSou.RepulStrength;
+prams.bcShift = geomSou.bcShift;
+prams.bcType = geomSou.bcType;
+
 xc = geomSou.center;
 tau = geomSou.tau;
 % BQ: tau and xc are implemented funny

@@ -8,14 +8,17 @@ if isempty(strfind(P, subPath))
   addpath(subPath)
 end
 
-PramList = {'N','nb','T','number_steps'};
-defaultPram.N = 64;
-defaultPram.nb = 1;
-defaultPram.T = 1;
-defaultPram.rho = 4.0;
-defaultPram.number_steps = 10;
-defaultPrams.RepulLength = 0.3;
-defaultPrams.RepulStrength = 0.5;
+PramList = {'N','nb','T','number_steps',...
+            'RepulLength','RepulStrength','bcShift','bcType'};
+defaultPram.N             = 64;
+defaultPram.nb            = 1;
+defaultPram.T             = 1;
+defaultPram.rho           = 4.0;
+defaultPram.number_steps  = 10;
+defaultPram.RepulLength   = 0.3;
+defaultPram.RepulStrength = 0.5;
+defaultPram.bcShift       = 0;
+defaultPram.bcType        = 'cosine';
 
 for k = 1:length(PramList)
   if ~isfield(prams,PramList{k})
@@ -25,20 +28,21 @@ for k = 1:length(PramList)
 end
 
 
-OptionList = {'timeOrder','inear','farField','verbose','usePreco',...
-      'gmresTol','saveData','usePlot','plotAxis'};
+OptionList = {'timeOrder','inear','farField','shearRate','verbose',...
+ 'usePreco','gmresTol','saveData','saveVel','usePlot','plotAxis','tracer'};
     
 defaultOption.timeOrder = 1;
-defaultOption.inear = true;
-defaultOption.farField = 'shear';
+defaultOption.inear     = true;
+defaultOption.farField  = 'shear';
 defaultOption.shearRate = 1;
-defaultOption.verbose = true;
-defaultOption.usePreco = false;
-defaultOption.gmresTol = 1e-6;
-defaultOption.saveData = true;
-defaultOption.saveVel = true;
-defaultOption.usePlot = true;
-defaultOption.plotAxis = [-1 1 -1 1];
+defaultOption.verbose   = true;
+defaultOption.usePreco  = false;
+defaultOption.gmresTol  = 1e-6;
+defaultOption.saveData  = true;
+defaultOption.saveVel   = true;
+defaultOption.usePlot   = true;
+defaultOption.plotAxis  = [-1 1 -1 1];
+defaultOption.tracer    = true;
 
 for k = 1:length(OptionList)
   if ~isfield(options,OptionList{k})

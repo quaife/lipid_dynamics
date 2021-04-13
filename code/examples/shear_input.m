@@ -6,7 +6,7 @@ format compact
 prams.N = 16;      % number of point per body
 
 dt      = 0.2;
-prams.m = 20;      % number of time steps
+prams.m = 10;      % number of time steps
 prams.T = prams.m*dt; % time horizon
 
 prams.order = 2;      % time-stepping order 
@@ -17,12 +17,15 @@ prams.gam = 1.0;      % molecular tension
 prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
-% prams.bcShift       = 1.0; % shift constant for yukawaRHS
+prams.bcShift       = 0.0; % shift constant for yukawaRHS
+prams.bcType        = 'cosine'; % options: 'cosine'; 'vonMises'
 
-options.farField  = 'shear'; % 'extensional'; 'parabolic'; 'taylorgreen'
+options.farField  = 'shear'; 
+% options: 'shear'; 'extensional'; 'parabolic'; 'taylorgreen'
+
 options.shearRate = 0.01;
 options.saveData  = false;
-options.fileBase  = 'shear';
+options.fileBase  = options.farField;
 
 options.append    = false;
 options.inear     = true;
@@ -32,7 +35,7 @@ options.timeOrder = 2;
 options.gmresTol  = 1e-10;
 
 options.usePlot   = true;
-options.tracer    = true;
+options.tracer    = false;
 options.plotAxis  = [-10 10 -10 10];
 
 
@@ -41,7 +44,7 @@ options.plotAxis  = [-10 10 -10 10];
 % 2. If a desired starting step is given, please modify prams.sstep and 
 % prepare the corresponding configuration file w/ or w/o the tracer file.
 
-prams.nb = 2;             % number of bodies
+prams.nb = 8;             % number of bodies
 prams.sstep = 0;          % starting step
 
 if prams.sstep == 0
@@ -61,7 +64,7 @@ y = data(:,2)';
 xc = [x;y];
 
 tau   = data(:,3)';
-radii = 0.5*ones(1,prams.nb);
+radii = 1.0*ones(1,prams.nb);
 ar    = 1.0*ones(1,prams.nb);
 
 % tracers 
