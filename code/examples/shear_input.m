@@ -17,7 +17,9 @@ prams.gam = 1.0;      % molecular tension
 prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
-options.farField  = 'shear'; % 'extensional'; 'parabolic'
+% prams.bcShift       = 1.0; % shift constant for yukawaRHS
+
+options.farField  = 'shear'; % 'extensional'; 'parabolic'; 'taylorgreen'
 options.shearRate = 0.01;
 options.saveData  = false;
 options.fileBase  = 'shear';
@@ -32,6 +34,7 @@ options.gmresTol  = 1e-10;
 options.usePlot   = true;
 options.tracer    = true;
 options.plotAxis  = [-10 10 -10 10];
+
 
 % 1. Please input the number of bodies and have the corresponding initial
 % configuration file ready.

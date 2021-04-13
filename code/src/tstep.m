@@ -382,6 +382,8 @@ switch options.farField
     vInf = shearRate*[-x;y];
   case 'taylorgreen'
     vInf = shearRate*[-cos(x).*sin(y);sin(x).*cos(y)];
+  case 'parabolic'
+    vInf = [shearRate*(1-(y/80).^2);zeros(N,nb)];
   otherwise
     vInf = zeros(2*N,nb);
 end

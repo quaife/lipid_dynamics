@@ -13,8 +13,6 @@ om.plotData(geom);
 
 om.initializeFiles(geom);
 
-% time = 0;
-tt.sstep
 time = tt.dt*tt.sstep;
 step0 = 0;
 
