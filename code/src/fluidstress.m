@@ -3,8 +3,7 @@ op = poten(geom.N,geom.rho);
 oc = curve;
 
 [xtar,ytar] = oc.getXY(Xtar);
-% Ntar = numel(xtar);
-size(etaS)
+Ntar = numel(xtar);
 f = etaS;
 
 % velocity due to the double-layer potential

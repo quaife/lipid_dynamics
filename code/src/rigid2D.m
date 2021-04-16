@@ -55,6 +55,14 @@ while step <= prams.m
 
 
       % stress calculations
+%        xo = xc(1,27:end);
+%        yo = xc(2,27:end);
+%        dist = sqrt(diff(xo).^2+diff(yo).^2);
+%        tmdist = cumsum([0 dist]);
+%        tInt = linspace(0,tmdist(end));
+%        xInt = interp1(tmdist,xo,tInt,"spline");
+%        yInt = interp1(tmdist,yo,tInt,"spline");
+%        Xtar = [xInt;yInt];
 %       [stress, pressure, velocity] = fluidstress(geom0,etaS0,force,torque,Xtar);
 
 
@@ -97,6 +105,14 @@ while step <= prams.m
 
     
     % stress calculations
+%        xo = xc1(1,27:end);
+%        yo = xc1(2,27:end);
+%        dist = sqrt(diff(xo).^2+diff(yo).^2);
+%        tmdist = cumsum([0 dist]);
+%        tInt = linspace(0,tmdist(end));
+%        xInt = interp1(tmdist,xo,tInt,"spline");
+%        yInt = interp1(tmdist,yo,tInt,"spline");
+%        Xtar = [xInt;yInt];
 %     [stress, pressure, velocity] = fluidstress(geom1,etaS0,force,torque,Xtar);    
 
 
