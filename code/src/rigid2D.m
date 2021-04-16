@@ -52,6 +52,14 @@ while step <= prams.m
       % update geometry
       geom0 = capsules(prams,xc0,tau0);
       [Up0, wp0,~,~,etaY0,etaS0,force,torque] = tt.timeStep(geom0,geom0.X,geom0.X);
+
+
+      % stress calculations
+%       [stress, pressure, velocity] = fluidstress(geom0,etaS0,force,torque,Xtar);
+
+
+
+      
 %      sum(force')
 %      Up0'
 %      sum(Up0')
@@ -85,6 +93,14 @@ while step <= prams.m
     geom1 = capsules(prams,xc1,tau1);
     [Up1, wp1,~,~,etaY,etaS,force,torque] = tt.timeStep(geom1,etaY0,etaS0);
     etaY0 = etaY; etaS0 = etaS;
+
+
+    
+    % stress calculations
+%     [stress, pressure, velocity] = fluidstress(geom1,etaS0,force,torque,Xtar);    
+
+
+
 %    Up1'
 %    sum(Up1')
 %    pause
@@ -101,6 +117,13 @@ while step <= prams.m
   end
 
   om.plotData(geom2);
+
+  % write the shape to a file
+  om.writeData(time,geom2.center,geom2.tau,geom2.X);
+
+  % write the velocity to a file
+  om.writeVelData(time,Up0,wp0); 
+  
   
   % update time
   time = time + tt.dt;
@@ -110,11 +133,7 @@ while step <= prams.m
       ' of time horizon ' , num2str(prams.T,'%4.2e')];
   om.writeMessage(message);
   
-  % write the shape to a file
-  %om.writeData(time,geom2.center,geom2.tau,geom2.X);
 
-  % write the velocity to a file
-  %om.writeVelData(time,Up,wp); 
   
   % update tracers
   if options.tracer
