@@ -681,5 +681,69 @@ end % methods
 end %capsules
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [x1tar, x2tar, t1, t2, n1, n2, ds, ka, dkas, ddkas] = StressTargets(x1, x2, H)
+    % N   = points per particle
+    % rad = particle radius 
+    oc = curve;
+    
+    IK  = oc.modes(length(x1),1);
+    cut_off = 7;
+
+    x1  = FFTsmooth(x1, cut_off);
+    x2  = FFTsmooth(x2, cut_off);
+
+    dx1 = oc.diffFT(x1, IK);
+    dx2 = oc.diffFT(x2, IK);
+    ds  = sqrt( dx1.^2 + dx2.^2 );
+
+    t1  = dx1./ds;
+    t2  = dx2./ds;
+
+    n1  =  t2;
+    n2  = -t1;
+
+    % push curve out distance h and then reevaluate geometric functions 
+
+%     H = rad + 4*2*pi*rad/N;
+
+    y1 = x1 + H*n1;
+    y2 = x2 + H*n2;
+   
+
+    %Reevaluate
+    dx1 = oc.diffFT(x1, IK);
+    dx2 = oc.diffFT(x2, IK);
+    ds  = sqrt( dx1.^2 + dx2.^2 );
+
+    t1  = dx1./ds;
+    t2  = dx2./ds;
+    n1  =  t2;
+    n2  = -t1;    
+
+    dn1 = oc.diffFT(n1, IK);
+    dn2 = oc.diffFT(n2, IK);
+
+    ka  = (dn1.*t1 + dn2.*t2)./ds;
+    dka  = oc.diffFT(ka, IK);
+    dkas = dka./ds;
+    ddkas = oc.diffFT(dkas, IK)./ds;
+    
+    x1tar = x1;
+    x2tar = x2; 
+end
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function y = FFTsmooth(y, co)
+y = fft(y);
+n = length(y);
+% Y = y;
+y(co:(n-co)+2) = 0;
+%[(1:n)' Y y]
+%pause
+y = ifft(y);
+end
 
 
