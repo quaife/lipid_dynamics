@@ -53,26 +53,6 @@ while step <= prams.m
       geom0 = capsules(prams,xc0,tau0);
       [Up0, wp0,~,~,etaY0,etaS0,force,torque] = tt.timeStep(geom0,geom0.X,geom0.X);
 
-
-      % stress calculations
-%        xo = xc(1,27:end);
-%        yo = xc(2,27:end);
-%        dist = sqrt(diff(xo).^2+diff(yo).^2);
-%        tmdist = cumsum([0 dist]);
-%        tInt = linspace(0,tmdist(end));
-%        xInt = interp1(tmdist,xo,tInt,"spline");
-%        yInt = interp1(tmdist,yo,tInt,"spline");
-%        Xtar = [xInt;yInt];
-%       [stress, pressure, velocity] = fluidstress(geom0,etaS0,force,torque,Xtar);
-
-
-
-      
-%      sum(force')
-%      Up0'
-%      sum(Up0')
-%      pause
-
       % write the velocity to a file
       om.writeVelData(time,Up0,wp0);
       
@@ -89,10 +69,10 @@ while step <= prams.m
       %om.writeMessage(message);
       
       % write the shape to a file
-      om.writeData(time,geom0.center,geom0.tau,geom0.X);
+%       om.writeData(time,geom0.center,geom0.tau,geom0.X);
 
       % write the velocity to a file
-      om.writeVelData(time,Up0,wp0);
+%       om.writeVelData(time,Up0,wp0);
       
       % update step counter
       step = step + 1;
@@ -102,25 +82,7 @@ while step <= prams.m
     [Up1, wp1,~,~,etaY,etaS,force,torque] = tt.timeStep(geom1,etaY0,etaS0);
     etaY0 = etaY; etaS0 = etaS;
 
-
     
-    % stress calculations
-%        xo = xc1(1,27:end);
-%        yo = xc1(2,27:end);
-%        dist = sqrt(diff(xo).^2+diff(yo).^2);
-%        tmdist = cumsum([0 dist]);
-%        tInt = linspace(0,tmdist(end));
-%        xInt = interp1(tmdist,xo,tInt,"spline");
-%        yInt = interp1(tmdist,yo,tInt,"spline");
-%        Xtar = [xInt;yInt];
-%     [stress, pressure, velocity] = fluidstress(geom1,etaS0,force,torque,Xtar);    
-
-
-
-%    Up1'
-%    sum(Up1')
-%    pause
-      
     % Applying two-step Adams-Bashforth
     xc2  = xc1  + tt.dt*(1.5*Up1 - 0.5*Up0 );
     tau2 = tau1 + tt.dt*(1.5*wp1 - 0.5*wp0 );
@@ -182,6 +144,37 @@ while step <= prams.m
   fileName = sprintf("../output/data/frames/N%d_%f_%d.tracer", geom2.nb, options.shearRate, step+tt.sstep);
   save("-ascii", fileName, "XX");  
   end
+  
+  
+  % stress calculations
+  if geom2.nb==58
+       xo = xc1(1,27:end);
+       yo = xc1(2,27:end);
+       dist = sqrt(diff(xo).^2+diff(yo).^2);
+       tmdist = cumsum([0 dist]);
+       tInt = linspace(0,tmdist(end));
+       xInt = interp1(tmdist,xo,tInt,"spline");
+       yInt = interp1(tmdist,yo,tInt,"spline");
+       Xtar = [xInt;yInt];
+       Ntar = length(xInt);
+[stress, pressure, velocity] = fluidstress(geom1,etaS0,force,torque,Xtar);
+%   
+SPV = [stress(1:Ntar) stress(Ntar+1:2*Ntar) stress(2*Ntar+1:end) ...
+       pressure velocity(1:Ntar) velocity(Ntar+1:end)];
+% size(stress)   % 3*Ntar
+% size(pressure) % 1*Ntar
+% size(velocity) % 2*Ntar  
+
+fileName = sprintf("../output/data/frames/N%d_%f_%d.stress", geom2.nb, options.shearRate, step+tt.sstep);
+  save("-ascii", fileName, "SPV");  
+  end
+  
+  
+  
+  
+  
+  
+  
   
   % update step counter
   step = step + 1;
