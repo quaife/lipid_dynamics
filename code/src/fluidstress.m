@@ -3,7 +3,7 @@ op = poten(geom.N,geom.rho);
 oc = curve;
 
 [xtar,ytar] = oc.getXY(Xtar);
-Ntar = numel(xtar);
+% Ntar = numel(xtar);
 size(etaS)
 f = etaS;
 
