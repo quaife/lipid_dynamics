@@ -710,13 +710,13 @@ function [x1tar, x2tar, t1, t2, n1, n2, ds, ka, dkas, ddkas] = StressTargets(~,x
 
 %     H = rad + 4*2*pi*rad/N;
 
-    y1 = x1 + H*n1;
-    y2 = x2 + H*n2;
+    y1 = x1' + H*n1;
+    y2 = x2' + H*n2;
    
 
     %Reevaluate
-    dx1 = oc.diffFT(x1', IK);
-    dx2 = oc.diffFT(x2', IK);
+    dx1 = oc.diffFT(y1, IK);
+    dx2 = oc.diffFT(y2, IK);
     ds  = sqrt( dx1.^2 + dx2.^2 );
 
     t1  = dx1./ds;
@@ -732,8 +732,8 @@ function [x1tar, x2tar, t1, t2, n1, n2, ds, ka, dkas, ddkas] = StressTargets(~,x
     dkas = dka./ds;
     ddkas = oc.diffFT(dkas, IK)./ds;
     
-    x1tar = x1;
-    x2tar = x2; 
+    x1tar = y1;
+    x2tar = y2; 
 end
 
 

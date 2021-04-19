@@ -188,7 +188,7 @@ syy = stress(2*Ntar+1:end);
   subplot(1,3,3)
   plot(xtar,ytar,'*'); 
   hold on
-  quiver(xtar,ytar,tx',ty'); hold off
+  quiver(xtar,ytar,tx,ty); hold off
   
 % size(stress)   % 3*Ntar
 % size(pressure) % 1*Ntar
