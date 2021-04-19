@@ -147,17 +147,6 @@ while step <= prams.m
   
   
   % stress calculations
-%   if geom2.nb==58
-%        xo = xc1(1,27:end);
-%        yo = xc1(2,27:end);
-%        dist = sqrt(diff(xo).^2+diff(yo).^2);
-%        tmdist = cumsum([0 dist]);
-%        tInt = linspace(0,tmdist(end));
-%        xInt = interp1(tmdist,xo,tInt,"spline");
-%        yInt = interp1(tmdist,yo,tInt,"spline");
-%        Xtar = [xInt;yInt];
-%        Ntar = length(xInt);
-
 rad = 1.0;
 H = rad + 4*2*pi*rad/geom2.N;
 [xtar, ytar, tx, ty, nx, ny, ds, ka, dkas, ddkas]  = ...
@@ -168,15 +157,11 @@ Ntar = length(xtar);
 %   
 SPV = [stress(1:Ntar) stress(Ntar+1:2*Ntar) stress(2*Ntar+1:end) ...
        pressure velocity(1:Ntar) velocity(Ntar+1:end)];
- 
+TARDATA = [xtar ytar tx ty nx ny ds ka dkas ddkas];
+   
 sxx = stress(1:Ntar);
 sxy = stress(Ntar+1:2*Ntar);
 syy = stress(2*Ntar+1:end);   
-   
-%   size(pressure)
-%   size(sxx)
-%   size(nx)
-%   size(xtar)
   
   StressNormalx = -pressure.*nx + sxx.*nx + sxy.*ny;
   StressNormaly = -pressure.*ny + sxy.*nx + syy.*ny;
@@ -194,10 +179,10 @@ syy = stress(2*Ntar+1:end);
 % size(pressure) % 1*Ntar
 % size(velocity) % 2*Ntar  
 
-% fileName = sprintf("../output/data/frames/N%d_%f_%d.stress", geom2.nb, options.shearRate, step+tt.sstep);
-%   save("-ascii", fileName, "SPV");  
-%   end
-  
+fileName = sprintf("../output/data/frames/N%d_%f_%d.stress", geom2.nb, options.shearRate, step+tt.sstep);
+  save("-ascii", fileName, "SPV");  
+fileName = sprintf("../output/data/frames/N%d_%f_%d.tardata", geom2.nb, options.shearRate, step+tt.sstep);
+  save("-ascii", fileName, "TARDATA");  
   
   
   
