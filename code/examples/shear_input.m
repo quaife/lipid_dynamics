@@ -6,7 +6,7 @@ format compact
 prams.N = 16;      % number of point per body
 
 dt      = 0.2;
-prams.m = 10;      % number of time steps
+prams.m = 1;      % number of time steps
 prams.T = prams.m*dt; % time horizon
 
 prams.order = 2;      % time-stepping order 
@@ -24,7 +24,7 @@ options.farField  = 'shear';
 % options: 'shear'; 'extensional'; 'parabolic'; 'taylorgreen'
 
 options.shearRate = 0.01;
-options.saveData  = false;
+options.saveData  = true;
 options.fileBase  = options.farField;
 
 options.append    = false;
@@ -44,7 +44,7 @@ options.plotAxis  = [-10 10 -10 10];
 % 2. If a desired starting step is given, please modify prams.sstep and 
 % prepare the corresponding configuration file w/ or w/o the tracer file.
 
-prams.nb = 8;             % number of bodies
+prams.nb = 58;             % number of bodies
 prams.sstep = 0;          % starting step
 
 if prams.sstep == 0
@@ -64,7 +64,7 @@ y = data(:,2)';
 xc = [x;y];
 
 tau   = data(:,3)';
-radii = 1.0*ones(1,prams.nb);
+radii = 0.5*ones(1,prams.nb);
 ar    = 1.0*ones(1,prams.nb);
 
 % tracers 
