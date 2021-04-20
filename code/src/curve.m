@@ -256,6 +256,19 @@ end
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function y = FFTsmooth(y, co)
+y = fft(y);
+n = length(y);
+% Y = y;
+y(co:(n-co)+2) = 0;
+%[(1:n)' Y y]
+%pause
+y = ifft(y);
+end
+
+
+
 
 end % methods (Static)
 

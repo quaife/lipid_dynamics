@@ -147,28 +147,42 @@ while step <= prams.m
   
   
   % stress calculations
-  if geom2.nb==58
-       xo = xc1(1,27:end);
-       yo = xc1(2,27:end);
-       dist = sqrt(diff(xo).^2+diff(yo).^2);
-       tmdist = cumsum([0 dist]);
-       tInt = linspace(0,tmdist(end));
-       xInt = interp1(tmdist,xo,tInt,"spline");
-       yInt = interp1(tmdist,yo,tInt,"spline");
-       Xtar = [xInt;yInt];
-       Ntar = length(xInt);
+rad = 1.0;
+H = rad + 4*2*pi*rad/geom2.N;
+[xtar, ytar, tx, ty, nx, ny, ds, ka, dkas, ddkas]  = ...
+                          geom2.StressTargets(xc1(1,:), xc1(2,:), H);
+Xtar = [xtar;ytar];
+Ntar = length(xtar);
 [stress, pressure, velocity] = fluidstress(geom1,etaS0,force,torque,Xtar);
 %   
 SPV = [stress(1:Ntar) stress(Ntar+1:2*Ntar) stress(2*Ntar+1:end) ...
        pressure velocity(1:Ntar) velocity(Ntar+1:end)];
+TARDATA = [xtar ytar tx ty nx ny ds ka dkas ddkas];
+   
+sxx = stress(1:Ntar);
+sxy = stress(Ntar+1:2*Ntar);
+syy = stress(2*Ntar+1:end);   
+  
+  StressNormalx = -pressure.*nx + sxx.*nx + sxy.*ny;
+  StressNormaly = -pressure.*ny + sxy.*nx + syy.*ny;
+  
+  subplot(1,3,1)
+  plot(StressNormalx)
+  subplot(1,3,2)
+  plot(StressNormaly)
+  subplot(1,3,3)
+  plot(xtar,ytar,'*'); 
+  hold on
+  quiver(xtar,ytar,tx,ty); hold off
+  
 % size(stress)   % 3*Ntar
 % size(pressure) % 1*Ntar
 % size(velocity) % 2*Ntar  
 
 fileName = sprintf("../output/data/frames/N%d_%f_%d.stress", geom2.nb, options.shearRate, step+tt.sstep);
   save("-ascii", fileName, "SPV");  
-  end
-  
+fileName = sprintf("../output/data/frames/N%d_%f_%d.tardata", geom2.nb, options.shearRate, step+tt.sstep);
+  save("-ascii", fileName, "TARDATA");  
   
   
   

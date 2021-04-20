@@ -676,14 +676,11 @@ end
 
 end % primal
   
-end % methods
-
-end %capsules
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [x1tar, x2tar, t1, t2, n1, n2, ds, ka, dkas, ddkas] = StressTargets(x1, x2, H)
+function [x1tar, x2tar, t1, t2, n1, n2, ds, ka, dkas, ddkas] = StressTargets(~,x1, x2, H)
     % N   = points per particle
     % rad = particle radius 
     oc = curve;
@@ -691,13 +688,18 @@ function [x1tar, x2tar, t1, t2, n1, n2, ds, ka, dkas, ddkas] = StressTargets(x1,
     IK  = oc.modes(length(x1),1);
     cut_off = 7;
 
-    x1  = FFTsmooth(x1, cut_off);
-    x2  = FFTsmooth(x2, cut_off);
+    x1  = oc.FFTsmooth(x1, cut_off);
+    x2  = oc.FFTsmooth(x2, cut_off);
 
-    dx1 = oc.diffFT(x1, IK);
-    dx2 = oc.diffFT(x2, IK);
+%     size(x1)
+    
+    dx1 = oc.diffFT(x1', IK);
+    dx2 = oc.diffFT(x2', IK);
     ds  = sqrt( dx1.^2 + dx2.^2 );
 
+%     size(dx1)
+%     size(ds)
+    
     t1  = dx1./ds;
     t2  = dx2./ds;
 
@@ -708,19 +710,19 @@ function [x1tar, x2tar, t1, t2, n1, n2, ds, ka, dkas, ddkas] = StressTargets(x1,
 
 %     H = rad + 4*2*pi*rad/N;
 
-    y1 = x1 + H*n1;
-    y2 = x2 + H*n2;
+    y1 = x1' + H*n1;
+    y2 = x2' + H*n2;
    
 
     %Reevaluate
-    dx1 = oc.diffFT(x1, IK);
-    dx2 = oc.diffFT(x2, IK);
+    dx1 = oc.diffFT(y1, IK);
+    dx2 = oc.diffFT(y2, IK);
     ds  = sqrt( dx1.^2 + dx2.^2 );
 
     t1  = dx1./ds;
     t2  = dx2./ds;
     n1  =  t2;
-    n2  = -t1;    
+    n2  = -t1;
 
     dn1 = oc.diffFT(n1, IK);
     dn2 = oc.diffFT(n2, IK);
@@ -730,20 +732,14 @@ function [x1tar, x2tar, t1, t2, n1, n2, ds, ka, dkas, ddkas] = StressTargets(x1,
     dkas = dka./ds;
     ddkas = oc.diffFT(dkas, IK)./ds;
     
-    x1tar = x1;
-    x2tar = x2; 
-end
-
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function y = FFTsmooth(y, co)
-y = fft(y);
-n = length(y);
-% Y = y;
-y(co:(n-co)+2) = 0;
-%[(1:n)' Y y]
-%pause
-y = ifft(y);
+    x1tar = y1;
+    x2tar = y2; 
 end
 
 
+
+
+
+end % methods
+
+end %capsules
