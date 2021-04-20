@@ -632,12 +632,15 @@ tau     = geom.tau;
 
 theta   = atan2(y - yc, x - xc);
 
+%reshape nb-many boundary parameters into N by nb array
+bcs = meshgrid(geom.bcShift, ones(geom.N,1)); 
+
 %rhs = geom.yukawaExact(x,y);
 switch geom.bcType
   case 'cosine'
-    rhs  = 0.5*(1 + cos(theta - tau)) + geom.bcShift;
+    rhs  = 0.5*(1 + cos(theta - tau)) + bcs;
   case 'vonMises'
-    rhs  = exp(geom.bcShift*cos(theta - tau))/2/pi/besseli(0,geom.bcShift);
+    rhs  = exp(bcs.*cos(theta - tau))/2/pi./besseli(0,bcs);
 end
 
 rhs = rhs(:);
@@ -676,70 +679,10 @@ end
 
 end % primal
   
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [x1tar, x2tar, t1, t2, n1, n2, ds, ka, dkas, ddkas] = StressTargets(~,x1, x2, H)
-    % N   = points per particle
-    % rad = particle radius 
-    oc = curve;
-    
-    IK  = oc.modes(length(x1),1);
-    cut_off = 7;
-
-    x1  = oc.FFTsmooth(x1, cut_off);
-    x2  = oc.FFTsmooth(x2, cut_off);
-
-%     size(x1)
-    
-    dx1 = oc.diffFT(x1', IK);
-    dx2 = oc.diffFT(x2', IK);
-    ds  = sqrt( dx1.^2 + dx2.^2 );
-
-%     size(dx1)
-%     size(ds)
-    
-    t1  = dx1./ds;
-    t2  = dx2./ds;
-
-    n1  =  t2;
-    n2  = -t1;
-
-    % push curve out distance h and then reevaluate geometric functions 
-
-%     H = rad + 4*2*pi*rad/N;
-
-    y1 = x1' + H*n1;
-    y2 = x2' + H*n2;
-   
-
-    %Reevaluate
-    dx1 = oc.diffFT(y1, IK);
-    dx2 = oc.diffFT(y2, IK);
-    ds  = sqrt( dx1.^2 + dx2.^2 );
-
-    t1  = dx1./ds;
-    t2  = dx2./ds;
-    n1  =  t2;
-    n2  = -t1;
-
-    dn1 = oc.diffFT(n1, IK);
-    dn2 = oc.diffFT(n2, IK);
-
-    ka  = (dn1.*t1 + dn2.*t2)./ds;
-    dka  = oc.diffFT(ka, IK);
-    dkas = dka./ds;
-    ddkas = oc.diffFT(dkas, IK)./ds;
-    
-    x1tar = y1;
-    x2tar = y2; 
-end
-
-
-
-
-
 end % methods
 
 end %capsules
+
+
+
+

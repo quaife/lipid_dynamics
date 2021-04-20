@@ -1,30 +1,39 @@
+if ~EXTERNAL_OPTIONS
+
 clear
 % clf
 format long e
 format compact
 
 prams.N = 16;      % number of point per body
+prams.nb = 3;      % number of bodies
+prams.sstep = 0;   % starting step
 
-dt      = 0.2;
-prams.m = 1;      % number of time steps
-prams.T = prams.m*dt; % time horizon
+radii = 1.0*ones(1,prams.nb);
+ar    = 1.0*ones(1,prams.nb);
 
-prams.order = 2;      % time-stepping order 
-
-prams.rho = 2.0;      % screen length
-prams.gam = 1.0;      % molecular tension
+prams.rho = 4.0;      % screen length
+prams.gam = 4.0;      % molecular tension
 
 prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
-prams.bcShift       = 0.0; % shift constant for yukawaRHS
+prams.bcShift       = 0.0*ones(1,prams.nb); % shift constant for yukawaRHS
 prams.bcType        = 'cosine'; % options: 'cosine'; 'vonMises'
+
+dt      = 0.3;
+prams.m = 500;        % number of time steps
+prams.T = prams.m*dt; % time horizon
+prams.order = 2;      % time-stepping order 
+
+end
+
 
 options.farField  = 'shear'; 
 % options: 'shear'; 'extensional'; 'parabolic'; 'taylorgreen'
+options.shearRate = 0.00;
 
-options.shearRate = 0.01;
-options.saveData  = true;
+options.saveData  = false;
 options.fileBase  = options.farField;
 
 options.append    = false;
@@ -34,18 +43,14 @@ options.verbose   = true;
 options.timeOrder = 2;
 options.gmresTol  = 1e-10;
 
-options.usePlot   = true;
-options.tracer    = false;
+options.usePlot   = false;
+options.tracer    = true;
 options.plotAxis  = [-10 10 -10 10];
-
 
 % 1. Please input the number of bodies and have the corresponding initial
 % configuration file ready.
 % 2. If a desired starting step is given, please modify prams.sstep and 
 % prepare the corresponding configuration file w/ or w/o the tracer file.
-
-prams.nb = 25;             % number of bodies
-prams.sstep = 0;          % starting step
 
 if prams.sstep == 0
     data = load(['N' num2str(prams.nb) '_' num2str(prams.sstep) '.dat']);
@@ -58,14 +63,11 @@ else
     data = load(fileName);
 end
 
+% initial centers and angles 
 x = data(:,1)';
 y = data(:,2)';
-% initial centers
+tau = data(:,3)';
 xc = [x;y];
-
-tau   = data(:,3)';
-radii = 1.0*ones(1,prams.nb);
-ar    = 1.0*ones(1,prams.nb);
 
 % tracers 
 if options.tracer
@@ -88,10 +90,10 @@ if options.tracer
     end
 end
 
-[options,prams] = initRigid2D(options,prams);
+[options, prams] = initRigid2D(options, prams);
 
 prams.tau   = tau;
 prams.radii = radii;
 prams.ar    = ar;
 
-[Xfinal, trajectory] = rigid2D(options,prams,xc,tau);
+[Xfinal, trajectory] = rigid2D(options, prams, xc, tau);
