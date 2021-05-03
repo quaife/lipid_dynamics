@@ -7,24 +7,24 @@ oc = curve;
 f = etaS;
 
 % velocity due to the double-layer potential
-[~,velocityDL] = op.exactStokesDL(geom,f,[xtar(:);ytar(:)],(1:2));
+[~,velocityDL] = op.exactStokesDL(geom,f,[xtar(:);ytar(:)],(1:geom.nb));
 % velocity due to Stokeslets and Rotlets
 [~,velocityRS] = op.StokesletRotlet(geom,force,torque,...
-      [xtar(:);ytar(:)],(1:2));
+      [xtar(:);ytar(:)],(1:geom.nb));
 % total velocity
 velocity = velocityDL + velocityRS;
 
 % pressure due to the double-layer potential
-[~,pressureDL] = op.exactStokesDLpressure(geom,f,[xtar(:);ytar(:)],(1:2));
+[~,pressureDL] = op.exactStokesDLpressure(geom,f,[xtar(:);ytar(:)],(1:geom.nb));
 % pressure due to the Stokeslets and Rotlets
-pressureRS = op.RSpressure(geom,force,torque,[xtar(:);ytar(:)],(1:2));
+pressureRS = op.RSpressure(geom,force,torque,[xtar(:);ytar(:)],(1:geom.nb));
 % total pressure
 pressure = pressureDL + pressureRS;
 
 % stress due to the double-layer potential
-[~,stressDL] = op.exactStokesDLstress(geom,f,[xtar(:);ytar(:)],(1:2));
+[~,stressDL] = op.exactStokesDLstress(geom,f,[xtar(:);ytar(:)],(1:geom.nb));
 % stess due to the Stokeslets and Rotlets
-stressRS = op.RSstress(geom,force,torque,[xtar(:);ytar(:)],(1:2));
+stressRS = op.RSstress(geom,force,torque,[xtar(:);ytar(:)],(1:geom.nb));
 % total stress
 stress = stressDL + stressRS;
 
