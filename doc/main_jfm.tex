@@ -215,7 +215,25 @@ Here we would like to make a remark about the time marching scheme. From the mob
 \section{\label{results}Numerical Results}
 
 \subsection{Single Particle Validations}
-Jeffery orbits for single elliptic particle under a shear flow.
+
+The first study of the proposed numerical algorithm is the Jeffery orbits of single ellipsoidal particle under a shear flow. A particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the x-axis is $\chi = 90^\circ$. Based on the theoretical Jeffery orbits, 
+
+\begin{equation}
+\chi = \tan^{-1}\frac{a}{b}\tan \frac{ab \dot\gamma t}{a^2+b^2}
+\end{equation}
+%
+where $a$, $b$ are semi-major and semi-minor axes, $\dot\gamma$ is the shear rate, and the test aspect ration of the particle is $2$. Figure~\ref{figure1} shows that the proposed integral equation method has a perfect agreement with the theoretical result from Jeffery orbits.
+
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{JefferyOrbit.eps}
+\end{center}
+  \caption{Comparison of the target angle $\chi(t)$ versus time $t$ between the theoretical Jeffery orbit and the intergal equation method.
+  }
+    \label{figure1}
+\end{figure}
+
 
 
 \subsection{Tank-Treading Vesicles}
