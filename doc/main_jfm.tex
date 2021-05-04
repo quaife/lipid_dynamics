@@ -225,7 +225,7 @@ The preliminary test of the proposed numerical algorithm is the Jeffery orbits o
 where $a$, $b$ are semi-major and semi-minor axes, $\dot\gamma$ is the shear rate, and the test aspect ration of the particle is $2$. Figure~\ref{figure1} shows that the proposed integral equation method has a perfect agreement with the theoretical result from Jeffery orbits.
 
 
-\begin{figure}
+\begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{JefferyOrbit.eps}
 \end{center}
@@ -243,7 +243,7 @@ we adopt the widely tested numerical simulations in both continuum and molecular
 Given a set of various shear rates, with no viscosity difference between internal and external fluids, 
 the vesicle-like granular structure is initially placed in a quiescent flow for obtaining an equilibrium shape.
 
-\begin{figure}
+\begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.4\textwidth]{N58_0.eps}
 \includegraphics[width=0.4\textwidth]{N58_20000.eps}
@@ -273,7 +273,11 @@ With the choice of a large shear rate, a pore formation or a complete membrane r
 
 \subsection{Two Vesicles in a Linear Flow}
 
-\begin{figure}
+
+Figure~\ref{figure3} shows two sets of simulations. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The flow is stretching along the $y$ direction and squeezing in $x$ direction. Hence two vesicles are first pushed toward each other  then separate. With the same starting state, panels (e)-(h) are the observed phenomena when two vesicles are in a shear flow $x = \dot\gamma y$. An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned.
+
+
+\begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.22\textwidth]{N116_ext_0.eps}
 \includegraphics[width=0.22\textwidth]{N116_ext_2500.eps}
@@ -284,8 +288,8 @@ With the choice of a large shear rate, a pore formation or a complete membrane r
 \includegraphics[width=0.22\textwidth]{N116_shear_9000.eps}
 \includegraphics[width=0.22\textwidth]{N116_shear_12000.eps}
 \end{center}
-  \caption{Two vesicles under a linear flow where the shear rate $\dot\gamma=0.005$;
-  (b)-(d) Extensional flow; (e)-(h) Shear flow......
+  \caption{Two vesicles under a linear flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a) and two sets of simulation results are two vesicles under 
+  (b)-(d) extensional flow and (e)-(h) shear flow. 
   }
     \label{figure3}
 \end{figure}
