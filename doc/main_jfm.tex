@@ -219,10 +219,10 @@ Here we would like to make a remark about the time marching scheme. From the mob
 
 \subsection{Single Particle Validations}
 
-The preliminary test of the proposed numerical algorithm is the Jeffery orbits of single ellipsoidal particle under a shear flow. A particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is $\chi = 0^\circ$. Based on the theoretical Jeffery orbits, 
+The preliminary test of the proposed model using integral equation method is the Jeffery orbits of single ellipsoidal particle under a shear flow. A particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\chi = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle, 
 
 \begin{equation}
-\chi = \tan^{-1}\left(\frac{a}{b}\left(\tan \frac{ab \dot\gamma t}{a^2+b^2}\right)\right),
+\chi(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right),
 \end{equation}
 %
 where $a$, $b$ are semi-major and semi-minor axes, $\dot\gamma$ is the shear rate, and the test aspect ratio of the particle is $2$. Figure~\ref{figure1} shows that the proposed integral equation method has a perfect agreement with the theoretical result from Jeffery orbits.
@@ -232,7 +232,7 @@ where $a$, $b$ are semi-major and semi-minor axes, $\dot\gamma$ is the shear rat
 \begin{center}
 \includegraphics[width=0.5\textwidth]{JefferyOrbit.eps}
 \end{center}
-  \caption{Comparison of the target angle $\chi(t)$ versus time $t$ between the theoretical Jeffery orbit and the result from the integral equation method.
+  \caption{Comparison of the target angle $\chi(t)$ versus time $t$ between the theoretical Jeffery orbit and the result from the integral equation method. The schematic of the simulation setup is shown in the inset of the figure.
   }
     \label{figure1}
 \end{figure}
@@ -241,10 +241,14 @@ where $a$, $b$ are semi-major and semi-minor axes, $\dot\gamma$ is the shear rat
 
 \subsection{Tank-Treading Vesicles}
 
-To study the deformation of the closed bilayer structure under a shear flow using the proposed algorithm, 
-we adopt a widely tested numerical simulation in both continuum and molecular dynamics models. The well known results indicate that the vesicle does tank-treading when there is no viscosity contrast in both inside and outside of the structure.
+To study the deformation of a closed bilayer structure under a shear flow using the proposed algorithm, 
+we adopt a widely tested numerical simulation, single vesicle under a shear flow, in both continuum and molecular dynamics models. The well known results indicate that the vesicle does tank-treading when there is no viscosity contrast in both inside and outside of the structure.
 Given a set of various shear rates, with no viscosity difference between internal and external fluids, 
 the vesicle-like granular structure is initially placed in a quiescent flow for obtaining an equilibrium shape.
+
+The starting center of mass position of the vesicle is pinned at the origin and Figure~\ref{figure2} shows 
+the initial circular shape  and the deformed configuration of the vesicle after a period of time. 
+The reduced area is shown in Figure~\ref{figure3} where we compare the change of area over the time with two different shear rates. 
 
 \begin{figure}[H]
 \begin{center}
@@ -267,8 +271,8 @@ the vesicle-like granular structure is initially placed in a quiescent flow for 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.4\textwidth]{ReducedArea.eps}
-\end{center}
-  \caption{Reduced area transition over time.
+\end{center} 
+  \caption{Reduced area transitions over time. The slower shear rate generates a faster convergence in the reduced area. 
   }
     \label{figure3}
 \end{figure}
@@ -277,7 +281,7 @@ the vesicle-like granular structure is initially placed in a quiescent flow for 
 
 \subsection{Membrane Ruptures}
 
-With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. 
+With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. Figure~\ref{figure4} shows a demonstration of a vesicle under a shear flow with shear rate $\dot\gamma=0.1$.
 
 
 \begin{figure}[H]
@@ -287,7 +291,7 @@ With the choice of a large shear rate, a pore formation or a complete membrane r
 \includegraphics[width=0.4\textwidth]{N58_rupt_400.eps}
 \includegraphics[width=0.4\textwidth]{N58_rupt_600.eps}
 \end{center}
-  \caption{Membrane rupture occurs when the shear rate is beyond a certain threshold. Here the shear rate is $\dot\gamma = 0.1$.
+  \caption{Membrane rupture occurs when the shear rate is beyond a certain threshold. Here the shear rate is $\dot\gamma = 0.1$. Starting with a circular shape (panel (a)), the vesicle is stretched by the background flow and multiple pores appear (panel (b)). (c)-(d) are the later states during the simulation.
   }
     \label{figure4}
 \end{figure}
@@ -310,7 +314,7 @@ Figure~\ref{figure5} shows two sets of simulations. Starting from the initial co
 \includegraphics[width=0.22\textwidth]{N116_shear_9000.eps}
 \includegraphics[width=0.22\textwidth]{N116_shear_12000.eps}
 \end{center}
-  \caption{Two vesicles under a linear flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a) and two sets of simulation results are two vesicles under 
+  \caption{Two vesicles under a linear flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a) and two sets of simulation results are two vesicles under: 
   (b)-(d) extensional flow and (e)-(h) shear flow. 
   }
     \label{figure5}
