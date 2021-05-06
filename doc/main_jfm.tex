@@ -219,20 +219,20 @@ Here we would like to make a remark about the time marching scheme. From the mob
 
 \subsection{Single Particle Validations}
 
-The preliminary test of the proposed model using integral equation method is the Jeffery orbits of single ellipsoidal particle under a shear flow. A particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\chi = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle, 
+The preliminary test of the proposed model using integral equation method is the Jeffery orbits of single ellipsoidal particle under a shear flow $\dot x = \dot\gamma y$ where $\dot\gamma$ is the shear rate. A particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\chi = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle, 
 
 \begin{equation}
 \chi(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right),
 \end{equation}
 %
-where $a$, $b$ are semi-major and semi-minor axes, $\dot\gamma$ is the shear rate, and the test aspect ratio of the particle is $2$. Figure~\ref{figure1} shows that the proposed integral equation method has a perfect agreement with the theoretical result from Jeffery orbits.
+where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratio of the particle is $2$. Figure~\ref{figure1} shows that the proposed integral equation method has a perfect agreement with the theoretical result from Jeffery orbits.
 
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{JefferyOrbit.eps}
+\includegraphics[width=0.4\textwidth]{JefferyOrbit.eps}
 \end{center}
-  \caption{Comparison of the target angle $\chi(t)$ versus time $t$ between the theoretical Jeffery orbit and the result from the integral equation method. The schematic of the simulation setup is shown in the inset of the figure.
+  \caption{Comparison of the target angle $\chi(t)$ versus time $t$ between the theoretical Jeffery orbit with $\dot\gamma=0.1$ and the result from the integral equation method. The schematic of the simulation setup is shown in the inset of the figure.
   }
     \label{figure1}
 \end{figure}
@@ -247,7 +247,7 @@ where $a$, $b$ are semi-major and semi-minor axes, $\dot\gamma$ is the shear rat
 \includegraphics[width=0.3\textwidth]{N58_20000.eps}
 \end{center}
   \caption{Vesicle under a shear flow where the shear rate $\dot\gamma=0.005$: 
-  (a) Initial configuration of 58-body vesicle; (b) Deformed vesicle.
+  (a) Initial configuration of 58-body vesicle; (b) Deformed vesicle after $20000$ steps. The tank-treading motion occurs after reaching the state shown in panel (b).
   }
     \label{figure2}
 \end{figure}
@@ -327,7 +327,7 @@ With the choice of a large shear rate, a pore formation or a complete membrane r
 \end{figure}
 
 
-Figure~\ref{figure5} shows two sets of simulations. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The flow is stretching along the $y$ direction and squeezing in $x$ direction. Hence two vesicles are first pushed toward each other  then separate. With the same starting state, panels (e)-(h) are the observed phenomena when two vesicles are in a shear flow $x = \dot\gamma y$. An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned.
+Figure~\ref{figure5} shows two sets of simulations. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The flow is stretching along the $y$ direction and squeezing in $x$ direction. Hence two vesicles are first pushed toward each other  then separate. With the same starting state, panels (e)-(h) are the observed phenomena when two vesicles are in a shear flow $\dot x = \dot\gamma y$. An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned.
 
 
 
