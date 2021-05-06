@@ -9,6 +9,7 @@
 \usepackage{hyperref}
 \usepackage{mathtools}
 \usepackage{commath}
+\usepackage{float}
 
 
 
@@ -228,10 +229,9 @@ The preliminary test of the proposed model using integral equation method is the
 where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratio of the particle is $2$. Figure~\ref{figure1} shows that the proposed integral equation method has a perfect agreement with the theoretical result from Jeffery orbits.
 
 
-\begin{figure}[H]
-\begin{center}
+\begin{figure}
+\centering
 \includegraphics[width=0.4\textwidth]{JefferyOrbit.eps}
-\end{center}
   \caption{Comparison of the target angle $\chi(t)$ versus time $t$ between the theoretical Jeffery orbit with $\dot\gamma=0.1$ and the result from the integral equation method. The schematic of the simulation setup is shown in the inset of the figure.
   }
     \label{figure1}
@@ -241,11 +241,21 @@ where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratio of 
 
 \subsection{Tank-Treading Vesicles}
 
+To study the deformation of a closed bilayer structure under a shear flow using the proposed algorithm, 
+we adopt a widely tested numerical simulation in both continuum and molecular dynamics models, single vesicle under a shear flow. The well known results indicate that the vesicle does tank-treading when there is no viscosity contrast in both inside and outside of the structure.
+Given a set of various shear rates, with no viscosity difference between internal and external fluids, 
+the vesicle-like granular structure is initially placed in a quiescent flow for obtaining an equilibrium shape.
+
+The starting center of mass position of the vesicle is pinned at the origin and Figure~\ref{figure2} shows 
+the initial circular shape  and the deformed configuration of the vesicle after a period of time. The tank-treading behavior appears after obtaining the equilibrium state. 
+% needs to add more details about inclination angle, tank-treading frequency,...etc.
+The reduced area is shown in Figure~\ref{figure3} where we compare the change of area over the time with two different shear rates. The reduced area is given by $A^* = 4\pi A/L^2$
+where $A$ is the vesicle area and $L$ is the arc length of the vesicle.
+
 \begin{figure}
-\begin{center}
+\centering
 \includegraphics[width=0.3\textwidth]{N58_0.eps}
 \includegraphics[width=0.3\textwidth]{N58_20000.eps}
-\end{center}
   \caption{Vesicle under a shear flow where the shear rate $\dot\gamma=0.005$: 
   (a) Initial configuration of 58-body vesicle; (b) Deformed vesicle after $20000$ steps. The tank-treading motion occurs after reaching the state shown in panel (b).
   }
@@ -261,19 +271,6 @@ where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratio of 
   }
     \label{figure3}
 \end{figure}
-%
-
-To study the deformation of a closed bilayer structure under a shear flow using the proposed algorithm, 
-we adopt a widely tested numerical simulation, single vesicle under a shear flow, in both continuum and molecular dynamics models. The well known results indicate that the vesicle does tank-treading when there is no viscosity contrast in both inside and outside of the structure.
-Given a set of various shear rates, with no viscosity difference between internal and external fluids, 
-the vesicle-like granular structure is initially placed in a quiescent flow for obtaining an equilibrium shape.
-
-The starting center of mass position of the vesicle is pinned at the origin and Figure~\ref{figure2} shows 
-the initial circular shape  and the deformed configuration of the vesicle after a period of time. 
-The reduced area is shown in Figure~\ref{figure3} where we compare the change of area over the time with two different shear rates. The reduced area is given by $A^* = 4\pi A/L^2$
-where $A$ is the vesicle area and $L$ is the arc length of the vesicle.
-
-
 
 %We tune the shear rates, vesicle sizes and .....
 
@@ -288,29 +285,28 @@ where $A$ is the vesicle area and $L$ is the arc length of the vesicle.
 
 \subsection{Membrane Ruptures}
 
+
+With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. Figure~\ref{figure4} shows a demonstration of a vesicle under a shear flow with shear rate $\dot\gamma=0.1$. 
+
+
+
 \begin{figure}
-\begin{center}
+\centering
 \includegraphics[width=0.22\textwidth]{N58_rupt_0.eps}
 \includegraphics[width=0.22\textwidth]{N58_rupt_200.eps}
 \includegraphics[width=0.22\textwidth]{N58_rupt_400.eps}
 \includegraphics[width=0.22\textwidth]{N58_rupt_600.eps}
-\end{center}
   \caption{Membrane rupture occurs when the shear rate is beyond a certain threshold. Here the shear rate is $\dot\gamma = 0.1$. Starting with a circular shape (panel (a)), the vesicle is stretched by the background flow and multiple pores appear (panel (b)). (c)-(d) are the later states during the simulation.
   }
     \label{figure4}
 \end{figure}
 %
 
-With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. Figure~\ref{figure4} shows a demonstration of a vesicle under a shear flow with shear rate $\dot\gamma=0.1$.
-
-
-
-
 
 \subsection{Two Vesicles in a Linear Flow}
 
 \begin{figure}
-\begin{center}
+\centering
 \includegraphics[width=0.22\textwidth]{N116_ext_0.eps}
 \includegraphics[width=0.22\textwidth]{N116_ext_2500.eps}
 \includegraphics[width=0.22\textwidth]{N116_ext_5000.eps}
@@ -319,7 +315,6 @@ With the choice of a large shear rate, a pore formation or a complete membrane r
 \includegraphics[width=0.22\textwidth]{N116_shear_6000.eps}
 \includegraphics[width=0.22\textwidth]{N116_shear_9000.eps}
 \includegraphics[width=0.22\textwidth]{N116_shear_12000.eps}
-\end{center}
   \caption{Two vesicles under a linear flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a) and two sets of simulation results are two vesicles under: 
   (b)-(d) extensional flow and (e)-(h) shear flow. 
   }
@@ -327,7 +322,8 @@ With the choice of a large shear rate, a pore formation or a complete membrane r
 \end{figure}
 
 
-Figure~\ref{figure5} shows two sets of simulations. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The flow is stretching along the $y$ direction and squeezing in $x$ direction. Hence two vesicles are first pushed toward each other  then separate. With the same starting state, panels (e)-(h) are the observed phenomena when two vesicles are in a shear flow $\dot x = \dot\gamma y$. An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned.
+Figure~\ref{figure5} shows two sets of simulations. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The flow is stretching along the $y$ direction and squeezing in $x$ direction. Hence two vesicles are first pushed toward each other  then separate along the streamline. With the same starting state, panels (e)-(h) are the observed phenomena when two vesicles are in a shear flow $\dot x = \dot\gamma y$. An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned. One can notice that the starting 
+state of two vesicles are both centered on the x-axis. If two center of mass positions are not at the same horizontal level, then the adhesion observed in the shear flow case will be absent when they are well separated in $y$-direction.
 
 
 
@@ -343,9 +339,8 @@ The background flow for this set of simulations is given by
 where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the initial vesicle midplane.
 
 \begin{figure}
-\begin{center}
+\centering
 \includegraphics[width=0.3\textwidth]{N58_parabolic.eps}
-\end{center}
   \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=8.0$ and the control parameter $w=10$. The configuration is the state when $t=20000$.
   }
     \label{figure6}
