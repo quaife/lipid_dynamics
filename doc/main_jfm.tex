@@ -9,7 +9,7 @@
 \usepackage{hyperref}
 \usepackage{mathtools}
 \usepackage{commath}
-\usepackage{float}
+
 
 
 
@@ -220,7 +220,7 @@ Here we would like to make a remark about the time marching scheme. From the mob
 
 \subsection{Single Particle Validations}
 
-The preliminary test of the proposed model using integral equation method is the Jeffery orbits of single ellipsoidal particle under a shear flow $\dot x = \dot\gamma y$ where $\dot\gamma$ is the shear rate. A particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\chi = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle, 
+The preliminary test of the proposed model using integral equation method is the Jeffery orbits of single ellipsoidal particle under a shear flow $\dot x = \dot\gamma y$ where $\dot\gamma$ is the shear rate. A particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\chi = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle $\chi(t)$, 
 
 \begin{equation}
 \chi(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right),
@@ -246,32 +246,71 @@ we adopt a widely tested numerical simulation in both continuum and molecular dy
 Given a set of various shear rates, with no viscosity difference between internal and external fluids, 
 the vesicle-like granular structure is initially placed in a quiescent flow for obtaining an equilibrium shape.
 
-The starting center of mass position of the vesicle is pinned at the origin and Figure~\ref{figure2} shows 
-the initial circular shape  and the deformed configuration of the vesicle after a period of time. 
-This vesicle consists of $58$ disks with radius $r=0.5$ and the tank-treading behavior appears after obtaining an equilibrium state. 
-% needs to add more details about inclination angle, tank-treading frequency, repulsion, ...etc.
-The reduced area is shown in Figure~\ref{figure3} where we compare the change of area over the time with two different shear rates. The reduced area is given by $A^* = 4\pi A/L^2$
-where $A$ is the vesicle area and $L$ is the arc length of the vesicle.
+
+For the target bilayer, a circular initial shape is chosen to perform the relaxation run. This vesicle consists 
+of $N=58$ disks with radius $r=0.5$ and the starting diameter for the vesicle is $\sim8.5$.
+The starting center of mass position of the vesicle is pinned at the origin and we track particle velocities 
+to determine the initial configuration for later simulations. This will prevent some numerical instability issues when the minimum of the total energy is not achieved. For instance, the dynamics of the bilayer under a shear flow may reach different outcomes.
+Figure~\ref{figure2} shows that the magnitudes of velocity components ${\bf v}=\{v_x,v_y\}$ decrease exponentially with an approximation decaying rate $\sim1/3.74N$. The time step size 
+$\Delta t=0.2$ is used for all simulations including the relaxation run.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.3\textwidth]{N58_0.eps}
-\includegraphics[width=0.3\textwidth]{N58_20000.eps}
-  \caption{Vesicle under a shear flow where the shear rate $\dot\gamma=0.005$: 
-  (a) Initial configuration of 58-body vesicle; (b) Deformed vesicle after $20000$ steps. The tank-treading motion occurs after reaching the state shown in panel (b).
+\includegraphics[width=0.4\textwidth]{relax.eps}
+  \caption{Vesicle relaxes under a quiescent flow. The blue dashed curve and the red solid curve are mean magnitudes of the particle velocities. The black dashed line shows the reference of how velocity magnitudes 
+  decay.
   }
     \label{figure2}
 \end{figure}
-%
+
+
+The snapshots of the simulation for single vesicle in a shear flow is shown in Figure~\ref{figure3}.
+Panel (a) shows the initial circular shape obtained from the relaxation run and the deformed 
+configuration of the vesicle after a period of time is in panel (c). The color presented in the figure 
+is the strength of the action due to the hydrophobic attraction. From weak to strong action field, the color
+varies from blue to red.
+To demonstrate the tank-treading behavior of the vesicle, panels (b) and (d) provide the fluid velocities 
+over the whole computational domain when the shear flow passes through the vesicle.
+
+% needs to add more details about inclination angle, tank-treading frequency, repulsion, ...etc.
+
 
 \begin{figure}
-\begin{center}
-\includegraphics[width=0.4\textwidth]{ReducedArea.eps}
-\end{center} 
-  \caption{Reduced area transitions over time. The slower shear rate generates a faster convergence in the reduced area. 
+\centering
+\includegraphics[width=0.3\textwidth]{N58_0.pdf}
+\includegraphics[width=0.3\textwidth]{N58_vel_0.pdf}\\
+\includegraphics[width=0.3\textwidth]{N58_20000.pdf}
+\includegraphics[width=0.3\textwidth]{N58_vel_20000.pdf}
+  \caption{Vesicle under a shear flow where the shear rate $\dot\gamma=0.0025$: 
+  (a) Initial configuration of 58-body vesicle; 
+  (b) The fluid velocity plot with respect to the configuration in (a);
+  (c) Deformed vesicle after $20000$ steps. The tank-treading motion occurs after reaching the state shown in panel (c).
+  (d) The fluid velocity plot with respect to the configuration in (c);
+  The background colors in panels (a) and (c) represent the strength of the hydrophobic attraction potential. The blue region shows no action and the red region with the bilayer gives the strongest 
+  action.
   }
     \label{figure3}
 \end{figure}
+%
+
+The results of the reduced area are shown in Figure~\ref{figure4} where we compare the change of area over the time with a set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$. The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ is the vesicle area and $L$ is the arc length of the vesicle with respect to the midplane. Since the starting configuration is close to a circular shape, the reduced are decreases from a value very close to $1$. It is clear that a slower shear rate generates a higher reduced area and has faster convergence. The small oscillations in all results are due to the granular setup of the bilayer which tends to having a slightly non-smooth curve in simulations.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{ReducedArea.pdf}
+\end{center} 
+  \caption{Reduced area transitions over time. 
+A set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
+A slower shear rate generates a faster convergence in the reduced area. 
+  }
+    \label{figure4}
+\end{figure}
+
+
+
+
+
+
 
 %We tune the shear rates, vesicle sizes and .....
 
@@ -287,19 +326,20 @@ where $A$ is the vesicle area and $L$ is the arc length of the vesicle.
 \subsection{Membrane Ruptures}
 
 
-With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. Figure~\ref{figure4} shows a demonstration of a vesicle under a shear flow with shear rate $\dot\gamma=0.1$. 
+With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. Figure~\ref{figure5} shows a demonstration of a vesicle under a shear flow with shear rate $\dot\gamma=0.1$. An interesting phenomenon occurs in panels (c) and (d) where two separated bilayers move along the background shear flow symmetrically. Consequently, a periodic motion for bilayers may occur 
+with the choices of shear rates. One can expect that these two layers will flow far apart from each other for much higher shear rates.
 
 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.22\textwidth]{N58_rupt_0.eps}
-\includegraphics[width=0.22\textwidth]{N58_rupt_200.eps}
-\includegraphics[width=0.22\textwidth]{N58_rupt_400.eps}
-\includegraphics[width=0.22\textwidth]{N58_rupt_600.eps}
+\includegraphics[width=0.3\textwidth]{N58_rupt_0.eps}
+\includegraphics[width=0.3\textwidth]{N58_rupt_200.eps}\\
+\includegraphics[width=0.3\textwidth]{N58_rupt_400.eps}
+\includegraphics[width=0.3\textwidth]{N58_rupt_600.eps}
   \caption{Membrane rupture occurs when the shear rate is beyond a certain threshold. Here the shear rate is $\dot\gamma = 0.1$. Starting with a circular shape (panel (a)), the vesicle is stretched by the background flow and multiple pores appear (panel (b)). (c)-(d) are the later states during the simulation.
   }
-    \label{figure4}
+    \label{figure5}
 \end{figure}
 %
 
@@ -308,30 +348,64 @@ With the choice of a large shear rate, a pore formation or a complete membrane r
 
 \begin{figure}
 \centering
-\includegraphics[width=0.22\textwidth]{N116_ext_0.eps}
-\includegraphics[width=0.22\textwidth]{N116_ext_2500.eps}
-\includegraphics[width=0.22\textwidth]{N116_ext_5000.eps}
-\includegraphics[width=0.22\textwidth]{N116_ext_7500.eps}
-  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values.
+\includegraphics[height=1.2in]{N116_ext_0.pdf}
+\includegraphics[height=1.2in]{N116_ext_2500.pdf}
+\includegraphics[height=1.2in]{N116_ext_5000.pdf}
+\includegraphics[height=1.2in]{N116_ext_7500.pdf}
+  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels.
   }
-    \label{figure5}
+    \label{figure6}
 \end{figure}
 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.22\textwidth]{N116_ext_0.eps}
-\includegraphics[width=0.22\textwidth]{N116_shear_3000.eps}
-\includegraphics[width=0.22\textwidth]{N116_shear_6000.eps}
-\includegraphics[width=0.22\textwidth]{N116_shear_9000.eps}
-  \caption{Two vesicles under a shear flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values.
-  }
-    \label{figure6}
+\includegraphics[width=0.24\textwidth]{N116_ext_vel_0.pdf}
+\includegraphics[width=0.24\textwidth]{N116_ext_vel_2500.pdf}
+\includegraphics[width=0.24\textwidth]{N116_ext_vel_5000.pdf}
+\includegraphics[width=0.24\textwidth]{N116_ext_vel_7500.pdf}
+  \caption{(a)-(d) The background arrows indicate the fluid velocities. }
+    \label{figure7}
 \end{figure}
 
-Figures~\ref{figure5} and \ref{figure6} show two sets of simulations. Starting from the initial configuration (shown in both panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The extensional flow is stretching along the $y$ direction and squeezing in $x$ direction. Hence two vesicles are first pushed toward each other  then separate along the streamline. With the same starting state, panels (b)-(d) in Figure~\ref{figure6} are the observed phenomena when two vesicles are in a shear flow $\dot x = \dot\gamma y$. An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned. One can notice that the starting 
-state of two vesicles are both centered on the x-axis. If two center of mass positions are not at the same horizontal level, then the adhesion observed in the shear flow case will be absent when they are well separated in $y$-direction.
+\subsubsection{Extensional Flow}
 
+Figures~\ref{figure6}-\ref{figure7} show the numerical results of simulations when two vesicles are in an extensional flow. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The extensional flow is stretching along the $y$ direction and squeezing in $x$ direction with shear rate $\dot\gamma=0.005$. Since two bilayers are close enough
+from the beginning of the run, two vesicles are first pushed toward each other then separate along the streamline. The short range repulsion plays an important role to avoid structure collisions and 
+this result can be compared with some findings in continuum modeling simulations.
+The pressure plots in Figure~\ref{figure7} provide a realistic result where the pressure is much higher in the gap between two nearby vesicles.
+
+%may need to add more here
+
+
+\begin{figure}
+\centering
+\includegraphics[height=1.2in]{N116_ext_0.pdf}
+\includegraphics[height=1.2in]{N116_shear_3000.pdf}
+\includegraphics[height=1.2in]{N116_shear_6000.pdf}
+\includegraphics[height=1.2in]{N116_shear_9000.pdf}\\
+  \caption{Two vesicles under a shear flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels.
+  }
+    \label{figure8}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.24\textwidth]{N116_shear_vel_0.pdf}
+\includegraphics[width=0.24\textwidth]{N116_shear_vel_3000.pdf}
+\includegraphics[width=0.24\textwidth]{N116_shear_vel_6000.pdf}
+\includegraphics[width=0.24\textwidth]{N116_shear_vel_9000.pdf}
+  \caption{(a)-(d) The background arrows indicate the fluid velocities. }
+    \label{figure9}
+\end{figure}
+
+
+\subsubsection{Shear Flow}
+Two vesicles in a shear flow is resented in Figures~\ref{figure8}-\ref{figure9} where centers of mass are placed on the same horizontal level. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \dot\gamma y$. 
+An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned. In other words, the the adhesive behavior will be absent when two vesicles are centered 
+at a different level and are well separated in $y$-direction.
 
 
 
@@ -343,14 +417,14 @@ The background flow for this set of simulations is given by
 {\bf v}_\infty = v_{max}\left[ 1 - \left( \frac{y}{wR_0}\right)^2 \right]{\bf e}_x,
 \end{equation}
 %
-where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the initial vesicle midplane. Figure~\ref{figure7} gives a final configuration for one specific case where the circular vesicle is initially placed above the $x$-axis.
+where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the initial vesicle midplane. Figure~\ref{figure10} gives a final configuration for one specific case where the circular vesicle is initially placed above the $x$-axis.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.3\textwidth]{N58_parabolic.eps}
   \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=8.0$ and the control parameter $w=10$. The configuration is the state when $t=20000$.
   }
-    \label{figure7}
+    \label{figure10}
 \end{figure}
 
 
