@@ -306,41 +306,6 @@ A slower shear rate generates a faster convergence in the reduced area.
     \label{figure4}
 \end{figure}
 
-
-
-
-
-
-
-%We tune the shear rates, vesicle sizes and .....
-
-%Theoretical tank-treading frequency is given by $\dot\gamma/2$.
-
-%We also compare the inclination angle against the Jeffery's equation [].
-
-
-
-
-
-
-\subsection{Membrane Ruptures}
-
-
-With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. Figure~\ref{figure5} shows a demonstration of a vesicle under a shear flow with shear rate $\dot\gamma=0.1$. An interesting phenomenon occurs in panels (c) and (d) where two separated bilayers move along the background shear flow symmetrically. Consequently, a periodic motion for bilayers may occur 
-with the choices of shear rates. One can expect that these two layers will flow far apart from each other for much higher shear rates.
-
-
-
-\begin{figure}
-\centering
-\includegraphics[width=0.3\textwidth]{N58_rupt_0.eps}
-\includegraphics[width=0.3\textwidth]{N58_rupt_200.eps}\\
-\includegraphics[width=0.3\textwidth]{N58_rupt_400.eps}
-\includegraphics[width=0.3\textwidth]{N58_rupt_600.eps}
-  \caption{Membrane rupture occurs when the shear rate is beyond a certain threshold. Here the shear rate is $\dot\gamma = 0.1$. Starting with a circular shape (panel (a)), the vesicle is stretched by the background flow and multiple pores appear (panel (b)). (c)-(d) are the later states during the simulation.
-  }
-    \label{figure5}
-\end{figure}
 %
 
 
@@ -354,7 +319,7 @@ with the choices of shear rates. One can expect that these two layers will flow 
 \includegraphics[height=1.2in]{N116_ext_7500.pdf}
   \caption{Two vesicles under an extensional flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels.
   }
-    \label{figure6}
+    \label{figure5}
 \end{figure}
 
 
@@ -365,15 +330,15 @@ with the choices of shear rates. One can expect that these two layers will flow 
 \includegraphics[width=0.24\textwidth]{N116_ext_vel_5000.pdf}
 \includegraphics[width=0.24\textwidth]{N116_ext_vel_7500.pdf}
   \caption{(a)-(d) The background arrows indicate the fluid velocities. }
-    \label{figure7}
+    \label{figure6}
 \end{figure}
 
 \subsubsection{Extensional Flow}
 
-Figures~\ref{figure6}-\ref{figure7} show the numerical results of simulations when two vesicles are in an extensional flow. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The extensional flow is stretching along the $y$ direction and squeezing in $x$ direction with shear rate $\dot\gamma=0.005$. Since two bilayers are close enough
+Figures~\ref{figure5}-\ref{figure6} show the numerical results of simulations when two vesicles are in an extensional flow. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The extensional flow is stretching along the $y$ direction and squeezing in $x$ direction with shear rate $\dot\gamma=0.005$. Since two bilayers are close enough
 from the beginning of the run, two vesicles are first pushed toward each other then separate along the streamline. The short range repulsion plays an important role to avoid structure collisions and 
 this result can be compared with some findings in continuum modeling simulations.
-The pressure plots in Figure~\ref{figure7} provide a realistic result where the pressure is much higher in the gap between two nearby vesicles.
+The pressure plots in Figure~\ref{figure6} provide a realistic result where the pressure is much higher in the gap between two nearby vesicles.
 
 %may need to add more here
 
@@ -386,7 +351,7 @@ The pressure plots in Figure~\ref{figure7} provide a realistic result where the 
 \includegraphics[height=1.2in]{N116_shear_9000.pdf}\\
   \caption{Two vesicles under a shear flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels.
   }
-    \label{figure8}
+    \label{figure7}
 \end{figure}
 
 
@@ -398,12 +363,12 @@ The pressure plots in Figure~\ref{figure7} provide a realistic result where the 
 \includegraphics[width=0.24\textwidth]{N116_shear_vel_6000.pdf}
 \includegraphics[width=0.24\textwidth]{N116_shear_vel_9000.pdf}
   \caption{(a)-(d) The background arrows indicate the fluid velocities. }
-    \label{figure9}
+    \label{figure8}
 \end{figure}
 
 
 \subsubsection{Shear Flow}
-Two vesicles in a shear flow is resented in Figures~\ref{figure8}-\ref{figure9} where centers of mass are placed on the same horizontal level. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \dot\gamma y$. 
+Two vesicles in a shear flow is resented in Figures~\ref{figure7}-\ref{figure8} where centers of mass are placed on the same horizontal level. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \dot\gamma y$. 
 An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned. In other words, the the adhesive behavior will be absent when two vesicles are centered 
 at a different level and are well separated in $y$-direction.
 
@@ -417,17 +382,35 @@ The background flow for this set of simulations is given by
 {\bf v}_\infty = v_{max}\left[ 1 - \left( \frac{y}{wR_0}\right)^2 \right]{\bf e}_x,
 \end{equation}
 %
-where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the initial vesicle midplane. Figure~\ref{figure10} gives a final configuration for one specific case where the circular vesicle is initially placed above the $x$-axis.
+where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the initial vesicle midplane. Figure~\ref{figure9} gives a final configuration for one specific case where the circular vesicle is initially placed above the $x$-axis.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.3\textwidth]{N58_parabolic.eps}
   \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=8.0$ and the control parameter $w=10$. The configuration is the state when $t=20000$.
   }
-    \label{figure10}
+    \label{figure9}
 \end{figure}
 
 
+\subsection{Membrane Ruptures}
+
+
+With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. Figure~\ref{figure10} shows a demonstration of a vesicle under a shear flow with shear rate $\dot\gamma=0.1$. An interesting phenomenon occurs in panels (c) and (d) where two separated bilayers move along the background shear flow symmetrically. Consequently, a periodic motion for bilayers may occur 
+with the choices of shear rates. One can expect that these two layers will flow far apart from each other for much higher shear rates.
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.3\textwidth]{N58_rupt_0.eps}
+\includegraphics[width=0.3\textwidth]{N58_rupt_200.eps}\\
+\includegraphics[width=0.3\textwidth]{N58_rupt_400.eps}
+\includegraphics[width=0.3\textwidth]{N58_rupt_600.eps}
+  \caption{Membrane rupture occurs when the shear rate is beyond a certain threshold. Here the shear rate is $\dot\gamma = 0.1$. Starting with a circular shape (panel (a)), the vesicle is stretched by the background flow and multiple pores appear (panel (b)). (c)-(d) are the later states during the simulation.
+  }
+    \label{figure10}
+\end{figure}
 
 \section{\label{conclusion}Conclusion}
 
