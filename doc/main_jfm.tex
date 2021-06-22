@@ -293,12 +293,14 @@ fluid velocity over the whole computational domain when the shear flow passes th
 \end{figure}
 %
 
-The results of the reduced area are shown in Figure~\ref{figure4} where we compare the change of area over the time with a set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$. The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ is the vesicle area and $L$ is the arc length of the vesicle with respect to the midplane. Since the starting configuration is close to a circular shape, the reduced are decreases from a value very close to $1$. It is clear that a slower shear rate generates a higher reduced area and has faster convergence. The small oscillations in all results are due to the granular setup of the bilayer which tends to having a slightly non-smooth curve in simulations.
+In order to extract more physical properties of the proposed model, we track the total length of the bilayer structure and the reduced area over the time.
+These results are shown in Figure~\ref{figure4} where we compare output the results from a set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$. 
+The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ is the vesicle area and $L$ is the arc length of the vesicle with respect to the midplane. Since the starting configuration is close to a circular shape, the reduced are decreases from a value very close to $1$. It is clear that a slower shear rate generates a higher reduced area and has faster convergence. The small oscillations in all results are due to the granular setup of the bilayer which tends to having a slightly non-smooth curve in simulations.
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.4\textwidth]{ArcLength.pdf}
-\includegraphics[width=0.4\textwidth]{ReducedArea.pdf}
+\includegraphics[width=0.45\textwidth]{ArcLength.pdf}
+\includegraphics[width=0.45\textwidth]{ReducedArea.pdf}
 \end{center} 
   \caption{(a) Total arc lengths of the outer leaflets over time in different shear rates; (b)Reduced area transitions over time. 
 A set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
