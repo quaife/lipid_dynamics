@@ -220,7 +220,7 @@ Here we would like to make a remark about the time marching scheme. From the mob
 
 \subsection{Single Particle Validations}
 
-The preliminary test of the proposed model using integral equation method is the Jeffery orbits of single ellipsoidal particle under a shear flow $\dot x = \dot\gamma y$ where $\dot\gamma$ is the shear rate. A particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\chi = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle $\chi(t)$, 
+The preliminary test of the proposed model using the integral equation method is the numerical validation in Jeffery orbits of single ellipsoidal particle under a shear flow $\dot x = \dot\gamma y$ where $\dot\gamma$ is the shear rate. An ellipsoidal particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\chi = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle $\chi(t)$, 
 
 \begin{equation}
 \chi(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right),
@@ -247,30 +247,30 @@ Given a set of various shear rates, with no viscosity difference between interna
 the vesicle-like granular structure is initially placed in a quiescent flow for obtaining an equilibrium shape.
 
 
-For the target bilayer, a circular initial shape is chosen to perform the relaxation run. This vesicle consists 
-of $N=58$ disks with radius $r=0.5$ and the starting diameter for the vesicle is $\sim8.5$.
+For the target bilayer, a circular initial shape is chosen to perform the relaxation run. This vesicle-like 
+structure consists of $N=58$ disks with radius $r=0.5$ and the starting diameter for the vesicle is about 
+$8.5$ length units.
 The starting center of mass position of the vesicle is pinned at the origin and we track particle velocities 
-to determine the initial configuration for later simulations. This will prevent some numerical instability issues when the minimum of the total energy is not achieved. For instance, the dynamics of the bilayer under a shear flow may reach different outcomes.
-Figure~\ref{figure2} shows that the magnitudes of velocity components ${\bf v}=\{v_x,v_y\}$ decrease exponentially with an approximation decaying rate $\sim1/3.74N$. The time step size 
+to determine the initial configuration for later use such as single and multiple vesicle simulations. This will prevent some numerical instability issues when the minimum of the total energy is not achieved. For instance, the dynamics of the bilayer under a shear flow may reach different outcomes.
+Figure~\ref{figure2} shows that the magnitudes of mean velocity components ${\bf v}=\{v_x,v_y\}$ decrease exponentially with an approximation decaying rate $\sim0.005t$. In the same figure, the variation of mean particle orientation $\theta$ also decreases as expected. The time step size 
 $\Delta t=0.2$ is used for all simulations including the relaxation run.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{relax.eps}
-  \caption{Vesicle relaxes under a quiescent flow. The blue dashed curve and the red solid curve are mean magnitudes of the particle velocities. The black dashed line shows the reference of how velocity magnitudes 
-  decay.
+  \caption{Vesicle relaxes under a quiescent flow. The blue dashed curve and the solid curve are mean magnitudes of the particle velocities in $x$ and $y$ directions, respectively. The red curve shows the decreasing trend of the mean magnitude of particle orientation change. The black dashed line shows the reference of how all magnitudes decay.
   }
     \label{figure2}
 \end{figure}
 
 
-The snapshots of the simulation for single vesicle in a shear flow is shown in Figure~\ref{figure3}.
+The snapshots of the simulation for single vesicle in a shear flow are shown in Figure~\ref{figure3}.
 Panel (a) shows the initial circular shape obtained from the relaxation run and the deformed 
-configuration of the vesicle after a period of time is in panel (c). The color presented in the figure 
+configuration of the vesicle after a period of time ($t=4000$) is in panel (c). The color presented in the figure 
 is the strength of the action due to the hydrophobic attraction. From weak to strong action field, the color
 varies from blue to red.
-To demonstrate the tank-treading behavior of the vesicle, panels (b) and (d) provide the fluid velocities 
-over the whole computational domain when the shear flow passes through the vesicle.
+To demonstrate the tank-treading behavior of the vesicle, panels (b) and (d) provide the streamlines of the 
+fluid velocity over the whole computational domain when the shear flow passes through the vesicle. The tank-treading motion of the structure is observed.
 
 % needs to add more details about inclination angle, tank-treading frequency, repulsion, ...etc.
 
@@ -283,11 +283,11 @@ over the whole computational domain when the shear flow passes through the vesic
 \includegraphics[width=0.3\textwidth]{N58_vel_20000.pdf}
   \caption{Vesicle under a shear flow where the shear rate $\dot\gamma=0.0025$: 
   (a) Initial configuration of 58-body vesicle; 
-  (b) The fluid velocity plot with respect to the configuration in (a);
+  (b) The fluid velocity plot with respect to the configuration in (a); Streamlines are plotted in the background
+  as solid curves. Red arrows represent the particle velocities.
   (c) Deformed vesicle after $20000$ steps. The tank-treading motion occurs after reaching the state shown in panel (c).
   (d) The fluid velocity plot with respect to the configuration in (c);
-  The background colors in panels (a) and (c) represent the strength of the hydrophobic attraction potential. The blue region shows no action and the red region with the bilayer gives the strongest 
-  action.
+  The background colors in panels (a) and (c) represent the strength of the hydrophobic attraction potential. The blue region shows no action and the red region with the bilayer gives the strongest action.
   }
     \label{figure3}
 \end{figure}
@@ -323,15 +323,15 @@ A slower shear rate generates a faster convergence in the reduced area.
 \end{figure}
 
 
-\begin{figure}
-\centering
-\includegraphics[width=0.24\textwidth]{N116_ext_vel_0.pdf}
-\includegraphics[width=0.24\textwidth]{N116_ext_vel_2500.pdf}
-\includegraphics[width=0.24\textwidth]{N116_ext_vel_5000.pdf}
-\includegraphics[width=0.24\textwidth]{N116_ext_vel_7500.pdf}
-  \caption{(a)-(d) The background arrows indicate the fluid velocities. }
-    \label{figure6}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.24\textwidth]{N116_ext_vel_0.pdf}
+%\includegraphics[width=0.24\textwidth]{N116_ext_vel_2500.pdf}
+%\includegraphics[width=0.24\textwidth]{N116_ext_vel_5000.pdf}
+%\includegraphics[width=0.24\textwidth]{N116_ext_vel_7500.pdf}
+%  \caption{(a)-(d) The background arrows indicate the fluid velocities. }
+%    \label{figure6}
+%\end{figure}
 
 \subsubsection{Extensional Flow}
 
@@ -345,7 +345,7 @@ The pressure plots in Figure~\ref{figure6} provide a realistic result where the 
 
 \begin{figure}
 \centering
-\includegraphics[height=1.2in]{N116_ext_0.pdf}
+\includegraphics[height=1.2in]{N116_shear_0.pdf}
 \includegraphics[height=1.2in]{N116_shear_3000.pdf}
 \includegraphics[height=1.2in]{N116_shear_6000.pdf}
 \includegraphics[height=1.2in]{N116_shear_9000.pdf}\\
@@ -356,15 +356,15 @@ The pressure plots in Figure~\ref{figure6} provide a realistic result where the 
 
 
 
-\begin{figure}
-\centering
-\includegraphics[width=0.24\textwidth]{N116_shear_vel_0.pdf}
-\includegraphics[width=0.24\textwidth]{N116_shear_vel_3000.pdf}
-\includegraphics[width=0.24\textwidth]{N116_shear_vel_6000.pdf}
-\includegraphics[width=0.24\textwidth]{N116_shear_vel_9000.pdf}
-  \caption{(a)-(d) The background arrows indicate the fluid velocities. }
-    \label{figure8}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.24\textwidth]{N116_shear_vel_0.pdf}
+%\includegraphics[width=0.24\textwidth]{N116_shear_vel_3000.pdf}
+%\includegraphics[width=0.24\textwidth]{N116_shear_vel_6000.pdf}
+%\includegraphics[width=0.24\textwidth]{N116_shear_vel_9000.pdf}
+%  \caption{(a)-(d) The background arrows indicate the fluid velocities. }
+%    \label{figure8}
+%\end{figure}
 
 
 \subsubsection{Shear Flow}
