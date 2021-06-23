@@ -302,6 +302,12 @@ These results are shown in Figure~\ref{figure4} where we compare results from a 
 The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ is the vesicle area and $L$ is the arc length of the vesicle with respect to the midplane. Since the starting configuration is close to a circular shape, the reduced are decreases from a value very close to $1$. It is clear that a slower shear rate generates a higher reduced area and has faster convergence. The small oscillations in all results are due to the granular setup of the bilayer which tends to having a slightly non-smooth curve in simulations. Overall the total lengths of the bilayer have the same converging value in all test shear rates. Moreover, based on the 
 numerical experiments, we observe that the reduce area converges relatively early when the shear rate is lower than $\dot\gamma=0.003$. 
 
+An interesting phenomenon also rises up in the proposed setup where the inter-monolayer slip occurs 
+between two leaflets. When a shear rate is large enough, take $\dot\gamma = 0.005$ as an example, 
+Figure~\ref{figure5} shows the schematic of the test. A particle pair is initially marked and we then track the positions and layer velocities over the time. It is clear to see that the outer leaflet always has larger 
+tangential velocity than the one from inner leaflet. This inter-leaflet sliding matches what has been seen
+in articles in molecular dynamics simulations. %%% need some citations
+
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.45\textwidth]{ArcLength.pdf}
@@ -322,7 +328,7 @@ A slower shear rate generates a faster convergence in the reduced area.
 \begin{center}
 \includegraphics[width=0.8\textwidth]{Slip.eps}
 \end{center} 
-  \caption{For a high shear rate $\dot\gamma=0.005$, the inter-monolayer slip is be observed. 
+  \caption{For the shear rate $\dot\gamma=0.005$, the inter-monolayer slip is be observed. The curves in black and blue represent the tangential velocities of inner and outer leaflet, respectively. The configuration plots have two fixed particles marked and positioned with respect to the corresponding time $t$.
   }
     \label{figure5}
 \end{figure}
