@@ -293,16 +293,17 @@ fluid velocity over the whole computational domain when the shear flow passes th
 \end{figure}
 %
 
-In order to extract more physical properties of the proposed model, we track the total length of the bilayer structure and the reduced area over the time.
-These results are shown in Figure~\ref{figure4} where we compare output the results from a set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$. 
-The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ is the vesicle area and $L$ is the arc length of the vesicle with respect to the midplane. Since the starting configuration is close to a circular shape, the reduced are decreases from a value very close to $1$. It is clear that a slower shear rate generates a higher reduced area and has faster convergence. The small oscillations in all results are due to the granular setup of the bilayer which tends to having a slightly non-smooth curve in simulations.
+In order to extract more physical properties of the proposed model, we track the total length of the bilayer structure and the reduced area over the time. Here the enclosed area and the length of the structure are calculated from the midplane. 
+These results are shown in Figure~\ref{figure4} where we compare results from a set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$. 
+The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ is the vesicle area and $L$ is the arc length of the vesicle with respect to the midplane. Since the starting configuration is close to a circular shape, the reduced are decreases from a value very close to $1$. It is clear that a slower shear rate generates a higher reduced area and has faster convergence. The small oscillations in all results are due to the granular setup of the bilayer which tends to having a slightly non-smooth curve in simulations. Overall the total lengths of the bilayer have the same converging value in all test shear rates. Moreover, based on the 
+numerical experiments, we observe that the reduce area converges relatively early when the shear rate is lower than $\dot\gamma=0.003$. 
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.45\textwidth]{ArcLength.pdf}
 \includegraphics[width=0.45\textwidth]{ReducedArea.pdf}
 \end{center} 
-  \caption{(a) Total arc lengths of the outer leaflets over time in different shear rates; (b)Reduced area transitions over time. 
+  \caption{(a) Total arc lengths of the midplanes over time in different shear rates; (b) Reduced area transitions over time. 
 A set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
 A slower shear rate generates a faster convergence in the reduced area. 
   }
@@ -320,7 +321,7 @@ A slower shear rate generates a faster convergence in the reduced area.
 \includegraphics[height=1.2in]{N116_ext_2500.pdf}
 \includegraphics[height=1.2in]{N116_ext_5000.pdf}
 \includegraphics[height=1.2in]{N116_ext_7500.pdf}
-  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels.
+  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple.
   }
     \label{figure5}
 \end{figure}
@@ -352,7 +353,7 @@ The pressure plots in Figure~\ref{figure6} provide a realistic result where the 
 \includegraphics[height=1.2in]{N116_shear_3000.pdf}
 \includegraphics[height=1.2in]{N116_shear_6000.pdf}
 \includegraphics[height=1.2in]{N116_shear_9000.pdf}\\
-  \caption{Two vesicles under a shear flow where the dimensioneless shear rate $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels.
+  \caption{Two vesicles under a shear flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple.
   }
     \label{figure6}
 \end{figure}
