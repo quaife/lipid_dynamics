@@ -71,30 +71,13 @@ Authors should not enter keywords on the manuscript, as these must be chosen by 
 
 \section{\label{intro}Introduction}
 
-%Nature of amphiphilic lipid molecules, small vesicle, GUVs, RBCs, hydrophobic tails interacting with fluid, 
 
 
-%Tank-treading, tumbling, swing vesicles, viscosity ratio
-
-% two-dimensional vesicle, membrane fusion/fissure, self-assembly property, 
-
-%crystallization, membrane jiggling can be observed when... the hydrophobicity
-
-%mobility problem, particle suspension, a wide range of study, numerical methods including boundary integral equation method, immersed boundary method, level set method, RCIP kernel splitting method,   vesicle deformations,  
-
-% Stokesian dynamics
-
-%The mobility problem can be solved in the fashion of considering propagating waves through rigid bodies where the the external and hydrodynamic forces act as incident fields and scattered field evaluated on the object boundaries.
-
-%The Helfrich membrane energy is well known in continuum modeling/theory. Here we combine the framework in coarse-grained modeling using Janus-type configurations. However, 
-
-%Thermal fluctuation effect not considered but the granular system in a fluid
-
-%
 
 
-%our approach combines the 
 
+
+\section{Governing  Equations}
 \subsection{Hydrophobic Attraction Potential (HAP)}
 
 
@@ -147,7 +130,7 @@ where $\dot\gamma$ the shear rate, $\kappa$ the bending rigidity, and $\mu$ the 
 %This paper is organized as follows. Chapter 2 introduces the mobility problem..... The integral equation method for solving $N_b$-body system with details of .... are included in Chapter 3. We provide numerical results of vesicle simulations in Chapter 4. Finally, we conclude the work and briefly give the picture of our future work.
 
 
-\section{\label{mobility}Mobility Problem}
+\subsection{\label{mobility}Mobility Problem}
 
 The governing equation of $N_b$-body bodies suspended in the domain $\Sigma$ is
  
@@ -201,10 +184,6 @@ where the two-dimensional Stokeslet and the Rotlet are
 ${\bf F}_i$ and $t_i$ are particle force and torque calculated from action of hydrophobic attractions. From equations~\eqref{mobility}--\eqref{mobility3}, we have translational velocity ${\bf v}_i$, angular velocity $\omega_i$, and density function $\eta$ as unknowns.
 This system of equations is then solvable with the use of an iterative method such as GMRES or conjugate gradient iterations.
 
-\section{\label{IEM}Integral Equation Method}
-
-
-
 \subsection{Short Range Repulsion}
 
 At each time step, we examine the nearest grid points between each pair of body  boundaries. Within a specified distance $d$, we introduce a short range repulsive potential as follows
@@ -214,6 +193,11 @@ At each time step, we examine the nearest grid points between each pair of body 
 \end{equation}
 
 Here we would like to make a remark about the time marching scheme. From the mobility problem, we obtain velocity and torque profiles of an $N_b$-body system. A second order Adam-Bashforth scheme is used for updating the dynamics but body collisions may occur during the simulation while a relatively large time step is chosen. We therefore impose a short range repulsion that it will be turned on when the distance between two boundary points on different bodies are within one characteristic length.
+
+
+
+\section{\label{IEM}Integral Equation Method}
+
 
 
 \section{\label{results}Numerical Results}
@@ -310,9 +294,9 @@ in articles in molecular dynamics simulations. %%% need some citations
 
 \begin{figure}
 \begin{center}
-\includegraphics[height=2in]{ArcLength.pdf}
-\hspace{-0.5cm}
 \includegraphics[height=2in]{ReducedArea.pdf}
+\hspace{-0.5cm}
+\includegraphics[height=2in]{ArcLength.pdf}
 \end{center} 
   \caption{(a) Total arc lengths of the midplanes over time in different shear rates; (b) Reduced area transitions over time. 
 A set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
@@ -347,13 +331,13 @@ The background flow for this set of simulations is given by
 %
 where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the initial vesicle midplane. Figure~\ref{figure6} gives a final configuration for one specific case where the circular vesicle is initially placed above the $x$-axis.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.5\textwidth]{N58_parabolic.pdf}
-  \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=8.0$ and the control parameter $w=10$. The configuration is the state when $t=20000$.
-  }
-    \label{figure6}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\textwidth]{N58_parabolic.pdf}
+%  \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=8.0$ and the control parameter $w=10$. The configuration is the state when $t=20000$.
+%  }
+%    \label{figure6}
+%\end{figure}
 
 
 \subsubsection{Membrane Ruptures}
