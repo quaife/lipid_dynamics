@@ -195,14 +195,20 @@ At each time step, we examine the nearest grid points between each pair of body 
 Here we would like to make a remark about the time marching scheme. From the mobility problem, we obtain velocity and torque profiles of an $N_b$-body system. A second order Adam-Bashforth scheme is used for updating the dynamics but body collisions may occur during the simulation while a relatively large time step is chosen. We therefore impose a short range repulsion that it will be turned on when the distance between two boundary points on different bodies are within one characteristic length.
 
 
+%%%
+
 
 \section{\label{IEM}Integral Equation Method}
 
 
 
-\section{\label{results}Numerical Results}
+%%%
 
-\subsection{Single Particle Validations}
+
+\section{\label{validation}Model Validation}
+
+\subsection{Jeffery Orbit}
+
 
 The preliminary test of the proposed model using the integral equation method is the numerical validation in Jeffery orbits of single ellipsoidal particle under a shear flow $\dot x = \dot\gamma y$ where $\dot\gamma$ is the shear rate. An ellipsoidal particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\chi = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle $\chi(t)$, 
 
@@ -221,11 +227,7 @@ where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratio of 
     \label{figure1}
 \end{figure}
 
-
-
-\subsection{Tank-Treading Vesicles}
-
-\subsubsection{Relaxtion}
+\subsection{Self-Assembly and Relaxtion}
 
 To study the deformation of a closed bilayer structure under a shear flow using the proposed algorithm, 
 we adopt a widely tested numerical simulation in both continuum and molecular dynamics models, single vesicle under a shear flow. The well known results indicate that the vesicle does tank-treading when there is no viscosity contrast in both inside and outside of the structure.
@@ -250,6 +252,15 @@ $\Delta t=0.2$ is used for all simulations including the relaxation run.
     \label{figure2}
 \end{figure}
 
+
+
+
+%%%
+
+
+\section{\label{results}Numerical Results}
+
+\subsection{Tank-Treading Vesicles}
 
 \subsubsection{Vesicle in a Shear Flow}
 
