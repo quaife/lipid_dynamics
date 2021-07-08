@@ -331,25 +331,21 @@ where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratio of 
 
 \subsection{Self-Assembly and Relaxtion}
 
-To study the deformation of a closed bilayer structure under a shear flow using the proposed algorithm, 
-we adopt a widely tested numerical simulation in both continuum and molecular dynamics models, single vesicle under a shear flow. The well known results indicate that the vesicle does tank-treading when there is no viscosity contrast in both inside and outside of the structure.
-Given a set of various shear rates, with no viscosity difference between internal and external fluids, 
-the vesicle-like granular structure is initially placed in a quiescent flow for obtaining an equilibrium shape.
-
-
-For the target bilayer, a circular initial shape is chosen to perform the relaxation run. This vesicle-like 
-structure consists of $N=58$ disks with radius $r=0.5$ and the starting diameter for the vesicle is about 
-$8.5$ length units.
+In order to examine the dynamics of the Janus-vesicle using the HAP coupling with hydrodynamics interactions, for the target bilayer, a circular initial shape is chosen to perform the relaxation run. 
+This vesicle-like structure consists of $N=58$ disks with particle radius $r=0.5$ and the starting diameter of 
+the vesicle is about $8.5$ length units.
 The starting center of mass position of the vesicle is pinned at the origin and we track particle velocities 
 to determine the initial configuration for later use such as single and multiple vesicle simulations. This will prevent some numerical instability issues when the minimum of the total energy is not achieved. For instance, the dynamics of the bilayer under a shear flow may reach different outcomes.
-Figure~\ref{figure2} shows that the magnitudes of mean velocity components ${\bf v}=\{v_x,v_y\}$ decrease exponentially with an approximation decaying rate $\sim0.005$. In the same figure, the variation of mean particle orientation $\theta$ also decreases as expected. The time step size 
-$\Delta t=0.2$ is used for all simulations including the relaxation run.
+Figure~\ref{figure2}(a) shows that the magnitudes of mean velocity components ${\bf v}=\{v_x,v_y\}$ decrease exponentially with an approximation decaying rate $\sim0.005$. In the same figure, the variation of the mean particle orientation $\theta$ also decreases over a period of time as expected from the self-assembly property
+of the model. This implies that a local energy minimum and the equilibrium configuration are nearly attained.
+The time step size $\Delta t=0.2$ is used for all simulations in this work including the relaxation run.
+Figure~\ref{figure2}(b) shows the configuration difference between starting and ending frames in the relaxation run.
 
 \begin{figure}
 \centering
 \includegraphics[height=2in]{relax.eps}
 \includegraphics[height=2in]{relax2.eps}
-  \caption{Vesicle relaxes under a quiescent flow. The blue dashed curve and the solid curve are mean magnitudes of the particle velocities in $x$ and $y$ directions, respectively. The red curve shows the decreasing trend of the mean magnitude of particle orientation change. The black dashed line shows the reference of how all magnitudes decay.
+  \caption{Vesicle relaxes under a quiescent flow. (a) The blue dashed curve and the solid curve are mean magnitudes of the particle velocities in $x$ and $y$ directions, respectively. The red curve shows the decreasing trend of the mean magnitude of particle orientation change. The black dashed line shows the reference of how all magnitudes decay. (b) Bilayer configurations for $t=0$(gray) and $t=1000$(red) with particle directors.
   }
     \label{figure2}
 \end{figure}
@@ -366,13 +362,19 @@ $\Delta t=0.2$ is used for all simulations including the relaxation run.
 
 \subsubsection{Vesicle in a Shear Flow}
 
+To study the deformation of a closed bilayer structure under a shear flow using the proposed algorithm, 
+we adopt a widely tested numerical simulation in both continuum and molecular dynamics models, single vesicle under a shear flow. The well known results indicate that the vesicle does tank-treading when there is no viscosity contrast in both inside and outside of the structure.
+Given a set of various shear rates, with no viscosity difference between internal and external fluids, 
+the vesicle-like granular structure is initially placed in a quiescent flow for obtaining an equilibrium shape.
+
+
 The snapshots of the simulation for single vesicle in a shear flow are shown in Figure~\ref{figure3}.
 Panel (a) shows the initial circular shape obtained from the relaxation run and the deformed 
 configuration of the vesicle after a period of time ($t=4000$) is in panel (c). The color presented in the figure 
 is the strength of the action due to the hydrophobic attraction. From weak to strong action field, the color
 varies from blue to red.
 To demonstrate the tank-treading behavior of the vesicle, panels (b) and (d) provide the streamlines of the 
-fluid velocity over the whole computational domain when the shear flow passes through the vesicle. The tank-treading motion of the structure is then observed.
+fluid velocity over the whole computational domain when the shear flow passes through the structure. The tank-treading motion of the structure is then observed, for instance, the particle velocities in panel (d) indicate a clockwise tank-treading movement.
 
 % needs to add more details about inclination angle, tank-treading frequency, repulsion, ...etc.
 
@@ -395,15 +397,20 @@ fluid velocity over the whole computational domain when the shear flow passes th
 \end{figure}
 %
 
-In order to extract more physical properties of the proposed model, we track the total length of the bilayer structure and the reduced area over the time. Here the enclosed area and the length of the structure are calculated from the midplane. 
+In order to extract more physical properties of the proposed model, we track the total length of the bilayer structure, the reduced area over the time, and the excess length. Here the enclosed area and the length of the structure are calculated from the midplane. 
 These results are shown in Figure~\ref{figure4} where we compare results from a set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$. 
-The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ is the vesicle area and $L$ is the arc length of the vesicle with respect to the midplane. Since the starting configuration is close to a circular shape, the reduced are decreases from a value very close to $1$. It is clear that a slower shear rate generates a higher reduced area and has a faster convergence. The small oscillations in all results are due to the granularity of the bilayer which tend to having a slightly non-smooth curve in simulations. Overall the total lengths of the bilayer have the same converging value in all test shear rates. Moreover, based on the 
+The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ is the vesicle area and $L$ is the arc length of the vesicle with respect to the midplane. 
+Furthermore, the excess length is given by $\Delta=L/\sqrt{A^*/\pi}-2\pi$.
+Since the starting configuration is close to a circular shape, the reduced area decreases from a value very close to $1$. It is clear that a slower shear rate generates a higher reduced area and has a faster convergence. 
+With a converging total arc length, a slower shear rate also produces a smaller excess length.
+The small oscillations in all results are due to the granularity of the bilayer which tend to having a slightly non-smooth curve in simulations. Overall the total lengths of the bilayer have the same converging value in all test shear rates. Moreover, based on the 
 numerical experiments, we observe that the reduce area converges relatively early when the shear rate is lower than $\dot\gamma=0.003$. 
 
 An interesting phenomenon also rises up in the proposed setup where the inter-monolayer slip occurs 
 between two leaflets. When a shear rate is large enough, take $\dot\gamma = 0.005$ as an example, 
-Figure~\ref{figure5} shows the schematic of the test. A particle pair is initially marked and we then track the positions and layer velocities over the time. It is clear to see that the outer leaflet always has larger 
-tangential velocity than the one from inner leaflet. This inter-leaflet sliding matches what has been seen
+Figure~\ref{figure5} shows the schematic of the test. A particle pair is initially marked and we then track the positions and mean angle $\theta(t)$ between particle relative position with respect to the vesicle center over the time. It is clear to see that the outer leaflet always has larger 
+tangential velocity than the one from inner leaflet and the mean angle $\theta(t)$ increases. 
+This inter-leaflet sliding phenomenon is consistent with what has been seen
 in articles in molecular dynamics simulations. %%% need some citations
 
 \begin{figure}
@@ -415,9 +422,9 @@ in articles in molecular dynamics simulations. %%% need some citations
 \hspace{-1cm}
 \includegraphics[height=2in]{ExcLength.pdf}
 \end{center} 
-  \caption{(a) Total arc lengths of the midplanes over time in different shear rates; (b) Reduced area transitions over time. 
+  \caption{(a) Total arc lengths of the midplanes over time in different shear rates; (b) Reduced area transitions over time. (c) Excess length of the midplanes.
 A set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
-A slower shear rate generates a faster convergence in the reduced area. 
+A slower shear rate generates a faster convergence in the reduced area and smaller excess length. 
   }
     \label{figure4}
 \end{figure}
@@ -430,7 +437,7 @@ A slower shear rate generates a faster convergence in the reduced area.
 \begin{center}
 \includegraphics[width=0.8\textwidth]{Slip.eps}
 \end{center} 
-  \caption{For the shear rate $\dot\gamma=0.005$, the inter-monolayer slip is be observed. The curves in black and blue represent the tangential velocities of inner and outer leaflet, respectively. The configuration plots have two fixed particles marked and positioned with respect to the corresponding time $t$.
+  \caption{For the shear rate $\dot\gamma=0.005$, the inter-monolayer slip is be observed. The curve in black represents the mean angle between each particle pair where the angle is calculated from the relative position of particles using the vesicle center of mass position. The configuration plots have two fixed particles marked in yellow and blue and labeled with the corresponding time $t=\{2000,5200,9000\}$.
   }
     \label{figure5}
 \end{figure}
