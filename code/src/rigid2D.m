@@ -81,7 +81,6 @@ while step <= prams.m
     geom1 = capsules(prams,xc1,tau1);
     [Up1, wp1,~,~,etaY,etaS,force,torque] = tt.timeStep(geom1,etaY0,etaS0);
     etaY0 = etaY; etaS0 = etaS;
-
     
     % Applying two-step Adams-Bashforth
     xc2  = xc1  + tt.dt*(1.5*Up1 - 0.5*Up0 );

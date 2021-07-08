@@ -43,8 +43,8 @@ options.verbose   = true;
 options.timeOrder = 2;
 options.gmresTol  = 1e-10;
 
-options.usePlot   = false;
-options.tracer    = true;
+options.usePlot   = true;
+options.tracer    = false;
 options.plotAxis  = [-10 10 -10 10];
 
 % 1. Please input the number of bodies and have the corresponding initial
