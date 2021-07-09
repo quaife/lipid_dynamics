@@ -30,6 +30,7 @@
 \newcommand{\DD}{\mathcal{D}}
 \newcommand{\eeta}{\boldsymbol{\eta}}
 \newcommand{\FF}{\mathbf{F}}
+\newcommand{\GG}{\mathbf{G}}
 \newcommand{\nnu}{\boldsymbol{\nu}}
 \newcommand{\ssigma}{\boldsymbol{\sigma}}
 \newcommand{\rr}{\mathbf{r}}
@@ -37,7 +38,7 @@
 \renewcommand{\SS}{\mathbf{S}}
 \newcommand{\xx}{\mathbf{x}}
 \newcommand{\uu}{\mathbf{u}}
-\renewcommand{\vv}{\mathbf{v}}
+\newcommand{\vv}{\mathbf{v}}
 \newcommand{\yy}{\mathbf{y}}
 
 
@@ -61,7 +62,7 @@ Rolf Ryham\aff{1}, \and
 Yuan-Nan Young\aff{3}
 }
  \affiliation{
-\aff{1} Department of Mathematics, \\Fordham University, Bronx, New York 10458, USA
+\aff{1}Department of Mathematics, \\Fordham University, Bronx, New York 10458, USA
 \aff{2}Department of Scientific Computing, \\Florida State University, Tallahassee, Florida 32306, USA
 \aff{3}Department of Mathematical Sciences, New Jersey Institute of Technology,\\ Newark, New Jersey 07102, USA
  }
@@ -95,50 +96,106 @@ Authors should not enter keywords on the manuscript, as these must be chosen by 
 
 
 \section{Governing  Equations}
-\subsection{Hydrophobic Attraction Potential (HAP)}
-
-
-The Hydrophobic attraction potential (HAP) is given by
-\begin{equation}
-\label{eq:main}
-\Phi(\Omega,f) = \gamma  \min_{u \in \mathcal{A}}
- I[u]  = \int_{\Omega} \rho |\nabla u|^2 + \rho^{-1} u^2 \,dx,
-\end{equation}
+\subsection{\label{mobility}Mobility Problem}
+The governing equations of $N_b$-body particles suspended in the
+two-dimensional, unbounded
+domain $\Omega$ are
+\begin{alignat}{3}
+  -\mu \Delta \uu + \nabla p &= 0 \qquad \qquad && \xx \in \Omega, \\
+  \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
+  \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
+\end{alignat}
 %
-where $\gamma$ the interfacial tension, $\rho$ the screened length, and this domain functional describes the energy associated with hydrophobic surfaces~\cite{Fu20}. From the first domain variation of HAP, we obtain a hydrophobic stress tensor which is given as follows, 
+where $\uu$ is the velocity, $\mu$ is viscosity, $p$ is the pressure, and $\uu_\infty$ is
+the background flow. Each particle $\Gamma_i$ with center $\aa_i$ is
+a rigid body, and its velocity satisfies 
+\begin{align}
+  \vv(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad 
+    \xx \in \Gamma_i,
+\end{align}
+where $\vv_i$ is its translational velocity and $\omega_i$ is its
+angular velocity.
+Here, $\langle x, y \rangle^{\perp} = \langle -y, x \rangle$.
+Therefore, the no-slip boundary condition of
+the velocity field is 
+\begin{align}
+  \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad
+    \xx \in \bd\Gamma_i.
+\end{align}
+To determine the translational and angular velocities of each rigid body,
+we assume some imposed forces $\FF_i$ and torques $T_i$ acting on each particle.
+Since the small particles are intertialess, force balance gives 
+\begin{alignat}{2}
+  \label{eqn:force}
+  \FF_i &+ \int_{\bd\Gamma_i} \ssigma \cdot \nnu_i \, ds && = \mathbf{0}, \\
+  \label{eqn:torque}
+  T_i &+ \int_{\bd\Gamma_i} (\xx - \aa_i)^\perp \cdot 
+    (\ssigma \cdot \nnu_i) \, ds && = 0,
+\end{alignat}
+where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
+\right)$ is the hydrodynamic stress tensor (pressure tensor).
 
-\begin{equation}
-\label{eq:stress}
-\mathbf{T}
-= \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma \left(\tfrac{1}{2}|\nabla
-  u|^2 \mathbf{I} - \nabla u\otimes \nabla u\right).
-\end{equation}
-%
-The integration over boundaries gives force and torque due to the
-hydrophobic attraction 
+
+\subsection{Imposed Forces}
+The imposed forces and torques contain two parts. 
+The first part comes from the hydrophobic attraction potential (HAP).
+This potential was introduced in \cite{Fu20} and
+models hydrophobic attraction by solving the screened Laplace equation boundary value problem
+\begin{alignat}{2}
+  \label{SL}
+-\rho^2 \Delta u + u &=0,            && \mathbf{x} \in \Omega,\\
+\label{SLbc}
+u(\mathbf{x}) &= f_i(\mathbf{x}),\qquad  && \mathbf{x} \in \Gamma_i, \\
+\label{SLff}
+u &\to 0,                          &&|\mathbf{x}| \to \infty,
+\end{alignat}
+where $f_i$ is material label with $f_i = 0$, resp. $1$ representing hydrophilic, resp. hydrophobic, 
+portions of the surface, and $\rho$ is the decay length of attraction.
+The forces and torques for this attraction are 
 \begin{align}
   \label{eqn:hydrophobicAttraction}
-  \FF_i = \int_{\bd \Gamma_i} {\bf T}\cdot \nnu_i \, dS, 
-    \quad  \text{ and } \quad
-  T_i = \int_{\Gamma_i} (\xx - \aa_i) \times ({\bf T} \cdot \nnu_i) dS,
+  \FF_i^{\text{hydro}} = \int_{\bd \Gamma_i} {\bf T}\cdot \nnu_i \, dS, 
+    \quad 
+  T_i^{\text{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot ({\bf T} \cdot \nnu_i) dS,
 \end{align}
-%
-where $\xx \in \Gamma_i$, $\aa_i$ is the $i^{th}$ particle center, and
-$\nnu_i$ is the outward normal of the $i^{th}$ particle.
+where
+\begin{equation}
+  \label{eq:stress}
+\mathbf{T}
+= \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma \left(\tfrac{1}{2}|\nabla
+  u|^2 \mathbf{I} - \nabla u\otimes \nabla u\right)
+\end{equation}
+is the hydrophobic stress tensor.  The parameter $\gamma$ is interfacial tension. 
+The forces $\FF_i^{\text{hydro}}$ and torques $T_i^{\text{hydro}}$ are responsible for
+forming particle aggregates that partially sequester 
+the hydrophobic portions of the particle surface.
+
+The second part of the imposed forces and torques comes from repulsion between proximal particles.
+We define 
+\begin{equation}
+  \label{REPUL}
+  \FF_i^{\text{repul}} = \sum_{i=1}^{N_b} \frac{\mathbf{x}_{ij} - \mathbf{y}_{ij}}{\rho_{ij}} P(\rho_{ij}),\quad 
+  T_i^{\text{repul}} = \sum_{i=1}^{N_b} (\mathbf{x}_{ij} - \mathbf{a}_i)^{\perp}\cdot \frac{\mathbf{x}_{ij} - \mathbf{y}_{ij}}{\rho_{ij}} P(\rho_{ij})
+\end{equation}
+where $\mathbf{x}_{ij} \in \partial \Gamma_i$, 
+$\mathbf{y}_{ij} \in \partial \Gamma_j$, 
+and $\rho_{ij} = |\mathbf{x}_{ij} - \mathbf{y}_{ij}|$
+is the distance between the pair of particles.
+The repulsion profile $P(r)$ is zero for distances $r$ larger than a repulsion length scale
+$\rho_0$.  As such, \eqref{REPUL} ignores particles $\Gamma_j$ outside a tubular neighborhood
+of $\Gamma_i$.  For $0 \leq r < \rho_0,$ we use $P(r) = M(1 - \sin(r/\rho_0))$ where $M$ is sufficiently
+large to prevent particle collisions.  The total imposed force and torque are
+\begin{equation}
+  \FF_i = \FF_i^{\text{hydro}} + \FF_i^{\text{repul}},\quad
+    T_i =   T_i^{\text{hydro}} +   T_i^{\text{repul}}.
+\end{equation}
 
 
-%\begin{equation}
-%        \label{SL}
-%\begin{cases}
-% -\rho^2 \Delta u + u =0 & \text{ in } \Omega,\\
-%  u(x) = f(x)  &\text{ on }\Sigma, \\
-%   u(x) \to 0, &\text{ as } x \to \infty.
-%\end{cases}
-%\end{equation}
-
-\subsection{Nondimensionalizations}
-
-
+\subsection{Time marchning and Nondimensionalizations}
+From the mobility problem, we obtain translational and angular velocities of the $N_b$-body system.
+A second order Adam-Bashforth scheme updates the particle positions and orientations.
+dynamics but body collisions may occur during the simulation while a relatively large time step is chosen.
+We therefore impose a short range repulsion that it will be turned on when the distance between two boundary points on different bodies are within one characteristic length.
 
 For a two-dimensional vesicle, we denote a constant initial radius $R_0$ and 
 the dimensionless shear rate is
@@ -152,58 +209,8 @@ where $\dot\gamma$ the shear rate, $\kappa$ the bending rigidity, and $\mu$ the 
 %This paper is organized as follows. Chapter 2 introduces the mobility problem..... The integral equation method for solving $N_b$-body system with details of .... are included in Chapter 3. We provide numerical results of vesicle simulations in Chapter 4. Finally, we conclude the work and briefly give the picture of our future work.
 
 
-\subsection{\label{mobility}Mobility Problem}
-
-The governing equations of $N_b$-body bodies suspended in the unbounded
-domain $\Omega$ are
-\begin{alignat}{3}
-  -\Delta \uu + \mu\nabla p, &= 0 \qquad \qquad && \xx \in \Omega, \\
-  \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
-  \uu &\to \uu_\infty, && |\xx| \to \infty,
-\end{alignat}
-%
-where $\uu$ is the velocity, $p$ is the pressure, and $\uu_\infty$ is
-the background flow. Each particle $\Gamma_i$ with center $\aa_i$ is
-assumed to be a rigid body, so its two-dimensional velocity can be
-written as
-\begin{align}
-  \vv(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad 
-    \xx \in \Gamma_i,
-\end{align}
-where $\vv_i$ is its translational velocity and $\omega_i$ is its
-angular velocity. Therefore, the no-slip boundary condition of
-the velocity field is 
-\begin{align}
-  \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad
-    \xx \in \bd\Gamma_i.
-\end{align}
-To determine the translational and angular velocities of each rigid
-body, we impose a force balance and torque balance. Matching the total
-force and torque in~\eqref{eqn:hydrophobicAttraction} with the
-hydrodynamic force, we require
-\begin{align}
-  \label{eqn:force}
-  \FF_i &= \int_{\bd\Gamma_i} \ssigma \cdot \nnu_i \, ds, \\
-  \label{eqn:torque}
-  T_i &= \int_{\bd\Gamma_i} (\xx - \aa_i)^\perp \cdot 
-    (\ssigma \cdot \nnu_i) \, ds,
-\end{align}
-where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
-\right)$ is the hydrodynamic stress tensor.
 
 
-
-
-
-\subsection{Short Range Repulsion}
-
-At each time step, we examine the nearest grid points between each pair of body  boundaries. Within a specified distance $d$, we introduce a short range repulsive potential as follows
-
-\begin{equation}
-\Phi_{repul} = 1- \sin\left(\frac{\pi}{2} d\right).
-\end{equation}
-
-Here we would like to make a remark about the time marching scheme. From the mobility problem, we obtain velocity and torque profiles of an $N_b$-body system. A second order Adam-Bashforth scheme is used for updating the dynamics but body collisions may occur during the simulation while a relatively large time step is chosen. We therefore impose a short range repulsion that it will be turned on when the distance between two boundary points on different bodies are within one characteristic length.
 
 
 %%%
