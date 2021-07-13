@@ -97,40 +97,43 @@ Authors should not enter keywords on the manuscript, as these must be chosen by 
 
 \section{Governing  Equations}
 \subsection{\label{mobility}Mobility Problem}
-The governing equations of $N_b$-body particles suspended in the
-two-dimensional, unbounded
-domain $\Omega$ are
+We consider a suspension of $N_b$ particles suspended in a
+two-dimensional unbounded domain. The boundary of each particle is
+denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1 \cup \Gamma_2 \cup
+\cdots \cup \Gamma_{N_b}$. Assuming the flow is Stokesian, the governing
+equations are
 \begin{alignat}{3}
-  -\mu \Delta \uu + \nabla p &= 0 \qquad \qquad && \xx \in \Omega, \\
+  -\mu \Delta \uu + \nabla p &= \mathbf{0}, \qquad \qquad 
+    && \xx \in \Omega, \\
   \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
 \end{alignat}
 %
-where $\uu$ is the velocity, $\mu$ is viscosity, $p$ is the pressure, and $\uu_\infty$ is
-the background flow. Each particle $\Gamma_i$ with center $\aa_i$ is
-a rigid body, and its velocity satisfies 
+where $\uu$ is the velocity, $\mu$ is viscosity, $p$ is the pressure,
+and $\uu_\infty$ is the background flow. Since each particle $\Gamma_i$
+with center $\aa_i$ is a rigid body, its velocity satisfies 
 \begin{align}
   \vv(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad 
     \xx \in \Gamma_i,
 \end{align}
 where $\vv_i$ is its translational velocity and $\omega_i$ is its
-angular velocity.
-Here, $\langle x, y \rangle^{\perp} = \langle -y, x \rangle$.
-Therefore, the no-slip boundary condition of
-the velocity field is 
+angular velocity.  Here, $\langle x, y \rangle^{\perp} = \langle -y, x
+\rangle$. Therefore, the no-slip boundary condition on each particle is
 \begin{align}
   \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad
-    \xx \in \bd\Gamma_i.
+    \xx \in \Gamma_i.
 \end{align}
-To determine the translational and angular velocities of each rigid body,
-we assume some imposed forces $\FF_i$ and torques $T_i$ acting on each particle.
-Since the small particles are intertialess, force balance gives 
+To determine the translational and angular velocities of each particle,
+we assume some imposed forces $\FF_i$ and torques $T_i$ acting on each
+particle. Since the small particles are intertialess, force balance
+gives 
 \begin{alignat}{2}
   \label{eqn:force}
-  \FF_i &+ \int_{\bd\Gamma_i} \ssigma \cdot \nnu_i \, ds && = \mathbf{0}, \\
+  \FF_i &+ \int_{\Gamma_i} \ssigma \cdot \nnu_i \, ds = \mathbf{0},
+  && i=1,\ldots,N_b,\\
   \label{eqn:torque}
-  T_i &+ \int_{\bd\Gamma_i} (\xx - \aa_i)^\perp \cdot 
-    (\ssigma \cdot \nnu_i) \, ds && = 0,
+  T_i &+ \int_{\Gamma_i} (\xx - \aa_i)^\perp \cdot 
+    (\ssigma \cdot \nnu_i) \, ds = 0 \qquad && i=1,\ldots,N_b,
 \end{alignat}
 where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
 \right)$ is the hydrodynamic stress tensor (pressure tensor).
@@ -143,55 +146,68 @@ This potential was introduced in \cite{Fu20} and
 models hydrophobic attraction by solving the screened Laplace equation boundary value problem
 \begin{alignat}{2}
   \label{SL}
--\rho^2 \Delta u + u &=0,            && \mathbf{x} \in \Omega,\\
+-\rho^2 \Delta u + u &=0,            && \xx \in \Omega,\\
 \label{SLbc}
-u(\mathbf{x}) &= f_i(\mathbf{x}),\qquad  && \mathbf{x} \in \Gamma_i, \\
+u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i, \\
 \label{SLff}
-u &\to 0,                          &&|\mathbf{x}| \to \infty,
+u &\to 0,                          &&|\xx| \to \infty,
 \end{alignat}
-where $f_i$ is material label with $f_i = 0$, resp. $1$ representing hydrophilic, resp. hydrophobic, 
-portions of the surface, and $\rho$ is the decay length of attraction.
-The forces and torques for this attraction are 
+where $f_i$ is material label with $f_i = 0$ ($1$) representing
+hydrophilic (hydrophobic) portions of the surface, and $\rho$ is the
+decay length of attraction.  The forces and torques for this attraction
+are 
 \begin{align}
   \label{eqn:hydrophobicAttraction}
-  \FF_i^{\text{hydro}} = \int_{\bd \Gamma_i} {\bf T}\cdot \nnu_i \, dS, 
+  \FF_i^{\text{hydro}} = \int_{\Gamma_i} {\bf T}\cdot \nnu_i \, dS, 
     \quad 
   T_i^{\text{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot ({\bf T} \cdot \nnu_i) dS,
 \end{align}
 where
-\begin{equation}
+\begin{align}
   \label{eq:stress}
 \mathbf{T}
 = \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma \left(\tfrac{1}{2}|\nabla
   u|^2 \mathbf{I} - \nabla u\otimes \nabla u\right)
-\end{equation}
-is the hydrophobic stress tensor.  The parameter $\gamma$ is interfacial tension. 
-The forces $\FF_i^{\text{hydro}}$ and torques $T_i^{\text{hydro}}$ are responsible for
-forming particle aggregates that partially sequester 
-the hydrophobic portions of the particle surface.
+\end{align}
+is the hydrophobic stress tensor. The parameter $\gamma$ is interfacial
+tension. The forces $\FF_i^{\text{hydro}}$ and torques
+$T_i^{\text{hydro}}$ are responsible for forming particle aggregates
+that partially sequester the hydrophobic portions of the particle
+surface.
 
-The second part of the imposed forces and torques comes from repulsion between proximal particles.
-We define 
-\begin{equation}
-  \label{REPUL}
-  \FF_i^{\text{repul}} = \sum_{i=1}^{N_b} \frac{\mathbf{x}_{ij} - \mathbf{y}_{ij}}{\rho_{ij}} P(\rho_{ij}),\quad 
-  T_i^{\text{repul}} = \sum_{i=1}^{N_b} (\mathbf{x}_{ij} - \mathbf{a}_i)^{\perp}\cdot \frac{\mathbf{x}_{ij} - \mathbf{y}_{ij}}{\rho_{ij}} P(\rho_{ij})
-\end{equation}
-where $\mathbf{x}_{ij} \in \partial \Gamma_i$, 
-$\mathbf{y}_{ij} \in \partial \Gamma_j$, 
-and $\rho_{ij} = |\mathbf{x}_{ij} - \mathbf{y}_{ij}|$
-is the distance between the pair of particles.
-The repulsion profile $P(r)$ is zero for distances $r$ larger than a repulsion length scale
-$\rho_0$.  As such, \eqref{REPUL} ignores particles $\Gamma_j$ outside a tubular neighborhood
-of $\Gamma_i$.  For $0 \leq r < \rho_0,$ we use $P(r) = M(1 - \sin(r/\rho_0))$ where $M$ is sufficiently
-large to prevent particle collisions.  The total imposed force and torque are
-\begin{equation}
+The second part of the imposed forces and torques comes from repulsion
+between proximal particles. We define 
+\begin{align}
+%  \label{eqn:REPUL}
+%  \FF_i^{\text{repul}} = \sum_{i=1}^{N_b} \frac{\xx_{ij} -
+%  \yy_{ij}}{\rho_{ij}} P(\rho_{ij}),\quad 
+%  T_i^{\text{repul}} = \sum_{i=1}^{N_b} (\xx_{ij} - \aa_i)^{\perp}\cdot
+%  \frac{\xx_{ij} - \yy_{ij}}{\rho_{ij}} P(\rho_{ij})
+%
+  \label{eqn:REPULforce}
+  \FF_i^{\text{repul}} &= \sum_{j \neq i} \int_{\Gamma_j}
+    \frac{\xx - \yy}{|\xx - \yy|} P(|\xx - \yy|)\, dS, \\
+  \label{eqn:REPULtorque}
+  T_i^{\text{repul}} &= \sum_{j \neq i} \int_{\Gamma_j}
+    (\xx - \aa_i)^{\perp} \cdot 
+    \frac{\xx - \yy}{|\xx - \yy|} P(|\xx - \yy|)\, dS, 
+\end{align}
+where $\xx \in \Gamma_i$ and $|\xx - \yy|$ is the distance between the
+pair of particles. The repulsion profile $P(r)$ is zero for distances
+$r$ larger than a repulsion length scale $\rho_0$. As
+such,~\eqref{eqn:REPULforce} and~\eqref{eqn:REPULtorque} ignore
+particles $\Gamma_j$ outside a tubular neighborhood of $\Gamma_i$. For
+$0 \leq r < \rho_0,$ we use $P(r) = M(1 - \sin(r/\rho_0))$ where $M$ is
+sufficiently large to prevent particle collisions. The total imposed
+force and torque are
+\begin{align}
   \FF_i = \FF_i^{\text{hydro}} + \FF_i^{\text{repul}},\quad
-    T_i =   T_i^{\text{hydro}} +   T_i^{\text{repul}}.
-\end{equation}
+  T_i = T_i^{\text{hydro}} + T_i^{\text{repul}}, \qquad
+  i=1,\ldots,N_b.
+\end{align}
 
 
-\subsection{Time marchning and Nondimensionalizations}
+\subsection{Time Marching and Nondimensionalizations}
 From the mobility problem, we obtain translational and angular velocities of the $N_b$-body system.
 A second order Adam-Bashforth scheme updates the particle positions and orientations.
 dynamics but body collisions may occur during the simulation while a relatively large time step is chosen.
