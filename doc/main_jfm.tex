@@ -208,18 +208,21 @@ force and torque are
 
 
 \subsection{Time Marching and Nondimensionalizations}
-From the mobility problem, we obtain translational and angular velocities of the $N_b$-body system.
-A second order Adam-Bashforth scheme updates the particle positions and orientations.
-dynamics but body collisions may occur during the simulation while a relatively large time step is chosen.
-We therefore impose a short range repulsion that it will be turned on when the distance between two boundary points on different bodies are within one characteristic length.
+By solving the mobility problem, we obtain translational and angular
+velocities of the $N_b$-body system. A second-order Adam-Bashforth
+scheme updates the particle positions and orientations. By including the
+repulsion force~\eqref{eqn:REPULforce} and
+torque~\eqref{eqn:REPULtorque}, particle collisions are avoided even
+when using a relatively large time step. 
 
-For a two-dimensional vesicle, we denote a constant initial radius $R_0$ and 
-the dimensionless shear rate is
-\begin{equation}
-\chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa},
-\end{equation}
+For a two-dimensional vesicle, we denote a constant initial radius $R_0$
+and the dimensionless shear rate is
+\begin{align}
+  \chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa},
+\end{align}
 %
-where $\dot\gamma$ the shear rate, $\kappa$ the bending rigidity, and $\mu$ the fluid viscosity~\cite{Finken08}.
+where $\dot\gamma$ the shear rate, $\kappa$ the bending rigidity, and
+$\mu$ the fluid viscosity~\cite{Finken08}.
 
 
 %This paper is organized as follows. Chapter 2 introduces the mobility problem..... The integral equation method for solving $N_b$-body system with details of .... are included in Chapter 3. We provide numerical results of vesicle simulations in Chapter 4. Finally, we conclude the work and briefly give the picture of our future work.
@@ -230,7 +233,8 @@ where $\dot\gamma$ the shear rate, $\kappa$ the bending rigidity, and $\mu$ the 
 
 
 %%%
-\section{\label{IEM}Integral Equation Method}
+\section{Integral Equation Method}
+\label{sec:IEM}
 Since the fluid velocity is assumed to be Stokesian, it can be written
 in terms of layer potentials. Following previous work of~\cite{Lukas19},
 we represent the velocity as the sum of a double-layer potential and the
