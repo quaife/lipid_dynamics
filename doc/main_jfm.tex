@@ -183,6 +183,7 @@ between proximal particles. We define
 %  \yy_{ij}}{\rho_{ij}} P(\rho_{ij}),\quad 
 %  T_i^{\text{repul}} = \sum_{i=1}^{N_b} (\xx_{ij} - \aa_i)^{\perp}\cdot
 %  \frac{\xx_{ij} - \yy_{ij}}{\rho_{ij}} P(\rho_{ij})
+%  \\
 %
   \label{eqn:REPULforce}
   \FF_i^{\text{repul}} &= \sum_{j \neq i} \int_{\Gamma_j}
@@ -192,6 +193,8 @@ between proximal particles. We define
     (\xx - \aa_i)^{\perp} \cdot 
     \frac{\xx - \yy}{|\xx - \yy|} P(|\xx - \yy|)\, dS, 
 \end{align}
+\todo[inline]{Repulsion force is a function of only the distance between
+the Janus particles instead of the integral around the particles.}
 where $\xx \in \Gamma_i$ and $|\xx - \yy|$ is the distance between the
 pair of particles. The repulsion profile $P(r)$ is zero for distances
 $r$ larger than a repulsion length scale $\rho_0$. As
@@ -372,6 +375,8 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 \centering
 \includegraphics[height=2in]{relax.eps}
 \includegraphics[height=2in]{relax2.eps}
+  \todo[inline]{Put pressure of each of the two configurations below
+  this.}
   \caption{Vesicle relaxes under a quiescent flow. (a) The blue dashed curve and the solid curve are mean magnitudes of the particle velocities in $x$ and $y$ directions, respectively. The red curve shows the decreasing trend of the mean magnitude of particle orientation change. The black dashed line shows the reference of how all magnitudes decay. (b) Bilayer configurations for $t=0$(gray) and $t=1000$(red) with particle directors.
   }
     \label{figure2}
@@ -384,6 +389,8 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 
 
 \section{\label{results}Numerical Results}
+
+\todo[inline]{Introduce dimensionless shear rate here}
 
 \subsection{Tank-Treading Vesicles}
 
@@ -459,6 +466,8 @@ A slower shear rate generates a faster convergence in the reduced area and small
 
 
 
+\todo[inline]{Figure/Table of the friction coefficient for different
+shear rates}
 
 \begin{figure}
 \begin{center}
@@ -482,6 +491,8 @@ The background flow for this set of simulations is given by
 %
 where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the initial vesicle midplane. Figure~\ref{figure6} gives a final configuration for one specific case where the circular vesicle is initially placed above the $x$-axis.
 
+\todo[inline]{Stream lines not right. Need to subtract a constant
+velocity instead of the background flow.}
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth]{parabolic.eps}
@@ -501,10 +512,11 @@ with the choices of shear rates. One can expect that these two layers will flow 
 
 \begin{figure}
 \centering
-\includegraphics[height=1.2in]{N58_rupt_0.pdf}
-\includegraphics[height=1.2in]{N58_rupt_200.pdf}
-\includegraphics[height=1.2in]{N58_rupt_400.pdf}
-\includegraphics[height=1.2in]{N58_rupt_600.pdf}
+\includegraphics[height=2.4in]{N58_rupt_0.pdf}
+\includegraphics[height=2.4in]{N58_rupt_200.pdf}
+\\
+\includegraphics[height=2.4in]{N58_rupt_400.pdf}
+\includegraphics[height=2.4in]{N58_rupt_600.pdf}
   \caption{Membrane rupture occurs when the shear rate is beyond a certain threshold. Here the shear rate is $\dot\gamma = 0.1$. Starting with a circular shape (panel (a)), the vesicle is stretched by the background flow and multiple pores appear (panel (b)). (c)-(d) are the later states during the simulation.
   }
     \label{figure7}
@@ -515,6 +527,41 @@ with the choices of shear rates. One can expect that these two layers will flow 
 
 
 \subsection{Two Vesicles in a Linear Flow}
+
+
+\begin{figure}
+\centering
+\includegraphics[height=1.2in]{N116_shear_0.pdf}
+\includegraphics[height=1.2in]{N116_shear_3000.pdf}
+\includegraphics[height=1.2in]{N116_shear_6000.pdf}
+\includegraphics[height=1.2in]{N116_shear_9000.pdf}\\
+  \caption{Two vesicles under a shear flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets of all panels are generated from the results of continuum modeling simulations and the streamlines have a perfect agreement to the numerical results.
+  }
+    \label{figure9}
+\end{figure}
+
+
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.24\textwidth]{N116_shear_vel_0.pdf}
+%\includegraphics[width=0.24\textwidth]{N116_shear_vel_3000.pdf}
+%\includegraphics[width=0.24\textwidth]{N116_shear_vel_6000.pdf}
+%\includegraphics[width=0.24\textwidth]{N116_shear_vel_9000.pdf}
+%  \caption{(a)-(d) The background arrows indicate the fluid velocities. }
+%    \label{figure8}
+%\end{figure}
+
+
+\subsubsection{Shear Flow}
+Two vesicles in a shear flow is presented in Figures~\ref{figure9} where centers of mass are placed on the same horizontal level. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \dot\gamma y$. 
+An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned. In other words, the adhesive behavior will be absent when two vesicles are centered 
+at a different level and are well separated in $y$-direction.
+
+\todo[inline]{Migration pattern and/or separation distance. See Fig 8 in
+JCP paper by Rahimian, Veerapaneni, and Biros.}
+
+
 
 \begin{figure}
 \centering
@@ -560,35 +607,6 @@ The pressure plots in Figure~\ref{figure8} provide a realistic result where the 
 
 %may need to add more here
 
-
-\begin{figure}
-\centering
-\includegraphics[height=1.2in]{N116_shear_0.pdf}
-\includegraphics[height=1.2in]{N116_shear_3000.pdf}
-\includegraphics[height=1.2in]{N116_shear_6000.pdf}
-\includegraphics[height=1.2in]{N116_shear_9000.pdf}\\
-  \caption{Two vesicles under a shear flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets of all panels are generated from the results of continuum modeling simulations and the streamlines have a perfect agreement to the numerical results.
-  }
-    \label{figure9}
-\end{figure}
-
-
-
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.24\textwidth]{N116_shear_vel_0.pdf}
-%\includegraphics[width=0.24\textwidth]{N116_shear_vel_3000.pdf}
-%\includegraphics[width=0.24\textwidth]{N116_shear_vel_6000.pdf}
-%\includegraphics[width=0.24\textwidth]{N116_shear_vel_9000.pdf}
-%  \caption{(a)-(d) The background arrows indicate the fluid velocities. }
-%    \label{figure8}
-%\end{figure}
-
-
-\subsubsection{Shear Flow}
-Two vesicles in a shear flow is resented in Figures~\ref{figure9} where centers of mass are placed on the same horizontal level. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \dot\gamma y$. 
-An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned. In other words, the the adhesive behavior will be absent when two vesicles are centered 
-at a different level and are well separated in $y$-direction.
 
 
 
