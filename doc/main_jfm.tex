@@ -334,10 +334,10 @@ preconditioned GMRES.
 \subsection{Jeffery Orbit}
 
 
-The preliminary test of the proposed model using the integral equation method is the numerical validation in Jeffery orbits of single ellipsoidal particle under a shear flow $\dot x = \dot\gamma y$ where $\dot\gamma$ is the shear rate. An ellipsoidal particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\chi = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle $\chi(t)$, 
+The preliminary test of the proposed model using the integral equation method is the numerical validation in Jeffery orbits of single ellipsoidal particle under a shear flow $\dot x = \dot\gamma y$ where $\dot\gamma$ is the shear rate. An ellipsoidal particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\chi = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle $\Theta(t)$, 
 
 \begin{equation}
-\chi(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right),
+\Theta(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right),
 \end{equation}
 %
 where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratio of the particle is $2$. Figure~\ref{figure1} shows that the proposed integral equation method has a perfect agreement with the theoretical result from Jeffery orbits.
@@ -345,8 +345,9 @@ where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratio of 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.4\textwidth]{JefferyOrbit.eps}
-  \caption{Comparison of the target angle $\chi(t)$ versus time $t$ between the theoretical Jeffery orbit with $\dot\gamma=0.1$ and the result from the integral equation method. The schematic of the simulation setup is shown in the inset of the figure.
+\includegraphics[width=0.4\textwidth]{JefferyOrbit2.eps}
+\includegraphics[width=0.4\textwidth]{JefferyOrbit3.eps}
+  \caption{Comparison of the target angle $\Theta(t)$ versus time $t$ between the theoretical Jeffery orbit with $\dot\gamma=0.1$ and the result from the integral equation method. The schematic of the simulation setup is shown in the inset of the figure.
   }
     \label{figure1}
 \end{figure}
@@ -388,18 +389,18 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 
 Following the relaxation experiments of the Janus-vesicle, this section will focus on the behavior of vesicles 
 under a number of flow types. To extract physical quantities of the target structure using the proposed model, the scaling laws and the dimensionless units are given as follows.
-The length unit is scaled by the length of phospholipids $l=2.5$ nm and we set the force is scaled from the 
-interfacial tension $\gamma=4.1$ pN nm. We then be able to calculate the corresponding 
+The length unit is scaled by the length of phospholipids $l=2.5$ nm and the force is scaled from the 
+interfacial tension $\gamma=4.1$ pN nm from ~\cite{Ryham16}. We then be able to calculate the corresponding 
 time scale $\tau = 0.38$ ns. With the same framework, \cite{Fu20} provides the bending rigidity 
 $\kappa=8.51$ kT $\approx35$ pN nm.
 
-For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0$ and the dimensionless shear rate 
-is referred from~\cite{Finken08}
+For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$ and the dimensionless shear rate 
+is referred from~\cite{Finken08} and~\cite{Shaqfeh11},
 \begin{align}
   \chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa},
 \end{align}
 %
-where $\dot\gamma$ the dimensional shear rate, and $\mu=1$ cP the fluid viscosity is used through this work.
+where $\dot\gamma$ the dimensional shear rate, and $\mu$ the fluid viscosity is used through this work.
 
 
 \subsection{Tank-Treading Vesicles}
