@@ -218,14 +218,6 @@ repulsion force~\eqref{eqn:REPULforce} and
 torque~\eqref{eqn:REPULtorque}, particle collisions are avoided even
 when using a relatively large time step. 
 
-For a two-dimensional vesicle, we denote a constant initial radius $R_0$
-and the dimensionless shear rate is
-\begin{align}
-  \chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa},
-\end{align}
-%
-where $\dot\gamma$ the shear rate, $\kappa$ the bending rigidity, and
-$\mu$ the fluid viscosity~\cite{Finken08}.
 
 
 %This paper is organized as follows. Chapter 2 introduces the mobility problem..... The integral equation method for solving $N_b$-body system with details of .... are included in Chapter 3. We provide numerical results of vesicle simulations in Chapter 4. Finally, we conclude the work and briefly give the picture of our future work.
@@ -393,6 +385,22 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 \section{\label{results}Numerical Results}
 
 \todo[inline]{Introduce dimensionless shear rate here}
+
+Following the relaxation experiments of the Janus-vesicle, this section will focus on the behavior of vesicles 
+under a number of flow types. To extract physical quantities of the target structure using the proposed model, the scaling laws and the dimensionless units are given as follows.
+The length unit is scaled by the length of phospholipids $l=2.5$ nm and we set the force is scaled from the 
+interfacial tension $\gamma=4.1$ pN nm. We then be able to calculate the corresponding 
+time scale $\tau = 0.38$ ns. With the same framework, \cite{Fu20} provides the bending rigidity 
+$\kappa=8.51$ kT $\approx35$ pN nm.
+
+For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0$ and the dimensionless shear rate 
+is referred from~\cite{Finken08}
+\begin{align}
+  \chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa},
+\end{align}
+%
+where $\dot\gamma$ the dimensional shear rate, and $\mu=1$ cP the fluid viscosity is used through this work.
+
 
 \subsection{Tank-Treading Vesicles}
 
