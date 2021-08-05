@@ -385,7 +385,7 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 
 \section{\label{results}Numerical Results}
 
-\todo[inline]{Introduce dimensionless shear rate here}
+\todo[inline]{Introduce dimensionless shear rate here (and check the numbers)}
 
 Following the relaxation experiments of the Janus-vesicle, this section will focus on the behavior of vesicles 
 under a number of flow types. To extract physical quantities of the target structure using the proposed model, the scaling laws and the dimensionless units are given as follows.
@@ -394,13 +394,12 @@ interfacial tension $\gamma=4.1$ pN nm from ~\cite{Ryham16}. We then be able to 
 time scale $\tau = 0.38$ ns. With the same framework, \cite{Fu20} provides the bending rigidity 
 $\kappa=8.51$ kT $\approx35$ pN nm.
 
-For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$ and the dimensionless shear rate 
-is referred from~\cite{Finken08} and~\cite{Shaqfeh11},
+For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$ and the dimensionless shear rate $\chi$ is referred from~\cite{Finken08} and~\cite{Shaqfeh11},
 \begin{align}
   \chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa},
 \end{align}
 %
-where $\dot\gamma$ the dimensional shear rate, and $\mu$ the fluid viscosity is used through this work.
+where $\dot\gamma$ the dimensional shear rate, and $\mu$ the fluid viscosity.
 
 
 \subsection{Tank-Treading Vesicles}
@@ -475,10 +474,29 @@ A slower shear rate generates a faster convergence in the reduced area and small
 \end{figure}
 
 
+\todo[inline]{Figure/Table of the friction coefficient for different shear rates (needs to revise)}
 
 
-\todo[inline]{Figure/Table of the friction coefficient for different
-shear rates}
+\begin{equation}
+b = \frac{{\bf F}_{friction}}{v^\parallel} = \frac{{\bf F}_{friction}}{\int_\Sigma R \dot\theta dS}.
+\end{equation}
+
+
+\begin{table}[ht] 
+\caption{Friction Coefficients}
+\centering    
+\begin{tabular}{c c c c}
+\hline\hline                    
+Case $i$ & $\dot\gamma$ & $b_i$\\
+\hline 
+1 & 0.020 &  5.1648  \\
+2 & 0.025 &  5.2027  \\ 
+3 & 0.050 &  5.1944   \\ [1ex]
+\hline    
+\end{tabular} 
+\label{table1}
+\end{table}
+
 
 \begin{figure}
 \begin{center}
@@ -502,8 +520,7 @@ The background flow for this set of simulations is given by
 %
 where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the initial vesicle midplane. Figure~\ref{figure6} gives a final configuration for one specific case where the circular vesicle is initially placed above the $x$-axis.
 
-\todo[inline]{Stream lines not right. Need to subtract a constant
-velocity instead of the background flow.}
+
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth]{parabolic.eps}
@@ -569,8 +586,8 @@ Two vesicles in a shear flow is presented in Figures~\ref{figure9} where centers
 An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned. In other words, the adhesive behavior will be absent when two vesicles are centered 
 at a different level and are well separated in $y$-direction.
 
-\todo[inline]{Migration pattern and/or separation distance. See Fig 8 in
-JCP paper by Rahimian, Veerapaneni, and Biros.}
+%\todo[inline]{Migration pattern and/or separation distance. See Fig 8 in
+%JCP paper by Rahimian, Veerapaneni, and Biros.}
 
 
 
