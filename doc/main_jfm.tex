@@ -477,12 +477,26 @@ A slower shear rate generates a faster convergence in the reduced area and small
 \todo[inline]{Figure/Table of the friction coefficient for different shear rates (needs to revise)}
 
 
+The intermonolayer friction coefficient of the Janus-vesicle is calculated from the ratio of friction force and the 
+slip velocity. This quantity is given by 
 \begin{equation}
-b = \frac{{\bf F}_{friction}}{v^\parallel} = \frac{{\bf F}_{friction}}{\int_\Sigma R \dot\theta dS}.
+b = \frac{{\bf F}_{friction}}{v^\parallel} = \frac{{\bf F}_{friction}}{\int_{\Sigma_M} R \dot\theta dS}.
 \end{equation}
+%
+where $v^\parallel$ represents the tangential velocity at the midplane and $\Sigma_M$ the curve determined by the midplane.
 
 
-\begin{table}[ht] 
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Slip.eps}
+\end{center} 
+  \caption{For the shear rate $\dot\gamma=0.005$, the inter-monolayer slip is be observed. The curve in black represents the mean angle between each particle pair where the angle is calculated from the relative position of particles using the vesicle center of mass position. The configuration plots have two fixed particles marked in yellow and blue and labeled with the corresponding time $t=\{2000,5200,9000\}$.
+  }
+    \label{figure5}
+\end{figure}
+
+
+\begin{table}
 \caption{Friction Coefficients}
 \centering    
 \begin{tabular}{c c c c}
@@ -496,18 +510,6 @@ Case $i$ & $\dot\gamma$ & $b_i$\\
 \end{tabular} 
 \label{table1}
 \end{table}
-
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.8\textwidth]{Slip.eps}
-\end{center} 
-  \caption{For the shear rate $\dot\gamma=0.005$, the inter-monolayer slip is be observed. The curve in black represents the mean angle between each particle pair where the angle is calculated from the relative position of particles using the vesicle center of mass position. The configuration plots have two fixed particles marked in yellow and blue and labeled with the corresponding time $t=\{2000,5200,9000\}$.
-  }
-    \label{figure5}
-\end{figure}
-
-
 
 
 \subsubsection{Vesicle in a Parabolic Flow}
@@ -603,16 +605,7 @@ at a different level and are well separated in $y$-direction.
 \end{figure}
 
 
-%\begin{figure}
-%\centering
-%\includegraphics[height=1.2in]{N116_cont_a.pdf}
-%\includegraphics[height=1.2in]{N116_cont_b.pdf}
-%\includegraphics[height=1.2in]{N116_cont_c.pdf}
-%\includegraphics[height=1.2in]{N116_cont_d.pdf}
-%  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; Continuum modeling.....
-%  }
-%    \label{figure8}
-%\end{figure}
+
 
 
 
@@ -817,6 +810,31 @@ Combining the last four equations give \eqref{eq:prejump}.
   \]
   This completes the proof of \eqref{eq:recipforcetorque}.
 \end{proof}
+
+
+
+
+\section{\label{A2} Comparison between Continuum Model and the Proposed Model}
+
+\begin{figure}
+\centering
+\includegraphics[height=1.2in]{N116_cont_a.pdf}
+\includegraphics[height=1.2in]{N116_cont_b.pdf}
+\includegraphics[height=1.2in]{N116_cont_c.pdf}
+\includegraphics[height=1.2in]{N116_cont_d.pdf}
+  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; Continuum modeling.....
+  }
+    \label{figureB}
+\end{figure}
+
+
+
+
+
+
+
+
+
 
 \bibliographystyle{jfm}
 \bibliography{reference}% Produces the bibliography via BibTeX.
