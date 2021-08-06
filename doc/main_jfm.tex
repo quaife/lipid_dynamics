@@ -176,7 +176,10 @@ that partially sequester the hydrophobic portions of the particle
 surface.
 
 The second part of the imposed forces and torques comes from repulsion
-between proximal particles. We define 
+between proximal particles. Given a pair particles indexed as $i$ and
+$j$, we find the two points $\tilde{\xx}_i \in \Gamma_i$ and
+$\tilde{\xx}_j \in \Gamma_j$ that are closest to one another. We then
+define the repulsion force and torque
 \begin{align}
 %  \label{eqn:REPUL}
 %  \FF_i^{\text{repul}} = \sum_{i=1}^{N_b} \frac{\xx_{ij} -
@@ -186,23 +189,24 @@ between proximal particles. We define
 %  \\
 %
   \label{eqn:REPULforce}
-  \FF_i^{\text{repul}} &= \sum_{j \neq i} \int_{\Gamma_j}
-    \frac{\xx - \yy}{|\xx - \yy|} P(|\xx - \yy|)\, dS, \\
+  \FF_i^{\text{repul}} &= \sum_{j \neq i} 
+    \frac{\tilde{\xx}_i - \tilde{\xx}_j}
+    {|\tilde{\xx}_i - \tilde{\xx}_j|} 
+    P'(|\tilde{\xx}_i - \tilde{\xx}_j|) \\
   \label{eqn:REPULtorque}
-  T_i^{\text{repul}} &= \sum_{j \neq i} \int_{\Gamma_j}
-    (\xx - \aa_i)^{\perp} \cdot 
-    \frac{\xx - \yy}{|\xx - \yy|} P(|\xx - \yy|)\, dS, 
+  T_i^{\text{repul}} &= \sum_{j \neq i} 
+    (\tilde{\xx}_i - \aa_i)^{\perp} \cdot 
+    \frac{\tilde{\xx}_i - \tilde{\xx}_j}
+    {|\tilde{\xx}_i - \tilde{\xx}_j|} 
+    P'(|\tilde{\xx}_i - \tilde{\xx}_j|) 
 \end{align}
-\todo[inline]{Repulsion force is a function of only the distance between
-the Janus particles instead of the integral around the particles.}
-where $\xx \in \Gamma_i$ and $|\xx - \yy|$ is the distance between the
-pair of particles. The repulsion profile $P(r)$ is zero for distances
-$r$ larger than a repulsion length scale $\rho_0$. As
-such,~\eqref{eqn:REPULforce} and~\eqref{eqn:REPULtorque} ignore
-particles $\Gamma_j$ outside a tubular neighborhood of $\Gamma_i$. For
-$0 \leq r < \rho_0,$ we use $P(r) = M(1 - \sin(r/\rho_0))$ where $M$ is
-sufficiently large to prevent particle collisions. The total imposed
-force and torque are
+where $\aa_i$ is the center of particle $i$. The repulsion profile
+$P(r)$ is zero for distances $r$ larger than a repulsion length scale
+$\rho_0$. As such,~\eqref{eqn:REPULforce} and~\eqref{eqn:REPULtorque}
+ignore particles $\Gamma_j$ outside a tubular neighborhood of
+$\Gamma_i$. For $0 \leq r < \rho_0,$ we use $P(r) = M(1 -
+\sin(r/\rho_0))$ where $M$ is sufficiently large to prevent particle
+collisions. The total imposed force and torque are
 \begin{align}
   \FF_i = \FF_i^{\text{hydro}} + \FF_i^{\text{repul}},\quad
   T_i = T_i^{\text{hydro}} + T_i^{\text{repul}}, \qquad
