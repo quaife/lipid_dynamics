@@ -40,6 +40,7 @@
 \newcommand{\uu}{\mathbf{u}}
 \renewcommand{\vv}{\mathbf{v}}
 \newcommand{\yy}{\mathbf{y}}
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
 
 
 % {\MakeUppercase{\romannumeral #1}}
@@ -231,10 +232,49 @@ when using a relatively large time step.
 %%%
 \section{Integral Equation Method}
 \label{sec:IEM}
-Since the fluid velocity is assumed to be Stokesian, it can be written
-in terms of layer potentials. Following previous work of~\cite{Lukas19},
-we represent the velocity as the sum of a double-layer potential and the
-$N_b$ Stokeslets and Rotlets
+Computing the hydrophobic attraction potential and the particle forces
+and torques requires solving an elliptic partial differential equation
+(PDE) in an unbounded complex domain. We recast both these PDEs as
+boundary integral equations (BIEs). We discretize each BIE at $N$ points
+on each of the $N_b$ particles with a collocation method. Integrals that
+are smooth are computed with the spectrally-accurate quadrature rule,
+and nearly-singular integrals, caused by close contact between two
+particles, are computed with a high-order interpolation-based quadrature
+rule~\cite{qua-bir2014}. After discretizing and applying quadrature, the
+resulting linear system is solved with matrix-free GMRES, and we
+guarantee that the number of GMRES iterations is mesh-independent by
+using second-kind BIEs.
+
+
+\subsection{HAP Boundary Integral Equation}
+Similar to our previous work~\cite{Fu20}, we represent the HAP as a
+double-layer potential
+\begin{align}
+  \label{eqn:HAP_DLP}
+  u(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \pderiv{}{\nnu_\yy}
+    K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, ds_\yy,
+    \quad \xx \in \Omega,
+\end{align}
+where $K_0$ is the zeroth-order modified Bessel function of the first
+kind. By requiring that the density function $\sigma$ satisfies the
+second-kind integral equation
+\begin{align}
+  f(\xx) = \frac{1}{2}\sigma(\xx) + 
+    \frac{1}{2\pi}\int_{\bd\Omega} \pderiv{}{\nnu_\yy}
+    K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, ds_\yy,
+    \quad \xx \in \bd\Omega,
+\end{align}
+the HAP double-layer potential~\eqref{eqn:HAP_DLP} satisfies the
+screened Laplace equation~\eqref{SL}--\eqref{SLff}. To calculate the
+hydrophobic force and torque, the gradient of the double-layer
+potential~\eqref{eqn:HAP_DLP} must be computed on the boundary of each
+particle. In Appendix~\ref{sec:appendixA}, we show that the force and
+torque calculations can be expressed in terms of integral that are
+non-singular.
+
+\subsection{Mobility Problem Boundary Integral Equation}
+Following previous work of~\cite{Lukas19}, we represent the velocity as
+the sum of a double-layer potential and the $N_b$ Stokeslets and Rotlets
 \begin{align}
   \label{eqn:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
@@ -279,24 +319,17 @@ $\omega_i$ satisfy
   &&i = 1,\ldots,N_b.
 \end{alignat}
 
-%Given a collection of particles with forces and torques calculated from
-%the hydrophobic interactions and the short range repulsion,
-%equations~\eqref{eqn:SKIE}--\eqref{eqn:mobility2} form a solvable set of
-%integral equations for the translational velocities $\vv_i$, the angular
-%velocities $\omega_i$, and the density function $\eeta$. 
-
-We discretize each of the $\Gamma_i$, $i=1,\ldots,N_b$, at $N$
-discretization points. The trapezoid rule is used to approximate each of
-the integrals in equations~\eqref{eqn:mobility1}
-and~\eqref{eqn:mobility2}, and the double-layer potential
-equation~\eqref{eqn:SKIE}. When two bodies are close, the double-layer
-potential becomes nearly-singular, and we replace the double-layer
-potential with an interpolation-based nearly-singular quadrature
-rule~\cite{qua-bir2014}. After discretizing and applying appropriate
+The trapezoid rule is used to approximate each of the integrals in
+equations~\eqref{eqn:mobility1} and~\eqref{eqn:mobility2}, and the
+double-layer potential equation~\eqref{eqn:SKIE} is approximated with
+either the trapezoid rule, or the interpolation-based near-singular
+integration quadrature rule. After discretizing and applying appropriate
 quadrature rules, the result is a $(2NN_b + 3N_b) \times (2NN_b + 3N_b)$
-linear system whose condition number is independent of $N$, and this
-linear system is solved using matrix-free GMRES. To reduce the number of
-GMRES iterations, a block-diagonal preconditioner is used.
+linear system that we precondition with a block-diagonal preconditioner.
+We note that other BIE formulations of the mobility problem use
+single-layer potentials~\cite{cor-gre-rac-vee2017, rac-gre2016} or both
+single- and double-layer potentials~\cite{cor-vee2018}.
+
 
 
 %%%
@@ -591,9 +624,12 @@ The pressure plots in Figure~\ref{figure8} provide a realistic result where the 
 \appendix
 
 \section{Appendices}
-The stress ${\bf T}$ contains the gradient of the double layer potential. This 
-introduces an inherent difficulty in evaluating stress on the boundary.
-To overcome the difficulty of evaluation on $\Sigma_p$, for instance, we decompose $u$ into singular and nonsingular parts:
+\label{sec:appendixA}
+The stress ${\bf T}$ contains the gradient of the double layer
+potential. This introduces an inherent difficulty in evaluating stress
+on the boundary.  To overcome the difficulty of evaluation on
+$\Sigma_p$, for instance, we decompose $u$ into singular and nonsingular
+parts:
 \begin{equation}
 u = u_p + v_p
 \end{equation}
