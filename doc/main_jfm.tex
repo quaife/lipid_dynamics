@@ -340,14 +340,14 @@ The preliminary test of the proposed model using the integral equation method is
 \Theta(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right),
 \end{equation}
 %
-where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratio of the particle is $2$. Figure~\ref{figure1} shows that the proposed integral equation method has a perfect agreement with the theoretical result from Jeffery orbits.
+where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratios of the particle are $2$ and $3$. Figure~\ref{figure1} shows that the proposed integral equation method has a perfect agreement with the theoretical result from the Jeffery orbits.
 
 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{JefferyOrbit2.eps}
 \includegraphics[width=0.4\textwidth]{JefferyOrbit3.eps}
-  \caption{Comparison of the target angle $\Theta(t)$ versus time $t$ between the theoretical Jeffery orbit with $\dot\gamma=0.1$ and the result from the integral equation method. The schematic of the simulation setup is shown in the inset of the figure.
+  \caption{Comparisons of the target angle $\Theta(t)$ versus time $t$ between the theoretical Jeffery orbit with $\dot\gamma=0.1$ and the result from the integral equation method. The schematic of the simulation setup is shown in the inset of the figure. Here two cases of aspect ratio are validated, $a/b = 2$ and $a/b=3$.
   }
     \label{figure1}
 \end{figure}
@@ -357,12 +357,13 @@ where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratio of 
 In order to examine the dynamics of the Janus-vesicle using the HAP coupling with hydrodynamics interactions, for the target bilayer, a circular initial shape is chosen to perform the relaxation run. 
 This vesicle-like structure consists of $N=58$ disks with particle radius $r=0.5$ and the starting diameter of 
 the vesicle is about $8.5$ length units.
-The starting center of mass position of the vesicle is pinned at the origin and we track particle velocities 
-to determine the initial configuration for later use such as single and multiple vesicle simulations. This will prevent some numerical instability issues when the minimum of the total energy is not achieved. For instance, the dynamics of the bilayer under a shear flow may reach different outcomes.
-Figure~\ref{figure2}(a) shows that the magnitudes of mean velocity components ${\bf v}=\{v_x,v_y\}$ decrease exponentially with an approximation decaying rate $\sim0.005$. In the same figure, the variation of the mean particle orientation $\theta$ also decreases over a period of time as expected from the self-assembly property
-of the model. This implies that a local energy minimum and the equilibrium configuration are nearly attained.
+The starting center of mass position of the Janus-vesicle is pinned at the origin and particle velocities are tracked to determine the initial configuration for later use such as single and multiple vesicle simulations. 
+This will prevent some numerical instability issues when the minimum of the total energy is not achieved. 
+For instance, the dynamics of the bilayer under a shear flow may reach different outcomes.
+Figure~\ref{figure2}(a) shows that the magnitudes of mean velocity components ${\bf v}=\{v_x,v_y\}$ decrease exponentially with an approximation decaying rate $\sim0.005$. In the same figure, the variation of the mean particle orientation $\theta$ also decreases over a period of time as expected from the self-assembly property of the model. This implies that a local energy minimum and the equilibrium configuration are 
+nearly attained. 
 The time step size $\Delta t=0.2$ is used for all simulations in this work including the relaxation run.
-Figure~\ref{figure2}(b) shows the configuration difference between starting and ending frames in the relaxation run.
+Figure~\ref{figure2}(b) shows the configuration difference between starting and ending frames in the relaxation run. The Figure~\ref{figure2}(c)-(d) demonstrate the fluid pressure profile of two configurations. The pressure inside the permeable Janus-vesicle decreases as expected.
 
 \begin{figure}
 \centering
@@ -397,7 +398,7 @@ $\kappa=8.51$ kT $\approx35$ pN nm.
 
 For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$ and the dimensionless shear rate $\chi$ is referred from~\cite{Finken08} and~\cite{Shaqfeh11},
 \begin{align}
-  \chi = \dot\gamma \cdot\frac{\mu R_0^2}{\kappa},
+  \chi = \dot\gamma \frac{\mu R_0^2}{\kappa},
 \end{align}
 %
 where $\dot\gamma$ the dimensional shear rate, and $\mu$ the fluid viscosity.
@@ -420,8 +421,6 @@ is the strength of the action due to the hydrophobic attraction. From weak to st
 varies from blue to red.
 To demonstrate the tank-treading behavior of the vesicle, panels (b) and (d) provide the streamlines of the 
 fluid velocity over the whole computational domain when the shear flow passes through the structure. The tank-treading motion of the structure is then observed, for instance, the particle velocities in panel (d) indicate a clockwise tank-treading movement.
-
-% needs to add more details about inclination angle, tank-treading frequency, repulsion, ...etc.
 
 
 \begin{figure}
@@ -491,7 +490,7 @@ where $v^\parallel$ represents the tangential velocity at the midplane and $\Sig
 \begin{center}
 \includegraphics[width=0.8\textwidth]{Slip.eps}
 \end{center} 
-  \caption{For the shear rate $\dot\gamma=0.005$, the inter-monolayer slip is be observed. The curve in black represents the mean angle between each particle pair where the angle is calculated from the relative position of particles using the vesicle center of mass position. The configuration plots have two fixed particles marked in yellow and blue and labeled with the corresponding time $t=\{2000,5200,9000\}$.
+  \caption{The schematic of the intermonolayer slip over a period of time. Taking shear rate $\dot\gamma=0.005$ as an example, we denote the mean angle between each particle pair $\theta(t)$ where the angle is calculated from the relative position of particles using the vesicle center of mass position. The configuration plots have two fixed particles marked in yellow and blue and labeled with the corresponding time $t=\{2000,5200,9000\}$. The midplane curve is denoted as $\Sigma_M$.
   }
     \label{figure5}
 \end{figure}
@@ -502,7 +501,7 @@ where $v^\parallel$ represents the tangential velocity at the midplane and $\Sig
 \centering    
 \begin{tabular}{c c c c}
 \hline\hline                    
-Case $i$ & $\dot\gamma$ & $b_i$\\
+Case $i$ & $\chi_i$ & $b_i$\\
 \hline 
 1 & 0.020 &  5.1648  \\
 2 & 0.025 &  5.2027  \\ 
@@ -573,17 +572,6 @@ with the choices of shear rates. One can expect that these two layers will flow 
 
 
 
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.24\textwidth]{N116_shear_vel_0.pdf}
-%\includegraphics[width=0.24\textwidth]{N116_shear_vel_3000.pdf}
-%\includegraphics[width=0.24\textwidth]{N116_shear_vel_6000.pdf}
-%\includegraphics[width=0.24\textwidth]{N116_shear_vel_9000.pdf}
-%  \caption{(a)-(d) The background arrows indicate the fluid velocities. }
-%    \label{figure8}
-%\end{figure}
-
-
 \subsubsection{Shear Flow}
 Two vesicles in a shear flow is presented in Figures~\ref{figure9} where centers of mass are placed on the same horizontal level. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \dot\gamma y$. 
 An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned. In other words, the adhesive behavior will be absent when two vesicles are centered 
@@ -600,25 +588,11 @@ at a different level and are well separated in $y$-direction.
 \includegraphics[height=2.in]{N116_ext_2000.pdf}\\
 \includegraphics[height=2.in]{N116_ext_4000.pdf}
 \includegraphics[height=2.in]{N116_ext_6500.pdf}
-  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple.
+  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets show the results produced from using continuum model that the streamlines have perfect agreements with the present results.
   }
     \label{figure8}
 \end{figure}
 
-
-
-
-
-
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.24\textwidth]{N116_ext_vel_0.pdf}
-%\includegraphics[width=0.24\textwidth]{N116_ext_vel_2500.pdf}
-%\includegraphics[width=0.24\textwidth]{N116_ext_vel_5000.pdf}
-%\includegraphics[width=0.24\textwidth]{N116_ext_vel_7500.pdf}
-%  \caption{(a)-(d) The background arrows indicate the fluid velocities. }
-%    \label{figure6}
-%\end{figure}
 
 \subsubsection{Extensional Flow}
 
@@ -629,6 +603,8 @@ The pressure plots in Figure~\ref{figure8} provide a realistic result where the 
 
 %may need to add more here
 
+
+\todo[inline]{Make figure of the paths of the two centroids....}
 
 
 
