@@ -93,8 +93,6 @@ Authors should not enter keywords on the manuscript, as these must be chosen by 
 
 
 
-
-
 \section{Governing  Equations}
 \subsection{\label{mobility}Mobility Problem}
 We consider a suspension of $N_b$ particles suspended in a
@@ -103,7 +101,7 @@ denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1 \cup \Gamma_2 \cup
 \cdots \cup \Gamma_{N_b}$. Assuming the flow is Stokesian, the governing
 equations are
 \begin{alignat}{3}
-  -\mu \Delta \uu + \nabla p &= \mathbf{0}, \qquad \qquad 
+  -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
     && \xx \in \Omega, \\
   \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
@@ -117,7 +115,7 @@ with center $\aa_i$ is a rigid body, its velocity satisfies
     \xx \in \Gamma_i,
 \end{align}
 where $\vv_i$ is its translational velocity and $\omega_i$ is its
-angular velocity.  Here, $\langle x, y \rangle^{\perp} = \langle -y, x
+angular velocity. Here, $\langle x, y \rangle^{\perp} = \langle -y, x
 \rangle$. Therefore, the no-slip boundary condition on each particle is
 \begin{align}
   \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad
@@ -133,17 +131,19 @@ gives
   && i=1,\ldots,N_b,\\
   \label{eqn:torque}
   T_i &+ \int_{\Gamma_i} (\xx - \aa_i)^\perp \cdot 
-    (\ssigma \cdot \nnu_i) \, ds = 0 \qquad && i=1,\ldots,N_b,
+    (\ssigma \cdot \nnu_i) \, ds = 0, \qquad && i=1,\ldots,N_b,
 \end{alignat}
 where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
-\right)$ is the hydrodynamic stress tensor (pressure tensor).
+\right)$ is the hydrodynamic stress tensor (pressure tensor). The
+process of finding the translational and angular velocities given a
+force and torque is referred to as the mobility problem.
 
 
 \subsection{Imposed Forces}
-The imposed forces and torques contain two parts. 
-The first part comes from the hydrophobic attraction potential (HAP).
-This potential was introduced in \cite{Fu20} and
-models hydrophobic attraction by solving the screened Laplace equation boundary value problem
+The imposed forces and torques contain two parts. The first part comes
+from the hydrophobic attraction potential (HAP). This potential was
+introduced in~\cite{Fu20} and models hydrophobic attraction by solving
+the screened Laplace equation boundary value problem
 \begin{alignat}{2}
   \label{SL}
 -\rho^2 \Delta u + u &=0,            && \xx \in \Omega,\\
@@ -152,9 +152,9 @@ u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i, \\
 \label{SLff}
 u &\to 0,                          &&|\xx| \to \infty,
 \end{alignat}
-where $f_i$ is material label with $f_i = 0$ ($1$) representing
+where $f_i$ is a material label with $f_i = 0$ ($1$) representing
 hydrophilic (hydrophobic) portions of the surface, and $\rho$ is the
-decay length of attraction.  The forces and torques for this attraction
+decay length of attraction. The forces and torques for this attraction
 are 
 \begin{align}
   \label{eqn:hydrophobicAttraction}
@@ -176,7 +176,7 @@ that partially sequester the hydrophobic portions of the particle
 surface.
 
 The second part of the imposed forces and torques comes from repulsion
-between proximal particles. Given a pair particles indexed as $i$ and
+between proximal particles. Given a pair particles indexed with $i$ and
 $j$, we find the two points $\tilde{\xx}_i \in \Gamma_i$ and
 $\tilde{\xx}_j \in \Gamma_j$ that are closest to one another. We then
 define the repulsion force and torque
@@ -192,21 +192,21 @@ define the repulsion force and torque
   \FF_i^{\text{repul}} &= \sum_{j \neq i} 
     \frac{\tilde{\xx}_i - \tilde{\xx}_j}
     {|\tilde{\xx}_i - \tilde{\xx}_j|} 
-    P'(|\tilde{\xx}_i - \tilde{\xx}_j|) \\
+    P'(|\tilde{\xx}_i - \tilde{\xx}_j|), \\
   \label{eqn:REPULtorque}
   T_i^{\text{repul}} &= \sum_{j \neq i} 
     (\tilde{\xx}_i - \aa_i)^{\perp} \cdot 
     \frac{\tilde{\xx}_i - \tilde{\xx}_j}
     {|\tilde{\xx}_i - \tilde{\xx}_j|} 
-    P'(|\tilde{\xx}_i - \tilde{\xx}_j|) 
+    P'(|\tilde{\xx}_i - \tilde{\xx}_j|).
 \end{align}
-where $\aa_i$ is the center of particle $i$. The repulsion profile
-$P(r)$ is zero for distances $r$ larger than a repulsion length scale
-$\rho_0$. As such,~\eqref{eqn:REPULforce} and~\eqref{eqn:REPULtorque}
-ignore particles $\Gamma_j$ outside a tubular neighborhood of
-$\Gamma_i$. For $0 \leq r < \rho_0,$ we use $P(r) = M(1 -
-\sin(r/\rho_0))$ where $M$ is sufficiently large to prevent particle
-collisions. The total imposed force and torque are
+The repulsion profile $P(r)$ is zero for distances $r$ larger than a
+repulsion length scale $\rho_0$. As such,~\eqref{eqn:REPULforce}
+and~\eqref{eqn:REPULtorque} ignore particles $\Gamma_j$ outside a
+tubular neighborhood of $\Gamma_i$. For $0 \leq r < \rho_0,$ we use
+$P(r) = M(1 - \sin(r/\rho_0))$ where $M$ is sufficiently large to
+prevent particle collisions. Then, the total imposed force and torque
+are
 \begin{align}
   \FF_i = \FF_i^{\text{hydro}} + \FF_i^{\text{repul}},\quad
   T_i = T_i^{\text{hydro}} + T_i^{\text{repul}}, \qquad
@@ -214,7 +214,7 @@ collisions. The total imposed force and torque are
 \end{align}
 
 
-\subsection{Time Marching and Nondimensionalizations}
+\subsection{Time Marching}
 By solving the mobility problem, we obtain translational and angular
 velocities of the $N_b$-body system. A second-order Adam-Bashforth
 scheme updates the particle positions and orientations. By including the
@@ -225,9 +225,6 @@ when using a relatively large time step.
 
 
 %This paper is organized as follows. Chapter 2 introduces the mobility problem..... The integral equation method for solving $N_b$-body system with details of .... are included in Chapter 3. We provide numerical results of vesicle simulations in Chapter 4. Finally, we conclude the work and briefly give the picture of our future work.
-
-
-
 
 
 
@@ -258,22 +255,22 @@ centered at $\aa_i$ are
   \RR(\xx,\aa_i)T_i &= \frac{1}{4\pi} \frac{\rr^\perp}{\rho^2} T_i,
 \end{align}
 where $\rr = \xx - \aa_i$ and $\rho = |\rr|$. The Stokeslet is
-torque-free and has force $\FF$, and the Rotlet force-free and has
-torque $T$. Therefore, the velocity~\eqref{eqn:velocity} satisfies the
+torque-free and has force $\FF_i$ while the Rotlet force-free and has
+torque $T_i$. Therefore, the velocity~\eqref{eqn:velocity} satisfies the
 total force~\eqref{eqn:force} and torque~\eqref{eqn:torque} conditions
 if the double-layer potential $\DD[\eeta]$ is force- and torque-free.
 Matching the limit of~\eqref{eqn:velocity} with the rigid body motion,
 and imposing that $\DD[\eeta]$ is force- and torque-free, the density
-function $\eeta$, Stokeslet strength, $\FF_i$, and Rotlet strength $T_i$
-satisfy
+function $\eeta$, translational velocity $\vv_i$, and angular velocity
+$\omega_i$ satisfy
 \begin{alignat}{3}
   \nonumber
-  \vv_j + \omega_j (\xx - \aa_j)^\perp &= \uu_\infty(\xx)
+  \vv_i + \omega_i (\xx - \aa_i)^\perp &= \uu_\infty(\xx)
     -\frac{1}{2} \eeta(\xx) + \DD[\eeta](\xx) \\
   \label{eqn:SKIE}
-    &+ \sum_{i=1}^{N_b} 
-    \left(\SS(\xx,\aa_i) \FF_i + \RR(\xx,\aa_i) T_i\right),
-    \quad &&\xx \in \bd \Gamma_j, \\
+    + \sum_{j=1}^{N_b} &
+    \left(\SS(\xx,\aa_j) \FF_j + \RR(\xx,\aa_j) T_j\right),
+    \quad &&\xx \in \bd \Gamma_i,\: i=1,\ldots,N_b, \\
   \label{eqn:mobility1}
   \int_{\bd\Gamma_i} \eeta \cdot \nnu_i \, ds &= {\bf 0}, 
   &&i = 1,\ldots,N_b, \\
@@ -281,53 +278,25 @@ satisfy
   \int_{\bd\Gamma_i} \eeta\times(\xx-\aa_i)^\perp \cdot \nnu ds &= 0,
   &&i = 1,\ldots,N_b.
 \end{alignat}
-%
-%The mobility problem for $N_b$-body system in a Stokes flow leads to a second-kind boundary integral equations (BIE) with a density function $\eta({\bf x}$ that is given by \cite{Lukas19}
-%\begin{equation}
-%\label{mobility}
-%\begin{aligned}
-%{\bf v}_i + &\omega_i\times({\bf x}-{\bf a}_i)\\
-% =& -\frac12\eta({\bf x}) + D[\eta]({\bf x}) \\
-%&+ \sum_{i=1}^N\big({\bf S}({\bf x}, {\bf a}_i){\bf F}_i+ {\bf R}({\bf x}, {\bf a}_i)t_i\big)+{\bf u}_\infty, \quad {\bf x}\in\Gamma \\
-%\end{aligned}
-%\end{equation}
-%%
-%with two constraints 
-%%
-%\begin{center}
-%\begin{equation}
-%\label{mobility2}
-%\int_{\partial \Gamma_i}\eta\cdot \nnu ds = {\bf 0},
-%\end{equation}
-%\end{center}
-%%
-%\begin{center}
-%\begin{equation}
-%\label{mobility3}
-%\int_{\partial \Gamma_i}\eta\times({\bf x}-{\bf a}_i)\cdot \nnu ds ={\bf 0},
-%\end{equation}
-%\end{center}
-%%
-%where the two-dimensional Stokeslet and the Rotlet are
-%%
-%\begin{gather}
-%{\bf S}({\bf x}, {\bf a}) = \frac{1}{4\pi}\left(-\log(|({\bf x}-{\bf a})|){\bf I}+\frac{({\bf x}-{\bf a})\otimes({\bf x}-{\bf a})}{|({\bf x}-{\bf a})|^2}\right) \\ 
-%{\bf R}({\bf x},{\bf a})=\frac{({\bf x}-{\bf a})^\perp}{4\pi|({\bf x}-{\bf a})|^2}.
-%\end{gather}
-%
-%Here ${\bf r}={\bf x}-{\bf a}$ and $\rho=|{\bf r}|$.
-Given a collection of particles with forces and torques calculated from
-the hydrophobic interactions and the short range repulsion,
-equations~\eqref{eqn:SKIE}--\eqref{eqn:mobility2} form a solvable set of
-integral equations for the translational velocities $\vv_i$, the angular
-velocities $\omega_i$, and the density function $\eeta$. 
 
+%Given a collection of particles with forces and torques calculated from
+%the hydrophobic interactions and the short range repulsion,
+%equations~\eqref{eqn:SKIE}--\eqref{eqn:mobility2} form a solvable set of
+%integral equations for the translational velocities $\vv_i$, the angular
+%velocities $\omega_i$, and the density function $\eeta$. 
 
-\todo[inline]{Talk about how to solve numerically. Quadrature, time
-stepping, collocation, etc.}
-This system of equations is then solved iteratively with block-diagonal
-preconditioned GMRES.
-
+We discretize each of the $\Gamma_i$, $i=1,\ldots,N_b$, at $N$
+discretization points. The trapezoid rule is used to approximate each of
+the integrals in equations~\eqref{eqn:mobility1}
+and~\eqref{eqn:mobility2}, and the double-layer potential
+equation~\eqref{eqn:SKIE}. When two bodies are close, the double-layer
+potential becomes nearly-singular, and we replace the double-layer
+potential with an interpolation-based nearly-singular quadrature
+rule~\cite{qua-bir2014}. After discretizing and applying appropriate
+quadrature rules, the result is a $(2NN_b + 3N_b) \times (2NN_b + 3N_b)$
+linear system whose condition number is independent of $N$, and this
+linear system is solved using matrix-free GMRES. To reduce the number of
+GMRES iterations, a block-diagonal preconditioner is used.
 
 
 %%%
