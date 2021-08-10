@@ -398,9 +398,9 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 Following the relaxation experiments of the Janus-vesicle, this section will focus on the behavior of vesicles 
 under a number of flow types. To extract physical quantities of the target structure using the proposed model, the scaling laws and the dimensionless units are given as follows.
 The length unit is scaled by the length of phospholipids $l=2.5$ nm and the force is scaled from the 
-interfacial tension $\gamma=4.1$ pN nm from ~\cite{Ryham16}. We then be able to calculate the corresponding 
+interfacial tension $\gamma=4.1$ pN nm$^{-1}$ from ~\cite{Ryham16}. We then be able to calculate the corresponding 
 time scale $\tau = 0.38$ ns. With the same framework, \cite{Fu20} provides the bending rigidity 
-$\kappa=8.51$ kT $\approx35$ pN nm.
+$\kappa=8.51$ kT.
 
 For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$ and the dimensionless shear rate $\chi$ is referred from~\cite{Finken08} and~\cite{Shaqfeh11},
 \begin{align}
@@ -465,14 +465,15 @@ in articles in molecular dynamics simulations. %%% need some citations
 
 \begin{figure}
 \begin{center}
-\hspace{-1cm}
+\hspace{-0.6cm}
 \includegraphics[height=2in]{ReducedArea.pdf}
-\hspace{-1cm}
+\hspace{0.6cm}
+\includegraphics[height=2in]{DecayRate.eps}\\
 \includegraphics[height=2in]{ArcLength.pdf}
-\hspace{-1cm}
 \includegraphics[height=2in]{ExcLength.pdf}
 \end{center} 
-  \caption{(a) Total arc lengths of the midplanes over time in different shear rates; (b) Reduced area transitions over time. (c) Excess length of the midplanes.
+  \caption{(a) Total arc lengths of the midplanes over time in different shear rates; (b) From exponential fits in panel (a), we obtain the decay rate for a number of different shear rates;
+  (c) Reduced area transitions over time. (d) Excess length of the midplanes.
 A set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
 A slower shear rate generates a faster convergence in the reduced area and smaller excess length. 
   }
@@ -531,7 +532,7 @@ where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{parabolic.eps}
+\includegraphics[height=2in]{parabolic.eps}
   \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=8.0$ and the control parameter $w=10$. The configuration is the state when $t=10000$.
   }
     \label{figure6}
@@ -548,11 +549,11 @@ with the choices of shear rates. One can expect that these two layers will flow 
 
 \begin{figure}
 \centering
-\includegraphics[height=2.4in]{N58_rupt_0.pdf}
-\includegraphics[height=2.4in]{N58_rupt_200.pdf}
+\includegraphics[height=2in]{N58_rupt_0.pdf}
+\includegraphics[height=2in]{N58_rupt_200.pdf}
 \\
-\includegraphics[height=2.4in]{N58_rupt_400.pdf}
-\includegraphics[height=2.4in]{N58_rupt_600.pdf}
+\includegraphics[height=2in]{N58_rupt_400.pdf}
+\includegraphics[height=2in]{N58_rupt_600.pdf}
   \caption{Membrane rupture occurs when the shear rate is beyond a certain threshold. Here the shear rate is $\dot\gamma = 0.1$. Starting with a circular shape (panel (a)), the vesicle is stretched by the background flow and multiple pores appear (panel (b)). (c)-(d) are the later states during the simulation.
   }
     \label{figure7}
@@ -567,10 +568,10 @@ with the choices of shear rates. One can expect that these two layers will flow 
 
 \begin{figure}
 \centering
-\includegraphics[height=1.2in]{N116_shear_0.pdf}
-\includegraphics[height=1.2in]{N116_shear_2500.pdf}
-\includegraphics[height=1.2in]{N116_shear_5000.pdf}
-\includegraphics[height=1.2in]{N116_shear_7500.pdf}\\
+\includegraphics[height=2in]{N116_shear_0.pdf}
+\includegraphics[height=2in]{N116_shear_2500.pdf}\\
+\includegraphics[height=2in]{N116_shear_5000.pdf}
+\includegraphics[height=2in]{N116_shear_7500.pdf}
   \caption{Two vesicles under a shear flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets of all panels are generated from the results of continuum modeling simulations and the streamlines have a perfect agreement to the numerical results.
   }
     \label{figure9}
@@ -590,10 +591,10 @@ at a different level and are well separated in $y$-direction.
 
 \begin{figure}
 \centering
-\includegraphics[height=2.in]{N116_ext_0.pdf}
-\includegraphics[height=2.in]{N116_ext_2000.pdf}\\
-\includegraphics[height=2.in]{N116_ext_4000.pdf}
-\includegraphics[height=2.in]{N116_ext_6500.pdf}
+\includegraphics[height=2in]{N116_ext_0.pdf}
+\includegraphics[height=2in]{N116_ext_2000.pdf}\\
+\includegraphics[height=2in]{N116_ext_4000.pdf}
+\includegraphics[height=2in]{N116_ext_6500.pdf}
   \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets show the results produced from using continuum model that the streamlines have perfect agreements with the present results.
   }
     \label{figure8}
@@ -800,18 +801,18 @@ Combining the last four equations give \eqref{eq:prejump}.
 
 
 
-\section{\label{A2} Comparison between Continuum Model and the Proposed Model}
-
-\begin{figure}
-\centering
-\includegraphics[height=1.2in]{N116_cont_a.pdf}
-\includegraphics[height=1.2in]{N116_cont_b.pdf}
-\includegraphics[height=1.2in]{N116_cont_c.pdf}
-\includegraphics[height=1.2in]{N116_cont_d.pdf}
-  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; Continuum modeling.....
-  }
-    \label{figureB}
-\end{figure}
+%\section{\label{A2} Comparison between Continuum Model and the Proposed Model}
+%
+%\begin{figure}
+%\centering
+%\includegraphics[height=1.2in]{N116_cont_a.pdf}
+%\includegraphics[height=1.2in]{N116_cont_b.pdf}
+%\includegraphics[height=1.2in]{N116_cont_c.pdf}
+%\includegraphics[height=1.2in]{N116_cont_d.pdf}
+%  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; Continuum modeling.....
+%  }
+%    \label{figureB}
+%\end{figure}
 
 
 
