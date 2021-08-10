@@ -217,7 +217,7 @@ are
 
 \subsection{Time Marching}
 By solving the mobility problem, we obtain translational and angular
-velocities of the $N_b$-body system. A second-order Adam-Bashforth
+velocities of the $N_b$-body system. A second-order Adams-Bashforth
 scheme updates the particle positions and orientations. By including the
 repulsion force~\eqref{eqn:REPULforce} and
 torque~\eqref{eqn:REPULtorque}, particle collisions are avoided even
@@ -681,7 +681,7 @@ where
   \begin{equation}
     \label{eq:decompdivfree}
     \nabla \cdot {\bf T}_j = 0, \quad
-    \nabla \cdot (x \times {\bf T}_j) = 0,\quad j = 1, 2, 3.
+    \nabla \cdot (\xx \times {\bf T}_j) = 0,\quad j = 1, 2, 3.
   \end{equation}
 \end{lemma}
 \begin{proof}
@@ -693,7 +693,7 @@ where
     - 2 \nabla_j u \nabla_{kk}^2 u )\\
     &=2\rho^{-1}(-\rho^2 \Delta u + u)\nabla_k u .
   \end{align*}
-  However, $-\rho^2 \Delta u + u = 0$ and so we get $\nabla \cdot {\bf T} = 0.$
+  Since $-\rho^2 \Delta u + u = 0$, we have $\nabla \cdot {\bf T} = 0$.
   Furthermore,
   \begin{align*}
     (\nabla \cdot (x\times {\bf T} ))_j
