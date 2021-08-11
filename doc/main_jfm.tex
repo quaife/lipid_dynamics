@@ -398,10 +398,13 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 Following the relaxation experiments of the Janus-vesicle, this section will focus on the behavior of vesicles 
 under a number of flow types. To extract physical quantities of the target structure using the proposed model, the scaling laws and the dimensionless units are given as follows.
 The length unit is scaled by the length of phospholipids $l=2.5$ nm and the force is scaled from the 
-interfacial tension $\gamma=4.11$ pN nm$^{-1}$ from ~\cite{Ryham16}. We then be able to calculate the characteristic time scale $\tau = \mu l/\gamma = 0.61$ ns where the fluid viscosity $\mu=1$ cP. With the same framework, \cite{Fu20} provides the bending rigidity $\kappa=8.51$ $k_B$T.
+interfacial tension $\gamma=4.11$ pN nm$^{-1}$ from ~\cite{Ryham16}. We then be able to calculate the characteristic time scale $\tau = \mu l/\gamma = 0.61$ ns where the fluid viscosity $\mu=1$ cP. With the same framework, \cite{Fu20} provides the bending rigidity $\kappa=8.51$ $k_BT$.
 %
-For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$ and the dimensionless shear rate is given by $\chi = \dot\gamma \tau$ where $\dot\gamma$ 
+The dimensionless shear rate is given by $\chi = \dot\gamma \tau$ where $\dot\gamma$ 
 is the shear rate.
+
+
+%For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$
 
 %referred from~\cite{Finken08} and~\cite{Shaqfeh11},
 %\begin{align}
@@ -509,7 +512,7 @@ where $v^\parallel$ represents the tangential velocity at the midplane and $\Sig
 \centering    
 \begin{tabular}{c c c c c c c c }
 \hline                    
-$\dot\gamma$ (ns$^{-1}$) & 0.0020 & 0.0025 & 0.0030 & 0.0035 & 0.0040 & 0.0045 & 0.0050\\
+$\dot\gamma$ (ns$^{-1}$) & 0.0033 & 0.0041 & 0.0049 & 0.0057 & 0.0066 & 0.0074 & 0.0082\\
 \hline 
 $F_{f}$ (pN nm$^{-1}$)           &  &  &  &  &  &  &   \\[1ex]
 $\dot\theta$ (ns$^{-1}$)           &  &  &  &  &  &  & \\ [1ex]
@@ -598,8 +601,21 @@ at a different level and are well separated in $y$-direction.
 \includegraphics[height=2in]{N116_ext_6500.pdf}
   \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets show the results produced from using continuum model that the streamlines have perfect agreements with the present results.
   }
-    \label{figure8}
+    \label{figure9}
 \end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{ExtTraj.eps}
+\end{center} 
+  \caption{Trajectories of different setups in two-vesicle in an extensional flow where the centroids of two Janus-vesicle are plotted as blue dots. (i) Both centroids of two Janus-vesicles are on the $x$-axis; (ii) The centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis; (iii) 
+  The centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis and the other one is $0.1$ unit below the $x$-axis; (iv) The centroid of the left Janus-vesicle is $0.5$ unit above the $x$-axis and the other one is $0.5$ unit below the $x$-axis; Figure~\ref{figure9} presents the numerical results from the case (iii) and a 
+  consistent flow rate is $\chi = 0.005$ for all cases.}
+    \label{figure10}
+\end{figure}
+
+
 
 
 \subsubsection{Extensional Flow}
