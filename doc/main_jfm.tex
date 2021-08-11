@@ -362,7 +362,7 @@ where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratios of
 
 In order to examine the dynamics of the Janus-vesicle using the HAP coupling with hydrodynamics interactions, for the target bilayer, a circular initial shape is chosen to perform the relaxation run. 
 This vesicle-like structure consists of $N=58$ disks with particle radius $r=0.5$ and the starting diameter of 
-the vesicle is about $8.5$ length units.
+the vesicle is about $8$ length units.
 The starting center of mass position of the Janus-vesicle is pinned at the origin and particle velocities are tracked to determine the initial configuration for later use such as single and multiple vesicle simulations. 
 This will prevent some numerical instability issues when the minimum of the total energy is not achieved. 
 For instance, the dynamics of the bilayer under a shear flow may reach different outcomes.
@@ -398,16 +398,17 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 Following the relaxation experiments of the Janus-vesicle, this section will focus on the behavior of vesicles 
 under a number of flow types. To extract physical quantities of the target structure using the proposed model, the scaling laws and the dimensionless units are given as follows.
 The length unit is scaled by the length of phospholipids $l=2.5$ nm and the force is scaled from the 
-interfacial tension $\gamma=4.1$ pN nm$^{-1}$ from ~\cite{Ryham16}. We then be able to calculate the corresponding 
-time scale $\tau = 0.38$ ns. With the same framework, \cite{Fu20} provides the bending rigidity 
-$\kappa=8.51$ kT.
-
-For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$ and the dimensionless shear rate $\chi$ is referred from~\cite{Finken08} and~\cite{Shaqfeh11},
-\begin{align}
-  \chi = \dot\gamma \frac{\mu R_0^2}{\kappa},
-\end{align}
+interfacial tension $\gamma=4.11$ pN nm$^{-1}$ from ~\cite{Ryham16}. We then be able to calculate the characteristic time scale $\tau = \mu l/\gamma = 0.61$ ns where the fluid viscosity $\mu=1$ cP. With the same framework, \cite{Fu20} provides the bending rigidity $\kappa=8.51$ $k_B$T.
 %
-where $\dot\gamma$ the dimensional shear rate, and $\mu$ the fluid viscosity.
+For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$ and the dimensionless shear rate is given by $\chi = \dot\gamma \tau$ where $\dot\gamma$ 
+is the shear rate.
+
+%referred from~\cite{Finken08} and~\cite{Shaqfeh11},
+%\begin{align}
+%  \chi = \dot\gamma \frac{\mu R_0^3}{\kappa},
+%\end{align}
+%%
+%where $\dot\gamma$ the dimensional shear rate, and $\mu$ the fluid viscosity.
 
 
 \subsection{Tank-Treading Vesicles}
@@ -508,11 +509,11 @@ where $v^\parallel$ represents the tangential velocity at the midplane and $\Sig
 \centering    
 \begin{tabular}{c c c c c c c c }
 \hline                    
-$\dot\gamma$ & 0.0020 & 0.0025 & 0.0030 & 0.0035 & 0.0040 & 0.0045 & 0.0050\\
+$\dot\gamma$ (ns$^{-1}$) & 0.0020 & 0.0025 & 0.0030 & 0.0035 & 0.0040 & 0.0045 & 0.0050\\
 \hline 
-$F_{f}$ &  &  &  &  &  &  &   \\[1ex]
-$\dot\theta$             &  &  &  &  &  &  & \\ [1ex]
-$b$             &  &  &  &  &  &  & \\ 
+$F_{f}$ (pN nm$^{-1}$)           &  &  &  &  &  &  &   \\[1ex]
+$\dot\theta$ (ns$^{-1}$)           &  &  &  &  &  &  & \\ [1ex]
+$b$ (pN$\cdot$ns nm$^{-2}$)   &  &  &  &  &  &  & \\ 
 \hline    
 \end{tabular} 
 \label{table1}
