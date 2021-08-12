@@ -556,13 +556,13 @@ Besides the tests of a Janus-vesicle in a shear flow, an interesting test can al
 {\bf v}_\infty = v_{max}\left[ 1 - \left( \frac{y}{wR_0}\right)^2 \right]{\bf e}_x,
 \end{equation}
 %
-where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the Janus-vesicle at $t=0$. Figure~\ref{figure6} gives a configuration for one specific case where the centroid of the Janus-vesicle is initially placed slightly above the $x$-axis at $(0,3)$. The parameters are $v_{max} = 8.0$, $w=10$ and $R_0=8$. The inset of Figure~{figure6} shows the trajectory of the mean position in $y$-direction which decreases toward $y=1$ for a period of time and starts to have an oscillatory motion. Moreover, the Janus-vesicle performs tank-treading during the simulation and red arrows in Figure~{figure6} indicate a counterclockwise movement. For this test run, an asymmetric slipper occurs and the reduced area for this configuration is $\sim0.9$. This matches the previous numerical tests in  \cite{Kaoui09} where a slipper-like shape occurs when the flow velocity is weak.
+where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the Janus-vesicle at $t=0$. Figure~\ref{figure6} gives a configuration for one specific case where the centroid of the Janus-vesicle is initially placed slightly above the $x$-axis at $(0,3)$. The parameters are $v_{max} = 8.0$, $w=10$ and $R_0=8$. The inset of Figure~\ref{figure6} shows the trajectory of the mean position in $y$-direction which decreases toward $y=1$ for a period of time and starts to have an oscillatory motion. Moreover, the Janus-vesicle performs tank-treading during the simulation and red arrows in Figure~\ref{figure6} indicate a counterclockwise movement. For this test run, an asymmetric slipper occurs and the reduced area for this configuration is $\sim0.9$. This matches the previous numerical tests in  \cite{Kaoui09} where a slipper-like shape occurs when the flow velocity is weak.
 
 
 \begin{figure}
 \centering
 \includegraphics[height=2in]{parabolic.eps}
-  \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=8.0$ and the control parameter $w=10$. The configuration is the state when $t=10000$.
+  \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=8.0$ and the control parameter $w=10$. The configuration is the state when $t=10000$. Red arrows are directors of particle velocities. The inset shows the mean $y$-position over time. 
   }
     \label{figure6}
 \end{figure}
@@ -603,15 +603,38 @@ with the choices of shear rates. One can expect that these two layers will flow 
 \includegraphics[height=2in]{N116_shear_7500.pdf}
   \caption{Two vesicles under a shear flow where the dimensioneless shear rate is $\chi=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets of all panels are generated from the results of continuum modeling simulations and the streamlines have a perfect agreement to the numerical results.
   }
+    \label{figure8}
+\end{figure}
+
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{ShearTraj.eps}
+\end{center} 
+  \caption{Trajectories of two-vesicle in a shear flow where the centroids of two Janus-vesicle are plotted as blue dots. Both starting centroids of two Janus-vesicles are on the $x$-axis. For simulation time, $t = {0, 400,800,1200}$ for (a)-(d) and $t = {1600, 2400, 3200, 4000}$ for (e)-(h).  }
     \label{figure9}
 \end{figure}
 
 
 
+
 \subsubsection{Shear Flow}
-Two vesicles in a shear flow is presented in Figures~\ref{figure9} where centers of mass are placed on the same horizontal level. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \chi y$. 
-An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned. In other words, the adhesive behavior will be absent when two vesicles are centered 
-at a different level and are well separated in $y$-direction.
+
+Figure~\ref{figure8} demonstrates the simulation results of two Janus-vesicles in a shear flow where the testing shear rate is $\chi=0.005$ and the flow is given by $\dot x = \chi y$. In panel (a), the starting frame, two center-of-mass positions are placed 
+on the same horizontal level, at $(-10,0)$ and $(10,0)$. Since we already have a pre-relaxed $58$-body in previous sections, we duplicate the state to have the initial configuration in this section. As expected, there 
+is no pressure jump between the internal and external fluids from the beginning of the simulation and this is shown in the background pressure plot. Panels (b)-(d) show the configurations when $t = \{400,800,100\}$ 
+and we observe that the rotation continues as time goes. The streamlines are plotted in the background 
+for all panels and we include the numerical results using continuum model in all insets. Obviously there is a qualitative agreement between two models.
+
+An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be seen and tuned. In other words, the adhesive behavior will be absent when two vesicles are centered 
+at a different level and are well separated in $y$-direction. Trajectories of a longer run of the simulation results are shown in Figure~\ref{figure9}. 
+
+
+
+
+%Two vesicles in a shear flow is presented in Figures~\ref{figure8} where centers of mass are placed on the same horizontal level, at $(-10,0)$ and $(10,0)$. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \chi y$. 
+
 
 %\todo[inline]{Migration pattern and/or separation distance. See Fig 8 in
 %JCP paper by Rahimian, Veerapaneni, and Biros.}
@@ -626,7 +649,7 @@ at a different level and are well separated in $y$-direction.
 \includegraphics[height=2in]{N116_ext_6500.pdf}
   \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\chi=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets show the results produced from using continuum model that the streamlines have perfect agreements with the present results.
   }
-    \label{figure8}
+    \label{figure10}
 \end{figure}
 
 
@@ -637,7 +660,7 @@ at a different level and are well separated in $y$-direction.
   \caption{Trajectories of different setups in two-vesicle in an extensional flow where the centroids of two Janus-vesicle are plotted as blue dots. (i) Both centroids of two Janus-vesicles are on the $x$-axis; (ii) The centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis; (iii) 
   The centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis and the other one is $0.1$ unit below the $x$-axis; (iv) The centroid of the left Janus-vesicle is $0.5$ unit above the $x$-axis and the other one is $0.5$ unit below the $x$-axis; Figure~\ref{figure9} presents the numerical results from the case (iii) and a 
   consistent flow rate is $\chi = 0.005$ for all cases.}
-    \label{figure10}
+    \label{figure11}
 \end{figure}
 
 
@@ -645,10 +668,15 @@ at a different level and are well separated in $y$-direction.
 
 \subsubsection{Extensional Flow}
 
-Figures~\ref{figure8} show the numerical results of simulations when two vesicles are in an extensional flow. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The extensional flow is stretching along the $y$ direction and squeezing in $x$ direction with shear rate $\chi=0.005$. Since two bilayers are close enough
-from the beginning of the run, two vesicles are first pushed toward each other then separate along the streamline. The short range repulsion plays an important role to avoid structure collisions and 
-this result can be compared with some findings in continuum modeling simulations.
-The pressure plots in Figure~\ref{figure8} provide a realistic result where the pressure is much higher in the gap between two nearby vesicles.
+With a similar setup in the case of two Janus-vesicles in a shear flow, we use the same two pre-relaxed $58$-body Janus-vesicles to perform the simulations when the flow type is an extensional flow with flow rate $\chi=0.005$. This extensional flow is stretching along the $y$ direction and squeezing in $x$ direction.
+Figure~\ref{figure10} shows one set of numerical results when the centroids of two bodies are placed at
+$(-10,-0.1)$ and $(10,0.1)$. With this setup, we can make sure that two Janus-vesicles will separate along 
+$y$-direction eventually from empirical tests. Panels (b)-(d) show the transitions of two vesicles moving under an extensional flow.  Since two bilayers are close enough from the beginning of the run, two vesicles are first pushed toward each other then separate along the streamlines. The short range repulsion plays an important role to avoid structure collisions and this result can be compared with some findings in continuum modeling simulations. The pressure plots in Figure~\ref{figure8} provide a realistic result where the pressure is much higher in the gap between two nearby vesicles. 
+
+Figure~\ref{figure11} provides simulation results when the center-of-mass positions are placed differently.
+One can notice that when two centroids are placed on the same horizontal level, two Janus-vesicles reach
+an equilibrium state without separation as shown in case (i). If only one centroid is placed above the $x$-axis, for instance, case (ii), two Janus-vesicle move together toward the upward. This is the consequence when the adhesive effect beats the flow strength. Case (iii) is same as the case shown in Figure~\ref{figure10}. Finally, case (iv) has a larger initial separation in $y$-direction and two Janus-vesicle moves much faster toward 
+$\pm y$-directions.
 
 %may need to add more here
 
