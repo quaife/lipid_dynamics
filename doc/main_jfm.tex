@@ -361,15 +361,15 @@ where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratios of
 \subsection{Self-Assembly and Relaxtion}
 
 In order to examine the dynamics of the Janus-vesicle using the HAP coupling with hydrodynamics interactions, for the target bilayer, a circular initial shape is chosen to perform the relaxation run. 
-This vesicle-like structure consists of $N=58$ disks with particle radius $r=0.5$ and the starting diameter of 
+This structure consists of $N=58$ disks with particle radius $r=0.5$ and the starting diameter of 
 the vesicle is about $8$ length units.
 The starting center of mass position of the Janus-vesicle is pinned at the origin and particle velocities are tracked to determine the initial configuration for later use such as single and multiple vesicle simulations. 
-This will prevent some numerical instability issues when the minimum of the total energy is not achieved. 
-For instance, the dynamics of the bilayer under a shear flow may reach different outcomes.
-Figure~\ref{figure2}(a) shows that the magnitudes of mean velocity components ${\bf v}=\{v_x,v_y\}$ decrease exponentially with an approximation decaying rate $\sim0.005$. In the same figure, the variation of the mean particle orientation $\theta$ also decreases over a period of time as expected from the self-assembly property of the model. This implies that a local energy minimum and the equilibrium configuration are 
-nearly attained. 
+The advantage of acquiring this configuration is to prevent some numerical instability issues when the minimum of the total energy is not achieved. 
+For instance, the dynamics of the bilayer under a shear flow may reach different outcomes or equilibrium states.
+Figure~\ref{figure2}(a) shows two sets of results: (1) the magnitudes of mean velocity components 
+${\bf v}=\{v_x,v_y\}$ decrease exponentially with an approximation decaying rate $\sim0.005$; (2) the variation of the mean particle orientation $\theta$ also decreases over a period of time as expected from the self-assembly property of the model. This implies that a local energy minimum and the equilibrium configuration are nearly attained. 
 The time step size $\Delta t=0.2$ is used for all simulations in this work including the relaxation run.
-Figure~\ref{figure2}(b) shows the configuration difference between starting and ending frames in the relaxation run. The Figure~\ref{figure2}(c)-(d) demonstrate the fluid pressure profile of two configurations. The pressure inside the permeable Janus-vesicle decreases as expected.
+Figure~\ref{figure2}(b) shows the configuration difference between starting and ending frames in the relaxation run. The Figure~\ref{figure2}(c)-(d) demonstrate the fluid pressure profile of two configurations at $t=0$ and $t=1000$. The starting fluid pressure inside the permeable Janus-vesicle decreases as expected.
 
 \begin{figure}
 \centering
@@ -395,13 +395,17 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 
 \todo[inline]{Introduce dimensionless shear rate here (and check the numbers)}
 
-Following the relaxation experiments of the Janus-vesicle, this section will focus on the behavior of vesicles 
-under a number of flow types. To extract physical quantities of the target structure using the proposed model, the scaling laws and the dimensionless units are given as follows.
-The length unit is scaled by the length of phospholipids $l=2.5$ nm and the force is scaled from the 
-interfacial tension $\gamma=4.11$ pN nm$^{-1}$ from ~\cite{Ryham16}. We then be able to calculate the characteristic time scale $\tau = \mu l/\gamma = 0.61$ ns where the fluid viscosity $\mu=1$ cP. With the same framework, \cite{Fu20} provides the bending rigidity $\kappa=8.51$ $k_BT$.
+Following the relaxation experiments of the Janus-vesicle, this section will focus on the behavior of 
+Janus-vesicles under flows. To extract physical quantities of the target structure using the proposed model, 
+the scaling laws and the dimensionless units are given as follows.
+The length unit is scaled by the length of phospholipids $l=2.5$ nm which is set as the diameter of each 
+Janus particle. The force is scaled from the interfacial tension $\gamma=4.11$ pN nm$^{-1}$ 
+from ~\cite{Ryham16}. We then be able to calculate the characteristic time scale 
+$\tau = \mu l/\gamma = 0.61$ ns where the fluid viscosity $\mu=1$ cP. With the same framework, \cite{Fu20} provides the bending rigidity $\kappa=8.51$ $k_BT$.
 %
-The dimensionless shear rate is given by $\chi = \dot\gamma \tau$ where $\dot\gamma$ 
-is the shear rate.
+For the model parameters, the decay length of attraction $\rho = 2l = 5$ nm, the repulsion length scale is 
+$\rho_0=0.5$, and teh repulsion strength $M=4.0$.
+The dimensionless shear rate is given by $\chi = \dot\gamma \tau$ where $\dot\gamma$ is the shear rate.
 
 
 %For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$
@@ -418,19 +422,22 @@ is the shear rate.
 
 \subsubsection{Vesicle in a Shear Flow}
 
-To study the deformation of a closed bilayer structure under a shear flow using the proposed algorithm, 
-we adopt a widely tested numerical simulation in both continuum and molecular dynamics models, single vesicle under a shear flow. The well known results indicate that the vesicle does tank-treading when there is no viscosity contrast in both inside and outside of the structure.
-Given a set of various shear rates, with no viscosity difference between internal and external fluids, 
-the vesicle-like granular structure is initially placed in a quiescent flow for obtaining an equilibrium shape.
+To study the deformation of a Janus-vesicle under a shear flow using the proposed algorithm, 
+we adopt a widely tested numerical simulation in both continuum and molecular dynamics models, single vesicle under a shear flow. The well known results indicate that the vesicle has tank-treading behavior when 
+there is no viscosity contrast in both inside and outside of the vesicle that is one of the features in the  framework of the proposed model. 
 
-
-The snapshots of the simulation for single vesicle in a shear flow are shown in Figure~\ref{figure3}.
-Panel (a) shows the initial circular shape obtained from the relaxation run and the deformed 
-configuration of the vesicle after a period of time ($t=4000$) is in panel (c). The color presented in the figure 
-is the strength of the action due to the hydrophobic attraction. From weak to strong action field, the color
-varies from blue to red.
-To demonstrate the tank-treading behavior of the vesicle, panels (b) and (d) provide the streamlines of the 
-fluid velocity over the whole computational domain when the shear flow passes through the structure. The tank-treading motion of the structure is then observed, for instance, the particle velocities in panel (d) indicate a clockwise tank-treading movement.
+The centroid of the pre-relaxed $58$-body Janus vesicle is initially placed at the origin then the shear flow 
+with a certain shear rate $\chi$ is turned on. 
+The snapshots of the simulation for single vesicle in a shear flow with a shear rate $\chi=0.0025$ are shown 
+in Figure~\ref{figure3}.
+Panels (a)-(b) show the initial shape obtained from the relaxation run and the deformed 
+configuration of the Janus-vesicle after a period of time ($t=4000$) is in panels (c)-(d). 
+The background color in panels (a) and (c) presented in the figure is the strength of the action due to the
+hydrophobic attraction. From weak to strong action field, the color varies from blue to red. Clearly, the
+hydrophobic layer has largest action. To demonstrate the tank-treading behavior of the vesicle, panels (b) 
+and (d) provide the streamlines of the fluid velocity over the whole computational domain when the shear 
+flow passes through the structure. The tank-treading motion of the structure is then observed, for instance,
+the particle velocities in panel (d) indicate a clockwise tank-treading movement.
 
 
 \begin{figure}
@@ -439,33 +446,32 @@ fluid velocity over the whole computational domain when the shear flow passes th
 \includegraphics[width=0.3\textwidth]{N58_vel_0.pdf}\\
 \includegraphics[width=0.3\textwidth]{N58_20000.pdf}
 \includegraphics[width=0.3\textwidth]{N58_vel_20000.pdf}
-  \caption{Vesicle under a shear flow where the shear rate $\dot\gamma=0.0025$: 
-  (a) Initial configuration of 58-body vesicle; 
+  \caption{Vesicle under a shear flow where the shear rate $\chi=0.0025$: 
+  (a) Initial configuration of 58-body Janus-vesicle where black arrows are the particle orientations; 
   (b) The fluid velocity plot with respect to the configuration in (a); Streamlines are plotted in the background
   as solid curves. Red arrows represent the particle velocities.
   (c) Deformed vesicle after $20000$ steps. The tank-treading motion occurs after reaching the state shown in panel (c).
   (d) The fluid velocity plot with respect to the configuration in (c);
-  The background colors in panels (a) and (c) represent the strength of the hydrophobic attraction potential. The blue region shows no action and the red region with the bilayer gives the strongest action.
+  The background colors in panels (a) and (c) represent the strength of the hydrophobic attraction potential. The blue region shows no action and the red region in the bilayer gives the strongest action.
   }
     \label{figure3}
 \end{figure}
 %
+%
 
-In order to extract more physical properties of the proposed model, we track the total length of the bilayer structure, the reduced area over the time, and the excess length. Here the enclosed area and the length of the structure are calculated from the midplane. 
-These results are shown in Figure~\ref{figure4} where we compare results from a set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$. 
-The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ is the vesicle area and $L$ is the arc length of the vesicle with respect to the midplane. 
+In order to extract more physical properties of the proposed model, we track the total length of the bilayer structure, the reduced area over the time, and the excess length. Here the enclosed area and the total length of the structure are calculated from the midplane.
+These results are shown in Figure~\ref{figure4} where we compare results from the use of a set of shear 
+rates $\chi=\{0.002,0.0025,0.003,0.0035\}$. 
+The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ the area, and $L$ the total length of the Janus-vesicle with respect to the midplane. 
 Furthermore, the excess length is given by $\Delta=L/\sqrt{A^*/\pi}-2\pi$.
-Since the starting configuration is close to a circular shape, the reduced area decreases from a value very close to $1$. It is clear that a slower shear rate generates a higher reduced area and has a faster convergence. 
-With a converging total arc length, a slower shear rate also produces a smaller excess length.
-The small oscillations in all results are due to the granularity of the bilayer which tend to having a slightly non-smooth curve in simulations. Overall the total lengths of the bilayer have the same converging value in all test shear rates. Moreover, based on the 
-numerical experiments, we observe that the reduce area converges relatively early when the shear rate is lower than $\dot\gamma=0.003$. 
+Since the starting configuration is close to a circular shape, the reduced area decreases from a value very close to $1$. For the test cases in Figure~\ref{figure4}, the smooth curves in panel (a) are fitted using an
+exponential model given by $A^* = a_0 + b_0 \exp(-kt)$. Panel (b) shows that the decay rate $k$ is independent of the shear rate when the shear is above a threshold and the terminal reduced area for each 
+case of the shear rate can then be calculated. It is also clear that a slower shear rate generates a higher reduced area and has a faster convergence then the high shear rate cases. 
+With a converging total arc length as shown in panel (c), a slower shear rate also produces a smaller excess length shown in panel (d).
+In summary, the small oscillations in all results are due to the granularity of the Janus-vesicle which tend to having a slightly non-smooth curve in simulations. Overall the total lengths of the bilayer have the same converging value in all test shear rates. Moreover, based on the numerical experiments, we observe that the reduce area converges relatively early when the shear rate is lower than $\chi=0.003$. 
 
-An interesting phenomenon also rises up in the proposed setup where the inter-monolayer slip occurs 
-between two leaflets. When a shear rate is large enough, take $\dot\gamma = 0.005$ as an example, 
-Figure~\ref{figure5} shows the schematic of the test. A particle pair is initially marked and we then track the positions and mean angle $\theta(t)$ between particle relative position with respect to the vesicle center over the time. It is clear to see that the outer leaflet always has larger 
-tangential velocity than the one from inner leaflet and the mean angle $\theta(t)$ increases. 
-This inter-leaflet sliding phenomenon is consistent with what has been seen
-in articles in molecular dynamics simulations. %%% need some citations
+
+
 
 \begin{figure}
 \begin{center}
@@ -478,45 +484,65 @@ in articles in molecular dynamics simulations. %%% need some citations
 \end{center} 
   \caption{(a) Total arc lengths of the midplanes over time in different shear rates; (b) From exponential fits in panel (a), we obtain the decay rate for a number of different shear rates;
   (c) Reduced area transitions over time. (d) Excess length of the midplanes.
-A set of shear rates $\dot\gamma=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
+A set of shear rates $\chi=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
 A slower shear rate generates a faster convergence in the reduced area and smaller excess length. 
   }
     \label{figure4}
 \end{figure}
 
 
-\todo[inline]{Figure/Table of the friction coefficient for different shear rates (needs to revise)}
 
 
-The intermonolayer friction coefficient of the Janus-vesicle is calculated from the ratio of friction force and the 
-slip velocity. This quantity is given by 
-\begin{equation}
-b = \frac{F_f}{v^\parallel} = \frac{F_f}{\int_{\Sigma_M} R \dot\theta dS}.
-\end{equation}
+
+An interesting phenomenon also rises up in the proposed setup where the inter-monolayer slip occurs 
+between two leaflets. When a shear rate is large enough, take $\chi = 0.005$ as an example, 
+Figure~\ref{figure5} shows the schematic of the test. A particle pair is initially marked and we then track the positions and mean angle $\theta(t)$ between particle relative position with respect to the vesicle center over the time. It is clear to see that the outer leaflet always has larger 
+tangential velocity than the one from the inner leaflet and the mean angle $\theta(t)$ increases. 
+This inter-leaflet sliding phenomenon is consistent with what has been seen
+in articles in molecular dynamics simulations.
+
 %
-where $v^\parallel$ represents the tangential velocity at the midplane and $\Sigma_M$ the curve determined by the midplane.
+%\todo[inline]{Figure/Table of the friction coefficient for different shear rates (needs to revise)}
 
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.8\textwidth]{Slip.eps}
 \end{center} 
-  \caption{The schematic of the intermonolayer slip over a period of time. Taking shear rate $\dot\gamma=0.005$ as an example, we denote the mean angle between each particle pair $\theta(t)$ where the angle is calculated from the relative position of particles using the vesicle center of mass position. The configuration plots have two fixed particles marked in yellow and blue and labeled with the corresponding time $t=\{2000,5200,9000\}$. The midplane curve is denoted as $\Sigma_M$.
+  \caption{The schematic of the intermonolayer slip over a period of time. Taking shear rate $\chi=0.005$ as an example, we denote the mean angle between each particle pair $\theta(t)$ where the angle is calculated from the relative position of particles using the vesicle center of mass position. The configuration plots have two fixed particles marked in yellow and blue and labeled with the corresponding time $t=\{2000,5200,9000\}$. The midplane curve is denoted as $\Sigma_M$.
   }
     \label{figure5}
 \end{figure}
+
+
+
+
+The inter-monolayer friction coefficient of the Janus-vesicle is calculated from the ratio of the friction force and the slip velocity. This quantity is given by 
+\begin{equation}
+b = \frac{F_f}{\int_{\Sigma_M} R \dot\theta dS},
+\end{equation}
+%
+where $\Sigma_M$ is the curve determined by the midplane and the relative radius $R$ is defined by the distance between the particle pair and the centroid of the Janus-vesicle. Hence, the mean rotational velocity 
+of the bilayer is given by the integral of $R\dot\theta$ over the midplane curve $\Sigma_M$.
+For the friction force $F_f$, we calculate tangential stresses near the bilayer from outer and inner fluid then 
+extrapolate the force value onto the midplane to acquire the pressure jump. The friction force is computed after integrating the pressure jump over the midplane $\Sigma_M$.
+Table~\ref{table1} provides a series of numerical results for dimensional friction coefficients $b$. As expected,
+within the same order, the friction coefficients are independent of the shear rates.
+
+
+
 
 
 \begin{table}
 \caption{Friction Coefficients}
 \centering    
 \begin{tabular}{c c c c c c c c }
+ $\chi$ & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  \\
 \hline                    
-$\dot\gamma$ (ns$^{-1}$) & 0.0033 & 0.0041 & 0.0049 & 0.0057 & 0.0066 & 0.0074 & 0.0082\\
-\hline 
-$F_{f}$ (pN nm$^{-1}$)           &  &  &  &  &  &  &   \\[1ex]
-$\dot\theta$ (ns$^{-1}$)           &  &  &  &  &  &  & \\ [1ex]
-$b$ (pN$\cdot$ns nm$^{-2}$)   &  &  &  &  &  &  & \\ 
+$\dot\gamma$ (ns$^{-1}$)        & 0.0033 & 0.0041 & 0.0049 & 0.0057 & 0.0066 & 0.0074 & 0.0082\\
+$F_{f}$ (pN nm$^{-1}$)           & 1.84 & 4.90 & 11.36 & 8.16 & 6.14 &  17.69 &  24.33 \\[1ex]
+$\dot\theta$ (nm ns$^{-1}$)           & $6.84\times10^{-5}$ & $1.31\times10^{-4}$ & $3.46\times10^{-4}$ & $2.32\times10^{-4}$ & $1.81\times10^{-4}$ & $4.91\times10^{-4}$ & $5.83\times10^{-4}$\\ [1ex]
+$b$ (pN$\cdot$ns nm$^{-2}$)   & 1.11 & 1.56 & 1.37 & 1.47 & 1.43 & 1.51 & 1.76\\ 
 \hline    
 \end{tabular} 
 \label{table1}
@@ -525,13 +551,12 @@ $b$ (pN$\cdot$ns nm$^{-2}$)   &  &  &  &  &  &  & \\
 
 \subsubsection{Vesicle in a Parabolic Flow}
 
-The background flow for this set of simulations is given by
-
+Besides the tests of a Janus-vesicle in a shear flow, an interesting test can also use the proposed model and the setup. Consider a symmetric parabolic flow about the $x$-axis, \cite{Kaoui09} studied shapes of the red blood cell immersed in a parabolic flow using a continuum model. With a similar setup, the background flow for this set of simulations is given by
 \begin{equation}
 {\bf v}_\infty = v_{max}\left[ 1 - \left( \frac{y}{wR_0}\right)^2 \right]{\bf e}_x,
 \end{equation}
 %
-where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the initial vesicle midplane. Figure~\ref{figure6} gives a final configuration for one specific case where the circular vesicle is initially placed above the $x$-axis.
+where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the Janus-vesicle at $t=0$. Figure~\ref{figure6} gives a configuration for one specific case where the centroid of the Janus-vesicle is initially placed slightly above the $x$-axis at $(0,3)$. The parameters are $v_{max} = 8.0$, $w=10$ and $R_0=8$. The inset of Figure~{figure6} shows the trajectory of the mean position in $y$-direction which decreases toward $y=1$ for a period of time and starts to have an oscillatory motion. Moreover, the Janus-vesicle performs tank-treading during the simulation and red arrows in Figure~{figure6} indicate a counterclockwise movement. For this test run, an asymmetric slipper occurs and the reduced area for this configuration is $\sim0.9$. This matches the previous numerical tests in  \cite{Kaoui09} where a slipper-like shape occurs when the flow velocity is weak.
 
 
 \begin{figure}
@@ -546,7 +571,7 @@ where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_
 \subsubsection{Membrane Ruptures}
 
 
-With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. Figure~\ref{figure7} shows a demonstration of a vesicle under a shear flow with shear rate $\dot\gamma=0.1$. An interesting phenomenon occurs in panels (c) and (d) where two separated bilayers move along the background shear flow symmetrically. Consequently, a periodic motion for bilayers may occur 
+With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. Figure~\ref{figure7} shows a demonstration of a vesicle under a shear flow with shear rate $\chi=0.1$. An interesting phenomenon occurs in panels (c) and (d) where two separated bilayers move along the background shear flow symmetrically. Consequently, a periodic motion for bilayers may occur 
 with the choices of shear rates. One can expect that these two layers will flow far apart from each other for much higher shear rates.
 
 
@@ -558,7 +583,7 @@ with the choices of shear rates. One can expect that these two layers will flow 
 \\
 \includegraphics[height=2in]{N58_rupt_400.pdf}
 \includegraphics[height=2in]{N58_rupt_600.pdf}
-  \caption{Membrane rupture occurs when the shear rate is beyond a certain threshold. Here the shear rate is $\dot\gamma = 0.1$. Starting with a circular shape (panel (a)), the vesicle is stretched by the background flow and multiple pores appear (panel (b)). (c)-(d) are the later states during the simulation.
+  \caption{Membrane rupture occurs when the shear rate is beyond a certain threshold. Here the shear rate is $\chi = 0.1$. Starting with a circular shape (panel (a)), the vesicle is stretched by the background flow and multiple pores appear (panel (b)). (c)-(d) are the later states during the simulation.
   }
     \label{figure7}
 \end{figure}
@@ -576,7 +601,7 @@ with the choices of shear rates. One can expect that these two layers will flow 
 \includegraphics[height=2in]{N116_shear_2500.pdf}\\
 \includegraphics[height=2in]{N116_shear_5000.pdf}
 \includegraphics[height=2in]{N116_shear_7500.pdf}
-  \caption{Two vesicles under a shear flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets of all panels are generated from the results of continuum modeling simulations and the streamlines have a perfect agreement to the numerical results.
+  \caption{Two vesicles under a shear flow where the dimensioneless shear rate is $\chi=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets of all panels are generated from the results of continuum modeling simulations and the streamlines have a perfect agreement to the numerical results.
   }
     \label{figure9}
 \end{figure}
@@ -584,7 +609,7 @@ with the choices of shear rates. One can expect that these two layers will flow 
 
 
 \subsubsection{Shear Flow}
-Two vesicles in a shear flow is presented in Figures~\ref{figure9} where centers of mass are placed on the same horizontal level. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \dot\gamma y$. 
+Two vesicles in a shear flow is presented in Figures~\ref{figure9} where centers of mass are placed on the same horizontal level. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \chi y$. 
 An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be observed and tuned. In other words, the adhesive behavior will be absent when two vesicles are centered 
 at a different level and are well separated in $y$-direction.
 
@@ -599,9 +624,9 @@ at a different level and are well separated in $y$-direction.
 \includegraphics[height=2in]{N116_ext_2000.pdf}\\
 \includegraphics[height=2in]{N116_ext_4000.pdf}
 \includegraphics[height=2in]{N116_ext_6500.pdf}
-  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets show the results produced from using continuum model that the streamlines have perfect agreements with the present results.
+  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\chi=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets show the results produced from using continuum model that the streamlines have perfect agreements with the present results.
   }
-    \label{figure9}
+    \label{figure8}
 \end{figure}
 
 
@@ -620,7 +645,7 @@ at a different level and are well separated in $y$-direction.
 
 \subsubsection{Extensional Flow}
 
-Figures~\ref{figure8} show the numerical results of simulations when two vesicles are in an extensional flow. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The extensional flow is stretching along the $y$ direction and squeezing in $x$ direction with shear rate $\dot\gamma=0.005$. Since two bilayers are close enough
+Figures~\ref{figure8} show the numerical results of simulations when two vesicles are in an extensional flow. Starting from the initial configuration (shown in panel (a)), panels (b)-(d) show the transitions of two vesicles moving under an extensional flow. The extensional flow is stretching along the $y$ direction and squeezing in $x$ direction with shear rate $\chi=0.005$. Since two bilayers are close enough
 from the beginning of the run, two vesicles are first pushed toward each other then separate along the streamline. The short range repulsion plays an important role to avoid structure collisions and 
 this result can be compared with some findings in continuum modeling simulations.
 The pressure plots in Figure~\ref{figure8} provide a realistic result where the pressure is much higher in the gap between two nearby vesicles.
@@ -814,30 +839,6 @@ Combining the last four equations give \eqref{eq:prejump}.
   \]
   This completes the proof of \eqref{eq:recipforcetorque}.
 \end{proof}
-
-
-
-
-%\section{\label{A2} Comparison between Continuum Model and the Proposed Model}
-%
-%\begin{figure}
-%\centering
-%\includegraphics[height=1.2in]{N116_cont_a.pdf}
-%\includegraphics[height=1.2in]{N116_cont_b.pdf}
-%\includegraphics[height=1.2in]{N116_cont_c.pdf}
-%\includegraphics[height=1.2in]{N116_cont_d.pdf}
-%  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\dot\gamma=0.005$; Continuum modeling.....
-%  }
-%    \label{figureB}
-%\end{figure}
-
-
-
-
-
-
-
-
 
 
 \bibliographystyle{jfm}
