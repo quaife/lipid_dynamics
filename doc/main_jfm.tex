@@ -33,6 +33,7 @@
 \newcommand{\GG}{\mathbf{G}}
 \newcommand{\JJ}{\mathbf{J}}
 \newcommand{\nnu}{\boldsymbol{\nu}}
+\newcommand{\ttau}{\boldsymbol{\tau}}
 \newcommand{\ssigma}{\boldsymbol{\sigma}}
 \newcommand{\rr}{\mathbf{r}}
 \newcommand{\RR}{\mathbf{R}}
@@ -104,10 +105,11 @@ This paper is organized as follows. In \S~\ref{sec:governing_eqs} we present the
 
 \section{Governing  Equations\label{sec:governing_eqs}}
 \subsection{\label{mobility}Mobility Problem}
-We consider a suspension of $N_b$ particles suspended in a
-two-dimensional unbounded domain. The boundary of each particle is
+We consider an $N_b$-many body collection of particles suspended in a
+two-dimensional unbounded domain $\Omega$. The boundary of each particle is
 denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1 \cup \Gamma_2 \cup
-\cdots \cup \Gamma_{N_b}$. Assuming the flow is Stokesian, the governing
+\cdots \cup \Gamma_{N_b}$ and $\nnu_i$ is the particle outward normal. 
+Assuming the flow is Stokesian, the governing
 equations are
 \begin{alignat}{3}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
@@ -143,8 +145,8 @@ gives
     (\ssigma \cdot \nnu_i) \, \dif s = 0, \qquad && i=1,\ldots,N_b,
 \end{alignat}
 where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
-\right)$ is the hydrodynamic stress tensor (pressure tensor). The
-process of finding the translational and angular velocities given a
+\right)$ is the hydrodynamic stress tensor (pressure tensor).
+The process of finding the translational and angular velocities given a
 force and torque is referred to as the mobility problem.
 
 
@@ -161,8 +163,8 @@ u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i, \\
 \label{SLff}
 u &\to 0,                          &&|\xx| \to \infty,
 \end{alignat}
-where $f_i$ is a material label with $f_i = 0$ ($1$) representing
-hydrophilic (hydrophobic) portions of the surface, and $\rho$ is the
+where $f_i$ is a material label with $f_i = 0$, respectively $1$, representing
+hydrophilic, respectively hydrophobic, portions of the surface, and $\rho$ is the
 decay length of attraction. The forces and torques for this attraction
 are 
 \begin{align}
@@ -266,12 +268,13 @@ double-layer potential
 where $K_0$ is the zeroth-order modified Bessel function of the first
 kind. By requiring that the density function $\sigma$ satisfies the
 second-kind integral equation
-\begin{align}
+\begin{equation}
+\label{eq:SKIE}
   f(\xx) = \frac{1}{2}\sigma(\xx) + 
     \frac{1}{2\pi}\int_{\bd\Omega} \pderiv{}{\nnu_\yy}
     K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
     \quad \xx \in \bd\Omega,
-\end{align}
+\end{equation}
 the HAP double-layer potential~\eqref{eqn:HAP_DLP} satisfies the
 screened Laplace equation~\eqref{SL}--\eqref{SLff}. To calculate the
 hydrophobic force and torque, the gradient of the double-layer
@@ -323,7 +326,7 @@ $\omega_i$ satisfy
   \int_{\bd\Gamma_i} \eeta \cdot \nnu_i \, \dif s &= {\bf 0}, 
   &&i = 1,\ldots,N_b, \\
   \label{eqn:mobility2}
-  \int_{\bd\Gamma_i} \eeta\times(\xx-\aa_i)^\perp \cdot \nnu \, \dif s &= 0,
+  \int_{\bd\Gamma_i} \eeta\times(\xx-\aa_i)^\perp \cdot \nnu_i \, \dif s &= 0,
   &&i = 1,\ldots,N_b.
 \end{alignat}
 
@@ -340,186 +343,163 @@ single- and double-layer potentials~\cite{cor-vee2018}.
 
 \subsection{Calculating the Hydrophobic Force}
 \label{subsec:calculating_force}
-The stress \eqref{eq:stress} contains
-contains the gradient of the double-layer potential \eqref{eqn:HAP_DLP},
-making it difficult to evaluate
-the forces and torques \eqref{eqn:hydrophobicAttraction}.
-The identities \eqref{eq:recipforcetorque}
-make it possible to evaluate the forces and torques
-without specialized quadrature methods. 
-
-Consider the particle
-$\Gamma_i$ indexed by $i$
-and decompose $u$ as follows: 
-\begin{equation}
-u = u_i + v_i
-\end{equation}
-where  
-\begin{equation}
-    u_i(\xx) = \frac{1}{2\pi} \int_{\Gamma_i} \pderiv{}{\nnu_\yy}
-    K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
-    \quad \xx \in \Omega.
-\end{equation}
-That is, $u_i$ is the double-layer potential for the restriction of $\sigma$ to $\Gamma_i$.  Let $\FF_i$ and $T_i$ be as in \eqref{eqn:hydrophobicAttraction}. We prove that 
+Once \eqref{eq:SKIE} has been solved and $\sigma$ determined,
+we can evaluate the integrals  \eqref{eqn:hydrophobicAttraction}. 
+These integrals involve the stress \eqref{eq:stress} which contains
+a singular integral for the gradient of the double-layer potential.   
+To avoid singular integrals, we use the alternative forms
 \begin{equation}
 \label{eq:recipforcetorque}
-\FF_i= \int_{\Gamma_i} \JJ_i \,\dif s,\quad
-T_i= \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot \JJ_i  \,\dif s
+\FF_i^{\text{hydro}} = \int_{\Gamma_i} \JJ_i \,\dif s,\quad
+T_i^{\text{hydro}}    = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot \JJ_i  \,\dif s
 \end{equation}
 where
  \begin{equation}
 \label{eq:jumpstress1}
-\JJ_{i} = 2\gamma\left[\rho^{-1} u v_i \nnu 
-+ \rho \nabla u \cdot \tau (\nabla v_i \cdot \tau \nnu -  \nabla
-   v_i \cdot \nnu \tau)\right].
+\JJ_{i} =2\gamma\rho^{-1} \sigma v_i \nnu + 2\gamma\rho \frac{d\sigma }{ds}\frac{dv_i }{ds} \nnu
+    - 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dv_i }{d\nu} \ttau.
 \end{equation}
-Here $\nnu$ is the unit normal and $\tau$ is a unit tangent vector.
-Observe that  $u$ and $\nabla u \cdot \tau$ come from the boundary data $f_i$ \eqref{SLbc} and are smooth. The functions $v_i$ and $\nabla v_i$
-come from double-layer integrals that are smooth on $\Gamma_i$.
+Here, $\ttau$ and $\frac{d}{ds}$ are the unit tangent  and arc length  derivative for $\Gamma_i$, respectively, 
+and
+\begin{equation}
+\label{eq:uidef}
+    v_i(\xx) = u(\xx) - \frac{1}{2\pi} \int_{\Gamma_i} \pderiv{}{\nnu_\yy}
+    K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
+    \quad \xx \in \Omega.
+\end{equation}
+The advantage in using \eqref{eq:jumpstress1} over \eqref{eq:stress} 
+is that components $\sigma$, $v_i$, $\frac{d\sigma}{ds}$, and  $\frac{dv_i}{ds}$ are all smooth.  
 
 To prove \eqref{eq:recipforcetorque},
 let \begin{align*}
   {\bf T}
   &=
-  \sigma[u_i,u_i]
-  +(\sigma[u_i,v_i]
-  +\sigma[v_i,u_i])
-  +\sigma[v_i,v_i] \\
+    \mathbf{S}(u_i,u_i)
+  +(\mathbf{S}(u_i,v_i)
+  +\mathbf{S}(v_i,u_i))
+  +\mathbf{S}(v_i,v_i) \\
   &= {\bf T}_1 + {\bf T}_2 + {\bf T}_3
 \end{align*}
-where we have introduced the notation
-\[
-\sigma[u,v]
-= \rho^{-1} uv {\bf I} + \rho \nabla u \cdot \nabla v {\bf I} - 2 \rho \nabla u \nabla v^T.
-\]
-Using the fact that $u$, $u_i$, and $v_i$ solve the equation
-$-\rho^2 \Delta u + u = 0$, and that ${\bf T}$ is symmetric,
-it is straightforward to show that 
+where we introduce the bilinear form
+\begin{equation}
+\label{eq:Tsplit}
+\mathbf{S}(u,v)
+=  \gamma\rho^{-1} uv {\bf I} + \gamma\rho \nabla u \cdot \nabla v {\bf I} - 2 \gamma \rho \nabla u \nabla v^T .
+\end{equation}
+Using the fact that $u$,  $u_i$, and $v_i$ solve the equation $-\rho^2 \Delta u + u = 0$,
+and that $\mathbf{T}$, $\mathbf{T}_j$, $j = 1, 2, 3$ are symmetric, it is straightforward to verify that 
   \begin{equation}
     \label{eq:decompdivfree}
     \nabla \cdot {\bf T}_j = 0, \quad
-    \nabla \cdot (\xx \times {\bf T}_j) = 0,\quad j = 1, 2, 3.
+    \nabla \cdot ((\xx-\aa_i)^{\perp} \cdot {\bf T}_j) = 0, \quad j = 1, 2, 3.
   \end{equation}
-  
+
+%\begin{lemma}
+%  \label{eq:stress_div_lemma}
+%  \begin{equation}
+%    \label{eq:decompdivfree}
+%    \nabla \cdot {\bf T}_j = 0, \quad
+%    \nabla \cdot (\xx^{\perp} \cdot {\bf T}_j) = 0
+%  \end{equation}
+% for  $ j = 1, 2, 3$.
+%\end{lemma}
+%\begin{proof}
+%  Let $\mathbf{T}$ be as in \eqref{eq:stress}.  
+%  It is straightforward to show that  
+%%  \begin{align*}
+% %   (\nabla \cdot {\bf T})_j &=
+% %   \nabla_k   T_{jk}  = 0\\
+% %   &= \rho^{-1} 2u \nabla_j u + \rho(2\nabla_{kl}^2 u \nabla_l u  - 2 \nabla_{kj}^2 u \nabla_k u
+% %  - 2 \nabla_j u \nabla_{kk}^2 u )\\
+% %   &=2\rho^{-1}(-\rho^2 \Delta u + u)\nabla_j u = 0,
+% % \end{align*}
+% \begin{equation*}
+%\nabla \cdot {\bf T} = 2\rho^{-1}(-\rho^2 \Delta u + u)\nabla u = 0
+% \end{equation*}
+% since $u$ solves $-\rho^2 \Delta u + u = 0$.
+% Moreover,
+%  \begin{align*}
+%    \nabla \cdot (\xx^{\perp} \cdot {\bf T} )
+%%    &= \nabla_k (\epsilon_{jml}x_m T_{lk})\\
+%%    &= \varepsilon_{jml} T_{lm} + \varepsilon_{jml}x_m \nabla_k T_{lk}\\
+%%   &= (\boldsymbol{\varepsilon}:{\bf T} + {\bf x}^{\perp} \cdot \nabla \cdot {\bf T})_j.
+%=  \mathbf{S}:\mathbf{T} + \mathbf{S}\xx \cdot (\nabla \cdot \mathbf{T}) = 0,
+%  \end{align*}
+%  since ${\bf T}$ is symmetric, where $\mathbf{S}\xx = \xx^{\perp}$.
+%  
+%  The functions $u_i$ and $v_i$ also solve the equation $-\rho^2 \Delta u + u = 0$.  Repeating the above argument 
+%  for ${\bf T}_1 = \sigma[u_i,u_i]$ and ${\bf T}_3 = \sigma[v_i,v_i]$ gives that 
+%  \eqref{eq:decompdivfree} holds for the cases $j = 1$ and $j = 3$. Finally,
+%  \eqref{eq:decompdivfree} holds for the case $j = 2$ because
+%  ${\bf T}_2 = {\bf T} - {\bf T}_1 - {\bf T}_3$.
+%\end{proof}
+
+Let $U_i$ be the interior of the particle indexed by $i$. 
+For $\xx_0 \in \Gamma_i$ and an arbitrary function $g(\xx)$, the notation
+\begin{equation}
+\lim_{\xx \to \xx_0^+}g(\xx),\quad 
+\lim_{\xx \to \xx_0^-}g(\xx), \quad
+[g](\xx_0) = \lim_{\xx \to \xx_0^+}g(\xx)  - \lim_{\xx \to \xx_0^-}g(\xx)
+\end{equation}
+denotes the limit taken from points in $U_i^c$,  the limit taken from points in $U_i$, and the jump, respectively.  
 \begin{lemma}
-  \label{eq:stress_div_lemma}
-  \begin{equation}
-    \label{eq:decompdivfree}
-    \nabla \cdot {\bf T}_j = 0, \quad
-    \nabla \cdot (\xx \times {\bf T}_j) = 0,\quad j = 1, 2, 3.
-  \end{equation}
-\end{lemma}
-\begin{proof}
-  The function $u$ solves $-\rho^2 \Delta u + u = 0$. Using the summation convention, 
-  \begin{align*}
-    (\nabla \cdot {\bf T})_j &=
-    \nabla_k   T_{jk} \\
-    &= \rho^{-1} 2u \nabla_j u + \rho(2\nabla_{kl}^2 u \nabla_l u  - 2 \nabla_{kj}^2 u \nabla_k u
-    - 2 \nabla_j u \nabla_{kk}^2 u )\\
-    &=2\rho^{-1}(-\rho^2 \Delta u + u)\nabla_k u = 0.
-  \end{align*}
-Moreover, 
-  \begin{align*}
-    (\nabla \cdot (\xx \times {\bf T} ))_j
-    &= \nabla_k (\epsilon_{jml}x_m T_{lk})\\
-    &= \varepsilon_{jml} T_{lm} + \varepsilon_{jml}x_m \nabla_k T_{lk}\\
-    &= (\boldsymbol{\varepsilon}:{\bf T} + {\bf x} \times \nabla \cdot {\bf T})_j.
-  \end{align*}
-  where $\varepsilon_{jml}$ is the alternating tensor. 
-  Since ${\bf T}$ is symmetric $\boldsymbol{\varepsilon}:{\bf T} = {\bf 0}$, and we get
-  $\nabla \cdot (x \times {\bf T}) = 0$ as well.
-
-  The functions $u_p$ and $v_p$ also solve the equation $-\rho^2 \Delta u + u = 0$.  Thus
-  \eqref{eq:decompdivfree} holds for $j = 1, 3$. Finally,
-  \eqref{eq:decompdivfree} holds for $j = 2$ because
-  ${\bf T}_2 = {\bf T} - {\bf T}_1 - {\bf T}_3$.
-\end{proof}
-
-
-Using Lemma \ref{eq:stress_div_lemma}, we will establish that
 \begin{equation}
   \label{eq:prejump}
-  F_p + i G_p = \gamma \int_{\Sigma_p}  ({\bf U}_2\nnu)^+ - ({\bf
-  U}_2\nnu)^-\,\dif S
+\FF_i = \int_{\Gamma_i} [{\bf T}_2  \nu_i]  \, \dif s,\quad
+T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot [{\bf T}_2 \nu_i] \, \dif s.
 \end{equation}
-where ${\bf U}_j = ({\bf I} + i {\bf X}){\bf T}_j$ for $j = 1, 2, 3.$
-The stress ${\bf U}_2$ has a jump discontinuity at $\Sigma_p.$
-The plus and minus superscripts denote
-the limit taken along points in $U_p^c$ and along points in $U_p$
-respectively.
-${\bf U}_1$ and ${\bf U}_3$ are real-analytic in a neighborhood of $\overline{U_p}$
-and have no jump-discontinuity at $\Sigma_p$.
+\end{lemma}
+\begin{proof}
 To derive \eqref{eq:prejump}, we expand
-\begin{align*}
-  F_p + i G_p
-  &= \gamma \int_{\Sigma_p} {\bf T} \nnu + ix \times {\bf T} \nnu \,\dif S \\
-  &= \gamma \int_{\Sigma_p}  {\bf U}_1\nnu  + ({\bf U}_2\nnu)^+ + {\bf
-  U}_3\nnu\,\dif S
-\end{align*}
-The function $u_p$ is real-analytic and
-$\nabla \cdot {\bf U}_1 = 0$ throughout $\mathbb{R}^n \setminus U_p$.
-By the divergence theorem, we get
 \begin{equation*}
-  \int_{\Sigma_p}  {\bf U}_1 \nnu\,\dif S
-  = \int_{\mathbb{R}^n \setminus U_p} \nabla \cdot {\bf U}_1 \,dx = 0.
+  \FF_i 
+  = \int_{\Gamma_i}  {\bf T}_1\nnu  + {\bf T}_2\nnu + {\bf   T}_3\nnu\,\dif s.
 \end{equation*}
-Next, $v_p$ is real-analytic and
-$\nabla \cdot {\bf U}_3 = 0$ in $U_p$. Therefore
+By \eqref{eq:uidef} and \eqref{eq:decompdivfree}, we have $u_i$ smooth and  
+$\nabla \cdot {\bf T}_1 = \mathbf{0}$ in $\mathbb{R}^n \setminus U_i$.
+Similarly, $v_i = u - u_i$ is smooth and
+$\nabla \cdot {\bf T}_3 = \mathbf{0}$ in $U_i$. 
+By the divergence theorem,  
 \begin{equation*}
-  \int_{\Sigma_p}  {\bf U}_3 \nnu\,\dif S
-  = -\int_{U_p} \nabla \cdot {\bf U}_3 \,dx = 0.
+  \int_{\Gamma_i}  {\bf T}_1\nnu \,\dif s
+  = -\int_{\mathbb{R}^n \setminus U_i} \nabla \cdot {\bf T}_1 \,dx = \mathbf{0},\quad
+    \int_{\Gamma_p}  {\bf T}_3 \nnu\,\dif s
+  = \int_{U_p} \nabla \cdot {\bf T}_3 \,dx = \mathbf{0}.
 \end{equation*}
-Finally, $\nabla \cdot {\bf U}_2= 0$ in $U_p$. This gives
+Finally, $\nabla \cdot {\bf T}_2= 0$ in $U_i$. This gives
 \[
-0 = -\int_{U_p} \nabla \cdot {\bf U}_2 \,dx = \int_{\Sigma_p}  ({\bf
-U}_2 \nnu)^-\,\dif S.
+\mathbf{0} = \int_{U_i} \nabla \cdot {\bf T}_2 \,dx = -\int_{\Gamma_i}  ({\bf T}_2 \nnu)^-\,\dif s,
 \]
-Combining the last four equations give \eqref{eq:prejump}.
-
-\begin{proof}[Proof of \eqref{eq:recipforcetorque}]
-  The main ingredients of the proof are the jump relations
-  for $u_p$. For $x_0 \in \Sigma_p$,
-  \begin{enumerate}
-  \item $ \lim_{x \to x_0^\pm } u_p(x) = \pm\frac{1}{2}\eta(x_0) + (D\eta)(x_0)$
-  \item $ \lim_{x \to x_0^+ } (\nabla u_p \cdot \nnu) (x) = \lim_{x \to
-    x_0^-} (\nabla u \cdot \nnu)(x)$
-  \end{enumerate}
-  Furthermore,
-  combining (i) and (ii) gives
-  \begin{align*}
-    \nabla u_p^+ - \nabla u_p^-
-    &= \nabla (u_p^+ - u_p^-) \cdot t_i t_i +  (\nabla  u_p^+\cdot
-    \nnu  - \nabla u_p^- \cdot \nnu) \nnu\\
-    &= \nabla \eta \cdot \tau_i \tau_i
-  \end{align*}
-  where $\{\tau_i\}_{i=1}^n$ are an orthonormal tangent vectors.
-  We can use these relationships to derive an expression for the jump in
-  normal stress.
-  \begin{align*}
-    &({\bf T}_2\nnu)^+ - ({\bf T}_2\nnu)^-
-    \\
-    &= 2\rho^{-1} u_p^+v_p \nnu + 2\rho \nabla u_p^+ \cdot \nabla v_p
-    \nnu
-    - 2 \rho \nabla u_p^+  \nabla v_p \cdot \nnu
-    - 2 \rho \nabla v_p  \nabla u_p^+ \cdot \nnu\\
-    &-2\rho^{-1} u_p^-v_p \nnu - 2\rho \nabla u_p^- \cdot \nabla v_p \nnu
-    + 2 \rho \nabla u_p^-  \nabla v_p \cdot \nnu
-    + 2 \rho \nabla v_p  \nabla u_p^- \cdot \nnu\\
-    &= 2\rho^{-1} \eta v_p \nnu + 2\rho \nabla \eta \cdot \tau_i \tau_i
-    \cdot \nabla v_p \nnu
-    - 2\rho \nabla \eta \cdot \tau_i \tau_i \nabla v_p \cdot \nnu + 0\\
-    &= J_p.
-  \end{align*}
-
-  Applying the above relations to the integrand of \eqref{eq:prejump} yields
-  \[
-  ({\bf U}_2\nnu)^+ - ({\bf U}_2\nnu)^-
-  =
-  ({\bf I} + i {\bf X})(({\bf T}_2\nnu)^+ - ({\bf T}_2\nnu)^-)
-  = ({\bf I} + i {\bf X})J_p
-  \]
-  This completes the proof of \eqref{eq:recipforcetorque}.
+where the superscript denotes the limit taken from in $U_i$.  
+Combining the previous four equations gives the first equation in \eqref{eq:prejump}.
+The argument for the second equation in \eqref{eq:prejump} is identical. 
 \end{proof}
+
+\begin{lemma}
+\begin{equation}
+\label{eq:postjump}
+  [{\bf T}_2\nnu] =  \JJ_i.
+\end{equation}
+\end{lemma}
+\begin{proof}
+We have the jump relations for \eqref{eq:uidef}:
+\begin{align}
+\label{eq:DLjump}
+\lim_{\xx \to \xx_0^\pm } u_i(\xx) &= \pm\frac{1}{2}\sigma(\xx_0) + u_i (\xx_0),\\
+\label{eq:DLdevjump}
+\lim_{\xx \to \xx_0^\pm } \nabla u_i(\xx) &= \pm\frac{1}{2}\frac{\dif \sigma}{\dif s}(\xx_0)\ttau(\xx_0) + \nabla u_i(\xx_0).
+\end{align}
+Using \eqref{eq:DLjump}, \eqref{eq:DLdevjump}, \eqref{eq:Tsplit}, and that $v_i$ is smooth in a neighborhood of $\Gamma_i$ gives
+    \begin{align*}
+    [{\bf T}_2\nnu]   &= [(\mathbf{S}(u_i,v_i)  +\mathbf{S}(v_i,u_i))\nnu] \\
+    &= [ ( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
+    - 2\gamma\rho \nabla u_i  \nabla v_i^T - 2\gamma\rho \nabla v_i \nabla u_i^T)  \nnu]\\
+    &= 2\gamma\rho^{-1} \sigma v_i \nnu + 2\gamma\rho \frac{d\sigma }{ds}\frac{dv_i }{ds} \nnu
+    - 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dv_i }{d\nu} \ttau = \JJ_i,
+  \end{align*}
+  as required. 
+\end{proof}
+  Combing  \eqref{eq:prejump}  with \eqref{eq:postjump} completes the proof of \eqref{eq:recipforcetorque}.
 
 
 
