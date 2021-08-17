@@ -44,6 +44,7 @@
 \renewcommand{\vv}{\mathbf{v}}
 \newcommand{\yy}{\mathbf{y}}
 \newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\jump}[1]{[\![ #1 ]\!]}
 
 
 % {\MakeUppercase{\romannumeral #1}}
@@ -158,13 +159,13 @@ Janus-vesicles under various flowing conditions. Finally we provide
 discussion and outlook for future directions in \S~\ref{conclusion}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Governing  Equations\label{sec:governing_eqs}}
+\section{Governing Equations\label{sec:governing_eqs}}
 \subsection{\label{mobility}Mobility Problem}
 We consider an $N_b$-many body collection of particles suspended in a
-two-dimensional unbounded domain $\Omega$. The boundary of each particle is
-denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1 \cup \Gamma_2 \cup
-\cdots \cup \Gamma_{N_b}$ and $\nnu_i$ is the particle outward normal. 
-Assuming the flow is Stokesian, the governing
+two-dimensional unbounded domain $\Omega$. The boundary of each particle
+is denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1 \cup \Gamma_2
+\cup \cdots \cup \Gamma_{N_b}$ and $\nnu_i$ is the particle outward
+normal. Assuming the inertial terms are negligible, the governing
 equations are
 \begin{alignat}{3}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
@@ -188,14 +189,14 @@ angular velocity. Here, $\langle x, y \rangle^{\perp} = \langle -y, x
     \xx \in \Gamma_i.
 \end{align}
 To determine the translational and angular velocities of each particle,
-we assume some imposed forces $\FF_i$ and torques $T_i$ acting on each
+we define imposed forces $\FF_i$ and torques $T_i$ acting on each
 particle. Since the small particles are intertialess, force balance
 gives 
 \begin{alignat}{2}
-  \label{eqn:force}
+  \label{eq:force}
   \FF_i &+ \int_{\Gamma_i} \ssigma \cdot \nnu_i \, \dif s = \mathbf{0},
   && i=1,\ldots,N_b,\\
-  \label{eqn:torque}
+  \label{eq:torque}
   T_i &+ \int_{\Gamma_i} (\xx - \aa_i)^\perp \cdot 
     (\ssigma \cdot \nnu_i) \, \dif s = 0, \qquad && i=1,\ldots,N_b,
 \end{alignat}
@@ -205,17 +206,18 @@ The process of finding the translational and angular velocities given a
 force and torque is referred to as the mobility problem.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Imposed Forces}
 The imposed forces and torques contain two parts. The first part comes
 from the hydrophobic attraction potential (HAP). This potential was
 introduced in~\cite{Fu20} and models hydrophobic attraction by solving
 the screened Laplace equation boundary value problem
 \begin{alignat}{2}
-  \label{SL}
+  \label{eq:SL}
 -\rho^2 \Delta u + u &=0,            && \xx \in \Omega,\\
-\label{SLbc}
+\label{eq:SLbc}
 u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i, \\
-\label{SLff}
+\label{eq:SLff}
 u &\to 0,                          &&|\xx| \to \infty,
 \end{alignat}
 where $f_i$ is a material label with $f_i = 0$, respectively $1$, representing
@@ -223,7 +225,7 @@ hydrophilic, respectively hydrophobic, portions of the surface, and $\rho$ is th
 decay length of attraction. The forces and torques for this attraction
 are 
 \begin{align}
-  \label{eqn:hydrophobicAttraction}
+  \label{eq:hydrophobicAttraction}
   \FF_i^{\text{hydro}} = \int_{\Gamma_i} {\bf T}\cdot \nnu_i \, \dif s, 
     \quad 
   T_i^{\text{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot ({\bf T} \cdot \nnu_i) \dif s,
@@ -247,19 +249,19 @@ $j$, we find the two points $\tilde{\xx}_i \in \Gamma_i$ and
 $\tilde{\xx}_j \in \Gamma_j$ that are closest to one another. We then
 define the repulsion force and torque
 \begin{align}
-%  \label{eqn:REPUL}
+%  \label{eq:REPUL}
 %  \FF_i^{\text{repul}} = \sum_{i=1}^{N_b} \frac{\xx_{ij} -
 %  \yy_{ij}}{\rho_{ij}} P(\rho_{ij}),\quad 
 %  T_i^{\text{repul}} = \sum_{i=1}^{N_b} (\xx_{ij} - \aa_i)^{\perp}\cdot
 %  \frac{\xx_{ij} - \yy_{ij}}{\rho_{ij}} P(\rho_{ij})
 %  \\
 %
-  \label{eqn:REPULforce}
+  \label{eq:REPULforce}
   \FF_i^{\text{repul}} &= \sum_{j \neq i} 
     \frac{\tilde{\xx}_i - \tilde{\xx}_j}
     {|\tilde{\xx}_i - \tilde{\xx}_j|} 
     P'(|\tilde{\xx}_i - \tilde{\xx}_j|), \\
-  \label{eqn:REPULtorque}
+  \label{eq:REPULtorque}
   T_i^{\text{repul}} &= \sum_{j \neq i} 
     (\tilde{\xx}_i - \aa_i)^{\perp} \cdot 
     \frac{\tilde{\xx}_i - \tilde{\xx}_j}
@@ -267,8 +269,8 @@ define the repulsion force and torque
     P'(|\tilde{\xx}_i - \tilde{\xx}_j|).
 \end{align}
 The repulsion profile $P(r)$ is zero for distances $r$ larger than a
-repulsion length scale $\rho_0$. As such,~\eqref{eqn:REPULforce}
-and~\eqref{eqn:REPULtorque} ignore particles $\Gamma_j$ outside a
+repulsion length scale $\rho_0$. As such,~\eqref{eq:REPULforce}
+and~\eqref{eq:REPULtorque} ignore particles $\Gamma_j$ outside a
 tubular neighborhood of $\Gamma_i$. For $0 \leq r < \rho_0,$ we use
 $P(r) = M(1 - \sin(r/\rho_0))$ where $M$ is sufficiently large to
 prevent particle collisions. Then, the total imposed force and torque
@@ -280,12 +282,13 @@ are
 \end{align}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Time Marching}
 By solving the mobility problem, we obtain translational and angular
 velocities of the $N_b$-body system. A second-order Adams-Bashforth
 scheme updates the particle positions and orientations. By including the
-repulsion force~\eqref{eqn:REPULforce} and
-torque~\eqref{eqn:REPULtorque}, particle collisions are avoided even
+repulsion force~\eqref{eq:REPULforce} and
+torque~\eqref{eq:REPULtorque}, particle collisions are avoided even
 when using a relatively large time step. 
 
 
@@ -294,28 +297,29 @@ when using a relatively large time step.
 
 
 
-%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Integral Equation Method}
 \label{sec:IEM}
 Computing the hydrophobic attraction potential and the particle forces
-and torques requires solving an elliptic partial differential equation
-(PDE) in an unbounded complex domain. We recast both these PDEs as
-boundary integral equations (BIEs). We discretize each BIE at $N$ points
-on each of the $N_b$ particles with a collocation method. Integrals that
-are smooth are computed with the spectrally-accurate quadrature rule,
-and nearly-singular integrals, caused by close contact between two
-particles, are computed with a high-order interpolation-based quadrature
-rule~\cite{qua-bir2014}. After discretizing and applying quadrature, the
-resulting linear system is solved with matrix-free GMRES, and we
-guarantee that the number of GMRES iterations is mesh-independent by
-using second-kind BIEs.
+and torques requires the solution of elliptic partial differential
+equations (PDEs) in an unbounded complex domain. We recast both these
+PDEs as boundary integral equations (BIEs). We discretize each BIE at
+$N$ points on each of the $N_b$ particles with a collocation method.
+Integrals that are smooth are computed with the spectrally-accurate
+quadrature rule, and nearly-singular integrals, caused by close contact
+between two particles, are computed with a high-order
+interpolation-based quadrature rule~\cite{qua-bir2014}. After
+discretizing and applying quadrature, the resulting linear system is
+solved with matrix-free GMRES, and we guarantee that the number of GMRES
+iterations is mesh-independent by using second-kind BIEs.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{HAP Boundary Integral Equation}
 Similar to our previous work~\cite{Fu20}, we represent the HAP as a
 double-layer potential
 \begin{align}
-  \label{eqn:HAP_DLP}
+  \label{eq:HAP_DLP}
   u(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \pderiv{}{\nnu_\yy}
     K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
     \quad \xx \in \Omega,
@@ -324,25 +328,32 @@ where $K_0$ is the zeroth-order modified Bessel function of the first
 kind. By requiring that the density function $\sigma$ satisfies the
 second-kind integral equation
 \begin{equation}
-\label{eq:SKIE}
+\label{eq:screenedSKIE}
   f(\xx) = \frac{1}{2}\sigma(\xx) + 
     \frac{1}{2\pi}\int_{\bd\Omega} \pderiv{}{\nnu_\yy}
     K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
     \quad \xx \in \bd\Omega,
 \end{equation}
-the HAP double-layer potential~\eqref{eqn:HAP_DLP} satisfies the
-screened Laplace equation~\eqref{SL}--\eqref{SLff}. To calculate the
-hydrophobic force and torque, the gradient of the double-layer
-potential~\eqref{eqn:HAP_DLP} must be computed on the boundary of each
-particle. In Section~\ref{subsec:calculating_force}, we show that the force and
-torque calculations can be expressed in terms of integral that are
-non-singular.
+the HAP double-layer potential~\eqref{eq:HAP_DLP} satisfies the screened
+Laplace equation~\eqref{eq:SL}--\eqref{eq:SLff}. We
+solve~\eqref{eq:screenedSKIE} with a collocation method. The integrals
+are approximated with either the trapezoid rule or with the
+interpolation-based near-singular integration scheme. This results in a
+$NN_b \times NN_b$ linear system that is solved with a block-diagonal
+preconditioned GMRES solver.
 
+To calculate the hydrophobic force and torque, the gradient of the
+double-layer potential~\eqref{eq:HAP_DLP} must be computed on the
+boundary of each particle. In Section~\ref{subsec:calculating_force}, we
+show that the force and torque calculations can be expressed in terms of
+non-singular integrals.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Mobility Problem Boundary Integral Equation}
 Following previous work of~\cite{Lukas19}, we represent the velocity as
-the sum of a double-layer potential and the $N_b$ Stokeslets and Rotlets
+the sum of a double-layer potential and $N_b$ Stokeslets and Rotlets
 \begin{align}
-  \label{eqn:velocity}
+  \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
     \sum_{i=1}^{N_b} \left(\SS(\xx,\aa_i) \FF_i + 
     \RR(\xx,\aa_i) T_i\right), \quad \xx \in \Omega.
@@ -356,16 +367,16 @@ The double-layer potential is
 where $\rr = \xx - \yy$ and $\rho = |\rr|$. The Stokeslet and Rotlet
 centered at $\aa_i$ are
 \begin{align}
-  \SS(\xx,\aa_i)\FF_i &= \frac{1}{4\pi} \left(-\log(\rho) + 
-    \frac{\rr \otimes \rr}{\rho^2} \FF_i \right), \\
+  \SS(\xx,\aa_i)\FF_i &= \frac{1}{4\pi} \left(-\log \rho + 
+    \frac{\rr \otimes \rr}{\rho^2}\right) \FF_i, \\
   \RR(\xx,\aa_i)T_i &= \frac{1}{4\pi} \frac{\rr^\perp}{\rho^2} T_i,
 \end{align}
 where $\rr = \xx - \aa_i$ and $\rho = |\rr|$. The Stokeslet is
-torque-free and has force $\FF_i$ while the Rotlet force-free and has
-torque $T_i$. Therefore, the velocity~\eqref{eqn:velocity} satisfies the
-total force~\eqref{eqn:force} and torque~\eqref{eqn:torque} conditions
+torque-free and has force $\FF_i$ while the Rotlet is force-free and has
+torque $T_i$. Therefore, the velocity~\eqref{eq:velocity} satisfies the
+total force~\eqref{eq:force} and torque~\eqref{eq:torque} conditions
 if the double-layer potential $\DD[\eeta]$ is force- and torque-free.
-Matching the limit of~\eqref{eqn:velocity} with the rigid body motion,
+Matching the limit of~\eqref{eq:velocity} with the rigid body motion,
 and imposing that $\DD[\eeta]$ is force- and torque-free, the density
 function $\eeta$, translational velocity $\vv_i$, and angular velocity
 $\omega_i$ satisfy
@@ -373,62 +384,67 @@ $\omega_i$ satisfy
   \nonumber
   \vv_i + \omega_i (\xx - \aa_i)^\perp &= \uu_\infty(\xx)
     -\frac{1}{2} \eeta(\xx) + \DD[\eeta](\xx) \\
-  \label{eqn:SKIE}
+  \label{eq:SKIE}
     + \sum_{j=1}^{N_b} &
     \left(\SS(\xx,\aa_j) \FF_j + \RR(\xx,\aa_j) T_j\right),
-    \quad &&\xx \in \bd \Gamma_i,\: i=1,\ldots,N_b, \\
-  \label{eqn:mobility1}
+    \quad &&\xx \in \Gamma_i,\: i=1,\ldots,N_b, \\
+  \label{eq:mobility1}
   \int_{\bd\Gamma_i} \eeta \cdot \nnu_i \, \dif s &= {\bf 0}, 
   &&i = 1,\ldots,N_b, \\
-  \label{eqn:mobility2}
+  \label{eq:mobility2}
   \int_{\bd\Gamma_i} \eeta\times(\xx-\aa_i)^\perp \cdot \nnu_i \, \dif s &= 0,
   &&i = 1,\ldots,N_b.
 \end{alignat}
 
-The trapezoid rule is used to approximate each of the integrals in
-equations~\eqref{eqn:mobility1} and~\eqref{eqn:mobility2}, and the
-double-layer potential equation~\eqref{eqn:SKIE} is approximated with
+The trapezoid rule is used to approximate the integrals in
+equations~\eqref{eq:mobility1} and~\eqref{eq:mobility2}, and the
+double-layer potential equation~\eqref{eq:SKIE} is approximated with
 either the trapezoid rule, or the interpolation-based near-singular
-integration quadrature rule. After discretizing and applying appropriate
+integration scheme. After discretizing and applying appropriate
 quadrature rules, the result is a $(2NN_b + 3N_b) \times (2NN_b + 3N_b)$
 linear system that we precondition with a block-diagonal preconditioner.
 We note that other BIE formulations of the mobility problem use
-single-layer potentials~\cite{cor-gre-rac-vee2017, rac-gre2016} or both
-single- and double-layer potentials~\cite{cor-vee2018}.
+single-layer potentials (\cite{cor-gre-rac-vee2017, rac-gre2016}) or a
+combination of single- and double-layer potentials (\cite{cor-vee2018}).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Calculating the Hydrophobic Force}
 \label{subsec:calculating_force}
-Once \eqref{eq:SKIE} has been solved and $\sigma$ determined,
-we can evaluate the integrals  \eqref{eqn:hydrophobicAttraction}. 
-These integrals involve the stress \eqref{eq:stress} which contains
-a singular integral for the gradient of the double-layer potential.   
-To avoid singular integrals, we use the alternative forms
-\begin{equation}
-\label{eq:recipforcetorque}
-\FF_i^{\text{hydro}} = \int_{\Gamma_i} \JJ_i \,\dif s,\quad
-T_i^{\text{hydro}}    = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot \JJ_i  \,\dif s
-\end{equation}
+Once \eqref{eq:SKIE} has been solved for $\sigma$, we need to evaluate
+the integrals~\eqref{eq:hydrophobicAttraction}. These integrals involve
+the stress \eqref{eq:stress} which contains a singular integral for the
+gradient of the double-layer potential. To avoid singular integrals, we
+use the alternative forms
+\begin{align}
+  \label{eq:recipforcetorque}
+  \FF_i^{\text{hydro}} = \int_{\Gamma_i} \JJ_i \,\dif s,\quad
+  T_i^{\text{hydro}}    = \int_{\Gamma_i} 
+    (\xx - \aa_i)^{\perp} \cdot \JJ_i  \,\dif s,
+\end{align}
 where
- \begin{equation}
-\label{eq:jumpstress1}
-\JJ_{i} =2\gamma\rho^{-1} \sigma v_i \nnu + 2\gamma\rho \frac{d\sigma }{ds}\frac{dv_i }{ds} \nnu
-    - 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dv_i }{d\nu} \ttau.
-\end{equation}
-Here, $\ttau$ and $\frac{d}{ds}$ are the unit tangent  and arc length  derivative for $\Gamma_i$, respectively, 
-and
+\begin{align}
+  \label{eq:jumpstress1}
+  \JJ_{i} = 2\gamma\rho^{-1} \sigma v_i \nnu + 
+    2\gamma\rho \frac{d\sigma}{ds} \frac{dv_i}{ds} \nnu -
+    2\gamma\rho \frac{d\sigma}{ds} \frac{dv_i}{d\nu} \ttau.
+\end{align}
+Here, $\ttau$ and $\frac{d}{ds}$ are the unit tangent  and arc length
+derivative for $\Gamma_i$, respectively, and
 \begin{equation}
 \label{eq:uidef}
     v_i(\xx) = u(\xx) - \frac{1}{2\pi} \int_{\Gamma_i} \pderiv{}{\nnu_\yy}
     K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
     \quad \xx \in \Omega.
 \end{equation}
-The advantage in using \eqref{eq:jumpstress1} over \eqref{eq:stress} 
-is that components $\sigma$, $v_i$, $\frac{d\sigma}{ds}$, and  $\frac{dv_i}{ds}$ are all smooth.  
+That is, $\nu_i(\xx)$ is the double-layer potential~\eqref{eq:HAP_DLP},
+except that $\Gamma_i$ is excluded from $\bd\Omega$. The advantage in
+using \eqref{eq:jumpstress1} over \eqref{eq:stress} is that components
+$\sigma$, $v_i$, $\frac{d\sigma}{ds}$, and $\frac{dv_i}{ds}$ are all
+smooth.
 
-To prove \eqref{eq:recipforcetorque},
-let \begin{align*}
-  {\bf T}
-  &=
+To prove \eqref{eq:recipforcetorque}, let 
+\begin{align*}
+  {\bf T} &=
     \mathbf{S}(u_i,u_i)
   +(\mathbf{S}(u_i,v_i)
   +\mathbf{S}(v_i,u_i))
@@ -441,8 +457,9 @@ where we introduce the bilinear form
 \mathbf{S}(u,v)
 =  \gamma\rho^{-1} uv {\bf I} + \gamma\rho \nabla u \cdot \nabla v {\bf I} - 2 \gamma \rho \nabla u \nabla v^T .
 \end{equation}
-Using the fact that $u$,  $u_i$, and $v_i$ solve the equation $-\rho^2 \Delta u + u = 0$,
-and that $\mathbf{T}$, $\mathbf{T}_j$, $j = 1, 2, 3$ are symmetric, it is straightforward to verify that 
+Using the fact that $u$,  $u_i$, and $v_i$ solve the screened Laplace
+equation~\eqref{eq:SL},  and that $\mathbf{T}$, $\mathbf{T}_j$, $j = 1,
+2, 3$ are symmetric, it is straightforward to verify that 
   \begin{equation}
     \label{eq:decompdivfree}
     \nabla \cdot {\bf T}_j = 0, \quad
@@ -489,42 +506,49 @@ and that $\mathbf{T}$, $\mathbf{T}_j$, $j = 1, 2, 3$ are symmetric, it is straig
 %  ${\bf T}_2 = {\bf T} - {\bf T}_1 - {\bf T}_3$.
 %\end{proof}
 
-Let $U_i$ be the interior of the particle indexed by $i$. 
-For $\xx_0 \in \Gamma_i$ and an arbitrary function $g(\xx)$, the notation
-\begin{equation}
-\lim_{\xx \to \xx_0^+}g(\xx),\quad 
-\lim_{\xx \to \xx_0^-}g(\xx), \quad
-[g](\xx_0) = \lim_{\xx \to \xx_0^+}g(\xx)  - \lim_{\xx \to \xx_0^-}g(\xx)
-\end{equation}
-denotes the limit taken from points in $U_i^c$,  the limit taken from points in $U_i$, and the jump, respectively.  
+Let $U_i$ be the interior of the particle indexed by $i$. For $\xx_0
+\in \Gamma_i$ and an arbitrary function $g(\xx)$, the notation
+\begin{align}
+  \jump{g}(\xx_0) = \lim_{\substack{\xx \to \xx_0 \\ \xx \in U_i}}g(\xx)  - 
+                    \lim_{\substack{\xx \to \xx_0 \\ \xx \in U^c_i}}g(\xx),
+\end{align}
+denotes the jump of the limits of $g(\xx)$ taken from the outside and
+the inside of $\Gamma_i$.
+%\begin{align}
+%\lim_{\xx \to \xx_0^+}g(\xx),\quad 
+%\lim_{\xx \to \xx_0^-}g(\xx), \quad
+%  \jump{g}(\xx_0) = \lim_{\xx \to \xx_0^+}g(\xx)  - \lim_{\xx \to \xx_0^-}g(\xx)
+%\end{align}
+%denotes the limit taken from points in $U_i^c$,  the limit taken from
+%points in $U_i$, and the jump, respectively.  
 \begin{lemma}
-\begin{equation}
+\begin{align}
   \label{eq:prejump}
-\FF_i = \int_{\Gamma_i} [{\bf T}_2  \nu_i]  \, \dif s,\quad
-T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot [{\bf T}_2 \nu_i] \, \dif s.
-\end{equation}
+  \FF_i = \int_{\Gamma_i} \jump{{\bf T}_2  \nu_i}  \, \dif s,\quad
+  T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot \jump{{\bf T}_2 \nu_i} \, \dif s.
+\end{align}
 \end{lemma}
 \begin{proof}
-To derive \eqref{eq:prejump}, we expand
-\begin{equation*}
-  \FF_i 
-  = \int_{\Gamma_i}  {\bf T}_1\nnu  + {\bf T}_2\nnu + {\bf   T}_3\nnu\,\dif s.
-\end{equation*}
-By \eqref{eq:uidef} and \eqref{eq:decompdivfree}, we have $u_i$ smooth and  
-$\nabla \cdot {\bf T}_1 = \mathbf{0}$ in $\mathbb{R}^n \setminus U_i$.
-Similarly, $v_i = u - u_i$ is smooth and
-$\nabla \cdot {\bf T}_3 = \mathbf{0}$ in $U_i$. 
-By the divergence theorem,  
-\begin{equation*}
+To show~\eqref{eq:prejump}, we expand
+\begin{align}
+  \FF_i = \int_{\Gamma_i} {\bf T}_1\nnu + 
+    {\bf T}_2\nnu + {\bf T}_3\nnu\,\dif s.
+\end{align}
+By~\eqref{eq:uidef} and~\eqref{eq:decompdivfree}, we have that $u_i$ is
+smooth and $\nabla \cdot {\bf T}_1 = \mathbf{0}$ in $\mathbb{R}^n
+\setminus U_i$. Similarly, $v_i = u - u_i$ is smooth and $\nabla \cdot
+{\bf T}_3 = \mathbf{0}$ in $U_i$. By the divergence theorem,  
+\begin{align}
   \int_{\Gamma_i}  {\bf T}_1\nnu \,\dif s
-  = -\int_{\mathbb{R}^n \setminus U_i} \nabla \cdot {\bf T}_1 \,dx = \mathbf{0},\quad
+  = -\int_{\mathbb{R}^n \setminus U_i} \nabla \cdot {\bf T}_1 \,\dif \xx = \mathbf{0},\quad
     \int_{\Gamma_p}  {\bf T}_3 \nnu\,\dif s
-  = \int_{U_p} \nabla \cdot {\bf T}_3 \,dx = \mathbf{0}.
-\end{equation*}
+  = \int_{U_p} \nabla \cdot {\bf T}_3 \,\dif \xx = \mathbf{0}.
+\end{align}
 Finally, $\nabla \cdot {\bf T}_2= 0$ in $U_i$. This gives
-\[
-\mathbf{0} = \int_{U_i} \nabla \cdot {\bf T}_2 \,dx = -\int_{\Gamma_i}  ({\bf T}_2 \nnu)^-\,\dif s,
-\]
+\begin{align}
+  \mathbf{0} = \int_{U_i} \nabla \cdot {\bf T}_2 \, \dif \xx = -\int_{\Gamma_i}  
+    ({\bf T}_2 \nnu)^-\,\dif s,
+\end{align}
 where the superscript denotes the limit taken from in $U_i$.  
 Combining the previous four equations gives the first equation in \eqref{eq:prejump}.
 The argument for the second equation in \eqref{eq:prejump} is identical. 
@@ -533,7 +557,7 @@ The argument for the second equation in \eqref{eq:prejump} is identical.
 \begin{lemma}
 \begin{equation}
 \label{eq:postjump}
-  [{\bf T}_2\nnu] =  \JJ_i.
+  \jump{{\bf T}_2\nnu} =  \JJ_i.
 \end{equation}
 \end{lemma}
 \begin{proof}
@@ -544,28 +568,27 @@ We have the jump relations for \eqref{eq:uidef}:
 \label{eq:DLdevjump}
 \lim_{\xx \to \xx_0^\pm } \nabla u_i(\xx) &= \pm\frac{1}{2}\frac{\dif \sigma}{\dif s}(\xx_0)\ttau(\xx_0) + \nabla u_i(\xx_0).
 \end{align}
-Using \eqref{eq:DLjump}, \eqref{eq:DLdevjump}, \eqref{eq:Tsplit}, and that $v_i$ is smooth in a neighborhood of $\Gamma_i$ gives
-    \begin{align*}
-    [{\bf T}_2\nnu]   &= [(\mathbf{S}(u_i,v_i)  +\mathbf{S}(v_i,u_i))\nnu] \\
-    &= [ ( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
-    - 2\gamma\rho \nabla u_i  \nabla v_i^T - 2\gamma\rho \nabla v_i \nabla u_i^T)  \nnu]\\
-    &= 2\gamma\rho^{-1} \sigma v_i \nnu + 2\gamma\rho \frac{d\sigma }{ds}\frac{dv_i }{ds} \nnu
-    - 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dv_i }{d\nu} \ttau = \JJ_i,
-  \end{align*}
-  as required. 
+Using \eqref{eq:DLjump}, \eqref{eq:DLdevjump}, \eqref{eq:Tsplit}, and
+that $v_i$ is smooth in a neighborhood of $\Gamma_i$, we have
+\begin{align*}
+  \jump{{\bf T}_2\nnu}   &= \jump{(\mathbf{S}(u_i,v_i)  +\mathbf{S}(v_i,u_i))\nnu} \\
+  &= \jump{( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
+- 2\gamma\rho \nabla u_i  \nabla v_i^T - 2\gamma\rho \nabla v_i \nabla u_i^T)  \nnu}\\
+&= 2\gamma\rho^{-1} \sigma v_i \nnu + 2\gamma\rho \frac{d\sigma }{ds}\frac{dv_i }{ds} \nnu
+- 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dv_i }{d\nu} \ttau = \JJ_i,
+\end{align*}
+as required. 
 \end{proof}
   Combing  \eqref{eq:prejump}  with \eqref{eq:postjump} completes the proof of \eqref{eq:recipforcetorque}.
 
 
 
-%%%
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{validation}Model Validation}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Jeffery Orbit}
-
-
 The preliminary test of the proposed model using the integral equation method is the numerical validation in Jeffery orbits of single ellipsoidal particle under a shear flow $\dot x = \dot\gamma y$ where $\dot\gamma$ is the shear rate. An ellipsoidal particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\Theta = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle $\Theta(t)$, 
 
 \begin{equation}
@@ -584,6 +607,7 @@ where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratios of
     \label{figure1}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Self-Assembly and Relaxation}
 
 In order to examine the dynamics of the Janus-vesicle using the HAP coupling with hydrodynamics interactions, for the target bilayer, a circular initial shape is chosen to perform the relaxation run. 
@@ -614,9 +638,7 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 
 
 
-%%%
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{results}Numerical Results}
 
 %\todo[inline]{Introduce dimensionless shear rate here (and check the numbers)}
@@ -644,8 +666,10 @@ The dimensionless shear rate is given by $\chi = \dot\gamma \tau$ where $\dot\ga
 %where $\dot\gamma$ the dimensional shear rate, and $\mu$ the fluid viscosity.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Tank-Treading Vesicles}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Vesicle in a Shear Flow}
 
 To study the deformation of a Janus-vesicle under a shear flow using the proposed algorithm, 
@@ -775,6 +799,7 @@ $b$ (pN$\cdot$ns nm$^{-2}$)   & 1.11 & 1.56 & 1.37 & 1.47 & 1.43 & 1.51 & 1.76\\
 \end{table}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Vesicle in a Parabolic Flow}
 
 Besides the tests of a Janus-vesicle in a shear flow, an interesting test can also use the proposed model and the setup. Consider a symmetric parabolic flow about the $x$-axis, \cite{Kaoui09} studied shapes of the red blood cell immersed in a parabolic flow using a continuum model. With a similar setup, the background flow for this set of simulations is given by
@@ -805,6 +830,7 @@ where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Membrane Ruptures}
 
 
@@ -826,9 +852,9 @@ with the choices of shear rates. One can expect that these two layers will flow 
 \end{figure}
 
 
-%
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Two Vesicles in a Linear Flow}
 
 
@@ -856,6 +882,7 @@ with the choices of shear rates. One can expect that these two layers will flow 
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Shear Flow}
 
 Figure~\ref{figure9} demonstrates the simulation results of two Janus-vesicles in a shear flow where the testing shear rate is $\chi=0.005$ and the flow is given by $\dot x = \chi y$. In panel (a), the starting frame, two center-of-mass positions are placed 
@@ -902,7 +929,7 @@ at a different level and are well separated in $y$-direction. Trajectories of a 
 
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Extensional Flow}
 
 With a similar setup in the case of two Janus-vesicles in a shear flow, we use the same two pre-relaxed $58$-body Janus-vesicles to perform the simulations when the flow type is an extensional flow with flow rate $\chi=0.005$. This extensional flow is stretching along the $y$ direction and squeezing in $x$ direction.
@@ -922,6 +949,7 @@ $\pm y$-directions.
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{conclusion}Conclusion}
 
 
