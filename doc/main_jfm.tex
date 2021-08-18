@@ -220,8 +220,9 @@ u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i, \\
 \label{eq:SLff}
 u &\to 0,                          &&|\xx| \to \infty,
 \end{alignat}
-where $f_i$ is a material label with $f_i = 0$, respectively $1$, representing
-hydrophilic, respectively hydrophobic, portions of the surface, and $\rho$ is the
+where $0 \leq f_i \leq 1$ is a material label with $f_i = 0$, respectively $1$, representing
+hydrophilic, respectively hydrophobic, portions of the surface.  We assume that the $f_i$ and $\Gamma_i$ are
+smooth.  The parameter $\rho$ is the
 decay length of attraction. The forces and torques for this attraction
 are 
 \begin{align}
@@ -322,10 +323,11 @@ double-layer potential
   \label{eq:HAP_DLP}
   u(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \pderiv{}{\nnu_\yy}
     K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
-    \quad \xx \in \Omega,
+    \quad \xx \in \mathbb{R}^2,
 \end{align}
 where $K_0$ is the zeroth-order modified Bessel function of the first
-kind. By requiring that the density function $\sigma$ satisfies the
+kind and the integral is taken in the sense of principle value whenever $\xx \in \partial \Omega$. 
+By requiring that the density function $\sigma$ satisfies the
 second-kind integral equation
 \begin{equation}
 \label{eq:screenedSKIE}
@@ -414,7 +416,7 @@ Once \eqref{eq:SKIE} has been solved for $\sigma$, we need to evaluate
 the integrals~\eqref{eq:hydrophobicAttraction}. These integrals involve
 the stress \eqref{eq:stress} which contains a singular integral for the
 gradient of the double-layer potential. To avoid singular integrals, we
-use the alternative forms
+evaluate \eqref{eq:hydrophobicAttraction} using the identities
 \begin{align}
   \label{eq:recipforcetorque}
   \FF_i^{\text{hydro}} = \int_{\Gamma_i} \JJ_i \,\dif s,\quad
@@ -432,15 +434,18 @@ Here, $\ttau$ and $\frac{d}{ds}$ are the unit tangent  and arc length
 derivative for $\Gamma_i$, respectively, and
 \begin{equation}
 \label{eq:uidef}
-    v_i(\xx) = u(\xx) - \frac{1}{2\pi} \int_{\Gamma_i} \pderiv{}{\nnu_\yy}
+\begin{aligned}
+    u(\xx) &= u_i(\xx) + v_i(\xx),\\
+    u_i(\xx) &= \frac{1}{2\pi} \int_{\Gamma_i} \pderiv{}{\nnu_\yy}
     K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
-    \quad \xx \in \Omega.
+    \quad \xx \in \mathbb{R}^2.
+\end{aligned}
 \end{equation}
-That is, $\nu_i(\xx)$ is the double-layer potential~\eqref{eq:HAP_DLP},
-except that $\Gamma_i$ is excluded from $\bd\Omega$. The advantage in
-using \eqref{eq:jumpstress1} over \eqref{eq:stress} is that components
-$\sigma$, $v_i$, $\frac{d\sigma}{ds}$, and $\frac{dv_i}{ds}$ are all
-smooth.
+That is, $v_i(\xx)$ is the double-layer potential~\eqref{eq:HAP_DLP} with 
+$\Gamma_i$ excluded from $\bd\Omega$. The advantage in
+using \eqref{eq:recipforcetorque} over using \eqref{eq:hydrophobicAttraction} is that the components
+$\sigma$, $v_i$, $\frac{d\sigma}{ds}$, and $\frac{dv_i}{ds}$ of $\JJ_i$ are smooth functions,
+whereas the components of \eqref{eq:stress} are singular integrals.  
 
 To prove \eqref{eq:recipforcetorque}, let 
 \begin{align*}
@@ -509,10 +514,10 @@ equation~\eqref{eq:SL},  and that $\mathbf{T}$, $\mathbf{T}_j$, $j = 1,
 Let $U_i$ be the interior of the particle indexed by $i$. For $\xx_0
 \in \Gamma_i$ and an arbitrary function $g(\xx)$, the notation
 \begin{align}
-  \jump{g}(\xx_0) = \lim_{\substack{\xx \to \xx_0 \\ \xx \in U_i}}g(\xx)  - 
-                    \lim_{\substack{\xx \to \xx_0 \\ \xx \in U^c_i}}g(\xx),
+  \jump{g}(\xx_0) = \lim_{\substack{\xx \to \xx_0 \\ \xx \in U_i^c}}g(\xx)  - 
+                    \lim_{\substack{\xx \to \xx_0 \\ \xx \in U_i}}g(\xx),
 \end{align}
-denotes the jump of the limits of $g(\xx)$ taken from the outside and
+denotes the jump of the limits of $g(\xx)$ taken from the outside to
 the inside of $\Gamma_i$.
 %\begin{align}
 %\lim_{\xx \to \xx_0^+}g(\xx),\quad 
@@ -524,8 +529,8 @@ the inside of $\Gamma_i$.
 \begin{lemma}
 \begin{align}
   \label{eq:prejump}
-  \FF_i = \int_{\Gamma_i} \jump{{\bf T}_2  \nu_i}  \, \dif s,\quad
-  T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot \jump{{\bf T}_2 \nu_i} \, \dif s.
+  \FF_i = \int_{\Gamma_i} \jump{{\bf T}_2  \nnu}  \, \dif s,\quad
+  T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot \jump{{\bf T}_2 \nnu} \, \dif s.
 \end{align}
 \end{lemma}
 \begin{proof}
@@ -541,10 +546,10 @@ smooth and $\nabla \cdot {\bf T}_1 = \mathbf{0}$ in $\mathbb{R}^n
 \begin{align}
   \int_{\Gamma_i}  {\bf T}_1\nnu \,\dif s
   = -\int_{\mathbb{R}^n \setminus U_i} \nabla \cdot {\bf T}_1 \,\dif \xx = \mathbf{0},\quad
-    \int_{\Gamma_p}  {\bf T}_3 \nnu\,\dif s
-  = \int_{U_p} \nabla \cdot {\bf T}_3 \,\dif \xx = \mathbf{0}.
+    \int_{\Gamma_i}  {\bf T}_3 \nnu\,\dif s
+  = \int_{U_i} \nabla \cdot {\bf T}_3 \,\dif \xx = \mathbf{0}.
 \end{align}
-Finally, $\nabla \cdot {\bf T}_2= 0$ in $U_i$. This gives
+Finally, $u_i$ and $v_i$ are smooth and $\nabla \cdot {\bf T}_2= 0$ in $U_i$. This gives
 \begin{align}
   \mathbf{0} = \int_{U_i} \nabla \cdot {\bf T}_2 \, \dif \xx = -\int_{\Gamma_i}  
     ({\bf T}_2 \nnu)^-\,\dif s,
@@ -554,32 +559,25 @@ Combining the previous four equations gives the first equation in \eqref{eq:prej
 The argument for the second equation in \eqref{eq:prejump} is identical. 
 \end{proof}
 
-\begin{lemma}
+We have the jump relations for \eqref{eq:uidef}: 
 \begin{equation}
-\label{eq:postjump}
-  \jump{{\bf T}_2\nnu} =  \JJ_i.
-\end{equation}
-\end{lemma}
-\begin{proof}
-We have the jump relations for \eqref{eq:uidef}:
-\begin{align}
 \label{eq:DLjump}
-\lim_{\xx \to \xx_0^\pm } u_i(\xx) &= \pm\frac{1}{2}\sigma(\xx_0) + u_i (\xx_0),\\
-\label{eq:DLdevjump}
-\lim_{\xx \to \xx_0^\pm } \nabla u_i(\xx) &= \pm\frac{1}{2}\frac{\dif \sigma}{\dif s}(\xx_0)\ttau(\xx_0) + \nabla u_i(\xx_0).
-\end{align}
-Using \eqref{eq:DLjump}, \eqref{eq:DLdevjump}, \eqref{eq:Tsplit}, and
-that $v_i$ is smooth in a neighborhood of $\Gamma_i$, we have
+\jump{u_i} = \sigma, \quad
+\jump{v_i} = 0, \quad
+\jump{\nabla u_i} = \frac{\dif \sigma}{\dif s}\ttau,\quad
+\jump{\nabla v_i} = \mathbf{0},
+\end{equation}
+on $\Gamma_i$. We get 
 \begin{align*}
-  \jump{{\bf T}_2\nnu}   &= \jump{(\mathbf{S}(u_i,v_i)  +\mathbf{S}(v_i,u_i))\nnu} \\
+  \jump{{\bf T}_2\nnu}   &= \jump{\mathbf{S}(u_i,v_i)\nnu  +\mathbf{S}(v_i,u_i)\nnu} \\
   &= \jump{( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
 - 2\gamma\rho \nabla u_i  \nabla v_i^T - 2\gamma\rho \nabla v_i \nabla u_i^T)  \nnu}\\
 &= 2\gamma\rho^{-1} \sigma v_i \nnu + 2\gamma\rho \frac{d\sigma }{ds}\frac{dv_i }{ds} \nnu
 - 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dv_i }{d\nu} \ttau = \JJ_i,
 \end{align*}
+Combing  this with \eqref{eq:prejump}  gives  \eqref{eq:recipforcetorque}
 as required. 
-\end{proof}
-  Combing  \eqref{eq:prejump}  with \eqref{eq:postjump} completes the proof of \eqref{eq:recipforcetorque}.
+
 
 
 
