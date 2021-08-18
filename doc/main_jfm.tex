@@ -627,7 +627,7 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 \includegraphics[height=2.in]{N58_5000pres.pdf}
 %  \todo[inline]{Put pressure of each of the two configurations below
 %  this.}
-  \caption{Vesicle relaxes under a quiescent flow. (a) The blue dashed and solid curves are mean magnitudes of the particle velocities in $x$ and $y$ directions, respectively. The red curve shows the decreasing trend of the mean magnitude of particle orientation change. The black dashed line shows the reference of how all magnitudes decay. (b) Bilayer configurations for $t=0$(gray) and $t=1000$(red) with particle directors.
+  \caption{Vesicle relaxes under a quiescent flow. (a) The blue dashed and solid curves are mean magnitudes of the particle velocities in $x$ and $y$ directions, respectively. The red curve shows the decreasing trend of the mean magnitude of particle orientation change. The black dashed line shows the reference of how all magnitudes decay. (b) Bilayer configurations for $t=0$(black) and $t=1000$(red) with particle directors.
   (c)-(d) show the fluid pressure profiles for $t=0$ and $t=1000$ where the background curves indicate the streamlines. In panel (c), the pressure value in internal fluid is much higher than the pressure outside of the bilayer. After the relaxation, this immersed permeable bilayer approaches a steady state as shown in panel (d).
   }
     \label{figure2}
@@ -683,7 +683,7 @@ Panels (a)-(b) show the initial shape obtained from the relaxation run and the d
 configuration of the Janus-vesicle after a period of time ($t=4000$) is in panels (c)-(d). 
 The background color in panels (a) and (c) presented in the figure is the strength of the action due to the
 hydrophobic attraction. From weak to strong action field, the color varies from blue to red. Clearly, the
-hydrophobic layer has largest action. To demonstrate the tank-treading behavior of the vesicle, panels (b) 
+hydrophobic layer has the largest action. To demonstrate the tank-treading behavior of the vesicle, panels (b) 
 and (d) provide the streamlines of the fluid velocity over the whole computational domain when the shear 
 flow passes through the structure. The tank-treading motion of the structure is then observed, for instance,
 the particle velocities in panel (d) indicate a clockwise tank-treading movement.
@@ -714,10 +714,10 @@ rates $\chi=\{0.002,0.0025,0.003,0.0035\}$.
 The reduced area is given by $A^* = 4\pi A/L^2$ where $A$ the area, and $L$ the total length of the Janus-vesicle with respect to the midplane. 
 Furthermore, the excess length is given by $\Delta=L/\sqrt{A^*/\pi}-2\pi$.
 Since the starting configuration is close to a circular shape, the reduced area decreases from a value very close to $1$. For the test cases in Figure~\ref{figure4}, the smooth curves in panel (a) are fitted using an
-exponential model given by $A^* = a_0 + b_0 \exp(-kt)$. Panel (b) shows that the decay rate $k$ is independent of the shear rate when the shear is above a threshold and the terminal reduced area for each 
-case of the shear rate can then be calculated. It is also clear that a slower shear rate generates a higher reduced area and has a faster convergence then the high shear rate cases. 
+exponential model given by $A^* = a_0 + b_0 \exp(-kt)$. Panel (b) shows that the decay rate $k$ is independent of the shear rate when the shear is above a threshold and the terminal reduced areas for each 
+case of the shear rates are given in the inset. It is also clear that a slower shear rate generates a higher terminal reduced area and has a faster convergence then the high shear rate cases. 
 With a converging total arc length as shown in panel (c), a slower shear rate also produces a smaller excess length shown in panel (d).
-In summary, the small oscillations in all results are due to the granularity of the Janus-vesicle which tend to having a slightly non-smooth curve in simulations. Overall the total lengths of the bilayer have the same converging value in all test shear rates. Moreover, based on the numerical experiments, we observe that the reduce area converges relatively early when the shear rate is lower than $\chi=0.003$. 
+In summary, the small oscillations in all results are due to the granularity of the Janus-vesicle which tend to having slightly non-smooth curves in simulations. Overall the total lengths of the bilayer have the same converging value in all test shear rates. Moreover, based on the numerical experiments, we observe that the reduce area converges relatively early when the shear rate is lower than $\chi=0.003$. 
 
 
 
@@ -731,10 +731,9 @@ In summary, the small oscillations in all results are due to the granularity of 
 \includegraphics[height=2in]{ArcLength.pdf}
 \includegraphics[height=2in]{ExcLength.pdf}
 \end{center} 
-  \caption{(a) Total arc lengths of the midplanes over time in different shear rates; (b) From exponential fits in panel (a), we obtain the decay rate for a number of different shear rates;
-  (c) Reduced area transitions over time. (d) Excess length of the midplanes.
-A set of shear rates $\chi=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
-A slower shear rate generates a faster convergence in the reduced area and smaller excess length. 
+  \caption{(a) Total arc lengths of the midplanes over time in cases of different shear rates; (b) From exponential fits in panel (a), we obtain the decay rate $k$ for a number of different shear rates. The inset plots the terminal reduced areas; (c) Reduced area transitions over time; (d) Excess length of the midplanes.
+For all panels, a set of shear rates $\chi=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
+The legend in panel (d) applies to both panels (a) and (c). 
   }
     \label{figure4}
 \end{figure}
