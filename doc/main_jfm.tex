@@ -837,7 +837,7 @@ $y$-direction which decreases toward $y=1$ for a period of time and starts to ha
 \subsubsection{Membrane Ruptures}
 
 
-With the choice of a large shear rate, a pore formation or a complete membrane rupture can be observed during simulations. Figure~\ref{figure8} shows a demonstration of a vesicle under a shear flow with shear rate $\chi=0.1$. An interesting phenomenon occurs in panels (c) and (d) where two separated bilayers move along the background shear flow symmetrically. Consequently, a periodic motion for bilayers may occur 
+With the choice of a large shear rate, a pore formation or a complete membrane rupture can be captured during simulations. Figure~\ref{figure8} shows a demonstration of a vesicle under a shear flow with shear rate $\chi=0.1$. An interesting phenomenon occurs in panels (c) and (d) where two separated bilayers move along the background shear flow symmetrically. Consequently, a periodic motion for bilayers may occur 
 with the choices of shear rates. One can expect that these two layers will flow far apart from each other for much higher shear rates.
 
 
@@ -878,7 +878,8 @@ with the choices of shear rates. One can expect that these two layers will flow 
 \begin{center}
 \includegraphics[width=0.9\textwidth]{ShearTraj.eps}
 \end{center} 
-  \caption{Trajectories of two-vesicle in a shear flow where the centroids of two Janus-vesicle are plotted as blue dots. Both starting centroids of two Janus-vesicles are on the $x$-axis. For simulation time, $t = {0, 400,800,1200}$ for (a)-(d) and $t = {1600, 2400, 3200, 4000}$ for (e)-(h).  }
+  \caption{Trajectories of two-vesicle in a shear flow. The moving paths of two centroids of two Janus-vesicles are plotted in blue and red. Both starting centroids of two Janus-vesicles are on the $x$-axis. 
+For simulation time, $t = {0, 400,800,1200}$ for (a)-(d) and $t = {1600, 2400, 3200, 4000}$ for (e)-(h).}
     \label{figure10}
 \end{figure}
 
@@ -889,18 +890,17 @@ with the choices of shear rates. One can expect that these two layers will flow 
 \subsubsection{Shear Flow}
 
 Figure~\ref{figure9} demonstrates the simulation results of two Janus-vesicles in a shear flow where the testing shear rate is $\chi=0.005$ and the flow is given by $\dot x = \chi y$. In panel (a), the starting frame, two center-of-mass positions are placed 
-on the same horizontal level, at $(-10,0)$ and $(10,0)$. Since we already have a pre-relaxed $58$-body in previous sections, we duplicate the state to have the initial configuration in this section. As expected, there 
-is no pressure jump between the internal and external fluids from the beginning of the simulation and this is shown in the background pressure plot. Panels (b)-(d) show the configurations when $t = \{400,800,100\}$ 
+on the same horizontal level, at $(-10,0)$ and $(10,0)$. Since we already have a pre-relaxed $58$-body in previous sections, we duplicate the state to have the initial configuration (shown in panel (a)) in this section. 
+As expected, there is no pressure jump between the internal and external fluids from the beginning of the
+simulation and this is shown in the background pressure plot. Panels (b)-(d) show the configurations when $t = \{500,1000,1500\}$ 
 and we observe that the rotation continues as time goes. The streamlines are plotted in the background 
-for all panels and we include the numerical results using continuum model in all insets. Obviously there is a qualitative agreement between two models.
+for all panels and we include the numerical results using continuum model in all insets. 
+The comparisons give a qualitative agreement between two models.
 
 An interesting event occurs in the simulation that a rotational behavior with an adhesive effect can be seen and tuned. In other words, the adhesive behavior will be absent when two vesicles are centered 
-at a different level and are well separated in $y$-direction. Trajectories of a longer run of the simulation results are shown in Figure~\ref{figure10}. 
-
-
-
-
-%Two vesicles in a shear flow is presented in Figures~\ref{figure8} where centers of mass are placed on the same horizontal level, at $(-10,0)$ and $(10,0)$. With the same starting state as one in the extensional flow, panels (b)-(d) in Figure~\ref{figure8} are the observed phenomena when two vesicles are in a shear flow where the flow is given by $\dot x = \chi y$. 
+at a different level and are well separated in $y$-direction. 
+Moreover, we provide trajectories of a longer run of the simulation results in Figure~\ref{figure10}. In all panels, the blue and red curves represent the moving paths of two Janus-vesicle centroids and they move
+nearly a round when $t=4000$ as shown in panel (h).
 
 
 %\todo[inline]{Migration pattern and/or separation distance. See Fig 8 in
@@ -924,8 +924,8 @@ at a different level and are well separated in $y$-direction. Trajectories of a 
 \begin{center}
 \includegraphics[width=0.9\textwidth]{ExtTraj.eps}
 \end{center} 
-  \caption{Trajectories of different setups in two-vesicle in an extensional flow where the centroids of two Janus-vesicle are plotted as blue dots. (i) Both centroids of two Janus-vesicles are on the $x$-axis; (ii) The centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis; (iii) 
-  The centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis and the other one is $0.1$ unit below the $x$-axis; (iv) The centroid of the left Janus-vesicle is $0.5$ unit above the $x$-axis and the other one is $0.5$ unit below the $x$-axis; Figure~\ref{figure10} presents the numerical results from the case (iii) and a 
+  \caption{Trajectories of different setups in two-vesicle in an extensional flow and the moving paths of two centroids of two Janus-vesicles are plotted in blue and red. (i) Both centroids of two Janus-vesicles are on the $x$-axis; (ii) The centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis; (iii) 
+  The centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis and the other one is $0.1$ unit below the $x$-axis; (iv) The centroid of the left Janus-vesicle is $0.5$ unit above the $x$-axis and the other one is $0.5$ unit below the $x$-axis; Figure~\ref{figure11} presents the numerical results from the case (iii) and a 
   consistent flow rate is $\chi = 0.005$ for all cases.}
     \label{figure12}
 \end{figure}
@@ -938,7 +938,7 @@ at a different level and are well separated in $y$-direction. Trajectories of a 
 With a similar setup in the case of two Janus-vesicles in a shear flow, we use the same two pre-relaxed $58$-body Janus-vesicles to perform the simulations when the flow type is an extensional flow with flow rate $\chi=0.005$. This extensional flow is stretching along the $y$ direction and squeezing in $x$ direction.
 Figure~\ref{figure11} shows one set of numerical results when the centroids of two bodies are placed at
 $(-10,-0.1)$ and $(10,0.1)$. With this setup, we can make sure that two Janus-vesicles will separate along 
-$y$-direction eventually from empirical tests. Panels (b)-(d) show the transitions of two vesicles moving under an extensional flow.  Since two bilayers are close enough from the beginning of the run, two vesicles are first pushed toward each other then separate along the streamlines. The short range repulsion plays an important role to avoid structure collisions and this result can be compared with some findings in continuum modeling simulations. The pressure plots in Figure~\ref{figure8} provide a realistic result where the pressure is much higher in the gap between two nearby vesicles. 
+$y$-direction eventually from empirical tests. Panels (b)-(d) show the transitions of two vesicles moving under an extensional flow.  Since two bilayers are close enough from the beginning of the run, two vesicles are first pushed toward each other then separate along the streamlines. The short range repulsion plays an important role to avoid structure collisions and this result can be compared with some findings in continuum modeling simulations. The pressure plots in Figure~\ref{figure11} provide a realistic result where the pressure is much higher in the gap between two nearby vesicles. 
 
 Figure~\ref{figure12} provides simulation results when the center-of-mass positions are placed differently.
 One can notice that when two centroids are placed on the same horizontal level, two Janus-vesicles reach
