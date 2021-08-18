@@ -642,15 +642,16 @@ Figure~\ref{figure2}(b) shows the configuration difference between starting and 
 %\todo[inline]{Introduce dimensionless shear rate here (and check the numbers)}
 
 Following the relaxation experiments of the Janus-vesicle, this section will focus on the behavior of 
-Janus-vesicles under flows. To extract physical quantities of the target structure using the proposed model, 
-the scaling laws and the dimensionless units are given as follows.
+Janus-vesicles under a number of flows. To extract physical quantities of the target structure using the
+proposed model, the scaling laws and the dimensionless units are given as follows.
 The length unit is scaled by the length of phospholipids $l=2.5$ nm which is set as the diameter of each 
 Janus particle. The force is scaled from the interfacial tension $\gamma=4.11$ pN nm$^{-1}$ 
-from ~\cite{Ryham16}. We then be able to calculate the characteristic time scale 
-$\tau = \mu l/\gamma = 0.61$ ns where the fluid viscosity $\mu=1$ cP. With the same framework, \cite{Fu20} provides the bending rigidity $\kappa=8.51$ $k_BT$.
+from ~\cite{Ryham16}. This also means that the energy unit is scaled by $1\ k_BT$. We then be able to
+calculate the characteristic time scale $\tau = \mu l/\gamma = 0.61$ ns where the fluid viscosity $\mu=1$ cP.
+With the same framework, \cite{Fu20} provides the bending rigidity $\kappa=8.51$ $k_BT$.
 %
 For the model parameters, the decay length of attraction $\rho = 2l = 5$ nm, the repulsion length scale is 
-$\rho_0=0.5$, and teh repulsion strength $M=4.0$.
+$\rho_0=0.5$, and the repulsion strength $M=4.0\ k_BT$.
 The dimensionless shear rate is given by $\chi = \dot\gamma \tau$ where $\dot\gamma$ is the shear rate.
 
 
@@ -672,10 +673,10 @@ The dimensionless shear rate is given by $\chi = \dot\gamma \tau$ where $\dot\ga
 
 To study the deformation of a Janus-vesicle under a shear flow using the proposed algorithm, 
 we adopt a widely tested numerical simulation in both continuum and molecular dynamics models, single vesicle under a shear flow. The well known results indicate that the vesicle has tank-treading behavior when 
-there is no viscosity contrast in both inside and outside of the vesicle that is one of the features in the  framework of the proposed model. 
+there is no viscosity contrast in both fluids inside and outside of the vesicle. Within the framework of the simulation setup, the proposed model provides a feature that the fluid viscosity is constant over the computational domain and it is capable of performing these simulations.
 
 The centroid of the pre-relaxed $58$-body Janus vesicle is initially placed at the origin then the shear flow 
-with a certain shear rate $\chi$ is turned on. 
+with a certain shear rate $\chi$ is then turned on. 
 The snapshots of the simulation for single vesicle in a shear flow with a shear rate $\chi=0.0025$ are shown 
 in Figure~\ref{figure3}.
 Panels (a)-(b) show the initial shape obtained from the relaxation run and the deformed 
@@ -820,7 +821,7 @@ where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_
 \begin{figure}
 \centering
 \includegraphics[height=2in]{parabolic.eps}
-  \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=8.0$ and the control parameter $w=10$. The configuration is the state when $t=10000$. Red arrows are directors of particle velocities. The inset shows the mean $y$-position over time. 
+  \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=32.8$ nm ns$^{-1}$, $R_0 = 20$ nm,  and the control parameter $w=10$. The configuration is the state when $t=\{0, 4000, 8000\}$. Red curves are midplanes of three configurations. 
   }
     \label{figure7}
 \end{figure}
