@@ -744,9 +744,8 @@ The legend in panel (d) applies to both panels (a) and (c).
 
 An interesting phenomenon also rises up in the proposed setup where the inter-monolayer slip occurs 
 between two leaflets. When a shear rate is large enough, take $\chi = 0.005$ as an example, 
-Figure~\ref{figure5} shows the schematic of the test. A particle pair is initially marked and we then track the positions and mean angle $\theta(t)$ between particle relative position with respect to the vesicle center over the time. It is clear to see that the outer leaflet always has larger 
-tangential velocity than the one from the inner leaflet and the mean angle $\theta(t)$ increases. 
-This inter-leaflet sliding phenomenon is consistent with what has been seen
+Figure~\ref{figure5} shows the schematic of the test where a particle pair is initially marked and we then track the positions of this particle pair over a period of time. 
+In this series of tests, we monitor the mean particle position change and mean angle $\theta(t)$ between particle relative positions with respect to the vesicle center over the time. It is clear to see that the outer leaflet always has larger tangential velocity than the one from the inner leaflet and the mean angle $\theta(t)$ increases. This inter-leaflet sliding phenomenon is consistent with what has been seen
 in articles in molecular dynamics simulations.
 
 %
@@ -764,16 +763,15 @@ in articles in molecular dynamics simulations.
 
 
 
-
-The inter-monolayer friction coefficient of the Janus-vesicle is calculated from the ratio of the friction force and the slip velocity. This quantity is given by 
+The inter-monolayer friction coefficient of the Janus-vesicle is calculated from the ratio of the mean friction force and the mean slip velocity. This quantity is given by 
 \begin{equation}
 b = \frac{\langle F_f\rangle}{\langle\int_{\Sigma_M} R \dot\theta \dif s\rangle},
 \end{equation}
 %
-where $\Sigma_M$ is the curve determined by the midplane and the relative radius $R$ is defined by the distance between the particle pair and the centroid of the Janus-vesicle. Hence, the mean rotational velocity 
+where $\Sigma_M$ is the curve determined by the midplane and the relative radius $R$ is defined by the distance between the midplane and the centroid of the Janus-vesicle. Hence, the mean rotational velocity 
 of the bilayer is given by the integral of $R\dot\theta$ over the midplane curve $\Sigma_M$.
-For the friction force $F_f$, we calculate tangential stresses near the bilayer from outer and inner fluid then 
-extrapolate the force value onto the midplane to acquire the pressure jump. The friction force is computed after integrating the pressure jump over the midplane $\Sigma_M$.
+For the friction force $F_f$, we integrate tangential stresses near the bilayer from outer and inner regions then 
+extrapolate the force value onto the midplane $\Sigma_M$ to acquire the force difference. 
 Table~\ref{table1} provides a series of numerical results for dimensional friction coefficients $b$. As expected,
 within the same order, the friction coefficients are independent of the shear rates.
 
@@ -790,7 +788,7 @@ within the same order, the friction coefficients are independent of the shear ra
 $\dot\gamma$ (ns$^{-1}$)        & 0.0033 & 0.0041 & 0.0049 & 0.0057 & 0.0066 & 0.0074 & 0.0082\\
 %$F_{f}$ (pN nm$^{-1}$)           & 1.84 & 4.90 & 11.36 & 8.16 & 6.14 &  17.69 &  24.33 \\[1ex]
 %$\dot\theta$ (nm ns$^{-1}$)           & $6.84\times10^{-5}$ & $1.31\times10^{-4}$ & $3.46\times10^{-4}$ & $2.32\times10^{-4}$ & $1.81\times10^{-4}$ & $4.91\times10^{-4}$ & $5.83\times10^{-4}$\\ [1ex]
-$b$ (pN$\cdot$ns nm$^{-2}$)    & 3.56 & 3.53 & 3.12 & 3.61 & 3.57 & 3.56 & 3.58\\ 
+$b$ (pN$\cdot$ns nm$^{-2}$)    & 3.56 & 3.53 & 3.52 & 3.61 & 3.57 & 3.56 & 3.58\\ 
 \hline    
 \end{tabular} 
 \label{table1}
@@ -805,13 +803,20 @@ Besides the tests of a Janus-vesicle in a shear flow, an interesting test can al
 {\bf v}_\infty = v_{max}\left[ 1 - \left( \frac{y}{wR_0}\right)^2 \right]{\bf e}_x,
 \end{equation}
 %
-where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the Janus-vesicle at $t=0$. Figure~\ref{figure6} gives a configuration for one specific case where the centroid of the Janus-vesicle is initially placed slightly above the $x$-axis at $(0,3)$. The parameters are $v_{max} = 8.0$, $w=10$ and $R_0=8$. The inset of Figure~\ref{figure7} shows the trajectory of the mean position in $y$-direction which decreases toward $y=1$ for a period of time and starts to have an oscillatory motion. Moreover, the Janus-vesicle performs tank-treading during the simulation and red arrows in Figure~\ref{figure6} indicate a counterclockwise movement. For this test run, an asymmetric slipper occurs and the reduced area for this configuration is $\sim0.9$. This matches the previous numerical tests in  \cite{Kaoui09} where a slipper-like shape occurs when the flow velocity is weak.
+where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the Janus-vesicle at $t=0$. 
+
+Figure~\ref{figure6} gives three configurations for one specific case where the centroid of the Janus-vesicle is initially placed slightly above the $x$-axis. The parameters are $v_{max} = 8.0$, $w=10$, and $R_0=8$. The red curves are the midplanes and a particle pair is marked in color. We observe that the deformed 
+Janus-vesicle has a counterclockwise movement and the shape of the vesicle approaches to an asymmetric
+slipper shape. For this test run, the reduced area for this configuration is $\sim0.9$ which matches the previous numerical tests in \cite{Kaoui09} where a slipper-like shape occurs when the flow velocity is weak and the reduced area is large. 
+A schematic of the setup is shown in Figure~\ref{figure7} where the blue horizontal line represents the mean
+$y$-position of all particles. The inset of Figure~\ref{figure7} shows the trajectory of the mean position in 
+$y$-direction which decreases toward $y=1$ for a period of time and starts to have an oscillatory motion. 
 
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{slipper.eps}
-  \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=8.0$ and the control parameter $w=10$. The configuration is the state when $t=10000$. Red arrows are directors of particle velocities. The inset shows the mean $y$-position over time. 
+  \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=32.8$ nm ns$^{-1}$, $R_0 = 20$ nm,  and the control parameter $w=10$. The configuration is the state when $t=\{0, 4000, 8000\}$. Red curves are midplanes of three configurations. 
   }
     \label{figure6}
 \end{figure}
@@ -820,7 +825,7 @@ where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_
 \begin{figure}
 \centering
 \includegraphics[height=2in]{parabolic.eps}
-  \caption{Vesicle under a parabolic flow where the strength of the flow $v_{max}=32.8$ nm ns$^{-1}$, $R_0 = 20$ nm,  and the control parameter $w=10$. The configuration is the state when $t=\{0, 4000, 8000\}$. Red curves are midplanes of three configurations. 
+  \caption{Schematic of a Janus-vesicle under a parabolic flow where the strength of the flow $v_{max}=32.8$ nm ns$^{-1}$, $R_0 = 20$ nm,  and the control parameter $w=10$. The configuration is generated when $t=10000$. The inset plots the trajectory of mean $y$-position over the time.
   }
     \label{figure7}
 \end{figure}
