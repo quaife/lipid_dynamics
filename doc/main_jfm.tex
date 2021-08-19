@@ -10,7 +10,7 @@
 \usepackage{commath}
 \usepackage{todonotes}
 %
-
+\usepackage[justification=justified]{caption}
 
 
 \hypersetup{
@@ -587,21 +587,28 @@ as required.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Jeffery Orbit}
-The preliminary test of the proposed model using the integral equation method is the numerical validation in Jeffery orbits of single ellipsoidal particle under a shear flow $\dot x = \dot\gamma y$ where $\dot\gamma$ is the shear rate. An ellipsoidal particle is initially placed with its center of mass fixed at the origin and the angle between the major axis and the $y$-axis is denoted as $\Theta = 0^\circ$. Based on the theoretical Jeffery orbits with respect to the target angle $\Theta(t)$, 
-
+We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
+The background flow is a shear flow $\uu_{\infty}(\xx) = \dot\gamma  \xx \cdot \mathbf{e}_2 \mathbf{e}_1$ with shear rate $\dot\gamma$
+and orthogonal unit vectors $\mathbf{e}_1$ and $\mathbf{e}_2$. 
+A single elliptical particle is suspended in the fluid with center at the origin.
+The Jeffrey orbit  
 \begin{equation}
-\Theta(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right),
+\label{eq:jeff}
+\Theta(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right)
 \end{equation}
-%
-where $a$, $b$ are semi-major and semi-minor axes, and the test aspect ratios of the particle are $2$ and $3$. Figure~\ref{figure1} shows that the proposed integral equation method has a perfect agreement with the theoretical result from the Jeffery orbits.
+gives the angle between the major axis and $\mathbf{e}_2$
+where $a$, $b$ are the semi-major and semi-minor axes. 
+We are assuming $\Theta(0) = 0$.
+Figure~\ref{figure1} shows that the angles coming from the integral equation method \eqref{eq:SKIE}-\eqref{eq:mobility2}
+are in complete agreement with the theoretical time course \eqref{eq:jeff}.  Hydrophobic attraction and repulsion are zero for a single particle. 
 
 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{JefferyOrbit2.eps}
 \includegraphics[width=0.4\textwidth]{JefferyOrbit3.eps}
-  \caption{Comparisons of the target angle $\Theta(t)$ versus time $t$ between the theoretical Jeffery orbit with $\dot\gamma=0.1$ and the result from the integral equation method. The schematic of the simulation setup is shown in the inset of the figure. Here two cases of aspect ratio are validated, $a/b = 2$ and $a/b=3$.
-  }
+  \caption{The figure compares the theoretical Jeffery orbit for $\Theta(t)$ and the result from the integral equation method. 
+    The insets show the simulation setup. The shear rate is $\dot\gamma=0.1$.}
     \label{figure1}
 \end{figure}
 
