@@ -141,12 +141,27 @@ model).
 In this work we extend the hybrid continuum model in~\cite{Fu20} for the
 Janus suspension to incorporate the collective hydrodynamics of a Janus
 suspension under various flows: a linear shear flow, an elongation flow,
-and a Poiseuille flow. We demonstrate that a vesicle made of Janus
-particles does behave like a vesicle in these flowing conditions.
-Furthermore we also show that the hybrid continuum model allows us to
-investigate the inter-leaflet slippage and rupture of a bilayer membrane
-due to an imposed flow. Finally, we compare a pair of interacting
-Janus-vesicles with a continuum model of a pair of vesicles.
+and a Poiseuille flow. We demonstrate that a Janus-vesicle behaves like
+a vesicle in these flowing conditions. In particular, we show that a
+Janus-vesicle undergoes tank-treading in a shear flow and vertical
+migration in a channel flow. Furthermore we use the hybrid continuum
+model to investigate the inter-leaflet slippage and rupture of a bilayer
+membrane due to an imposed flow. Finally, we compare a pair of
+interacting Janus-vesicles with a continuum model of a pair of vesicles.
+
+We require a numerical method to avoid unphysical contact between rigid
+Janus particles. Optimization-based contact methods introduce
+constraints, such as enforcing a non-positive space-time interference
+volume (\cite{lu-rah-zor2017, Lukas19, yan-cor-mal-vee-she2020}), which
+guarantee that the suspension remains contact-free. These methods do not
+introduce stiffness, but potentially expensive nonlinear complementarity
+problems must be solved at each time step.  Repulsion-based contact
+methods, which we employ, introduce an artificial repulsion force that
+increases in strength as two particles approach one another
+(\cite{glo-pan-hes-jos-per2001, fen-mic2004, kab-qua-bir2018}). Strong
+repulsion forces can introduce numerical stiffness, but with the
+presence of the hydrophobic forces, we maintain a contact-free
+suspensions with a relatively weak non-stiff repulsive force.
 
 This paper is organized as follows. In \S~\ref{sec:governing_eqs} we
 present the formulation for the Janus particles in a viscous fluid in
