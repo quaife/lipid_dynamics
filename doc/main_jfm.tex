@@ -27,6 +27,7 @@
 % Bryan's Marcros
 \renewcommand{\aa}{\mathbf{a}}
 \newcommand{\bd}{\partial}
+\newcommand{\dd}{\mathbf{d}}
 \newcommand{\DD}{\mathcal{D}}
 \newcommand{\eeta}{\boldsymbol{\eta}}
 \newcommand{\FF}{\mathbf{F}}
@@ -424,6 +425,36 @@ We note that other BIE formulations of the mobility problem use
 single-layer potentials (\cite{cor-gre-rac-vee2017, rac-gre2016}) or a
 combination of single- and double-layer potentials (\cite{cor-vee2018}).
 
+We validated our solver for \eqref{eq:SKIE}-\eqref{eq:mobility2} using a single elliptical particle 
+is suspended in a background shear flow; see Section \ref{sec:ves_in_shear}.
+Hydrophobic attraction and repulsion are zero for a single particle. 
+The angle of the ellipse's major axis coming from the integral equation method was in complete agreement 
+with the theoretical, Jeffrey oribit time-course \cite{}. 
+  
+%The Jeffrey orbit  
+%\begin{equation}
+%\label{eq:jeff}
+%\Theta(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right)
+%\end{equation}
+%gives the angle between the major axis and $\mathbf{e}_2$
+%where $a$, $b$ are the semi-major and semi-minor axes. 
+%We are assuming $\Theta(0) = 0$.
+% 
+
+%The background flow is a shear flow $\uu_{\infty}(\xx) = \dot\gamma  \xx \cdot \mathbf{e}_2 \mathbf{e}_1$ with shear rate $\dot\gamma$
+%and orthogonal unit vectors $\mathbf{e}_1$ and $\mathbf{e}_2$. 
+%A single elliptical particle is suspended in the fluid with center at the origin.
+%The Jeffrey orbit  
+%\begin{equation}
+%\label{eq:jeff}
+%\Theta(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right)
+%\end{equation}
+%gives the angle between the major axis and $\mathbf{e}_2$
+%where $a$, $b$ are the semi-major and semi-minor axes. 
+%We are assuming $\Theta(0) = 0$.
+%Figure~\ref{figure1} shows that the angles coming from the integral equation method \eqref{eq:SKIE}-\eqref{eq:mobility2}
+%are in complete agreement with the theoretical time course \eqref{eq:jeff}.  Hydrophobic attraction and repulsion are zero for a single particle. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Calculating the Hydrophobic Force}
 \label{subsec:calculating_force}
@@ -574,7 +605,7 @@ Combining the previous four equations gives the first equation in \eqref{eq:prej
 The argument for the second equation in \eqref{eq:prejump} is identical. 
 \end{proof}
 
-We have the jump relations for \eqref{eq:uidef}: 
+We have the following jump relations for \eqref{eq:uidef}: 
 \begin{equation}
 \label{eq:DLjump}
 \jump{u_i} = \sigma, \quad
@@ -601,31 +632,84 @@ as required.
 \section{\label{validation}Model Validation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Jeffery Orbit}
-We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
-The background flow is a shear flow $\uu_{\infty}(\xx) = \dot\gamma  \xx \cdot \mathbf{e}_2 \mathbf{e}_1$ with shear rate $\dot\gamma$
-and orthogonal unit vectors $\mathbf{e}_1$ and $\mathbf{e}_2$. 
-A single elliptical particle is suspended in the fluid with center at the origin.
-The Jeffrey orbit  
+
+\subsection{Model Parameters}
+In the present manuscript, the particles are disks with centre $\aa_i$, and director $\dd_i$.  
+The boundary conditions \eqref{eq:SLbc} are $f_i(\xx) = \tfrac{1}{2}(1 + \cos \theta_i)$ where $\theta_i$ is the angle between 
+$\xx - \aa_i$ and $\dd_i$.  The particle diameters are $l_0 = 2.5$ nm representing the characteristic thickness of monolayer. 
+The other physical parameters are 
 \begin{equation}
-\label{eq:jeff}
-\Theta(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right)
+\label{eq:parameters}
+\rho = 4 l_0,\quad \rho_0 = l_0,\quad \gamma = \text{4 pN nm}^{-1},\quad \mu = \text{1 cP}.
 \end{equation}
-gives the angle between the major axis and $\mathbf{e}_2$
-where $a$, $b$ are the semi-major and semi-minor axes. 
-We are assuming $\Theta(0) = 0$.
-Figure~\ref{figure1} shows that the angles coming from the integral equation method \eqref{eq:SKIE}-\eqref{eq:mobility2}
-are in complete agreement with the theoretical time course \eqref{eq:jeff}.  Hydrophobic attraction and repulsion are zero for a single particle. 
+We nondimensionalize the problem through the change of variables 
+\begin{equation}
+\label{eq:nondimensionalize}
+t \mapsto t \text{ ns}, \quad
+\xx \mapsto \xx \text{ nm}, \quad 
+\xx \mapsto \xx \text{ nm}, \quad 
+\uu \mapsto \uu \text{ nm ns}^{-1}, \quad 
+  p \mapsto p \text{ pN nm}^2.
+\end{equation}
+Here $\text{1 cP} = \text{1 pN ns nm}^{-2}$ is for the viscosity of water at room temperature.  
+For the rest of the manuscript, the time axes are for ns; the pressure $p$ and stress $\sigma$, $\mathbf{T}^{\mathrm{hydro}}$
+are for pN nm$^{-2}$.
 
+\subsection{Permeability}
+Vesicle membranes have a large area modulus $K_A$ and changes in surface are give rise to a membrane tension
+$\tilde \gamma = K_A(A/A_0 - 1)$ where $A$ is the membrane surface area and $A_0$ is the reference surface area in the non-tensed state. 
+Since we are dealing with two-dimensional vesicles, we replace $A$ and $A_0$ with the membrane arc length $L$ and reference length $L_0$
+respectively.  Thus, the tension in a stretched cylindrical vesicle membrane is 
+\begin{equation}
+\label{eq:stretch}
+\tilde \gamma = K_A\left(\frac{L}{L_0} - 1 \right).
+\end{equation}
+A stretched vesicles has a Laplace pressure 
+\begin{equation}
+\label{eq:LaplacePressure}
+\Delta p = \frac{\tilde \gamma}{R} 
+\end{equation}
+where $\Delta p$ is the difference in internal pressure to the pressure at infinity
+and  $R$ is the radius of the circular vesicle.  The factor 
+$R^{-1}$ is the total curvature since  the principle curvature in the direction of the cylinder is zero.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.4\textwidth]{JefferyOrbit2.eps}
-\includegraphics[width=0.4\textwidth]{JefferyOrbit3.eps}
-  \caption{The figure compares the theoretical Jeffery orbit for $\Theta(t)$ and the result from the integral equation method. 
-    The insets show the simulation setup. The shear rate is $\dot\gamma=0.1$.}
-    \label{figure1}
-\end{figure}
+The particles in our setup do not abut but rather have small gaps due to repulsive forces.
+The gaps allow for some fluid flux across the JP bilayer.  Aqueous flux is quantified by a permeability constant $P$ in the equation
+\begin{equation}
+\label{eq:perm}
+\frac{dA}{dt} = -P  L \Delta p.
+\end{equation}
+Combining \eqref{eq:stretch}, \eqref{eq:LaplacePressure}, and \eqref{eq:perm}, we can solve the for length $L$ 
+\begin{equation}
+L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t
+\end{equation}
+and compare with our data.
+
+%\subsection{Jeffery Orbit}
+%We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
+%The background flow is a shear flow $\uu_{\infty}(\xx) = \dot\gamma  \xx \cdot \mathbf{e}_2 \mathbf{e}_1$ with shear rate $\dot\gamma$
+%and orthogonal unit vectors $\mathbf{e}_1$ and $\mathbf{e}_2$. 
+%A single elliptical particle is suspended in the fluid with center at the origin.
+%The Jeffrey orbit  
+%\begin{equation}
+%\label{eq:jeff}
+%\Theta(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right)
+%\end{equation}
+%gives the angle between the major axis and $\mathbf{e}_2$
+%where $a$, $b$ are the semi-major and semi-minor axes. 
+%We are assuming $\Theta(0) = 0$.
+%Figure~\ref{figure1} shows that the angles coming from the integral equation method \eqref{eq:SKIE}-\eqref{eq:mobility2}
+%are in complete agreement with the theoretical time course \eqref{eq:jeff}.  Hydrophobic attraction and repulsion are zero for a single particle. 
+%
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.4\textwidth]{JefferyOrbit2.eps}
+%\includegraphics[width=0.4\textwidth]{JefferyOrbit3.eps}
+%  \caption{The figure compares the theoretical Jeffery orbit for $\Theta(t)$ and the result from the integral equation method. 
+%    The insets show the simulation setup. The shear rate is $\dot\gamma=0.1$.}
+%    \label{figure1}
+%\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Self-Assembly and Relaxation}
@@ -692,9 +776,16 @@ The dimensionless shear rate is given by $\chi = \dot\gamma \tau$ where $\dot\ga
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Vesicle in a Shear Flow}
-
+\label{sec:ves_in_shear}
 To study the deformation of a Janus-vesicle under a shear flow using the proposed algorithm, 
-we adopt a widely tested numerical simulation in both continuum and molecular dynamics models, single vesicle under a shear flow. The well known results indicate that the vesicle has tank-treading behavior when 
+we adopt a widely tested numerical simulation in both continuum and molecular dynamics models, single vesicle under a shear flow. 
+The background flow is a shear flow 
+\begin{equation}
+\uu_{\infty}(\xx) = \dot\gamma  \xx \cdot \mathbf{e}_2 \mathbf{e}_1
+\end{equation}
+with shear rate $\dot\gamma$
+and orthogonal unit vectors $\mathbf{e}_x$ and $\mathbf{e}_y$ for the horizontal and vertical directions respectively. 
+The well known results indicate that the vesicle has tank-treading behavior when 
 there is no viscosity contrast in both fluids inside and outside of the vesicle. Within the framework of the simulation setup, the proposed model provides a feature that the fluid viscosity is constant over the computational domain and it is capable of performing these simulations.
 
 The centroid of the pre-relaxed $58$-body Janus vesicle is initially placed at the origin then the shear flow 
@@ -763,7 +854,7 @@ The legend in panel (d) applies to both panels (a) and (c).
 
 
 
-
+\subsubsection{Intermonolayer friction}
 An interesting phenomenon also rises up in the proposed setup where the inter-monolayer slip occurs 
 between two leaflets. When a shear rate is large enough, take $\chi = 0.005$ as an example, 
 Figure~\ref{figure5} shows the schematic of the test where a particle pair is initially marked and we then track the positions of this particle pair over a period of time. 
@@ -786,22 +877,34 @@ in articles in molecular dynamics simulations.
 
 
 
-The inter-monolayer friction coefficient of the Janus-vesicle is calculated from the ratio of the mean friction force and the mean slip velocity. This quantity is given by 
+To calculate the inter-monolayer friction coefficient for the apposing JP leaflets, we let  
 \begin{equation}
-b = \frac{\langle F_f\rangle}{\langle\int_{\Sigma_M} R \dot\theta \dif s\rangle},
+b = \frac{\langle F\rangle}{\langle L \rangle \langle U\rangle },
 \end{equation}
 %
-where $\Sigma_M$ is the curve determined by the midplane and the relative radius $R$ is defined by the distance between the midplane and the centroid of the Janus-vesicle. Hence, the mean rotational velocity 
-of the bilayer is given by the integral of $R\dot\theta$ over the midplane curve $\Sigma_M$.
-For the friction force $F_f$, we integrate tangential stresses near the bilayer from outer and inner regions then 
-extrapolate the force value onto the midplane $\Sigma_M$ to acquire the force difference. 
-Table~\ref{table1} provides a series of numerical results for dimensional friction coefficients $b$ which are quantitatively close to literature such as ones in~\cite{sch-vla-mik2010} and~\cite{denOtter2007}. 
+where $\langle F\rangle = \langle \int_{\mathcal{C}_M} \jump{\ttau \cdot \sigma \cdot \nnu} \,ds\rangle$ 
+is the time-averaged, tangential force along the midplane curve $\mathcal{C}_m$. 
+The parameters $\langle L\rangle$ and $\langle U\rangle$ are the time-averaged midplane curve length and
+intermonolayer slip velocity respectively.  
 
-%As expected, within the same order, the friction coefficients are independent of the shear rates.
+We calculate $\langle F\rangle$ by first evaluating the smooth tangential force along curves a positive distance inside and 
+outside $\mathcal{C}_m$ respectively, and then interpolating at zero distance to give a force jump. 
+We have made a slight abuse of language: due to the problem being two-dimensional,
+the integral $\langle F\rangle$ is actually a force density per length which when divided by length gives the requisite force per area. 
+which when divided by length 
 
+Table~\ref{table1} provides dimensional friction coefficients $b$ for several shear rates
+and the results are in quantitative agreement with 
+values previously reported in the literature~\cite{sch-vla-mik2010} and~\cite{denOtter2007}.  
+The coefficients generally lie within the range 1 to 2 pN$\cdot$ns nm$^{-2}$ but there are some 
+outliers.  These outliers ($\dot\gamma = 0.0025$ ns$^{-1}$ and 
+$\dot\gamma = 0.0040$ ns$^{-1}$) correspond to slip velocities that are too low relative to shear rate (see the green and red curve in Figure \ref{figure5}: panel (c)).
+The JP vesicle consists of only  58 particles and so it is not surprising that discrete effects produce outliers. 
 
+\todo[inline]{If $B$ is the numerically calculated friction coefficient,  then 
+$b = B/2.5^3$ pN ns nm$^{-3}$ gives the dimensional value.
 
-
+If $P$ is the numerically calculated pressure, then $p = P/2.5$ pN nm$^{-2}$ is the dimensional pressure.} 
 
 \begin{table}
 \caption{Friction Coefficients}
@@ -824,7 +927,7 @@ $b$ (pN$\cdot$ns nm$^{-2}$)    & 1.38 &  5.43 & 1.37 &  1.33 & 8.07 & 1.94  & 1.
 
 Besides the tests of a Janus-vesicle in a shear flow, an interesting test can also use the proposed model and the setup. Consider a symmetric parabolic flow about the $x$-axis, \cite{Kaoui09} studied shapes of the red blood cell immersed in a parabolic flow using a continuum model. With a similar setup, the background flow for this set of simulations is given by
 \begin{equation}
-{\bf v}_\infty = v_{max}\left[ 1 - \left( \frac{y}{wR_0}\right)^2 \right]{\bf e}_x,
+\uu_\infty = v_{max}\left[ 1 - \left( \frac{y}{wR_0}\right)^2 \right]{\bf e}_x,
 \end{equation}
 %
 where $v_{max}$ is the flow strength and $w$ controls the shape of the flow. $R_0$ is defined as the radius of the Janus-vesicle at $t=0$. 
