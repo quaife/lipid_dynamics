@@ -177,12 +177,11 @@ for future directions in \S~\ref{conclusion}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations\label{sec:governing_eqs}}
 \subsection{\label{mobility}Mobility Problem}
-We consider an $N_b$-many body collection of particles suspended in a
-two-dimensional unbounded domain $\Omega$. The boundary of each particle
-is denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1 \cup \Gamma_2
-\cup \cdots \cup \Gamma_{N_b}$ and $\nnu_i$ is the particle outward
-normal. Assuming the inertial terms are negligible, the governing
-equations are
+We consider an $N_b$-many body collection of Janus particles suspended
+in a two-dimensional unbounded domain $\Omega$. The boundary of each
+particle is denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1 \cup
+\Gamma_2 \cup \cdots \cup \Gamma_{N_b}$. Assuming the inertial terms are negligible, the
+governing equations are
 \begin{alignat}{3}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
     && \xx \in \Omega, \\
@@ -190,9 +189,9 @@ equations are
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
 \end{alignat}
 %
-where $\uu$ is the velocity, $\mu$ is viscosity, $p$ is the pressure,
-and $\uu_\infty$ is the background flow. Since each particle $\Gamma_i$
-with center $\aa_i$ is a rigid body, its velocity satisfies 
+where $\uu$ is the velocity, $\mu$ is the constant viscosity, $p$ is the
+pressure, and $\uu_\infty$ is the background flow. Since each particle
+$\Gamma_i$ with center $\aa_i$ is a rigid body, its velocity satisfies 
 \begin{align}
   \vv(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad 
     \xx \in \Gamma_i,
@@ -217,9 +216,10 @@ gives
     (\ssigma \cdot \nnu_i) \, \dif s = 0, \qquad && i=1,\ldots,N_b,
 \end{alignat}
 where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
-\right)$ is the hydrodynamic stress tensor (pressure tensor).
-The process of finding the translational and angular velocities given a
-force and torque is referred to as the mobility problem.
+\right)$ is the hydrodynamic stress tensor (pressure tensor) and
+$\nnu_i$ is the particle outward normal. The process of finding the
+translational and angular velocities given the forces and torques is
+referred to as the mobility problem.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -232,7 +232,7 @@ the screened Laplace equation boundary value problem
   \label{eq:SL}
 -\rho^2 \Delta u + u &=0,            && \xx \in \Omega,\\
 \label{eq:SLbc}
-u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i, \\
+u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i,\; i=1,\ldots,N_b \\
 \label{eq:SLff}
 u &\to 0,                          &&|\xx| \to \infty,
 \end{alignat}
@@ -254,8 +254,8 @@ where
 = \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma \left(\tfrac{1}{2}|\nabla
   u|^2 \mathbf{I} - \nabla u  \nabla u^T\right)
 \end{align}
-is the hydrophobic stress tensor. The parameter $\gamma$ is interfacial
-tension. The forces $\FF_i^{\text{hydro}}$ and torques
+is the hydrophobic stress tensor. The parameter $\gamma$ is the
+interfacial tension. The forces $\FF_i^{\text{hydro}}$ and torques
 $T_i^{\text{hydro}}$ are responsible for forming particle aggregates
 that partially sequester the hydrophobic portions of the particle
 surface.
