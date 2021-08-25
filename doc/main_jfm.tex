@@ -122,7 +122,7 @@ their geometry, in a viscous solvent, Janus particles can aggregate to
 form a micelle, a patch of bilayer membrane with open ends, and a
 self-enclosed bilayer membrane (referred to as a Janus-vesicle). Using a
 hybrid continuum model for the interactions between amphiphilic
-particles in a viscous solvent and formulating it in a boundary integral
+particles in a viscous solvent and with a boundary integral
 formulation,~\cite{Fu20} showed that the membrane granularity during
 fusion and fission of bilayers can be accurately captured. 
 %This boundary integral formulation has inspired more recent work
@@ -145,7 +145,7 @@ suspension under various flows: a linear shear flow, an elongation flow,
 and a Poiseuille flow. We demonstrate that a Janus-vesicle behaves like
 a vesicle in these flowing conditions. In particular, we show that a
 Janus-vesicle undergoes tank-treading in a shear flow and vertical
-migration in a channel flow. Furthermore we use the hybrid continuum
+migration in a Poiseuille flow. Furthermore we use the hybrid continuum
 model to investigate the inter-leaflet slippage and rupture of a bilayer
 membrane due to an imposed flow. Finally, we compare a pair of
 interacting Janus-vesicles with a continuum model of a pair of vesicles.
@@ -153,26 +153,26 @@ interacting Janus-vesicles with a continuum model of a pair of vesicles.
 We require a numerical method to avoid unphysical contact between rigid
 Janus particles. Optimization-based contact methods introduce
 constraints, such as enforcing a non-positive space-time interference
-volume (\cite{lu-rah-zor2017, Lukas19, yan-cor-mal-vee-she2020}), which
-guarantee that the suspension remains contact-free. These methods do not
-introduce stiffness, but potentially expensive nonlinear complementarity
-problems must be solved at each time step.  Repulsion-based contact
-methods, which we employ, introduce an artificial repulsion force that
-increases in strength as two particles approach one another
-(\cite{glo-pan-hes-jos-per2001, fen-mic2004, kab-qua-bir2018}). Strong
-repulsion forces can introduce numerical stiffness, but with the
-presence of the hydrophobic forces, we maintain a contact-free
-suspensions with a relatively weak non-stiff repulsive force.
+volume (\cite{lu-rah-zor2017, Lukas19, yan-cor-mal-vee-she2020}). These
+methods do not introduce stiffness, but potentially expensive nonlinear
+complementarity problems must be solved at each time step.
+Repulsion-based contact methods, which we employ, introduce an
+artificial repulsion force that increases in strength as two particles
+approach one another (\cite{glo-pan-hes-jos-per2001, fen-mic2004,
+kab-qua-bir2018}). Strong repulsion forces can introduce numerical
+stiffness, but with the presence of the hydrophobic forces, we maintain
+contact-free suspensions with a relatively weak non-stiff repulsive
+force.
 
 This paper is organized as follows. In \S~\ref{sec:governing_eqs} we
 present the formulation for the Janus particles in a viscous fluid in
 the zero-Reynolds number regime. In \S~\ref{sec:IEM} we extend the
 hybrid continuum model for a Janus suspension to include the effects of
 a far-field flow via the mobility problem formulation. In
-\S~\ref{validation} we present validation of our model, and in
-\S~\ref{results} we present simulation results for a single and pair of
-Janus-vesicles under various flowing conditions. Finally we provide
-discussion and outlook for future directions in \S~\ref{conclusion}.
+\S~\ref{validation} we validate our model, and in \S~\ref{results} we
+present simulation results for a single and pair of Janus-vesicles under
+various flowing conditions. Finally we provide discussion and outlook
+for future directions in \S~\ref{conclusion}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations\label{sec:governing_eqs}}
