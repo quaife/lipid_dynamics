@@ -254,8 +254,9 @@ where
 = \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma \left(\tfrac{1}{2}|\nabla
   u|^2 \mathbf{I} - \nabla u  \nabla u^T\right)
 \end{align}
-is the hydrophobic stress tensor. The parameter $\gamma$ is the
-interfacial tension. The forces $\FF_i^{\text{hydro}}$ and torques
+is the hydrophobic stress tensor. The parameter $\gamma$ is
+the interfacial
+tension. The forces $\FF_i^{\text{hydro}}$ and torques
 $T_i^{\text{hydro}}$ are responsible for forming particle aggregates
 that partially sequester the hydrophobic portions of the particle
 surface.
@@ -323,9 +324,9 @@ equations (PDEs) in an unbounded complex domain. We recast both these
 PDEs as boundary integral equations (BIEs). We discretize each BIE at
 $N$ points on each of the $N_b$ particles with a collocation method.
 Integrals that are smooth are computed with the spectrally-accurate
-quadrature rule, and nearly-singular integrals, caused by close contact
+trapezoid rule, and nearly-singular integrals, caused by close contact
 between two particles, are computed with a high-order
-interpolation-based quadrature rule~\cite{qua-bir2014}. After
+interpolation-based quadrature rule (\cite{qua-bir2014}). After
 discretizing and applying quadrature, the resulting linear system is
 solved with matrix-free GMRES, and we guarantee that the number of GMRES
 iterations is mesh-independent by using second-kind BIEs.
@@ -333,13 +334,13 @@ iterations is mesh-independent by using second-kind BIEs.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{HAP Boundary Integral Equation}
-Similar to our previous work~\cite{Fu20}, we represent the HAP as a
+Similar to our previous work (\cite{Fu20}), we represent the HAP as a
 double-layer potential
 \begin{align}
   \label{eq:HAP_DLP}
   u(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \pderiv{}{\nnu_\yy}
     K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
-    \quad \xx \in \mathbb{R}^2,
+    \quad \xx \in \Omega,
 \end{align}
 where $K_0$ is the zeroth-order modified Bessel function of the first
 kind and the integral is taken in the sense of principle value whenever $\xx \in \partial \Omega$. 
@@ -353,17 +354,16 @@ second-kind integral equation
     \quad \xx \in \bd\Omega,
 \end{equation}
 the HAP double-layer potential~\eqref{eq:HAP_DLP} satisfies the screened
-Laplace equation~\eqref{eq:SL}--\eqref{eq:SLff}. We
-solve~\eqref{eq:screenedSKIE} with a collocation method. The integrals
-are approximated with either the trapezoid rule or with the
-interpolation-based near-singular integration scheme. This results in a
-$NN_b \times NN_b$ linear system that is solved with a block-diagonal
-preconditioned GMRES solver.
+Laplace equation~\eqref{eq:SL}--\eqref{eq:SLff}. After
+discretizing~\eqref{eq:screenedSKIE}, the result is a $NN_b \times NN_b$
+linear system that is solved with block-diagonal preconditioned GMRES.
 
 To calculate the hydrophobic force and torque, the gradient of the
 double-layer potential~\eqref{eq:HAP_DLP} must be computed on the
-boundary of each particle. In Section~\ref{subsec:calculating_force}, we
-show that the force and torque calculations can be expressed in terms of
+boundary of each particle. The resulting integrands are singular, and
+specialized quadrature would be necessary to approximate such integrals.
+Alternatively, in Section~\ref{subsec:calculating_force}, we show that
+the force and torque calculations can be expressed in terms of
 non-singular integrals.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
