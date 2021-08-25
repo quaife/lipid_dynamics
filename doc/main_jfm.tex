@@ -236,11 +236,11 @@ u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i,\; i=1,\ldots,N_b \\
 \label{eq:SLff}
 u &\to 0,                          &&|\xx| \to \infty,
 \end{alignat}
-where $0 \leq f_i \leq 1$ is a material label with $f_i = 0$, respectively $1$, representing
-hydrophilic, respectively hydrophobic, portions of the surface.  We assume that the $f_i$ and $\Gamma_i$ are
-smooth.  The parameter $\rho$ is the
-decay length of attraction. The forces and torques for this attraction
-are 
+where $0 \leq f_i \leq 1$ is a material label with $f_i = 0$,
+respectively $1$, representing hydrophilic, respectively hydrophobic,
+portions of the surface. We assume that the $f_i$ and $\Gamma_i$ are
+smooth. The parameter $\rho$ is the decay length of attraction. The
+forces and torques for this attraction are 
 \begin{align}
   \label{eq:hydrophobicAttraction}
   \FF_i^{\text{hydro}} = \int_{\Gamma_i} {\bf T}\cdot \nnu_i \, \dif s, 
@@ -267,13 +267,6 @@ $j$, we find the two points $\tilde{\xx}_i \in \Gamma_i$ and
 $\tilde{\xx}_j \in \Gamma_j$ that are closest to one another. We then
 define the repulsion force and torque
 \begin{align}
-%  \label{eq:REPUL}
-%  \FF_i^{\text{repul}} = \sum_{i=1}^{N_b} \frac{\xx_{ij} -
-%  \yy_{ij}}{\rho_{ij}} P(\rho_{ij}),\quad 
-%  T_i^{\text{repul}} = \sum_{i=1}^{N_b} (\xx_{ij} - \aa_i)^{\perp}\cdot
-%  \frac{\xx_{ij} - \yy_{ij}}{\rho_{ij}} P(\rho_{ij})
-%  \\
-%
   \label{eq:REPULforce}
   \FF_i^{\text{repul}} &= \sum_{j \neq i} 
     \frac{\tilde{\xx}_i - \tilde{\xx}_j}
@@ -368,8 +361,10 @@ non-singular integrals.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Mobility Problem Boundary Integral Equation}
-Following previous work of~\cite{Lukas19}, we represent the velocity as
-the sum of a double-layer potential and $N_b$ Stokeslets and Rotlets
+Following previous work of~\cite{Lukas19}, we use the velocity
+representation of~\cite{pow-mir1987}. In particular, we write the
+velocity as the sum of a double-layer potential and $N_b$ Stokeslets and
+Rotlets
 \begin{align}
   \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
@@ -389,15 +384,15 @@ centered at $\aa_i$ are
     \frac{\rr \otimes \rr}{\rho^2}\right) \FF_i, \\
   \RR(\xx,\aa_i)T_i &= \frac{1}{4\pi} \frac{\rr^\perp}{\rho^2} T_i,
 \end{align}
-where $\rr = \xx - \aa_i$ and $\rho = |\rr|$. The Stokeslet is
-torque-free and has force $\FF_i$ while the Rotlet is force-free and has
-torque $T_i$. Therefore, the velocity~\eqref{eq:velocity} satisfies the
-total force~\eqref{eq:force} and torque~\eqref{eq:torque} conditions
-if the double-layer potential $\DD[\eeta]$ is force- and torque-free.
-Matching the limit of~\eqref{eq:velocity} with the rigid body motion,
-and imposing that $\DD[\eeta]$ is force- and torque-free, the density
-function $\eeta$, translational velocity $\vv_i$, and angular velocity
-$\omega_i$ satisfy
+respectively, where $\rr = \xx - \aa_i$ and $\rho = |\rr|$. The
+Stokeslet is torque-free and has force $\FF_i$ while the Rotlet is
+force-free and has torque $T_i$. Therefore, the
+velocity~\eqref{eq:velocity} satisfies the total force~\eqref{eq:force}
+and torque~\eqref{eq:torque} conditions if the double-layer potential
+$\DD[\eeta]$ is force- and torque-free.  Matching the limit
+of~\eqref{eq:velocity} with the rigid body motion, and imposing that
+$\DD[\eeta]$ is force- and torque-free, the density function $\eeta$,
+translational velocity $\vv_i$, and angular velocity $\omega_i$ satisfy
 \begin{alignat}{3}
   \nonumber
   \vv_i + \omega_i (\xx - \aa_i)^\perp &= \uu_\infty(\xx)
@@ -414,22 +409,19 @@ $\omega_i$ satisfy
   &&i = 1,\ldots,N_b.
 \end{alignat}
 
-The trapezoid rule is used to approximate the integrals in
-equations~\eqref{eq:mobility1} and~\eqref{eq:mobility2}, and the
-double-layer potential equation~\eqref{eq:SKIE} is approximated with
-either the trapezoid rule, or the interpolation-based near-singular
-integration scheme. After discretizing and applying appropriate
-quadrature rules, the result is a $(2NN_b + 3N_b) \times (2NN_b + 3N_b)$
-linear system that we precondition with a block-diagonal preconditioner.
-We note that other BIE formulations of the mobility problem use
-single-layer potentials (\cite{cor-gre-rac-vee2017, rac-gre2016}) or a
-combination of single- and double-layer potentials (\cite{cor-vee2018}).
+After discretizing and applying appropriate quadrature rules, the result
+is a $(2NN_b + 3N_b) \times (2NN_b + 3N_b)$ linear system that we solve
+with block-diagonal preconditioned GMRES. We note that other BIE
+formulations of the mobility problem use single-layer potentials
+(\cite{cor-gre-rac-vee2017, rac-gre2016}) or a combination of single-
+and double-layer potentials (\cite{cor-vee2018}).
 
-We validated our solver for \eqref{eq:SKIE}-\eqref{eq:mobility2} using a single elliptical particle 
-is suspended in a background shear flow; see Section \ref{sec:ves_in_shear}.
-Hydrophobic attraction and repulsion are zero for a single particle. 
-The angle of the ellipse's major axis coming from the integral equation method was in complete agreement 
-with the theoretical, Jeffrey oribit time-course \cite{}. 
+We validated our solver for \eqref{eq:SKIE}-\eqref{eq:mobility2} using a
+single elliptical particle suspended in a background shear flow (see \S
+\ref{sec:ves_in_shear}). Hydrophobic attraction and repulsion are zero
+for a single particle. The angle of the ellipse's major axis coming from
+the integral equation method was in complete agreement with the
+theoretical, Jeffrey oribit time-course \cite{}. 
   
 %The Jeffrey orbit  
 %\begin{equation}
@@ -613,18 +605,16 @@ We have the following jump relations for \eqref{eq:uidef}:
 \jump{\nabla u_i} = \frac{\dif \sigma}{\dif s}\ttau,\quad
 \jump{\nabla v_i} = \mathbf{0},
 \end{equation}
-on $\Gamma_i$. We get 
+on $\Gamma_i$. Therefore,
 \begin{align*}
   \jump{{\bf T}_2\nnu}   &= \jump{\mathbf{S}(u_i,v_i)\nnu  +\mathbf{S}(v_i,u_i)\nnu} \\
   &= \jump{( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
 - 2\gamma\rho \nabla u_i  \nabla v_i^T - 2\gamma\rho \nabla v_i \nabla u_i^T)  \nnu}\\
 &= 2\gamma\rho^{-1} \sigma v_i \nnu + 2\gamma\rho \frac{d\sigma }{ds}\frac{dv_i }{ds} \nnu
-- 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dv_i }{d\nu} \ttau = \JJ_i,
+- 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dv_i }{d\nu} \ttau = \JJ_i.
 \end{align*}
-Combing  this with \eqref{eq:prejump}  gives  \eqref{eq:recipforcetorque}
+Combing this with~\eqref{eq:prejump} gives~\eqref{eq:recipforcetorque}
 as required. 
-
-
 
 
 
