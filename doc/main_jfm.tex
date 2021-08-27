@@ -450,11 +450,25 @@ theoretical, Jeffrey oribit time-course \cite{}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Calculating the Hydrophobic Force}
 \label{subsec:calculating_force}
-Once \eqref{eq:SKIE} has been solved for $\sigma$, we need to evaluate
-the integrals~\eqref{eq:hydrophobicAttraction}. These integrals involve
-the stress \eqref{eq:stress} which contains a singular integral for the
+Once \eqref{eq:screenedSKIE} has been solved for $\sigma$, we need to
+evaluate the integrals~\eqref{eq:hydrophobicAttraction} which are the
+HAP forces and torques. These integrals involve the
+stress~\eqref{eq:stress} which contains a singular integral for the
 gradient of the double-layer potential. To avoid singular integrals, we
-evaluate \eqref{eq:hydrophobicAttraction} using the identities
+first define
+\begin{align}
+  \label{eq:uidef}
+  v_i(\xx) = u(\xx) - u_i(\xx),
+\end{align}
+where
+\begin{align}
+  u_i(\xx) &= \frac{1}{2\pi} \int_{\Gamma_i} \pderiv{}{\nnu_\yy}
+    K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
+    \quad \xx \in \mathbb{R}^2.
+\end{align}
+That is, $v_i(\xx)$ is the double-layer potential~\eqref{eq:HAP_DLP}
+with $\Gamma_i$ excluded from $\bd\Omega$. Having defined $v_i$, we can
+show that
 \begin{align}
   \label{eq:recipforcetorque}
   \FF_i^{\text{hydro}} = \int_{\Gamma_i} \JJ_i \,\dif s,\quad
@@ -466,24 +480,47 @@ where
   \label{eq:jumpstress1}
   \JJ_{i} = 2\gamma\rho^{-1} \sigma v_i \nnu + 
     2\gamma\rho \frac{d\sigma}{ds} \frac{dv_i}{ds} \nnu -
-    2\gamma\rho \frac{d\sigma}{ds} \frac{dv_i}{d\nu} \ttau.
+    2\gamma\rho \frac{d\sigma}{ds} \frac{dv_i}{d\nnu} \ttau.
 \end{align}
-Here, $\ttau$ and $\frac{d}{ds}$ are the unit tangent  and arc length
-derivative for $\Gamma_i$, respectively, and
-\begin{equation}
-\label{eq:uidef}
-\begin{aligned}
-    u(\xx) &= u_i(\xx) + v_i(\xx),\\
-    u_i(\xx) &= \frac{1}{2\pi} \int_{\Gamma_i} \pderiv{}{\nnu_\yy}
-    K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
-    \quad \xx \in \mathbb{R}^2.
-\end{aligned}
-\end{equation}
-That is, $v_i(\xx)$ is the double-layer potential~\eqref{eq:HAP_DLP} with 
-$\Gamma_i$ excluded from $\bd\Omega$. The advantage in
-using \eqref{eq:recipforcetorque} over using \eqref{eq:hydrophobicAttraction} is that the components
-$\sigma$, $v_i$, $\frac{d\sigma}{ds}$, and $\frac{dv_i}{ds}$ of $\JJ_i$ are smooth functions,
-whereas the components of \eqref{eq:stress} are singular integrals.  
+Here, $\ttau$ and $\frac{d}{ds}$ are the unit tangent and arc length
+derivative for $\Gamma_i$, respectively, and $\nnu$ is the unit normal.
+The advantage in using~\eqref{eq:recipforcetorque} over
+using~\eqref{eq:hydrophobicAttraction} is that the components $\sigma$,
+$v_i$, $\frac{d\sigma}{ds}$, and $\frac{dv_i}{ds}$ of $\JJ_i$ are smooth
+functions, whereas the components of \eqref{eq:stress} are singular
+integrals. 
+
+%To avoid singular integrals, we
+%evaluate~\eqref{eq:hydrophobicAttraction} using the identities
+%\begin{align}
+%  \label{eq:recipforcetorque}
+%  \FF_i^{\text{hydro}} = \int_{\Gamma_i} \JJ_i \,\dif s,\quad
+%  T_i^{\text{hydro}}    = \int_{\Gamma_i} 
+%    (\xx - \aa_i)^{\perp} \cdot \JJ_i  \,\dif s,
+%\end{align}
+%where
+%\begin{align}
+%  \label{eq:jumpstress1}
+%  \JJ_{i} = 2\gamma\rho^{-1} \sigma v_i \nnu + 
+%    2\gamma\rho \frac{d\sigma}{ds} \frac{dv_i}{ds} \nnu -
+%    2\gamma\rho \frac{d\sigma}{ds} \frac{dv_i}{d\nu} \ttau.
+%\end{align}
+%Here, $\ttau$ and $\frac{d}{ds}$ are the unit tangent  and arc length
+%derivative for $\Gamma_i$, respectively, and
+%\begin{equation}
+%\label{eq:uidef}
+%\begin{aligned}
+%    u(\xx) &= u_i(\xx) + v_i(\xx),\\
+%    u_i(\xx) &= \frac{1}{2\pi} \int_{\Gamma_i} \pderiv{}{\nnu_\yy}
+%    K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
+%    \quad \xx \in \mathbb{R}^2.
+%\end{aligned}
+%\end{equation}
+%That is, $v_i(\xx)$ is the double-layer potential~\eqref{eq:HAP_DLP} with 
+%$\Gamma_i$ excluded from $\bd\Omega$. The advantage in
+%using \eqref{eq:recipforcetorque} over using \eqref{eq:hydrophobicAttraction} is that the components
+%$\sigma$, $v_i$, $\frac{d\sigma}{ds}$, and $\frac{dv_i}{ds}$ of $\JJ_i$ are smooth functions,
+%whereas the components of \eqref{eq:stress} are singular integrals.  
 
 To prove \eqref{eq:recipforcetorque}, let 
 \begin{align*}
