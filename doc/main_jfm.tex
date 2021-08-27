@@ -639,11 +639,20 @@ t \mapsto t \text{ ns}, \quad
 \xx \mapsto \xx \text{ nm}, \quad 
 \xx \mapsto \xx \text{ nm}, \quad 
 \uu \mapsto \uu \text{ nm ns}^{-1}, \quad 
-  p \mapsto p \text{ pN nm}^2.
+  p \mapsto p \text{ pN nm}^{-2}.
 \end{equation}
 Here $\text{1 cP} = \text{1 pN ns nm}^{-2}$ is for the viscosity of water at room temperature.  
 For the rest of the manuscript, the time axes are for ns; the pressure $p$ and stress $\sigma$, $\mathbf{T}^{\mathrm{hydro}}$
 are for pN nm$^{-2}$.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.32\textwidth]{PermPanelA.pdf}
+\includegraphics[width=0.32\textwidth]{PermPanelB.pdf}
+\includegraphics[width=0.32\textwidth]{PermPanelC.pdf}
+  \caption{}
+    \label{figure:permeability}
+\end{figure}
 
 \subsection{Permeability}
 Vesicle membranes have a large area modulus $K_A$ and changes in surface are give rise to a membrane tension
@@ -671,9 +680,23 @@ The gaps allow for some fluid flux across the JP bilayer.  Aqueous flux is quant
 \end{equation}
 Combining \eqref{eq:stretch}, \eqref{eq:LaplacePressure}, and \eqref{eq:perm}, we can solve the for length $L$ 
 \begin{equation}
+\label{eq:perm_solution}
 L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t
 \end{equation}
 and compare with our data.
+
+Data obtained for the above model.
+Case 1. 58 particles with diameter 2.5 nm and $L_0 = 107$ nm. The calculated stretching modulus was $K_A = 109$ pN nm$^{-1}$ which gives 26.5 kT nm$^{-2}$.
+This value is in good agreement with the 60 kT nm$^{-2}$ from experimental measurements.  The calculated permeability was 
+$0.0296$ nm$^3$ ns$^{-1}$ pN$^{-1}$ = 
+$0.0296$ $\mu$m s$^{-1}$ Pa$^{-1}$. (double check value; too large)
+Case 2. 117 particles with diameter 1.25 nm and $L_0 = 141$ nm. This data set gave  $K_A = 62$ pN nm$^{-1}$ which gives 15 kT nm$^{-2}$ which is small.
+For permeability we get 0.0566 $\mu$m s$^{-1}$ Pa$^{-1}$.
+
+The dashed lines in panel (a) are the graphs of \eqref{eq:perm_solution} for the 58 and 117 particle number cases, respectively. 
+Panels (b) and (c) show the select data points with plusses for 58 particles and times for 117 particles.  The solid lines are linear fits.
+The linear fits in panel (b) shows that $R\Delta P$ is proportional to relative stretching $L/L_0 - 1$. The proportionality constant is $K_A.$
+The linear fits in panel (c) shows that $L\Delta P$ is proportional to flux $\frac{dA}{dt}$.  The proportionality constant is the permeability coefficient $P.$
 
 %\subsection{Jeffery Orbit}
 %We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
