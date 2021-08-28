@@ -881,37 +881,33 @@ the clockwise tank-treading motion.
 \end{figure}
 %
 %
-\todo[inline]{Bryan left off here}
-In order to extract more physical properties of the proposed model, we
-track the total length of the bilayer structure, the reduced area over
-the time, and the excess length. Here the enclosed area and the total
-length of the structure are calculated from the midplane.  These results
-are shown in Figure~\ref{figure4} where we compare results from the use
-of a set of shear rates $\chi=\{0.002,0.0025,0.003,0.0035\}$.  The
-reduced area is given by $A^* = 4\pi A/L^2$ where $A$ the area, and $L$
-the total length of the Janus-vesicle with respect to the midplane.
-Furthermore, the excess length is given by
-$\Delta=L/\sqrt{A^*/\pi}-2\pi$.  Since the starting configuration is
-close to a circular shape, the reduced area decreases from a value very
-close to $1$. For the test cases in Figure~\ref{figure4}, the smooth
-curves in panel (a) are fitted using an exponential model given by $A^*
-= a_0 + b_0 \exp(-kt)$. Panel (b) shows that the decay rate $k$ is
-independent of the shear rate when the shear is above a threshold and
-the terminal reduced areas for each case of the shear rates are given in
-the inset. It is also clear that a slower shear rate generates a higher
-terminal reduced area and has a faster convergence then the high shear
-rate cases.  With a converging total arc length as shown in panel (c), a
-slower shear rate also produces a smaller excess length shown in panel
-(d).  In summary, the small oscillations in all results are due to the
-granularity of the Janus-vesicle which tend to having slightly
-non-smooth curves in simulations. Overall the total lengths of the
-bilayer have the same converging value in all test shear rates.
-Moreover, based on the numerical experiments, we observe that the reduce
-area converges relatively early when the shear rate is lower than
-$\chi=0.003$. 
 
-
-
+To extract additional physical properties of the proposed model, we
+compute the total length, reduced area, and excess length of the bilayer
+structure. The enclosed area and the total length of the structure are
+calculated from the midplane. The reduced area is $A^* = 4\pi A/L^2$
+where $A$ the area, and $L$ the total length of the Janus-vesicle, and
+the excess length is $\Delta=L/\sqrt{A^*/\pi}-2\pi$.
+Figure~\ref{figure4} shows these quantities for a Janus-vesicle
+suspended in a shear flow with shear rates
+$\chi=\{0.002,0.0025,0.003,0.0035\}$. Since the starting configuration
+is nearly circular, the reduced area decreases from an initial value
+close to $1$. The smooth curves in panel (a) are best fits of the
+exponential model $A^* = a_0 + b_0 \exp(-kt)$. Panel (b) shows that the
+decay rate $k$ is independent of the shear rate for sufficiently large
+shear rates, and the terminal reduced areas of each case are shown in
+the inset. We see that lower shear rates generate a higher final reduced
+area. In particular, we observe that the reduce area converges
+relatively early when the shear rate is lower than $\chi=0.003$. 
+%and has a faster convergence than the high shear rate cases.
+Panel (c) shows that the total arc length remains constant for all time
+with all four shear rates. Combining the behavior of the reduced area
+and the total arc length, the excess length must increase in time and be
+larger for higher shear rates as observed in panel (d). In all these
+results, there are oscillations that can be explained by the granularity
+of the Janus-vesicle which results in a midplane that is non-smooth.
+%Overall the total lengths of the bilayer have the same converging value
+%in all test shear rates.
 
 \begin{figure}
 \begin{center}
@@ -922,11 +918,14 @@ $\chi=0.003$.
 \includegraphics[height=2in]{ArcLength.pdf}
 \includegraphics[height=2in]{ExcLength.pdf}
 \end{center} 
-  \caption{(a) Total arc lengths of the midplanes over time in cases of different shear rates; (b) From exponential fits in panel (a), we obtain the decay rate $k$ for a number of different shear rates. The inset plots the terminal reduced areas; (c) Reduced area transitions over time; (d) Excess length of the midplanes.
-For all panels, a set of shear rates $\chi=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. 
-The legend in panel (d) applies to both panels (a) and (c). 
-  }
-    \label{figure4}
+  \caption{\label{figure4} (a) Total arc lengths of the midplanes over
+  time for four shear rates. (b) From exponential fits in panel (a), we
+  obtain the decay rate $k$ for a number of different shear rates. The
+  inset plots the terminal reduced areas. (c) Reduced area transitions
+  over time. (d) Excess length of the midplanes. For all panels, a set
+  of shear rates $\chi=\{0.002,0.0025,0.003,0.0035\}$ is used in
+  simulations. The legend in panel (d) applies to both panels (a) and
+  (c).}
 \end{figure}
 
 
