@@ -1118,10 +1118,10 @@ higher shear rates.
   \includegraphics[width=0.9\textwidth]{ShearTraj.eps}
 \end{center} 
   \caption{\label{figure9} The shape and trajectories of two
-  Janus-vesicles in a shear flow. The moving paths of the two centroids
-  are plotted in blue and red. The centroids are initially located on
-  the $x$-axis. For simulation time, $t = {0, 400,800,1200}$ for
-  (a)--(d) and $t = {1600, 2400, 3200, 4000}$ for (e)--(h).}
+  Janus-vesicles suspended in a shear flow. The moving paths of the two
+  centroids are plotted in blue and red. The centroids are initially
+  located on the $x$-axis. For simulation time, $t = {0, 400,800,1200}$
+  for (a)--(d) and $t = {1600, 2400, 3200, 4000}$ for (e)--(h).}
 \end{figure}
 
 \begin{figure}
@@ -1130,13 +1130,13 @@ higher shear rates.
 \includegraphics[height=2in]{N116_shear_2500.pdf}\\
 \includegraphics[height=2in]{N116_shear_5000.pdf}
 \includegraphics[height=2in]{N116_shear_7500.pdf}
-  \caption{\label{figure10} Two Janus-vesicles under a shear flow where
-  the dimensioneless shear rate is $\chi=0.005$. The initial
-  configuration is shown in panel (a). The background color is the
-  magnitude of fluid pressure. The color bar is identical for all
-  panels. Streamlines are plotted in purple. The insets of all panels
-  are generated from simulations of a continuum model of the vesicle and
-  the streamlines agree between the two models.}
+  \caption{\label{figure10} Two Janus-vesicles suspended in a shear flow
+  where the dimensioneless shear rate is $\chi=0.005$. The initial
+  configuration is shown in panel (a). The background color is the fluid
+  pressure. The color bar is identical for all panels. Streamlines are
+  plotted in purple. The insets of all panels are generated from
+  simulations of a continuum model of the vesicles and the streamlines
+  agree between the two models.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1164,22 +1164,23 @@ all panels. We include the numerical results using a continuum model in
 all insets and these comparisons give a qualitative agreement between
 two models.
 
-\todo[inline]{Bryan left off here}
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.9\textwidth]{ExtTraj.eps}
 \end{center} 
-  \caption{\label{figure11} Trajectories of different setups in
-  two-vesicle in an extensional flow and the moving paths of two
-  centroids of two Janus-vesicles are plotted in blue and red. (i) Both
-  centroids of two Janus-vesicles are on the $x$-axis; (ii) The centroid
-  of the left Janus-vesicle is $0.1$ unit above the $x$-axis; (iii) The
-  centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis
-  and the other one is $0.1$ unit below the $x$-axis; (iv) The centroid
-  of the left Janus-vesicle is $0.5$ unit above the $x$-axis and the
-  other one is $0.5$ unit below the $x$-axis; Figure~\ref{figure12}
-  presents the numerical results from the case (iii) and a consistent
-  flow rate is $\chi = 0.005$ for all cases.}
+  \caption{\label{figure11} Two Janus-vesicles suspended in
+  an extensional flow. The moving paths of the two centroids are plotted
+  in blue in red. Each row corresponds to a different initial placement
+  of the Janus-vesicles. The flow rate is $\chi = 0.005$ in all cases.
+  (i) Both Janus-vesicle centroids are on the $x$-axis. (ii) The
+  centroid of the left Janus-vesicle is $0.1$ units above the $x$-axis
+  and the right Janus-vesicle is on the $x$-axis. (iii) The centroid of
+  the left Janus-vesicle is $0.1$ units above the $x$-axis and the right
+  Janus-vesicle is $0.1$ units below the $x$-axis. (iv) The centroid of
+  the left Janus-vesicle is $0.5$ units above the $x$-axis and the
+  centroid of the right Janus-vesicle is $0.5$ units below the $x$-axis.
+  Figure~\ref{figure12} presents the numerical results from the case
+  (iii).}
 \end{figure}
 
 
@@ -1189,14 +1190,15 @@ two models.
 \includegraphics[height=2in]{N116_ext_2000.pdf}\\
 \includegraphics[height=2in]{N116_ext_4000.pdf}
 \includegraphics[height=2in]{N116_ext_6500.pdf}
-  \caption{\label{figure12} Two vesicles under an extensional flow where
-  the dimensioneless shear rate is $\chi=0.005$; The initial
-  configuration is shown in panel (a). The background color indicates
-  the magnitude of fluid pressure. From dark red to dark blue, it
-  represents the pressure varies from high to low values. The color bar
-  is valid for all panels. Streamlines are plotted in purple. The insets
-  show the results produced from using continuum model that the
-  streamlines have perfect agreements with the present results.}
+  \caption{\label{figure12} Two Janus-vesicles suspended in an
+  extensional flow where the dimensioneless extensional rate is
+  $\chi=0.005$. The centroid of the left Janus-vesicle is $0.1$ units
+  above the $x$-axis and the centroid of the right Janus-vesicle is
+  $0.1$ units below the $x$-axis. The initial configuration is shown in
+  panel (a). The background color is the fluid pressure. The color bar
+  is identical for all panels. Streamlines are plotted in purple. The
+  insets of all panels are generated from simulations of a continuum
+  model of the vesicles and the streamlines agree between the models.}
 \end{figure}
 
 
@@ -1206,19 +1208,38 @@ two models.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Extensional Flow}
 
+With a similar setup in the case of two Janus-vesicles in a shear flow,
+we use the same two pre-relaxed $58$-body Janus-vesicles and consider
+their dynamics in an extensional flow with extensional rate
+$\chi=0.005$. This extensional flow is stretching in the $y$ direction
+and squeezing in the $x$ direction. Figure~\ref{figure11} shows how the
+initial placement of the Janus-vesicles affects the dynamics. When two
+centroids are both placed symmetrically on the $x$-axis (case (i)), the
+Janus-vesicles reach a steady equilibrium. If one centroid is placed
+above the $x$-axis (case (ii)), the two Janus-vesicle move together and
+then upward. The migration of the right Janus-vesicle is a consequence
+of the adhesive effect created by the hydrophobic interactions. When the
+two centroids start on opposite sides of the $x$-axis (case (iii)), they
+eventually diverge from one another along the $y$-axis. Finally, when
+the two centroids start on opposite sides of the $x$-axis, but with a
+greater displacement (case (iv)), the Janus-vesicles move much faster
+toward $\pm y$-directions.
 
-With a similar setup in the case of two Janus-vesicles in a shear flow, we use the same two pre-relaxed $58$-body Janus-vesicles to perform the simulations when the flow type is an extensional flow with flow rate $\chi=0.005$. This extensional flow is stretching along the $y$ direction and squeezing in $x$ direction.
-Figure~\ref{figure11} provides simulation results when the center-of-mass positions are placed differently.
-One can notice that when two centroids are placed on the same horizontal level, two Janus-vesicles reach
-an equilibrium state without separation as shown in case (i). If only one centroid is placed above the $x$-axis, for instance, case (ii), two Janus-vesicle move together toward the upward. This is the consequence when the adhesive effect beats the flow strength. In case (iii), two centroids have a small bias in $y$-direction and they
-start to move apart along $\pm y$-direction. Finally, case (iv) has a larger initial separation in $y$-direction and two Janus-vesicle moves much faster toward $\pm y$-directions.
-
-Figure~\ref{figure12} shows numerical results when the centroids of two bodies are placed at
-$(-10,-0.1)$ and $(10,0.1)$, that is, case (iii) of Figure~\ref{figure11}. With this setup, 
-we can make sure that two Janus-vesicles will separate along $y$-direction eventually and we compare the results against a continuum model as shown in all insets. 
-Panels (b)-(d) show the transitions of two vesicles moving under an extensional flow.  Since two bilayers are close enough from the beginning of the run, two vesicles are first pushed toward each other then separate along the streamlines. In fluid pressure profiles, the pressure is initially high between the gap formed by two 
-Janus-vesicles and decreases during the separation. The short range repulsion plays an important role to avoid structure collisions and this result can be compared with some findings in continuum modeling simulations. 
-
+Figure~\ref{figure12} shows numerical results when the centroids of two
+bodies are placed at $(-10,-0.1)$ and $(10,0.1)$ (case (iii) from
+Figure~\ref{figure11}). With this setup, the two
+Janus-vesicles eventually separate along $y$-direction and we compare
+the results against a continuum model as shown in all insets.  Panels
+(b)--(d) show the transient behavior of the Janus-vesicles and continuum
+vesicles transitions under an extensional flow. In both the
+coarse-grained model and the continuum model, the vesicles initially
+converge towards one other and then diverge along the $y$-axis. The
+behavior of the streamlines in both cases are similar. The pressure is
+initially largest in the gap formed by two Janus-vesicles and decreases
+during the separation. The short range repulsion plays an important role
+to avoid structure collisions.
+%and this result can be
+%compared with some findings in continuum modeling simulations. 
 
 %may need to add more here
 
