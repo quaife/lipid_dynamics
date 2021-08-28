@@ -1139,48 +1139,47 @@ higher shear rates.
   the streamlines agree between the two models.}
 \end{figure}
 
-\todo[inline]{Bryan left off here}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Shear Flow}
 
-Figure~\ref{figure9} demonstrates the simulation results of two
-Janus-vesicles in a shear flow where the testing shear rate is
-$\chi=0.005$ and the flow is given by $\dot x = \chi y$. In panel (a),
-the starting frame, two center-of-mass positions are placed on the same
-horizontal level, at $(-10,0)$ and $(10,0)$. Since we already have a
-pre-relaxed $58$-body in previous sections, we duplicate the state to
-have the initial configuration (shown in panel (a)) in this section. In
-all panels, the blue and red curves represent the moving paths of two
-Janus-vesicle centroids and they move nearly a round when $t=4000$ as
-shown in panel (h). We observe that the rotation continues as time goes
-and an interesting event occurs in the simulation that an adhesive
-effect can be seen and tuned. In other words, the adhesive behavior will
-be absent when two vesicles are centered at a different level and are
-well separated in $y$-direction. 
+Figure~\ref{figure9} shows the simulation of two Janus-vesicles in a
+shear flow with shear rate $\chi=0.005$. Using the pre-relaxed $58$-body
+Janus-vesicle in previous sections, we duplicate the state to have the
+initial configuration shown in panel (a). The two centers of mass are at
+$(-10,0)$ and $(10,0)$. In all panels, the blue and red curves show the
+trajectory of the two Janus-vesicle centroids. They have nearly
+completed a full period by $t=4000$ as shown in panel (h). We also
+observe an adhesive effect between the two Janus-vesicles that is set up
+by the hydrophobic interactions and repulsive force. Similar dynamics
+have been observed between a pair of adhering vesicles in a shear flow
+(\cite{qua-vee-you2019, abb-far-ezz-ben-mis2021}). This adhesive
+behavior is absent when two Janus-vesicles are well-separated.
 
-The fluid pressure profiles of snapshots are given in
-Figure~\ref{figure10}. As expected, there is no pressure jump between
-the internal and external fluids from the beginning of the simulation
-and this is shown in the background pressure plot. Panels (b)-(d) show
-the configurations when $t = \{500,1000,1500\}$ and the streamlines are
-plotted in the background for all panels. We include the numerical
-results using a continuum model in all insets and these comparisons give
-a qualitative agreement between two models.
+The fluid pressure profiles snapshots are given in
+Figure~\ref{figure10}. Since the initial Janus-vesicles are pre-relaxed,
+there is initially no pressure jump between the internal and external
+fluids (panel (a)). Panels (b)--(d) show the configurations when $t =
+\{500,1000,1500\}$ and the streamlines are plotted in the background for
+all panels. We include the numerical results using a continuum model in
+all insets and these comparisons give a qualitative agreement between
+two models.
 
-
-%\todo[inline]{Migration pattern and/or separation distance. See Fig 8 in
-%JCP paper by Rahimian, Veerapaneni, and Biros.}
-
-
-
+\todo[inline]{Bryan left off here}
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.9\textwidth]{ExtTraj.eps}
 \end{center} 
-  \caption{Trajectories of different setups in two-vesicle in an extensional flow and the moving paths of two centroids of two Janus-vesicles are plotted in blue and red. (i) Both centroids of two Janus-vesicles are on the $x$-axis; (ii) The centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis; (iii) 
-  The centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis and the other one is $0.1$ unit below the $x$-axis; (iv) The centroid of the left Janus-vesicle is $0.5$ unit above the $x$-axis and the other one is $0.5$ unit below the $x$-axis; Figure~\ref{figure12} presents the numerical results from the case (iii) and a 
-  consistent flow rate is $\chi = 0.005$ for all cases.}
-    \label{figure11}
+  \caption{\label{figure11} Trajectories of different setups in
+  two-vesicle in an extensional flow and the moving paths of two
+  centroids of two Janus-vesicles are plotted in blue and red. (i) Both
+  centroids of two Janus-vesicles are on the $x$-axis; (ii) The centroid
+  of the left Janus-vesicle is $0.1$ unit above the $x$-axis; (iii) The
+  centroid of the left Janus-vesicle is $0.1$ unit above the $x$-axis
+  and the other one is $0.1$ unit below the $x$-axis; (iv) The centroid
+  of the left Janus-vesicle is $0.5$ unit above the $x$-axis and the
+  other one is $0.5$ unit below the $x$-axis; Figure~\ref{figure12}
+  presents the numerical results from the case (iii) and a consistent
+  flow rate is $\chi = 0.005$ for all cases.}
 \end{figure}
 
 
@@ -1190,9 +1189,14 @@ a qualitative agreement between two models.
 \includegraphics[height=2in]{N116_ext_2000.pdf}\\
 \includegraphics[height=2in]{N116_ext_4000.pdf}
 \includegraphics[height=2in]{N116_ext_6500.pdf}
-  \caption{Two vesicles under an extensional flow where the dimensioneless shear rate is $\chi=0.005$; The initial configuration is shown in panel (a). The background color indicates the magnitude of fluid pressure. From dark red to dark blue, it represents the the pressure varies from high to low values. The color bar is valid for all panels. Streamlines are plotted in purple. The insets show the results produced from using continuum model that the streamlines have perfect agreements with the present results.
-  }
-    \label{figure12}
+  \caption{\label{figure12} Two vesicles under an extensional flow where
+  the dimensioneless shear rate is $\chi=0.005$; The initial
+  configuration is shown in panel (a). The background color indicates
+  the magnitude of fluid pressure. From dark red to dark blue, it
+  represents the pressure varies from high to low values. The color bar
+  is valid for all panels. Streamlines are plotted in purple. The insets
+  show the results produced from using continuum model that the
+  streamlines have perfect agreements with the present results.}
 \end{figure}
 
 
