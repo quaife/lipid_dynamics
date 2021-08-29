@@ -1254,28 +1254,56 @@ to avoid structure collisions.
 
 
 
-This study proposes a continuum coarse-grained model for Janus-vesicle that focuses on the 
+This study proposes a continuum coarse-grained model for JP vesicle that focuses on the 
 hydrophobic interactions between lipids and hydrodynamic interactions.
 The mobility problem using integral equation methods combines the previously introduced HAP and the 
 revised hydrophobic force for obtaining particle dynamics. 
-The imposed forces and torques of Janus particles adopt not only HAP but a newly developed short 
+
+
+
+The imposed forces and torques of JP system adopt not only HAP but also a newly developed short 
 range repulsion given by \ref{eq:REPULforce} and \ref{eq:REPULtorque}.
 The hydrodynamic stress tensor calculated in the algorithm leads to examinations of permeable 
 membrane where the stretching modulus $K_A$ and the permeability constant $P$ can be obtained.
-
-
+%
 With the use of selected parameters, the numerical algorithm yields good qualitative results such as
-phenomena in tank-treading Janus-vesicle and asymmetric slipper shape in a parabolic flow. 
-We also demonstrate the membrane rupture in a flow at high shear rate and this makes a breakthrough 
-about having an idea for simulating such phenomenon different from other continuum modeling simulations.
-Inter-monolayer friction coefficients are then obtained and reported by calculating the pressure jumps and
-slip velocities with respect to the bilayer midplane.
-Results of two Janus-vesicles in flow simulations produce an outstanding agreement with ones generated 
-using continuum modeling.
+phenomena in tank-treading Janus-vesicle. The reduced area $A^*$ decreases as the shear rate increases
+ and we measure the equilibrium reduced area for a number of shear rates. The results show that the total
+ length of JP vesicle is conserved and the decay rate of the reduced area is independent of shear rates when shear rates $\dot\gamma$ are between $\sim0.005$ ns$^{-1}$ and $0.008$ ns$^{-1}$.
+Moreover, the proposed model can capture the membrane rupture when the shear flow is at a high shear rate
+and this makes a breakthrough about having an idea for simulating such phenomenon different from other continuum modeling simulations when the bilayer membrane is represented as a closed and continuous curve.
 
-Our future goal is to extend the current framework to a three-dimensional Janus-vesicle system. 
+
+Inter-monolayer friction coefficients $b$ are then obtained and reported by calculating the friction force $F_f$
+using pressure jumps and slip velocities with respect to the bilayer midplane.
+The resulting friction coefficients $b$ are about one order of magnitude smaller than ones in
+~\cite{denOtter2007} and this observation suggests that the granularity of the system is a factor of having 
+the discrepancy. The coarse-graining level of the JP vesicle has much longer length scale comparing against
+the molecular dynamics simulations, in addition, the repulsive potential creates gaps between JP where the 
+error in slip velocities piles up over the computational time.
+
+
+
+We also study the migration of a JP vesicle suspended in a parabolic flow and obtain the asymmetric slipper shape. The reduced area $A^*$ of the starting JP vesicle is closed to 1 and $A^*=0.9$ at the equilibrium
+state. A qualitative agreement has been made comparing with the two-dimensional inextensible membrane in continuum modeling simulations presented in~\cite{Kaoui09}. An interesting outcome is that the mean
+$y$-position of the JP vesicle performs an oscillatory motion toward the center of the Poiseuille flow and this
+may be caused by the granularity of the JP vesicle and choices of model parameters.
+
+
+Results of two JP vesicles suspended in both shear and extensional flows have outstanding agreements with ones generated using continuum modeling in streamlines comparisons.
+For two JP vesicles in shear flow, a demonstration of rotating behavior is presented and two overlapping 
+trajectories of two centroid are observed as expected when two starting centroids are placed on the same 
+horizontal level. The hydrophobic action and the repulsive potential lead to an adhesive effect when two 
+JP bilayers are within a short distance.
+We provide a series of results when two JP vesicles are suspended in extensional flow. We obtain similar results to the ones in \cite{qua-vee-you2019} when the reduced area $A^*$ is high and both centroids are placed 
+with some vertical displacements.
+
+
+
+Our future goal is to extend the current framework to a three-dimensional JP vesicle system. 
 The further implementation of adding a fast algorithms such as the fast multipole method is also a 
 practical approach.
+Having a more physical boundary conditions on JP boundaries with experimental data is a reasonable direction and the future comparison with the laboratory experiments can be accomplished.
 
 
 
