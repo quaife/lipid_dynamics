@@ -657,85 +657,148 @@ as required.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\label{validation}Model Validation}
+\section{\label{results}Numerical Results}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Model Parameters}
-In the present manuscript, the particles are disks with centre $\aa_i$, and director $\dd_i$.  
+To extract physical quantities of the target structure, 
+we select particles that are disks with diameter 
+$l_0 = 2.5$ nm representing the characteristic thickness of monolayer. 
 The boundary conditions \eqref{eq:SLbc} are $f_i(\xx) = \tfrac{1}{2}(1 + \cos \theta_i)$ where $\theta_i$ is the angle between 
-$\xx - \aa_i$ and $\dd_i$.  The particle diameters are $l_0 = 2.5$ nm representing the characteristic thickness of monolayer. 
+$\xx - \aa_i$ and $\dd_i$,  where the vectors $\aa_i$ and $\dd_i$ are the particle centre and director respectively. 
+This makes it so that the director points in the direction of the hydrophobic side of the JP. 
 The other physical parameters are 
-\begin{equation}
-\label{eq:parameters}
-\rho = 4 l_0,\quad \rho_0 = l_0,\quad \gamma = \text{4 pN nm}^{-1},\quad \mu = \text{1 cP}.
-\end{equation}
-We nondimensionalize the problem through the change of variables 
-\begin{equation}
-\label{eq:nondimensionalize}
-t \mapsto t \text{ ns}, \quad
-\xx \mapsto \xx \text{ nm}, \quad 
-\xx \mapsto \xx \text{ nm}, \quad 
-\uu \mapsto \uu \text{ nm ns}^{-1}, \quad 
-  p \mapsto p \text{ pN nm}^{-2}.
-\end{equation}
-Here $\text{1 cP} = \text{1 pN ns nm}^{-2}$ is for the viscosity of water at room temperature.  
-For the rest of the manuscript, the time axes are for ns; the pressure $p$ and stress $\sigma$, $\mathbf{T}^{\mathrm{hydro}}$
-are for pN nm$^{-2}$.
+%\begin{equation}
+%\label{eq:parameters}
+decay length $\rho = 2 l_0$, 
+repulsion length $\rho_0 = 0.2l_0$, 
+repulsion strength is $M=4.0$~$k_BT$, 
+interfacial particle tension $\gamma = \text{4.1 pN nm}^{-1}$, 
+and $\mu = \text{1 cP} = \text{1 pN ns nm}^{-2}$ for the viscosity of water at room temperature.  
+\cite{Fu20} have provide physical quantities static JP bilayers.%\end{equation}
 
+
+We consider the behavior of JP vesicles under various external flows.
+To do so, we nondimensionalize the problem through the change of variables 
+%\begin{equation}
+%\label{eq:nondimensionalize}
+$t \mapsto t \text{ ns},$ % \quad
+$\xx \mapsto \xx \text{ nm}$, %\quad 
+$\uu \mapsto \uu \text{ nm ns}^{-1}$, and %\quad 
+ $p \mapsto p \text{ pN nm}^{-2}$.
+%\end{equation}
+For the remainder of the manuscript, the time axes are for ns; the pressure $p$ and stresses $\sigma$ and $\mathbf{T}^{\mathrm{hydro}}$
+are for pN nm$^{-2}$. Finally, the
+dimensionless shear rate is $\chi = \dot\gamma \tau$ for the dimensional shear rate  $\dot\gamma$
+in ns$^{-1}$ and characteristic time $\tau = 1$ ns. 
+The time step size $\Delta t=0.2$ is used for all simulations in this work including the relaxation run.
+
+\subsection{Self-Assembly and Relaxation}
 \begin{figure}
 \centering
-\includegraphics[width=0.32\textwidth]{PermPanelA.pdf}
-\includegraphics[width=0.32\textwidth]{PermPanelB.pdf}
-\includegraphics[width=0.32\textwidth]{PermPanelC.pdf}
-  \caption{JP vesicle are suspended in a quiescent flow for relaxations where the reference arc lengths $L_0$ are $107$ nm, $218$ nm, and $141$ nm with particle diameters $2.5$ nm, $2.5$ nm, and $1.25$ nm, respectively. (a) The arc length $L$ decreases over time where the dashed curves represent the data and solid curves are linear fits; (b) A linear relationship between $R\Delta p$ and the relative difference $L/L_0-1$; (c) A linear relationship between aqueous flux $dA/dt$ and $L\Delta p$. For panels (b) and (c), the cross and asterisk symbols are numerical results and fitted by using solid lines.}
-    \label{figure:permeability}
+\includegraphics[height=2in]{relax2.eps}
+\includegraphics[height=2in]{relax.eps}\\
+\includegraphics[height=2.in]{N58_0pres.pdf}
+\includegraphics[height=2.in]{N58_5000pres.pdf}
+%  \todo[inline]{Put pressure of each of the two configurations below
+%  this.}
+  \caption{Vesicle relaxes under a quiescent flow. (a) The blue dashed and solid curves are mean magnitudes of the particle velocities in $x$ and $y$ directions, respectively. The red curve shows the decreasing trend of the mean magnitude of particle orientation change. The black dashed line shows the reference of how all magnitudes decay. (b) Bilayer configurations for $t=0$(black) and $t=1000$(red) with particle directors.
+  (c)-(d) show the fluid pressure profiles for $t=0$ and $t=1000$ where the background curves indicate the streamlines. In panel (c), the pressure value in internal fluid is much higher than the pressure outside of the bilayer. After the relaxation, this immersed permeable bilayer approaches a steady state as shown in panel (d).
+  }
+    \label{figure2}
 \end{figure}
 
+In order to examine the hydrodynamics interactions of JP vesicles, 
+it is necessary to have a suitable, initial, equilibrium vesicle. 
+This is ensures that the dynamics of the bilayer under a shear flow, for example, reach consistent outcomes.
+For our target vesicle, we start with $N=58$ JP arranged in two circular, apposing monolayers 
+of about $8$ length units. The directors of outer monolayer point inward and the directors of the inner monolayer point outward
+(figure~\ref{figure2}a).
+The JP of this chosen configuration are generally not in equilibrium.  Rather, the inter-particle distances and orientations 
+must make slight adjustments so that attraction and repulsion are balance. 
+Figure~\ref{figure2}(b) shows that the magnitudes of the mean velocity components 
+${\bf v}=\{v_x,v_y\}$ and the variation $\Delta \theta$ of the particle orientation decrease exponentially with an approximation decaying rate $\sim0.005$. 
+A local energy minimum and the equilibrium configuration is therefore rapidly attained.  
+The equilibrium configuration in figure~\ref{figure2}a is slightly elliptical.  The equilibrium eccentricity vanishes for larger $N_b$ (figure~\ref{figure2}e).
+
 \subsection{Permeability}
-Vesicle membranes have a large area modulus $K_A$ and changes in surface are give rise to a membrane tension
+Figures~\ref{figure2}c, d demonstrates that the initial, non-equilibrium configuration has a large internal fluid pressure
+that vanishes as the configuration tends toward the equilibrium state.  
+This suggests that the initial collection of JP is under tension and this tension is relaxed as fluid is expelled through the inter-particle spacing. 
+To make a comparison with membrane continuum mechanics, 
+lipid bilayer membranes have a large area modulus $K_A$ of about $240$ pN nm$^{-1}$ \cite{NAGLE} 
+and changes in surface area give rise to a membrane tension
 $\tilde \gamma = K_A(A/A_0 - 1)$ where $A$ is the membrane surface area and $A_0$ is the reference surface area in the non-tensed state. 
-Since we are dealing with two-dimensional vesicles, we replace $A$ and $A_0$ with the membrane arc length $L$ and reference length $L_0$
-respectively.  Thus, the tension in a stretched cylindrical vesicle membrane is 
+In the two-dimensional vesicles, the tension becomes 
 \begin{equation}
 \label{eq:stretch}
 \tilde \gamma = K_A\left(\frac{L}{L_0} - 1 \right).
 \end{equation}
-A stretched vesicles has a Laplace pressure 
+where $L$ and $L_0$ are the vesicle arc length and resting length, respectively. 
+A stretched, circular vesicles has a Laplace pressure 
 \begin{equation}
 \label{eq:LaplacePressure}
 \Delta p = \frac{\tilde \gamma}{R} 
 \end{equation}
 where $\Delta p$ is the difference in internal pressure to the pressure at infinity
-and  $R$ is the radius of the circular vesicle.  The factor 
+and $R$ is the radius of the circular vesicle.  The factor 
 $R^{-1}$ is the total curvature since  the principle curvature in the direction of the cylinder is zero.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.32\textwidth]{PermPanelB.pdf}
+\includegraphics[width=0.32\textwidth]{PermPanelC.pdf}
+\includegraphics[width=0.32\textwidth]{PermPanelA.pdf}
+  \caption{JP vesicle are suspended in a quiescent flow for relaxations where the reference arc lengths $L_0$ are $107$ nm, $218$ nm, and $141$ nm with particle diameters $2.5$ nm, $2.5$ nm, and $1.25$ nm, respectively. (a) The arc length $L$ decreases over time where the dashed curves represent the data and solid curves are linear fits; (b) A linear relationship between $R\Delta p$ and the relative difference $L/L_0-1$; (c) A linear relationship between aqueous flux $dA/dt$ and $L\Delta p$. For panels (b) and (c), the cross and asterisk symbols are numerical results and fitted by using solid lines.}
+    \label{figure:permeability}
+\end{figure}
+
+
+
 The particles in our setup do not abut but rather have small gaps due to repulsive forces.
-The gaps allow for some fluid flux across the JP bilayer.  Aqueous flux is quantified by a permeability constant $P$ in the equation
+The gaps allow for some fluid flux across the JP bilayer. 
+In membrane mechanics, aqueous flux is quantified the equation
 \begin{equation}
 \label{eq:perm}
 \frac{dA}{dt} = -P  L \Delta p.
 \end{equation}
-Combining \eqref{eq:stretch}, \eqref{eq:LaplacePressure}, and \eqref{eq:perm}, we can solve the for length $L$ 
+where $P$ is a hydraulic permeability constant \cite{CHABANON, QGY-Y}.
+
+The JP vesicle data is in complete agreement with the continuum mechanical model \eqref{eq:stretch}-\eqref{eq:perm_solution}.
+In figure \ref{figure:permeability}, we considered three configurations: a configuration with 58 particles 
+($L_0 = 107$ nm, plus symbols); a configuration with 119 particles ($L_0 = 218$ nm, asterick symbols);
+and finally a configuration with 117 particles but with diameter 1.25 nm rather than the usual 2.5 nm ($L_0 = 141$ nm, times symbols).
+Here $A$ and $L$ refer to the area and length of the mid plane curve separating the inner and outer monolayers. 
+(The values for $L_0$ are the asymptotic values for $L$ in figure \ref{figure:permeability}c).
+
+Figure \ref{figure:permeability}a plots the data for the Laplace pressure relationship \eqref{eq:LaplacePressure}.
+The pressure jump $\Delta p$ is the pressure at the particle center minus the far-field pressure (see figure \ref{figure2}c,d),
+$R = L/2\pi$ is the vesicle radius, and the horizontal axis is for the relative stretch. The solid lines are linear fits,
+showing that for circular JP vesicles, $R\Delta P$ is basically proportional to relative stretching $L/L_0 - 1$ . The proportionality constant is the same 
+for the 58 and 119 particle cases where the diameters are the same, suggesting that the stretching modulus $K_A$ of JP bilayers 
+is independent of the number of particles. The 117 particle case had diameters 1.25 nm and this data set gave a smaller stretching modulus  $K_A = 102$ pN nm$^{-1}$.  The interpretation is that changes to particle size, while keeping $\rho$, $M$, and $\rho_0$ fixed, lead to different physical properties. 
+
+Furthermore, figure \ref{figure:permeability}b and shows that $L\Delta P$ is proportional to $\frac{dA}{dt}$
+in accord with \eqref{eq:perm}.  The slopes of the linear fits give the hydraulic permeability coefficient $P.$
+The data provide $P = 0.0296$ nm$^3$ ns$^{-1}$ pN$^{-1}$ and $P = 0.0283$ nm$^3$ ns$^{-1}$ pN$^{-1}$
+for the 58 and 119 particle cases, respectively.  These values suggest that the JP bilayer permeability is independent 
+of particle number, as was the case for the stretching modulus. 
+The permeability for the 117 particle number case was larger, 0.0566 nm$^3$ ns$^{-1}$ pN$^{-1}$.  That is because 
+hydrophobic attraction vanishes with particle size, leading to larger gaps between the particles for the same repulsion. 
+The hydraulic permeability we calculate, however, is not in agreement with experimentally derived values and is larger by
+a few orders of magnitude. This discrepancy is perhaps due to inter-particle distance of the JP being relatively large to the 
+inter-molecular spacing of lipids in real bilayers.  In future studies, we can test this hypothesis be changing the repulsion strength and length 
+for example. 
+
+Since the vesicles in figure \ref{figure2}a are nearly we circular, we can 
+combine \eqref{eq:stretch}, \eqref{eq:LaplacePressure}, and \eqref{eq:perm}, to derive  
 \begin{equation}
 \label{eq:perm_solution}
-L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t
+L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t.
 \end{equation}
-and compare with our data.
-
-Data obtained for the above model.
-Case 1. 58 particles with diameter 2.5 nm and $L_0 = 107$ nm. The calculated stretching modulus was $K_A = 179$ pN nm$^{-1}$ which gives 43.6 kT nm$^{-2}$.
-This value is in good agreement with the 60 kT nm$^{-2}$ from experimental measurements.  The calculated permeability was 
-$0.0296$ nm$^3$ ns$^{-1}$ pN$^{-1}$ = 
-$0.0296$ $\mu$m s$^{-1}$ Pa$^{-1}$. %(double check value; too large)
-Case 2. 119 particles with diameter 2.5 nm and $L_0 = 218$ nm. This data set gave  $K_A = 160$ pN nm$^{-1}$ which gives 39 kT nm$^{-2}$. For permeability we get 0.0283 $\mu$m s$^{-1}$ Pa$^{-1}$.
-Case 3. 117 particles with diameter 1.25 nm and $L_0 = 141$ nm. This data set gave  $K_A = 102$ pN nm$^{-1}$ which gives 24.8 kT nm$^{-2}$ which is small.
-For permeability we get 0.0566 $\mu$m s$^{-1}$ Pa$^{-1}$.
-
-The dashed lines in panel (a) are the graphs of \eqref{eq:perm_solution} for the 58 and 117 particle number cases, respectively. 
-Panels (b) and (c) show the select data points with plusses for 58 particles and times for 117 particles.  The solid lines are linear fits.
-The linear fits in panel (b) shows that $R\Delta P$ is proportional to relative stretching $L/L_0 - 1$. The proportionality constant is $K_A.$
-The linear fits in panel (c) shows that $L\Delta P$ is proportional to flux $\frac{dA}{dt}$.  The proportionality constant is the permeability coefficient $P.$
+The theoretical time courses for \eqref{eq:perm_solution} are in good quantitative agreement with the JP data 
+for (figure \ref{figure:permeability}c).
 
 %\subsection{Jeffery Orbit}
 %We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
@@ -764,56 +827,14 @@ The linear fits in panel (c) shows that $L\Delta P$ is proportional to flux $\fr
 %\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Self-Assembly and Relaxation}
-
-In order to examine the dynamics of the Janus-vesicle using the HAP coupling with hydrodynamics interactions, for the target bilayer, a circular initial shape is chosen to perform the relaxation run. 
-This structure consists of $N=58$ disks with particle radius $r=0.5$ and the starting diameter of 
-the vesicle is about $8$ length units.
-The starting center of mass position of the Janus-vesicle is pinned at the origin and particle velocities are tracked to determine the initial configuration for later use such as single and multiple vesicle simulations. 
-The advantage of acquiring this configuration is to prevent some numerical instability issues when the minimum of the total energy is not achieved. 
-For instance, the dynamics of the bilayer under a shear flow may reach different outcomes or equilibrium states.
-Figure~\ref{figure2}(a) shows two sets of results: (1) the magnitudes of mean velocity components 
-${\bf v}=\{v_x,v_y\}$ decrease exponentially with an approximation decaying rate $\sim0.005$; (2) the variation of the mean particle orientation $\theta$ also decreases over a period of time as expected from the self-assembly property of the model. This implies that a local energy minimum and the equilibrium configuration are nearly attained. 
-The time step size $\Delta t=0.2$ is used for all simulations in this work including the relaxation run.
-Figure~\ref{figure2}(b) shows the configuration difference between starting and ending frames in the relaxation run. The Figure~\ref{figure2}(c)-(d) demonstrate the fluid pressure profile of two configurations at $t=0$ and $t=1000$. The starting fluid pressure inside the permeable Janus-vesicle decreases as expected.
-
-\begin{figure}
-\centering
-\includegraphics[height=2in]{relax.eps}
-\includegraphics[height=2in]{relax2.eps}\\
-\includegraphics[height=2.in]{N58_0pres.pdf}
-\includegraphics[height=2.in]{N58_5000pres.pdf}
-%  \todo[inline]{Put pressure of each of the two configurations below
-%  this.}
-  \caption{Vesicle relaxes under a quiescent flow. (a) The blue dashed and solid curves are mean magnitudes of the particle velocities in $x$ and $y$ directions, respectively. The red curve shows the decreasing trend of the mean magnitude of particle orientation change. The black dashed line shows the reference of how all magnitudes decay. (b) Bilayer configurations for $t=0$(black) and $t=1000$(red) with particle directors.
-  (c)-(d) show the fluid pressure profiles for $t=0$ and $t=1000$ where the background curves indicate the streamlines. In panel (c), the pressure value in internal fluid is much higher than the pressure outside of the bilayer. After the relaxation, this immersed permeable bilayer approaches a steady state as shown in panel (d).
-  }
-    \label{figure2}
-\end{figure}
-
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\label{results}Numerical Results}
 
 %\todo[inline]{Introduce dimensionless shear rate here (and check the numbers)}
 
-Following the relaxation experiments we consider the behavior of
-Janus-vesicles under various flows. To extract physical quantities of
-the target structure, we introduce the following scaling laws and the
-dimensionless units. The length unit is scaled by the length of
-phospholipids $l=2.5$~nm which is the diameter of each Janus particle.
-The force is scaled by the interfacial tension $\gamma=4.11$~pN
-nm$^{-1}$ from~\cite{Ryham16}. This means that the energy unit is scaled
-by $1\ k_BT$. We can then define the characteristic time scale $\tau =
-\mu l/\gamma = 0.61$~ns where the fluid viscosity is $\mu=1$ cP.  With
-the same framework,~\cite{Fu20} provide the bending rigidity
-$\kappa=8.51$~$k_BT$. For the model parameters, the decay length of
-attraction is $\rho = 2l = 5$~nm, the repulsion length scale is
-$\rho_0=0.5$, and the repulsion strength is $M=4.0$~$k_BT$. Finally, the
-dimensionless shear rate is $\chi = \dot\gamma \tau$ where $\dot\gamma$
-is the shear rate.
+
 
 
 %For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$
@@ -832,7 +853,7 @@ is the shear rate.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Vesicle in a Shear Flow}
 \label{sec:ves_in_shear}
-We begin by studying the dynamics of a single Janus-vesicle suspended in
+Our hydrodynamic simulation studies begin by studying the dynamics of a single JP vesicle suspended in
 the shear flow
 \begin{align}
   \uu_{\infty}(\xx) = \dot\gamma (\xx \cdot \mathbf{e}_y) \mathbf{e}_x,
