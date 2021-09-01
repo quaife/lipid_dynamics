@@ -1096,7 +1096,8 @@ $b$ (pN$\cdot$ns nm$^{-3}$)    & 0.22 & 0.87  & 0.22 &0.21 & 1.29 & 0.31 & 0.30\
 \subsubsection{Vesicle in a Parabolic Flow}
 Another interesting flow to consider is the parabolic flow
 \begin{align}
-  \uu_\infty = v_{max}\left[ 1 - \left( \frac{y}{wR_0}\right)^2
+  \uu_\infty = v_{max}\left[ 1 - \left( 
+    \frac{\xx \cdot \mathbf{e}_y}{wR_0}\right)^2
     \right]\mathbf{e}_x,
 \end{align}
 %
@@ -1104,8 +1105,8 @@ where $v_{max}$ is the flow strength and $w$ determines the shape of the
 flow. $R_0$ is defined as the radius of the JP vesicle at $t=0$. The
 behavior of a vesicle in this unbounded non-linear flow includes
 vertical migration, and depending on the flow rate and reduced area, the
-steady-state shape can be either an symmetric parachute or an asymmetric
-slipper~\cite{Kaoui09, cou-kao-pod-mis2008, dan-vla-mis2009}.
+steady-state shape can be either a symmetric parachute or an asymmetric
+slipper (\cite{Kaoui09, cou-kao-pod-mis2008, dan-vla-mis2009}).
 
 %Besides the tests of a JP vesicle in a shear flow, an interesting
 %test can also use the proposed model and the setup. Consider a
@@ -1120,16 +1121,16 @@ above the $x$-axis. The parameters are $v_{max} = 8.0$, $w=10$, and
 $R_0=8$. The red curves are the midplanes and a particle pair is marked
 in color. We observe that the deformed JP vesicle has a
 counterclockwise movement and the shape of the vesicle approaches an
-asymmetric slipper shape. For this test, the reduced area for this
+asymmetric slipper shape. Moreover, we observe inter-monolayer slip
+between the two leaflets. For this test, the reduced area for this
 configuration is approximately $0.9$ which matches the previous
 numerical tests in~\cite{Kaoui09} where a slipper-like shape occurs when
 the flow velocity is weak and the reduced area is large. A schematic of
 the setup is shown in Figure~\ref{figure7} where the blue horizontal
 line represents the mean $y$-position of all particles. The inset of
 Figure~\ref{figure7} shows the trajectory of the mean position in the
-$y$-direction which decreases toward $y=1$ for a period of time and then
-starts to have an oscillatory motion due to the granularity of the
-JP vesicle. 
+$y$-direction that decreases towards $y=1$ for a period of time and then
+starts to oscillate due to the granularity of the JP vesicle. 
 
 \begin{figure}
 \centering
@@ -1138,33 +1139,33 @@ JP vesicle.
   where the strength of the flow is $v_{max}=32.8$~nm ns$^{-1}$, $R_0 =
   20$~nm, and the control parameter is $w=25$~nm. The configuration is
   the state when $t=\{0, 4000, 8000\}$. The red curves are the
-  midplanes.}
+  midplanes. Inter-monolayer slip is observed by comparing the relative
+  locations of the blue and yellow particles.}
 \end{figure}
 
 
 \begin{figure}
 \centering
 \includegraphics[height=2in]{parabolic.eps}
-  \caption{\label{figure7} The schematic of a JP vesicle suspended in
-  a parabolic flow where the strength of the flow is $v_{max}=32.8$~nm
-  ns$^{-1}$, $R_0 = 20$~nm, and the control parameter is $w=25$~nm. The
-  configuration is generated when $t=10000$. The inset plots the
-  trajectory of mean $y$-position over the time.}
+  \caption{\label{figure7} The schematic of a JP vesicle suspended in a
+  parabolic flow where the strength of the flow is
+  $v_{max}=32.8$~nm~ns$^{-1}$, $R_0 = 20$~nm, and the control parameter
+  is $w=25$~nm. The configuration occurs when $t=10000$. The inset plots
+  the trajectory of mean $y$-position over time.}
 \end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Membrane Ruptures}
 
-With the choice of a large shear rate, a pore formation or a complete
-membrane rupture can occur. Figure~\ref{figure8} demonstrates how a
-vesicle under a shear flow with shear rate $\chi=0.1$ can rupture. The
-streamlines are included in these plots. An interesting phenomenon
-occurs in panels (c) and (d) where two separated bilayers move along the
-background shear flow symmetrically.  Consequently, a periodic motion
-for bilayers may occur with the choices of shear rates. One can expect
-that these two layers will flow far apart from each other for much
-higher shear rates.
+A pore formation or a complete membrane rupture can occur at large shear
+rates. Figure~\ref{figure8} demonstrates how a vesicle can rupture when
+suspended in a shear flow with shear rate $\chi=0.1$. The streamlines
+are included in these plots. An interesting phenomenon occurs in panels
+(c) and (d) where two separated bilayers move along the background shear
+flow symmetrically. Consequently, a periodic motion for bilayers may
+occur at certain shear rates. One can expect that these two layers will
+diverge from one another for much higher shear rates.
 
 \begin{figure}
 \centering
@@ -1174,11 +1175,11 @@ higher shear rates.
 \includegraphics[height=2in]{N58_rupt_400.pdf}
 \includegraphics[height=2in]{N58_rupt_600.pdf}
   \caption{\label{figure8} Membrane rupture occurs when the shear rate
-  exceeds a threshold. Here the shear rate is $\chi = 0.1$.  Starting
+  exceeds a threshold. Here the shear rate is $\chi = 0.1$. Starting
   with a circular shape (panel (a)), the vesicle is stretched by the
-  background flow and multiple pores appear (panel (b)).  Panels
-  (c)--(d) show the later states during the simulation. Streamlines are
-  included in each panel.}
+  background flow and multiple pores form (panel (b)). Panels (c)--(d)
+  show the later states during the simulation. Streamlines are included
+  in each panel.}
 \end{figure}
 
 
