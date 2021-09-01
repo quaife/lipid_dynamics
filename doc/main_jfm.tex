@@ -720,80 +720,99 @@ the relaxation run.
 \end{figure}
 
 In order to examine the hydrodynamics interactions of JP vesicles, it is
-necessary to have a suitable, initial, equilibrium vesicle.  This is
+necessary to have a suitable, initial, JP equilibrium vesicle. This
 ensures that the dynamics of the bilayer under a shear flow, for
-example, reach consistent outcomes.  For our target vesicle, we start
+example, reach consistent outcomes. For our target vesicle, we start
 with $N=58$ JP arranged in two circular, apposing monolayers of about
-$8$ length units. The directors of outer monolayer point inward and the
-directors of the inner monolayer point outward (Figure~\ref{figure2}a).
-The JP of this chosen configuration are generally not in equilibrium.
-Rather, the inter-particle distances and orientations must make slight
-adjustments so that attraction and repulsion are balance.
-Figure~\ref{figure2}(b) shows that the magnitudes of the mean velocity
-components ${\bf v}=\{v_x,v_y\}$ and the variation $\Delta \theta$ of
-the particle orientation decrease exponentially with an approximation
-decaying rate $\sim0.005$.  A local energy minimum and the equilibrium
-configuration is therefore rapidly attained.  The equilibrium
-configuration in Figure~\ref{figure2}a is slightly elliptical.  The
-equilibrium eccentricity vanishes for larger $N_b$
+$8$ length units. The directors of the outer monolayer point inward and
+the directors of the inner monolayer point outward
+(Figure~\ref{figure2}a).  The JP of this chosen configuration are
+generally not in equilibrium.  Rather, the inter-particle distances and
+orientations must make slight adjustments so that attraction and
+repulsion balance.  Figure~\ref{figure2}(b) shows that the magnitudes of
+the mean velocity components ${\bf v}=\{v_x,v_y\}$ and the variation
+$\Delta \theta$ of the particle orientation decrease exponentially with
+an approximation decaying rate $\sim0.005$. A local energy minimum and
+the equilibrium configuration is therefore rapidly attained. The
+equilibrium configuration in Figure~\ref{figure2}a is slightly
+elliptical. The equilibrium eccentricity vanishes for larger $N_b$
 (Figure~\ref{figure2}e).
 
 \subsection{Permeability}
-Figures~\ref{figure2}c, d demonstrates that the initial, non-equilibrium configuration has a large internal fluid pressure
+Figures~\ref{figure2}c and~\ref{figure2}d demonstrate that the initial, non-equilibrium configuration has a large internal fluid pressure
 that vanishes as the configuration tends toward the equilibrium state.  
-This suggests that the initial collection of JP is under tension and this tension is relaxed as fluid is expelled through the inter-particle spacing. 
-To make a comparison with membrane continuum mechanics, 
-lipid bilayer membranes have a large area modulus $K_A$ of about $240$ pN nm$^{-1}$ \cite{NAGLE} 
-and changes in surface area give rise to a membrane tension
-$\tilde \gamma = K_A(A/A_0 - 1)$ where $A$ is the membrane surface area and $A_0$ is the reference surface area in the non-tensed state. 
-In the two-dimensional vesicles, the tension becomes 
-\begin{equation}
+This suggests that the initial collection of JP is under tension and
+this tension is relaxed as fluid is expelled through the inter-particle
+spacing. To make a comparison with membrane continuum mechanics, lipid
+bilayer membranes have a large area modulus $K_A$ of about $240$ pN
+nm$^{-1}$ \cite{NAGLE} and changes in surface area give rise to a
+membrane tension $\tilde \gamma = K_A(A/A_0 - 1)$ where $A$ is the
+membrane surface area and $A_0$ is the reference surface area in the
+non-tensed state. In the two-dimensional vesicles, the tension becomes
+\begin{align}
 \label{eq:stretch}
-\tilde \gamma = K_A\left(\frac{L}{L_0} - 1 \right).
-\end{equation}
-where $L$ and $L_0$ are the vesicle arc length and resting length, respectively. 
-A stretched, circular vesicles has a Laplace pressure 
-\begin{equation}
+\tilde \gamma = K_A\left(\frac{L}{L_0} - 1 \right),
+\end{align}
+where $L$ and $L_0$ are the vesicle arc length and resting length,
+respectively. A stretched, circular vesicles has a Laplace pressure 
+\begin{align}
 \label{eq:LaplacePressure}
-\Delta p = \frac{\tilde \gamma}{R} 
-\end{equation}
-where $\Delta p$ is the difference in internal pressure to the pressure at infinity
-and $R$ is the radius of the circular vesicle.  The factor 
-$R^{-1}$ is the total curvature since  the principle curvature in the direction of the cylinder is zero.
+\Delta p = \frac{\tilde \gamma}{R},
+\end{align}
+where $\Delta p$ is the difference in internal pressure to the pressure
+at infinity and $R$ is the radius of the circular vesicle. The factor
+$R^{-1}$ is the total curvature since the principle curvature in the
+direction of the cylinder is zero.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.32\textwidth]{PermPanelB.pdf}
 \includegraphics[width=0.32\textwidth]{PermPanelC.pdf}
 \includegraphics[width=0.32\textwidth]{PermPanelA.pdf}
-  \caption{JP vesicle are suspended in a quiescent flow for relaxations where the reference arc lengths $L_0$ are $107$ nm, $218$ nm, and $141$ nm with particle diameters $2.5$ nm, $2.5$ nm, and $1.25$ nm, respectively. (a) The arc length $L$ decreases over time where the dashed curves represent the data and solid curves are linear fits; (b) A linear relationship between $R\Delta p$ and the relative difference $L/L_0-1$; (c) A linear relationship between aqueous flux $dA/dt$ and $L\Delta p$. For panels (b) and (c), the cross and asterisk symbols are numerical results and fitted by using solid lines.}
-    \label{figure:permeability}
+  \caption{\label{figure:permeability} JP vesicles are suspended in a
+  quiescent flow for relaxations where the reference arc lengths $L_0$
+  are $107$ nm, $218$ nm, and $141$ nm with particle diameters $2.5$ nm,
+  $2.5$ nm, and $1.25$ nm, respectively. (a) The arc length $L$
+  decreases over time where the dashed curves represent the data and
+  solid curves are linear fits; (b) A linear relationship between
+  $R\Delta p$ and the relative difference $L/L_0-1$; (c) A linear
+  relationship between aqueous flux $dA/dt$ and $L\Delta p$. For panels
+  (b) and (c), the cross and asterisk symbols are numerical results and
+  fitted by using solid lines.}
 \end{figure}
 
+The particles in our setup do not abut but rather have small gaps due to
+repulsive forces.  The gaps allow for some fluid flux across the JP
+bilayer.  In membrane mechanics, aqueous flux is quantified the equation
+\begin{equation} \label{eq:perm} \frac{dA}{dt} = -P  L \Delta p.
+\end{equation} where $P$ is a hydraulic permeability constant
+\cite{CHABANON, qua-gan-you2021}.
 
+The JP vesicle data is in complete agreement with the continuum
+mechanical model~\eqref{eq:stretch}-\eqref{eq:perm_solution}.  In
+Figure~\ref{figure:permeability}, we considered three configurations: a
+configuration with 58 particles ($L_0 = 107$ nm, plus symbols); a
+configuration with 119 particles ($L_0 = 218$ nm, asterick symbols); and
+finally a configuration with 117 particles but with diameter 1.25 nm
+rather than the usual 2.5 nm ($L_0 = 141$ nm, times symbols).  Here $A$
+and $L$ refer to the area and length of the mid plane curve separating
+the inner and outer monolayers.  (The values for $L_0$ are the
+asymptotic values for $L$ in Figure \ref{figure:permeability}c).
 
-The particles in our setup do not abut but rather have small gaps due to repulsive forces.
-The gaps allow for some fluid flux across the JP bilayer. 
-In membrane mechanics, aqueous flux is quantified the equation
-\begin{equation}
-\label{eq:perm}
-\frac{dA}{dt} = -P  L \Delta p.
-\end{equation}
-where $P$ is a hydraulic permeability constant \cite{CHABANON, QGY-Y}.
-
-The JP vesicle data is in complete agreement with the continuum mechanical model \eqref{eq:stretch}-\eqref{eq:perm_solution}.
-In Figure \ref{figure:permeability}, we considered three configurations: a configuration with 58 particles 
-($L_0 = 107$ nm, plus symbols); a configuration with 119 particles ($L_0 = 218$ nm, asterick symbols);
-and finally a configuration with 117 particles but with diameter 1.25 nm rather than the usual 2.5 nm ($L_0 = 141$ nm, times symbols).
-Here $A$ and $L$ refer to the area and length of the mid plane curve separating the inner and outer monolayers. 
-(The values for $L_0$ are the asymptotic values for $L$ in Figure \ref{figure:permeability}c).
-
-Figure~\ref{figure:permeability}a plots the data for the Laplace pressure relationship \eqref{eq:LaplacePressure}.
-The pressure jump $\Delta p$ is the pressure at the particle center minus the far-field pressure (see Figure~\ref{figure2}c,d),
-$R = L/2\pi$ is the vesicle radius, and the horizontal axis is for the relative stretch. The solid lines are linear fits,
-showing that for circular JP vesicles, $R\Delta P$ is basically proportional to relative stretching $L/L_0 - 1$ . The proportionality constant is the same 
-for the 58 and 119 particle cases where the diameters are the same, suggesting that the stretching modulus $K_A$ of JP bilayers 
-is independent of the number of particles. The 117 particle case had diameters 1.25 nm and this data set gave a smaller stretching modulus  $K_A = 102$ pN nm$^{-1}$.  The interpretation is that changes to particle size, while keeping $\rho$, $M$, and $\rho_0$ fixed, lead to different physical properties. 
+Figure~\ref{figure:permeability}a plots the data for the Laplace
+pressure relationship \eqref{eq:LaplacePressure}.  The pressure jump
+$\Delta p$ is the pressure at the particle center minus the far-field
+pressure (see Figure~\ref{figure2}c,d), $R = L/2\pi$ is the vesicle
+radius, and the horizontal axis is for the relative stretch. The solid
+lines are linear fits, showing that for circular JP vesicles, $R\Delta
+P$ is basically proportional to relative stretching $L/L_0 - 1$ . The
+proportionality constant is the same for the 58 and 119 particle cases
+where the diameters are the same, suggesting that the stretching modulus
+$K_A$ of JP bilayers is independent of the number of particles. The 117
+particle case had diameters 1.25 nm and this data set gave a smaller
+stretching modulus  $K_A = 102$ pN nm$^{-1}$.  The interpretation is
+that changes to particle size, while keeping $\rho$, $M$, and $\rho_0$
+fixed, lead to different physical properties. 
 
 Furthermore, Figure~\ref{figure:permeability}b and shows that $L\Delta
 P$ is proportional to $\frac{dA}{dt}$ in accord with \eqref{eq:perm}.
