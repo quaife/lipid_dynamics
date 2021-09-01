@@ -766,6 +766,7 @@ direction of the cylinder is zero.
 
 \begin{figure}
 \centering
+  \todo[inline]{The left figure is shorter than the other 2}
 \includegraphics[width=0.32\textwidth]{PermPanelB.pdf}
 \includegraphics[width=0.32\textwidth]{PermPanelC.pdf}
 \includegraphics[width=0.32\textwidth]{PermPanelA.pdf}
@@ -784,57 +785,60 @@ direction of the cylinder is zero.
 The particles in our setup do not abut but rather have small gaps due to
 repulsive forces.  The gaps allow for some fluid flux across the JP
 bilayer.  In membrane mechanics, aqueous flux is quantified the equation
-\begin{equation} \label{eq:perm} \frac{dA}{dt} = -P  L \Delta p.
-\end{equation} where $P$ is a hydraulic permeability constant
-\cite{CHABANON, qua-gan-you2021}.
+\begin{align}
+  \label{eq:perm} 
+  \frac{dA}{dt} = -P  L \Delta p,
+\end{align}
+where $P$ is a hydraulic permeability constant \cite{CHABANON,
+qua-gan-you2021}.
 
 The JP vesicle data is in complete agreement with the continuum
-mechanical model~\eqref{eq:stretch}-\eqref{eq:perm_solution}.  In
+mechanical model~\eqref{eq:stretch}--\eqref{eq:perm}. In
 Figure~\ref{figure:permeability}, we considered three configurations: a
 configuration with 58 particles ($L_0 = 107$ nm, plus symbols); a
-configuration with 119 particles ($L_0 = 218$ nm, asterick symbols); and
+configuration with 119 particles ($L_0 = 218$ nm, asterisk symbols); and
 finally a configuration with 117 particles but with diameter 1.25 nm
-rather than the usual 2.5 nm ($L_0 = 141$ nm, times symbols).  Here $A$
+rather than the usual 2.5 nm ($L_0 = 141$ nm, times symbols). Here $A$
 and $L$ refer to the area and length of the mid plane curve separating
-the inner and outer monolayers.  (The values for $L_0$ are the
-asymptotic values for $L$ in Figure \ref{figure:permeability}c).
+the inner and outer monolayers. The values for $L_0$ are the asymptotic
+values for $L$ in Figure~\ref{figure:permeability}c.
 
 Figure~\ref{figure:permeability}a plots the data for the Laplace
-pressure relationship \eqref{eq:LaplacePressure}.  The pressure jump
+pressure relationship \eqref{eq:LaplacePressure}. The pressure jump
 $\Delta p$ is the pressure at the particle center minus the far-field
-pressure (see Figure~\ref{figure2}c,d), $R = L/2\pi$ is the vesicle
-radius, and the horizontal axis is for the relative stretch. The solid
-lines are linear fits, showing that for circular JP vesicles, $R\Delta
-P$ is basically proportional to relative stretching $L/L_0 - 1$ . The
-proportionality constant is the same for the 58 and 119 particle cases
-where the diameters are the same, suggesting that the stretching modulus
-$K_A$ of JP bilayers is independent of the number of particles. The 117
-particle case had diameters 1.25 nm and this data set gave a smaller
-stretching modulus  $K_A = 102$ pN nm$^{-1}$.  The interpretation is
-that changes to particle size, while keeping $\rho$, $M$, and $\rho_0$
-fixed, lead to different physical properties. 
+pressure (see Figures~\ref{figure2}c and~\ref{figure2}d), $R = L/2\pi$
+is the vesicle radius, and the horizontal axis is the relative stretch.
+The solid lines are linear fits, showing that for circular JP vesicles,
+$R\Delta P$ is essentially proportional to the relative stretching
+$L/L_0 - 1$. The proportionality constant is the same for the 58 and 119
+particle cases where the diameters are the same, suggesting that the
+stretching modulus $K_A$ of JP bilayers is independent of the number of
+particles. The 117 particle case had diameters 1.25 nm and this data set
+results in a smaller stretching modulus of $K_A = 102$~pN~nm$^{-1}$. The
+interpretation is that changes to particle size, while keeping $\rho$,
+$M$, and $\rho_0$ fixed, lead to different physical properties.
 
 Furthermore, Figure~\ref{figure:permeability}b and shows that $L\Delta
 P$ is proportional to $\frac{dA}{dt}$ in accord with \eqref{eq:perm}.
 The slopes of the linear fits give the hydraulic permeability
-coefficient $P.$ The data provide $P = 0.0296$ nm$^3$ ns$^{-1}$
+coefficient $P$. The data provide $P = 0.0296$ nm$^3$ ns$^{-1}$
 pN$^{-1}$ and $P = 0.0283$ nm$^3$ ns$^{-1}$ pN$^{-1}$ for the 58 and 119
-particle cases, respectively.  These values suggest that the JP bilayer
+particle cases, respectively. These values suggest that the JP bilayer
 permeability is independent of particle number, as was the case for the
-stretching modulus.  The permeability for the 117 particle number case
-was larger, 0.0566 nm$^3$ ns$^{-1}$ pN$^{-1}$.  That is because
-hydrophobic attraction vanishes with particle size, leading to larger
-gaps between the particles for the same repulsion.  The hydraulic
-permeability we calculate, however, is not in agreement with
+stretching modulus. The permeability for the 117 particle number is
+0.0566 nm$^3$~ns$^{-1}$~pN$^{-1}$. The increase in the permeability is
+caused by the hydrophobic attraction vanishing with particle size,
+leading to larger gaps between the particles for the same repulsion. The
+hydraulic permeability we calculate, however, is not in agreement with
 experimentally derived values and is larger by a few orders of
 magnitude. This discrepancy is perhaps due to inter-particle distance of
 the JP being relatively large to the inter-molecular spacing of lipids
-in real bilayers.  In future studies, we can test this hypothesis be
+in real bilayers. In future studies, we can test this hypothesis be
 changing the repulsion strength and length for example. 
 
-Since the vesicles in Figure~\ref{figure2}a are nearly we circular, we
-can combine~\eqref{eq:stretch},~\eqref{eq:LaplacePressure},
-and~\eqref{eq:perm}, to derive  
+Since the vesicles in Figure~\ref{figure2}a are nearly circular, we can
+combine~\eqref{eq:stretch},~\eqref{eq:LaplacePressure},
+and~\eqref{eq:perm}, to derive
 \begin{align}
 \label{eq:perm_solution}
 L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t.
@@ -842,6 +846,9 @@ L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t.
 The theoretical time courses for \eqref{eq:perm_solution} are in good
 quantitative agreement with the JP data for
 (Figure~\ref{figure:permeability}c).
+
+
+
 
 %\subsection{Jeffery Orbit}
 %We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
