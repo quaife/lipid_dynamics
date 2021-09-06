@@ -1321,15 +1321,16 @@ structure collisions.
 \section{\label{conclusion}Conclusion}
 
 
-
-
 This study proposes a continuum coarse-grained model for JP vesicle that focuses on the 
-hydrophobic interactions between lipids and hydrodynamic interactions.
+hydrophobic interactions between coarse-grained lipids and hydrodynamic interactions.
+The hydrophobic interactions exhibit the self-assembly property of the lipid bilayer menbrane different from
+the pair-particle interactions adopted in molecular dynamics simulations. 
+The proposed energy potential combining with the mobility problems for rigid body motion leads to capture membrane mechanics such as deformations, stretching modulus, and the permeability of JP membrane in a solvent. This work is highly applicable with fields in material science and condensed matter physics such as Janus colloid (\cite{Bradley2017,Mallory2017}) and the setup can be easily tuned to match the experiments, 
+for instance, morphology of colloid surfactants. (\cite{Bradley2016})
+
+
 The mobility problem using integral equation methods combines the previously introduced HAP and the 
 revised hydrophobic force for obtaining particle dynamics. 
-
-
-
 The imposed forces and torques of JP system adopt not only HAP but also a newly developed short 
 range repulsion given by \ref{eq:REPULforce} and \ref{eq:REPULtorque}.
 The hydrodynamic stress tensor calculated in the algorithm leads to examinations of permeable 
@@ -1352,11 +1353,7 @@ the molecular dynamics simulations, in addition, the repulsive potential creates
 error in slip velocities piles up over the computational time.
 
 
-
-We also study the migration of a JP vesicle suspended in a parabolic flow and obtain the asymmetric slipper shape. The reduced area $A^*$ of the starting JP vesicle is close to 1 and $A^*=0.9$ at the equilibrium
-state. A qualitative agreement has been made comparing with the two-dimensional inextensible membrane in continuum modeling simulations presented in~\cite{Kaoui09}. An interesting outcome is that the mean
-$y$-position of the JP vesicle performs an oscillatory motion toward the center of the Poiseuille flow and this
-may be caused by the granularity of the JP vesicle and choices of model parameters.
+We also study the spatial migration of a JP vesicle suspended in a parabolic flow and obtain the asymmetric slipper shape. The reduced area $A^*$ of the starting JP vesicle is close to 1 and $A^*=0.9$ at the equilibrium state. A qualitative agreement has been made comparing with the two-dimensional inextensible membrane in continuum modeling simulations presented in~\cite{Kaoui09}. An interesting outcome is that the mean $y$-position of the JP vesicle performs an oscillatory motion toward the center of the Poiseuille flow and this may be caused by the granularity of the JP vesicle and choices of model parameters.
 
 
 Results of two JP vesicles suspended in both shear and extensional flows have outstanding agreements with ones generated using continuum modeling in streamlines comparisons.
@@ -1372,11 +1369,8 @@ with some vertical displacements.
 Our future goal is to extend the current framework to a three-dimensional JP vesicle system. 
 The further implementation of adding a fast algorithms such as the fast multipole method is also a 
 practical approach.
+One ongoing work is to add thermal fluctuations onto Janus particles to obtain Brownian dynamics is crucial for obtaining membrane diffusion.
 Having a more physical boundary conditions on JP boundaries with experimental data is a reasonable direction and the future comparison with the laboratory experiments can be accomplished.
-
-
-
-
 
 
 
