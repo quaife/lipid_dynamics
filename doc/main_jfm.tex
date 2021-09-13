@@ -1046,7 +1046,7 @@ simulations. (\cite{Zgorski2019,denOtter2007})
   the JP vesicle's center of mass. The configuration plots have two
   fixed particles marked in yellow and blue and labeled with the
   corresponding time $t=2000$ and $t=9000$. The midplane curve is
-  denoted as $C_m$. We see that the intermonolayer slip is largest
+  denoted as $C_M$. We see that the intermonolayer slip is largest
   for large shear rates.}
 \end{figure}
 
@@ -1058,17 +1058,17 @@ JP leaflets, we let
 %
 where 
 \begin{align}
-  \langle F\rangle = \left\langle \int_{\mathcal{C}_m} 
+  \langle F\rangle = \left\langle \int_{\mathcal{C}_M} 
     \jump{\ttau \cdot \sigma \cdot \nnu} \,\dif s \right\rangle
 \end{align}
 is the time-averaged, tangential force along the midplane curve
-$\mathcal{C}_m$. The parameters $\langle L\rangle$ and $\langle
+$\mathcal{C}_M$. The parameters $\langle L\rangle$ and $\langle
 U\rangle$ are the time-averaged midplane curve length and intermonolayer
 slip velocity, respectively.
 
 We calculate $\langle F\rangle$ by first evaluating the smooth
 tangential force along curves a positive distance inside and outside
-$\mathcal{C}_m$ respectively, and then interpolating at zero distance to
+$\mathcal{C}_M$ respectively, and then interpolating at zero distance to
 give a force jump. We have made a slight abuse of language: due to the
 problem being two-dimensional, the integral $\langle F\rangle$ is
 actually a force density per length which when divided by length gives
@@ -1351,7 +1351,11 @@ membrane. This work is highly applicable with fields in material science
 and condensed matter physics such as Janus
 colloids~(\cite{Bradley2017,Mallory2017}) and the setup can be tuned to
 match experimental results such as the morphology of colloid
-surfactants~(\cite{Bradley2016}).
+surfactants~(\cite{Bradley2016}). 
+%
+For instances, with the flexibility of the model, we can manage a specific boundary condition
+of particle surfaces based on the chemicals chosen in experiments. This can be an assist to 
+study of interparticle interactions and chemical compositions in industry.
 
 Integral equation methods are used to solve the mobility problem and the
 previously introduced HAP model. We describe a method to calculate the
@@ -1411,10 +1415,13 @@ results to the continuum model.
 Our future goals include extending the current framework to a
 three-dimensional JP vesicle system. This will require additional
 algorithmic implementation including a fast summation method such as the
-fast multipole method. Another research direction is to introduce
-thermal fluctuations into the model. This will result in Janus particles
-that include Brownian motion, and this is critical to understand
-membrane diffusion. Finally, a more physical boundary condition for the
+fast multipole method. Another research direction is to 
+%
+include the fluctuating hydrodynamics for Brownian suspensions~(\cite{Bao2018}),
+%introduce thermal fluctuations into the model. 
+%This will result in Janus particles that include Brownian motion, 
+and this is critical to understand membrane diffusion. 
+Finally, a more physical boundary condition for the
 HAP model will allow us to draw comparisons between computational and
 laboratory experiments.
 
