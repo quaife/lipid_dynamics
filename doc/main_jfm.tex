@@ -673,6 +673,26 @@ as required.
 \section{\label{results}Numerical Results}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+\centering
+\includegraphics[width=11.5cm]{Figure3_Wrapper.pdf}
+%\includegraphics[width=0.3\textwidth]{N58_0.pdf}
+%\includegraphics[width=0.3\textwidth]{N58_vel_0.pdf}\\
+%\includegraphics[width=0.3\textwidth]{N58_20000.pdf}
+%\includegraphics[width=0.3\textwidth]{N58_vel_20000.pdf}
+  \caption{\label{figure3} A JP vesicle suspended in a shear flow with
+  shear rate $\chi=0.0025$. (a) The initial configuration of a 58-body
+  JP vesicle where the black arrows point in the direction of the
+  hydrophobic side of the JP. (b) The particle velocities and
+  streamlines of the configuration in (a). The streamlines are plotted
+  in the background as solid curves and the red arrows represent the
+  particle velocities. (c) The deformed tank-treading JP vesicle at
+  $t=4000$. (d) The particle velocities and streamlines of the
+  configuration in (c). The background colors in panels (a) and (c)
+  represent the strength of the hydrophobic attraction potential. The
+  blue regions have the weakest action and the red regions in the
+  bilayer have the strongest action.}
+\end{figure}
 
 \subsection{Model Parameters}
 To extract physical quantities of the target structure, we select
@@ -709,7 +729,351 @@ ns$^{-1}$ and the characteristic time is $\tau = 1$~ns. The time step
 size $\Delta t=0.2$ is used for all simulations in this work including
 the relaxation run.
 
+
+
+
+
+
+
+%\subsection{Jeffery Orbit}
+%We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
+%The background flow is a shear flow $\uu_{\infty}(\xx) = \dot\gamma  \xx \cdot \mathbf{e}_2 \mathbf{e}_1$ with shear rate $\dot\gamma$
+%and orthogonal unit vectors $\mathbf{e}_1$ and $\mathbf{e}_2$. 
+%A single elliptical particle is suspended in the fluid with center at the origin.
+%The Jeffrey orbit  
+%\begin{equation}
+%\label{eq:jeff}
+%\Theta(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right)
+%\end{equation}
+%gives the angle between the major axis and $\mathbf{e}_2$
+%where $a$, $b$ are the semi-major and semi-minor axes. 
+%We are assuming $\Theta(0) = 0$.
+%Figure~\ref{figure1} shows that the angles coming from the integral equation method \eqref{eq:SKIE}-\eqref{eq:mobility2}
+%are in complete agreement with the theoretical time course \eqref{eq:jeff}.  Hydrophobic attraction and repulsion are zero for a single particle. 
+%
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.4\textwidth]{JefferyOrbit2.eps}
+%\includegraphics[width=0.4\textwidth]{JefferyOrbit3.eps}
+%  \caption{The figure compares the theoretical Jeffery orbit for $\Theta(t)$ and the result from the integral equation method. 
+%    The insets show the simulation setup. The shear rate is $\dot\gamma=0.1$.}
+%    \label{figure1}
+%\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\todo[inline]{Introduce dimensionless shear rate here (and check the numbers)}
+
+
+
+
+%For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$
+
+%referred from~\cite{Finken08} and~\cite{Shaqfeh11},
+%\begin{align}
+%  \chi = \dot\gamma \frac{\mu R_0^3}{\kappa},
+%\end{align}
+%%
+%where $\dot\gamma$ the dimensional shear rate, and $\mu$ the fluid viscosity.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tank-Treading Vesicles}
+\begin{figure}
+\begin{center}
+\includegraphics[width=13.5cm]{Figure4_Wrapper.pdf}
+%\hspace{-0.6cm}
+%\includegraphics[height=2in]{ReducedArea.pdf}
+%\hspace{0.6cm}
+%\includegraphics[height=2in]{DecayRate.eps}\\
+%\includegraphics[height=2in]{ArcLength.pdf}
+%\includegraphics[height=2in]{ExcLength.pdf}
+\end{center} 
+  \caption{\label{figure4} (a) The reduced area transitioning over time
+  for four different shear rates. The smooth curves are a best-fit
+  exponential curve. (b) The decay rate $k$, using the exponential fit
+  to the data in panel (a), for a number of shear rates. The inset shows
+  the terminal reduced areas. (c) The total arc lengths of the midplanes
+  over time for four shear rates. (d) The excess length of the
+  midplanes. For all panels, a set of shear rates
+  $\chi=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. The
+  legend in panel (d) applies to both panels (a) and (c).}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Vesicle in a Shear Flow}
+\label{sec:ves_in_shear}
+Our hydrodynamic simulation studies begin by studying the dynamics of a single JP vesicle suspended in
+the shear flow
+\begin{align}
+  \uu_{\infty}(\xx) = \dot\gamma (\xx \cdot \mathbf{e}_y) \mathbf{e}_x,
+\end{align}
+with shear rate $\dot\gamma$, and orthogonal unit vectors $\mathbf{e}_x$
+and $\mathbf{e}_y$ for the horizontal and vertical directions,
+respectively. It is well known that a vesicle has tank-treading behavior
+when there is no viscosity contrast between the fluids inside and
+outside of the vesicle.
+%Within the framework of the simulation setup,
+%the proposed model provides a feature that the fluid viscosity is
+%constant over the computational domain and it is capable of performing
+%these simulations.
+
+The centroid of the pre-relaxed $58$-body Janus vesicle is initially
+placed at the origin and the shear flow with a shear rate $\chi$ is
+applied. Figure~\ref{figure3} shows snapshots of the JP vesicle in the
+shear flow with a shear rate $\chi=0.0025$. Panels (a) and (b) show the
+initial shape obtained from the relaxation run and the deformed
+configurations of the JP vesicle at time $t=4000$ are in panels (c) and
+(d). The background color in panels (a) and (c) is the strength of the
+action of the hydrophobic attraction. Red corresponds to a strong action
+while blue is a weak action. The hydrophobic layer clearly has the
+strongest action. To demonstrate the tank-treading behavior of the
+vesicle, panels (b) and (d) provide the streamlines of the fluid
+velocity around the JP vesicle. In panel (d), we can clearly observe the
+clockwise tank-treading motion.
+
+
+
+%
+
+To extract additional physical properties of the proposed model, we
+compute the total length, reduced area, and excess length of the bilayer
+structure. The enclosed area and the total length of the structure are
+calculated from the midplane. The reduced area is $A^* = 4\pi A/L^2$
+where $A$ is the area, and $L$ is the total length of the JP vesicle,
+and the excess length is $\Delta=L/\sqrt{A^*/\pi}-2\pi$.
+Figure~\ref{figure4} shows these quantities for a JP vesicle suspended
+in a shear flow with shear rates $\chi=\{0.002,0.0025,0.003,0.0035\}$.
+Since the starting configuration is nearly circular, the reduced area
+decreases from an initial value close to $1$. The smooth curves in panel
+(a) are best fits of the exponential model $A^* = a_0 + b_0 \exp(-kt)$.
+Panel (b) shows that the decay rate $k$ is independent of the shear rate
+for sufficiently large shear rates, and the terminal reduced areas of
+each case are shown in the inset. We see that lower shear rates generate
+a higher final reduced area. In particular, we observe that the reduce
+area converges relatively early when the shear rate is lower than
+$\chi=0.003$. 
+%and has a faster convergence than the high shear rate cases.
+Panel (c) shows that the total arc length remains constant for all time
+with all four shear rates. Combining the behavior of the reduced area
+and the total arc length, the excess length must increase in time and be
+larger for higher shear rates as observed in panel (d). In all these
+results, there are oscillations that can be explained by the granularity
+of the JP vesicle which results in a midplane that is non-smooth.
+%Overall the total lengths of the bilayer have the same converging value
+%in all test shear rates.
+
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=11cm]{Figure5_Wrapper.pdf}\\
+\includegraphics[width=11cm]{Figure5B_Wrapper.pdf}
+%\includegraphics[width=0.5\textwidth]{Slip.eps}\\
+%\includegraphics[width=0.4\textwidth]{Slip2.eps}
+\end{center} 
+  \caption{\label{figure5} The schematic of the inter-monolayer slip over
+  time. Taking a shear rate $\chi=0.005$ as an example, we denote the
+  mean angle between each particle pair $\theta(t)$ where the angle is
+  calculated from the relative position of the particles with respect to
+  the JP vesicle's center of mass. The configuration plots have two
+  fixed particles marked in yellow and blue and labeled with the
+  corresponding time $t=2000$ and $t=9000$. The midplane curve is
+  denoted as $C_M$. We see that the inter-monolayer slip is largest
+  for large shear rates.}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Inter-Monolayer Friction}
+
+The granulated JP vesicle allows us to consider inter-monolayer slip
+between the two leaflets. When the shear rate is sufficiently large,
+take $\chi = 0.005$ as an example, Figure~\ref{figure5} shows slip
+between a pair of particles over time. The pair we consider are colored
+in blue and yellow. In this series of tests, we compute the mean
+particle position and mean angle $\theta(t)$ between the particle
+relative positions with respect to the vesicle center. It is clear that
+the outer leaflet has larger tangential velocity than the inner leaflet
+since $\theta(t)$ increases. This inter-leaflet sliding phenomenon is
+consistent with what has been seen in articles in molecular dynamics
+simulations. (\cite{Zgorski2019,denOtter2007})
+
+
+
+To calculate the inter-monolayer friction coefficient for the apposing
+JP leaflets, we let
+\begin{align}
+  b = \frac{\langle F\rangle}{\langle L \rangle \langle U\rangle},
+\end{align}
+%
+where 
+\begin{align}
+  \langle F\rangle = \left\langle \int_{\mathcal{C}_M} 
+    \jump{\ttau \cdot \sigma \cdot \nnu} \,\dif s \right\rangle
+\end{align}
+is the time-averaged, tangential force along the midplane curve
+$\mathcal{C}_M$. The parameters $\langle L\rangle$ and $\langle
+U\rangle$ are the time-averaged midplane curve length and intermonolayer
+slip velocity, respectively.
+
+We calculate $\langle F\rangle$ by first evaluating the smooth
+tangential force along curves a positive distance inside and outside
+$\mathcal{C}_M$ respectively, and then interpolating at zero distance to
+give a force jump. We have made a slight abuse of language: due to the
+problem being two-dimensional, the integral $\langle F\rangle$ is
+actually a force density per length which when divided by length gives
+the requisite force per area. 
+%which when divided by length 
+
+Table~\ref{table1} provides dimensional friction coefficients $b$ for
+several shear rates and the results are in quantitative agreement with
+values previously reported in the literature (\cite{sch-vla-mik2010}
+and~\cite{denOtter2007}). The coefficients generally lie within the
+range 0.2 to 0.3 pN$\cdot$ns nm$^{-3}$ but there are some outliers.
+These outliers ($\dot\gamma = 0.0041$ ns$^{-1}$ and $\dot\gamma =
+0.0066$ ns$^{-1}$) correspond to slip velocities that are too low
+relative to the shear rate (see the green and red curve in
+Figure~\ref{figure5}(c)). The JP vesicle consists of only 58 particles
+and so it is not surprising that discrete effects produce outliers.
+
+%\todo[inline]{If $B$ is the numerically calculated friction coefficient,
+%then $b = B/2.5^3$ pN ns nm$^{-3}$ gives the dimensional value.
+%
+%If $P$ is the numerically calculated pressure, then $p = P/2.5$ pN
+%nm$^{-2}$ is the dimensional pressure.} 
+
+\begin{table}
+\caption{Friction Coefficients}
+\centering
+\begin{tabular}{c c c c c c c c }
+ $\chi$ & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  \\
+\hline                    
+$\dot\gamma$ (ns$^{-1}$)        & 0.0033 & 0.0041 & 0.0049 & 0.0057 & 0.0066 & 0.0074 & 0.0082\\
+%$F_{f}$ (pN nm$^{-1}$)           & 1.84 & 4.90 & 11.36 & 8.16 & 6.14 &  17.69 &  24.33 \\[1ex]
+%$\dot\theta$ (nm ns$^{-1}$)           & $6.84\times10^{-5}$ & $1.31\times10^{-4}$ & $3.46\times10^{-4}$ & $2.32\times10^{-4}$ & $1.81\times10^{-4}$ & $4.91\times10^{-4}$ & $5.83\times10^{-4}$\\ [1ex]
+$b$ (pN$\cdot$ns nm$^{-3}$)    & 0.22 & 0.87  & 0.22 &0.21 & 1.29 & 0.31 & 0.30\\ 
+\hline    
+\end{tabular} 
+\label{table1}
+\end{table}
+
+\subsubsection{Membrane Ruptures}
+\begin{figure}
+\centering
+\includegraphics[width=11.32cm]{Figure8_Wrapper.pdf}
+%\includegraphics[height=2in]{N58_rupt_0.pdf}
+%\includegraphics[height=2in]{N58_rupt_200.pdf}
+\\
+%\includegraphics[height=2in]{N58_rupt_400.pdf}
+%\includegraphics[height=2in]{N58_rupt_600.pdf}
+  \caption{\label{figure8} Membrane rupture occurs when the shear rate
+  exceeds a threshold. Here the shear rate is $\chi = 0.1$. Starting
+  with a circular shape (panel (a)), the vesicle is stretched by the
+  background flow and multiple pores form (panel (b)). Panels (c)--(d)
+  show the later states during the simulation. Streamlines are included
+  in each panel.}
+\end{figure}
+A pore formation or a complete membrane rupture can occur at large shear
+rates. Figure~\ref{figure8} demonstrates how a vesicle can rupture when
+suspended in a shear flow with shear rate $\chi=0.1$. The streamlines
+are included in these plots. An interesting phenomenon occurs in panels
+(c) and (d) where two separated bilayers move along the background shear
+flow symmetrically. Consequently, a periodic motion for bilayers may
+occur at certain shear rates. One can expect that these two layers will
+diverge from one another for much higher shear rates.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Vesicle in a Parabolic Flow}
+Another interesting flow to consider is the parabolic flow
+\begin{align}
+  \uu_\infty = v_{max}\left[ 1 - \left( 
+    \frac{\xx \cdot \mathbf{e}_y}{wR_0}\right)^2
+    \right]\mathbf{e}_x,
+\end{align}
+%
+where $v_{max}$ is the flow strength and $w$ determines the shape of the
+flow. $R_0$ is defined as the radius of the JP vesicle at $t=0$. The
+behavior of a vesicle in this unbounded non-linear flow includes
+vertical migration, and depending on the flow rate and reduced area, the
+steady-state shape can be either a symmetric parachute or an asymmetric
+slipper (\cite{Kaoui09, cou-kao-pod-mis2008, dan-vla-mis2009}).
+
+%Besides the tests of a JP vesicle in a shear flow, an interesting
+%test can also use the proposed model and the setup. Consider a
+%symmetric parabolic flow about the $x$-axis,~\cite{Kaoui09} studied
+%shapes of the red blood cell immersed in a parabolic flow using a
+%continuum model. With a similar setup, the background flow for this set
+%of simulations is given by
+
+Figure~\ref{figure6} shows three configurations for one specific case
+where the centroid of the JP vesicle is initially placed slightly
+above the $x$-axis. The parameters are $v_{max} = 8.0$, $w=10$, and
+$R_0=8$. The red curves are the midplanes and a particle pair is marked
+in color. We observe that the deformed JP vesicle has a
+counterclockwise movement and the shape of the vesicle approaches an
+asymmetric slipper shape. Moreover, we observe inter-monolayer slip
+between the two leaflets. For this test, the reduced area for this
+configuration is approximately $0.9$ which matches the previous
+numerical tests in~\cite{Kaoui09} where a slipper-like shape occurs when
+the flow velocity is weak and the reduced area is large. A schematic of
+the setup is shown in Figure~\ref{figure7} where the blue horizontal
+line represents the mean $y$-position of all particles. The inset of
+Figure~\ref{figure7} shows the trajectory of the mean position in the
+$y$-direction that decreases towards $y=1$ for a period of time and then
+starts to oscillate due to the granularity of the JP vesicle. 
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Figure6_Wrapper.pdf}
+%\includegraphics[width=0.8\textwidth]{slipper.eps}
+  \caption{\label{figure6} A JP vesicle suspended in a parabolic flow
+  where the strength of the flow is $v_{max}=32.8$~nm ns$^{-1}$, $R_0 =
+  20$~nm, and the control parameter is $w=25$~nm. The configuration is
+  the state when $t=\{0, 4000, 8000\}$ which correspond to $0\ \mu $s, $2.44\ \mu $s, and $4.88\ \mu $s. The red curves are the midplanes. Inter-monolayer slip is observed by comparing the relative  locations of the blue and yellow particles.}
+\end{figure}
+
+
+\begin{figure}
+\centering
+%\includegraphics[height=2in]{parabolic.eps}
+  \caption{\label{figure7} The schematic of a JP vesicle suspended in a
+  parabolic flow where the strength of the flow is
+  $v_{max}=32.8$~nm~ns$^{-1}$, $R_0 = 20$~nm, and the control parameter
+  is $w=25$~nm. The configuration occurs when $t=6.1\ \mu$s and red arrows indicate the tank-treading motion. The inset plots the trajectory of mean $y$-position over time.}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Self-Assembly and Relaxation}
+
+
+In order to examine the hydrodynamics interactions of JP vesicles, it is
+necessary to have a suitable, initial, JP equilibrium vesicle. This
+ensures that the dynamics of the bilayer under a shear flow, for
+example, reach consistent outcomes. For our target vesicle, we start
+with $N=58$ JP arranged in two circular, apposing monolayers of about
+$8$ length units. The directors of the outer monolayer point inward and
+the directors of the inner monolayer point outward
+(Figure~\ref{figure2}a).  The JP of this chosen configuration are
+generally not in equilibrium.  Rather, the inter-particle distances and
+orientations must make slight adjustments so that attraction and
+repulsion balance.  Figure~\ref{figure2}(b) shows that the magnitudes of
+the mean velocity components ${\bf v}=\{v_x,v_y\}$ and the variation
+$\Delta \theta$ of the particle orientation decrease exponentially with
+an approximation decaying rate $\sim0.005$. A local energy minimum and
+the equilibrium configuration is therefore rapidly attained. The
+equilibrium configuration in Figure~\ref{figure2}a is slightly
+elliptical. The equilibrium eccentricity vanishes for larger $N_b$
+(Figure~\ref{figure2}e).
+
+\subsection{Stretching and Permeability}
 \begin{figure}
 \centering
 \includegraphics[width=11.32cm]{Figure1_Wrapper.pdf}
@@ -732,27 +1096,6 @@ the relaxation run.
   the JP vesicle relaxes, this immersed permeable bilayer approaches the
   steady state shown in panel (d).}
 \end{figure}
-
-In order to examine the hydrodynamics interactions of JP vesicles, it is
-necessary to have a suitable, initial, JP equilibrium vesicle. This
-ensures that the dynamics of the bilayer under a shear flow, for
-example, reach consistent outcomes. For our target vesicle, we start
-with $N=58$ JP arranged in two circular, apposing monolayers of about
-$8$ length units. The directors of the outer monolayer point inward and
-the directors of the inner monolayer point outward
-(Figure~\ref{figure2}a).  The JP of this chosen configuration are
-generally not in equilibrium.  Rather, the inter-particle distances and
-orientations must make slight adjustments so that attraction and
-repulsion balance.  Figure~\ref{figure2}(b) shows that the magnitudes of
-the mean velocity components ${\bf v}=\{v_x,v_y\}$ and the variation
-$\Delta \theta$ of the particle orientation decrease exponentially with
-an approximation decaying rate $\sim0.005$. A local energy minimum and
-the equilibrium configuration is therefore rapidly attained. The
-equilibrium configuration in Figure~\ref{figure2}a is slightly
-elliptical. The equilibrium eccentricity vanishes for larger $N_b$
-(Figure~\ref{figure2}e).
-
-\subsection{Permeability}
 Figures~\ref{figure2}c and~\ref{figure2}d demonstrate that the initial, non-equilibrium configuration has a large internal fluid pressure
 that vanishes as the configuration tends toward the equilibrium state.  
 This suggests that the initial collection of JP is under tension and
@@ -860,344 +1203,6 @@ L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t.
 The theoretical time courses for \eqref{eq:perm_solution} are in good
 quantitative agreement with the JP data for
 (Figure~\ref{figure:permeability}c).
-
-
-
-
-%\subsection{Jeffery Orbit}
-%We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
-%The background flow is a shear flow $\uu_{\infty}(\xx) = \dot\gamma  \xx \cdot \mathbf{e}_2 \mathbf{e}_1$ with shear rate $\dot\gamma$
-%and orthogonal unit vectors $\mathbf{e}_1$ and $\mathbf{e}_2$. 
-%A single elliptical particle is suspended in the fluid with center at the origin.
-%The Jeffrey orbit  
-%\begin{equation}
-%\label{eq:jeff}
-%\Theta(t) = \tan^{-1}\left(\frac{a}{b}\tan \left(\frac{ab \dot\gamma t}{a^2+b^2}\right)\right)
-%\end{equation}
-%gives the angle between the major axis and $\mathbf{e}_2$
-%where $a$, $b$ are the semi-major and semi-minor axes. 
-%We are assuming $\Theta(0) = 0$.
-%Figure~\ref{figure1} shows that the angles coming from the integral equation method \eqref{eq:SKIE}-\eqref{eq:mobility2}
-%are in complete agreement with the theoretical time course \eqref{eq:jeff}.  Hydrophobic attraction and repulsion are zero for a single particle. 
-%
-%
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.4\textwidth]{JefferyOrbit2.eps}
-%\includegraphics[width=0.4\textwidth]{JefferyOrbit3.eps}
-%  \caption{The figure compares the theoretical Jeffery orbit for $\Theta(t)$ and the result from the integral equation method. 
-%    The insets show the simulation setup. The shear rate is $\dot\gamma=0.1$.}
-%    \label{figure1}
-%\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\todo[inline]{Introduce dimensionless shear rate here (and check the numbers)}
-
-
-
-
-%For the $N$-body Janus-vesicle, we denote a constant initial radius $R_0=\sqrt{A_0/4\pi}$ with initial area $A_0$
-
-%referred from~\cite{Finken08} and~\cite{Shaqfeh11},
-%\begin{align}
-%  \chi = \dot\gamma \frac{\mu R_0^3}{\kappa},
-%\end{align}
-%%
-%where $\dot\gamma$ the dimensional shear rate, and $\mu$ the fluid viscosity.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Tank-Treading Vesicles}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Vesicle in a Shear Flow}
-\label{sec:ves_in_shear}
-Our hydrodynamic simulation studies begin by studying the dynamics of a single JP vesicle suspended in
-the shear flow
-\begin{align}
-  \uu_{\infty}(\xx) = \dot\gamma (\xx \cdot \mathbf{e}_y) \mathbf{e}_x,
-\end{align}
-with shear rate $\dot\gamma$, and orthogonal unit vectors $\mathbf{e}_x$
-and $\mathbf{e}_y$ for the horizontal and vertical directions,
-respectively. It is well known that a vesicle has tank-treading behavior
-when there is no viscosity contrast between the fluids inside and
-outside of the vesicle.
-%Within the framework of the simulation setup,
-%the proposed model provides a feature that the fluid viscosity is
-%constant over the computational domain and it is capable of performing
-%these simulations.
-
-The centroid of the pre-relaxed $58$-body Janus vesicle is initially
-placed at the origin and the shear flow with a shear rate $\chi$ is
-applied. Figure~\ref{figure3} shows snapshots of the JP vesicle in the
-shear flow with a shear rate $\chi=0.0025$. Panels (a) and (b) show the
-initial shape obtained from the relaxation run and the deformed
-configurations of the JP vesicle at time $t=4000$ are in panels (c) and
-(d). The background color in panels (a) and (c) is the strength of the
-action of the hydrophobic attraction. Red corresponds to a strong action
-while blue is a weak action. The hydrophobic layer clearly has the
-strongest action. To demonstrate the tank-treading behavior of the
-vesicle, panels (b) and (d) provide the streamlines of the fluid
-velocity around the JP vesicle. In panel (d), we can clearly observe the
-clockwise tank-treading motion.
-
-
-\begin{figure}
-\centering
-\includegraphics[width=11.5cm]{Figure3_Wrapper.pdf}
-%\includegraphics[width=0.3\textwidth]{N58_0.pdf}
-%\includegraphics[width=0.3\textwidth]{N58_vel_0.pdf}\\
-%\includegraphics[width=0.3\textwidth]{N58_20000.pdf}
-%\includegraphics[width=0.3\textwidth]{N58_vel_20000.pdf}
-  \caption{\label{figure3} A JP vesicle suspended in a shear flow with
-  shear rate $\chi=0.0025$. (a) The initial configuration of a 58-body
-  JP vesicle where the black arrows point in the direction of the
-  hydrophobic side of the JP. (b) The particle velocities and
-  streamlines of the configuration in (a). The streamlines are plotted
-  in the background as solid curves and the red arrows represent the
-  particle velocities. (c) The deformed tank-treading JP vesicle at
-  $t=4000$. (d) The particle velocities and streamlines of the
-  configuration in (c). The background colors in panels (a) and (c)
-  represent the strength of the hydrophobic attraction potential. The
-  blue regions have the weakest action and the red regions in the
-  bilayer have the strongest action.}
-\end{figure}
-%
-
-To extract additional physical properties of the proposed model, we
-compute the total length, reduced area, and excess length of the bilayer
-structure. The enclosed area and the total length of the structure are
-calculated from the midplane. The reduced area is $A^* = 4\pi A/L^2$
-where $A$ is the area, and $L$ is the total length of the JP vesicle,
-and the excess length is $\Delta=L/\sqrt{A^*/\pi}-2\pi$.
-Figure~\ref{figure4} shows these quantities for a JP vesicle suspended
-in a shear flow with shear rates $\chi=\{0.002,0.0025,0.003,0.0035\}$.
-Since the starting configuration is nearly circular, the reduced area
-decreases from an initial value close to $1$. The smooth curves in panel
-(a) are best fits of the exponential model $A^* = a_0 + b_0 \exp(-kt)$.
-Panel (b) shows that the decay rate $k$ is independent of the shear rate
-for sufficiently large shear rates, and the terminal reduced areas of
-each case are shown in the inset. We see that lower shear rates generate
-a higher final reduced area. In particular, we observe that the reduce
-area converges relatively early when the shear rate is lower than
-$\chi=0.003$. 
-%and has a faster convergence than the high shear rate cases.
-Panel (c) shows that the total arc length remains constant for all time
-with all four shear rates. Combining the behavior of the reduced area
-and the total arc length, the excess length must increase in time and be
-larger for higher shear rates as observed in panel (d). In all these
-results, there are oscillations that can be explained by the granularity
-of the JP vesicle which results in a midplane that is non-smooth.
-%Overall the total lengths of the bilayer have the same converging value
-%in all test shear rates.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=13.5cm]{Figure4_Wrapper.pdf}
-%\hspace{-0.6cm}
-%\includegraphics[height=2in]{ReducedArea.pdf}
-%\hspace{0.6cm}
-%\includegraphics[height=2in]{DecayRate.eps}\\
-%\includegraphics[height=2in]{ArcLength.pdf}
-%\includegraphics[height=2in]{ExcLength.pdf}
-\end{center} 
-  \caption{\label{figure4} (a) The reduced area transitioning over time
-  for four different shear rates. The smooth curves are a best-fit
-  exponential curve. (b) The decay rate $k$, using the exponential fit
-  to the data in panel (a), for a number of shear rates. The inset shows
-  the terminal reduced areas. (c) The total arc lengths of the midplanes
-  over time for four shear rates. (d) The excess length of the
-  midplanes. For all panels, a set of shear rates
-  $\chi=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. The
-  legend in panel (d) applies to both panels (a) and (c).}
-\end{figure}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Inter-Monolayer Friction}
-The granulated JP vesicle allows us to consider inter-monolayer slip
-between the two leaflets. When the shear rate is sufficiently large,
-take $\chi = 0.005$ as an example, Figure~\ref{figure5} shows slip
-between a pair of particles over time. The pair we consider are colored
-in blue and yellow. In this series of tests, we compute the mean
-particle position and mean angle $\theta(t)$ between the particle
-relative positions with respect to the vesicle center. It is clear that
-the outer leaflet has larger tangential velocity than the inner leaflet
-since $\theta(t)$ increases. This inter-leaflet sliding phenomenon is
-consistent with what has been seen in articles in molecular dynamics
-simulations. (\cite{Zgorski2019,denOtter2007})
-
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=11cm]{Figure5_Wrapper.pdf}\\
-\includegraphics[width=11cm]{Figure5B_Wrapper.pdf}
-%\includegraphics[width=0.5\textwidth]{Slip.eps}\\
-%\includegraphics[width=0.4\textwidth]{Slip2.eps}
-\end{center} 
-  \caption{\label{figure5} The schematic of the intermonolayer slip over
-  time. Taking a shear rate $\chi=0.005$ as an example, we denote the
-  mean angle between each particle pair $\theta(t)$ where the angle is
-  calculated from the relative position of the particles with respect to
-  the JP vesicle's center of mass. The configuration plots have two
-  fixed particles marked in yellow and blue and labeled with the
-  corresponding time $t=2000$ and $t=9000$. The midplane curve is
-  denoted as $C_M$. We see that the intermonolayer slip is largest
-  for large shear rates.}
-\end{figure}
-
-To calculate the inter-monolayer friction coefficient for the apposing
-JP leaflets, we let
-\begin{align}
-  b = \frac{\langle F\rangle}{\langle L \rangle \langle U\rangle},
-\end{align}
-%
-where 
-\begin{align}
-  \langle F\rangle = \left\langle \int_{\mathcal{C}_M} 
-    \jump{\ttau \cdot \sigma \cdot \nnu} \,\dif s \right\rangle
-\end{align}
-is the time-averaged, tangential force along the midplane curve
-$\mathcal{C}_M$. The parameters $\langle L\rangle$ and $\langle
-U\rangle$ are the time-averaged midplane curve length and intermonolayer
-slip velocity, respectively.
-
-We calculate $\langle F\rangle$ by first evaluating the smooth
-tangential force along curves a positive distance inside and outside
-$\mathcal{C}_M$ respectively, and then interpolating at zero distance to
-give a force jump. We have made a slight abuse of language: due to the
-problem being two-dimensional, the integral $\langle F\rangle$ is
-actually a force density per length which when divided by length gives
-the requisite force per area. 
-%which when divided by length 
-
-Table~\ref{table1} provides dimensional friction coefficients $b$ for
-several shear rates and the results are in quantitative agreement with
-values previously reported in the literature (\cite{sch-vla-mik2010}
-and~\cite{denOtter2007}). The coefficients generally lie within the
-range 0.2 to 0.3 pN$\cdot$ns nm$^{-3}$ but there are some outliers.
-These outliers ($\dot\gamma = 0.0041$ ns$^{-1}$ and $\dot\gamma =
-0.0066$ ns$^{-1}$) correspond to slip velocities that are too low
-relative to the shear rate (see the green and red curve in
-Figure~\ref{figure5}(c)). The JP vesicle consists of only 58 particles
-and so it is not surprising that discrete effects produce outliers.
-
-%\todo[inline]{If $B$ is the numerically calculated friction coefficient,
-%then $b = B/2.5^3$ pN ns nm$^{-3}$ gives the dimensional value.
-%
-%If $P$ is the numerically calculated pressure, then $p = P/2.5$ pN
-%nm$^{-2}$ is the dimensional pressure.} 
-
-\begin{table}
-\caption{Friction Coefficients}
-\centering
-\begin{tabular}{c c c c c c c c }
- $\chi$ & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  \\
-\hline                    
-$\dot\gamma$ (ns$^{-1}$)        & 0.0033 & 0.0041 & 0.0049 & 0.0057 & 0.0066 & 0.0074 & 0.0082\\
-%$F_{f}$ (pN nm$^{-1}$)           & 1.84 & 4.90 & 11.36 & 8.16 & 6.14 &  17.69 &  24.33 \\[1ex]
-%$\dot\theta$ (nm ns$^{-1}$)           & $6.84\times10^{-5}$ & $1.31\times10^{-4}$ & $3.46\times10^{-4}$ & $2.32\times10^{-4}$ & $1.81\times10^{-4}$ & $4.91\times10^{-4}$ & $5.83\times10^{-4}$\\ [1ex]
-$b$ (pN$\cdot$ns nm$^{-3}$)    & 0.22 & 0.87  & 0.22 &0.21 & 1.29 & 0.31 & 0.30\\ 
-\hline    
-\end{tabular} 
-\label{table1}
-\end{table}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Vesicle in a Parabolic Flow}
-Another interesting flow to consider is the parabolic flow
-\begin{align}
-  \uu_\infty = v_{max}\left[ 1 - \left( 
-    \frac{\xx \cdot \mathbf{e}_y}{wR_0}\right)^2
-    \right]\mathbf{e}_x,
-\end{align}
-%
-where $v_{max}$ is the flow strength and $w$ determines the shape of the
-flow. $R_0$ is defined as the radius of the JP vesicle at $t=0$. The
-behavior of a vesicle in this unbounded non-linear flow includes
-vertical migration, and depending on the flow rate and reduced area, the
-steady-state shape can be either a symmetric parachute or an asymmetric
-slipper (\cite{Kaoui09, cou-kao-pod-mis2008, dan-vla-mis2009}).
-
-%Besides the tests of a JP vesicle in a shear flow, an interesting
-%test can also use the proposed model and the setup. Consider a
-%symmetric parabolic flow about the $x$-axis,~\cite{Kaoui09} studied
-%shapes of the red blood cell immersed in a parabolic flow using a
-%continuum model. With a similar setup, the background flow for this set
-%of simulations is given by
-
-Figure~\ref{figure6} shows three configurations for one specific case
-where the centroid of the JP vesicle is initially placed slightly
-above the $x$-axis. The parameters are $v_{max} = 8.0$, $w=10$, and
-$R_0=8$. The red curves are the midplanes and a particle pair is marked
-in color. We observe that the deformed JP vesicle has a
-counterclockwise movement and the shape of the vesicle approaches an
-asymmetric slipper shape. Moreover, we observe inter-monolayer slip
-between the two leaflets. For this test, the reduced area for this
-configuration is approximately $0.9$ which matches the previous
-numerical tests in~\cite{Kaoui09} where a slipper-like shape occurs when
-the flow velocity is weak and the reduced area is large. A schematic of
-the setup is shown in Figure~\ref{figure7} where the blue horizontal
-line represents the mean $y$-position of all particles. The inset of
-Figure~\ref{figure7} shows the trajectory of the mean position in the
-$y$-direction that decreases towards $y=1$ for a period of time and then
-starts to oscillate due to the granularity of the JP vesicle. 
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{Figure6_Wrapper.pdf}
-%\includegraphics[width=0.8\textwidth]{slipper.eps}
-  \caption{\label{figure6} A JP vesicle suspended in a parabolic flow
-  where the strength of the flow is $v_{max}=32.8$~nm ns$^{-1}$, $R_0 =
-  20$~nm, and the control parameter is $w=25$~nm. The configuration is
-  the state when $t=\{0, 4000, 8000\}$ which correspond to $0\ \mu $s, $2.44\ \mu $s, and $4.88\ \mu $s. The red curves are the midplanes. Inter-monolayer slip is observed by comparing the relative  locations of the blue and yellow particles.}
-\end{figure}
-
-
-\begin{figure}
-\centering
-%\includegraphics[height=2in]{parabolic.eps}
-  \caption{\label{figure7} The schematic of a JP vesicle suspended in a
-  parabolic flow where the strength of the flow is
-  $v_{max}=32.8$~nm~ns$^{-1}$, $R_0 = 20$~nm, and the control parameter
-  is $w=25$~nm. The configuration occurs when $t=6.1\ \mu$s and red arrows indicate the tank-treading motion. The inset plots the trajectory of mean $y$-position over time.}
-\end{figure}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Membrane Ruptures}
-
-A pore formation or a complete membrane rupture can occur at large shear
-rates. Figure~\ref{figure8} demonstrates how a vesicle can rupture when
-suspended in a shear flow with shear rate $\chi=0.1$. The streamlines
-are included in these plots. An interesting phenomenon occurs in panels
-(c) and (d) where two separated bilayers move along the background shear
-flow symmetrically. Consequently, a periodic motion for bilayers may
-occur at certain shear rates. One can expect that these two layers will
-diverge from one another for much higher shear rates.
-
-\begin{figure}
-\centering
-\includegraphics[width=11.32cm]{Figure8_Wrapper.pdf}
-%\includegraphics[height=2in]{N58_rupt_0.pdf}
-%\includegraphics[height=2in]{N58_rupt_200.pdf}
-\\
-%\includegraphics[height=2in]{N58_rupt_400.pdf}
-%\includegraphics[height=2in]{N58_rupt_600.pdf}
-  \caption{\label{figure8} Membrane rupture occurs when the shear rate
-  exceeds a threshold. Here the shear rate is $\chi = 0.1$. Starting
-  with a circular shape (panel (a)), the vesicle is stretched by the
-  background flow and multiple pores form (panel (b)). Panels (c)--(d)
-  show the later states during the simulation. Streamlines are included
-  in each panel.}
-\end{figure}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Two Vesicles in a Linear Flow}
