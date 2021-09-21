@@ -812,7 +812,7 @@ in the background flow simulations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Vesicle in a Shear Flow}
 \label{sec:ves_in_shear}
-Our simulation studies begin by showing, for the first time, that a JP suspension 
+Our simulation studies begin by showing, for the first time, that a JP suspension with hydrophobic attraction 
 behaves as a tank-treading vesicle
 with zero viscosity contrast between the fluids inside and
 outside of the vesicle (\cite{Finken08, Shaqfeh11}).
@@ -825,6 +825,24 @@ is applied for
 shear rate $\dot\gamma$, and orthogonal unit vectors $\mathbf{e}_x$
 and $\mathbf{e}_y$ for the horizontal and vertical directions, respectively.
 We use the dimensionless shear rate $\chi = \dot \gamma$ ns.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=11cm]{Figure5_Wrapper.pdf}\\
+\includegraphics[width=11cm]{Figure5B_Wrapper.pdf}
+%\includegraphics[width=0.5\textwidth]{Slip.eps}\\
+%\includegraphics[width=0.4\textwidth]{Slip2.eps}
+\end{center} 
+  \caption{\label{figure5} 
+  There is inter-monolayer slip present in the JP vesicle tank-treading motion at all shear rates.  
+  Panel (a) tracks the angle  $\theta(t)$ between a pair of particles (blue and yellow) with respect to
+  the JP vesicle centroid. The shear rate is $\chi=0.005$ and in the right figure, the yellow particle
+  will complete two and quarter revolutions in the same time the blue particle completes two revolutions.
+  The curves in panel (b) are the mean change in angle for various shear rates. 
+  Slip velocity generally increases with shear rate but 
+  we have marked two outliers (times symbols). }
+\end{figure}
+
 
 Figure~\ref{figure3} shows snapshots of the JP vesicle in the
 shear flow with $\chi=0.0025$. 
@@ -861,86 +879,42 @@ correspond to shear rates $\dot \gamma = O(10^6$ s$^{-1}$)
 which gives fluid velocities like m s$^{-1}$ in the vicinity of the  vesicle.  
 While seemingly large, these values are consistent with prior MD studies (\cite{Brandner2019})
 and are a consequence of the fact that the magnitude of elastic membrane stresses grows inversely 
-with the vesicle radius.  Larger shear rates are required to produce the viscous stresses needed to 
-appreciably deform smaller vesicles.  
-
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=11cm]{Figure5_Wrapper.pdf}\\
-\includegraphics[width=11cm]{Figure5B_Wrapper.pdf}
-%\includegraphics[width=0.5\textwidth]{Slip.eps}\\
-%\includegraphics[width=0.4\textwidth]{Slip2.eps}
-\end{center} 
-  \caption{\label{figure5} The schematic of the inter-monolayer slip over
-  time. Taking a shear rate $\chi=0.005$ as an example, we denote the
-  mean angle between each particle pair $\theta(t)$ where the angle is
-  calculated from the relative position of the particles with respect to
-  the JP vesicle's center of mass. The configuration plots have two
-  fixed particles marked in yellow and blue and labeled with the
-  corresponding time $t=2000$ and $t=9000$. The midplane curve is
-  denoted as $C_M$. We see that the inter-monolayer slip is largest
-  for large shear rates.}
-\end{figure}
+with the vesicle radius; larger shear rates are required to produce the viscous stresses needed to 
+appreciably deform smaller vesicles.   
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Inter-Monolayer Friction}
+We observe inter-monolayer slip in the tank-treading, JP vesicle at all shear rates. 
+The two leaflets of the vesicle are not bound together, but rather are able to slide 
+past one another. This sliding is limited by viscous friction of the aqueous gaps between particles
+and by the constant unbinding and binding of particles pairs in apposing leaflets.  
+The phenomenon is consistent with prior MD results (\cite{Zgorski2019, denOtter2007}).
 
-The granulated JP vesicle allows us to consider inter-monolayer slip
-between the two leaflets. When the shear rate is sufficiently large,
-take $\chi = 0.005$ as an example, Figure~\ref{figure5} shows slip
-between a pair of particles over time. The pair we consider are colored
-in blue and yellow. In this series of tests, we compute the mean
-particle position and mean angle $\theta(t)$ between the particle
-relative positions with respect to the vesicle center. It is clear that
-the outer leaflet has larger tangential velocity than the inner leaflet
-since $\theta(t)$ increases. This inter-leaflet sliding phenomenon is
-consistent with what has been seen in articles in molecular dynamics
-simulations. (\cite{Zgorski2019, denOtter2007})
+Figure~\ref{figure5}a illustrates the process by tracking the angle $\theta(t)$
+between two particles, one blue and the other yellow, relative to the vesicle centroid. 
+It is clear from the growth in angle that the outer leaflet has a tangential velocity that is larger  
+then that of the inner leaflet.  
+Figure~\ref{figure5}b plots the mean, particle-pair angle for various shear rates. 
+It suggests that the inter-monolayer slip velocity generally increases with shear rate.  
 
-
-
-To calculate the inter-monolayer friction coefficient for the apposing
-JP leaflets, we let
+From the data, we are able to define an inter-monolayer friction coefficient  
 \begin{align}
   b = \frac{\langle F\rangle}{\langle L \rangle \langle U\rangle},
 \end{align}
-%
-where 
-\begin{align}
-  \langle F\rangle = \left\langle \int_{\mathcal{C}_M} 
-    \jump{\ttau \cdot \sigma \cdot \nnu} \,\dif s \right\rangle
-\end{align}
-is the time-averaged, tangential force along the midplane curve
-$\mathcal{C}_M$. The parameters $\langle L\rangle$ and $\langle
-U\rangle$ are the time-averaged midplane curve length and intermonolayer
-slip velocity, respectively.
+where $F$ is the tangential force jump, $L$ is the length of the midplane $C_M$ (Figure~\ref{figure5}a), $U$ is the slip velocity, and 
+$\langle \cdot \rangle$ denotes the time average. 
+To measure inter-monolayer slip $U$, we compute the mean tangential velocity of the particles in the outer monolayer
+and subtract from it the mean tangential velocity of the particles in the inner monolayer. 
+To calculate the tangential force jump $F$, we let 
+\begin{equation}
+F_h = \int_{\mathcal{C}_M^+} 
+    \ttau \cdot \sigma \cdot \nnu \,\dif s -  \int_{\mathcal{C}_M^-} 
+    \ttau \cdot \sigma \cdot \nnu \,\dif s 
+\end{equation}
+where $C_M^+$ and $C_M^-$ are target curves obtained by moving the midplane curve $C_M$ (Figure~\ref{figure5}a)
+a distance $h$ along the outward, respectively inward, unit normal.  Actually, we calculate $F_h$ for several values of $h$ 
+and then define $F$ to by extrapolating to zero distance giving a jump in tangential shear force across the midplane.  
 
-We calculate $\langle F\rangle$ by first evaluating the smooth
-tangential force along curves a positive distance inside and outside
-$\mathcal{C}_M$ respectively, and then interpolating at zero distance to
-give a force jump. We have made a slight abuse of language: due to the
-problem being two-dimensional, the integral $\langle F\rangle$ is
-actually a force density per length which when divided by length gives
-the requisite force per area. 
-%which when divided by length 
-
-Table~\ref{table1} provides dimensional friction coefficients $b$ for
-several shear rates and the results are in quantitative agreement with
-values previously reported in the literature (\cite{sch-vla-mik2010}
-and~\cite{denOtter2007}). The coefficients generally lie within the
-range 0.2 to 0.3 pN$\cdot$ns nm$^{-3}$ but there are some outliers.
-These outliers ($\dot\gamma = 0.0041$ ns$^{-1}$ and $\dot\gamma =
-0.0066$ ns$^{-1}$) correspond to slip velocities that are too low
-relative to the shear rate (see the green and red curve in
-Figure~\ref{figure5}(c)). The JP vesicle consists of only 58 particles
-and so it is not surprising that discrete effects produce outliers.
-
-%\todo[inline]{If $B$ is the numerically calculated friction coefficient,
-%then $b = B/2.5^3$ pN ns nm$^{-3}$ gives the dimensional value.
-%
-%If $P$ is the numerically calculated pressure, then $p = P/2.5$ pN
-%nm$^{-2}$ is the dimensional pressure.} 
 
 \begin{table}
 \caption{Friction Coefficients}
@@ -951,11 +925,23 @@ and so it is not surprising that discrete effects produce outliers.
 $\dot\gamma$ (ns$^{-1}$)        & 0.0033 & 0.0041 & 0.0049 & 0.0057 & 0.0066 & 0.0074 & 0.0082\\
 %$F_{f}$ (pN nm$^{-1}$)           & 1.84 & 4.90 & 11.36 & 8.16 & 6.14 &  17.69 &  24.33 \\[1ex]
 %$\dot\theta$ (nm ns$^{-1}$)           & $6.84\times10^{-5}$ & $1.31\times10^{-4}$ & $3.46\times10^{-4}$ & $2.32\times10^{-4}$ & $1.81\times10^{-4}$ & $4.91\times10^{-4}$ & $5.83\times10^{-4}$\\ [1ex]
-$b$ (pN$\cdot$ns nm$^{-3}$)    & 0.22 & 0.87  & 0.22 &0.21 & 1.29 & 0.31 & 0.30\\ 
+$b$ (pN$\cdot$ns nm$^{-3}$)    & 0.22 & 0.87*  & 0.22 &0.21 & 1.29* & 0.31 & 0.30\\ 
 \hline    
 \end{tabular} 
 \label{table1}
 \end{table}
+
+Table~\ref{table1} provides dimensional friction coefficients $b$ for
+several shear rates. The coefficients generally lie within the
+range 0.2 to 0.3 pN ns nm$^{-3}$ which is in good quantitative agreement with
+values previously reported in the literature (\cite{sch-vla-mik2010}
+and~\cite{denOtter2007}).  
+The data contain two outliers (Table~\ref{table1}, * symbol).
+These correspond to the two outliers in the slip velocities (Figure~\ref{figure5}b, times symbol). 
+We suspect that due to the finite particle size, the granular wobble of the tank-treading motion is more prominent for some
+shear rates, causing some slip velocities to be lower than expected.  
+
+
 
 \subsubsection{Membrane Ruptures}
 \begin{figure}
@@ -966,21 +952,17 @@ $b$ (pN$\cdot$ns nm$^{-3}$)    & 0.22 & 0.87  & 0.22 &0.21 & 1.29 & 0.31 & 0.30\
 \\
 %\includegraphics[height=2in]{N58_rupt_400.pdf}
 %\includegraphics[height=2in]{N58_rupt_600.pdf}
-  \caption{\label{figure8} Membrane rupture occurs when the shear rate
-  exceeds a threshold. Here the shear rate is $\chi = 0.1$. Starting
-  with a circular shape (panel (a)), the vesicle is stretched by the
-  background flow and multiple pores form (panel (b)). Panels (c)--(d)
-  show the later states during the simulation. Streamlines are included
-  in each panel.}
+  \caption{\label{figure8} 
+  Tank-treading leads to membrane rupture for large shear rates.
+  }
 \end{figure}
-A pore formation or a complete membrane rupture can occur at large shear
+A temporary fissure or a complete membrane rupture can occur at large shear
 rates. Figure~\ref{figure8} demonstrates how a vesicle can rupture when
-suspended in a shear flow with shear rate $\chi=0.1$. The streamlines
-are included in these plots. An interesting phenomenon occurs in panels
-(c) and (d) where two separated bilayers move along the background shear
-flow symmetrically. Consequently, a periodic motion for bilayers may
-occur at certain shear rates. One can expect that these two layers will
-diverge from one another for much higher shear rates.
+suspended in a shear flow. For $\chi = 0.1$, starting
+  with a circular shape (Figure~\ref{figure8}a), the vesicle is stretched by the
+  background flow and fissures appear in the bilayer structure in multiple locations (Figure~\ref{figure8}b). 
+  In Figure~\ref{figure8}c, the ruptured vesicles forms two planar micelles which 
+  are eventually carried off by the flow (Figure~\ref{figure8}d). 
 
 
 
