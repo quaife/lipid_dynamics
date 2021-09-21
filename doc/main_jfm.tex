@@ -19,6 +19,7 @@
     citecolor  = black,
 }
 \newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}
 \newcommand{\RomanNumeralCaps}[1]
 \linenumbers
@@ -51,7 +52,8 @@
 % {\MakeUppercase{\romannumeral #1}}
 
 %\title{Two-Dimensional Vesicles Under External Flow via Integral Equation Method}
-\title{Modeling Two-Dimensional Vesicle Hydrodynamics with Hydrophobic Attraction Potential Simulations}
+\title{Two-Dimensional Vesicle Hydrodynamics from Hydrophobic Attraction Potential}
+%\title{Hydrodynamics of Amphiphilic Particles in Background Flows}
 %\author{Alan N. Jones\aff{1}
 %  \corresp{\email{JFMEditorial@cambridge.org}},
 %  H.-C. Smith\aff{1}
@@ -81,6 +83,7 @@ Yuan-Nan Young\aff{3}
 \maketitle
 
 \begin{abstract}
+  We develop a new model, to our knowledge,  for the hydrodynamics of amphiphilic particles in background flows. 
   In this work, we study the dynamics of many-body systems immersed in a
   viscous fluid with a specified interparticle force. In particular, we
   apply a hydrophobic attraction potential (HAP) using a Janus type
@@ -186,11 +189,11 @@ Finally we provide discussion and outlook for future directions in
 \includegraphics[width=\textwidth]{Figure0_Wrapper.pdf}
 \end{center}
 \caption{Panel (a) illustrates the domain and boundary conditions for the mobility problem. 
-The color map in panels (b) - (e) is the solution $u$ of \eqref{eq:SL}. Red indicates a high degree of hydrophobicity ($u = 1$) 
-while blue indicates no hydrophobicity ($u = 0$).
+The color map in panels (b) - (e) is the solution $u$ of \eqref{eq:SL}. Red is for $u = 1$
+and blue is for $u = 0$.
 Particles self-assemble into vesicle bilayers (panel (b)) and eventually  
-arrange along inner and outer leaflets (panel (c)). The curve $C_M$ is the midplane curve which has 
-length $L$ and surrounds a region of area $A$.  Initially stretched vesicles relax to equilibrium 
+arrange along inner and outer leaflets. In panel (c), $C_M$ is the midplane curve,
+$A$ is the enclosed area, and $L$ is the arc length.  Initially stretched vesicles relax to equilibrium 
 with fluid flow across the bilayer. The study considers a single vesicle in background flows such as shear flow (panel (d))
 and hydrodynamic vesicle-vesicle interactions (panel (e)).}
 \label{fig:figure0}
@@ -198,11 +201,12 @@ and hydrodynamic vesicle-vesicle interactions (panel (e)).}
 
 \section{Governing Equations\label{sec:governing_eqs}}
 \subsection{\label{mobility}Mobility Problem}
-We consider an $N_b$-many body collection of Janus particles suspended
-in a two-dimensional unbounded domain $\Omega$. The boundary of each
-particle is denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1 \cup
-\Gamma_2 \cup \cdots \cup \Gamma_{N_b}$. Assuming the inertial terms are negligible, the
-governing equations are
+The objective is to study the hydrodynamics of JP vesicles in background flows. 
+We consider an $N_b$-many body collection of JP suspended
+in a two-dimensional unbounded domain $\Omega$. 
+The boundary of each particle is denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1 \cup
+\Gamma_2 \cup \cdots \cup \Gamma_{N_b}$ (Figure \ref{fig:figure0}a). 
+Assuming the inertial terms are negligible, the governing equations are
 \begin{alignat}{3}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
     && \xx \in \Omega, \\
@@ -210,9 +214,9 @@ governing equations are
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
 \end{alignat}
 %
-where $\uu$ is the velocity, $\mu$ is the constant viscosity, $p$ is the
-pressure, and $\uu_\infty$ is the background flow. Since each particle
-$\Gamma_i$ with center $\aa_i$ is a rigid body, its velocity satisfies 
+where $\uu$ is the velocity, $p$ is the
+pressure, $\uu_\infty$ is the background flow, and $\mu$ is the constant viscosity. 
+Since each particle $\Gamma_i$ with center $\aa_i$ is a rigid body, its velocity satisfies 
 \begin{align}
   \vv(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad 
     \xx \in \Gamma_i,
@@ -221,20 +225,21 @@ where $\vv_i$ is its translational velocity and $\omega_i$ is its
 angular velocity. Here, $\langle x, y \rangle^{\perp} = \langle -y, x
 \rangle$. Therefore, the no-slip boundary condition on each particle is
 \begin{align}
+\label{eq:rigid_bc}
   \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad
     \xx \in \Gamma_i.
 \end{align}
 To determine the translational and angular velocities of each particle,
 we define imposed forces $\FF_i$ and torques $T_i$ acting on each
-particle. Since the small particles are intertialess, force balance
+particle. Since the small particles are inertialess, force balance
 gives 
 \begin{alignat}{2}
   \label{eq:force}
-  \FF_i &+ \int_{\Gamma_i} \ssigma \cdot \nnu_i \, \dif s = \mathbf{0},
+  \FF_i &- \int_{\Gamma_i} \ssigma \cdot \nnu \, \dif s = \mathbf{0},
   && i=1,\ldots,N_b,\\
   \label{eq:torque}
-  T_i &+ \int_{\Gamma_i} (\xx - \aa_i)^\perp \cdot 
-    (\ssigma \cdot \nnu_i) \, \dif s = 0, \qquad && i=1,\ldots,N_b,
+  T_i &- \int_{\Gamma_i} (\xx - \aa_i)^\perp \cdot 
+    (\ssigma \cdot \nnu) \, \dif s = 0, \qquad && i=1,\ldots,N_b,
 \end{alignat}
 where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
 \right)$ is the hydrodynamic stress tensor (pressure tensor) and
@@ -245,9 +250,10 @@ referred to as the mobility problem.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Imposed Forces}
-The imposed forces and torques contain two parts. The first part comes
-from the hydrophobic attraction potential (HAP). This potential was
-introduced in~\cite{Fu20} and models hydrophobic attraction by solving
+The imposed forces and torques contain two parts: hydrophobic attraction and repulsion. 
+The hydrophobic attraction potential was introduced by ~\cite{Fu20} and is responsible for forming particle aggregates
+that sequester their hydrophobic surface regions (Figure \ref{fig:figure0}b).
+We model hydrophobic attraction by solving
 the screened Laplace equation boundary value problem
 \begin{alignat}{2}
   \label{eq:SL}
@@ -260,13 +266,13 @@ u &\to 0,                          &&|\xx| \to \infty,
 where $0 \leq f_i \leq 1$ is a material label with $f_i = 0$,
 respectively $1$, representing hydrophilic, respectively hydrophobic,
 portions of the surface. We assume that the $f_i$ and $\Gamma_i$ are
-smooth. The parameter $\rho$ is the decay length of attraction. The
-forces and torques for this attraction are 
+smooth. The parameter $\rho > 0$ is the decay length of attraction. The
+forces and torques of attraction are 
 \begin{align}
   \label{eq:hydrophobicAttraction}
-  \FF_i^{\text{hydro}} = \int_{\Gamma_i} {\bf T}\cdot \nnu_i \, \dif s, 
+  \FF_i^{\text{hydro}} = \int_{\Gamma_i} {\bf T}\cdot \nnu \, \dif s, 
     \quad 
-  T_i^{\text{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot ({\bf T} \cdot \nnu_i) \dif s,
+  T_i^{\text{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot ({\bf T} \cdot \nnu) \dif s,
 \end{align}
 where
 \begin{align}
@@ -275,17 +281,14 @@ where
 = \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma \left(\tfrac{1}{2}|\nabla
   u|^2 \mathbf{I} - \nabla u  \nabla u^T\right)
 \end{align}
-is the hydrophobic stress tensor. The parameter $\gamma$ is
+is the hydrophobic stress tensor and $\gamma > 0$ is
 the interfacial
-tension. The forces $\FF_i^{\text{hydro}}$ and torques
-$T_i^{\text{hydro}}$ are responsible for forming particle aggregates
-that partially sequester the hydrophobic portions of the particle
-surface.
+tension. 
 
 The second part of the imposed forces and torques comes from repulsion
 between proximal particles. Given a pair particles indexed with $i$ and
 $j$, we find the two points $\tilde{\xx}_i \in \Gamma_i$ and
-$\tilde{\xx}_j \in \Gamma_j$ that are closest to one another. We then
+$\tilde{\xx}_j \in \Gamma_j$ that are closest to one another (Figure \ref{fig:figure0}a). We then
 define the repulsion force and torque
 \begin{align}
   \label{eq:REPULforce}
@@ -300,10 +303,10 @@ define the repulsion force and torque
     {|\tilde{\xx}_i - \tilde{\xx}_j|} 
     P'(|\tilde{\xx}_i - \tilde{\xx}_j|).
 \end{align}
-The repulsion profile $P(r)$ is zero for distances $r$ larger than a
+The repulsion profile $P(r)$ is set to zero for distances $r$ larger than a
 repulsion length scale $\rho_0$. As such,~\eqref{eq:REPULforce}
-and~\eqref{eq:REPULtorque} ignore particles $\Gamma_j$ outside a
-tubular neighborhood of $\Gamma_i$. For $0 \leq r < \rho_0,$ we use
+and~\eqref{eq:REPULtorque} ignore particles outside a
+$\rho_0$-tubular neighborhood of $\Gamma_i$. For $0 \leq r < \rho_0,$ we use
 $P(r) = M(1 - \sin(r/\rho_0))$ where $M$ is sufficiently large to
 prevent particle collisions. Then, the total imposed force and torque
 are
@@ -317,10 +320,10 @@ are
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Time Marching}
 By solving the mobility problem, we obtain translational and angular
-velocities of the $N_b$-body system. A second-order Adams-Bashforth
+velocities of the $N_b$-body system. 
+A second-order Adams-Bashforth
 scheme updates the particle positions and orientations. By including the
-repulsion force~\eqref{eq:REPULforce} and
-torque~\eqref{eq:REPULtorque}, particle collisions are avoided even
+repulsion force~\eqref{eq:REPULforce}, particle collisions are avoided even
 when using a relatively large time step. 
 
 
@@ -369,7 +372,7 @@ second-kind integral equation
 \end{equation}
 the HAP double-layer potential~\eqref{eq:HAP_DLP} satisfies the screened
 Laplace equation~\eqref{eq:SL}--\eqref{eq:SLff}. After
-discretizing~\eqref{eq:screenedSKIE}, the result is a $NN_b \times NN_b$
+discretizing~\eqref{eq:screenedSKIE}, the result is an $NN_b \times NN_b$
 linear system that is solved with block-diagonal preconditioned GMRES.
 
 To calculate the hydrophobic force and torque, the gradient of the
@@ -384,8 +387,8 @@ non-singular integrals.
 \subsection{Mobility Problem Boundary Integral Equation}
 Following previous work of~\cite{Lukas19}, we use the velocity
 representation of~\cite{pow-mir1987}. In particular, we write the
-velocity as the sum of a double-layer potential and $N_b$ Stokeslets and
-Rotlets
+velocity as the sum of a double-layer potential and $N_b$-many Stokeslets and
+rotlets
 \begin{align}
   \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
@@ -395,18 +398,18 @@ Rotlets
 The double-layer potential is
 \begin{align}
   \DD[\eeta](\xx) = \frac{1}{\pi} \int_{\bd\Omega} 
-    \frac{\rr \cdot \nnu}{\rho^2} \frac{\rr \otimes \rr}{\rho^2}
+    \frac{\rr \cdot \nnu}{|\rr|^2} \frac{\rr \otimes \rr}{|\rr|^2}
     \eeta(\yy) \, \dif s_\yy,
 \end{align}
-where $\rr = \xx - \yy$ and $\rho = |\rr|$. The Stokeslet and Rotlet
+where $\rr = \xx - \yy$ and $\rho = |\rr|$. The Stokeslet and rotlets
 centered at $\aa_i$ are
 \begin{align}
-  \SS(\xx,\aa_i)\FF_i &= \frac{1}{4\pi} \left(-\log \rho + 
-    \frac{\rr \otimes \rr}{\rho^2}\right) \FF_i, \\
-  \RR(\xx,\aa_i)T_i &= \frac{1}{4\pi} \frac{\rr^\perp}{\rho^2} T_i,
+  \SS(\xx,\aa_i)\FF_i &= \frac{1}{4\pi} \left(-\log |\rr| + 
+    \frac{\rr \otimes \rr}{|\rr|^2}\right) \FF_i, \\
+  \RR(\xx,\aa_i)T_i &= \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2} T_i,
 \end{align}
-respectively, where $\rr = \xx - \aa_i$ and $\rho = |\rr|$. The
-Stokeslet is torque-free and has force $\FF_i$ while the Rotlet is
+respectively, where $\rr = \xx - \aa_i$. The
+Stokeslet is torque-free and has force $\FF_i$ while the rotlet is
 force-free and has torque $T_i$. Therefore, the
 velocity~\eqref{eq:velocity} satisfies the total force~\eqref{eq:force}
 and torque~\eqref{eq:torque} conditions if the double-layer potential
@@ -432,17 +435,17 @@ translational velocity $\vv_i$, and angular velocity $\omega_i$ satisfy
 
 After discretizing and applying appropriate quadrature rules, the result
 is a $(2NN_b + 3N_b) \times (2NN_b + 3N_b)$ linear system that we solve
-with block-diagonal preconditioned GMRES. We note that other BIE
-formulations of the mobility problem use single-layer potentials
+with block-diagonal preconditioned GMRES. Other BIE
+formulations of the mobility problem have used single-layer potentials
 (\cite{cor-gre-rac-vee2017, rac-gre2016}) or a combination of single-
 and double-layer potentials (\cite{cor-vee2018}).
 
 We validated our solver for \eqref{eq:SKIE}-\eqref{eq:mobility2} using a
 single elliptical particle suspended in a background shear flow (see
 \S~\ref{sec:ves_in_shear}). Hydrophobic attraction and repulsion are
-zero for a single particle. The angle of the ellipse's major axis coming
+zero for a single particle (see \cite{Fu20} equation 2.13). The angle of the ellipse's major axis coming
 from the integral equation method was in complete agreement with the
-theoretical, Jeffrey orbit time-course (\cite{jef1922}). 
+theoretical, Jeffery orbit time-course (\cite{jef1922}). 
   
 %The Jeffrey orbit  
 %\begin{equation}
@@ -469,7 +472,7 @@ theoretical, Jeffrey orbit time-course (\cite{jef1922}).
 %are in complete agreement with the theoretical time course \eqref{eq:jeff}.  Hydrophobic attraction and repulsion are zero for a single particle. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Calculating the Hydrophobic Force}
+\subsection{Main Theoretical Result: Calculating the Hydrophobic Force}
 \label{subsec:calculating_force}
 Once \eqref{eq:screenedSKIE} has been solved for $\sigma$, we need to
 evaluate the integrals~\eqref{eq:hydrophobicAttraction} which are the
@@ -488,12 +491,12 @@ where
     \quad \xx \in \mathbb{R}^2.
 \end{align}
 That is, $v_i(\xx)$ is the double-layer potential~\eqref{eq:HAP_DLP}
-with $\Gamma_i$ excluded from $\bd\Omega$. Having defined $v_i$, we can
-show that
+with $\Gamma_i$ excluded from $\bd\Omega$. Having defined $v_i$, we prove
+\begin{theorem}
 \begin{align}
   \label{eq:recipforcetorque}
-  \FF_i^{\text{hydro}} = \int_{\Gamma_i} \JJ_i \,\dif s,\quad
-  T_i^{\text{hydro}}    = \int_{\Gamma_i} 
+  \FF_i^{\mathrm{hydro}} = \int_{\Gamma_i} \JJ_i \,\dif s,\quad
+  T_i^{\mathrm{hydro}}    = \int_{\Gamma_i} 
     (\xx - \aa_i)^{\perp} \cdot \JJ_i  \,\dif s,
 \end{align}
 where
@@ -503,8 +506,11 @@ where
     2\gamma\rho \frac{d\sigma}{ds} \frac{dv_i}{ds} \nnu -
     2\gamma\rho \frac{d\sigma}{ds} \frac{dv_i}{d\nnu} \ttau.
 \end{align}
-Here, $\ttau$ and $\frac{d}{ds}$ are the unit tangent and arc length
-derivative for $\Gamma_i$, respectively, and $\nnu$ is the unit normal.
+\end{theorem}
+The symbols $\ttau$ and $\frac{d}{ds}$ are the unit tangent and arc length
+derivative for $\Gamma_i$, respectively (Figure \ref{fig:figure0}a.)  
+The result 
+is valid for any smooth particle shape or boundary condition. 
 The advantage in using~\eqref{eq:recipforcetorque} over
 using~\eqref{eq:hydrophobicAttraction} is that the components $\sigma$,
 $v_i$, $\frac{d\sigma}{ds}$, and $\frac{dv_i}{ds}$ of $\JJ_i$ are smooth
@@ -625,12 +631,12 @@ the inside of $\Gamma_i$.
 \begin{lemma}
 \begin{align}
   \label{eq:prejump}
-  \FF_i = \int_{\Gamma_i} \jump{{\bf T}_2  \nnu}  \, \dif s,\quad
-  T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot \jump{{\bf T}_2 \nnu} \, \dif s.
+  \FF_i^{\mathrm{hydro}} = \int_{\Gamma_i} \jump{{\bf T}_2  \nnu}  \, \dif s,\quad
+  T_i^{\mathrm{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot \jump{{\bf T}_2 \nnu} \, \dif s.
 \end{align}
 \end{lemma}
 \begin{proof}
-To show~\eqref{eq:prejump}, we expand
+To show~\eqref{eq:prejump}, we expand \eqref{eq:hydrophobicAttraction} as
 \begin{align}
   \FF_i = \int_{\Gamma_i} {\bf T}_1\nnu + 
     {\bf T}_2\nnu + {\bf T}_3\nnu\,\dif s.
@@ -651,7 +657,7 @@ Finally, $u_i$ and $v_i$ are smooth and $\nabla \cdot {\bf T}_2= 0$ in $U_i$. Th
     ({\bf T}_2 \nnu)^-\,\dif s,
 \end{align}
 where the superscript denotes the limit taken from in $U_i$.  
-Combining the previous four equations gives the first equation in \eqref{eq:prejump}.
+Combining the above gives the first equation in \eqref{eq:prejump}.
 The argument for the second equation in \eqref{eq:prejump} is identical. 
 \end{proof}
 
@@ -663,7 +669,7 @@ We have the following jump relations for \eqref{eq:uidef}:
 \jump{\nabla u_i} = \frac{\dif \sigma}{\dif s}\ttau,\quad
 \jump{\nabla v_i} = \mathbf{0},
 \end{equation}
-on $\Gamma_i$. Therefore,
+on $\Gamma_i$ (see, e.g. \cite{KlBaGrON13}). Therefore,
 \begin{align*}
   \jump{{\bf T}_2\nnu}   &= \jump{\mathbf{S}(u_i,v_i)\nnu  +\mathbf{S}(v_i,u_i)\nnu} \\
   &= \jump{( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
@@ -687,60 +693,52 @@ as required.
 %\includegraphics[width=0.3\textwidth]{N58_vel_0.pdf}\\
 %\includegraphics[width=0.3\textwidth]{N58_20000.pdf}
 %\includegraphics[width=0.3\textwidth]{N58_vel_20000.pdf}
-  \caption{\label{figure3} A JP vesicle suspended in a shear flow with
-  shear rate $\chi=0.0025$. (a) The initial configuration of a 58-body
-  JP vesicle where the black arrows point in the direction of the
-  hydrophobic side of the JP. (b) The particle velocities and
-  streamlines of the configuration in (a). The streamlines are plotted
-  in the background as solid curves and the red arrows represent the
-  particle velocities. (c) The deformed tank-treading JP vesicle at
-  $t=4000$. (d) The particle velocities and streamlines of the
-  configuration in (c). The background colors in panels (a) and (c)
-  represent the strength of the hydrophobic attraction potential. The
-  blue regions have the weakest action and the red regions in the
-  bilayer have the strongest action.}
+  \caption{\label{figure3} 
+  JP vesicles undergo tank-treading in shear flow. 
+  In panel (a),  the initial, 58-body vesicle is circular and the black arrows point in the direction of the
+  hydrophobic side of the JP.
+  In panel (b), the JP suspension rotates and deforms with the shear flow.
+  The color map is for the solution $u$ of \eqref{eq:SL}. 
+  The white curves are the streamlines of $\uu.$ 
+   The shear rate is $\chi=0.0025$.}
 \end{figure}
 
 \subsection{Model Parameters}
-To extract physical quantities of the target structure, we select
-particles that are disks with diameter $l_0 = 2.5$ nm representing the
-characteristic thickness of monolayers. The boundary
+\cite{Fu20} studied physical quantities for static JP bilayers
+for various particle shapes.  In the present study, we fix particle shape and 
+vary the background flows.  
+Specifically, the
+particles are circular disks with diameter $l_0 = 2.5$ nm. The boundary
 conditions~\eqref{eq:SLbc} are $f_i(\xx) = \tfrac{1}{2}(1 + \cos
 \theta_i)$ where $\theta_i$ is the angle between $\xx - \aa_i$ and
 $\dd_i$, where the vectors $\aa_i$ and $\dd_i$ are the particle center
-and director respectively. With this choice, the director points in the
-direction of the hydrophobic side of the JP. The other physical
-parameters are the decay length $\rho = 2 l_0$, the repulsion length
-$\rho_0 = 0.2l_0$, the repulsion strength is $M=4.0$~$k_BT$, the
-interfacial particle tension $\gamma = \text{4.1 pN nm}^{-1}$, and $\mu
-= \text{1 cP} = \text{1 pN ns nm}^{-2}$ is the viscosity of water at
-room temperature. \cite{Fu20} provides physical quantities for static JP
-bilayers.
+and director respectively.  The particle diameter is the
+thickness of monolayers and the  director points in the
+direction of the hydrophobic side of the JP. 
 
-
-We consider the behavior of JP vesicles under various external flows.
-To do so, we nondimensionalize the problem through the change of
-variables 
+We use $\rho = 2 l_0$ for decay length, $\rho_0 = 0.2l_0$ for repulsion length, $M=4.0$~$k_BT$ for repulsion strength, 
+$\gamma = \text{4.1 pN nm}^{-1}$ for interfacial tension, and $\mu
+= \text{1 cP} = \text{1 pN ns nm}^{-2}$ for viscosity of room-temperature water.
+We nondimensionalize the problem through the change of variables 
 %\begin{equation}
 %\label{eq:nondimensionalize}
-$t \mapsto t \text{ ns},$ % \quad
+$t \mapsto t \text{ ns}$,
 $\xx \mapsto \xx \text{ nm}$, %\quad 
 $\uu \mapsto \uu \text{ nm ns}^{-1}$, and %\quad 
 $p \mapsto p \text{ pN nm}^{-2}$.
 %\end{equation}
-For the remainder of the manuscript, the time axes are in ns, and the
-pressure $p$ and stresses $\sigma$ and $\mathbf{T}^{\mathrm{hydro}}$ are
-in pN nm$^{-2}$. Finally, the dimensionless shear rate is $\chi =
-\dot\gamma \tau$ for the dimensional shear rate $\dot\gamma$ in
-ns$^{-1}$ and the characteristic time is $\tau = 1$~ns. The time step
-size $\Delta t=0.2$ is used for all simulations in this work including
-the relaxation run.
+The numerical time step size is $\Delta t=0.2$.
 
-
-
-
-
-
+To reach consistent simulation outcomes, we first solve for a baseline JP vesicles 
+that is suitably close to equilibrium. We start
+with an assumed configuration of $N=58$ JP in the form of two, circular, apposing monolayers of about
+$8$ nm in radius. 
+Figure~\ref{figure2}a shows that the 
+translational and rotational velocities vanish exponentially with
+an approximate decay rate $\sim 4.6$ $\upmu$s$^{-1}$. An 
+equilibrium configuration is therefore rapidly attained.
+This equilibrium configuration serves as the initial data 
+in the background flow simulations.
 
 %\subsection{Jeffery Orbit}
 %We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
@@ -801,79 +799,70 @@ the relaxation run.
 %\includegraphics[height=2in]{ArcLength.pdf}
 %\includegraphics[height=2in]{ExcLength.pdf}
 \end{center} 
-  \caption{\label{figure4} (a) The reduced area transitioning over time
+  \caption{\label{figure4}
+ JP vesicles loose enclosed area and conserve length in shear flow. 
+  Panel (a) gives the reduced area over time
   for four different shear rates. The smooth curves are a best-fit
-  exponential curve. (b) The decay rate $k$, using the exponential fit
-  to the data in panel (a), for a number of shear rates. The inset shows
-  the terminal reduced areas. (c) The total arc lengths of the midplanes
-  over time for four shear rates. (d) The excess length of the
-  midplanes. For all panels, a set of shear rates
-  $\chi=\{0.002,0.0025,0.003,0.0035\}$ is used in simulations. The
-  legend in panel (d) applies to both panels (a) and (c).}
+  exponential curve. There is commensurate increase in excess length (panel (b)), 
+  but the arc length of the mid plane curve is more or less constant.   
+   The legend in panel (b) applies to panels (a)--(c).
+  Panel (d) plots the steady-state reduced area and the decay rate $k$ (inset) using the exponential fit
+  to the data in panel (a). }
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Vesicle in a Shear Flow}
 \label{sec:ves_in_shear}
-Our hydrodynamic simulation studies begin by studying the dynamics of a single JP vesicle suspended in
-the shear flow
+Our simulation studies begin by showing, for the first time, that a JP suspension 
+behaves as a tank-treading vesicle
+with zero viscosity contrast between the fluids inside and
+outside of the vesicle (\cite{Finken08, Shaqfeh11}).
+The centroid of the baseline $58$-body JP vesicle lies at the origin 
+and the background shear flow 
 \begin{align}
   \uu_{\infty}(\xx) = \dot\gamma (\xx \cdot \mathbf{e}_y) \mathbf{e}_x,
-\end{align}
-with shear rate $\dot\gamma$, and orthogonal unit vectors $\mathbf{e}_x$
-and $\mathbf{e}_y$ for the horizontal and vertical directions,
-respectively. It is well known that a vesicle has tank-treading behavior
-when there is no viscosity contrast between the fluids inside and
-outside of the vesicle.
-%Within the framework of the simulation setup,
-%the proposed model provides a feature that the fluid viscosity is
-%constant over the computational domain and it is capable of performing
-%these simulations.
+\end{align} 
+is applied for
+shear rate $\dot\gamma$, and orthogonal unit vectors $\mathbf{e}_x$
+and $\mathbf{e}_y$ for the horizontal and vertical directions, respectively.
+We use the dimensionless shear rate $\chi = \dot \gamma$ ns.
 
-The centroid of the pre-relaxed $58$-body Janus vesicle is initially
-placed at the origin and the shear flow with a shear rate $\chi$ is
-applied. Figure~\ref{figure3} shows snapshots of the JP vesicle in the
-shear flow with a shear rate $\chi=0.0025$. Panels (a) and (b) show the
-initial shape obtained from the relaxation run and the deformed
-configurations of the JP vesicle at time $t=4000$ are in panels (c) and
-(d). The background color in panels (a) and (c) is the strength of the
-action of the hydrophobic attraction. Red corresponds to a strong action
-while blue is a weak action. The hydrophobic layer clearly has the
-strongest action. To demonstrate the tank-treading behavior of the
-vesicle, panels (b) and (d) provide the streamlines of the fluid
-velocity around the JP vesicle. In panel (d), we can clearly observe the
-clockwise tank-treading motion.
-
-
-
+Figure~\ref{figure3} shows snapshots of the JP vesicle in the
+shear flow with $\chi=0.0025$. 
+Under the background flow, the rigid-body boundary condition \eqref{eq:rigid_bc} causes the 
+particle suspension to stretch apart. This perturbation  
+disrupts the preferred particle orientations and exposes the hydrophobic core to bulk water (Figure~\ref{figure3}, red region).
+In response, hydrophobic attraction \eqref{eq:hydrophobicAttraction} causes the 
+particles to reorient and form a  somewhat elliptically-shaped suspension.  
+Panels (a) shows the initial configuration and panel (b) shows the later, fully-formed, clockwise tank-treading motion. 
+The JP suspension maintains its bilayer structure throughout the simulation. 
 %
 
-To extract additional physical properties of the proposed model, we
-compute the total length, reduced area, and excess length of the bilayer
-structure. The enclosed area and the total length of the structure are
-calculated from the midplane. The reduced area is $A^* = 4\pi A/L^2$
-where $A$ is the area, and $L$ is the total length of the JP vesicle,
-and the excess length is $\Delta=L/\sqrt{A^*/\pi}-2\pi$.
-Figure~\ref{figure4} shows these quantities for a JP vesicle suspended
-in a shear flow with shear rates $\chi=\{0.002,0.0025,0.003,0.0035\}$.
-Since the starting configuration is nearly circular, the reduced area
-decreases from an initial value close to $1$. The smooth curves in panel
-(a) are best fits of the exponential model $A^* = a_0 + b_0 \exp(-kt)$.
-Panel (b) shows that the decay rate $k$ is independent of the shear rate
-for sufficiently large shear rates, and the terminal reduced areas of
-each case are shown in the inset. We see that lower shear rates generate
-a higher final reduced area. In particular, we observe that the reduce
-area converges relatively early when the shear rate is lower than
-$\chi=0.003$. 
-%and has a faster convergence than the high shear rate cases.
-Panel (c) shows that the total arc length remains constant for all time
-with all four shear rates. Combining the behavior of the reduced area
-and the total arc length, the excess length must increase in time and be
-larger for higher shear rates as observed in panel (d). In all these
-results, there are oscillations that can be explained by the granularity
-of the JP vesicle which results in a midplane that is non-smooth.
-%Overall the total lengths of the bilayer have the same converging value
-%in all test shear rates.
+To extract physical quantities, 
+let $A^* = 4\pi A/L^2$ be the reduced area and $\Delta=L/\sqrt{A^*/\pi}-2\pi$ the excess length of the bilayer
+structure (\cite{Finken08}).
+Here, $A$ is the enclosed area and $L$ is the total length of the JP vesicle  (Figure \ref{fig:figure0}a).
+Figure~\ref{figure4} shows the evolution of the same for various shear rates.
+Panels (a) and (b) show that $A^*$ decreases and $\Delta$ increases with time, respectively,
+and that the rate of decrease/increase grows with shear rate. 
+The total arc length, however, remains constant for all time
+for all four shear rates (panel (c)).
+We conclude that the JP vesicle loses area and that the bilayer behaves as a permeable membrane. 
+Due to granularity, the tank-treading motion has some wobble and this is the source
+of the oscillations in the panels of Figure~\ref{figure4}.
 
+Since the starting configuration is nearly circular, the reduced area
+decreases from an initial value close to $1$ and tends to a steady-state value $A^*_{\infty}$. 
+The curves in panel (a) are fit of the exponential model $A^* = A^*_{\infty} + (1-A^*_{\infty}) \exp(-kt)$.
+Panel (d) shows that $A^*_{\infty}$ decreases with shear rate, 
+and that reduced area converges to a steady state earlier when the shear rate is lower (inset).
+
+We point out that the range of values for $\chi$ where we measured for tank-treading 
+correspond to shear rates $\dot \gamma = O(10^6$ s$^{-1}$) 
+which gives fluid velocities like m s$^{-1}$ in the vicinity of the  vesicle.  
+While seemingly large, these values are consistent with prior MD studies (\cite{Brandner2019})
+and are a consequence of the fact that the magnitude of elastic membrane stresses grows inversely 
+with the vesicle radius.  Larger shear rates are required to produce the viscous stresses needed to 
+appreciably deform smaller vesicles.  
 
 
 \begin{figure}
@@ -907,7 +896,7 @@ relative positions with respect to the vesicle center. It is clear that
 the outer leaflet has larger tangential velocity than the inner leaflet
 since $\theta(t)$ increases. This inter-leaflet sliding phenomenon is
 consistent with what has been seen in articles in molecular dynamics
-simulations. (\cite{Zgorski2019,denOtter2007})
+simulations. (\cite{Zgorski2019, denOtter2007})
 
 
 
@@ -1058,27 +1047,6 @@ starts to oscillate due to the granularity of the JP vesicle.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Self-Assembly and Relaxation}
-
-
-In order to examine the hydrodynamics interactions of JP vesicles, it is
-necessary to have a suitable, initial, JP equilibrium vesicle. This
-ensures that the dynamics of the bilayer under a shear flow, for
-example, reach consistent outcomes. For our target vesicle, we start
-with $N=58$ JP arranged in two circular, apposing monolayers of about
-$8$ length units. The directors of the outer monolayer point inward and
-the directors of the inner monolayer point outward
-(Figure~\ref{figure2}a).  The JP of this chosen configuration are
-generally not in equilibrium.  Rather, the inter-particle distances and
-orientations must make slight adjustments so that attraction and
-repulsion balance.  Figure~\ref{figure2}(b) shows that the magnitudes of
-the mean velocity components ${\bf v}=\{v_x,v_y\}$ and the variation
-$\Delta \theta$ of the particle orientation decrease exponentially with
-an approximation decaying rate $\sim0.005$. A local energy minimum and
-the equilibrium configuration is therefore rapidly attained. The
-equilibrium configuration in Figure~\ref{figure2}a is slightly
-elliptical. The equilibrium eccentricity vanishes for larger $N_b$
-(Figure~\ref{figure2}e).
 
 \subsection{Stretching and Permeability}
 \begin{figure}
