@@ -188,25 +188,28 @@ Finally we provide discussion and outlook for future directions in
 \begin{center}
 \includegraphics[width=\textwidth]{Figure0_Wrapper.pdf}
 \end{center}
-\caption{Panel (a) illustrates the domain and boundary conditions for the mobility problem. 
-The color map in panels (b) - (e) is the solution $u$ of \eqref{eq:SL}. Red is for $u = 1$
-and blue is for $u = 0$.
-Particles self-assemble into vesicle bilayers (panel (b)) and eventually  
-arrange along inner and outer leaflets. In panel (c), $C_M$ is the midplane curve,
-$A$ is the enclosed area, and $L$ is the arc length.  Initially stretched vesicles relax to equilibrium 
-with fluid flow across the bilayer. The study considers a single vesicle in background flows such as shear flow (panel (d))
-and hydrodynamic vesicle-vesicle interactions (panel (e)).}
+\caption{Panel (a) illustrates the domain and boundary conditions for
+  the mobility problem. The color map in panels (b)--(e) is the solution
+  $u$ of \eqref{eq:SL}. Red is for $u = 1$ and blue is for $u = 0$.
+  Particles self-assemble into vesicle bilayers (panel (b)) and
+  eventually arrange along inner and outer leaflets. In panel (c), $C_M$
+  is the midplane curve, $A$ is the enclosed area, and $L$ is the arc
+  length. Initially stretched vesicles relax to equilibrium with fluid
+  flow across the bilayer. The study considers a single vesicle in
+  background flows such as shear flow (panel (d)) and hydrodynamic
+  vesicle-vesicle interactions (panel (e)).}
 \label{fig:figure0}
 \end{figure}
 
 \section{Governing Equations\label{sec:governing_eqs}}
 \subsection{\label{mobility}Mobility Problem}
-The objective is to study the hydrodynamics of JP vesicles in background flows. 
-We consider an $N_b$-many body collection of JP suspended
-in a two-dimensional unbounded domain $\Omega$. 
-The boundary of each particle is denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1 \cup
-\Gamma_2 \cup \cdots \cup \Gamma_{N_b}$ (Figure \ref{fig:figure0}a). 
-Assuming the inertial terms are negligible, the governing equations are
+The objective of this work is to study the hydrodynamics of JP vesicles
+in background flows. We consider an $N_b$-many body collection of JP
+suspended in a two-dimensional unbounded domain $\Omega$. The boundary
+of each particle is denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1
+\cup \Gamma_2 \cup \cdots \cup \Gamma_{N_b}$ (Figure
+\ref{fig:figure0}a). Assuming the inertial terms are negligible, the
+governing equations are
 \begin{alignat}{3}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
     && \xx \in \Omega, \\
@@ -231,8 +234,8 @@ angular velocity. Here, $\langle x, y \rangle^{\perp} = \langle -y, x
 \end{align}
 To determine the translational and angular velocities of each particle,
 we define imposed forces $\FF_i$ and torques $T_i$ acting on each
-particle. Since the small particles are inertialess, force balance
-gives 
+particle. Since the small particles are inertialess, force and torque
+balance gives 
 \begin{alignat}{2}
   \label{eq:force}
   \FF_i &- \int_{\Gamma_i} \ssigma \cdot \nnu \, \dif s = \mathbf{0},
@@ -250,22 +253,23 @@ referred to as the mobility problem.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Imposed Forces}
-The imposed forces and torques contain two parts: hydrophobic attraction and repulsion. 
-The hydrophobic attraction potential was introduced by ~\cite{Fu20} and is responsible for forming particle aggregates
-that sequester their hydrophobic surface regions (Figure \ref{fig:figure0}b).
-We model hydrophobic attraction by solving
-the screened Laplace equation boundary value problem
+The imposed forces and torques contain two parts: hydrophobic attraction
+and repulsion. The hydrophobic attraction potential was introduced
+by~\cite{Fu20} and is responsible for forming particle aggregates that
+sequester their hydrophobic surface regions (Figure \ref{fig:figure0}b).
+We model hydrophobic attraction by solving the screened Laplace equation
+boundary value problem
 \begin{alignat}{2}
   \label{eq:SL}
 -\rho^2 \Delta u + u &=0,            && \xx \in \Omega,\\
 \label{eq:SLbc}
-u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i,\; i=1,\ldots,N_b \\
+u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i,\; i=1,\ldots,N_b, \\
 \label{eq:SLff}
 u &\to 0,                          &&|\xx| \to \infty,
 \end{alignat}
 where $0 \leq f_i \leq 1$ is a material label with $f_i = 0$,
 respectively $1$, representing hydrophilic, respectively hydrophobic,
-portions of the surface. We assume that the $f_i$ and $\Gamma_i$ are
+portions of the surface. We assume that both $f_i$ and $\Gamma_i$ are
 smooth. The parameter $\rho > 0$ is the decay length of attraction. The
 forces and torques of attraction are 
 \begin{align}
@@ -372,14 +376,15 @@ second-kind integral equation
 \end{equation}
 the HAP double-layer potential~\eqref{eq:HAP_DLP} satisfies the screened
 Laplace equation~\eqref{eq:SL}--\eqref{eq:SLff}. After
-discretizing~\eqref{eq:screenedSKIE}, the result is an $NN_b \times NN_b$
-linear system that is solved with block-diagonal preconditioned GMRES.
+discretizing~\eqref{eq:screenedSKIE}, the result is an $NN_b \times
+NN_b$ linear system that is solved with block-diagonal preconditioned
+GMRES.
 
 To calculate the hydrophobic force and torque, the gradient of the
 double-layer potential~\eqref{eq:HAP_DLP} must be computed on the
 boundary of each particle. The resulting integrands are singular, and
 specialized quadrature would be necessary to approximate such integrals.
-Alternatively, in Section~\ref{subsec:calculating_force}, we show that
+Alternatively, in Section~\ref{subsec:calculating_force}, we show how
 the force and torque calculations can be expressed in terms of
 non-singular integrals.
 
@@ -435,17 +440,18 @@ translational velocity $\vv_i$, and angular velocity $\omega_i$ satisfy
 
 After discretizing and applying appropriate quadrature rules, the result
 is a $(2NN_b + 3N_b) \times (2NN_b + 3N_b)$ linear system that we solve
-with block-diagonal preconditioned GMRES. Other BIE
-formulations of the mobility problem have used single-layer potentials
-(\cite{cor-gre-rac-vee2017, rac-gre2016}) or a combination of single-
-and double-layer potentials (\cite{cor-vee2018}).
+with block-diagonal preconditioned GMRES. Other BIE formulations of the
+mobility problem use single-layer potentials (\cite{cor-gre-rac-vee2017,
+rac-gre2016}) or a combination of single- and double-layer potentials
+(\cite{cor-vee2018}).
 
-We validated our solver for \eqref{eq:SKIE}-\eqref{eq:mobility2} using a
-single elliptical particle suspended in a background shear flow (see
-\S~\ref{sec:ves_in_shear}). Hydrophobic attraction and repulsion are
-zero for a single particle (see \cite{Fu20} equation 2.13). The angle of the ellipse's major axis coming
-from the integral equation method was in complete agreement with the
-theoretical, Jeffery orbit time-course (\cite{jef1922}). 
+We have validated our solver for~\eqref{eq:SKIE}--\eqref{eq:mobility2}
+using a single elliptical particle suspended in a background shear flow
+(see \S~\ref{sec:ves_in_shear}). Hydrophobic attraction and repulsion
+are zero for a single particle (see \cite{Fu20} equation 2.13). The
+angle of the ellipse's major axis coming from the integral equation
+method agrees with the theoretical, Jeffery orbit time-course
+(\cite{jef1922}). 
   
 %The Jeffrey orbit  
 %\begin{equation}
@@ -507,11 +513,11 @@ where
     2\gamma\rho \frac{d\sigma}{ds} \frac{dv_i}{d\nnu} \ttau.
 \end{align}
 \end{theorem}
-The symbols $\ttau$ and $\frac{d}{ds}$ are the unit tangent and arc length
-derivative for $\Gamma_i$, respectively (Figure \ref{fig:figure0}a.)  
-The result 
-is valid for any smooth particle shape or boundary condition. 
-The advantage in using~\eqref{eq:recipforcetorque} over
+The symbols $\ttau$ and $\frac{d}{ds}$ are the unit tangent and arc
+length derivative for $\Gamma_i$, respectively (Figure
+\ref{fig:figure0}a.) The result is valid for any smooth particle shape
+or boundary condition. The advantage of
+using~\eqref{eq:recipforcetorque} over
 using~\eqref{eq:hydrophobicAttraction} is that the components $\sigma$,
 $v_i$, $\frac{d\sigma}{ds}$, and $\frac{dv_i}{ds}$ of $\JJ_i$ are smooth
 functions, whereas the components of \eqref{eq:stress} are singular
