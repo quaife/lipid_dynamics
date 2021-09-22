@@ -738,13 +738,12 @@ The numerical time step size is $\Delta t=0.2$.
 To reach consistent simulation outcomes, we first solve for a baseline JP vesicles 
 that is suitably close to equilibrium. We start
 with an assumed configuration of $N=58$ JP in the form of two, circular, apposing monolayers of about
-$8$ nm in radius. 
-Figure~\ref{figure2}a shows that the 
+$8$ nm in radius. The 
 translational and rotational velocities vanish exponentially with
 an approximate decay rate $\sim 4.6$ $\upmu$s$^{-1}$. An 
 equilibrium configuration is therefore rapidly attained.
 This equilibrium configuration serves as the initial data 
-in the background flow simulations.
+in the subsequent background flow simulations.
 
 %\subsection{Jeffery Orbit}
 %We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
@@ -820,8 +819,9 @@ in the background flow simulations.
 \label{sec:ves_in_shear}
 Our simulation studies begin by showing, for the first time, that a JP suspension with hydrophobic attraction 
 behaves as a tank-treading vesicle
-with zero viscosity contrast between the fluids inside and
-outside of the vesicle (\cite{Finken08, Shaqfeh11}).
+%with zero viscosity contrast between the fluids inside and
+%outside of the vesicle
+(\cite{Finken08, Shaqfeh11}).
 The centroid of the baseline $58$-body JP vesicle lies at the origin 
 and the background shear flow 
 \begin{align}
@@ -843,7 +843,7 @@ We use the dimensionless shear rate $\chi = \dot \gamma$ ns.
   There is inter-monolayer slip present in the JP vesicle tank-treading motion at all shear rates.  
   Panel (a) tracks the angle  $\theta(t)$ between a pair of particles (blue and yellow) with respect to
   the JP vesicle centroid. The shear rate is $\chi=0.005$ and in the right figure, the yellow particle
-  will complete two and quarter revolutions in the same time the blue particle completes two revolutions.
+  will complete two and a quarter revolutions in the same time the blue particle completes two revolutions.
   The curves in panel (b) are the mean change in angle for various shear rates. 
   Slip velocity generally increases with shear rate but 
   we have marked two outliers (times symbols). }
@@ -974,7 +974,7 @@ suspended in a shear flow. For $\chi = 0.1$, starting
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Vesicle in a Parabolic Flow}
-Another interesting flow to consider is the parabolic flow
+Finally, we consider the parabolic background flow
 \begin{align}
   \uu_\infty = v_{max}\left[ 1 - \left( 
     \frac{\xx \cdot \mathbf{e}_y}{wR_0}\right)^2
@@ -982,11 +982,13 @@ Another interesting flow to consider is the parabolic flow
 \end{align}
 %
 where $v_{max}$ is the flow strength and $w$ determines the shape of the
-flow. $R_0$ is defined as the radius of the JP vesicle at $t=0$. The
-behavior of a vesicle in this unbounded non-linear flow includes
+flow. The parameter $R_0$ is the radius of the JP vesicle at $t=0$ and 
+$w$ sets the width of the profile.  
+\cite{Kaoui09, cou-kao-pod-mis2008, dan-vla-mis2009} have shown that the
+behavior of a vesicle in this unbounded  flow includes
 vertical migration, and depending on the flow rate and reduced area, the
 steady-state shape can be either a symmetric parachute or an asymmetric
-slipper (\cite{Kaoui09, cou-kao-pod-mis2008, dan-vla-mis2009}).
+slipper.
 
 %Besides the tests of a JP vesicle in a shear flow, an interesting
 %test can also use the proposed model and the setup. Consider a
@@ -995,41 +997,30 @@ slipper (\cite{Kaoui09, cou-kao-pod-mis2008, dan-vla-mis2009}).
 %continuum model. With a similar setup, the background flow for this set
 %of simulations is given by
 
-Figure~\ref{figure6} shows three configurations for one specific case
+Figure~\ref{figure6} shows four configurations for one specific case
 where the centroid of the JP vesicle is initially placed slightly
-above the $x$-axis. The parameters are $v_{max} = 8.0$, $w=10$, and
-$R_0=8$. The red curves are the midplanes and a particle pair is marked
-in color. We observe that the deformed JP vesicle has a
+above the $x$-axis.  We have marked a pair of particles blue and yellow
+in the inner and outer leaflets, respectively,  and observe that the 
+deformed JP vesicle (Figure~\ref{figure6}, $t = 12~\upmu$s) has a
 counterclockwise movement and the shape of the vesicle approaches an
-asymmetric slipper shape. Moreover, we observe inter-monolayer slip
-between the two leaflets. For this test, the reduced area for this
+asymmetric slipper shape. For this test, the reduced area in the final
 configuration is approximately $0.9$ which matches the previous
 numerical tests in~\cite{Kaoui09} where a slipper-like shape occurs when
-the flow velocity is weak and the reduced area is large. A schematic of
-the setup is shown in Figure~\ref{figure7} where the blue horizontal
-line represents the mean $y$-position of all particles. The inset of
-Figure~\ref{figure7} shows the trajectory of the mean position in the
-$y$-direction that decreases towards $y=1$ for a period of time and then
-starts to oscillate due to the granularity of the JP vesicle. 
+the flow velocity is weak and the reduced area is large.  The flow causes the 
+vesicle, which is initially placed above the axis,
+to draft downward where it reaches a steady height of about  $1$ nm. 
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Figure6_Wrapper.pdf}
 %\includegraphics[width=0.8\textwidth]{slipper.eps}
-  \caption{\label{figure6} A JP vesicle suspended in a parabolic flow
-  where the strength of the flow is $v_{max}=32.8$~nm ns$^{-1}$, $R_0 =
-  20$~nm, and the control parameter is $w=25$~nm. The configuration is
-  the state when $t=\{0, 4000, 8000\}$ which correspond to $0\ \mu $s, $2.44\ \mu $s, and $4.88\ \mu $s. The red curves are the midplanes. Inter-monolayer slip is observed by comparing the relative  locations of the blue and yellow particles.}
-\end{figure}
-
-
-\begin{figure}
-\centering
-%\includegraphics[height=2in]{parabolic.eps}
-  \caption{\label{figure7} The schematic of a JP vesicle suspended in a
-  parabolic flow where the strength of the flow is
-  $v_{max}=32.8$~nm~ns$^{-1}$, $R_0 = 20$~nm, and the control parameter
-  is $w=25$~nm. The configuration occurs when $t=6.1\ \mu$s and red arrows indicate the tank-treading motion. The inset plots the trajectory of mean $y$-position over time.}
+  \caption{\label{figure6} A JP vesicle placed in a parabolic flow drifts 
+  toward the central axis.  It assumes a slipper shape and undergoes tank-treading
+  like in the shear flow case.  The arrows on the left illustrate the background flow and 
+  the arrows on the right show the velocity relative to the vesicle's moving frame. 
+  The thick black curve plots the distance from the axis as a function of time from left to right.  
+  The parameters are $v_{max} = 8$~nm ns$^{-1}$, 
+  $w=10$, and $R_0=20$ nm.}
 \end{figure}
 
 
@@ -1046,113 +1037,86 @@ starts to oscillate due to the granularity of the JP vesicle.
 %\includegraphics[height=2.in]{N58_5000pres.pdf}
 %  \todo[inline]{Put pressure of each of the two configurations below
 %  this.}
-\caption{\label{figure2} A JP Vesicle relaxing under a quiescent flow.
-  (a) The blue dashed and solid curves are mean magnitudes of the
-  particle velocities in $x$ and $y$ directions, respectively. The red
-  curve shows the decreasing trend of the mean magnitude of particle
-  orientation change. The black dashed line shows the reference of how
-  all magnitudes decay. (b) Bilayer configurations for $t=0$ (black) and
-  $t=1000$ (red) with particle directors. (c)--(d) show the fluid
-  pressure profiles for $t=0$ and $t=1000$ where the background curves
-  indicate the streamlines. In panel (c), the pressure value in internal
-  fluid is much higher than the pressure outside of the bilayer. After
-  the JP vesicle relaxes, this immersed permeable bilayer approaches the
-  steady state shown in panel (d).}
+\caption{\label{figure2} 
+  In JP vesicles, tension and pressure relax as fluid is expelled 
+  through the particle interstices. 
+  In panel (a), the thin curve plots the mean of the norm of the particle translational velocities.
+  The thick curve plots the mean of the absolute value of the particle angular velocities.  
+  At $t = 0$ $\upmu$s, the vesicle has a constant internal pressure 0.05~pN nm$^{-1}$ (red color, panel (b)).
+  In panel (c),  pressure has dissipated and the vesicle has moved from its initial configuration (gray circles), to the equilibrium configuration
+  (black circles).  The data in panels (d) and (e) support the linear relationship expressed by 
+  \eqref{eq:LaplacePressure} and \eqref{eq:perm}.
+  Circles are for a vesicle with 17 nm initial radius;
+  square are for a 34 nm initial radius.  Asterisks are for 
+  a 18 nm initial radius but with smaller, 1.25 nm diameter particles. 
+  In panel (f), the theoretical time course  \eqref{eq:perm_solution} overlaps the data 
+  using constants $K_A$ and $P$ derived from panels (d) and (e). }
 \end{figure}
+Finally, we show that the JP bilayer behaves as an extensible, permeable membrane. 
+Figures~\ref{figure2}b shows an initial, non-equilibrium JP vesicle suspended in a quiescent flow $\uu_{\infty} = 0$.
+The color map plots the pressure $p$. The red color in Figures~\ref{figure2}b 
+shows a constant, positive internal pressure (0.05~pN nm$^{-1}$)
+and the white shows a constant zero, external pressure.  
+There is some fluid flow and the pressure vanishes as the configuration tends toward the equilibrium state (Figures~\ref{figure2}c).  
 
-\begin{figure}
-  \caption{\label{figure:permeability} JP vesicles are suspended in a
-  quiescent flow for relaxations where the reference arc lengths $L_0$
-  are $107$ nm, $218$ nm, and $141$ nm with particle diameters $2.5$ nm,
-  $2.5$ nm, and $1.25$ nm, respectively. (a) The arc length $L$
-  decreases over time where the dashed curves represent the data and
-  solid curves are linear fits; (b) A linear relationship between
-  $R\Delta p$ and the relative difference $L/L_0-1$; (c) A linear
-  relationship between aqueous flux $dA/dt$ and $L\Delta p$. For panels
-  (b) and (c), the cross and asterisk symbols are numerical results and
-  fitted by using solid lines.}
-\end{figure}
 
-Figures~\ref{figure2}c and~\ref{figure2}d demonstrate that the initial, non-equilibrium configuration has a large internal fluid pressure
-that vanishes as the configuration tends toward the equilibrium state.  
-This suggests that the initial collection of JP is under tension and
-this tension is relaxed as fluid is expelled through the inter-particle
-spacing. To make a comparison with membrane continuum mechanics, lipid
-bilayer membranes have a large area modulus $K_A$ of about $240$ pN
-nm$^{-1}$ \cite{NAGLE} and changes in surface area give rise to a
+What could be the source of this drop in pressure?
+In continuum membrane mechanics, changes in surface area give rise to a
 membrane tension $\tilde \gamma = K_A(A/A_0 - 1)$ where $A$ is the
 membrane surface area and $A_0$ is the reference surface area in the
-non-tensed state. In the two-dimensional vesicles, the tension becomes
+The area modulus $K_A$ of bilayers is about $240$ pN nm$^{-1}$ (\cite{NaTr00}).
+In the two-dimensional vesicles, the tension becomes
 \begin{align}
 \label{eq:stretch}
 \tilde \gamma = K_A\left(\frac{L}{L_0} - 1 \right),
 \end{align}
 where $L$ and $L_0$ are the vesicle arc length and resting length,
-respectively. A stretched, circular vesicles has a Laplace pressure 
+respectively. Moreover, stretched, circular vesicles has a Laplace pressure 
 \begin{align}
 \label{eq:LaplacePressure}
 \Delta p = \frac{\tilde \gamma}{R},
 \end{align}
 where $\Delta p$ is the difference in internal pressure to the pressure
-at infinity and $R$ is the radius of the circular vesicle. The factor
-$R^{-1}$ is the total curvature since the principle curvature in the
-direction of the cylinder is zero.
+at infinity, $R^{-1}$ is the total curvature of the circular cylinder.
 
-
+Figure~\ref{figure2}c plots the data for the pressure jump
+$\Delta p$ between the particle center and the far-field (see Figures~\ref{figure2}c and~\ref{figure2}d).
+We use $R = L/(2\pi)$ for the vesicle radius, and the horizontal axis is the relative stretch.
+The circles are data for a vesicle with radius 17 nm. The linear fit (solid lines) shows that 
+$R\Delta P$ is proportional to the relative stretching $L/L_0 - 1$.
+The squares are for a vesicle with twice the radius 34 nm, and the data overlap 
+supports that the proportionality constant $K_A$ is a stretching modulus that is independent of vesicle size.
+The data give $K_A = 170 \pm 9$ pN nm$^{-1}$ which is good agreement with the 
+area moduli of lipid bilayer as determined by experiment. 
+To evaluate how changes to particle size lead to different physical properties,
+the asterisk symbols are for an 18 nm radius vesicle
+consisting of particles with diameter 1.25 nm, instead of the usual 2.5 nm.
+These data give smaller stretching modulus of $K_A = 102$~pN~nm$^{-1}$. 
 
 The particles in our setup do not abut but rather have small gaps due to
 repulsive forces. The gaps allow for some fluid flux across the JP
-bilayer. In membrane mechanics, aqueous flux is quantified the equation
+bilayer, which can be quantified by the equation
 \begin{align}
   \label{eq:perm} 
   \frac{dA}{dt} = -P  L \Delta p,
 \end{align}
 where $P$ is a hydraulic permeability constant (\cite{chabanon2017,
 qua-gan-you2021}).
-
-The JP vesicle data is in complete agreement with the continuum
-mechanical model~\eqref{eq:stretch}--\eqref{eq:perm}. In
-Figure~\ref{figure:permeability}, we considered three configurations: a
-configuration with 58 particles ($L_0 = 107$ nm, plus symbols); a
-configuration with 119 particles ($L_0 = 218$ nm, asterisk symbols); and
-finally a configuration with 117 particles but with diameter 1.25 nm
-rather than the usual 2.5 nm ($L_0 = 141$ nm, times symbols). Here $A$
-and $L$ refer to the area and length of the mid plane curve separating
-the inner and outer monolayers. The values for $L_0$ are the asymptotic
-values for $L$ in Figure~\ref{figure:permeability}c.
-
-Figure~\ref{figure:permeability}a plots the data for the Laplace
-pressure relationship \eqref{eq:LaplacePressure}. The pressure jump
-$\Delta p$ is the pressure at the particle center minus the far-field
-pressure (see Figures~\ref{figure2}c and~\ref{figure2}d), $R = L/2\pi$
-is the vesicle radius, and the horizontal axis is the relative stretch.
-The solid lines are linear fits, showing that for circular JP vesicles,
-$R\Delta P$ is essentially proportional to the relative stretching
-$L/L_0 - 1$. The proportionality constant is the same for the 58 and 119
-particle cases where the diameters are the same, suggesting that the
-stretching modulus $K_A$ of JP bilayers is independent of the number of
-particles. The 117 particle case had diameters 1.25 nm and this data set
-results in a smaller stretching modulus of $K_A = 102$~pN~nm$^{-1}$. The
-interpretation is that changes to particle size, while keeping $\rho$,
-$M$, and $\rho_0$ fixed, lead to different physical properties.
-
-Furthermore, Figure~\ref{figure:permeability}b and shows that $L\Delta
-P$ is proportional to $\frac{dA}{dt}$ in accord with \eqref{eq:perm}.
-The slopes of the linear fits give the hydraulic permeability
-coefficient $P$. The data provide $P = 0.0296$ nm$^3$ ns$^{-1}$
-pN$^{-1}$ and $P = 0.0283$ nm$^3$ ns$^{-1}$ pN$^{-1}$ for the 58 and 119
-particle cases, respectively. These values suggest that the JP bilayer
-permeability is independent of particle number, as was the case for the
-stretching modulus. The permeability for the 117 particle number is
-0.0566 nm$^3$~ns$^{-1}$~pN$^{-1}$. The increase in the permeability is
-caused by the hydrophobic attraction vanishing with particle size,
-leading to larger gaps between the particles for the same repulsion. The
-hydraulic permeability we calculate, however, is not in agreement with
+Figure~\ref{figure2}e shows that the data for 
+$L\Delta p$ and $dA/dt$ obey the linear relationship expressed by \eqref{eq:perm}.
+The slopes of the linear fits give the hydraulic permeabilities $P = 0.0296$ nm$^3$ ns$^{-1}$
+pN$^{-1}$ and $P = 0.0283$ nm$^3$ ns$^{-1}$ pN$^{-1}$ for the 17 nm and 34 nm radius 
+cases, respectively.   
+Like  the area modulus, permeability is independent of vesicle size.
+The hydraulic permeability we calculate, however, is not in agreement with
 experimentally derived values and is larger by a few orders of
-magnitude. This discrepancy is perhaps due to inter-particle distance of
-the JP being relatively large to the inter-molecular spacing of lipids
-in real bilayers. In future studies, we can test this hypothesis be
-changing the repulsion strength and length for example. 
+magnitude. 
+
+We suspect this discrepancy is due to inter-particle distance of
+the JP being large compared to the inter-lipid spacing in real bilayers. To test this, we calculate the
+permeability for the particles with diameter 1.25 nm. 
+Due to their smaller size but fixed repulsion strength, these particles have a larger inter-particle spacing 
+resulting in an increase in permeability, $P = 0.0566$~nm$^3$~ns$^{-1}$~pN$^{-1}$ (Figure \ref{figure2}e, asterisk symbols).
 
 Since the vesicles in Figure~\ref{figure2}a are nearly circular, we can
 combine~\eqref{eq:stretch},~\eqref{eq:LaplacePressure},
@@ -1163,7 +1127,7 @@ L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t.
 \end{align}
 The theoretical time courses for \eqref{eq:perm_solution} are in good
 quantitative agreement with the JP data for
-(Figure~\ref{figure:permeability}c).
+(Figure~\ref{figure2}f).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Two Vesicles in a Linear Flow}
@@ -1173,12 +1137,11 @@ quantitative agreement with the JP data for
 \includegraphics[width=\textwidth]{Figure9_Wrapper.pdf}
 %  \includegraphics[width=0.9\textwidth]{ShearTraj.eps}
 \end{center} 
-  \caption{\label{figure9} The shape and trajectories of two
-  JP vesicles suspended in a shear flow. The moving paths of the two
+  \caption{\label{figure9} Two JP vesicles suspended in a shear flow
+  interact by orbiting about the origin. The moving paths of the two
   centroids are plotted in blue and red. The centroids are initially
-  located on the $x$-axis. For simulation time, $t = {0, 400,800,1200}$
-  for (a)--(d) and $t = {1600, 2400, 3200, 4000}$ for (e)--(h).
-  The fluid velocity profile is plotted in the background.
+  located on the $x$-axis.  The fluid velocity streamlines appear in grey.
+  The dimensionless shear rate is $\chi=0.005$.
   }
 \end{figure}
 
@@ -1189,58 +1152,58 @@ quantitative agreement with the JP data for
 %\includegraphics[height=2in]{N116_shear_2500.pdf}\\
 %\includegraphics[height=2in]{N116_shear_5000.pdf}
 %\includegraphics[height=2in]{N116_shear_7500.pdf}
-  \caption{\label{figure10} Two JP vesicles suspended in a shear flow
-  where the dimensioneless shear rate is $\chi=0.005$. The initial
-  configuration is shown in panel (a). Panels (b)-(d) represent configurations when $t = \{500, 1000, 1500\}$.
-  The background color is the fluid
-  pressure. The color bar is identical for all panels. Streamlines are
-  plotted in purple. The insets of all panels are generated from
-  simulations of a continuum model of the vesicles and the streamlines
-  agree between the two models. }
+  \caption{\label{figure10} 
+  The figure is for the same simulation as in Figure~\ref{figure9}, 
+  but also plots the fluid pressure $p$. The color bar is identical for all panels. 
+  Internal pressure is initially zero, but then grows as the vesicles come close to contact  (panel (c)).
+  The insets are generated from simulations of a continuum model of the vesicles (\cite{qua-vee-you2019}). 
+  The streamlines of the two models are in agreement.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Shear Flow}
-
+Finally, we can study vesicle-vesicle interactions in background flows. 
 Figure~\ref{figure9} shows the simulation of two JP vesicles suspended
 in a shear flow with shear rate $\chi=0.005$. We duplicate the
-pre-relaxed $58$-body JP vesicle from previous sections to construct the
-initial configuration shown in Figure~\ref{figure9}(a). The two centers
-of mass are at $(-10,0)$ and $(10,0)$. In all panels, the blue and red
+pre-relaxed $58$-body JP vesicle from previous sections and construct the
+initial configuration shown in Figure~\ref{figure9}a. The two centroids
+are at coordinates $(-25,0)$ and $(25,0)$ in nm. In all panels, the blue and red
 curves show the trajectory of the two JP vesicle centroids. They have
-nearly completed a full period by $t=4000$. We also observe an adhesive
-effect between the two JP vesicles that is set up by the hydrophobic
-interactions and repulsive force. Similar dynamics have been observed
-between a pair of adhering vesicles in a shear flow
-(\cite{qua-vee-you2019, abb-far-ezz-ben-mis2021}). This adhesive
-behavior is absent when two JP vesicles are well-separated.
+nearly completed a full period by $t=4$ $\upmu$s. 
 
-Snapshots of the fluid pressure are in Figure~\ref{figure10}. Since the
+We show snapshots of the fluid pressure in Figure~\ref{figure10}. Since the
 initial JP vesicles are pre-relaxed, there is initially no pressure jump
 between the internal and external fluids (panel (a)). Panels (b)--(d)
-show the configurations when $t = \{500,1000,1500\}$, and the
-streamlines are plotted in the background for all panels. We include the
-numerical results from a continuum model in all insets and these
+show the configurations when $t = \{0.5,1,1.5\}$ $\upmu$s, and the
+streamlines are plotted in the background for all panels. 
+We include the numerical results from a continuum model in all insets and these
 comparisons give a qualitative agreement between two models.
+We also observe an adhesive
+effect between the two JP vesicles that is set up by the hydrophobic
+attraction (Figure~\ref{figure10}c). Similar dynamics have been observed between a pair of adhering vesicles in a shear flow
+(\cite{qua-vee-you2019, abb-far-ezz-ben-mis2021}). This adhesive
+behavior is absent when two JP vesicles are well-separated.
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.97\textwidth]{Figure11_Wrapper.pdf}
 %\includegraphics[width=0.9\textwidth]{ExtTraj.eps}
 \end{center} 
-  \caption{\label{figure11} Two JP vesicles suspended in
-  an extensional flow. The moving paths of the two centroids are plotted
+  \caption{\label{figure11} 
+  The initial placement of two JP vesicles suspended in
+  an extensional flow affects the long-time dynamics.  
+  The moving paths of the two centroids are plotted
   in blue in red. Each row corresponds to a different initial placement
-  of the JP vesicles. The flow rate is $\chi = 0.005$ in all cases.
+  of the JP vesicles. 
   (i) Both JP vesicle centroids are on the $x$-axis. (ii) The
-  centroid of the left JP vesicle is $0.1$ units above the $x$-axis
+  centroid of the left JP vesicle is $0.25$ nm above the $x$-axis
   and the right JP vesicle is on the $x$-axis. (iii) The centroid of
-  the left JP vesicle is $0.1$ units above the $x$-axis and the right
-  JP vesicle is $0.1$ units below the $x$-axis. (iv) The centroid of
-  the left JP vesicle is $0.5$ units above the $x$-axis and the
-  centroid of the right JP vesicle is $0.5$ units below the $x$-axis.
-  Figure~\ref{figure12} presents the numerical results from the case
-  (iii).  The fluid velocity profile is plotted in the background.}
+  the left JP vesicle is $0.25$ nm above the $x$-axis and the right
+  JP vesicle is $0.25$ units below the $x$-axis. (iv) The centroid of
+  the left JP vesicle is $1.25$ nm above the $x$-axis and the
+  centroid of the right JP vesicle is $1.25$ nm below the $x$-axis.
+  The streamlines appear in grey and 
+  the flow rate is $\dot \gamma =0.005$ ns$^{-1}$ in all cases.}
 \end{figure}
 
 
@@ -1251,16 +1214,10 @@ comparisons give a qualitative agreement between two models.
 %\includegraphics[height=2in]{N116_ext_2000.pdf}\\
 %\includegraphics[height=2in]{N116_ext_4000.pdf}
 %\includegraphics[height=2in]{N116_ext_6500.pdf}
-  \caption{\label{figure12} Two JP vesicles suspended in an
-  extensional flow where the dimensioneless extensional rate is
-  $\chi=0.005$. The centroid of the left JP vesicle is $0.1$ units
-  above the $x$-axis and the centroid of the right JP vesicle is
-  $0.1$ units below the $x$-axis. The initial configuration is shown in
-  panel (a). Panels (b)-(d) represent configurations when $t = \{400, 800, 1300\}$. 
-  The background color is the fluid pressure. The color bar
-  is identical for all panels. Streamlines are plotted in purple. The
-  insets of all panels are generated from simulations of a continuum
-  model of the vesicles and the streamlines agree between the models.}
+  \caption{\label{figure12} The figure is for the simulation case (iii) of Figure~\ref{figure11},
+  and additionally plots the pressure $p$.  The color bar is shared by all panels. 
+  The insets of all panels are generated from simulations of a continuum
+  model of the vesicles and the streamlines agree between the two models.}
 \end{figure}
 
 
@@ -1270,13 +1227,17 @@ comparisons give a qualitative agreement between two models.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Extensional Flow}
 
-Using a similar setup to the shear case, we suspend the same two
-pre-relaxed $58$-body JP vesicles and consider their dynamics in an
-extensional flow with extensional rate $\chi=0.005$. This extensional
-flow is stretching in the $y$ direction and squeezing in the $x$
-direction. Figure~\ref{figure11} shows how the initial placement of the
+Using a similar setup to the shear flow case, we suspend the same two,
+pre-relaxed, $58$-body JP vesicles and consider their dynamics in an
+extensional flow 
+\begin{equation}
+\uu_{\infty}(\xx) = \dot \gamma ((\mathbf{e}_x \cdot \xx)\mathbf{e}_x -  (\mathbf{e}_y \cdot \xx)\mathbf{e}_y)
+\end{equation}
+with extensional rate $\dot \gamma =0.005$ ns$^{-1}$. This extensional
+flow is stretching in the $y$-direction and squeezing in the $x$-direction. 
+Figure~\ref{figure11} shows how the initial placement of the
 JP vesicles affects the dynamics. When two centroids are both placed
-symmetrically on the $x$-axis (case (i)), the JP vesicles reach a steady
+symmetrically on the $x$-axis (case (i)), the JP vesicles come into contact and reach a steady
 equilibrium. If one centroid is placed above the $x$-axis (case (ii)),
 the two JP vesicle move together and then upward. The migration of the
 right JP vesicle is a consequence of the adhesive effect caused by the
@@ -1287,7 +1248,7 @@ opposite sides of the $x$-axis, but with a greater displacement (case
 (iv)), the JP vesicles move much faster along the $\pm y$-directions.
 
 Figure~\ref{figure12} shows numerical results when the centroids of the
-two Janus particles are placed at $(-10,-0.1)$ and $(10,0.1)$ (case
+two Janus particles are placed at $(-10,-0.1)$ nm and $(10,0.1)$ nm (case
 (iii) from Figure~\ref{figure11}). With this setup, the two JP vesicles
 eventually separate along the $\pm y$-directions and we compare the
 results against a continuum model as shown in all insets. Panels
@@ -1298,7 +1259,7 @@ one other and then diverge along the $y$-axis. The behavior of the
 streamlines in both cases are similar. The pressure is initially largest
 in the gap formed by two JP vesicles and decreases during the
 separation. The short-range repulsion plays an important role to avoid
-structure collisions.
+particle collisions.
 %and this result can be
 %compared with some findings in continuum modeling simulations. 
 
