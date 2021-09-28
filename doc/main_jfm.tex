@@ -749,7 +749,7 @@ The numerical time step size is $\Delta t=0.2$.
 To reach consistent simulation outcomes, we first solve for a baseline
 JP vesicles that is suitably close to equilibrium. We start with an
 assumed configuration of $N=58$ JP in the form of two, circular,
-apposing monolayers of about $8$ nm in radius. The translational and
+apposing monolayers of about $8$ nm in radius. The norms of the translational and
 rotational velocities vanish exponentially with an approximate decay
 rate $\sim 4.6$ $\upmu$s$^{-1}$. An equilibrium configuration is
 therefore rapidly attained. This equilibrium configuration serves as the
@@ -847,14 +847,14 @@ directions, respectively. We use the dimensionless shear rate $\chi =
 %\includegraphics[width=0.5\textwidth]{Slip.eps}\\
 %\includegraphics[width=0.4\textwidth]{Slip2.eps}
 \end{center} 
-\caption{\label{figure5} There is inter-monolayer slip present in the JP
+\caption{\label{figure5} Inter-monolayer slip is present in the JP
   vesicle tank-treading motion at all shear rates. Panel (a) tracks a
   pair of particles (blue and yellow). The shear rate is $\chi=0.005$
   and in the right figure, the yellow particle will complete two and a
   quarter revolutions in the same time the blue particle completes two
   revolutions. The curves in panel (b) are the distance the outer
   leaflet has slid past the inner leaflet. The slopes of the curves
-  gives the slip velocity. With the exception of $\chi = 0.0035$, the
+  give the slip velocity. With the exception of $\chi = 0.0035$, the
   slip velocity is generally monotonic in the shear rate.}
 \end{figure}
 
@@ -901,7 +901,7 @@ Adams-Bashforth scheme.
 We point out that the range of values for $\chi$ where we measured for
 tank-treading correspond to shear rates $\dot \gamma = \mathcal{O}(10^6$
 s$^{-1}$) which gives fluid velocities $\mathcal{O}($m s$^{-1}$$)$ in
-the vicinity of the vesicle. While large, these values are identical to
+the vicinity of the vesicle. While large, these orders of magnitude are identical to
 ones used in prior MD studies (\cite{Brandner2019}) and are a
 consequence of the fact that larger shear rates are required to produce
 the viscous stresses needed to appreciably deform smaller vesicles. 
@@ -912,42 +912,26 @@ We observe inter-monolayer slip in the tank-treading, JP vesicle at all
 shear rates. Since they are not bound, the two leaflets of the vesicle
 are able to slide past one another. This sliding is limited by viscous
 friction of the aqueous gaps between particles and by the constant
-unbinding and binding of particles pairs in apposing leaflets. The
-phenomenon is consistent with prior MD results (\cite{Zgorski2019,
-denOtter2007}).
+unbinding and binding of particles pairs in apposing leaflets. 
+Previous studies \cite{Zgorski2019, denOtter2007}
+have considered inter-monolayer slip in lipid bilayers simulated by MD. 
 
-Figure~\ref{figure5}a illustrates the process by tracking the distances
-traveled by a pair of particles. In the left image, the blue and yellow
+Figure~\ref{figure5}a illustrates inter-monolayer slip by tracking the distances
+traveled by a pair of particles along the midplane curve. In the left image, the blue and yellow
 particle lie next to each other. In the right-most panel, the yellow
 particle has traveled farther than the blue particle. This suggests that
-the tangential velocity of the outer leaflet is larger than that of the
-inner leaflet. The difference in their velocities is the slip velocity
-$U(t)$ and $s(t) = \int_0^t dU $ records the distance one leaflet has
-slid past the other. 
+the outer tangential velocity, obtained by projecting the velocity of the
+outer leaflet onto the midplane curve, 
+is larger than that of the inner leaflet. 
 
-Figure~\ref{figure5}b plots the sliding distance for various shear
-rates. From the data, we define an inter-monolayer friction coefficient 
+From the data, we obtain an inter-monolayer friction coefficient 
 \begin{align}
-  b = \frac{\langle F\rangle}{\langle L \rangle \langle U\rangle},
+  b =  \frac{\langle F \rangle}{\langle L   U \rangle} ,
 \end{align}
 where $F$ is the tangential force jump, $L$ is the length of the
-midplane $C_M$ (Figure~\ref{figure5}a), $U$ is the slip velocity, and
-$\langle \cdot \rangle$ denotes the time average. We define the
-tangential force jump $F$ to be the tangential shear force on the outer
-leaflet minus the tangential shear force on the inner leaflet. However,
-it does not make sense to integrate along a curve passing through the
-particles.  To calculate the tangential force jump $F$, we instead let 
-\begin{align}
-F_h = \int_{\mathcal{C}_M^+} 
-  \ttau \cdot \sigma \cdot \nnu \,\dif s - \int_{\mathcal{C}_M^-} 
- \ttau \cdot \sigma \cdot \nnu \,\dif s 
-\end{align}
-where $C_M^+$ and $C_M^-$ are target curves obtained by moving the
-midplane curve $C_M$ (Figure~\ref{figure5}a) a distance $h$ outward,
-respectively inward, along the unit normal. We sample $F_h$ for $h = \pm
-1.5, \pm 2.5, \pm 3.5$ times the particle radius and define $F$ by
-extrapolating to zero distance.
-
+midplane $C_M$ (Figure~\ref{figure5}a), and $U$ is the slip velocity.
+The time average $\langle \cdot \rangle$ is necessary to avoid division by zero
+whenever slip velocity vanishes.  
 
 \begin{table}
 \caption{Friction Coefficients}
@@ -959,18 +943,47 @@ extrapolating to zero distance.
 %$F_{f}$ (pN nm$^{-1}$)           & 1.84 & 4.90 & 11.36 & 8.16 & 6.14 &  17.69 &  24.33 \\[1ex]
 %$\dot\theta$ (nm ns$^{-1}$)           & $6.84\times10^{-5}$ & $1.31\times10^{-4}$ & $3.46\times10^{-4}$ & $2.32\times10^{-4}$ & $1.81\times10^{-4}$ & $4.91\times10^{-4}$ & $5.83\times10^{-4}$\\ [1ex]
 %$b$ (pN$\cdot$ns nm$^{-3}$)    & 0.22 & 0.87*  & 0.22 &0.21 & 1.29* & 0.31 & 0.30\\ 
-$b$ (pN$\cdot$ns nm$^{-3}$)    & 1.01 & 3.40 &   3.70  &   5.01 &   5.38  &   5.75  &   6.25 \\ 
+$b$ (pN ns nm$^{-3}$)    & 0.43 & 1.19 &   0.42  & 0.69 &   0.97  &   0.80  &  1.07 \\ 
 \hline    
 \end{tabular} 
 \label{table1}
 \end{table}
 
+
+The tangential force jump $F$ equals the 
+tangential shear force on the outer
+leaflet minus the tangential shear force on the inner leaflet. 
+To calculate  $F$, we first let 
+\begin{align}
+F_h = \int_{\mathcal{C}_M^+} 
+  \ttau \cdot \sigma \cdot \nnu \,\dif s - \int_{\mathcal{C}_M^-} 
+ \ttau \cdot \sigma \cdot \nnu \,\dif s 
+\end{align}
+where $C_M^+$ and $C_M^-$ are target curves obtained by projecting the
+midplane curve $C_M$  a distance $h$ outward,
+respectively inward, along its unit normal vector field (Figure~\ref{figure5}a). We sample $F_h$ for 
+$h = \pm 1.3, \pm 1.5,  \pm 1.7, \pm 1.9$ times the particle radius and define $F$ by
+extrapolating to zero distance. This avoids integrating along a curve passing directly through the
+particles.   
+
+To calculate $U$, we let $v_+(\mathbf{x})$ and $v_-(\mathbf{x})$ 
+be the tangential velocity of the outer, respectively inner, leaflet.  Then 
+\begin{equation}
+U = \frac{1}{L}\int_{C_M}v_+(\mathbf{x})(1 - \delta \kappa) - v_-(\mathbf{x})(1 +  \delta \kappa) \, ds,
+\end{equation}
+where $ \delta $ is the distance from the leaflet centers to the midplane and $\kappa$ is the curvature. 
+The factors $\pm  \delta \kappa$ are needed to project the leaflet velocities, defined on the particle centers,
+onto the midplane curve. 
+Finally, the function $s(t) = \int_0^t dU $ records the distance one leaflet has
+slid past the other. Figure~\ref{figure5}b plots the sliding distance for various shear
+rates. 
+
 Table~\ref{table1} provides dimensional friction coefficients $b$ for
-several shear rates. The coefficients generally lie within the range 1
-to 6 pN ns nm$^{-3}$ which is in good quantitative agreement with values
+several shear rates. 
+The coefficients are 0.79 $\pm$ 0.3 pN ns nm$^{-3}$ which is in good quantitative agreement with values
 previously reported in the literature (\cite{sch-vla-mik2010}
 and~\cite{denOtter2007}). \cite{denOtter2007} give $b = 2.4 \times 10^6$
-Pa m$^{-1}$ s = 2.4 pN nm$^{-3}$ ns from their MD study, for example. 
+Pa m$^{-1}$ s = 2.4 pN ns nm$^{-3}$  from their MD study, for example. 
 
 \subsubsection{Membrane Ruptures}
 \begin{figure}
@@ -1065,7 +1078,7 @@ where it reaches a steady height of about $1$ nm.
   thin curve plots the mean of the norm of the particle translational
   velocities. The thick curve plots the mean of the absolute value of
   the particle angular velocities. At $t = 0$ $\upmu$s, the vesicle has
-  a spatially constant internal pressure 0.05~pN nm$^{-1}$ (red color,
+  a spatially constant internal pressure 0.05~pN nm$^{-2}$ (red color,
   panel (b)). In panel (c), pressure has dissipated and the vesicle has
   moved from its initial configuration (gray circles), to the
   equilibrium configuration (black circles). The data in panels (d) and
@@ -1081,13 +1094,13 @@ Finally, we show that the JP vesicle behaves as an extensible, permeable
 membrane. Figures~\ref{figure2}b shows an initial, non-equilibrium JP
 vesicle suspended in a quiescent flow $\uu_{\infty} = 0$. The color map
 plots the pressure $p$. The red color in Figures~\ref{figure2}b shows a
-constant, positive internal pressure (0.05~pN nm$^{-1}$) and the white
-shows a constant zero, external pressure. There is some fluid flow and
+spatially constant, positive internal pressure (0.05~pN nm$^{-2}$) and the white
+shows a spatially constant zero, external pressure. There is some fluid flow and
 the pressure vanishes as the configuration tends toward the equilibrium
 state (Figures~\ref{figure2}c).
 
-What could be the source of this drop in pressure? In continuum membrane
-mechanics, changes in surface area give rise to a membrane tension
+What could be the source of this drop in pressure? In membrane
+continuum  mechanics, changes in surface area give rise to a membrane tension
 $\tilde \gamma = K_A(A/A_0 - 1)$ where $A$ is the membrane surface area
 and $A_0$ is the reference surface area. The area modulus $K_A$ of
 bilayers is about $240$ pN nm$^{-1}$ (\cite{NaTr00}). In the
@@ -1115,17 +1128,17 @@ The circles are data for a vesicle with radius 17 nm. The linear fit
 stretching $L/L_0 - 1$. The squares are for a vesicle with twice the
 radius 34 nm, and the data overlap supports that the proportionality
 constant $K_A$ is a stretching modulus that is independent of vesicle
-size. The data give $K_A = 170 \pm 9$ pN nm$^{-1}$ which is good
-agreement with the area moduli of lipid bilayer as determined by
-experiment. To evaluate how changes to particle size lead to different
+size. The data give $K_A = 170 \pm 9$ pN nm$^{-1}$ which is in good
+agreement with the experimentally obtained area moduli of lipid bilayer. 
+To evaluate how changes to particle size lead to different
 physical properties, the asterisk symbols are for an 18 nm radius
 vesicle consisting of particles with diameter 1.25 nm, instead of the
-usual 2.5 nm. These data give smaller stretching modulus of $K_A =
+usual 2.5 nm. These data give a smaller stretching modulus of $K_A =
 102$~pN~nm$^{-1}$. 
 
 The particles in our setup do not abut but rather have small gaps due to
 repulsive forces. The gaps allow for some fluid flux across the JP
-bilayer, which can be quantified by the equation
+bilayer, and in membrane mechanics aqueous flux is quantified by the equation
 \begin{align}
   \label{eq:perm} 
   \frac{dA}{dt} = -P L \Delta p,
@@ -1136,8 +1149,8 @@ $L\Delta p$ and $dA/dt$ obey the linear relationship expressed by
 \eqref{eq:perm}. The slopes of the linear fits give the hydraulic
 permeabilities $P = 0.0296$ nm$^3$ ns$^{-1}$ pN$^{-1}$ and $P = 0.0283$
 nm$^3$ ns$^{-1}$ pN$^{-1}$ for the 17 nm and 34 nm radius cases,
-respectively. Like the area modulus, permeability is independent of
-vesicle size.
+respectively. Like the area modulus, the data give a permeability 
+that is independent of vesicle size.
 
 The hydraulic permeability we calculate, however, is not in agreement
 with experimentally derived values and is larger by a few orders of
@@ -1156,7 +1169,7 @@ and~\eqref{eq:perm}, to derive
 \label{eq:perm_solution}
 L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t.
 \end{align}
-The theoretical time courses for \eqref{eq:perm_solution} are in good
+All in all, the theoretical time courses for \eqref{eq:perm_solution} are in good
 quantitative agreement with the JP data (Figure~\ref{figure2}f).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
