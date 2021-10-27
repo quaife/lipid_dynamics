@@ -85,18 +85,19 @@ Yuan-Nan Young\aff{3}
 \begin{abstract}
   We develop a new model, to our knowledge,  for the many-body  hydrodynamics of amphiphilic 
   Janus particles suspended in a viscous background flow. 
-  The Janus particles interact with each other directly through a hydrophobic attraction potential (HAP)
-  that has been shown to model lipid bilayer membranes. In addition they also interact with each other indirectly through the hydrodynamic interactions.
+  The Janus particles interact through a hydrophobic attraction potential 
+  that leads to self-assembly into bilayer structures.   
   We adopt an efficient integral equation method for solving the screened
-  Laplace equation (for the HAP) and the mobility of Janus particles in a viscous fluid. 
-  Both the hydrophobic and hydrodynamic interactions between near
-  touched boundaries are accurately captured within the integral formulation. Under a linear shear flow,  we observe the tank-treading deformation
-  in a two-dimensional vesicle made of Janus particles for various values of the shear rate.
-  The results yield measurements 
-  of inter-monolayer friction and membrane permeability. Large shear rates lead to membrane rupture. 
+  Laplace equation for hydrophobic attraction and 
+  for solving the mobility problem for hydrodynamic interactions. 
+  The integral equation formulation accurately captures both interactions for near touched boundaries. 
+  Under a linear shear flow,  we observe the tank-treading deformation
+  in a two-dimensional vesicle made of Janus particles.
+  The results yield measurements of inter-monolayer friction, membrane permeability, 
+  and at large shear rates, membrane rupture. 
   The simulations studies include a vesicle in parabolic flow and vesicle-vesicle 
-  interactions in shear and extensional flows. We find that the hydrodynamics of a  vesicle assembled from Janus particles
-replicates the dynamics of an inextensible elastic vesicle.
+  interactions in shear and extensional flows. The hydrodynamics of the Janus 
+  particles vesicle replicate the behaviour of an inextensible elastic vesicle membrane.
 %    We develop a new model, to our knowledge,  for the hydrodynamics of amphiphilic particles in background flows. 
 %  In this work, we study the dynamics of many-body systems immersed in a
 %  viscous fluid with a specified interparticle force. In particular, we
@@ -230,7 +231,7 @@ governing equations are
 %
 where $\uu$ is the velocity, $p$ is the
 pressure, $\uu_\infty$ is the background flow, and $\mu$ is the constant viscosity. 
-Since each particle $\Gamma_i$ with center $\aa_i$ is a rigid body, its velocity satisfies 
+Since each particle $\Gamma_i$ with centre $\aa_i$ is a rigid body, its velocity satisfies 
 \begin{align}
   \vv(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad 
     \xx \in \Gamma_i,
@@ -418,7 +419,7 @@ The double-layer potential is
     \eeta(\yy) \, \dif s_\yy,
 \end{align}
 where $\rr = \xx - \yy$ and $\rho = |\rr|$. The Stokeslet and rotlets
-centered at $\aa_i$ are
+centred at $\aa_i$ are
 \begin{align}
   \SS(\xx,\aa_i)\FF_i &= \frac{1}{4\pi} \left(-\log |\rr| + 
     \frac{\rr \otimes \rr}{|\rr|^2}\right) \FF_i, \\
@@ -727,7 +728,7 @@ and vary the background flows. Specifically, the particles are circular
 disks with diameter $l_0 = 2.5$~nm. The boundary
 conditions~\eqref{eq:SLbc} are $f_i(\xx) = \tfrac{1}{2}(1 + \cos
 \theta_i)$ where $\theta_i$ is the angle between $\xx - \aa_i$ and
-$\dd_i$, where the vectors $\aa_i$ and $\dd_i$ are the particle center
+$\dd_i$, where the vectors $\aa_i$ and $\dd_i$ are the particle centre
 and director respectively. The particle diameter is the thickness of
 monolayers and the director points in the direction of the hydrophobic
 side of the JP. 
@@ -759,7 +760,7 @@ initial data in the subsequent background flow simulations.
 %We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
 %The background flow is a shear flow $\uu_{\infty}(\xx) = \dot\gamma  \xx \cdot \mathbf{e}_2 \mathbf{e}_1$ with shear rate $\dot\gamma$
 %and orthogonal unit vectors $\mathbf{e}_1$ and $\mathbf{e}_2$. 
-%A single elliptical particle is suspended in the fluid with center at the origin.
+%A single elliptical particle is suspended in the fluid with centre at the origin.
 %The Jeffrey orbit  
 %\begin{equation}
 %\label{eq:jeff}
@@ -910,11 +911,12 @@ the viscous stresses needed to appreciably deform smaller vesicles.
 \subsubsection{Inter-Monolayer Friction}
 We observe inter-monolayer slip in the tank-treading, JP vesicle at all
 shear rates. Since they are not bound, the two leaflets of the vesicle
-are able to slide past one another. This sliding is limited by viscous
+are able to slide past one another. 
+Monolayer slip effects have been incorporated in continuum models (\cite{sch-vla-mik2010}).
+In the present setting, slip is limited by viscous
 friction of the aqueous gaps between particles and by the constant
 unbinding and binding of particles pairs in apposing leaflets. 
-Previous studies \cite{Zgorski2019, denOtter2007}
-have considered inter-monolayer slip in lipid bilayers simulated by MD. 
+
 
 Figure~\ref{figure5}a illustrates inter-monolayer slip by tracking the distances
 traveled by a pair of particles along the midplane curve. In the left image, the blue and yellow
@@ -966,25 +968,31 @@ $h = \pm 1.3, \pm 1.5,  \pm 1.7, \pm 1.9$ times the particle radius and define $
 extrapolating to zero distance. This avoids integrating along a curve passing directly through the
 particles.   
 
-To calculate $U$, we let $v_+(\mathbf{x})$ and $v_-(\mathbf{x})$ 
+To calculate $U$, we let $u_+(\mathbf{x})$ and $u_-(\mathbf{x})$ 
 be the tangential velocity of the outer, respectively inner, leaflet.  Then 
 \begin{equation}
-U = \frac{1}{L}\int_{C_M}v_+(\mathbf{x})(1 - \delta \kappa) - v_-(\mathbf{x})(1 +  \delta \kappa) \, ds,
+U = \frac{1}{L}\int_{C_M}u_+(\mathbf{x})(1 - \delta \kappa) - v_-(\mathbf{x})(1 +  \delta \kappa) \, ds,
 \end{equation}
-where $ \delta $ is the distance from the leaflet centers to the midplane and $\kappa$ is the curvature. 
-The factors $\pm  \delta \kappa$ are needed to project the leaflet velocities, defined on the particle centers,
+where $ \delta $ is the distance from the leaflet centres to the midplane and $\kappa$ is the curvature. 
+The factors $\pm  \delta \kappa$ are needed to project the leaflet velocities, defined on the particle centres,
 onto the midplane curve. 
 Finally, the function $s(t) = \int_0^t dU $ records the distance one leaflet has
 slid past the other. Figure~\ref{figure5}b plots the sliding distance for various shear
 rates. 
 
-Table~\ref{table1} provides dimensional friction coefficients $b$ for
-several shear rates. 
-The coefficients are 0.79 $\pm$ 0.3 pN ns nm$^{-3}$ which is in good quantitative agreement with values
-previously reported in the literature (\cite{sch-vla-mik2010}
-and~\cite{denOtter2007}). \cite{denOtter2007} give $b = 2.4 \times 10^6$
-Pa m$^{-1}$ s = 2.4 pN ns nm$^{-3}$  from their MD study, for example. 
-
+Table~\ref{table1} provides $b = 0.79 \pm 0.3$ pN ns nm$^{-3}$  
+over a range of shear rates
+which is in good quantitative agreement with values previously reported in the literature.
+Atomistic studies have also considered inter-monolayer slip in lipid bilayers. 
+\cite{WuoEd06} and \cite{denOtter2007} reported $b = 0.7 \times 10^6$ Pa m$^{-1}$ s  
+$=0.7$ pN ns nm$^{-3}$  
+and $b = 2.4$  pN ns nm$^{-3}$ for DPPC membranes simulated by MD, respectively. 
+Using a more recent version of the Martini force field, \cite{Zgorski2019} 
+gives $b = 5.5$ pN ns nm$^{-3}$ for shear rates 0.4 ns$^{-1}$ and higher.
+It is understandable that there is uncertainty in the friction coefficients of
+Table~\ref{table1}.  The scatter in our data, however, is fully consistent with that calculated
+from MD simulations, c.f. the transient rise in values of Table~\ref{table1} and in \cite{Zgorski2019}, Figure 10
+for low shear rates. 
 \subsubsection{Membrane Ruptures}
 \begin{figure}
 \centering
@@ -1020,7 +1028,7 @@ Finally, we consider the parabolic background flow
 where $v_{max}$ is the flow strength and $w$ determines the shape of the
 flow. The parameter $R_0$ is the radius of the JP vesicle at $t=0$ and
 $w$ sets the width of the profile. \cite{Kaoui09, cou-kao-pod-mis2008,
-dan-vla-mis2009} have shown that the behavior of a vesicle in this
+dan-vla-mis2009} have shown that the behaviour of a vesicle in this
 unbounded flow includes vertical migration, and depending on the flow
 rate and reduced area, the steady-state shape can be either a symmetric
 parachute or an asymmetric slipper.
@@ -1090,8 +1098,10 @@ where it reaches a steady height of about $1$ nm.
   \eqref{eq:perm_solution} overlaps the data using constants $K_A$ and
   $P$ derived from panels (d) and (e). }
 \end{figure}
-Finally, we show that the JP vesicle behaves as an extensible, permeable
-membrane. Figures~\ref{figure2}b shows an initial, non-equilibrium JP
+Finally, we show that the JP vesicle behaves as a permeable membrane and the inextensibility comes
+about due to a large stretching modulus.
+%an extensible, permeable membrane. 
+Figures~\ref{figure2}b shows an initial, non-equilibrium JP
 vesicle suspended in a quiescent flow $\uu_{\infty} = 0$. The color map
 plots the pressure $p$. The red color in Figures~\ref{figure2}b shows a
 spatially constant, positive internal pressure (0.05~pN nm$^{-2}$) and the white
@@ -1100,7 +1110,7 @@ the pressure vanishes as the configuration tends toward the equilibrium
 state (Figures~\ref{figure2}c).
 
 What could be the source of this drop in pressure? In membrane
-continuum  mechanics, changes in surface area give rise to a membrane tension
+continuum  mechanics, small changes in surface area give rise to a membrane tension
 $\tilde \gamma = K_A(A/A_0 - 1)$ where $A$ is the membrane surface area
 and $A_0$ is the reference surface area. The area modulus $K_A$ of
 bilayers is about $240$ pN nm$^{-1}$ (\cite{NaTr00}). In the
@@ -1120,7 +1130,7 @@ at infinity and $R^{-1}$ is the total curvature of the circular
 cylinder.
 
 Figure~\ref{figure2}c plots the data for the pressure jump $\Delta p$
-between the particle center and the far-field (see
+between the particle centre and the far-field (see
 Figures~\ref{figure2}c and~\ref{figure2}d). We use $R = L/(2\pi)$ for
 the vesicle radius, and the horizontal axis is the relative stretch.
 The circles are data for a vesicle with radius 17 nm. The linear fit
@@ -1130,6 +1140,9 @@ radius 34 nm, and the data overlap supports that the proportionality
 constant $K_A$ is a stretching modulus that is independent of vesicle
 size. The data give $K_A = 170 \pm 9$ pN nm$^{-1}$ which is in good
 agreement with the experimentally obtained area moduli of lipid bilayer. 
+%
+The reason the tank-treading vesicle appears inextensible ($L$ is more or less constant in Figure~\ref{figure4}c) is because the modulus $K_A$ is large.
+%
 To evaluate how changes to particle size lead to different
 physical properties, the asterisk symbols are for an 18 nm radius
 vesicle consisting of particles with diameter 1.25 nm, instead of the
@@ -1151,6 +1164,18 @@ permeabilities $P = 0.0296$ nm$^3$ ns$^{-1}$ pN$^{-1}$ and $P = 0.0283$
 nm$^3$ ns$^{-1}$ pN$^{-1}$ for the 17 nm and 34 nm radius cases,
 respectively. Like the area modulus, the data give a permeability 
 that is independent of vesicle size.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{Figure9_Wrapper.pdf}
+%  \includegraphics[width=0.9\textwidth]{ShearTraj.eps}
+\end{center} 
+  \caption{\label{figure9} Two JP vesicles suspended in a shear flow
+  interact by orbiting about the origin. The moving paths of the two
+  centroids are plotted in blue and red. The centroids are initially
+  located on the $x$-axis. The fluid velocity streamlines appear in
+  grey.  The dimensionless shear rate is $\chi=0.005$.}
+\end{figure}
 
 The hydraulic permeability we calculate, however, is not in agreement
 with experimentally derived values and is larger by a few orders of
@@ -1175,17 +1200,7 @@ quantitative agreement with the JP data (Figure~\ref{figure2}f).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Two Vesicles in a Linear Flow}
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=\textwidth]{Figure9_Wrapper.pdf}
-%  \includegraphics[width=0.9\textwidth]{ShearTraj.eps}
-\end{center} 
-  \caption{\label{figure9} Two JP vesicles suspended in a shear flow
-  interact by orbiting about the origin. The moving paths of the two
-  centroids are plotted in blue and red. The centroids are initially
-  located on the $x$-axis. The fluid velocity streamlines appear in
-  grey.  The dimensionless shear rate is $\chi=0.005$.}
-\end{figure}
+
 
 \begin{figure}
   \centering
@@ -1224,7 +1239,7 @@ We also observe an adhesive
 effect between the two JP vesicles that is set up by the hydrophobic
 attraction (Figure~\ref{figure10}c). Similar dynamics have been observed between a pair of adhering vesicles in a shear flow
 (\cite{qua-vee-you2019, abb-far-ezz-ben-mis2021}). This adhesive
-behavior is absent when two JP vesicles are well-separated.
+behaviour is absent when two JP vesicles are well-separated.
 
 \begin{figure}
 \begin{center}
@@ -1292,10 +1307,10 @@ two Janus particles are placed at $(-10,-0.1)$~nm and $(10,0.1)$~nm
 (case (iii) from Figure~\ref{figure11}). With this setup, the two JP
 vesicles eventually separate along the $\pm y$-directions and we compare
 the results against a continuum model as shown in all insets. Panels
-(b)--(d) show the transient behavior of the JP vesicles and the
+(b)--(d) show the transient behaviour of the JP vesicles and the
 continuum vesicles under an extensional flow. In both the coarse-grained
 model and the continuum model, the vesicles initially converge towards
-one other and then diverge along the $y$-axis. The behavior of the
+one other and then diverge along the $y$-axis. The behaviour of the
 streamlines in both cases are similar. The pressure is initially largest
 in the gap formed by two JP vesicles and decreases during the
 separation. The short-range repulsion plays an important role to avoid
@@ -1306,7 +1321,7 @@ particle collisions.
 %may need to add more here
 
 
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{conclusion}Conclusion}
 
@@ -1394,17 +1409,17 @@ shear flow.
 %
 Replicating the hydrodynamics of a GUV in a Poiseuille
 flow~(\cite{Kaoui09, dan-vla-mis2009, cou-kao-pod-mis2008}), the JP
-vesicle moves toward the center of the shear flow. While the initial
+vesicle moves toward the centre of the shear flow. While the initial
 reduced area of the JP vesicle is $A^* \approx 1$, the equilibrium
 reduced area is $A^*=0.9$. For the parameters we used in the simulation,
 the JP vesicle takes on an asymmetric, ``slipper" shape as it settles
-above the center of flow and exhibits tank-treading motion.
+above the centre of flow and exhibits tank-treading motion.
 %A qualitative
 %agreement is made by comparing the JP vesicle shape with the
 %two-dimensional inextensible membrane in continuum modeling
 %simulations~(\cite{Kaoui09, dan-vla-mis2009, cou-kao-pod-mis2008}). 
 An interesting result contrast with continuum results is that the JP
-vesicle oscillates at a height slightly above the center of the
+vesicle oscillates at a height slightly above the centre of the
 Poiseuille flow. 
 
 %The single JP vesicle simulations end with obtaining JP bilayer stretching 
@@ -1422,7 +1437,7 @@ Helfrich continuum model. A comparison of the vesicle shapes and the
 streamlines demonstrate remarkable similarities. The two overlapping
 trajectories of the JP vesicles' centroids in a shear flow evolve as
 expected when the two centroids are initialized on the same horizontal
-level. We also observe a rotating behavior that is observed for models
+level. We also observe a rotating behaviour that is observed for models
 involving vesicle adhesion~(\cite{qua-vee-you2019}). The hydrophobic
 attraction led to this adhesive effect when two JP bilayers are
 sufficiently close. We also performed several simulations of a pair of
