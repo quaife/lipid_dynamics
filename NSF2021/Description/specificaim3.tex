@@ -10,7 +10,7 @@ The short-range interactions between Janus particles depend on the salt concentr
 At very low salt concentrations, Janus particles repel one another electrostatically, whereas at high salt concentration, van der Waals
 forces cause Janus particles to aggregate irreversibly \cite{Goodwin2019}. At intermediate concentrations of monovalent salt, Janus particles are found to self assemble in the form of a small number of elemental units of building blocks \cite{Chen2011_Science}. 
 %
-\begin{wrapfigure}[11]{l}{0.47\textwidth}
+\begin{wrapfigure}[6]{l}{0.47\textwidth}
 \centerline{\includegraphics[width=0.46\textwidth]{Figures/fig2A_Chen2011_Science}}
   \vspace{-5pt}
 \caption{\label{fig:helices_of_JPs} \footnotesize Formation of helices of Janus particles as salt concentration increases \cite{Chen2011_Science}.}
@@ -22,14 +22,16 @@ The Stokes equations in~\eqref{eq:stokes} are modified to incorporate the transp
 \begin{equation}
 \label{eq:stokes}
 \begin{aligned}
-  &-\mu \Delta \mathbf{u} + \nabla p = \Delta\psi\cdot\nabla\psi, \quad \mathbf{x} \in \Omega, \qquad
+  &-\Delta \mathbf{u} + \nabla p = \Delta\psi\cdot\nabla\psi, \qquad
   \nabla \cdot \mathbf{u} = 0,  \quad \mathbf{x} \in \Omega,\\
   &\delta^2\Delta\psi = -\frac{1}{2}\left(n_+-n_-\right),\qquad
   \frac{\partial n_{\pm}}{\partial t} + \nabla\cdot{\bf j}_{\pm} = 0,\\
-  &{\bf j}_{\pm} = -\nabla n_{\pm} \mp n_{\pm} \nabla\psi + Pe n_{\pm}\mathbf{u}.
+  &{\bf j}_{\pm} = -\nabla n_{\pm} \mp n_{\pm} \nabla\psi + \mbox{Pe} n_{\pm}\mathbf{u},
 \end{aligned}
 \end{equation}
-The screen length $\rho$ is now a function of the ion concentrations: $\rho = \rho(n_+,n_-)$. 
+where $\delta$ is the Debye length, $\mbox{Pe}$ is the Peclet number, a ratio between the convection and  thermal diffusion time scales.
+$n_{+}$ ($n_{-}$) is the concentration of cation (anion).
+The screen length $\rho$ in the HAP model is now a function of the ion concentrations: $\rho = \rho(n_+,n_-)$. 
 
 
 
