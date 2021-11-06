@@ -1,83 +1,43 @@
-\subsection{Specific Aim 3: Dynamics of self-assembly by HAP under an external flow/field}
+\subsection{Specific Aim 3: Self-assembly of Janus particles in ionic solutions}
 \label{subsec:specific_aim_3}
 
-\subsubsection{Vesicles in background flows}
-Numerically solving the Stokes and screened Laplace system~\eqref{SL}
-and~\eqref{eq:stokes} is nontrivial, and we will develop efficient,
-robust, high-order-in-time and -space algorithms suited to the problem.
-There are a few challenges. {\bf (i)} The equations express a two-way
-coupling since the flow changes the position of the suspended particles,
-and in return, the geometry-dependent hydrophobic stresses impart a
-force on the flow. {\bf (ii)} The inputs to the Stokes equations are
-particle configurations, forces, and torques. The outputs are the rigid
-body translation and angular velocities used to update the particle
-positions (see Figure~\ref{fig:flow_map}). Although the underlying
-equations are linear, the overall problem is highly nonlinear because
-the domain is constantly changing. {\bf (iii)} Self-assembly causes the
-particles to come into close contact. As a result, an exceptional
-spatial accuracy is required to resolve the fields between adjacent
-particles. Furthermore, physically relevant elastic properties of
-bilayers become apparent at large length scales and for large
-particle-numbers, which increases the computational complexity of our
-simulations. 
+\subsubsection{Dynamics of a single Janus particle in ionic solutions}
+In experiments, Janus particles are often immersed in a solution of ions \cite{ChenWhitmer2011_Sci} or surfactants \cite{}.
+In electrolytic solutions the interaction between salt and Janus particle gives 
+rise to a slip velocity (on the particle surface) that depends on the ion distribution and the zeta potential \cite{BayatiJCP2016} 
+(the potential difference between the Janus particle surface and the surrounding conducting fluid).
+The short-range interactions between Janus particles depend on the salt concentration:
+At very low salt concentrations, Janus particles repel one another electrostatically, whereas at high salt concentration, van der Waals
+forces cause Janus particles to aggregate irreversibly \cite{Goodwin2019}. At intermediate concentrations of monovalent salt, Janus particles are found to self assemble in the form of a small number of elemental units of building blocks \cite{Chen2011_Science}. 
+%
+\begin{wrapfigure}[6]{l}{0.47\textwidth}
+\centerline{\includegraphics[width=0.46\textwidth]{Figures/fig2A_Chen2011_Science}}
+  \vspace{-5pt}
+\caption{\label{fig:helices_of_JPs} \footnotesize Formation of helices of Janus particles as salt concentration increases \cite{Chen2011_Science}.}
+\end{wrapfigure}
+%
+Figure~\ref{fig:helices_of_JPs} shows that Janus particles can self-assemble into a helix at high concentration of monovalent salt (NaCl) when the density of Janus particles is low to moderate. At high density, JPs are found to form wormlike structures
 
-We include a background flow by replacing the third equation in
-\eqref{eq:stokes} with the condition $\mathbf{u}(\mathbf{x})
-\to \mathbf{u}_{\infty}(\mathbf{x})$ as $|\mathbf{x}| \to
-\infty$. To incorporate the far-field flow, we use the representation 
-\begin{align}
-\label{PowerMiranda}
-  {\bf u} = {\bf u}_{\infty} + \mathcal{K}\boldsymbol{\eta} + 
-    \sum_{i=1}^N \left(S(\cdot, {\bf a}_i) {\bf F}_i + 
-                 R(\cdot, {\bf a}_i) {\bf G}_i\right),
-\end{align}
-where $S$ and $R$ are stokeslets and rotlets supported at the respective
-particle centers~\cite{leal_2007} and $\mathcal{K}\boldsymbol{\eta}$ is a layer
-potential for the unknown density function $\boldsymbol{\eta}$. With the
-exception of the rigid body conditions, the
-representation~\eqref{PowerMiranda} automatically satisfies all the
-hydrodynamic equations including the far-field condition. The rigid
-body conditions follow by requiring the viscous stresses to vanish across
-the particle boundaries.
-%
-We will compare the behavior of our particle-based vesicles in Stokes
-flow to well-established models that enforce area incompressibility and
-volume conservation in vesicle membrane
-dynamics~\cite{torres-sanchez_millan_arroyo_2019,mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}.
-\S \ref{sec:preliminary_work} contains our preliminary results.
-%
-%Our
-%preliminary results show that the particle-based bilayers have the same
-%large area modulus as real lipid bilayer membranes, so we expect
-%realistic results from our flow simulations. Under moderate shear rates,
-%the vesicle elongates and takes on the tank-treading elliptical shape.
-%We can directly check for area compressibility and volume conservation
-%properties from particle simulations by tracking the change in area
-%density of the midplane as a function of shear flow rate, along with
-%evaluating the tangential divergence of the velocity.
-%
-%Bilayer membranes have a small permeability to
-%water~\cite{323e9a2f0c58487ea82518d7a1f96485}, and modelers often assume
-%a vesicle membrane that conserves volume. In our particle-based
-%approach, water motion across the bilayer is limited by the size of the
-%gaps between the particles, which is an artifact of coarse-graining.
-%Making these gaps smaller comes at the expense of numerical accuracy,
-%and we will assess if there is a reasonable trade-off between
-%approximate volume conservation and simulation complexity. 
-%
-%Finally, the particle-based vesicle bilayers have two distinct leaflets
-%consisting of the particles in contact with the vesicle interior, and
-%those in contact with the surrounding fluid. Since there is a nonzero
-%separation between these layers, an important effect we observe is that
-%the leaflets slide against one another under shear flow. This implies
-%that part of the viscous dissipation in the aqueous phase is enhanced by
-%intermonolayer friction~\cite{SHKULIPA2005823, ShkulipaThesis}.
-%Intermonolayer slip enters zero-thickness membrane models as a velocity
-%jump boundary condition and leads to multiple solution
-%states~\cite{schwalbe_vlahovska_miksis_2010}. In the present proposal,
-%intermonolayer slip is an artifact of monolayer independence and we can
-%control for slip as a function of shear rate, vesicle diameter, and
-%particle geometry.
+The Stokes equations in~\eqref{eq:stokes} are modified to incorporate the transport of ions as
+\begin{equation}
+\label{eq:stokes}
+\begin{aligned}
+  &-\Delta \mathbf{u} + \nabla p = \Delta\psi\cdot\nabla\psi, \qquad
+  \nabla \cdot \mathbf{u} = 0,  \quad \mathbf{x} \in \Omega,\\
+  &\delta^2\Delta\psi = -\frac{1}{2}\left(n_+-n_-\right),\qquad
+  \frac{\partial n_{\pm}}{\partial t} + \nabla\cdot{\bf j}_{\pm} = 0,\\
+  &{\bf j}_{\pm} = -\nabla n_{\pm} \mp n_{\pm} \nabla\psi + \mbox{Pe} n_{\pm}\mathbf{u},
+\end{aligned}
+\end{equation}
+where $\delta$ is the Debye length, $\mbox{Pe}$ is the Peclet number, a ratio between the convection and  thermal diffusion time scales.
+$n_{+}$ ($n_{-}$) is the concentration of cation (anion).
+The screen length $\rho$ in the HAP model is now a function of the ion concentrations: $\rho = \rho(n_+,n_-)$. 
+
+Within this framework, we will first investigate the interaction between two Janus particles under HAP in an electrolytic solution described by the above
+equations. We will conduct analytical calculations to investigate the effects of ion transport on the hydrophobic attraction between two Janus particles using the reciprocal theorem as in \cite{BayatiNajafi2016} for two Janus particles with a small surface activity.
+
+
+
 
 \subsubsection{Electromechanical effects on the dynamic assembly of amphiphiles \label{subsubsec:em_effects}}
 In recent experiments~\cite{FaizEtAl2019_SoftMatt}, membrane bending
