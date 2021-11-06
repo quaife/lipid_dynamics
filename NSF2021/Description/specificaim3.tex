@@ -1,46 +1,59 @@
 \subsection{Specific Aim 3: Self-assembly of Janus particles in ionic solutions}
 \label{subsec:specific_aim_3}
 
-\subsubsection{Dynamics of a single Janus particle in ionic solutions}
-In experiments, Janus particles are often immersed in a solution of ions \cite{ChenWhitmer2011_Sci} or surfactants \cite{}.
+\subsubsection{Dynamics of a pair of Janus particles in ionic solutions\label{subsubsec:JP_electrolyte}}
+In experiments, Janus particles are often immersed in a solution of ions \cite{Chen2011_Science} or surfactants \cite{Goodwin2009}.
 In electrolytic solutions the interaction between salt and Janus particle gives 
-rise to a slip velocity (on the particle surface) that depends on the ion distribution and the zeta potential \cite{BayatiJCP2016} 
+rise to a slip velocity (on the particle surface) that depends on the ion distribution and the zeta potential \cite{BayatiNajafi2016_JCP} 
 (the potential difference between the Janus particle surface and the surrounding conducting fluid).
 The short-range interactions between Janus particles depend on the salt concentration:
 At very low salt concentrations, Janus particles repel one another electrostatically, whereas at high salt concentration, van der Waals
-forces cause Janus particles to aggregate irreversibly \cite{Goodwin2019}. At intermediate concentrations of monovalent salt, Janus particles are found to self assemble in the form of a small number of elemental units of building blocks \cite{Chen2011_Science}. 
+forces cause Janus particles to aggregate irreversibly \cite{Goodwin2009}. At intermediate concentrations of monovalent salt, Janus particles are found to assemble in the form of a small number of elemental units of building blocks \cite{Chen2011_Science}. 
 %
-\begin{wrapfigure}[6]{l}{0.47\textwidth}
-\centerline{\includegraphics[width=0.46\textwidth]{Figures/fig2A_Chen2011_Science}}
+\begin{wrapfigure}[7]{r}{0.45\textwidth}
   \vspace{-5pt}
-\caption{\label{fig:helices_of_JPs} \footnotesize Formation of helices of Janus particles as salt concentration increases \cite{Chen2011_Science}.}
+\centerline{\includegraphics[width=0.44\textwidth]{Figures/fig2A_Chen2011_Science}}
+  \vspace{-5pt}
+\caption{\label{fig:helices_of_JPs} \footnotesize Formation of helices of Janus particles as salt concentration increases from 3.8 mM NaCl  (left) to 5 mM NaCl (right)\cite{Chen2011_Science}.}
 \end{wrapfigure}
 %
-Figure~\ref{fig:helices_of_JPs} shows that Janus particles can self-assemble into a helix at high concentration of monovalent salt (NaCl) when the density of Janus particles is low to moderate. At high density, JPs are found to form wormlike structures
+Figure~\ref{fig:helices_of_JPs} shows that Janus particles can assemble into a helix at high concentration of monovalent salt (NaCl) when the volume fraction of Janus particles is low to moderate. At high volume fraction, helices of Janus particles form wormlike structures whose lifetime allow fusion of helices \cite{Chen2011_Science}. 
 
-The Stokes equations in~\eqref{eq:stokes} are modified to incorporate the transport of ions as
+We propose to investigate the effects of ion transport and distribution on the self-assembly of Janus particles within the HAP framework as follows.
+First the Stokes equations in~\eqref{eq:stokes} are modified to incorporate the transport of ions as
 \begin{equation}
-\label{eq:stokes}
+\label{eq:EKstokes}
 \begin{aligned}
   &-\Delta \mathbf{u} + \nabla p = \Delta\psi\cdot\nabla\psi, \qquad
   \nabla \cdot \mathbf{u} = 0,  \quad \mathbf{x} \in \Omega,\\
   &\delta^2\Delta\psi = -\frac{1}{2}\left(n_+-n_-\right),\qquad
-  \frac{\partial n_{\pm}}{\partial t} + \nabla\cdot{\bf j}_{\pm} = 0,\\
-  &{\bf j}_{\pm} = -\nabla n_{\pm} \mp n_{\pm} \nabla\psi + \mbox{Pe} n_{\pm}\mathbf{u},
+  \frac{\partial n_{\pm}}{\partial t} + \nabla\cdot{\bf j}_{\pm} = 0,\qquad {\bf j}_{\pm} = -\nabla n_{\pm} \mp n_{\pm} \nabla\psi + \mbox{Pe} n_{\pm}\mathbf{u},
 \end{aligned}
 \end{equation}
-where $\delta$ is the Debye length, $\mbox{Pe}$ is the Peclet number, a ratio between the convection and  thermal diffusion time scales.
-$n_{+}$ ($n_{-}$) is the concentration of cation (anion).
-The screen length $\rho$ in the HAP model is now a function of the ion concentrations: $\rho = \rho(n_+,n_-)$. 
+where $\delta$ is the ratio of Debye screening length (inversely proportional to the square root of
+ion concentration) to the particle size, 
+$\mbox{Pe}$ is the Peclet number, a ratio between the convection and  thermal diffusion time scales.
+$n_{+}$ ($n_{-}$) is the concentration of cation (anion).  In the limit of small $\delta$, PI Young and collaborator Y. Mori (U Penn) used asymptotic analyses to show that the jump in electric potential $\psi$ across the interface (zeta potential on the Janus particle surface) 
+may give rise to different physical consequences such as electrophoresis \cite{Mori2018_JFM}.
+%
+An important question to address is: {\it How would such electrophoresis be affected by the HAP between two Janus particles?} 
+As the first part of specific aim 3, we will address this important question. Results from this effort will help elucidate the effects of salt concentration on the assembly of Janus particles (\S~\ref{subsubsec:em_effects}).
 
+We couple the electrokinetics in~\eqref{eq:EKstokes} with the mobility Janus particles in a viscous solvent through the velocity field, ion distribution, and the hydrophobic potential.  
+First the screen length $\rho$ in the HAP model is now a function of the  cation concentrations: $\rho = \rho(n_+) =
+\rho_0/\sqrt{1+c n_+}$ with a dimensionless parameter $c$. 
+%
+Secondly the value of the HAP may depend on the distribution of ions and electric potential right next to the particle surface \cite{Mori2018_JFM}.
 Within this framework, we will first investigate the interaction between two Janus particles under HAP in an electrolytic solution described by the above
-equations. We will conduct analytical calculations to investigate the effects of ion transport on the hydrophobic attraction between two Janus particles using the reciprocal theorem as in \cite{BayatiNajafi2016} for two Janus particles with a small surface activity.
+equations. We will conduct analytical calculations to investigate the effects of ion transport on the hydrophobic attraction between two Janus particles using the reciprocal theorem as in \cite{BayatiNajafi2016_JCP} for two Janus particles with a small surface activity.
 
 
 
+\subsubsection{Electromechanical effects on the dynamic assembly of Janus particles \label{subsubsec:em_effects}}
+Results from the proposed work in \S~\ref{subsubsec:JP_electrolyte} will shed light on how the electrokinetics described in~\eqref{eq:EKstokes}
+may be simplified to a dielectric-like model where the bulk charges are constant, and the fluid flow and particle mobility are determined by the surface charge and the zeta potential as shown in \cite{Mori2018_JFM}. Under such simplification, the modified~\eqref{eq:EKstokes} may be re-formulated into integral forms. PI Young will conduct the asymptotic analyses to derive the modified~\eqref{eq:EKstokes}, and work with PI Quaife to design a numerical algorithm to simulate the modified system using integral formulation. We will first investigate the effects of salt concentration on the assembly of Janus particles to form helices, as shown in figure~\ref{fig:helices_of_JPs}.
 
-\subsubsection{Electromechanical effects on the dynamic assembly of amphiphiles \label{subsubsec:em_effects}}
-In recent experiments~\cite{FaizEtAl2019_SoftMatt}, membrane bending
+With these results, the PIs will be ready to make quantitative connections between the a Janus particle membrane and a lipid bilayer membrane in an electrolytic solution. In recent experiments~\cite{FaizEtAl2019_SoftMatt}, membrane bending
 rigidity was determined as a function of lipid composition from 0 to 100
 mol $\%$ of charged lipids using flicker spectroscopy of the shape
 fluctuations of a giant unilamellar vesicle (GUV).
