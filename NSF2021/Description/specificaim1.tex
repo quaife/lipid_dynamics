@@ -14,7 +14,8 @@ hydrodynamics of amphiphilic particles.
 We must also incorporate electric charge and account
 for how external fields control particle self-assembly. 
 
-\subsection{Specific Aim 1: Measuring material properties of amphiphile self-assembly}
+\subsection{Specific Aim 1: Measuring material properties of amphiphile
+  self-assembly}
 \label{subsec:specific_aim_1}
 
 The proposed research aims to provide fundamental insight into the
@@ -22,18 +23,17 @@ self-assembly dynamics of amphiphilic particles. These results will
 facilitate optimal design of smart materials by tuning the geometry and
 properties of the amphiphilic particles.
 The theories presented in Background pertain to one-dimensional problems
-for a water region separating parallel surfaces.
-In two and higher dimensions, there 
-is an explosion of possible phenomena.
-Thus, Specific Aim 1 concerns  improving on established models and theory.
+for a water region separating parallel surfaces.In two and higher
+dimensions, there is an explosion of possible phenomena. Thus, Specific
+Aim 1 concerns improving on established models and theory.
 
 \subsection{Problem formulation}
-The governing equations of the model contain two parts.
-The first part is the mobility problem for a collection of rigid particles
-immersed in a viscous solvent. Here, the issue lies in developing 
-numerical routines that can handle integral equation calculations for 
-large particle numbers with proximal boundaries.  
-Assuming inertial terms are negligible, the Stokes equations are
+The governing equations of the model contain two parts. The first part
+is the mobility problem for a collection of rigid particles immersed
+in a viscous solvent. Here, the issue lies in developing numerical
+routines that can handle integral equation calculations for large
+particle numbers with proximal boundaries. Assuming inertial terms are
+negligible, the Stokes equations are
 \begin{alignat}{3}
 \label{eq:stokes1}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
@@ -44,65 +44,67 @@ Assuming inertial terms are negligible, the Stokes equations are
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
 \end{alignat}
 %
-where $\uu$ is the velocity, $p$ is the
-pressure, $\uu_\infty$ is the background flow, and $\mu$ is the constant viscosity. 
-The domain $\Omega$ is the fluid region surrounding 
-the collection of $N_p$-many particles. 
-Since the particles are rigid, there is the no-slip boundary condition
+where $\uu$ is the velocity, $p$ is the pressure, $\uu_\infty$ is
+the background flow, and $\mu$ is the constant viscosity. The domain
+$\Omega$ is the fluid region surrounding the collection of
+$N_p$-many particles. Since the particles are rigid, there is the
+no-slip boundary condition
 \begin{align}
 \label{eq:rigid_bc}
   \uu(\xx) = \vv_i + \omega_i  (\xx - \aa_i)^\perp, \quad
     \xx \in \Gamma_i,\qquad  i=1,\ldots,N_p,
 \end{align}
-where $\Gamma_i$ is the boundary of particle.
-where $\vv_i$ is the translational velocity and $\omega_i$ is its
-angular velocity. 
-The process of finding the
-translational and angular velocities given the forces and torques is
-referred to as the mobility problem.
-Given forces $\FF_i$ and torques $T_i$ acting on each
-particle, we seek a velocity and pressure satisfying \eqref{eq:stokes1}-\eqref{eq:rigid_bc} 
+where $\Gamma_i$ is the boundary of particle. where $\vv_i$ is the
+translational velocity and $\omega_i$ is its angular velocity. The
+process of finding the translational and angular velocities given
+the forces and torques is referred to as the mobility problem. Given
+forces $\FF_i$ and torques $T_i$ acting on each particle, we seek a
+velocity and pressure satisfying \eqref{eq:stokes1}-\eqref{eq:rigid_bc} 
 and
 \begin{equation}
   \label{eq:force}
   \int_{\Gamma_i} \ssigma \cdot \nnu \, \dif s = \FF_i,\quad 
-  \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot (\ssigma \cdot \nnu) \, \dif s = T_i, \qquad i=1,\ldots,N_b,
+  \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot (\ssigma \cdot \nnu) \,
+  \dif s = T_i, \qquad i=1,\ldots,N_b,
 \end{equation}
-where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
-\right)$ is the hydrodynamic stress tensor (pressure tensor) and
-$\nnu$ is the particle outward normal. 
+where
+$\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T \right)$
+is the hydrodynamic stress tensor (pressure tensor) and $\nnu$ is the
+particle outward normal. 
 
-The second part is the hydrophobic 
-attraction.  To define it, we introduce 
+The second part is the hydrophobic attraction.  To define it, we introduce 
 the mean field free energy
 \begin{equation}
 \label{eq:free_energy}
 F = \min_u C \int_{\Omega}  \tfrac{1}{2} |\nabla u|^2 + f(u) \,dx
 \end{equation}
-where $u$ is the order parameter for the excess number of hydrogen
-bonds per water molecule, $C$ is a constant, and the minimization 
-occurs over all $u$ satisfying $u = u_0$ on the boundary where $u_0$
-is the degree of hydrophobicity.  
+where $u$ is the order parameter for the excess number of hydrogen bonds
+per water molecule, $C$ is a constant, and the minimization occurs over
+all $u$ satisfying $u = u_0$ on the boundary where $u_0$ is the degree
+of hydrophobicity.  
 
-As an illustration, in one-dimension the minimizer in \eqref{eq:free_energy} 
-solves $-u''(x) + f'(u(x)) = 0$ for $0 < x < b$, $u(0) = u_0(0),$ $u(b) = u_0(b)$ 
-and the free energy takes the form $F(b)$
-where $b$ is the  distance of separation between the hydrophobic surfaces.
-The hydrophobic force $-F'(b)$ the variation of free energy with respect to $b$  \cite{ErLjCl89, GoKl94}. 
+As an illustration, in one-dimension the minimizer in
+\eqref{eq:free_energy} solves $-u''(x) + f'(u(x)) = 0$ for $0 < x < b$,
+$u(0) = u_0(0),$ $u(b) = u_0(b)$ and the free energy takes the form
+$F(b)$ where $b$ is the  distance of separation between the hydrophobic
+surfaces. The hydrophobic force $-F'(b)$ the variation of free energy
+with respect to $b$  \cite{ErLjCl89, GoHaKo94}. 
 
 In two and higher spatial dimensions, the situation is more complicated.
-That is because the particles rotate and translate individually.  Here, the 
-minimizer  in \eqref{eq:free_energy}  satisfies 
+That is because the particles rotate and translate individually.
+Here, the minimizer  in \eqref{eq:free_energy} satisfies 
 \begin{equation}
 \label{eq:SL}
--\Delta u + f'(u) = 0  \text{ in } \Omega,\quad u = u_0  \text{ on } \partial \Omega.
+-\Delta u + f'(u) = 0  \text{ in } \Omega,\quad u = u_0
+\text{ on } \partial \Omega.
 \end{equation}
 The hydrophobic forces are torques are
 \begin{equation}
   \label{eq:hydrophobicAttraction}
   \FF_i^{\text{hydro}} = \int_{\Gamma_i} {\bf T}\cdot \nnu \, \dif s, 
     \quad 
-  T_i^{\text{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot ({\bf T} \cdot \nnu) \dif s.
+    T_i^{\text{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot
+    ({\bf T} \cdot \nnu) \dif s.
 \end{equation}
 where the surface force density 
 \begin{align}
@@ -115,22 +117,21 @@ comes from the variation of free energy with respect to particle
 position and orientation~\cite{Bandle2015, Schiffer1954, Grinfeld2010}. 
 The remaining part of the force comes from excluded volume repulsion. 
 The density \label{eq:stress}  was introduced
-by~\cite{Fu20} and is responsible for forming particle aggregates that
-sequester their hydrophobic surface regions (Figure \ref{fig:figure0}b).
+by~\cite{Fu2018_SIAM} and is responsible for forming particle aggregates that
+sequester their hydrophobic surface regions.
 
 \subsection{Janus-particle self-assembly} 
 The PI will collaborate with Dr. Bradley in the Department of 
 Polymer and Engineering Science at the University of Massachusetts Amherst
 on numerical and experimental investigations
 of synthesis and assembly of soft matter materials.
-Dr. Bradley's lab specializes in synthesizing multiphasic and anisotropic colloids.
-Applications in this area enables include cargo-carrying capacity, 
-catalytic activity, or stimuli-responsive shape-change to amplify colloid utility for a wide 
-range of  spanning environmental remediation to drug delivery. 
-The main challenge is the ability decouple particle surface properties, 
+Dr. Bradley's lab specializes in synthesizing multiphasic and anisotropic
+colloids. Applications in this area enables include cargo-carrying capacity, 
+catalytic activity, or stimuli-responsive shape-change to amplify colloid
+utility for a wide range of  spanning environmental remediation to drug
+delivery. The main challenge is the ability decouple particle surface properties, 
 which control particle-particle and particleiiinterface interactions, 
-from auxiliary functions, such as catalytic or cargo-carrying capacities
-\cite{}.
+from auxiliary functions, such as catalytic or cargo-carrying capacities.
 
 The collaboration will use numerical methods to predict parameter regimes 
 to control particle-particle interactions.  Preliminary numerical experiments
@@ -138,51 +139,52 @@ show that controlling for the degree of hydrophobicity $u_0$ yields different
 self-organized structures.  The simulations in Figure [] show the equilibrium
 state for 100 particles with initially random position and orientation
 with linear response $f(u) = u^2$.  The 
-boundary conditions $u_0$ are for \textbf{(i)} a polar colloid with $u_0$ odd about the 
-particle axis, \textbf{(ii)} a periodic normal distribution with random 
-standard deviation but normalized square moment, and  
+boundary conditions $u_0$ are for \textbf{(i)} a polar colloid with $u_0$
+odd about the particle axis, \textbf{(ii)} a periodic normal distribution
+with random standard deviation but normalized square moment, and  
 \textbf{(iii)} a particle more hydrophobic on one side than the other. 
-Simulation \textbf{(ii)}  produces a single bilayer while simulation \textbf{(iii)}
-produces a multilamellar phase.  Simulation \textbf{(i)} is analogous to 
-magnetically and electrically charged Janus particles, but rather than producing
-isolated chains, the simulation yields a network of chains.
-All in all, the hydrophobic attraction formalism controls for morphology through 
-simple modification of the boundary conditions.
+Simulation \textbf{(ii)}  produces a single bilayer while simulation
+\textbf{(iii)} produces a multilamellar phase.  Simulation \textbf{(i)} is
+analogous to magnetically and electrically charged Janus particles, but
+rather than producing isolated chains, the simulation yields a network
+of chains. All in all, the hydrophobic attraction formalism controls for
+morphology through simple modification of the boundary conditions.
 
 Our next steps are to determine if the phenomenon we report are robust.
-This involves categorizing all possible the self assembly behavior
-and assessing the sensitivity of morphologies to boundary condition positionally
-and particle geometry.  At the same time, we can  
-translate phenomenological parameters parameters
-of the model in to contact angles. In Specific Aim 3, we discuss how to include 
-surface charge as this is one of the main surface properties that must be decoupled.
-In future studies, we will also include liquid crystal background flows.
+This involves categorizing all possible the self assembly behavior and
+assessing the sensitivity of morphologies to boundary condition
+positionally and particle geometry.  At the same time, we can translate
+phenomenological parameters of the model in to contact angles. In Specific
+Aim 3, we include surface charge as this is one of the main surface
+properties that must be decoupled. In future studies, we will also include
+liquid crystal background flows.
 
 \subsection{Hydrophobic forces as capillary wetting} 
 The measured hydrophobic attraction follows an exponential function
 in the 10 to 100 nanometer range of separation.  Below 10 nm, there 
 is an amplification of force and the attraction follows a much steeper 
-force law \cite{Lietal05}. 
+force law \cite{Lin2005}. 
 
 One way to mathematically account for this change in force profile is by
-allowing for phases in the order parameter $u$.
-Motivated by capillary wetting, theoretical soft matter biophysicist Gerhard Gompper 
+allowing for phases in the order parameter $u$. Motivated by capillary
+wetting, theoretical soft matter biophysicist Gerhard Gompper 
 introduced such a model in \cite{GoHaKo94}. This was a one-dimensional
-model which we will extend to two-dimensions (at first) and follow up on the parameter study. 
-The order parameter is the mean number of nearest neighbors per water molecule
-with distinguished values $u_1$ for five-coordinated water in the bulk phase and 
-the scalar value $u_0$ for four-coordinated water at the hydrophobic surfaces.  
-A slanted double well-potential $f(u)$ with local minima at $u_0$ and $u_1$ 
-characterizes the energy landscape of homogeneous water.   The absolute minimum
-is at $u_1$. 
+model which we will extend to two-dimensions (at first) and follow up on
+the parameter study. The order parameter is the mean number of nearest
+neighbors per water molecule with distinguished values $u_1$ for
+five-coordinated water in the bulk phase and the scalar value $u_0$ for
+four-coordinated water at the hydrophobic surfaces. A slanted double
+well-potential $f(u)$ with local minima at $u_0$ and $u_1$ characterizes
+the energy landscape of homogeneous water. The absolute minimum is at $u_1$. 
 
-When particles are well-separated, the energetic cost for filling the interstitial region 
-with $u_0$-phase water is energetically prohibitive and so there is a phase shift
-from the $u_0$ to $u_1$ water order occurring at the boundary of each particle. 
-Here, the attraction landscape is more or less identical to the linear response theory 
-we have explored and the decay length of attraction is set by $\sqrt{1/f''(u_1)}$.
-Conversely, when particles are proximal it energetically favorable to coalesce 
-the $u_0$-phase and here there will be a circumscribing phase transition.
+When particles are well-separated, the energetic cost for filling
+the interstitial region with $u_0$-phase water is energetically prohibitive
+and so there is a phase shift from the $u_0$ to $u_1$ water order occurring
+at the boundary of each particle.  Here, the attraction landscape is more
+or less identical to the linear response theory we have explored and the
+decay length of attraction is set by $\sqrt{1/f''(u_1)}$. Conversely, when
+particles are proximal it energetically favorable to coalesce the $u_0$-phase
+and here there will be a circumscribing phase transition.
 Here, the energetics are dominated by a decay length  $\sqrt{1/f''(u_0)}$
 for the linear response around four-coordinated water plus the energy 
 per length cost of the phase transition (energy per area in three dimensions).
@@ -198,35 +200,35 @@ experimental setups, mainly apposing hydrocarbon coated cylinders.
 We will directly compare the numerical attraction data with the measurements.
 Some of the model parameters, like $C$ and  $f''(u_1)$, directly connect 
 to long-range decay lengths and energy cost of creating hydrophobic-water
-interfaces with established ranges of values. Other parameters, like the well-structure,
-are fit to the measured data. 
-These base-line simulations will allow us to move on to simulating
-colloidal suspensions. 
+interfaces with established ranges of values. Other parameters, like the
+well structure, are fit to the measured data. These base-line simulations
+will allow us to move on to simulating colloidal suspensions. 
 
 \textbf{What will we do if the results fail?}
 Other approaches will be required if the modified phenomenological theory 
 fails to recreated the hydrophobic force curves for any reasonable 
 set of parameter values.  One such approach is to consider 
-Gaussian fluctuation. 
-So far we, have studied energy minimizers of the Landau-Ginzburg 
-free energy functional. However,  hydrophobic force measurements are carried out at finite 
+Gaussian fluctuation. So far we, have studied energy minimizers of the
+Landau-Ginzburg free energy functional. However,  hydrophobic force
+measurements are carried out at finite 
 temperatures, thermal fluctuations should also be considered. 
 A relative simple way to do so is to study Gaussian fluctuations.
 Here, the Gaussian fluctuations are calculated by expanding the 
 free energy functional around the saddle point solution.
-The fluctuation energy involves calculation of the eigenfunctions of the second variation
-of the free energy. 
+The fluctuation energy involves calculation of the eigenfunctions of
+the second variation of the free energy. 
 
-Another approach is to modify the setup to include convection in the water structure. 
-In the short-range experimental data, particle velocities approach 200 nm s$^{-1}$.
-The measurements, however, do not account for water that must be 
-expelled between the two approach particles. This water movement is directly 
-accounted for by our Stokes mobility solver.  In the phenomenological model,
-the order parameter adjusts to the new particle positions instantaneously.  Instead,
-it may be required that the order parameter solves the parabolic version of \eqref{eq:SL}
-with a convection given by the underlying Stokes flow. 
-If the convective effect is significant, then a significant 
-set of measurements will need to be reevaluated.
+Another approach is to modify the setup to include convection in the
+water structure. In the short-range experimental data, particle
+velocities approach 200 nm s$^{-1}$. The measurements, however, do not
+account for water that must be expelled between the two approach particles.
+This water movement is directly accounted for by our Stokes mobility solver.
+In the phenomenological model, the order parameter adjusts to the new
+particle positions instantaneously. Instead, it may be required that the
+order parameter solves the parabolic version of \eqref{eq:SL} with a
+convection given by the underlying Stokes flow. If the convective effect
+is significant, then a significant set of measurements will need to be
+reevaluated.
 
 %
 % The following commented out Nov 6, 2021.
