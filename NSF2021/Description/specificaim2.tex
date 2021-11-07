@@ -12,12 +12,11 @@ they, like for the rates of biological functions like pore
 dynamics~\cite{RYHAM20112929}, set the rate of dissipation. In Specific
 Aim 2, we propose to develop efficient high-order numerical methods to
 simulate dynamic assembly of particles under HAP potential in a viscous
-solvent. As described in~\eqref{eq:stokes} and illustrated in
-Figure~\ref{fig:flow_map}, the solvent phase is modeled by the Stokes
-equations for an incompressible, viscous fluid, and these equations are
-coupled to the screened-Laplace equation~\eqref{SL} through viscous and
-hydrophobic stress balance. 
-\todo[inline]{BQ: Also will have the new Allen-Cahn type equation}
+solvent. As described in~\eqref{eq:stokes1}--\eqref{eq:stokes3} and
+illustrated in Figure~\ref{fig:flow_map}, the solvent phase is modeled
+by the Stokes equations for an incompressible, viscous fluid, and these
+equations are coupled to the screened-Laplace equation~\eqref{eq:SL}
+through viscous and hydrophobic stress balance. 
  
 \label{subsec:specific_aim_2}
 \begin{wrapfigure}[14]{r}{0.61\textwidth}
@@ -29,19 +28,22 @@ hydrophobic stress balance.
     the solvent activity that satisfies the screened Laplace equation.
     The geometry is updated by solving the mobility problem.} 
 \end{wrapfigure}
-The HAP model requires solving exterior Dirichlet problems for the
-screened Laplace equation and the Stokes mobility problem at each time
-step in complex domains such as in Figure~\ref{fig:domain}. If
-discretizing these equations with stencil-based numerical methods, the
-computational domain must be truncated, the fluid volume must be
-discretized, and artificial boundary conditions must be imposed. The
-artificial boundary conditions introduce additional error, and
-discretizing the volume results in an excessively large system of
-equations. Moreover, it is difficult to obtain high-order
-discretizations when the boundary surfaces are irregular. Alternatively,
-since we are solving constant-coefficient linear elliptic partial
-differential equations (PDEs), the solutions can be represented with
-layer potentials
+The HAP model requires solving exterior Dirichlet problems for the order
+parameter~\eqref{eq:SL} and the Stokes
+equations~\eqref{eq:stokes1}--\eqref{eq:stokes2}. If discretizing these
+equations with stencil-based numerical methods, the computational domain
+must be truncated, the fluid volume must be discretized, and artificial
+boundary conditions must be imposed. The artificial boundary conditions
+introduce additional error, and discretizing the volume results in an
+excessively large system of equations. Moreover, it is difficult to
+obtain high-order discretizations when the boundary surfaces are
+irregular. 
+
+Alternatively, we will take advantage of the linearity of the Stokes
+equations, and also apply a Newton's method to the HAP
+model~\eqref{eq:SL}, where each iteration requires the solution of
+linear elliptic PDEs. Then we can represent solutions of these elliptic
+PDEs as layer potentials
 \begin{align}
   \label{eq:LP}
   u(\mathbf{x}) = \mathcal{K}[\sigma](\mathbf{x}) = 
@@ -52,8 +54,8 @@ where $\sigma$ is an unknown density function, and
 $K(\mathbf{x},\mathbf{y})$ is a derivative of the fundamental solution
 of the PDE. By matching the prescribed boundary condition at
 $\mathbf{x}_0 \in \partial\Omega$ with the limit of
-equation~\eqref{eq:LP} as $\mathbf{x}\rightarrow \mathbf{x}_0$, a
-boundary integral equation (BIE) for the density function is formed. 
+equation~\eqref{eq:LP} as $\xx \rightarrow \xx_0$, a boundary integral
+equation (BIE) for the density function is formed. 
 
 Numerical methods to solve BIEs have several advantages over their
 PDE-based counterpart: by construction, the layer
@@ -76,8 +78,21 @@ describes how we will combine preconditioning strategies with fast
 summation methods to accelerate the time to solution,
 \S\ref{subsec:timeStepping} describes adaptive time stepping methods,
 and \S\ref{subsec:AC} describes how the non-linear Allen-Cahn
-equation~\eqref{eqn:???} will be iteratively solved using BIE
+equation~\eqref{eq:SL} will be iteratively solved using BIE
 formulations.
+
+\subsubsection{Iterative methods for the Allen-Cahn HAP model}
+\label{subsec:AC}
+In the PIs collaboration, they have developed numerical methods to
+solve~\eqref{eq:SL} when $f(u) = u^2$. With this choice of $f(u)$, the
+resulting PDE is the linear screened Laplace equation which is
+efficiently solved with a double-layer potential representation. For a
+more general $f$, such as a double well potential, we will interpret the
+solution of~\eqref{eq:SL} as a root finding problem for the operator
+\begin{align*}
+  F[u] = -\rho \Delta u + f'(u).
+\end{align*}
+
 
 
 % ----------------------------------------------------------------------
@@ -209,10 +224,6 @@ solving a non-linear complementarity problem with a geometric constraint
 that the configuration is non-overlapping. In this manner, contact is
 avoided without the excessively small time steps required by stiff
 Lennard-Jones forces.
-
-\subsubsection{Iterative methods for the Allen-Cahn HAP model}
-\label{subsec:AC}
-\todo[inline]{Write once the model is finalized}
 
 %%-------------------------------------------------------------------------------
 %\subsubsection{Novel reciprocal identities}
