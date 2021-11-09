@@ -90,29 +90,55 @@ efficiently solved with a double-layer potential representation. For a
 more general $f$, such as a double well potential, we will interpret the
 solution of~\eqref{eq:SL} as a root finding problem for the operator
 \begin{align*}
-  F[u] = -\rho \Delta u + f'(u).
+  F[u] = -\rho^2 \Delta u + f'(u).
 \end{align*}
 This non-linear PDE will be solved with Newton's method
 \begin{align*}
-  u^{N+1} = u^{N} - dF(u^N)^{-1} F(u^N),
+  u^{N+1} = u^{N} - dF^{-1} F(u^N),
 \end{align*}
-where $dF(u^N) = -\rho \Delta + f''(u^N)$ is the Fr\'{e}chet derivative
-of $F$. As expected, the biggest challenge amounts to solving
+where $dF = -\rho^2 \Delta + f''(u^N)$ is the Fr\'{e}chet derivative of
+$F$. As expected, the biggest challenge amounts to solving
 \begin{align}
   \label{eq:NewtonUpdate}
-  - \rho \Delta v + f''(u^{N}) v = F[u^N].
+  - \rho^2 \Delta v + f''(u^{N}) v = F[u^N].
 \end{align}
-If $f(u)$ is defined in terms of piecewise quadratic equations,
-equation~\eqref{eq:NewtonUpdate} is equivalent to
+For a general double well potential $f(u)$, this is a variable
+coefficient elliptic PDE, and developing an integral equation
+formulation is challenging. We propose to instead use an inexact
+Newton's method where $dF^{-1}$ is defined in terms of the piecewise
+quadratic approximation
 \begin{align*}
-  -\rho \Delta v + 
+  f(u) \approx bu + \begin{cases}
+    a(u - U_1)^2, &\mbox{if } u \leq (U_0 + U_1)/2 \\
+    (u - U_2)^2, &\mbox{if } u > (U_0 + U_1)/2.
+  \end{cases}
+\end{align*}
+In this case, the update step of Newton's method~\eqref{eq:NewtonUpdate}
+amounts to solving the piecewise constant PDE
+\begin{align}
+  \label{eq:screenedPoisson}
+  -\rho^2 \Delta v + 
   \left(
   \begin{cases}
-    a, &\mbox{if } u^{N}(\xx) \mbox{ closer to $U_1$} \\
-    1, &\mbox{if } u^{N}(\xx) \mbox{ closer to $U_0$}
+    2a, &\mbox{if } u^{N} \leq (U_0 + U_1)/2 \\
+    2, &\mbox{if } u^{N} > (U_0 + U_1)/2
   \end{cases}
   \right)
-  v = F[u^N].
+  v = F[u^N],
+\end{align}
+which is a screened Poisson equation with piecewise a constant screening
+coefficient. Solutions of the screened Poisson equation can be written
+in terms of volume and layer potentials. We first define the level set
+$\Gamma = \{\xx \:|\: \uu(\xx) = (U_0 + U_1)/2 \}$ which separates the
+domain $\Omega$ into two regions. Then, assuming that the particles are
+all contained in the hydrophobic region, a solution of the screened
+Laplace equation (i.e.~equation~\eqref{eq:screenedPoisson} when $F[u^N]
+= 0$) is
+\begin{align*}
+  u(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \pderiv{}{\nn_\yy} K_0 \left(
+    \frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) ds_\yy + 
+    \frac{1}{2\pi} \int_{\Gamma} K_0 \left(
+    \frac{|\xx - \yy|}{\rho} \right) \eta(\yy) ds_\yy,
 \end{align*}
 
 
