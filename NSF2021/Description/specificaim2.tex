@@ -92,6 +92,28 @@ solution of~\eqref{eq:SL} as a root finding problem for the operator
 \begin{align*}
   F[u] = -\rho \Delta u + f'(u).
 \end{align*}
+This non-linear PDE will be solved with Newton's method
+\begin{align*}
+  u^{N+1} = u^{N} - dF(u^N)^{-1} F(u^N),
+\end{align*}
+where $dF(u^N) = -\rho \Delta + f''(u^N)$ is the Fr\'{e}chet derivative
+of $F$. As expected, the biggest challenge amounts to solving
+\begin{align}
+  \label{eq:NewtonUpdate}
+  - \rho \Delta v + f''(u^{N}) v = F[u^N].
+\end{align}
+If $f(u)$ is defined in terms of piecewise quadratic equations,
+equation~\eqref{eq:NewtonUpdate} is equivalent to
+\begin{align*}
+  -\rho \Delta v + 
+  \left(
+  \begin{cases}
+    a, &\mbox{if } u^{N}(\xx) \mbox{ closer to $U_1$} \\
+    1, &\mbox{if } u^{N}(\xx) \mbox{ closer to $U_0$}
+  \end{cases}
+  \right)
+  v = F[u^N].
+\end{align*}
 
 
 
