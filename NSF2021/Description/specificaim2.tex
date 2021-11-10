@@ -30,7 +30,7 @@ through viscous and hydrophobic stress balance.
 \end{wrapfigure}
 The HAP model requires solving exterior Dirichlet problems for the order
 parameter~\eqref{eq:SL} and the Stokes
-equations~\eqref{eq:stokes1}--\eqref{eq:stokes2}. If discretizing these
+equations~\eqref{eq:stokes1}--\eqref{eq:stokes3}. If discretizing these
 equations with stencil-based numerical methods, the computational domain
 must be truncated, the fluid volume must be discretized, and artificial
 boundary conditions must be imposed. The artificial boundary conditions
@@ -73,31 +73,38 @@ screened Laplace equation~\cite{ying_2006} and a well-conditioned BIE
 formulation of the mobility problem~\cite{manasthesis, rac-gre2016}.
 
 Significant challenges to solving BIEs include solving largely stem from
-solving dense linear systems. \S\ref{subsec:NumericalIssues}
-describes how we will combine preconditioning strategies with fast
-summation methods to accelerate the time to solution,
+solving dense linear systems. First, \S\ref{subsec:AC} describes how the
+non-linear Allen-Cahn equation~\eqref{eq:SL} will be iteratively solved
+using BIE formulations. Then, \S\ref{subsec:NumericalIssues} describes
+how we will combine preconditioning strategies with fast summation
+methods to accelerate the time to solution, and
 \S\ref{subsec:timeStepping} describes adaptive time stepping methods,
-and \S\ref{subsec:AC} describes how the non-linear Allen-Cahn
-equation~\eqref{eq:SL} will be iteratively solved using BIE
-formulations.
 
 \subsubsection{Iterative methods for the Allen-Cahn HAP model}
 \label{subsec:AC}
+
+\begin{wrapfigure}[]{l}{1.8in}
+  \centering
+  \input{figures/doublewell.tikz}
+  \caption{\label{fig:well} $U_1 = 0.5$, $U_2 = 2$, $a = 1$, $b = 0.4$.}
+\end{wrapfigure}
 In the PIs collaboration, they have developed numerical methods to
 solve~\eqref{eq:SL} when $f(u) = u^2$. With this choice of $f(u)$, the
 resulting PDE is the linear screened Laplace equation which is
 efficiently solved with a double-layer potential representation. For a
 more general $f$, such as a double well potential, we will interpret the
 solution of~\eqref{eq:SL} as a root finding problem for the operator
-\begin{align*}
+\begin{align}
+  \label{eq:F}
   F[u] = -\rho^2 \Delta u + f'(u).
-\end{align*}
+\end{align}
 This non-linear PDE will be solved with Newton's method
 \begin{align*}
-  u^{N+1} = u^{N} - dF^{-1} F(u^N),
+  u^{N+1} = u^{N} - \alpha dF^{-1} F(u^N),
 \end{align*}
 where $dF = -\rho^2 \Delta + f''(u^N)$ is the Fr\'{e}chet derivative of
-$F$. As expected, the biggest challenge amounts to solving
+$F$, and $\alpha$ is the step size which will be determined using
+backtracking. As expected, the biggest challenge amounts to solving
 \begin{align}
   \label{eq:NewtonUpdate}
   - \rho^2 \Delta v + f''(u^{N}) v = F[u^N].
@@ -108,26 +115,35 @@ formulation is challenging. We propose to instead use an inexact
 Newton's method where $dF^{-1}$ is defined in terms of the piecewise
 quadratic approximation
 \begin{align*}
-  f(u) \approx bu + \begin{cases}
+  f(u) \approx \tilde{f}(u) = bu + \begin{cases}
     a(u - U_1)^2, &\mbox{if } u \leq (U_0 + U_1)/2 \\
     (u - U_2)^2, &\mbox{if } u > (U_0 + U_1)/2.
   \end{cases}
 \end{align*}
 In this case, the update step of Newton's method~\eqref{eq:NewtonUpdate}
-amounts to solving the piecewise constant PDE
+amounts to solving the PDE
 \begin{align}
   \label{eq:screenedPoisson}
-  -\rho^2 \Delta v + 
-  \left(
-  \begin{cases}
-    2a, &\mbox{if } u^{N} \leq (U_0 + U_1)/2 \\
-    2, &\mbox{if } u^{N} > (U_0 + U_1)/2
-  \end{cases}
-  \right)
-  v = F[u^N],
+  -\rho^2 \Delta v + \tilde{f}''(u^{N})v = F[u^N],
 \end{align}
+\begin{wrapfigure}[]{r}{1.8in}
+  \centering
+  \input{figures/residuals.tikz}
+  \caption{\label{fig:residuals} $U_1 = 0.5$, $U_2 = 2$, $a = 1$, $b =
+  0.4$.}
+\end{wrapfigure}
 which is a screened Poisson equation with piecewise a constant screening
-coefficient. Solutions of the screened Poisson equation can be written
+coefficient. We test the efficacy of Newton's method applied
+to~\eqref{eq:F} by considering its one-dimensional version in $(0,1)$
+with the Dirichlet boundary conditions $u(0) = U_0$ and $u(1) = U_1$.
+These parameters result in the double well potential illustrated in
+Figure~\ref{fig:well}(a), and the inexact Newton's method converges to
+the solution in Figure~\ref{fig:well}(b). Figure~\ref{fig:residuals}
+shows the max norm of the residual at each Newton iterate when using
+the exact second derivative (red curve) and the piecewise constant
+approximate (blue curve).
+
+Solutions of the screened Poisson equation can be written
 in terms of volume and layer potentials. We first define the level set
 $\Gamma = \{\xx \:|\: \uu(\xx) = (U_0 + U_1)/2 \}$ which separates the
 domain $\Omega$ into two regions. Then, assuming that the particles are
