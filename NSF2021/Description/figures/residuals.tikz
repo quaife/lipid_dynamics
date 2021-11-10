@@ -6,14 +6,10 @@
     xlabel = {Newton Iteration},
     ylabel = {Max Norm of Residual},
     ytick  = {1e-4, 1e-2, 1e0, 1e2, 1e4,1e6},
-    title = {\Large Convergence of Inexact Newton}
-%  xmin = -1.42,
-%  xmax = 1.42,
-%  ymin = -1.42,
-%  ymax = 1.42,
+    title = {\Large Convergence of Newton},
 ]
 
-\addplot[blue,line width=1pt] coordinates{
+\addplot[blue,line width=2pt] coordinates{
 (1,8.3894e+05)
 (2,2.9481e+04)
 (3,1.4263e+02)
@@ -44,8 +40,9 @@
 (28,1.6642e-04)
 (29,9.9950e-05)
 };
+\addlegendentry{Inexact Newton}
 
-\addplot[red,line width=1pt] coordinates{
+\addplot[red,line width=2pt] coordinates{
 (1,8.3894e+05)
 (2,2.3581e+02)
 (3,3.6012e+01)
@@ -62,6 +59,7 @@
 (14,1.7274e-04)
 (15,4.7704e-05)
 };
+\addlegendentry{Exact Newton}
 
 \end{axis}
 
