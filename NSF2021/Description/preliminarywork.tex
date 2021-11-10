@@ -1,26 +1,37 @@
-\begin{wraptable}[6]{r}{0.56\textwidth}
-\vspace{-0.8cm}
-\centering{
-  \begin{tabular}{|l|r|r|p{0.1\textwidth}|}
-    \hline
-          & HAP                     & experiment          & ref.\\
-    \hline 
-    $\KB$ & $11 \pm 2.5$ \kBT       & 10 \kBT               & \cite{Naetal15,VeBrPa15,NAGLE2000159,PhysRevLett.113.248102}\\
-    \hline 
-    $\KA$ & $34$ \kBT \; nm$^{-2}$  & 30--40 \kBT nm$^{-2}$ & \cite{Nagle17, Nagle17-2}\\
-    \hline 
-    $\KTH$ & $12$ \kBT \; nm$^{-2}$ & 10 \kBT nm$^{-2}$     & \cite{KUZMIN2005, KoNa15} \\ \hline
-  \end{tabular}
-}
-  \vspace{-8pt}
-\caption{\label{tab:moduli} \footnotesize Comparison of values of elastic
-  moduli from the experimental literature and derived by HAP
-  simulation.} 
-\end{wraptable}
+%\begin{wraptable}[6]{r}{0.56\textwidth}
+%\vspace{-0.8cm}
+%\centering{
+%  \begin{tabular}{|l|r|r|p{0.1\textwidth}|}
+%    \hline
+%          & HAP                     & experiment          & ref.\\
+%    \hline 
+%    $\KB$ & $11 \pm 2.5$ \kBT       & 10 \kBT               & \cite{Naetal15,VeBrPa15,NAGLE2000159,PhysRevLett.113.248102}\\
+%    \hline 
+%    $\KA$ & $34$ \kBT \; nm$^{-2}$  & 30--40 \kBT nm$^{-2}$ & \cite{Nagle17, Nagle17-2}\\
+%    \hline 
+%    $\KTH$ & $12$ \kBT \; nm$^{-2}$ & 10 \kBT nm$^{-2}$     & \cite{KUZMIN2005, KoNa15} \\ \hline
+%  \end{tabular}
+%}
+%  \vspace{-8pt}
+%\caption{\label{tab:moduli} \footnotesize Comparison of values of elastic
+%  moduli from the experimental literature and derived by HAP
+%  simulation.} 
+%\end{wraptable}
+
+
 \section{Preliminary work}
 \label{sec:preliminary_work}
-PIs RR and YNY started work on HAP modeling with Szu-Pei Fu (then PI YNY's student and now PI RR's postdoc) and collaborators in 2017. 
-%
+
+
+%While the results show great promise in the field of collective body
+%hydrodynamics, several outstanding issues need to be addressed. These
+%include a thorough analysis of elastic properties of our coarse-grained
+%bilayers and efficiently simulating three-dimensional collective
+%hydrodynamics of amphiphilic particles.
+%We must also incorporate electric charge and account
+%for how external fields control particle self-assembly.
+
+
 %
 %The HAP project was initiated in 2017 by PI RR and YNY. The lead author
 %on our first paper~\cite{Fu2018_SIAM} was Szu-Pei Fu, who was PI YNY's
@@ -58,6 +69,17 @@ PIs RR and YNY started work on HAP modeling with Szu-Pei Fu (then PI YNY's stude
 %  the particles are nearly touching at a distance 1\% of particle
 %  diameter.} 
 %\end{wraptable}
+PIs RR and YNY started work on HAP modeling with Szu-Pei Fu
+(then PI YNY's student and now PI RR's postdoc) and collaborators in 2017. 
+The interactions between JP are formulated as a second-kind integral
+equation, which is coupled to the Stokes equations for the surrounding
+incompressible fluid at the zero-Reynolds-number limit. Numerical
+simulations of a JP suspensions revealed self-assembly of JP into
+micelles and bilayers, providing an alternative means for computing
+mechanical moduli, which often requires the knowledge of an equation of
+state from experiments on a colloidal
+membrane~(\cite{Balchunas2019_SM}).
+
 The results are summarized in \cite{Fu2018_SIAM}, where
 small particle-number simulations successfully demonstrated gradient-driven self-assembly of
 amphiphilic particles into two-dimensional micelles and bilayer membranes with realistic values of
@@ -69,119 +91,248 @@ and interfacial tension $\gamma = 4$ pN nm$^{-1}$ (based on
 measurements for single-component bilayer lipid
 membranes~\cite{GarciaSaez, KUZMIN2005, Petelska2012, Jackson2016}).
 
-\begin{wraptable}[10]{l}{0.43\textwidth}
-  \vspace{-6pt}
-\centering{
-  \begin{tabular}{|l|l|l|l|}
-    $n$   & (rel.~err.)$_F$
-    &  (rel.~err.)$_G$ \\
-    \hline
+%\begin{wraptable}[10]{l}{0.43\textwidth}
+%  \vspace{-6pt}
+%\centering{
+%  \begin{tabular}{|l|l|l|l|}
+%    $n$   & (rel.~err.)$_F$
+%    &  (rel.~err.)$_G$ \\
+%    \hline
 % 32   &   4.07466     &   1.56437\\
 % 64   &   0.24664     &   0.03476\\
 % 128  &   0.00063     &   0.00006\\
-  32  & $4.07 \times 10^{+0}$ & $1.56 \times 10^{+0}$ \\
-  64  & $2.47 \times 10^{-1}$ & $3.48 \times 10^{-2}$ \\
-  128 & $6.30 \times 10^{-4}$ & $6.00 \times 10^{-5}$ 
-  \end{tabular}}
-\vspace{-8pt}
-\caption{\label{tab:spectral_force} 
-\footnotesize  Relative numerical errors (rel.~err.)$_F = \max_{i}
-  \|\mathbf{F}_i-\mathbf{F}_i^{\text{exact}}\|/\|\mathbf{F}_i^{\text{exact}}\|$
-  and (rel.~err.)$_G = \max_{i}
-  \|\mathbf{G}_i-\mathbf{G}_i^{\text{exact}}\|/\|\mathbf{G}_i^{\text{exact}}\|$
-  for force and torque, respectively, as a function of number of grid
-  points $n$ per particle. The data is for $N = 5$ particles; two of the
-  particles are nearly touching at a distance of 1\% of the particle
-  diameter.} 
-\end{wraptable}
-The paper \cite{Fu2018_SIAM} considered three types of simulations. The first measured bending by
-loading a partially clamped planar bilayer. The second used a harmonic
-bond to dilate a circular bilayer. The third measured tilt using a decay
-equation from~\cite{KUZMIN2005}. These simulations isolated three of the
-five deformations of~\eqref{ansatz3}, enabling us to read off elastic
-moduli from simulation data. The results agreed remarkably well with the
-values reported in the experimental literature (Table~\ref{tab:moduli}).
-The agreement is underscored by the fact that the two main HAP
-parameters, $\gamma$ and $\rho$, were assigned physical values from the
-outset rather than being tuned to fit data. 
+%  32  & $4.07 \times 10^{+0}$ & $1.56 \times 10^{+0}$ \\
+%  64  & $2.47 \times 10^{-1}$ & $3.48 \times 10^{-2}$ \\
+%  128 & $6.30 \times 10^{-4}$ & $6.00 \times 10^{-5}$ 
+%  \end{tabular}}
+%\vspace{-8pt}
+%\caption{\label{tab:spectral_force} 
+%\footnotesize  Relative numerical errors (rel.~err.)$_F = \max_{i}
+%  \|\mathbf{F}_i-\mathbf{F}_i^{\text{exact}}\|/\|\mathbf{F}_i^{\text{exact}}\|$
+%  and (rel.~err.)$_G = \max_{i}
+%  \|\mathbf{G}_i-\mathbf{G}_i^{\text{exact}}\|/\|\mathbf{G}_i^{\text{exact}}\|$
+%  for force and torque, respectively, as a function of number of grid
+%  points $n$ per particle. The data is for $N = 5$ particles; two of the
+%  particles are nearly touching at a distance of 1\% of the particle
+%  diameter.} 
+%\end{wraptable}
+
+Results in this work show great potential to study
+Janus colloids~(\cite{Bradley2017,Mallory2017})
+and the morphology of colloid
+surfactants~(\cite{Bradley2016}). 
+For example, with the flexibility of the model, we can specify the
+boundary condition on JP surfaces based on the chemicals used in
+experiments.
+
+%The paper \cite{Fu2018_SIAM} considered three types of simulations.
+%The first measured bending by
+%loading a partially clamped planar bilayer. The second used a harmonic
+%bond to dilate a circular bilayer. The third measured tilt using a decay
+%equation from~\cite{KUZMIN2005}. These simulations isolated three of the
+%five deformations of~\eqref{ansatz3}, enabling us to read off elastic
+%moduli from simulation data. The results agreed remarkably well with the
+%values reported in the experimental literature.% (Table~\ref{tab:moduli}).
+%The agreement is underscored by the fact that the two main HAP
+%parameters, $\gamma$ and $\rho$, were assigned physical values from the
+%outset rather than being tuned to fit data. 
+
+
+
+%
+%This study presents a coarse-grained model for JP vesicles that focuses
+%on the hydrophobic interactions between coarse-grained lipids and
+%hydrodynamic interactions. In contrast to molecular dynamic simulations,
+%the hydrophobic interactions exhibit the self-assembly property of the
+%lipid bilayer membrane. The proposed energy potential combined with the
+%mobility problem for rigid body motions captures membrane mechanics
+%including deformations, stretching modulus, and permeability of a JP
+%membrane. 
+%
+
+%
+%This work is highly applicable with fields in material science
+%and condensed matter physics such as Janus
+%colloids~(\cite{Bradley2017,Mallory2017}) and the setup can be tuned to
+%match experimental results such as the morphology of colloid
+%surfactants~(\cite{Bradley2016}). 
+%%
+
+%This can be an assist to study of interparticle interactions and chemical compositions in industry.
+
+%Integral equation methods are used to solve the mobility problem and the
+%previously introduced HAP model. We describe a method to calculate the
+%hydrophobic forces and torques on each individual rigid body that avoids
+%singular integrals. In addition to the HAP forces and torques, we use a
+%short-range repulsion to avoid unphysical contact. 
 
 PIs RR, BQ, and YNY initiated a collaboration in summer 2020 to develop
-the hydrodynamic model of \S\ref{subsec:specific_aim_3}. To date, we
-have written solvers for the two-dimensional boundary integral
-formulations of~\eqref{SL} and~\eqref{eq:stokes} that achieve
-third-order accuracy up to the boundary of the particles. The
-specialized reciprocal identity~\eqref{eq:reciprocal} gives spectral
-accuracy for force and torque (Table~\ref{tab:spectral_force}).
+the hydrodynamic model.
+They  used this integral formulation and numerical
+algorithm to simulate the hydrodynamics of JP vesicles in background
+flows. Under a linear shear flow, JP vesicles exhibited
+elongation and tank-treading dynamics observed for a lipid bilayer GUV.
+%
+%With the use of suitable parameters, the
+%numerical results yield qualitative phenomena such as a tank-treading JP
+%vesicle. 
+%
+The results showed that the reduced area decreases with shear rate
+but that the total length of a JP vesicle is conserved. The decay rate
+of the reduced area was independent of the shear rate.
+Moreover, the proposed model
+describes membrane rupture in high shear rates. Therefore, the method
+can be applied to vesicles undergoing topological changes which is
+difficult to simulate when using a continuum model that represents
+vesicles as closed and continuous curves.
+%
+%Our coarse-grained model is also able to calculate inter-monolayer
+%friction. 
+%
 
-\begin{wrapfigure}[22]{l}{0.5\textwidth}
-\vspace{-5pt}
-  \centering{\includegraphics[width=0.49\textwidth]{Figures/TankTreading.pdf}}
-  \vspace{-10pt}
-  \caption{\label{fig:tank_treading} \footnotesize
-    Panel A: A two-dimensional, particle-based vesicle in a shear flow
-    (arrows); $\mu = 1$ mPa s and $\dot{\gamma} = 0.5$ $\mu$s$^{-1}$
-    (compare with~\cite{Brandner2019}).  Panel B: Angular velocities for
-    the outer and the inner leaflets.  Panel C: The trajectory of the
-    particle centers forms two ellipses with well-defined inclination
-    angle $\Theta$. Panel D: The evolution of the inclination angle.
-    Panels B and D share the same time axis.}
-\end{wrapfigure}
-We have simulated two-dimensional vesicles in shear flow
-$\mathbf{u}_{\infty} = \dot{\gamma} x_2 \mathbf{i}_1$ with shear rate
-$\dot{\gamma}$,
-%(The symbol shear rate is unrelated to interfacial tension.)
-and the particle-based system mimics the behavior observed in continuous
-vesicles~\cite{torres-sanchez_millan_arroyo_2019,
-mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}. The basic
-pattern is that of a vesicle bilayer approaching a steady, tank-treading
-ellipse (Figure~\ref{fig:tank_treading}C). We analyzed the simulation
-data in the context of theoretical work on
-tank-treading~\cite{Finken2008, PhysRevLett.106.158103}.
-Jeffrey's equation predicts a tank-treading frequency $-\dot{\gamma}/2$ (dashed line in
-Figure~\ref{fig:tank_treading}B). In the particle simulation, we measured
-a tank-treading frequency as the mean of the particle angular
-velocities. The measured steady-state frequencies were within 7\% of the predicted 
-frequency (dotted and solid curves in Figure~\ref{fig:tank_treading}B).
-The inclincation angle of the particle-based simulation also
-follows the inclination angle $\Theta(t)$ predicted by Jeffrey's
-equation (Figure~\ref{fig:tank_treading}D), albeit with higher frequency oscillation
-coming from particle reorganization.
+%
+%Our method requires
+%calculations of the hydrodynamic stress tensor, and these are used to
+%
+The study estimated an inter-monolayer friction $b$, membrane permeability
+constant $P$, and the membrane stretching modulus $K_A$.
+\cite{chabanon2017, sch-vla-mik2010}.
+The range of friction coefficients agree with values reported
+by~\cite{denOtter2007} in their MD study. The coarse-graining level of
+the JP vesicle has a larger length scale than molecular dynamics
+simulations, and future convergence studies we will investigate
+how physical properties like the friction coefficient and membrane
+permeability depend on the particle shape and size.
 
-Analyzing for any underlying constitutive laws, the particles reorganize
-so that there is an initial increase and then plateau in vesicle
-circumference. As is the case with real lipid bilayer membranes, the
-particle collection permits a small amount of stretching. The
-theoretical calculations give an increase of length by 3.6\%, in
-agreement with our measured length increase. The simulations also
-suggest that the particle system behaves as a semipermeable
-vesicle~\cite{323e9a2f0c58487ea82518d7a1f96485, YAO2017728}.
+The study also simulated the spatial migration of a JP vesicle in a
+parabolic shear flow. 
+%The chosen parameter values result in an asymmetric
+%slipper shape. 
+%
+Replicating the hydrodynamics of a GUV in a Poiseuille
+flow~(\cite{Kaoui09, dan-vla-mis2009, cou-kao-pod-mis2008}), the JP
+vesicle moved toward the centre of the shear flow,
+and had a slight decrease in reduced area.
+For the parameters we in the simulation,
+the JP vesicle takes on an asymmetric, ``slipper" shape as it settles
+above the centre of flow and exhibits tank-treading motion.
+A qualitative
+agreement is made by comparing the JP vesicle shape with the
+two-dimensional inextensible membrane in continuum modeling
+simulations~(\cite{Kaoui09, dan-vla-mis2009, cou-kao-pod-mis2008}). 
+An interesting result contrast with continuum results is that the JP
+vesicle oscillates at a height slightly above the centre of the
+Poiseuille flow. 
+
+%The single JP vesicle simulations end with obtaining JP bilayer stretching 
+%modulus $K_A$ and hydraulic permeability constant $P$. We extract these 
+%physical quantities from the Laplace pressure relationship that $R\Delta P$ is 
+%proportional to JP bilayer stretch. We describe the aqueous flux in membrane 
+%using a differential equation~\ref{eq:perm} and solve for the theoretical 
+%permeability constant $P$. In spite of producing these values with some discrepancy
+%using the default parameter set, we provide a new framework in measuring coarse-grained 
+%membrane permeability.
+
+The study further simulated the hydrodynamics of two JP vesicles, and drew
+comparisons with simulation results of two vesicles described by the
+Helfrich continuum model. A comparison of the vesicle shapes and the
+streamlines demonstrate remarkable similarities. The two overlapping
+trajectories of the JP vesicles' centroids in a shear flow evolve as
+expected when the two centroids are initialized on the same horizontal
+level. The PI observed a rotating behaviour that is observed for models
+involving vesicle adhesion~(\cite{qua-vee-you2019}). The hydrophobic
+attraction led to this adhesive effect when two JP bilayers are
+sufficiently close. We also performed several simulations of a pair of
+JP vesicles suspended in an extensional flow. By varying the initial
+vertical displacement of the vesicles' centroids, we can control for
+divergent trajectories and obtain similar results to the continuum
+model.
+
+One of the main mathematical innovations was a novel alternative integral
+form for calculating the force and torque to avoid the singular integral
+evaluation. These alternative integrals allow the accurate resolultion
+of trajectories over long times without having to rely on computationally
+expensive quadratures.
+
+Future goals include extending the current framework to a
+three-dimensional JP vesicle system. This will require additional
+algorithmic implementation including a fast summation method such as the
+fast multipole method.
 
 
-\begin{wrapfigure}[10]{r}{0.22\textwidth}
- \vspace{-3pt}
-  \centering{\includegraphics[width=0.21\textwidth]{Figures/PW_fig5.pdf}}
- \vspace{-7pt}
-  \caption{\label{fig:flow_rupture} \footnotesize Rupture of a
-  two-dimensional vesicle at large shear rates.}
-\end{wrapfigure}
-The above considerations further justify using the particle-based model
-to study material properties as outlined in
-\S\ref{subsec:specific_aim_1}. Furthermore, the particle system allows
-for intermonolayer slip~\cite{SHKULIPA2005823, ShkulipaThesis}. In
-Figure \ref{fig:tank_treading}B, the inner angular velocity is slightly
-less than the outer angular velocity. Intermonolayer slip enters
-zero-thickness membrane models as a velocity jump boundary condition
-\cite{schwalbe_vlahovska_miksis_2010}, for example, but in the present
-model, it is a consequence of monolayer independence. For large shear
-rates, viscous forces exceed the hydrophobic attraction leading to
- vesicle rupture~\cite{C8SM01501E}, at which point the flow carries away
- segmented membrane patches (Figure \ref{fig:flow_rupture}). 
+%
+%\begin{wrapfigure}[22]{l}{0.5\textwidth}
+%\vspace{-5pt}
+%  \centering{\includegraphics[width=0.49\textwidth]{Figures/TankTreading.pdf}}
+%  \vspace{-10pt}
+%  \caption{\label{fig:tank_treading} \footnotesize
+%    Panel A: A two-dimensional, particle-based vesicle in a shear flow
+%    (arrows); $\mu = 1$ mPa s and $\dot{\gamma} = 0.5$ $\mu$s$^{-1}$
+%    (compare with~\cite{Brandner2019}).  Panel B: Angular velocities for
+%    the outer and the inner leaflets.  Panel C: The trajectory of the
+%    particle centers forms two ellipses with well-defined inclination
+%    angle $\Theta$. Panel D: The evolution of the inclination angle.
+%    Panels B and D share the same time axis.}
+%\end{wrapfigure}
+%We have simulated two-dimensional vesicles in shear flow
+%$\mathbf{u}_{\infty} = \dot{\gamma} x_2 \mathbf{i}_1$ with shear rate
+%$\dot{\gamma}$,
+%%(The symbol shear rate is unrelated to interfacial tension.)
+%and the particle-based system mimics the behavior observed in continuous
+%vesicles~\cite{torres-sanchez_millan_arroyo_2019,
+%mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}. The basic
+%pattern is that of a vesicle bilayer approaching a steady, tank-treading
+%ellipse (Figure~\ref{fig:tank_treading}C). We analyzed the simulation
+%data in the context of theoretical work on
+%tank-treading~\cite{Finken2008, PhysRevLett.106.158103}.
+%Jeffrey's equation predicts a tank-treading frequency $-\dot{\gamma}/2$ (dashed line in
+%Figure~\ref{fig:tank_treading}B). In the particle simulation, we measured
+%a tank-treading frequency as the mean of the particle angular
+%velocities. The measured steady-state frequencies were within 7\% of the predicted 
+%frequency (dotted and solid curves in Figure~\ref{fig:tank_treading}B).
+%The inclincation angle of the particle-based simulation also
+%follows the inclination angle $\Theta(t)$ predicted by Jeffrey's
+%equation (Figure~\ref{fig:tank_treading}D), albeit with higher frequency oscillation
+%coming from particle reorganization.
+%
+%Analyzing for any underlying constitutive laws, the particles reorganize
+%so that there is an initial increase and then plateau in vesicle
+%circumference. As is the case with real lipid bilayer membranes, the
+%particle collection permits a small amount of stretching. The
+%theoretical calculations give an increase of length by 3.6\%, in
+%agreement with our measured length increase. The simulations also
+%suggest that the particle system behaves as a semipermeable
+%vesicle~\cite{323e9a2f0c58487ea82518d7a1f96485, YAO2017728}.
+%
+%
+%\begin{wrapfigure}[10]{r}{0.22\textwidth}
+% \vspace{-3pt}
+%  \centering{\includegraphics[width=0.21\textwidth]{Figures/PW_fig5.pdf}}
+% \vspace{-7pt}
+%  \caption{\label{fig:flow_rupture} \footnotesize Rupture of a
+%  two-dimensional vesicle at large shear rates.}
+%\end{wrapfigure}
+%The above considerations further justify using the particle-based model
+%to study material properties as outlined in
+%\S\ref{subsec:specific_aim_1}. Furthermore, the particle system allows
+%for intermonolayer slip~\cite{SHKULIPA2005823, ShkulipaThesis}. In
+%Figure \ref{fig:tank_treading}B, the inner angular velocity is slightly
+%less than the outer angular velocity. Intermonolayer slip enters
+%zero-thickness membrane models as a velocity jump boundary condition
+%\cite{schwalbe_vlahovska_miksis_2010}, for example, but in the present
+%model, it is a consequence of monolayer independence. For large shear
+%rates, viscous forces exceed the hydrophobic attraction leading to
+% vesicle rupture~\cite{C8SM01501E}, at which point the flow carries away
+% segmented membrane patches (Figure \ref{fig:flow_rupture}). 
+%
+%In conclusion, the HAP model accurately mimics the behavior of continuous
+%membranes while at the same time capturing the
+%reconnection during the topological change of 
+%lipid molecules on the scales of membrane thickness,
+%overcoming one of the long-standing challenges of continuum modeling.
+%
 
-In conclusion, the HAP model accurately mimics the behavior of continuous
-membranes while at the same time capturing the
-reconnection during the topological change of 
-lipid molecules on the scales of membrane thickness,
-overcoming one of the long-standing challenges of continuum modeling.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%For Specific Aim 3
 %The background flow enters by replacing the third equation in \eqref{eq:stokes} 
