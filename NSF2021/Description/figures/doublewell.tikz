@@ -12,7 +12,7 @@
   ylabel = {\Huge $f(u)$},
   every major tick/.append style={very thick, major tick length=10pt, black},
   xtick = {4.2292e-01,1.8869e+00},
-  xticklabels = {\huge $U_1$,\huge $U_0$},
+  xticklabels = {\huge $u_1$,\huge $u_0$},
   ytick = \empty,
   xmin = 0,
   xmax = 2.5,
