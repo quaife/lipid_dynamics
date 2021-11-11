@@ -18,16 +18,16 @@ by the Stokes equations for an incompressible, viscous fluid, and these
 equations are coupled to the screened-Laplace equation~\eqref{eq:SL}
 through viscous and hydrophobic stress balance. 
  
-\label{subsec:specific_aim_2}
-\begin{wrapfigure}[14]{r}{0.61\textwidth}
-  \centering{\includegraphics[width=0.60\textwidth]{Figures/domain.pdf}}
-    \vspace{-15pt}
-    \caption{\label{fig:flow_map} \footnotesize A collection of 3D
-    amphiphilic particles suspended in a solvent. The solvent velocity
-    satisfies the Stokes equations, and the hydrophobic forces depend on
-    the solvent activity that satisfies the screened Laplace equation.
-    The geometry is updated by solving the mobility problem.} 
-\end{wrapfigure}
+%\label{subsec:specific_aim_2}
+%\begin{wrapfigure}[14]{r}{0.61\textwidth}
+%  \centering{\includegraphics[width=0.60\textwidth]{Figures/domain.pdf}}
+%    \vspace{-15pt}
+%    \caption{\label{fig:flow_map} \footnotesize A collection of 3D
+%    amphiphilic particles suspended in a solvent. The solvent velocity
+%    satisfies the Stokes equations, and the hydrophobic forces depend on
+%    the solvent activity that satisfies the screened Laplace equation.
+%    The geometry is updated by solving the mobility problem.} 
+%\end{wrapfigure}
 The HAP model requires solving exterior Dirichlet problems for the order
 parameter~\eqref{eq:SL} and the Stokes
 equations~\eqref{eq:stokes1}--\eqref{eq:stokes3}. If discretizing these
@@ -83,6 +83,11 @@ methods to accelerate the time to solution, and
 \subsubsection{Iterative methods for the Allen-Cahn HAP model}
 \label{subsec:AC}
 
+\begin{wrapfigure}[]{l}{1.8in}
+  \centering
+  \input{figures/doublewell.tikz}
+  \caption{\label{fig:well} $U_1 = 0.5$, $U_2 = 2$, $a = 1$, $b = 0.4$.}
+\end{wrapfigure}
 In the PIs collaboration, they have developed numerical methods to
 solve~\eqref{eq:SL} when $f(u) = u^2$. With this choice of $f(u)$, the
 resulting PDE is the linear screened Laplace equation which is
@@ -95,22 +100,15 @@ solution of~\eqref{eq:SL} as a root finding problem for the operator
 \end{align}
 This non-linear PDE will be solved with Newton's method
 \begin{align*}
-  u^{N+1} = u^{N} - \alpha (dF)^{-1} F(u^N),
+  u^{N+1} = u^{N} - \alpha dF^{-1} F(u^N),
 \end{align*}
-where $dF = -\rho^2 \Delta + f''$ is the Fr\'{e}chet derivative of $F$,
-and $\alpha$ is the step size which will be determined using
+where $dF = -\rho^2 \Delta + f''(u^N)$ is the Fr\'{e}chet derivative of
+$F$, and $\alpha$ is the step size which will be determined using
 backtracking. As expected, the biggest challenge amounts to solving
 \begin{align}
   \label{eq:NewtonUpdate}
   - \rho^2 \Delta v + f''(u^{N}) v = F[u^N].
 \end{align}
-\begin{wrapfigure}[]{l}{1.8in}
-  \centering
-  \input{figures/doublewell.tikz}
-  \caption{\label{fig:well} (a) The double well potential when $U_1 =
-  0.5$, $U_2 = 2$, $a = 1$, and $b = 0.4$. (b) The corresponding
-  solution of~\eqref{eq:F}.}
-\end{wrapfigure}
 For a general double well potential $f(u)$, this is a variable
 coefficient elliptic PDE, and developing an integral equation
 formulation is challenging. We propose to instead use an inexact
@@ -128,6 +126,12 @@ amounts to solving the PDE
   \label{eq:screenedPoisson}
   -\rho^2 \Delta v + \tilde{f}''(u^{N})v = F[u^N],
 \end{align}
+\begin{wrapfigure}[]{r}{1.8in}
+  \centering
+  \input{figures/residuals.tikz}
+  \caption{\label{fig:residuals} $U_1 = 0.5$, $U_2 = 2$, $a = 1$, $b =
+  0.4$.}
+\end{wrapfigure}
 which is a screened Poisson equation with piecewise a constant screening
 coefficient. We test the efficacy of Newton's method applied
 to~\eqref{eq:F} by considering its one-dimensional version in $(0,1)$
@@ -137,26 +141,15 @@ Figure~\ref{fig:well}(a), and the inexact Newton's method converges to
 the solution in Figure~\ref{fig:well}(b). Figure~\ref{fig:residuals}
 shows the max norm of the residual at each Newton iterate when using
 the exact second derivative (red curve) and the piecewise constant
-approximate (blue curve). As expected, the exact Newton's requires less
-iterations, but applying the inexact Newton's method is much cheaper
-since the $\tilde{f}''$ is piecewise constant.
-\begin{wrapfigure}[]{r}{1.8in}
-  \centering
-  \input{figures/residuals.tikz}
-  \caption{\label{fig:residuals} The max norm of the residual of
-  inexact (blue) and exact (red) Newton's method.}
-\end{wrapfigure}
+approximate (blue curve).
 
-Having demonstrated that the inexact Newton method is a viable solver
-for the one-dimensional Cahn-Allen equation, we propose to extend the
-results to higher spatial dimensions. Again, the biggest challenge is
-solving the piecewise constant PDE~\eqref{eq:screenedPoisson}. To
-exploit the benefits of an integral equation methods, we will write the
-solution of~\eqref{eq:screenedPoisson} in terms of layer and volume
-potentials. We start by defining the level set $\Gamma = \{\xx \:|\:
-\uu(\xx) = (U_0 + U_1)/2 \}$ which separates the domain $\Omega$ into
-the hydrophobic order region and the bulk order region. In each of these
-regions $f''(u)$ is constant. Then
+Solutions of the screened Poisson equation can be written
+in terms of volume and layer potentials. We first define the level set
+$\Gamma = \{\xx \:|\: \uu(\xx) = (U_0 + U_1)/2 \}$ which separates the
+domain $\Omega$ into two regions. Then, assuming that the particles are
+all contained in the hydrophobic region, a solution of the screened
+Laplace equation (i.e.~equation~\eqref{eq:screenedPoisson} when $F[u^N]
+= 0$) is
 \begin{align*}
   u(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \pderiv{}{\nn_\yy} K_0 \left(
     \frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) ds_\yy + 
