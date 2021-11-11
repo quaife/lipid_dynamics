@@ -83,11 +83,6 @@ methods to accelerate the time to solution, and
 \subsubsection{Iterative methods for the Allen-Cahn HAP model}
 \label{subsec:AC}
 
-\begin{wrapfigure}[]{l}{1.8in}
-  \centering
-  \input{figures/doublewell.tikz}
-  \caption{\label{fig:well} $U_1 = 0.5$, $U_2 = 2$, $a = 1$, $b = 0.4$.}
-\end{wrapfigure}
 In the PIs collaboration, they have developed numerical methods to
 solve~\eqref{eq:SL} when $f(u) = u^2$. With this choice of $f(u)$, the
 resulting PDE is the linear screened Laplace equation which is
@@ -98,17 +93,30 @@ solution of~\eqref{eq:SL} as a root finding problem for the operator
   \label{eq:F}
   F[u] = -\rho^2 \Delta u + f'(u).
 \end{align}
+%\begin{wrapfigure}[13]{l}{1.8in}
+%  \centering
+%  \input{figures/doublewell.tikz}
+%  \caption{\label{fig:well} $U_1 = 0.5$, $U_2 = 2$, $a = 1$, $b = 0.4$.}
+%\end{wrapfigure}
 This non-linear PDE will be solved with Newton's method
 \begin{align*}
   u^{N+1} = u^{N} - \alpha dF^{-1} F(u^N),
 \end{align*}
 where $dF = -\rho^2 \Delta + f''(u^N)$ is the Fr\'{e}chet derivative of
 $F$, and $\alpha$ is the step size which will be determined using
-backtracking. As expected, the biggest challenge amounts to solving
+backtracking.
+As expected, the biggest challenge amounts to solving
 \begin{align}
   \label{eq:NewtonUpdate}
   - \rho^2 \Delta v + f''(u^{N}) v = F[u^N].
 \end{align}
+\begin{wrapfigure}[20]{r}{1.8in}
+  \centering
+  \input{figures/doublewell.tikz}  \\
+  \input{figures/residuals.tikz}
+  \caption{\label{fig:residuals} A double well (top) and the error (bottom)
+    for the case $U_1 = 0.5$, $U_2 = 2$, $a = 1$, $b = 0.4$.}
+\end{wrapfigure}
 For a general double well potential $f(u)$, this is a variable
 coefficient elliptic PDE, and developing an integral equation
 formulation is challenging. We propose to instead use an inexact
@@ -126,12 +134,6 @@ amounts to solving the PDE
   \label{eq:screenedPoisson}
   -\rho^2 \Delta v + \tilde{f}''(u^{N})v = F[u^N],
 \end{align}
-\begin{wrapfigure}[]{r}{1.8in}
-  \centering
-  \input{figures/residuals.tikz}
-  \caption{\label{fig:residuals} $U_1 = 0.5$, $U_2 = 2$, $a = 1$, $b =
-  0.4$.}
-\end{wrapfigure}
 which is a screened Poisson equation with piecewise a constant screening
 coefficient. We test the efficacy of Newton's method applied
 to~\eqref{eq:F} by considering its one-dimensional version in $(0,1)$
