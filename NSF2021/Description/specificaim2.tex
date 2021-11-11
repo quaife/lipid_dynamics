@@ -91,31 +91,26 @@ more general $f$, such as a double well potential, we will interpret the
 solution of~\eqref{eq:SL} as a root finding problem for the operator
 \begin{align}
   \label{eq:F}
-  F[u] = -\rho^2 \Delta u + f'(u).
+  J[u] = -\rho^2 \Delta u + f'(u).
 \end{align}
-%\begin{wrapfigure}[13]{l}{1.8in}
-%  \centering
-%  \input{figures/doublewell.tikz}
-%  \caption{\label{fig:well} $U_1 = 0.5$, $U_2 = 2$, $a = 1$, $b = 0.4$.}
-%\end{wrapfigure}
 This non-linear PDE will be solved with Newton's method
 \begin{align*}
-  u^{N+1} = u^{N} - \alpha (dF^N)^{-1} F(u^N),
+  u^{N+1} = u^{N} - \alpha (dJ^N)^{-1} F(u^N),
 \end{align*}
-where $dF^N = -\rho^2 \Delta + f''(u^N)$ is the Fr\'{e}chet derivative
+where $dJ^N = -\rho^2 \Delta + f''(u^N)$ is the Fr\'{e}chet derivative
 of $F$, and $\alpha$ is the step size which will be determined using
 backtracking. As expected, the biggest computational challenge is
 solving
 \begin{align}
   \label{eq:NewtonUpdate}
-  - \rho^2 \Delta v + f''(u^{N}) v = F[u^N].
+  - \rho^2 \Delta v + f''(u^{N}) v = J[u^N].
 \end{align}
 \begin{wrapfigure}[]{l}{1.8in}
   \vspace{-46pt}
   \centering
   \input{figures/doublewell.tikz} 
-  \caption{\label{fig:CA} (a) The double well potential $U_1 =
-  0.5$, $U_2 = 2$, $a = 1$, $b = 0.4$. (b) The solution of the
+  \caption{\label{fig:CA} (a) The double well potential $u_0 =
+  0.5$, $u_1 = 2$, $a = 1$, $b = 0.4$. (b) The solution of the
   Allen-Cahn equation~\eqref{eq:SL}. (c) The convergence of the exact
   and inexact Newton's methods.}
 \end{wrapfigure}
@@ -123,37 +118,64 @@ For a general double well potential $f(u)$, this is a variable
 coefficient elliptic PDE, and developing an integral equation
 formulation is challenging since the fundamental solution is not easily
 determined. We propose to instead use an inexact Newton's method where
-$dF^{-1}$ is defined in terms of the piecewise quadratic approximation
+$dJ^{-1}$ is defined in terms of the piecewise quadratic approximation
 \begin{align*}
   f(u) \approx \tilde{f}(u) = bu + \begin{cases}
-    a(u - U_1)^2, &\mbox{if } u \leq (U_0 + U_1)/2 \\
-    (u - U_2)^2, &\mbox{if } u > (U_0 + U_1)/2.
+    a(u - u_0)^2, &\mbox{if } u \leq (u_0 + u_1)/2 \\
+    (u - u_1)^2, &\mbox{if } u > (u_0 + u_1)/2.
   \end{cases}
 \end{align*}
 In this case, the update step of Newton's method~\eqref{eq:NewtonUpdate}
 amounts to solving the PDE
 \begin{align}
   \label{eq:screenedPoisson}
-  -\rho^2 \Delta v + \tilde{f}''(u^{N})v = F[u^N],
+  -\rho^2 \Delta v + \tilde{f}''(u^{N})v = J[u^N],
 \end{align}
 which is a screened Poisson equation with piecewise a constant screening
-coefficient. We test the efficacy of Newton's method applied
-to~\eqref{eq:F} by considering a finite difference method applied to its
-one-dimensional version in $(0,1)$ with the Dirichlet boundary
-conditions $u(0) = U_0$ and $u(1) = U_1$.  These parameters result in
-the double well potential illustrated in Figure~\ref{fig:CA}(a), and the
-inexact Newton's method converges to the solution in
-Figure~\ref{fig:CA}(b). Figure~\ref{fig:CA}(c) shows the max norm of the
-residual at each Newton iterate when using the exact second derivative
-(red curve) and the piecewise constant approximate (blue curve).
+coefficient. We test the efficacy of exact and inexact Newton's method
+applied to~\eqref{eq:F} by considering a finite difference method
+applied to its one-dimensional version in $(0,1)$ with the Dirichlet
+boundary conditions $u(0) = u_0$ and $u(1) = u_1$. These parameters
+result in the double well potential illustrated in
+Figure~\ref{fig:CA}(a), and both the exact and inexact Newton's methods
+converge to the solution in Figure~\ref{fig:CA}(b).
+Figure~\ref{fig:CA}(c) shows the max norm of the residual at each Newton
+iterate when using the exact second derivative (red curve) and the
+piecewise constant approximate (blue curve).
 
-Solutions of the screened Poisson equation can be written
-in terms of volume and layer potentials. We first define the level set
-$\Gamma = \{\xx \:|\: \uu(\xx) = (U_0 + U_1)/2 \}$ which separates the
-domain $\Omega$ into two regions. Then, assuming that the particles are
-all contained in the hydrophobic region, a solution of the screened
-Laplace equation (i.e.~equation~\eqref{eq:screenedPoisson} when $F[u^N]
-= 0$) is
+Having demonstrated that the inexact Newton method converges in one
+dimension, it will be used to solve the Allen-Cahn equation in two more
+or more dimensions. Since we are interested in solving~\eqref{eq:SL} in
+general unbounded geometries, we will develop an integral equation
+formulation. We first partition $\Omega$ into $\Omega_0 = \{\xx \in
+\Omega \:|\: u(\xx) < (u_0 + u_1)/2\}$ and $\Omega_1 = \{\xx \in \Omega
+\:|\: u(\xx) > (u_0 + u_1)/2\}$, and we let $\Lambda = \{\xx \:|\:
+u(\xx) = (u_0 + u_1)/2 \}$ be their common boundary points. We then let
+$G_0$ be the fundamental solution of $(-\rho^2 \Delta - 2a)$ and $G_1$
+be the fundamental solution of $(-\rho^2 \Delta + 2)$. Then, the
+solution of~\eqref{eq:screenedPoisson} can be written as $u = u^P + u^H$
+where $u^P$ is a volume potential and $u^H$ is a layer potential. The
+volume potential is
+\begin{align*}
+  u^{P}(\xx) = \int_{\Omega_i} G_i(\xx,\yy) J[u^N](\yy)\, d\yy, 
+    \quad i = 1,2,
+\end{align*}
+but it is discontinuous across $\Lambda$ and does not satisfy the
+prescribed hydrophobic boundary conditions on the particles $\Gamma_i$.
+The boundary conditions are enforced with the layer potential
+\begin{align*}
+  u^{H}(\xx) = \begin{cases}
+    \displaystyle\int_{\Lambda} G_0(\xx,\yy) \eta_0(\yy) \, ds_\yy + 
+    \displaystyle\int_{\Gamma} \pderiv{}{\nn_\yy} G_0(\xx,\yy)
+      \sigma(\yy) \,ds_\yy, \quad & \xx \in \Omega_0, \\
+    \displaystyle\int_{\Lambda} G_0(\xx,\yy) \eta_1(\yy) \, ds_\yy,
+     & \xx \in \Omega_1.
+  \end{cases}
+\end{align*}
+
+Then, assuming that the particles are all contained in the
+hydrophobic region, a solution of the screened Laplace equation
+(i.e.~equation~\eqref{eq:screenedPoisson} when $G[u^N] = 0$) is
 \begin{align*}
   u(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \pderiv{}{\nn_\yy} K_0 \left(
     \frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) ds_\yy + 
