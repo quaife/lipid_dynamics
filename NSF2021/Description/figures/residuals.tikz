@@ -1,6 +1,5 @@
 \begin{tikzpicture}[scale=0.5]
 
-% Start of the ellipse1 images 
 \begin{axis}[
     ymode = log,
     xlabel = {Newton Iteration},

@@ -7,7 +7,8 @@
   enlargelimits = true,
   x label style={at={(axis description cs:0.98,0.04)},anchor=north},
   xlabel = {\Huge $u$},
-  y label style={at={(axis description cs:-0.07,0.98)},anchor=north},
+  y label style={at={(axis description
+  cs:-0.10,0.86)},anchor=north,rotate=90},
   ylabel = {\Huge $f(u)$},
   every major tick/.append style={very thick, major tick length=10pt, black},
   xtick = {4.2292e-01,1.8869e+00},
@@ -1046,6 +1047,7 @@
   xmax = 1,
   ymin = 0,
   ymax = 2,
+  title = {\Large Solution of Allen-Cahn}
 ]
 
 \addplot[blue,line width=2.0pt] coordinates{
@@ -3099,11 +3101,85 @@
 (9.9951e-01,4.9975e-01)
 };
 
+\end{axis}
+
+\begin{axis}[
+at = {(0cm,-14.5cm)},
+axis line style = {line width=2pt},
+%axis lines=middle,
+%enlargelimits = true,
+%x label style={at={(axis description cs:0.98,0.04)},anchor=north},
+%xlabel = {\Huge $u$},
+%y label style={at={(axis description cs:-0.07,0.98)},anchor=north},
+%ylabel = {\Huge $f(u)$},
+every major tick/.append style={very thick, major tick length=8pt, black},
+ymode = log,
+xlabel = {\Large Newton Iteration},
+ylabel = {\Large Max Norm of Residual},
+ytick  = {1e-4, 1e-2, 1e0, 1e2, 1e4,1e6},
+title = {\Large Convergence of Newton},
+]
+
+\addplot[blue,line width=2pt] coordinates{
+(1,8.3894e+05)
+(2,2.9481e+04)
+(3,1.4263e+02)
+(4,1.0724e+02)
+(5,3.1018e+01)
+(6,2.3948e+01)
+(7,1.8133e+00)
+(7,1.0918e+00)
+(9,7.4240e-01)
+(10,5.4173e-01)
+(11,4.3445e-01)
+(12,3.3195e-01)
+(13,2.3658e-01)
+(14,1.6039e-01)
+(15,1.0429e-01)
+(16,6.6151e-02)
+(17,4.1094e-02)
+(18,2.5300e-02)
+(19,1.5416e-02)
+(20,9.3812e-03)
+(21,5.6726e-03)
+(22,3.4379e-03)
+(23,2.0722e-03)
+(24,1.2544e-03)
+(25,7.5495e-04)
+(26,4.5702e-04)
+(27,2.7476e-04)
+(28,1.6642e-04)
+(29,9.9950e-05)
+};
+\addlegendentry{Inexact Newton}
+
+\addplot[red,line width=2pt] coordinates{
+(1,8.3894e+05)
+(2,2.3581e+02)
+(3,3.6012e+01)
+(4,1.7976e+01)
+(5,7.7450e+00)
+(6,2.6317e+00)
+(7,9.4083e-01)
+(8,7.1654e-01)
+(9,8.8975e-02)
+(10,2.9505e-02)
+(11,8.2096e-03)
+(12,2.2655e-03)
+(13,6.2554e-04)
+(14,1.7274e-04)
+(15,4.7704e-05)
+};
+\addlegendentry{Exact Newton}
 
 \end{axis}
 
-\node at (0,6.1) {(a)};
-\node at (0,-1.0) {(b)};
+
+
+
+\node at (0,6.2) {\scriptsize (a)};
+\node at (0,-0.8) {\scriptsize (b)};
+\node at (0,-8.2) {\scriptsize (c)};
 
 
 \end{tikzpicture}

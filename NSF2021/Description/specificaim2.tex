@@ -100,28 +100,30 @@ solution of~\eqref{eq:SL} as a root finding problem for the operator
 %\end{wrapfigure}
 This non-linear PDE will be solved with Newton's method
 \begin{align*}
-  u^{N+1} = u^{N} - \alpha dF^{-1} F(u^N),
+  u^{N+1} = u^{N} - \alpha (dF^N)^{-1} F(u^N),
 \end{align*}
-where $dF = -\rho^2 \Delta + f''(u^N)$ is the Fr\'{e}chet derivative of
-$F$, and $\alpha$ is the step size which will be determined using
-backtracking.
-As expected, the biggest challenge amounts to solving
+where $dF^N = -\rho^2 \Delta + f''(u^N)$ is the Fr\'{e}chet derivative
+of $F$, and $\alpha$ is the step size which will be determined using
+backtracking. As expected, the biggest computational challenge is
+solving
 \begin{align}
   \label{eq:NewtonUpdate}
   - \rho^2 \Delta v + f''(u^{N}) v = F[u^N].
 \end{align}
-\begin{wrapfigure}[20]{r}{1.8in}
+\begin{wrapfigure}[]{l}{1.8in}
+  \vspace{-46pt}
   \centering
-  \input{figures/doublewell.tikz}  \\
-  \input{figures/residuals.tikz}
-  \caption{\label{fig:residuals} A double well (top) and the error (bottom)
-    for the case $U_1 = 0.5$, $U_2 = 2$, $a = 1$, $b = 0.4$.}
+  \input{figures/doublewell.tikz} 
+  \caption{\label{fig:CA} (a) The double well potential $U_1 =
+  0.5$, $U_2 = 2$, $a = 1$, $b = 0.4$. (b) The solution of the
+  Allen-Cahn equation~\eqref{eq:SL}. (c) The convergence of the exact
+  and inexact Newton's methods.}
 \end{wrapfigure}
 For a general double well potential $f(u)$, this is a variable
 coefficient elliptic PDE, and developing an integral equation
-formulation is challenging. We propose to instead use an inexact
-Newton's method where $dF^{-1}$ is defined in terms of the piecewise
-quadratic approximation
+formulation is challenging since the fundamental solution is not easily
+determined. We propose to instead use an inexact Newton's method where
+$dF^{-1}$ is defined in terms of the piecewise quadratic approximation
 \begin{align*}
   f(u) \approx \tilde{f}(u) = bu + \begin{cases}
     a(u - U_1)^2, &\mbox{if } u \leq (U_0 + U_1)/2 \\
@@ -136,14 +138,14 @@ amounts to solving the PDE
 \end{align}
 which is a screened Poisson equation with piecewise a constant screening
 coefficient. We test the efficacy of Newton's method applied
-to~\eqref{eq:F} by considering its one-dimensional version in $(0,1)$
-with the Dirichlet boundary conditions $u(0) = U_0$ and $u(1) = U_1$.
-These parameters result in the double well potential illustrated in
-Figure~\ref{fig:well}(a), and the inexact Newton's method converges to
-the solution in Figure~\ref{fig:well}(b). Figure~\ref{fig:residuals}
-shows the max norm of the residual at each Newton iterate when using
-the exact second derivative (red curve) and the piecewise constant
-approximate (blue curve).
+to~\eqref{eq:F} by considering a finite difference method applied to its
+one-dimensional version in $(0,1)$ with the Dirichlet boundary
+conditions $u(0) = U_0$ and $u(1) = U_1$.  These parameters result in
+the double well potential illustrated in Figure~\ref{fig:CA}(a), and the
+inexact Newton's method converges to the solution in
+Figure~\ref{fig:CA}(b). Figure~\ref{fig:CA}(c) shows the max norm of the
+residual at each Newton iterate when using the exact second derivative
+(red curve) and the piecewise constant approximate (blue curve).
 
 Solutions of the screened Poisson equation can be written
 in terms of volume and layer potentials. We first define the level set
