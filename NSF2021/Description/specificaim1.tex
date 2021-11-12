@@ -2,8 +2,6 @@
 \label{sec:proposed-work}
 %%
 
-
-
 \subsection{Specific Aim 1: Measuring material properties of amphiphile
   self-assembly}
 \label{subsec:specific_aim_1}
@@ -11,41 +9,52 @@
 The proposed research aims to provide fundamental insight into the
 self-assembly dynamics of amphiphilic particles. These results will
 facilitate optimal design of smart materials by tuning the geometry and
-properties of the amphiphilic particles.
-Specific Aim 1 achieves this through a novel mathematical model
-for particle self-organization driven by long-range interfacial forces. 
+properties of the amphiphilic particles.  Specific Aim 1 achieves this
+through a novel mathematical model for particle self-organization driven
+by long-range interfacial forces. 
 
 \subsubsection{Problem formulation}
-The mathematical formulation is a nonlinear system 
-for the dynamics of a collection of particles. The 
-interactions come from a system of linear partial differential equations
-(PDE) and comprise hydrodynamic interactions and hydrophobic interactions.
-The formulation prevents particle collisions through excluded volume
-potentials. 
+The mathematical formulation is a nonlinear system for the dynamics of a
+collection of particles. The interactions come from a system of linear
+partial differential equations (PDE) and comprise hydrodynamic
+interactions and hydrophobic interactions.  The formulation prevents
+particle collisions through excluded volume potentials. 
 
-  \begin{figure}[h!]
-\begin{center}
-  \includegraphics[width=0.8\textwidth]{figures/SpecificAim1/Domain.pdf}
-\end{center}  
-  \caption{\label{fig:flow_map} A collection of 3D
-   amphiphilic particles suspended in a solvent. The solvent velocity
-   satisfies the Stokes equations, and the hydrophobic forces depend on
-   the solvent activity that satisfies the screened Laplace equation.
-   The geometry is updated by solving the mobility problem.}     
-  \end{figure}
+%\begin{wrapfigure}[h!]
+\begin{wrapfigure}[9]{r}{0.55\textwidth}
+  \centering
+  \vspace{-20pt}
+  \includegraphics[width=0.55\textwidth]{figures/SpecificAim1/Domain.pdf}
+  \caption{\label{fig:flow_map} A collection of amphiphilic particles
+  suspended in a solvent. The solvent velocity satisfies the Stokes
+  equations, and the hydrophobic forces depend on the solvent activity
+  that satisfies the screened Laplace equation. The geometry is updated
+  by solving the mobility problem.}
+\end{wrapfigure}
 
 The hydrodynamic interactions come from the mobility problem for rigid
 particles immersed in a viscous solvent. Assuming inertial terms are
 negligible, the particle motion is goverened by the Stokes equations
-\begin{alignat}{3}
-\label{eq:stokes1}
-  -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
-    && \xx \in \Omega, \\
-\label{eq:stokes2}
+\begin{subequations}
+  \label{eq:stokes}
+  \begin{alignat}{3}
+  \label{eq:stokes1}
+  -\mu \Delta \uu + \nabla p &= \mathbf{0}, && \xx \in \Omega, \\
+    \label{eq:stokes2}
   \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
 \label{eq:stokes3}
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
-\end{alignat}
+  \end{alignat}
+\end{subequations}
+%\begin{alignat}{3}
+%\label{eq:stokes1}
+%  -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
+%    && \xx \in \Omega, \\
+%\label{eq:stokes2}
+%  \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
+%\label{eq:stokes3}
+%  \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
+%\end{alignat}
 %
 where $\uu$ is the velocity and $p$ is the pressure of the solvent,
 $\uu_\infty$ is the background flow, and $\mu$ is the constant
@@ -86,34 +95,29 @@ then at each moment in time $u$ minimizes $F[u]$ and satisfies
 \begin{equation}
 \label{eq:SL}
 -\rho^2 \Delta u + f'(u) = 0  \text{ in } \Omega,\quad u = g
-\text{ on } \Omega.
+\text{ on } \bd\Omega.
 \end{equation}
-The boundary condition $g$
-is a material label that is transported with the particle motions
-(Figure \ref{fig:bcs}).
-\begin{wrapfigure}[12]{r}{0.65\textwidth}
+The boundary condition $g$ is a material label that is transported with
+the particle motions (Figure~\ref{fig:bcs}).
+
+\begin{wrapfigure}[10]{r}{0.65\textwidth}
+  \vspace{-22pt}
   \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPA.pdf}
   \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPB.pdf}
   \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPC.pdf}  
-\caption{
-  Boundary conditions characterize the type of water structure:
-  an amphiphilic particle (left),
-  a hydrophobic particle with anisotropic intensity (middle),
-  a water structure with plus/minus polarity (right).
-  The dashed curve is the boundary of the disk and the arrow its
-  director. 
-}
-\label{fig:bcs}
+\caption{\label{fig:bcs} Boundary conditions characterize the type of
+  water structure: an amphiphilic particle (left), a hydrophobic
+  particle with anisotropic intensity (middle), a water structure with
+  plus/minus polarity (right). The dashed curve is the boundary of the
+  disk and the arrow its director.}
 \end{wrapfigure}
-
-The coupling between the Stokes equations \eqref{eq:stokes1}-\eqref{eq:stokes3}
-and the semilinear elliptic equation \eqref{eq:SL}
-comes from the first variation of the energy functional.
-The particles minimize the free energy $F[u]$
-by altering the location of hydrophobic interfaces. 
-It is possible to calculate the rate of change of $F[u]$
-using variation of the domain~\cite{Bandle2015, Schiffer1954, Grinfeld2010}.
-Carrying out this variation yields a 
+The coupling between the Stokes equations \eqref{eq:stokes} and the
+semilinear elliptic equation \eqref{eq:SL} comes from the first
+variation of the energy functional.  The particles minimize the free
+energy $F[u]$ by altering the location of hydrophobic interfaces.  It is
+possible to calculate the rate of change of $F[u]$ using variation of
+the domain~\cite{Bandle2015, Schiffer1954, Grinfeld2010}.  Carrying out
+this variation yields a 
 %The hydrophobic forces are torques are
 %\begin{equation}
 %  \label{eq:hydrophobicAttraction}
@@ -180,11 +184,12 @@ boundary conditions.
     \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100A2.pdf}
     \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100A3.pdf}
     \end{center}
-  \caption{
-    Self assembly with a polar boundary condition leads to checkboard pattern.
-    Green is for $u < 0$, yellow is for $u > 0$, and blue is for $u = 0$.
+  \caption{ Self assembly with a polar boundary condition leads to
+  checkboard pattern.  Green is for $u < 0$, yellow is for $u > 0$, and
+  blue is for $u = 0$.
     \label{fig:self-assemblyA}}
 \end{figure}
+\todo{This figure is not referenced in the text.}
 
 Consider a polar boundary condition where
 $g_i(\mathbf{x}) = (\pi r)^{-1/2} \cos (\theta_i(\mathbf{x}))$
@@ -213,8 +218,9 @@ and its tail with that of three other particles.
 \caption{With an amphiphilic boundary condition particles self-assemble
   into bilayers. The patterning shields the hydrophobic core (yellow) from the
   aqueous phase. 
-      \label{fig:self-assemblyA}}
+      \label{fig:self-assemblyB}}
 \end{figure}
+\todo{This figure is not referenced in the text.}
 Amphiphilic particles have a hydrophobic tail and a hydrophilic head
 and are accounted for as follows.
 The hydrophilic side takes the value $u = 0$ since the
@@ -250,9 +256,10 @@ particles form small groups. The small groups combine to form bilayers.
     \caption{This figure is for hydrophobic particles with a bias. The
       hydrophobic intensity is greater on one side of the particle (magenta)
       than the other (yellow).
-    \label{fig:self-assemblyA}}
+    \label{fig:self-assemblyC}}
 \end{center}
 \end{figure}
+\todo{This figure is not referenced in the text.}
 
 Multilamelar bilayers arise with an increase by shifting the boundary condition
 further. Let $g_i(\mathbf{x}) = (9\pi )^{-1/2}(2 + \cos(\theta_i(\mathbf{x})))$.
@@ -468,11 +475,11 @@ angular velocity directly proportional to the force and torque,
 respectively. 
 
 This yields a dissipation of the total potential \eqref{eq:total_poten},
-which stabilizes the evolving bilayer shape.  Therefore, we reconstruct
+which stabilizes the evolving bilayer shape. Therefore, we reconstruct
 an evolving monolayer dividing surface $\Sigma$ and director field ${\bf
-n}$ by interpolating the particle centers and orientations. Using
-\eqref{ansatz3}, we calculate a continuum energy $\mathcal{W}$ from the
-interpolated shapes.
+n}$ by interpolating the particle centers and orientations.
+Using~\eqref{ansatz3}, we calculate a continuum energy $\mathcal{W}$
+from the interpolated shapes.
 
 We propose to conduct calculations similar to the example of
 Figure~\ref{fig:flattening} for other elastic moduli such as the
