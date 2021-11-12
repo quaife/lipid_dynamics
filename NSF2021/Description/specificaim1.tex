@@ -88,10 +88,23 @@ then at each moment in time $u$ minimizes $F[u]$ and satisfies
 -\rho^2 \Delta u + f'(u) = 0  \text{ in } \Omega,\quad u = g
 \text{ on } \Omega.
 \end{equation}
-The boundary condition $g$ that imposes 
-the water structure at the water-hydrocarbon interfaces.
-It is a material label that is transported with the particle motions.
-
+The boundary condition $g$
+is a material label that is transported with the particle motions
+(Figure \ref{fig:bcs}).
+\begin{wrapfigure}[12]{r}{0.65\textwidth}
+  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPA.pdf}
+  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPB.pdf}
+  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPC.pdf}  
+\caption{
+  Boundary conditions characterize the type of water structure:
+  an amphiphilic particle (left),
+  a hydrophobic particle with anisotropic intensity (middle),
+  a water structure with plus/minus polarity (right).
+  The dashed curve is the boundary of the disk and the arrow its
+  director. 
+}
+\label{fig:bcs}
+\end{wrapfigure}
 
 The coupling between the Stokes equations \eqref{eq:stokes1}-\eqref{eq:stokes3}
 and the semilinear elliptic equation \eqref{eq:SL}
