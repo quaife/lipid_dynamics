@@ -5,30 +5,28 @@
 \subsection{Specific Aim 1: Measuring material properties of amphiphile
   self-assembly}
 \label{subsec:specific_aim_1}
-
-The proposed research aims to provide fundamental insight into the
+Specific Aim 1 proposes a novel mathematical model for particle
+self-organization driven by long-range interfacial forces. 
+The research aims to provide fundamental insight into the
 self-assembly dynamics of amphiphilic particles. These results will
 facilitate optimal design of smart materials by tuning the geometry and
-properties of the amphiphilic particles.  Specific Aim 1 achieves this
-through a novel mathematical model for particle self-organization driven
-by long-range interfacial forces. 
+properties of the amphiphilic particles.
 
 \subsubsection{Problem formulation}
 %\begin{wrapfigure}[h!]
-\begin{wrapfigure}[10]{r}{0.55\textwidth}
-  \centering
-  \vspace{-12pt}
-  \includegraphics[width=0.55\textwidth]{figures/SpecificAim1/Domain.pdf}
-  \caption{\label{fig:flow_map} A collection of amphiphilic particles
-  suspended in a solvent. The solvent velocity satisfies the Stokes
-  equations, and the hydrophobic forces depend on the solvent activity
-  that satisfies the screened Laplace equation. The geometry is updated
-  by solving the mobility problem.}
+\begin{wrapfigure}[11]{r}{0.55\textwidth}
+ \centering
+ \vspace{-3pt}
+ \includegraphics[width=0.55\textwidth]{figures/SpecificAim1/Domain.pdf}
+ \caption{\label{fig:flow_map}
+   In the HAP formulation, hydronamic interactions
+   come from the Stokes equations and
+   hydrophobic interactions come from the structure order parameter $u$.}
 \end{wrapfigure}
 
 The mathematical formulation is a nonlinear system for the dynamics of a
-collection of particles. The interactions come from a system of linear
-partial differential equations (PDEs) and comprise hydrodynamic
+collection of particles. The interactions come from a system of 
+partial differential equations (PDEs) that comprise hydrodynamic
 interactions and hydrophobic interactions.
 %The formulation prevents particle collisions through excluded volume
 %potentials. 
@@ -59,8 +57,9 @@ negligible, the particle motion is goverened by the Stokes equations
 %
 where $\uu$ is the velocity and $p$ is the pressure of the solvent,
 $\uu_\infty$ is the background flow, and $\mu$ is the constant solvent
-viscosity. The domain $\Omega$ is the fluid region surrounding the
-particles. Since the particles are rigid, the solvent velocity satisfies
+viscosity. The domain $\Omega = \Omega(t)$ is the fluid region surrounding the
+particles and changes shape as the particles move.
+Since the particles are rigid, the solvent velocity satisfies
 a no-slip boundary condition for a rigid body motion 
 %\begin{align}
 %\label{eq:rigid_bc}
@@ -68,15 +67,15 @@ a no-slip boundary condition for a rigid body motion
 %    \xx \in \Gamma_i,\qquad  i=1,\ldots,N_p,
 %\end{align}
 on the particle boundary $\Gamma_i$ with translational velocity $\vv_i$
-and angular velocity $\omega_i$. Given imposed forces acting on each
+and angular velocity $\omega_i$ (Figure \ref{fig:flow_map}).
+Given imposed forces acting on each
 particle, the \emph{mobility problem} consists of finding
 translational and angular velocities so that viscous fluid forces
 balance the imposed forces.
 
 The hydrophobic interactions come from the tendency of particles to
 minimize the free energy of the structure of the surrounding water
-molecules. Experimental measurements suggest that the free energy
-functional take the form 
+molecules. The free energy functional take the form 
 \begin{align*}
 \label{eq:free_energy}
   F[u] = C \int_{\Omega} \left(\rho |\nabla u|^2 + \rho^{-1} f(u)\right)
@@ -85,34 +84,23 @@ functional take the form
 where $u$ is an order parameter for the structure of water, $\rho$ is a
 decay length, $C$ is a constant, and $f(u)$ is a potential.
 Hydrogen-bond persistence times are on the order of picoseconds
-\cite{MaGa13}. Since waters reorient on a time scale much smaller than
-the particle motion, $u$ minimizes $F[u]$ at all time, and therefore
-satisfies 
+which is much smaller than characteristic time for 
+particle motion \cite{MaGa13}.
+Thus we assume $u$ minimizes $F[u]$ for all times.
+Assuming appropriate conditions on $f(u)$ (\cite{evans10}, \S 8.2),
+$u$ is bounded and satisfies the Euler-Lagrange equation
 \begin{equation}
 \label{eq:SL}
--\rho^2 \Delta u + f'(u) = 0  \text{ in } \Omega,\quad u = g,
+-\rho^2 \Delta u + \tfrac{1}{2}f'(u) = 0  \text{ in } \Omega,\quad u = g,
 \text{ on } \bd\Omega.
 \end{equation}
 The boundary condition $g$ is a material label that is transported with
-the particle motions (Figure~\ref{fig:bcs}).
+the particle (Figure~\ref{fig:bcs}).
 
-\begin{wrapfigure}[10]{r}{0.65\textwidth}
-  \vspace{-22pt}
-  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPA.pdf}
-  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPB.pdf}
-  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPC.pdf}  
-\caption{\label{fig:bcs} Boundary conditions characterize the type of
-  water structure: an amphiphilic particle (left), a hydrophobic
-  particle with anisotropic intensity (middle), a water structure with
-  plus/minus polarity (right). The dashed curve is the boundary of the
-  disk and the arrow its director.}
-\end{wrapfigure}
-The coupling between the Stokes equations~\eqref{eq:stokes} and the
-semilinear elliptic equation~\eqref{eq:SL} comes from the first
-variation of the energy functional. The particles minimize the free
-energy $F[u]$ by altering the location of hydrophobic interfaces. It is
-possible to calculate the rate of change of $F[u]$ using variation of
-the domain~\cite{Bandle2015, Schiffer1954, Grinfeld2010}. Carrying out
+The particles lower the free energy $F[u]$ of the surrounding water
+by moving. We calculate the rate of change of $F[u]$ using
+\emph{variation of the domain} ~\cite{Fu2018_SIAM,Bandle2015, Schiffer1954, Grinfeld2010}.
+Carrying out
 this variation yields a 
 %The hydrophobic forces are torques are
 %\begin{equation}
@@ -122,17 +110,23 @@ this variation yields a
 %    T_i^{\text{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot
 %    ({\bf T} \cdot \nnu) \dif s.
 %\end{equation}
-surface force density 
+stress  
 \begin{align}
   \label{eq:stress}
 \mathbf{T}
 = C \left[ \rho^{-1} f(u) \mathbf{I}
   + \rho \left(|\nabla u|^2 \mathbf{I} - \nabla u \nabla u^T\right)\right].
 \end{align}
-The imposed forces and torques from the integration of $\mathbf{T}$
-along the particle boundary. The density~\eqref{eq:stress} was first
-introduced by~\cite{Fu2018_SIAM} and is the higher-dimensional analogue
-of disjoining pressure calculated by \cite{MaRa76, ErLjCl89, KoNa15,
+The imposed forces and torques come from the integration of $\mathbf{T}$
+along the particle boundary.
+These forces and torques couple the Stokes equations \eqref{eq:stokes},
+to semilinear elliptic equation \eqref{eq:SL}.
+Solving for the translational and rotational velocities gives the
+particle evolution.
+
+The density~\eqref{eq:stress} was first
+introduced by~\cite{Fu2018_SIAM} and is the higher-dimensional
+generalization of disjoining pressure \cite{MaRa76, ErLjCl89, KoNa15,
 Nagle17, KUZMIN2005}. It is the mathematical ingredient responsible for
 forming particle aggregates that sequester their hydrophobic surface
 regions.
@@ -143,13 +137,14 @@ regions.
 
 The formulation presents a number of mathematical and numerical
 challenges. For one, the domain is constantly changing so that a new
-boundary value problem must be solved at each time step.  The particle
-boundaries are nearly touching and this requires high-order numerical
-schemes to accurately calculate forces and adaptively chose an
-appropriate time step size. Furthermore, there are issues with
-accurately capturing the far-field boundary conditions in the unbounded
-domain. Finally, the numerical routine must handle large system sizes
-efficiently when their are many particles is large. 
+boundary value problem must be solved at each time step. The particle
+boundaries are nearly touching and high-order numerical
+schemes and adaptively chosen time step sizes
+are required to calculate trajectories accurately.
+Furthermore, the domain is unbounded and care must be taken 
+in capturing the far-field boundary conditions correctly. 
+Finally, the numerical routine must handle large system sizes
+efficiently when the number of particles is large. 
 
 %and
 %\begin{equation}
@@ -164,105 +159,155 @@ efficiently when their are many particles is large.
 %particle outward normal.
 
 \subsubsection{Janus-particle self-assembly} 
-When $f(u) = u^2$, and the water structure has its lowest potential
-value at $u=0$ which represents bulk water. The solutions
-of~\eqref{eq:SL} have a boundary layer structure and decay to $0$ in the
-bulk with the decay length $\rho$. Even in this linear response case, a
-number of morphologies arise by altering boundary conditions.
+Distinct morphologies can be obtained from 
+the HAP model by shifting the boundary condition $g$.
+Consider the linear case where $f(u) = u^2$.
+This choice makes \eqref{eq:SL} a boundary value
+problem for the screened-Laplace equation
+and the solutions have a boundary layer structure that decays to $0$ in the
+bulk with the decay length $\rho$.
+We consider three kinds of boundary conditions
+on particle $\Gamma_i$:
+\begin{equation}
+  \label{eq:bcs}
+  \begin{tabular}{c|c|c}
+     \text{(a)} & \text{(b)} & \text{(c)} \\
+    \hline
+    \rule{0pt}{4ex} 
+      $g(\mathbf{x}) = \displaystyle \frac{1+\cos (\theta_i(\xx))}{\sqrt{3\pi r}}$
+    & $g(\mathbf{x}) = \displaystyle \frac{2+\cos (\theta_i(\xx))}{\sqrt{9\pi r}}$
+    & $g(\mathbf{x}) = \displaystyle \frac{\cos (\theta_i(\xx))}{\sqrt{\pi r}}$
+\end{tabular}
+\end{equation}
+  The number $\theta_i(\xx)$ is the angle formed by the position $\xx$, the
+particle center $\aa_i$, and the particle director $\dd_i$ (Figure \ref{fig:flow_map}).
+The normalizations, e.g. $(\pi r)^{-1/2}$, provide a uniform
+surface energy $\int_{\Gamma_i} g^2 \,ds = 1$ for circular particles
+of radius $r$. 
+The cases (b) and (c) are obtained by applying a vertical shift
+and scaling to case (a), which amounts to changing one line of code. 
+Using this setup, we simulate the dynamics of 100 particles with random
+initial position and orientation.
+
+Case (a) models amphiphilic particles.
+Amphiphilic particles have a hydrophobic tail and a hydrophilic head
+and these are accounted for as follows.
+The hydrophilic side takes the value $u =0$.
+This mimicks the apolar head of a lipid, for example, which does
+not alter the structure of adjacent waters. The hydrophobic side
+represents hydrocarbons and takes the value 
+$u > 0$. The interaction between particles is attractive,
+and particles will collectively orient their tails toward
+one another. 
+PIs RR and YNY's previous work showed that this   
+boundary condition produces two-dimensional micelles and
+bilayers~\cite{Fu2018_SIAM}, as illustrated in 
+Figure~\ref{fig:self-assembly}(a).
+
+\begin{wrapfigure}[11]{r}{0.65\textwidth}
+  \vspace{-10pt}
+  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPA.pdf}
+  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPB.pdf}
+  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPC.pdf}  
+  \caption{\label{fig:bcs} Boundary conditions characterize the water
+    structure at the particle interface: an amphiphilic particle (left),
+    a hydrophobic
+  particle with anisotropic intensity (middle), a water structure with
+  plus/minus polarity (right). The dashed curve is the boundary of the
+  disk and the arrow is its director.}
+\end{wrapfigure}
+
+Multilamelar bilayers arise when both sides of the particle
+are hydrophobic (Figure~\ref{fig:self-assembly}(b)).
+The boundary condition \eqref{eq:bcs}(b) 
+gives a particle with a hydrophobic intensity three times as great
+on the $\theta_i = 0$ side than on the $\theta_i = \pi$ side.
+The initial self-assembly is similar to that in case (a).
+The difference arises in the long-time dynamics where the bilayers
+no longer remain well-separated. 
+Rather, the bilayers form layers 
+as a consequence of the interfacial tension of exposed particle
+heads~\cite{Huetal19, deMeetal21}. 
+
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100A1.pdf}
-    \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100A2.pdf}
-    \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100A3.pdf}
+    \begin{tabular}{m{0.1cm}m{1.9in}m{1.9in}m{1.9in}}            
+      (a)
+    &\includegraphics[width=1.9in]{figures/SpecificAim1/N100B1.pdf}
+    &\includegraphics[width=1.9in]{figures/SpecificAim1/N100B2.pdf}
+     &\includegraphics[width=1.9in]{figures/SpecificAim1/N100B3.pdf}    \\
+     (b)
+    &\includegraphics[width=1.9in]{figures/SpecificAim1/N100C1.pdf}
+    &\includegraphics[width=1.9in]{figures/SpecificAim1/N100C2.pdf}
+      &\includegraphics[width=1.9in]{figures/SpecificAim1/N100C3.pdf}    \\
+    (c)
+      &\includegraphics[width=1.9in]{figures/SpecificAim1/N100A1.pdf}
+      &\includegraphics[width=1.9in]{figures/SpecificAim1/N100A2.pdf}
+      &\includegraphics[width=1.9in]{figures/SpecificAim1/N100A3.pdf}    \\
+      &\multicolumn{1}{c}{$t = 0$}
+      &\multicolumn{1}{c}{intermediate time}
+      &\multicolumn{1}{c}{$t = t_{\text{final}}$}
+  \end{tabular}
     \end{center}
-  \caption{\label{fig:self-assemblyA} Self-assembly with a polar
-  boundary condition leads to a checkerboard pattern. Green is for $u <
-  0$, yellow is for $u > 0$, and blue is for $u = 0$.}
+  \caption{\label{fig:self-assembly}
+    Using the same initial configuration,
+    particles self-assemble into distinct morphologies based
+    on the boundart condition $g.$ 
+    boundary condition leads to a checkerboard pattern.
+    In row (a), self-assembly with an amphiphilic boundary
+    condition \eqref{eq:bcs}(a) results a bilayer pattern shielding
+    the hydrophobic core (yellow, $u > 0$) from the aqueous phase (blue, $u = 0$).
+    Row (b) shows particles with a hydrophobic intensity that is
+    greater on one side of the particle (magenta) than the other (yellow).
+    In row (c), green is for $u < 0$, yellow is for $u > 0$, and blue is for $u = 0$.
+    Particles orient like sides to form a checkerboard pattern.
+  }
 \end{figure}
 
-Consider a polar boundary condition where $g_i(\xx) = (\pi r)^{-1/2}
-\cos (\theta_i(\xx))$ where $\theta_i$ is the angle formed by $\xx$, the
-particle center $\aa_i$, and the particle director $\dd_i$. The
-normalization $(\pi r)^{-1/2}$ and others below provide a uniform
-surface energy $\int_{\Gamma_i} g_i^2 \,ds = 1$ for circular particles
-of radius $r$. The boundary condition is odd along the particle axis
-making the particle head repel the tail. We simulate the dynamics of 100
-particles with random initial position and orientation. The particles
-rapidly form chains with their directors perpendicular to the length of
-the chain. The equilibrium structure consists of particles positioned on
-a square grid in a checkerboard pattern
-(Figure~\ref{fig:self-assemblyA}. This patterning is a consequence of
+\todo[inline]{Rationalize and citations for following} 
+Finally, boundary condition \eqref{eq:bcs}(c) models 
+a particle with oppositelly charged ends making the 
+particle heads repel the tails \cite{MaRa76, Ma77}.
+The particles initially form chains with their directors perpendicular to the
+length of the chain. The equilibrium structure consists of particles
+positioned on a square grid in a checkerboard pattern
+Figure~\ref{fig:self-assembly}(c). This patterning is a consequence of
 energy minimality and allows each particle to simultaneously coordinate
 its head with the head of three other particles and its tail with the
 tail of three other particles. 
 
-\begin{figure}[h!]
-\begin{center}  
-    \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100B1.pdf}
-    \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100B2.pdf}
-    \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100B3.pdf}
-\end{center}    
-  \caption{\label{fig:self-assemblyB} Self-assembly with with boundary
-  condition that results in hydrophobic tails and hydrophilic heads. The
-  resulting bilayer pattern shields the hydrophobic core (yellow) from
-  the aqueous phase.}
-\end{figure}
-Amphiphilic particles have a hydrophobic tail and a hydrophilic head and
-are accounted for as follows. The hydrophilic side takes the value $u =
-0$ since the apolar head of a lipid, for example, does not alter
-the structure of adjacent waters. The hydrophobic side takes the value
-$u > 0$. The interaction between particles is attractive. Using $(3\pi
-)^{-1/2}(1 + \cos(\theta_i(\xx)))$ as a simple modification to
-the previous boundary condition produces two-dimensional micelles and
-bilayers \cite{Fu2018_SIAM} (Figure~\ref{fig:self-assemblyB}).
-Researchers have asked us if the phenomenon is robust. To show that it
-is, we instead use the boundary condition
+The ultimate goal is to use numerical simulations to aid
+the syntheses soft matter materials.
+Applications in this area include cargo-carrying capacity, 
+catalytic activity, or stimuli-responsive shape-change to amplify colloid
+utility for a wide range of  spanning environmental remediation to drug
+delivery \cite{McBr21, HaBr20}.
+Here, mathematical models like the kind we propose are crucial
+because the model parameters control particle surface properties independently, 
+whereas these properties are often difficult to decouple in experiment
+~\cite{Bradley2016,Mallory2017,Bradley2017}.
+
+One challenge is translating phenomenological parameters
+into measurable quantities.  For example, Janus particles
+with uniform surface properties are costly or difficult to
+manufacture.  Thus, we can replace the ideal boundary
+conditions \eqref{eq:bcs} with a more realistic one like
 \begin{equation}
 \label{eq:vonMises}
   g_i(\xx) = \sqrt{
-  \frac{\exp( \kappa_i(\theta_i(\xx) - \theta^0_i))}
-  {2\pi r_i I_0(\kappa_i)}}
+  \frac{\exp( \kappa_i\cos(\theta_i(\xx) - \theta^0_i))}
+  {2\pi r_i I_0(\kappa_i)}}.
 \end{equation}
-where the radicand \todo{radicand?} is the von Mises distribution with
-director angle $\theta^0_i$ and Bessel function $I_0$ of order zero. The
-square of this function behaves as a normal distribution with variance
-like $1/\kappa_i$.To replicate experimental conditions, the
-concentration $\kappa_i$ and radii $r_i$ are randomized. Using the same
-initial configuration, the particles form small groups that
-combine to form bilayers (Figure~\ref{fig:self-assemblyC}.
-
-
-\begin{figure}[h!]
-  \begin{center}
-    \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100C1.pdf}
-    \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100C2.pdf}
-    \includegraphics[width=0.32\textwidth]{figures/SpecificAim1/N100C3.pdf}\\
-    \caption{Hydrophobic particles with a bias. The hydrophobic
-    intensity is greater on one side of the particle (magenta) than the
-    other (yellow).
-    \label{fig:self-assemblyC}}
-\end{center}
-\end{figure}
-
-Multilamelar bilayers arise with an increase by shifting the boundary
-condition further. Let $g_i(\xx) = (9\pi )^{-1/2}(2 +
-\cos(\theta_i(\xx)))$. This gives a hydrophobic particle with greater
-intensity of hydrophobicity at $\theta_i = 0$ than at $\theta_i = \pi$.
-The initial self-assembly is similar to that of the amphiphilic particle
-case, except that the bilayers do not stay well separated. Rather, the
-bilayers stack on top of each other as a consequence of the interfacial
-tension of exposed particle heads \cite{deMeetal21}. 
-
-In summary, the hydrophibic interaction-mobility problem model yields
-rich morphologies that are valuable in the synthesizing multiphasic and
-anisotropic colloids~\cite{Bradley2016,Mallory2017,Bradley2017}. The
-main experimental challenges include the ability to decouple particle
-surface properties. The goal is to obtain numerically aided syntheses
-and assembly of soft matter materials. Applications in this area include
-cargo-carrying capacity, catalytic activity, or stimuli-responsive
-shape-change to amplify colloid utility for a wide range of spanning
-environmental remediation to drug delivery~\cite{McBr21, HaBr20}.
+Here, the term under the square root is the von Mises distribution with
+director angle $\theta^0_i$ and Bessel function $I_0$ of order zero~\cite{Fisher_1993}.
+The square of this function behaves as a normal distribution with variance
+like $1/\kappa_i$. We can replicated surface imperfections
+by randomizing the concentration $\kappa_i$ and particle radii $r_i$,
+for example. Collaboration with experimental groups will
+use numerical methods to predict parameter regimes 
+to control particle-particle interactions.
+In Specific Aim 3, we discuss how to include ions and surface charge. 
 
 
 
@@ -276,72 +321,92 @@ environmental remediation to drug delivery~\cite{McBr21, HaBr20}.
 %  $f(u)$ and boundary conditions. 
 %}
 %\end{wrapfigure}
-The main modeling challenge is to translate the phenomenological
-parameters, e.g.~boundary conditions, into measurable quantities such as
-contact angles. Collaboration with experimental groups will use
-numerical methods to predict parameter regimes to control
-particle-particle interactions. In \S\ref{subsec:specific_aim_3}, we
-discuss how to include ions and surface charge. 
+
 
 \subsubsection{Hydrophobic forces as capillary wetting}
-A natural generalization of the linear response model is to use a
-fourth-order, tilted double-well potential $f(u) = a(u-u_0)^2(u-u_1)^2 +
-bu$. Motivated by capillary wetting, soft matter physicist Gerhard
-Gompper introduced a double-well model for one-dimensional
-hydrophobic attraction \cite{GoHaKo94}. The two-dimensional attraction
-we propose is more complicated and includes extra line tension effects
-not present in the one-dimensional theories. 
+A natural generalization of the linear response potential $f(u) = u^2$
+is a fourth-order, tilted double-well potential
+$f(u) = a(u-u_0)^2(u-u_1)^2 + bu$.
+Here, the order parameter $u$ is related to
+the mean number of nearest neighbors
+per water molecule \cite{GoHaKo94}.
+The value $u_0$ gives the absolute minimum in the bulk
+and $u_1$ gives a local minimum for the
+tetrahadral water network found at hydrophobic surfaces.
+Figure \ref{fig:CA}(a) illustrates a double-well potential
+and Specific Aim 2 describes the numerical implementation issues.
 
-Here, the order parameter $u$ is the mean number of nearest neighbors
-per water molecule. The value $u_0 = 4$ gives a local minimum for the
-ideal tetrahedral water network found at hydrophobic surfaces. The value
-$u_1 \sim 4.4$ gives the absolute minimum in the bulk where there is a
-mixture of four and five-coordinated waters. When particles are
+\begin{wrapfigure}[28]{l}{1.8in}
+  \vspace{-4pt}
+  \centering
+  \input{figures/doublewell.tikz} 
+  \caption{\label{fig:CA} (a) The double well potential $u_0 =
+  0.5$, $u_1 = 2$, $a = 1$, $b = 0.4$. (b) The solution of the
+  Allen-Cahn equation~\eqref{eq:SL}. (c) The convergence of the exact
+  and inexact Newton's methods.}
+\end{wrapfigure}
+Equation~\eqref{eq:SL} takes the form of a steady-state Allen-Cahn
+equation. The Allen-Cahn equation is used in phase field formulations of
+immisible fluids, for example.
+PI BQ has developed fast integral equation solvers for
+the Allen-Cahn equation \cite{kro-qua2011, qua2011}.
+PI RR and colaborators launched the
+simulation and asymptotic analysis of phase field functionals of
+membrane elastic energy, devising functionals for for the squared mean
+curvature (Willmore) energy~\cite{0951-7715-18-3-016}, spontaneous
+curvature~\cite{Du05} and Gaussian curvature energy~\cite{DuEuler}, as
+well as energetic variational approaches to coupling membrane elasticity
+to fluids~\cite{QiangDu09}.
+
+The key innovation is that when particles are
 well-separated, the energetic cost for filling the interstitial region
 with $u_0$-phase water is prohibitive and there is a phase shift from
 the $u_0$ to $u_1$ water order---the attraction landscape is more or
 less identical to the linear response theory. Conversely, when particles
 are proximal, it becomes energetically favorable to coalesce
-$u_0$-phases. This introduces a line tension for the phase transition.
+$u_0$-phases. This introduces a line tension for the phase transition
+which is an effect not present in the one-dimensional model. 
 
-Equation~\eqref{eq:SL} takes the form of a steady-state Allen-Cahn
-equation. The Allen-Cahn equation is used in phase field formulations of
-immiscible fluids, for example. PI Ryham and collaborators launched the
-simulation and asymptotic analysis of phase field functionals of
-membrane elastic energy, devising functionals for for the squared mean
-curvature (Willmore) energy~\cite{0951-7715-18-3-016}, spontaneous
-curvature~\cite{Du05}, and Gaussian curvature energy~\cite{DuEuler}, as
-well as energetic variational approaches to coupling membrane elasticity
-to fluids~\cite{QiangDu09}. 
+The double-well formulation can potentially 
+explain hydrophobic interaction over the full distance
+regime~\cite{Lum1999, Lin2005, Meyer2006, Ducker2016}.
+Motivated by capillary wetting, Gerhard
+Gompper introduced the double-well model for one-dimensional hydrophobic
+attraction \cite{GoHaKo94}.
+The results improved on previous work~\cite{ErLjCl89,MaRa76},
+but the realistic hydrophobic effect is more
+complicated and may involve higher-dimensional geometric features. 
+Some of the model parameters directly
+%connect to long-range decay lengths and energy cost of creating
+%hydrophobic-water interfaces with established ranges of
+to well-established experimental values. Other
+parameters, like the details of the well structure,
+are less well-understood and must be fit to the measured data.
+This improved model will allow us to more accurately 
+simulate colloidal suspensions.
+%The experimental data on hydrophobic attraction between 
+%is well-established and the literature contains data for a number of
+%solvents and hydrocarbon species.
+%The experimental measurements
+%are well-fit by a double exponential curve in the 10 to 100 nanometer range
+%of separation. Below 10~nm, however, there is an amplification of force
+%and the attraction follows a much steeper force law not accounted
+%for by past phenomenoloical theories~\cite{Lin2005}.
 
-One potential application of the Allen-Cahn-type formulation is to
-explain measured hydrophobic attraction profiles. The experimental data
-on hydrophobic attraction between \todo{between what?} is
-well-established and the literature contains data for a number of
-solvents and hydrocarbon species. The experimental measurements are
-well-fit by a double exponential curve in the 10--100~nm range of
-separation. Below 10~nm, however, there is an amplification of force and
-the attraction follows a much steeper force law not accounted for by
-past phenomenological theories~\cite{Lin2005}.
+%It may be the case that the double-well formulation recreates the long
+%and short-range interactions. The advantage is that the two-dimensional
+%simulations can replicate the experimental setup better than prior,
+%one-dimensional theoretical work
 
-It may be the case that the double-well formulation recreates the long
-and short-range interactions. The advantage is that the two-dimensional
-simulations can replicate the experimental setup better than prior,
-one-dimensional theoretical work. Some of the model parameters directly
-connect to long-range decay lengths and energy cost of creating
-hydrophobic-water interfaces with established ranges of values. Other
-parameters, like the well structure, are fit to the measured data. These
-base-line simulations will allow us to move on to provide more accurate
-colloidal suspension simulations. 
 
+\todo[inline]{Below needs citation and more solid explanation}
 Other approaches will be required if the modified phenomenological
-theory does not recreate the measured force curves. We can rule out
-convection in the water structure since the time scale of particle
-motion is much larger than the hydrogen-bond lifetimes. One approach is
-to consider Gaussian fluctuations. Here, we expand the free energy
-functional around the saddle point solution. The fluctuation energy then
-involves calculation of the eigenfunctions of the second variation of
-the free energy. This accounts for the fact that experimental
+theory does not recreate the measured force curves.
+One such approach is to consider Gaussian fluctuation. Here, we expand
+the free energy
+functional around the saddle point solution. The fluctuation energy
+then involves calculation of the eigenfunctions of the second variation
+of the free energy. This accounts for the fact that experimental
 measurements are carried out at finite temperatures, where thermal
 fluctuations should ideally also be considered. 
 
@@ -470,17 +535,16 @@ issues like three-dimensional boundary integral equation solvers.
 The gradient descent technique is ineffective for measuring the saddle
 splay modulus $\KG$ because the saddle splay energy is largely invariant
 under shape changes.  To evaluate $\KG$, we will combine the present
-particle simulations with the string method from PI Ryham's work on
+particle simulations with the string method from PI RR's work on
 membrane fusion \cite{RyKlYaCo16}. The string method is a numerical
 scheme that finds least energy pathways separating energy basins
 \cite{doi:10.1063/1.2720838}.  In the simplified Canham-Helfrich
 formulation, saddle splay energy is an exact indicator of topological
 transitions, thanks to the  Gauss-Bonnet theorem \cite{TerziDeserno17}.
-More generally, PI Ryham has shown that saddle splay acts as a
-topological indicator even in the presence of nonzero tilt
-\cite{RyKlYaCo16}.  As a result, saddle splay can be quantified from the
-transition energies of a least energy path of pore formation
-(Figure~\ref{fig:saddle_splay}).
+More generally, PI RR has shown that saddle splay acts as a topological
+indicator even in the presence of nonzero tilt \cite{RyKlYaCo16}.  As a
+result, saddle splay can be quantified from the transition energies of a
+least energy path of pore formation (Figure~\ref{fig:saddle_splay}).
 
 The field of membrane continuum mechanics still lacks consensus as to
 whether HK energy is the appropriate functional for bilayer energy.

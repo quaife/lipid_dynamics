@@ -7,14 +7,18 @@ Yuan-Nan Young (PI, New Jersey Institute of Technology)}
 
 \section{Background}
 \label{sec:background}
-The goal of this collaborative proposal is to use mathematical modeling
-and numerical simulations to investigate the dynamic self-assembly of
-amphiphilic particles interacting via hydrophobic forces in solvent.
+%The goal of this collaborative proposal is to use mathematical modeling
+%and numerical simulations to investigate the dynamic self-assembly of
+%amphiphilic particles interacting via hydrophobic forces in solvent.
+\hl{This collaborative proposal aims to advance
+the mathematical modeling and numerical simulation
+of dynamic self-assembly of amphiphilic particles interacting
+via hydrophobic forces in solvent.}
 Amphiphilic particles such as lipid molecules possess both hydrophobic
 and hydrophilic structures. In a viscous solvent they self-assemble into
 meso-/macroscopic structures such as micelles and bilayers of lipids to
 shield their hydrophobic surfaces from contact with the solvent,
-e.g.~water, molecules. Such self-assembly of amphiphiles via hydrophobic
+mocules, e.g.~waters. Such self-assembly of amphiphiles via hydrophobic
 forces is ubiquitous in biology and biophysics~\cite{Israelachvili1954},
 and has been a major source of nonspecific interactions between
 nanoparticles in soft matter~\cite{Sanchez-IglesiasEtAl2012_ACSNano,
@@ -36,36 +40,8 @@ AltantzisEtAl2013_PSC, XieYangLuEtAl2020_COCIS}.
 %or structural change, in the surrounding water that is energetically
 %very unfavorable \cite{Bjorneholm2016}.
 
-The substantial free energy of placing hydrophobic surfaces in
-contact with water is roughly proportional to the surface area of the
-contact region~\cite{Bjorneholm2016}.
-%As a result, hydrocarbon solutes have a large interfacial tension 
-%and try to minimize their surface area when in water. 
-At the microscopic level, however, there is long-range interaction
-between hydrophobic surfaces. Two hydrophobic surfaces, in particular,
-separated by water over some distance, experience an attractive force
-called the hydrophobic force~\cite{Lum1999, Meyer2006, Hammer2010}.
-Measurements show that the hydrophobic force decays exponentially with a
-decay length on the order of 1--10 nm~\cite{Israelachvili1984,
-Marcelja1977,Christenson2001,Lin2005}. The attraction is identical for
-all hydrophobic surfaces with identical solute conditions.
-Additionally, the interaction is not pairwise additive, meaning that the
-force between any two hydrophobic objects is altered by the presence of
-a third object, hydrophobic or otherwise~\cite{SilveraBatista1242477}. 
-
-PIs RR and YNY developed a mathematical model, called the hydrophobic
-attraction potential (HAP) model~\cite{Fu2018_SIAM}, that is based on
-the linear response of water to surface perturbations. This model was
-used by all the PIs to show how amphiiphilic Janus particles
-self-assemble into a vesicle-like structure~\cite{FuQuRyYo20}. Based on
-preliminary results (\S\ref{sec:preliminary_work}), the PIs propose to
-extend this HAP model to offer a general modeling methodology that leads
-to new mathematical ideas and is computationally practical.
-
-\subsection{Hydrophobic attraction}
-\todo{This figure is not referenced in the text.}
-\begin{wrapfigure}[13]{r}{0.37\textwidth}
-  \vspace{-37pt}
+\begin{wrapfigure}[15]{r}{0.37\textwidth}
+\vspace{-8pt}
 \centering
 \includegraphics[width=0.37\textwidth]{figures/Background/LongRangeForce.pdf}
   \vspace{-20pt}
@@ -73,55 +49,86 @@ to new mathematical ideas and is computationally practical.
   monolayers adsorbed on mica reveal a long-range
   attraction~\cite{Lin2005}.}
 \end{wrapfigure}
-The hydrophobic attraction theory concerns the self-organization of
+Macroscopically, the substantial free energy of placing hydrophobic
+surfaces in contact with water is roughly proportional to the surface
+area of the contact region~\cite{Bjorneholm2016}.
+%As a result, hydrocarbon solutes have a large interfacial tension 
+%and try to minimize their surface area when in water. 
+At the microscopic level, however, there is long-range interaction
+between hydrophobic surfaces. Two hydrophobic surfaces, in particular,
+separated by water over some distance, experience an attraction
+called the hydrophobic force~\cite{Lum1999, Meyer2006, Hammer2010, KaScScNe16}.
+Measurements show that the hydrophobic force decays exponentially with a
+decay length on the order of 1--10 nm~
+\cite{Israelachvili1984,Marcelja1977,Christenson2001,Lin2005,Taetal13}
+(Figure \ref{fig:force_distance}).
+%The attraction is solute dependent, and is nonadditive,
+%meaning that the force between any two hydrophobic objects is altered by the presence of
+%a third object, hydrophobic or otherwise~\cite{SilveraBatista1242477}. 
+
+Motivated by its broad applicability to biology, chemistry, and engineering,
+PIs RR and YNY developed a mathematical model, called the
+hydrophobic attraction potential (HAP) model~\cite{Fu2018_SIAM},
+that is based on
+the linear response of water to surface perturbations. This model was
+used by all the PIs to show how amphiphilic Janus particles (JP)
+self-assemble into a vesicle-like structure~\cite{FuQuRyYo20}.
+Janus particles are typically spherical particles with a biphasic
+material label on either hemisphere \cite{CaFaRaVe89,Gaetal13,Mallory2017,HaBr20,McBr21}.
+Based on
+preliminary results (\S\ref{sec:preliminary_work}), the PIs propose to
+extend this HAP model to offer a general modeling methodology that leads
+to new mathematical ideas and efficient numerical methods.
+
+\subsection{Hydrophobic attraction}
+The hydrophobic attraction potential theory concerns the self-organization of
 hydrophobic particles in a viscous solvent. It is a phenomenological
 model mimicking the linear-response of water to surface perturbations
-and was first proposed by applied mathematician Stjepan Mar\v{c}elja
+and stems from work of Stjepan Mar\v{c}elja
 from the Australian National University in 1976. To explain certain
 repulsion measurements between lecithin bilayers, Mar\v{c}elja and
 coworkers devised a mathematical model using a Landau expansion of the
 free energy density of an order parameter for the orientation of
 water~\cite{LeRaPa77, MaRa76, LANDAULIFSHITZ5}. Their truncated free
-energy leads to a boundary value problem readily solved in terms of
-hyperbolic trigonometric functions and ready \todo{What is 'and ready'?}
+energy gave a boundary value problem for water structure that was
+readily solved in terms of hyperbolic trigonometric functions. 
 
-Although simplistic, the model was general enough to explain a number of
+Although schematic, the model was general enough to explain a number of
 physical effects. For example, the repulsion of lecithin bilayers
 was explained by the free energy that decreases with distance of
 separation because of the mean orientations of water being opposite at
 the two interfaces. Later, a long-range attractive force between
-hydrocarbon coated mica sheets was shown to follow an exponential curve
-and measurable up to 100~nm~\cite{ClCh88,RaDe88}. The Mar\v{c}elja
+hydrocarbon coated mica sheets was measure up to
+100~nm~\cite{ClCh88,RaDe88}. The Mar\v{c}elja
 theory was then applied to this problem for an order parameter
 representing the excess number of hydrogen bonds per water
-molecule~\cite{ErLjCl89}.
+molecule and gave agreement with the measured force
+curves~\cite{ErLjCl89}.
 
-\begin{wrapfigure}[8]{r}{0.32\textwidth}
-  \vspace{-25pt}
-  \centering
-  \includegraphics[width=0.32\textwidth]{figures/Background/ChandlerWeeks.pdf}
-  \vspace{-20pt}
-  \caption{\label{fig:chandler_weeks} Other theories explain hydrophobic
-  attraction in terms of the free energy of voids
-  \cite{Lum1999}.}
-\end{wrapfigure}
-\todo{This figure is not referenced in the text.}
+
+%\begin{wrapfigure}[7]{r}{0.32\textwidth}
+%  \vspace{-0pt}
+%  \centering
+%  \includegraphics[width=0.32\textwidth]{figures/Background/ChandlerWeeks.pdf}
+%%  \vspace{-20pt}
+%  \caption{\label{fig:chandler_weeks}
+%  }
+%\end{wrapfigure}
+%\todo{This figure is not referenced in the text.}
 Analogues of Mar\v{c}elja's phenomenological theory appeared in other
 areas related to biological self-assembly, such as interactions of
-membrane-bound proteins~\cite{KoNa15, Nagle17, KUZMIN2005} and P.~G.~de
-Gennes's theory for the interaction of polymer beads in mixed
-solvents~\cite{deGe76}. In the latter, the free energy corresponds to
-the Ornstein-Zernike form of the order parameter correlation function.
+membrane-bound proteins~\cite{KoNa15, Nagle17, KUZMIN2005} and the 
+theory of polymer bead interaction in mixed
+solvents~\cite{deGe76}.
+%In the latter, the free energy corresponds to
+%the Ornstein-Zernike form of the order parameter correlation function.
 On the downside, it applies a continuum theory of distances of a few
 molecular diameters, the association of order parameter is arbitrary, it
-predicts monotonic forces, and finally measures attractive forces
-amplify at distances below 10~nm and this feature is not accounted for
-by the theory~\cite{Ni80}. \todo{This last sentence is confusing and I'm
-not sure how to fix it.}
-
+predicts monotonic forces, and finally the theory does not account
+for the amplification in attraction at very short distances~\cite{Ni80}.
 
 \begin{wrapfigure}[21]{l}{0.3\textwidth}
-  \vspace{-12pt}
+  \vspace{-5pt}
 \includegraphics[width=0.3\textwidth]{figures/Background/Fissure.pdf}
 \includegraphics[width=0.3\textwidth]{figures/Background/Landscape.pdf}
 \caption{\label{fig:fissure} In fusion, fissures in the phospholipid
@@ -129,54 +136,63 @@ not sure how to fix it.}
   dominates first and third stages of fusion (bottom).
 }
 \end{wrapfigure}
-Still, no single theory has been able to account, either qualitatively
-or quantitatively, for hydrophobic interaction over the full distance
-regime~\cite{Lin2005, Meyer2006, Ducker2016}. Despite the ubiquity of
+Despite the ubiquity of
 the phenomenon, theoretical developments explaining the basic underlying
 principles of the hydrophobic effect have come relatively
-late~\cite{Ch05}. For example, studies of the partitioning of
-hydrophobic solutes between water and non-polar solvents provide
-estimates for the energy cost of creating hydrophobic-water contacts
+late~\cite{Ch05}.
+No single theory has been able to account, either qualitatively
+or quantitatively,
+for hydrophobic interaction over the full distance
+regime~\cite{Lum1999, Lin2005, Meyer2006, Ducker2016}.
+For example, studies of the partitioning of
+hydrophobic solutes provide estimates for the energy cost of creating
+hydrophobic-water contacts
 that is a factor of three lower than the value derived from interfacial
 tension measurements. Only recently was an explanation for this
 discrepancy provided~\cite{Jackson2016}.
 
 Whatever the case may be, the continuum approaches to water structure
-that we present here are a conceptual advance that are further justified
-a posteriori from the agreement between theory and experimental surface
+that we present here are justified
+\textit{a posteriori} by the agreement between theory and experimental surface
 force curves. Researchers have used Mar\v{c}elja's theory to calculate
 energies of pore formation and fusion~\cite{Gletal88, Aketal17,
-RyKlYaCo16}. When open, the attraction between apposing hydrophobic
-surfaces causes the fissure to collapse. PI RR calculated energy
-barriers of fusion using a modified form of the Helfrich energy to
-include Mar\v{c}elja's free energy for the structure of water separating
-the fissures~\cite{RyKlYaCo16}. This value was later experimentally
-corroborated (Figure~\ref{fig:fissure}, \cite{FrRoPi17}). In summary,
-the consensus is that despite its apparent simplicity, the predictions
-of the hydrophobic attraction theory are compatible with experimental
-measurements and may closely reproduce the reality of the physical
-process at a molecular scale~\cite{FrRoPi17, Fretal21}.
+RyKlYaCo16}.
+%When open, the attraction between apposing hydrophobic
+%surfaces causes the fissure to collapse.
+PI RR calculated a least energy path 
+of fusion using a modified form of the Helfrich energy that
+included Mar\v{c}elja's free energy for the structure of water
+separating fissures~\cite{RyKlYaCo16} (Figure~\ref{fig:fissure}).
+The calculated barrier heights were later experimentally
+corroborated \cite{FrRoPi17}. In summary,
+there is a consensus that despite its apparent simplicity, the predictions
+of the hydrophobic attraction potential theory are compatible with
+experimental measurements and may closely mirror the reality of
+the physical process at a molecular scale~\cite{FrRoPi17, Fretal21}.
 
-In terms of applications, the approach \todo{what approach} resolves
-certain issues in soft matter modeling. For example, the Helfrich
-Hamiltonian from membrane biophysics assumes a rod-like continuum but
-makes no use of the amphiphilic character of lipids~\cite{Hamm2000,
-TerziDeserno17, PhysRevE.102.042406}. By coarse-graining lipids as Janus
-particles, we derive the bilayer structure and elastic energies from the
-amphiphilic character of constituent particles. Moreover, the
-granularity of proteins and topological changes e.g.~protein induced
-curvature, fission, fusion, are critical to understanding mechanical
-properties of membranes. These processes can be modeled by standard
-continuum methods only with great difficulty and excessive grid
-refinement.
+More than a novel formalism, the HAP approach
+is a conceptual advance possessing a number
+worthwhile modeling features.
+The PIs' previous work has derived the bilayer structure
+and elastic energies from course-grained amphiphilic particles
+\cite{Fu2018_SIAM,FuQuRyYo20,Hamm2000,TerziDeserno17, PhysRevE.102.042406}.
+The granularity of protiens and topological changes, for example,
+that are built into the HAP model can only be modeled by
+continuum methods that assume continuous mathematical surfaces
+with great difficulty
+\cite{DuLiuWang2004_JCP,BibenKassnerMisbah2005_PRE,
+DoyeuxGuyotChabannesEtAl2013_JCAM, Shravan09,Rahimian15,
+KimLai2010_JCP,KimLai2012_PRE,HuLaiSeolEtAl2016_JCP,
+Bartels,Peng13,RyKlYaCo16,Sinha15, Du05,QiangDu08,Lowengrub13, Hu,Hu13, KimLai2010_JCP,
+doi:10.1063/5.0009734, LiAn-Chang16,                                                        
+doi:10.1098/rspa.2012.0505, doi:10.1137/130941432, Feetzl18,                                                     doi:10.1137/16M1108406}.
 %Assuming the location of pore nucleation,
 %for example, is required in traditional continuum but is yet another
 %output of our model. 
 Finally, the methodology allows evolutions equations to be computed
-using integral equation methods that when optimized have near-linear in
-the particle number. 
-%For comparison, that is the same computational cost as a finite element
-%analysis of a two-dimensional membrane that ignores water.
+using integral equation methods that when optimized have
+$N \log N$ computational complexity in the number of particles $N$
+\cite{fmm1, fmm2, fmm3, fmm4, fmm5, fmm6, fmm7, fmm8}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
