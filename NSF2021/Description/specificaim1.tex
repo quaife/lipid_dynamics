@@ -107,8 +107,8 @@ the particle motions (Figure~\ref{fig:bcs}).
   plus/minus polarity (right). The dashed curve is the boundary of the
   disk and the arrow its director.}
 \end{wrapfigure}
-The coupling between the Stokes equations \eqref{eq:stokes} and the
-semilinear elliptic equation \eqref{eq:SL} comes from the first
+The coupling between the Stokes equations~\eqref{eq:stokes} and the
+semilinear elliptic equation~\eqref{eq:SL} comes from the first
 variation of the energy functional. The particles minimize the free
 energy $F[u]$ by altering the location of hydrophobic interfaces. It is
 possible to calculate the rate of change of $F[u]$ using variation of
@@ -165,8 +165,8 @@ efficiently when their are many particles is large.
 
 \subsubsection{Janus-particle self-assembly} 
 When $f(u) = u^2$, and the water structure has its lowest potential
-value at $u=0$ which represents bulk water. The solutions of
-\eqref{eq:SL} have a boundary layer structure and decay to $0$ in the
+value at $u=0$ which represents bulk water. The solutions
+of~\eqref{eq:SL} have a boundary layer structure and decay to $0$ in the
 bulk with the decay length $\rho$. Even in this linear response case, a
 number of morphologies arise by altering boundary conditions.
 
@@ -187,11 +187,11 @@ particle center $\aa_i$, and the particle director $\dd_i$. The
 normalization $(\pi r)^{-1/2}$ and others below provide a uniform
 surface energy $\int_{\Gamma_i} g_i^2 \,ds = 1$ for circular particles
 of radius $r$. The boundary condition is odd along the particle axis
-making the particle head repel the tail.  We simulate the dynamics of
-100 particles with random initial position and orientation. The
-particles rapidly form chains with their directors perpendicular to the
-length of the chain. The equilibrium structure consists of particles
-positioned on a square grid in a checkerboard pattern
+making the particle head repel the tail. We simulate the dynamics of 100
+particles with random initial position and orientation. The particles
+rapidly form chains with their directors perpendicular to the length of
+the chain. The equilibrium structure consists of particles positioned on
+a square grid in a checkerboard pattern
 (Figure~\ref{fig:self-assemblyA}. This patterning is a consequence of
 energy minimality and allows each particle to simultaneously coordinate
 its head with the head of three other particles and its tail with the
@@ -245,29 +245,24 @@ combine to form bilayers (Figure~\ref{fig:self-assemblyC}.
 \end{center}
 \end{figure}
 
-Multilamelar bilayers arise with an increase by shifting the boundary condition
-further. Let $g_i(\xx) = (9\pi )^{-1/2}(2 + \cos(\theta_i(\xx)))$.
-This gives a hydrophobic particle with greater intensity of hydrophobicity
-at $\theta_i = 0$ than at $\theta_i = \pi$.  The initial self-assembly
-is similar to that of the amphiphilic particle case, except that the bilayers
-do not stay well separated.  Rather, the bilayers stack on top of each
-other as a consequence of the interfacial tension of exposed particle heads \cite{deMeetal21}. 
+Multilamelar bilayers arise with an increase by shifting the boundary
+condition further. Let $g_i(\xx) = (9\pi )^{-1/2}(2 +
+\cos(\theta_i(\xx)))$. This gives a hydrophobic particle with greater
+intensity of hydrophobicity at $\theta_i = 0$ than at $\theta_i = \pi$.
+The initial self-assembly is similar to that of the amphiphilic particle
+case, except that the bilayers do not stay well separated. Rather, the
+bilayers stack on top of each other as a consequence of the interfacial
+tension of exposed particle heads \cite{deMeetal21}. 
 
 In summary, the hydrophibic interaction-mobility problem model yields
 rich morphologies that are valuable in the synthesizing multiphasic and
-anisotropic colloids \cite{Bradley2016,Mallory2017,Bradley2017}.
-The main experimental challenges include the ability to
-decouple particle surface properties.
-The goal is to obtain numerically aided 
-syntheses and assembly of soft matter materials.
-Applications in this area include cargo-carrying capacity, 
-catalytic activity, or stimuli-responsive shape-change to amplify colloid
-utility for a wide range of  spanning environmental remediation to drug
-delivery \cite{McBr21, HaBr20}.
-
-
-
-
+anisotropic colloids~\cite{Bradley2016,Mallory2017,Bradley2017}. The
+main experimental challenges include the ability to decouple particle
+surface properties. The goal is to obtain numerically aided syntheses
+and assembly of soft matter materials. Applications in this area include
+cargo-carrying capacity, catalytic activity, or stimuli-responsive
+shape-change to amplify colloid utility for a wide range of spanning
+environmental remediation to drug delivery~\cite{McBr21, HaBr20}.
 
 
 
@@ -282,24 +277,24 @@ delivery \cite{McBr21, HaBr20}.
 %}
 %\end{wrapfigure}
 The main modeling challenge is to translate the phenomenological
-parameters, e.g. boundary conditions, into measurable quantities
-such as contact angles. Collaboration with experimental groups will
-use numerical methods to predict parameter regimes 
-to control particle-particle interactions. In Specific Aim 3, we
+parameters, e.g.~boundary conditions, into measurable quantities such as
+contact angles. Collaboration with experimental groups will use
+numerical methods to predict parameter regimes to control
+particle-particle interactions. In \S~\ref{subsec:specific_aim_3}, we
 discuss how to include ions and surface charge. 
 
 \subsubsection{Hydrophobic forces as capillary wetting}
 A natural generalization of the linear response model is to use a
 fourth-order, tilted double-well potential $f(u) = a(u-u_0)^2(u-u_1)^2 +
 bu$. Motivated by capillary wetting, soft matter physicist Gerhard
-Gompper introduced a double-well model for one-dimensional hydrophobic
-attraction \cite{GoHaKo94}. The two-dimensional attraction we propose is
-more complicated and includes extra line tension effects not present in
-the one-dimensional theories. 
+Gompper introduced a double-well model for one-dimensional
+hydrophobic attraction \cite{GoHaKo94}. The two-dimensional attraction
+we propose is more complicated and includes extra line tension effects
+not present in the one-dimensional theories. 
 
 Here, the order parameter $u$ is the mean number of nearest neighbors
 per water molecule. The value $u_0 = 4$ gives a local minimum for the
-ideal tetrahadral water network found at hydrophobic surfaces. The value
+ideal tetrahedral water network found at hydrophobic surfaces. The value
 $u_1 \sim 4.4$ gives the absolute minimum in the bulk where there is a
 mixture of four and five-coordinated waters. When particles are
 well-separated, the energetic cost for filling the interstitial region
@@ -311,28 +306,28 @@ $u_0$-phases. This introduces a line tension for the phase transition.
 
 Equation~\eqref{eq:SL} takes the form of a steady-state Allen-Cahn
 equation. The Allen-Cahn equation is used in phase field formulations of
-immisible fluids, for example. PI RR and colaborators launched the
+immiscible fluids, for example. PI RR and collaborators launched the
 simulation and asymptotic analysis of phase field functionals of
 membrane elastic energy, devising functionals for for the squared mean
 curvature (Willmore) energy~\cite{0951-7715-18-3-016}, spontaneous
-curvature~\cite{Du05} and Gaussian curvature energy~\cite{DuEuler}, as
+curvature~\cite{Du05}, and Gaussian curvature energy~\cite{DuEuler}, as
 well as energetic variational approaches to coupling membrane elasticity
 to fluids~\cite{QiangDu09}. 
 
 One potential application of the Allen-Cahn-type formulation is to
-explaning measured hydrophobic attraction profiles.
-The experimental data on hydrophobic attraction between 
-is well-established and the literature contains data for a number of
-solvents and hydrocarbon species. The experimental measurements
-are well-fit by a double exponential curve in the 10 to 100 nanometer range
-of separation. Below 10~nm, however, there is an amplification of force
-and the attraction follows a much steeper force law not accounted
-for by past phenomenoloical theories~\cite{Lin2005}.
+explain measured hydrophobic attraction profiles. The experimental data
+on hydrophobic attraction between \todo{between what?} is
+well-established and the literature contains data for a number of
+solvents and hydrocarbon species. The experimental measurements are
+well-fit by a double exponential curve in the 10--100~nm range of
+separation. Below 10~nm, however, there is an amplification of force and
+the attraction follows a much steeper force law not accounted for by
+past phenomenological theories~\cite{Lin2005}.
 
 It may be the case that the double-well formulation recreates the long
 and short-range interactions. The advantage is that the two-dimensional
 simulations can replicate the experimental setup better than prior,
-one-dimensional theoretical work Some of the model parameters directly
+one-dimensional theoretical work. Some of the model parameters directly
 connect to long-range decay lengths and energy cost of creating
 hydrophobic-water interfaces with established ranges of values. Other
 parameters, like the well structure, are fit to the measured data. These
@@ -343,10 +338,10 @@ Other approaches will be required if the modified phenomenological
 theory does not recreate the measured force curves. We can rule out
 convection in the water structure since the time scale of particle
 motion is much larger than the hydrogen-bond lifetimes. One approach is
-to consider Gaussian fluctuation. Here, we expand the free energy
-functional around the saddle point solution. The fluctuation energy
-then involves calculation of the eigenfunctions of the second variation
-of the free energy. This accounts for the fact that experimental
+to consider Gaussian fluctuations. Here, we expand the free energy
+functional around the saddle point solution. The fluctuation energy then
+involves calculation of the eigenfunctions of the second variation of
+the free energy. This accounts for the fact that experimental
 measurements are carried out at finite temperatures, where thermal
 fluctuations should ideally also be considered. 
 
