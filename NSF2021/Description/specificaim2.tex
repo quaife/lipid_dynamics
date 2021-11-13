@@ -12,11 +12,11 @@ they, like for the rates of biological functions like pore
 dynamics~\cite{RYHAM20112929}, set the rate of dissipation. In Specific
 Aim 2, we propose novel and efficient high-order numerical methods to
 simulate dynamic assembly of particles under HAP potential in a viscous
-solvent. As described in~\eqref{eq:stokes1}--\eqref{eq:stokes3} and
-illustrated in Figure~\ref{fig:flow_map}, the solvent phase is modeled
-by the Stokes equations for an incompressible, viscous fluid, and these
-equations are coupled to the screened-Laplace equation~\eqref{eq:SL}
-through viscous and hydrophobic stress balance. 
+solvent. As described in~\eqref{eq:stokes} and illustrated in
+Figure~\ref{fig:flow_map}, the solvent phase is modeled by the Stokes
+equations for an incompressible, viscous fluid, and these equations are
+coupled to the screened-Laplace equation~\eqref{eq:SL} through viscous
+and hydrophobic stress balance. 
  
 %\label{subsec:specific_aim_2}
 %\begin{wrapfigure}[14]{r}{0.61\textwidth}
@@ -29,28 +29,28 @@ through viscous and hydrophobic stress balance.
 %    The geometry is updated by solving the mobility problem.} 
 %\end{wrapfigure}
 The HAP model requires solving exterior problems for the order
-parameter~\eqref{eq:SL} and the Stokes
-equations~\eqref{eq:stokes1}--\eqref{eq:stokes3}. We will develop
-methods based on combinations of volume and layer potentials. Numerical
-methods to solve these integral equations (IEs) have several advantages
-over their PDE-based counterpart: by construction, they satisfy
-far-field and mass conservation conditions; only $\partial\Omega$ needs
-to be discretized for layer potentials; carefully chosen IEs result in a
-well-conditioned linear system that is solved with a mesh-independent
-number of GMRES iterations; and high-order or spectral accuracy is
-attainable with appropriate quadrature methods. The PIs have
-demonstrated that IEs are a powerful tool to simulate two-dimensional
-suspensions of amphiphilic particles~\cite{Fu2018_SIAM, FuQuRyYo20}.
-Moreover, elements of these formulations have been described in three
-dimensions~\cite{ying_2006, manasthesis, rac-gre2016}. This proposal
-will extend the two-dimensional methods to more general amphiphilic
-particle models that satisfy~\eqref{eq:SL}, and all the methods can
-naturally be extended to three dimensions. \S\ref{subsec:AC} describes
-how the non-linear Allen-Cahn equation~\eqref{eq:SL} will be iteratively
-solved using IE formulations. Then, \S\ref{subsec:NumericalIssues}
-describes how we will combine preconditioning strategies with fast
-summation methods to accelerate the time to solution, and
-\S\ref{subsec:timeStepping} describes adaptive time stepping methods,
+parameter~\eqref{eq:SL} and the Stokes equations~\eqref{eq:stokes}. We
+will develop methods based on combinations of volume and layer
+potentials. Numerical methods to solve these integral equations (IEs)
+have several advantages over their PDE-based counterpart: by
+construction, they satisfy far-field and mass conservation conditions;
+only $\partial\Omega$ needs to be discretized for layer potentials;
+carefully chosen IEs result in a well-conditioned linear system that is
+solved with a mesh-independent number of GMRES iterations; and
+high-order or spectral accuracy is attainable with appropriate
+quadrature methods. The PIs have demonstrated that IEs are a powerful
+tool to simulate two-dimensional suspensions of amphiphilic
+particles~\cite{Fu2018_SIAM, FuQuRyYo20}. Moreover, elements of these
+formulations have been described in three dimensions~\cite{ying_2006,
+manasthesis, rac-gre2016}. This proposal will extend the two-dimensional
+methods to more general amphiphilic particle models that
+satisfy~\eqref{eq:SL}, and all the methods can naturally be extended to
+three dimensions. \S\ref{subsec:AC} describes how the non-linear
+Allen-Cahn equation~\eqref{eq:SL} will be iteratively solved using IE
+formulations. Then, \S\ref{subsec:NumericalIssues} describes how we will
+combine preconditioning strategies with fast summation methods to
+accelerate the time to solution, and \S\ref{subsec:timeStepping}
+describes adaptive time stepping methods,
 
 \subsubsection{Iterative methods for the Allen-Cahn HAP model}
 \label{subsec:AC}
