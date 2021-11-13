@@ -7,7 +7,7 @@ experimental study of lipid bilayer shape and dynamics mediated by
 surfactants and proteins}, \$212,603, 9/15/2012 - 08/31/2016 (with
 no-cost extension), PI. {\em Intellectual merit:} The focus of this
 grant is modeling the interaction between a pure lipid bilayer membrane
-with surfactant, cholesterol and protein.
+with surfactant, cholesterol, and protein.
 %Hence, there is no overlap between these grants and the current proposal.
 
 %YNY and collaborators have studied (1) asymmetry of lipid bilayer due to its interaction
@@ -18,12 +18,12 @@ with surfactant, cholesterol and protein.
 \noindent
 {\it Broader impacts:} 
 One PhD student (Szu-Pei Fu) was funded to work with YNY, and work has
-resulted in seven papers
-\cite{Nganguia2013_PoF,Nganguia2013_PRE,Young2014_JFM,Young2015_PoF,Nganguia2015_CiCP,Pak2015_PNAS,fu2015pre}.
-YNY has been actively involved with promotion of underrepresented
-students at NJIT. The other PhD student (Herve Nganguia) is African.
-YNY has taught a broad spectrum of courses in fluid mechanics and
-applied math modeling.
+resulted in seven papers~\cite{Nganguia2013_PoF, Nganguia2013_PRE,
+Young2014_JFM, Young2015_PoF, Nganguia2015_CiCP,
+Pak2015_PNAS,fu2015pre}. YNY has been actively involved with promotion
+of underrepresented students at NJIT. The other PhD student (Herve
+Nganguia) is African. YNY has taught a broad spectrum of courses in
+fluid mechanics and applied math modeling.
 
 \noindent
 {\bf Bryan Quaife}: {\em NSF DMS-2012560, Erosion, Transport, and
@@ -34,18 +34,18 @@ simulate hydrological processes including erosion.
 
 \noindent
 {\it Broader impacts:} 
-A second-year PhD student (Jake Cherry) has been assigned to this
-project. Since the funding just began, results have not yet
-been published or presented. 
+A third-year PhD student (Jake Cherry) has been assigned to this
+project. One paper will be submitted before December
+2021~\cite{lin-her-qua-che2021}.
 
 \section{Project Management, Collaboration Plan, and Schedules of
 Research Tasks}
 \setlength{\parindent}{0pt}
 % N.B. wrapfigure is not compatible with \noindent.
 
-\begin{wrapfigure}[8]{r}{0.56\textwidth}
+\begin{wrapfigure}[11]{r}{0.56\textwidth}
 \vspace{-19pt}
-\definecolor{barblue}{RGB}{51,102,254}
+%\definecolor{barblue}{RGB}{51,102,254}
 %\renewcommand\sfdefault{phv}
 %\renewcommand\mddefault{mc}
 %\renewcommand\bfdefault{bc}
@@ -63,8 +63,8 @@ Research Tasks}
     bar label font=\mdseries\footnotesize\color{black!70}, 
     % titles across the left
     %bar label node/.append style={left=2cm},
-    bar/.append style={draw=none, fill=barblue},
-    bar incomplete/.append style={fill=barblue},
+    bar/.append style={draw=none, fill=blue},
+    bar incomplete/.append style={fill=blue},
     bar progress label font=\mdseries\footnotesize\color{black!70},
     milestone label font=\mdseries\small\color{black!70},
         milestone left shift =0.9,
@@ -79,49 +79,56 @@ Research Tasks}
 ]{QUARTERS:\quad1}{1}
 \gantttitlelist{2,...,12}{1} \\
 %\ganttgroup{Tasks\hfill}{1}{12}\\
-  \ganttbar{Specific Aim 1 (2D)}{1}{4} \\
-  \ganttbar{Specific Aim 1 (3D)}{8}{12}\\
-\ganttbar{Specific Aim 2}{1}{8}\\
-\ganttbar{Specific Aim 3}{1}{12}\\
-\ganttbar{Program management}{1}{12}
+\ganttbar[bar/.append style={fill=red}]{Specific Aim 1}{1}{12} \\
+\ganttbar[bar/.append style={fill=blue}]{Specific Aim 2}{1}{12}\\
+\ganttbar[bar/.append style={fill=green}]{Specific Aim 3}{1}{12}\\
+\ganttbar[bar/.append style={fill=black}]{Program Management}{1}{12}
+\ganttbar[bar/.append style={fill=magenta}]{}{4}{4}
+\ganttbar[bar/.append style={fill=magenta}]{}{8}{8}
+\ganttbar[bar/.append style={fill=magenta}]{}{12}{12}
 \end{ganttchart}
-  \vspace{-10pt}
-\caption{\footnotesize Schedule for the proposed work, measured in
-  quarters from the beginning of the project.}
+\vspace{-10pt}
+\caption{Schedule for the proposed work, measured in quarters from the
+  beginning of the project. The lead PI of each Specific Aim will be RR
+  (red), BQ (blue), and YNY (green). Project management will be
+  continuous (black), but we anticipate extra attention will be
+  necessary to align objectives in quarters 4, 8, and 12 (magenta).}
 \label{fig:schedule}
 \end{wrapfigure}
 \textbf{Project management}: 
 %
 The success of the proposed research requires complementary expertise
 and collaborative efforts in physics, applied mathematics, algorithms,
-and computing. Ryham has been working on mathematical modeling with a
-strong analytical background. Young has been working on many areas of
+and computing. PI RR has been working on mathematical modeling with a
+strong analytical background. PI YNY has been working on many areas of
 computational fluid dynamics and applications to math biology for many
-years. Quaife has been working on integral equation methods, fast
+years. PI BQ has been working on integral equation methods, fast
 algorithms, and their applications to fluid dynamics for many years.
-Their recent collaborative work on the HAP model in two dimensions has
-provided a solid foundation for the proposed research.
+Their recent collaborative work on the HAP model in two
+dimensions~\cite{FuQuRyYo20} has provided a solid foundation for the
+proposed research.
 
-\medskip
+\smallskip
 
 \textbf{Collaboration plan}: 
 %
 The management responsibility of this collaborative research will reside
-with the lead PI (Ryham) for this endeavor. The research work is
-structured to meet the tasks discussed in \S\ref{sec:proposed-work}.
-%
-The PIs, postdocs, and students will meet frequently on Zoom and
-in person when possible. During the pandemic, the three PIs will meet
-weekly on Zoom for a research meeting. Once the pandemic is under control, PI RR and PI YNY will conduct biweekly meetings in person, with PI BQ Zoom in from Florida.
-The PIs will share software packages, paper
-sources, and references on a common \textsf{Git} repository. The
-resulting software packages will be posted on the \textsf{Github}
-software repository.
+with the lead PI (RR) for this endeavor. The research work is structured
+to meet the tasks discussed in \S\ref{sec:proposed-work}. The PIs,
+postdocs, and students will meet frequently on Zoom and in person when
+possible. During the pandemic, the three PIs will meet weekly on Zoom
+for a research meeting. Once the pandemic is under control, PI RR and PI
+YNY will conduct biweekly meetings in person, with PI BQ Zoom in from
+Florida. The PIs will share software packages, paper sources, and
+references on a common \textsf{Git} repository. The resulting software
+packages will be posted on the \textsf{Github} software repository.
 
-\medskip
+\smallskip
 
 \textbf{Research Schedule:} The detailed schedule for the proposed work
-is shown in Figure~\ref{fig:schedule}. Specific Aim 1 is split over two
-periods to allow time for 3D code to be developed.
+is shown in Figure~\ref{fig:schedule}. Each PI will spearhead a
+different Specific Aim, and program management will happen
+throughout, with special coordination taken in quarters 4, 8, and
+12.
 
 
