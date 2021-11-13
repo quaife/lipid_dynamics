@@ -74,15 +74,15 @@ PIs RR and YNY started work on HAP modeling with Szu-Pei Fu
 The interactions between JP are formulated as a second-kind integral
 equation, which is coupled to the Stokes equations for the surrounding
 incompressible fluid at the zero-Reynolds-number limit. Numerical
-simulations of a JP suspensions revealed self-assembly of JP into
-micelles and bilayers, providing an alternative means for computing
+simulations of a JP suspension revealed self-assembly of JPs into
+micelles, bilayers and vesicles (self-enclosing bilayers), providing an alternative means for computing
 mechanical moduli, which often requires the knowledge of an equation of
 state from experiments on a colloidal
-membrane~(\cite{Balchunas2019_SM}).
+membrane~\cite{Balchunas2019_SM}.
 
 \begin{wrapfigure}[11]{r}{0.5\textwidth}
 \includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/TankTreading.pdf}
-\caption{The JP vesicles undergo tank-treading in background shear flow.}
+\caption{\label{fig:JPv_linearshear}The JP vesicles undergo tank-treading in background shear flow.}
 \end{wrapfigure}
 The results are summarized in \cite{Fu2018_SIAM}, where
 small particle-number simulations successfully demonstrated gradient-driven self-assembly of
@@ -122,9 +122,9 @@ membranes~\cite{GarciaSaez, KUZMIN2005, Petelska2012, Jackson2016}).
 %\end{wraptable}
 
 Results in this work show great potential to study
-Janus colloids~(\cite{Bradley2017,Mallory2017})
+Janus colloids~\cite{Bradley2017,Mallory2017}
 and the morphology of colloid
-surfactants~(\cite{Bradley2016}). 
+surfactants~\cite{Bradley2016}. 
 For example, with the flexibility of the model, we can specify the
 boundary condition on JP surfaces based on the chemicals used in
 experiments.
@@ -171,27 +171,33 @@ experiments.
 %short-range repulsion to avoid unphysical contact. 
 
 
-PIs RR, BQ, and YNY initiated a collaboration in summer 2020 to develop
-the hydrodynamic model.
-They  used this integral formulation and numerical
-algorithm to simulate the hydrodynamics of JP vesicles in background
-flows. Under a linear shear flow, JP vesicles exhibited
-elongation and tank-treading dynamics observed for a lipid bilayer GUV.
-%
-%With the use of suitable parameters, the
-%numerical results yield qualitative phenomena such as a tank-treading JP
-%vesicle. 
-%
-
-\begin{wrapfigure}[15]{l}{0.5\textwidth}
-\includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/Rupture.pdf}
-\caption{The JP vesicles rupture under large shear rates.}
+\begin{wrapfigure}[14]{l}{0.475\textwidth}
+%\vspace{-10pt}
+\includegraphics[width=0.475\textwidth]{figures/PreliminaryWork/Rupture.pdf}
+\caption{\label{fig:JPv_rupture}The JP vesicles rupture under large shear rates.}
 \end{wrapfigure}
-The results showed that the reduced area decreases with shear rate
+%
+PIs RR, BQ, and YNY initiated a collaboration in summer 2020 to study
+the hydrodynamics of JP suspension.
+They  used the ntegral formulation in \cite{Fu2018_SIAM} and an improved numerical
+algorithm to simulate the hydrodynamics of JP vesicles in background
+flows. Under a linear shear flow (Figure~\ref{fig:JPv_linearshear}), JP vesicles exhibited
+elongation and tank-treading dynamics observed for a lipid bilayer GUV.
+%%
+%%With the use of suitable parameters, the
+%%numerical results yield qualitative phenomena such as a tank-treading JP
+%%vesicle. 
+%%
+%%
+%The results showed that the reduced area decreases with shear rate
+%\begin{wrapfigure}[15]{l}{0.5\textwidth}
+%\includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/Rupture.pdf}
+%\caption{The JP vesicles rupture under large shear rates.}
+%\end{wrapfigure}
 but that the total length of a JP vesicle is conserved. The decay rate
 of the reduced area was independent of the shear rate.
 Moreover, the proposed model
-describes membrane rupture in high shear rates. Therefore, the method
+describes membrane rupture in high shear rates (Figure~\ref{fig:JPv_rupture}). Therefore, the method
 can be applied to vesicles undergoing topological changes which is
 difficult to simulate when using a continuum model that represents
 vesicles as closed and continuous curves.
@@ -204,27 +210,27 @@ vesicles as closed and continuous curves.
 %Our method requires
 %calculations of the hydrodynamic stress tensor, and these are used to
 %
-The study estimated an inter-monolayer friction $b$, membrane permeability
+From the simulation data the PIs estimated an inter-monolayer friction $b$, membrane permeability
 constant $P$, and the membrane stretching modulus $K_A$.
 \cite{chabanon2017, sch_vla_mik2010}.
 The range of friction coefficients agree with values reported
 by~\cite{denOtter2007} in their MD study. The coarse-graining level of
 the JP vesicle has a larger length scale than molecular dynamics
-simulations, and future convergence studies we will investigate
-how physical properties like the friction coefficient and membrane
-permeability depend on the particle shape and size.
+simulations, and we are now conducting convergence studies to investigate
+how physical properties of the assembly like the friction coefficient and membrane
+permeability depend on the JP particle shape and size.
 
 \begin{wrapfigure}[11]{l}{0.6\textwidth}
 \includegraphics[width=0.6\textwidth]{figures/PreliminaryWork/Slipper.pdf}
-\caption{The JP vesicle takes on the asymmetric slipper shape in parabolic flow.}
+\caption{\label{fig:JP_poiseuille}The JP vesicle takes on the asymmetric slipper shape in parabolic flow.}
 \end{wrapfigure}
 The study also simulated the spatial migration of a JP vesicle in a
-parabolic shear flow. 
+parabolic shear flow, see Figure~\ref{fig:JP_poiseuille}.
 %The chosen parameter values result in an asymmetric
 %slipper shape. 
 %
 Replicating the hydrodynamics of a GUV in a Poiseuille
-flow~(\cite{Kaoui09, dan_vla_mis2009, cou_kao_pod_mis2008}), the JP
+flow~\cite{Kaoui09, dan_vla_mis2009, cou_kao_pod_mis2008}, the JP
 vesicle moved toward the centre of the shear flow,
 and had a slight decrease in reduced area.
 For the parameters we in the simulation,
@@ -233,7 +239,7 @@ above the centre of flow and exhibits tank-treading motion.
 A qualitative
 agreement is made by comparing the JP vesicle shape with the
 two-dimensional inextensible membrane in continuum modeling
-simulations~(\cite{Kaoui09, dan_vla_mis2009, cou_kao_pod_mis2008}). 
+simulations~\cite{Kaoui09, dan_vla_mis2009, cou_kao_pod_mis2008}. 
 An interesting result contrast with continuum results is that the JP
 vesicle oscillates at a height slightly above the centre of the
 Poiseuille flow. 
@@ -247,7 +253,12 @@ Poiseuille flow.
 %using the default parameter set, we provide a new framework in measuring coarse-grained 
 %membrane permeability.
 
-The study further simulated the hydrodynamics of two JP vesicles, and
+
+\begin{wrapfigure}[15]{l}{0.5\textwidth}
+\includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/ShearDoublet.pdf}
+\caption{\label{fig:JPv_interactions}Vesicle-vesicle interaction for JP vesicles in shear flow.}
+\end{wrapfigure}
+The PIs further simulated the hydrodynamics interactions between two JP vesicles (Figure~\ref{fig:JPv_interactions}), and
 drew comparisons with simulation results of two vesicles described by
 the Helfrich continuum model. A comparison of the vesicle shapes and the
 streamlines demonstrate remarkable similarities. The two overlapping
@@ -263,10 +274,7 @@ divergent trajectories and obtain similar results to the continuum
 model.
 
 
-\begin{wrapfigure}[15]{l}{0.5\textwidth}
-\includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/ShearDoublet.pdf}
-\caption{Vesicle-vesicle interaction for JP vesicles in shear flow.}
-\end{wrapfigure}
+
 One of the main mathematical innovations was a novel alternative integral
 form for calculating the force and torque to avoid the singular integral
 evaluation. These alternative integrals allow the accurate resolultion
