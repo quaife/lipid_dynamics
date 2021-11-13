@@ -11,6 +11,9 @@ The research aims to provide fundamental insight into the
 self-assembly dynamics of amphiphilic particles. These results will
 facilitate optimal design of smart materials by tuning the geometry and
 properties of the amphiphilic particles.
+Applications in this area include cargo-carrying capacity, 
+catalytic activity, or stimuli-responsive shape-changes
+\cite{McBr21, HaBr20}.
 
 \subsubsection{Problem formulation}
 %\begin{wrapfigure}[h!]
@@ -250,19 +253,20 @@ heads~\cite{Huetal19, deMeetal21}.
       &\multicolumn{1}{c}{intermediate time}
       &\multicolumn{1}{c}{$t = t_{\text{final}}$}
   \end{tabular}
-    \end{center}
-  \caption{\label{fig:self-assembly}
+  \end{center}
+  \vspace{-20pt}
+  \caption{\footnotesize
+    \label{fig:self-assembly}
     Using the same initial configuration,
     particles self-assemble into distinct morphologies based
-    on the boundart condition $g.$ 
-    boundary condition leads to a checkerboard pattern.
+    on the boundary condition $g.$ 
     In row (a), self-assembly with an amphiphilic boundary
     condition \eqref{eq:bcs}(a) results a bilayer pattern shielding
     the hydrophobic core (yellow, $u > 0$) from the aqueous phase (blue, $u = 0$).
     Row (b) shows particles with a hydrophobic intensity that is
     greater on one side of the particle (magenta) than the other (yellow).
     In row (c), green is for $u < 0$, yellow is for $u > 0$, and blue is for $u = 0$.
-    Particles orient like sides to form a checkerboard pattern.
+    Particles orient like sides to form a checkerboard pattern.\\
   }
 \end{figure}
 
@@ -278,19 +282,35 @@ energy minimality and allows each particle to simultaneously coordinate
 its head with the head of three other particles and its tail with the
 tail of three other particles. 
 
+\begin{wrapfigure}[14]{l}{2in}
+  \vspace{-4pt}
+  \centering
+  \includegraphics[width=2in]{figures/SpecificAim1/OrderPDFs.jpg} 
+  \vspace{-20pt}
+  \caption{\footnotesize
+    \label{fig:OrderPDFs}
+    Probability density functions for
+    relative orientation of nearby particles
+    for the data in 
+    Figure~\ref{fig:self-assembly}, $t = t_{\text{final}}$.
+  }
+\end{wrapfigure}
 The ultimate goal is to use numerical simulations to aid
-the syntheses soft matter materials.
-Applications in this area include cargo-carrying capacity, 
-catalytic activity, or stimuli-responsive shape-change to amplify colloid
-utility for a wide range of  spanning environmental remediation to drug
-delivery \cite{McBr21, HaBr20}.
+the syntheses of soft matter materials.
 Here, mathematical models like the kind we propose are crucial
 because the model parameters control particle surface properties independently, 
 whereas these properties are often difficult to decouple in experiment
 ~\cite{Bradley2016,Mallory2017,Bradley2017}.
-
-One challenge is translating phenomenological parameters
-into measurable quantities.  For example, Janus particles
+The ability to translate phenomenological parameters
+into measurable quantities is important. 
+For example, Figure~\ref{fig:OrderPDFs} plots
+the probability density functions for
+relative orientation of nearby particles.
+The single peak and broad tails for the blue curve indicates a bilayer structure.
+The bimodal red curve indicates multilamellar monolayers. Finally,
+The yellow distribution has peaks at $\pm 45^{\circ}$ 
+indicating a checkboard pattern. 
+As another example, Janus particles
 with uniform surface properties are costly or difficult to
 manufacture.  Thus, we can replace the ideal boundary
 conditions \eqref{eq:bcs} with a more realistic one like
@@ -337,7 +357,7 @@ tetrahadral water network found at hydrophobic surfaces.
 Figure \ref{fig:CA}(a) illustrates a double-well potential
 and Specific Aim 2 describes the numerical implementation issues.
 
-\begin{wrapfigure}[28]{l}{1.8in}
+\begin{wrapfigure}[29]{l}{1.8in}
   \vspace{-4pt}
   \centering
   \input{figures/doublewell.tikz} 
@@ -359,7 +379,16 @@ curvature~\cite{Du05} and Gaussian curvature energy~\cite{DuEuler}, as
 well as energetic variational approaches to coupling membrane elasticity
 to fluids~\cite{QiangDu09}.
 
-The key innovation is that when particles are
+The double-well formulation can potentially 
+explain hydrophobic interaction over the full distance
+regime~\cite{Lum1999, Lin2005, Meyer2006, Ducker2016}.
+Motivated by capillary wetting, Gerhard
+Gompper introduced the double-well model for one-dimensional
+hydrophobic attraction \cite{GoHaKo94}.
+The results improved on previous work~\cite{ErLjCl89,MaRa76},
+but a realistic model of hydrophobic effect 
+probably involves particle shapes in addition to distances of separation.
+The key innovation in the model we propose is that when particles are
 well-separated, the energetic cost for filling the interstitial region
 with $u_0$-phase water is prohibitive and there is a phase shift from
 the $u_0$ to $u_1$ water order---the attraction landscape is more or
@@ -368,16 +397,7 @@ are proximal, it becomes energetically favorable to coalesce
 $u_0$-phases. This introduces a line tension for the phase transition
 which is an effect not present in the one-dimensional model. 
 
-The double-well formulation can potentially 
-explain hydrophobic interaction over the full distance
-regime~\cite{Lum1999, Lin2005, Meyer2006, Ducker2016}.
-Motivated by capillary wetting, Gerhard
-Gompper introduced the double-well model for one-dimensional hydrophobic
-attraction \cite{GoHaKo94}.
-The results improved on previous work~\cite{ErLjCl89,MaRa76},
-but the realistic hydrophobic effect is more
-complicated and may involve higher-dimensional geometric features. 
-Some of the model parameters directly
+Some of the model parameters connect directly
 %connect to long-range decay lengths and energy cost of creating
 %hydrophobic-water interfaces with established ranges of
 to well-established experimental values. Other
@@ -400,9 +420,8 @@ simulate colloidal suspensions.
 %one-dimensional theoretical work
 
 
-\todo[inline]{Below needs citation and more solid explanation}
-Other approaches will be required if the modified phenomenological
-theory does not recreate the measured force curves.
+Other approaches may be required if the modified phenomenological
+theory does not recreate measurements.
 One such approach is to consider Gaussian fluctuation. Here, we expand
 the free energy
 functional around the saddle point solution. The fluctuation energy
@@ -410,6 +429,7 @@ then involves calculation of the eigenfunctions of the second variation
 of the free energy. This accounts for the fact that experimental
 measurements are carried out at finite temperatures, where thermal
 fluctuations should ideally also be considered. 
+\todo[inline]{Above, needs citation and more solid explanation}
 
 %
 % The following commented out Nov 6, 2021.
