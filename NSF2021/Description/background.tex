@@ -10,18 +10,18 @@ Yuan-Nan Young (PI, New Jersey Institute of Technology)}
 %The goal of this collaborative proposal is to use mathematical modeling
 %and numerical simulations to investigate the dynamic self-assembly of
 %amphiphilic particles interacting via hydrophobic forces in solvent.
-\hl{This collaborative proposal aims to advance
+This collaborative proposal aims to advance
 the mathematical modeling and numerical simulation
 of dynamic self-assembly of amphiphilic particles interacting
-via hydrophobic forces in solvent.}
+via hydrophobic forces in solvent.
 Amphiphilic particles such as lipid molecules possess both hydrophobic
 and hydrophilic structures. In a viscous solvent they self-assemble into
 meso-/macroscopic structures such as micelles and bilayers of lipids to
 shield their hydrophobic surfaces from contact with the solvent
 molecules e.g., waters. Such self-assembly of amphiphiles via hydrophobic
 forces is ubiquitous in biology~\cite{Israelachvili1954},
-and has been a major source of nonspecific interactions between
-nanoparticles in soft matter~\cite{Sanchez-IglesiasEtAl2012_ACSNano,
+and has been a major source of nonspecific interactions 
+in soft matter~\cite{Sanchez-IglesiasEtAl2012_ACSNano,
 AltantzisEtAl2013_PSC, XieYangLuEtAl2020_COCIS}. 
 %The proposed research aims to provide fundamental understanding of the
 %self-assembly dynamics of amphiphilic particles so to design smart
@@ -82,7 +82,7 @@ Janus particles are typically spherical particles with a biphasic
 material label on either hemisphere \cite{CaFaRaVe89,Gaetal13,Mallory2017,HaBr20,McBr21}.
 Based on
 preliminary results (\S\ref{sec:preliminary_work}), the PIs propose to
-extend this HAP model to offer a general methodology that leads
+extend this HAP model as a general methodology that leads
 to new mathematical ideas and efficient numerical methods.
 
 \subsection{Hydrophobic attraction}
@@ -156,7 +156,7 @@ that is a factor of three lower than the value derived from interfacial
 tension measurements. Only recently was an explanation for this
 discrepancy provided~\cite{Jackson2016}.
 
-Whatever the case may be, the continuum approache to water structure
+The continuum approach to water structure
 that we present here is justified
 \textit{a posteriori} by the agreement between theory and experiment.
 Researchers have used Mar\v{c}elja's theory to calculate
@@ -175,25 +175,73 @@ of the hydrophobic attraction potential theory are compatible with
 experimental measurements and may closely mirror the reality of
 the physical process at a molecular scale~\cite{FrRoPi17, Fretal21}.
 
-The HAP approach is both a novel formalism and conceptual advance.
-The PIs' previous work has derived the bilayer structure
-and elastic energies from course-grained amphiphilic particles
-\cite{Fu2018_SIAM,FuQuRyYo20}, rather than assuming
-elastic moduli, for example.
+The HAP is a conceptual advance for modeling bilayer membranes.  
+Continuum elastic energies of membrane assume 
+an energy density that depends quadratically on the bilayer strain 
 \cite{Hamm2000,TerziDeserno17, PhysRevE.102.042406}.
-\hl{The granularity of protiens and topological changes, for example,
-that are built into the HAP model can only be modeled by
-continuum methods that assume continuous mathematical surfaces
-with great difficulty}
-\cite{DuLiuWang2004_JCP,BibenKassnerMisbah2005_PRE,DoyeuxGuyotChabannesEtAl2013_JCAM, Shravan09,Rahimian15,KimLai2010_JCP,KimLai2012_PRE,HuLaiSeolEtAl2016_JCP,Bartels,Peng13,RyKlYaCo16,Sinha15, Du05,QiangDu08,Lowengrub13, Hu,Hu13, KimLai2010_JCP,doi:10.1063/5.0009734, LiAn-Chang16,doi:10.1098/rspa.2012.0505, doi:10.1137/130941432, Feetzl18,doi:10.1137/16M1108406}.
-%Assuming the location of pore nucleation,
-%for example, is required in traditional continuum but is yet another
-%output of our model. 
-Finally, the methodology allows
+The coefficients of the continuum ansatz correspond
+to experimentally measured elastic moduli \cite{Nagle17, Nagle17-2, NAGLE2000159}.
+The HAP approach
+can potentially explain membrane properties from first principles
+because it derives elastic energies assuming parameters
+for the water structure and particle shape 
+\cite{
+Fu2018_SIAM,
+FuQuRyYo20,
+doi:10.1063/5.0009734,
+LiAn-Chang16}.
+Immersed boundary and boundary integral
+are highly effective for modeling intact, giant unilamellar vesicles (GUV)
+because they use relatively large time-step sizes and mesh sizes
+\cite{
+Shravan09,
+Rahimian15,
+KimLai2010_JCP,
+KimLai2012_PRE,
+HuLaiSeolEtAl2016_JCP,
+Bartels,
+Peng13,
+RyKlYaCo16,
+Sinha15,
+Lowengrub13,
+Hu,
+Hu13}.
+Conversely, the number of course-grained
+particles needed to track a GUV
+in the HAP formalism is relatively large.
+For microscopic process like fusion, however, 
+membrane deformations occur at a length scale comparable to the thickness
+of the membrane \cite{Kuzmin7235,Aeffner2012,KoKo2002}. 
+The small deformation assumption of continuum theory
+no longer holds \cite{Hamm2000,TerziDeserno17, PhysRevE.102.042406}.
+The HAP theory does encode membrane thickness through particle diameter, 
+and it is comparatively straightforward to account for
+protiens and lipid mixtures
+by including several particle species.  Any ruptures or insertions
+occur self-consistently in the HAP formulation. 
+Phase-field and level-set methods allow for topological changes
+but are computationally expensive because
+they discritize the entire fluid and membrane region
+\cite{
+DuLiuWang2004_JCP,
+BibenKassnerMisbah2005_PRE,
+DoyeuxGuyotChabannesEtAl2013_JCAM,
+Du05,
+QiangDu08,
+doi:10.1098/rspa.2012.0505,
+doi:10.1137/130941432,
+Feetzl18,
+doi:10.1137/16M1108406}.
+In contrast, the HAP methodology allows
 evolution equations to be solved
 using integral equation methods that when optimized have
 linear or near-linear computational complexity in the number of particles 
 \cite{fmm1, fmm2, fmm3, fmm4, fmm5, fmm6, fmm7, fmm8}.
+
+
+%Assuming the location of pore nucleation,
+%for example, is required in traditional continuum but is yet another
+%output of our model. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %

@@ -81,11 +81,11 @@ balance the imposed forces.
 The hydrophobic interactions come from the tendency of particles to
 minimize the free energy of the structure of the surrounding water
 molecules. The free energy functional takes the form 
-\begin{align*}
+\begin{equation}
 \label{eq:free_energy}
   F[u] = C \int_{\Omega} \left(\rho |\nabla u|^2 + \rho^{-1} f(u)\right)
   \,d\xx,
-\end{align*}
+\end{equation}
 where $u$ is an order parameter for the structure of water, $\rho$ is a
 decay length, $C$ is a constant, and $f(u)$ is a potential.
 Hydrogen-bond persistence times are on the order of picoseconds
@@ -149,7 +149,7 @@ are required to calculate trajectories accurately.
 Furthermore, the domain is unbounded and care must be taken 
 in capturing the far-field boundary conditions correctly. 
 Finally, the numerical routine must handle large system sizes
-efficiently when the number of particles is large. 
+efficiently.
 
 %and
 %\begin{equation}
@@ -238,21 +238,46 @@ as a consequence of the interfacial tension of exposed particle
 heads~\cite{Huetal19, deMeetal21}. 
 
 
+\begin{wrapfigure}[16]{l}{2in}
+  \vspace{-4pt}
+  \centering
+  \includegraphics[width=2in]{figures/SpecificAim1/OrderPDFs.jpg} 
+  \vspace{-20pt}
+  \caption{\footnotesize
+    \label{fig:OrderPDFs}
+    Probability density functions for
+    relative orientation of nearby particles
+    for the data in 
+    Figure~\ref{fig:self-assembly}, $t = t_{\text{final}}$.
+  }
+\end{wrapfigure}
+Finally, boundary condition \eqref{eq:bcs}(c) models 
+a particle whose head surface repels the tail surface as proposed in
+\cite{MaRa76, Ma77}.
+The particles initially form chains with their directors perpendicular to the
+length of the chain. The equilibrium structure
+resembles a checkerboard pattern
+where each particle coordinates
+its head with the head of three other particles and its tail with the
+tail of three other particles Figure~\ref{fig:self-assembly}(c).
+
+
+
 \begin{figure}[h!]
   \begin{center}
-    \begin{tabular}{m{0.1cm}m{1.9in}m{1.9in}m{1.9in}}            
+    \begin{tabular}{m{0.1cm}m{1.8in}m{1.8in}m{1.8in}}            
       (a)
-    &\includegraphics[width=1.9in]{figures/SpecificAim1/N100B1.jpg}
-    &\includegraphics[width=1.9in]{figures/SpecificAim1/N100B2.jpg}
-     &\includegraphics[width=1.9in]{figures/SpecificAim1/N100B3.jpg}    \\
+    &\includegraphics[width=1.8in]{figures/SpecificAim1/N100B1.jpg}
+    &\includegraphics[width=1.8in]{figures/SpecificAim1/N100B2.jpg}
+     &\includegraphics[width=1.8in]{figures/SpecificAim1/N100B3.jpg}    \\
      (b)
-    &\includegraphics[width=1.9in]{figures/SpecificAim1/N100C1.jpg}
-    &\includegraphics[width=1.9in]{figures/SpecificAim1/N100C2.jpg}
-      &\includegraphics[width=1.9in]{figures/SpecificAim1/N100C3.jpg}    \\
+    &\includegraphics[width=1.8in]{figures/SpecificAim1/N100C1.jpg}
+    &\includegraphics[width=1.8in]{figures/SpecificAim1/N100C2.jpg}
+      &\includegraphics[width=1.8in]{figures/SpecificAim1/N100C3.jpg}    \\
     (c)
-      &\includegraphics[width=1.9in]{figures/SpecificAim1/N100A1.jpg}
-      &\includegraphics[width=1.9in]{figures/SpecificAim1/N100A2.jpg}
-      &\includegraphics[width=1.9in]{figures/SpecificAim1/N100A3.jpg}    \\
+      &\includegraphics[width=1.8in]{figures/SpecificAim1/N100A1.jpg}
+      &\includegraphics[width=1.8in]{figures/SpecificAim1/N100A2.jpg}
+      &\includegraphics[width=1.8in]{figures/SpecificAim1/N100A3.jpg}    \\
       &\multicolumn{1}{c}{$t = 0$}
       &\multicolumn{1}{c}{intermediate time}
       &\multicolumn{1}{c}{$t = t_{\text{final}}$}
@@ -272,30 +297,6 @@ heads~\cite{Huetal19, deMeetal21}.
     Particles orient like sides to form a checkerboard pattern.\\
   }
 \end{figure}
-
-\begin{wrapfigure}[14]{l}{2in}
-  \vspace{-4pt}
-  \centering
-  \includegraphics[width=2in]{figures/SpecificAim1/OrderPDFs.jpg} 
-  \vspace{-20pt}
-  \caption{\footnotesize
-    \label{fig:OrderPDFs}
-    Probability density functions for
-    relative orientation of nearby particles
-    for the data in 
-    Figure~\ref{fig:self-assembly}, $t = t_{\text{final}}$.
-  }
-\end{wrapfigure}
-Finally, boundary condition \eqref{eq:bcs}(c) models 
-a \hl{particle with oppositelly charged ends} making the 
-particle heads repel the tails \cite{MaRa76, Ma77}.
-The particles initially form chains with their directors perpendicular to the
-length of the chain. The equilibrium structure consists of particles
-positioned on a square grid in a checkerboard pattern
-Figure~\ref{fig:self-assembly}(c). This patterning is a consequence of
-energy minimality and allows each particle to simultaneously coordinate
-its head with the head of three other particles and its tail with the
-tail of three other particles. 
 
 The ultimate goal is to use numerical simulations to aid
 the syntheses of soft matter materials.
@@ -329,11 +330,10 @@ director angle $\theta^0_i$ and Bessel function $I_0$ of order zero~\cite{Fisher
 The square of this function is asymptotic to a normal distribution with variance
 like $1/\kappa_i$, $\kappa_i \to \infty$. We can replicated surface imperfections
 by randomizing the concentration $\kappa_i$ and particle radii $r_i$,
-for example. \hl{Collaboration with experimental groups will
-use numerical methods to predict parameter regimes 
-to control particle-particle interactions.}
-In Specific Aim 3, we discuss how to include ions and surface charge. 
-
+for example.
+%\hl{Collaboration with experimental groups will
+%use numerical methods to predict parameter regimes 
+%to control particle-particle interactions.}
 
 
 %\begin{wrapfigure}[14]{l}{0.5\textwidth}
@@ -357,8 +357,8 @@ the mean number of nearest neighbors
 per water molecule \cite{GoHaKo94}.
 The value $u_0$ gives the absolute minimum in the bulk
 and $u_1$ gives a local minimum at hydrophobic surfaces.
-Figure \ref{fig:CA}(a) illustrates a double-well potential
-and Specific Aim 2 describes the numerical implementation issues.
+Figure \ref{fig:CA}(a) illustrates a double-well potential.
+
 
 \begin{wrapfigure}[29]{l}{1.8in}
   \vspace{-4pt}
@@ -422,17 +422,27 @@ our simulations.
 %simulations can replicate the experimental setup better than prior,
 %one-dimensional theoretical work
 
+Specific Aim 2 describes how we plan to numerically deal with nonlinear
+equations. Once we have established implementations, 
+we can consider further generalizations of 
+\eqref{eq:free_energy} to the Oseen-Frank energy for a nematic liquid crystal
+~\cite{doi:10.1137/15M103844X, Bartels,AIHPA_1997__66_4_411_0,
+ deGennesProst,HaKiLi86,Virga}.  
+For now, Specific Aim 3 describes in detail how we plan to handle
+charges and ions in solution.
 
-Other approaches may be required if the modified phenomenological
-theory does not recreate measurements.
-One such approach is to consider Gaussian fluctuation. Here, we expand
-the free energy
-functional around the saddle point solution. The fluctuation energy
-then involves calculation of the eigenfunctions of the second variation
-of the free energy. This accounts for the fact that experimental
-measurements are carried out at finite temperatures, where thermal
-fluctuations should ideally also be considered. 
-\todo[inline]{Above, needs citation and more solid explanation}
+
+
+%Other approaches may be required if the modified phenomenological
+%theory does not recreate measurements.
+%One such approach is to consider Gaussian fluctuation. Here, we expand
+%the free energy
+%functional around the saddle point solution. The fluctuation energy
+%then involves calculation of the eigenfunctions of the second variation
+%of the free energy. This accounts for the fact that experimental
+%measurements are carried out at finite temperatures, where thermal
+%fluctuations should ideally also be considered. 
+%\todo[inline]{Above, needs citation and more solid explanation}
 
 %
 % The following commented out Nov 6, 2021.
