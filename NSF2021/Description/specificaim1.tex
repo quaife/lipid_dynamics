@@ -35,8 +35,9 @@ interactions and hydrophobic interactions.
 %The formulation prevents particle collisions through excluded volume
 %potentials. 
 The hydrodynamic interactions come from the mobility problem for rigid
-particles immersed in a viscous solvent, which we solve with a
-second-order Adams-Bashforth method. Assuming inertial terms are
+particles immersed in a viscous solvent. We then use a
+second-order Adams-Bashforth method to update the particle configuration.
+Assuming inertial terms are
 negligible, the particle motion is goverened by the Stokes equations
 \begin{subequations}
   \label{eq:stokes}
@@ -119,7 +120,7 @@ stress
   \label{eq:stress}
 \mathbf{T}
 = C \left[ \rho^{-1} f(u) \mathbf{I}
-  + \rho \left(|\nabla u|^2 \mathbf{I} - \nabla u \nabla u^T\right)\right].
+  + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right].
 \end{align}
 The imposed forces and torques come from the integration of $\mathbf{T}$
 along the particle boundary.
@@ -128,7 +129,7 @@ to semilinear elliptic equation \eqref{eq:SL}.
 Solving for the translational and rotational velocities gives the
 particle evolution.
 
-The density~\eqref{eq:stress} was first
+The stress~\eqref{eq:stress} was first
 introduced by~\cite{Fu2018_SIAM} and is the higher-dimensional
 generalization of disjoining pressure \cite{MaRa76, ErLjCl89, KoNa15,
 Nagle17, KUZMIN2005}. It is the mathematical ingredient responsible for
@@ -143,7 +144,7 @@ The formulation presents a number of mathematical and numerical
 challenges. For one, the domain is constantly changing so that a new
 boundary value problem must be solved at each time step. The particle
 boundaries are nearly touching and high-order numerical
-schemes and adaptively chosen time step sizes
+schemes and adaptively chosen time-step sizes
 are required to calculate trajectories accurately.
 Furthermore, the domain is unbounded and care must be taken 
 in capturing the far-field boundary conditions correctly. 
@@ -185,11 +186,11 @@ on particle $\Gamma_i$:
 \end{equation}
   The number $\theta_i(\xx)$ is the angle formed by the position $\xx$, the
 particle center $\aa_i$, and the particle director $\dd_i$ (Figure \ref{fig:flow_map}).
-The normalizations, e.g. $(\pi r)^{-1/2}$, provide a uniform
+The normalizations e.g., $(\pi r)^{-1/2}$, provide a uniform
 surface energy $\int_{\Gamma_i} g^2 \,ds = 1$ for circular particles
 of radius $r$. 
 The cases (b) and (c) are obtained by applying a vertical shift
-and scaling to case (a), which amounts to changing one line of code. 
+and scaling to case (a), see Figure \ref{fig:bcs}.
 Using this setup, we simulate the dynamics of 100 particles with random
 initial position and orientation.
 
@@ -208,23 +209,26 @@ boundary condition produces two-dimensional micelles and
 bilayers~\cite{Fu2018_SIAM}, as illustrated in 
 Figure~\ref{fig:self-assembly}(a).
 
-\begin{wrapfigure}[11]{r}{0.65\textwidth}
-  \vspace{-10pt}
+\begin{wrapfigure}[9]{r}{0.65\textwidth}
+  \vspace{-20pt}
+  \begin{center}
   \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPA.jpg}
   \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPB.jpg}
-  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPC.jpg}  
+  \includegraphics[width=0.2\textwidth]{figures/SpecificAim1/LPC.jpg}
+  \end{center}
+  \vspace{-20pt}  
   \caption{\label{fig:bcs} Boundary conditions characterize the water
     structure at the particle interface: an amphiphilic particle (left),
     a hydrophobic
   particle with anisotropic intensity (middle), a water structure with
-  plus/minus polarity (right). The dashed curve is the boundary of the
-  disk and the arrow is its director.}
+  positive/negative charge (right). The dashed curve is the boundary of the
+  disk and the arrow is its director for each particle.}
 \end{wrapfigure}
 
 Multilamelar bilayers arise when both sides of the particle
 are hydrophobic (Figure~\ref{fig:self-assembly}(b)).
 The boundary condition \eqref{eq:bcs}(b) 
-gives a particle with a hydrophobic intensity three times as great
+gives a particle with a hydrophobic intensity that is greater
 on the $\theta_i = 0$ side than on the $\theta_i = \pi$ side.
 The initial self-assembly is similar to that in case (a).
 The difference arises in the long-time dynamics where the bilayers
@@ -257,11 +261,10 @@ heads~\cite{Huetal19, deMeetal21}.
   \vspace{-20pt}
   \caption{\footnotesize
     \label{fig:self-assembly}
-    Using the same initial configuration,
-    particles self-assemble into distinct morphologies based
-    on the boundary condition $g.$ 
+    Rows (a)-(c) have the same initial configuration
+    but have different boundary conditions $g.$ 
     In row (a), self-assembly with an amphiphilic boundary
-    condition \eqref{eq:bcs}(a) results a bilayer pattern shielding
+    condition \eqref{eq:bcs}(a) results in a bilayer pattern shielding
     the hydrophobic core (yellow, $u > 0$) from the aqueous phase (blue, $u = 0$).
     Row (b) shows particles with a hydrophobic intensity that is
     greater on one side of the particle (magenta) than the other (yellow).
@@ -269,18 +272,6 @@ heads~\cite{Huetal19, deMeetal21}.
     Particles orient like sides to form a checkerboard pattern.\\
   }
 \end{figure}
-
-\todo[inline]{Rationalize and citations for following} 
-Finally, boundary condition \eqref{eq:bcs}(c) models 
-a particle with oppositelly charged ends making the 
-particle heads repel the tails \cite{MaRa76, Ma77}.
-The particles initially form chains with their directors perpendicular to the
-length of the chain. The equilibrium structure consists of particles
-positioned on a square grid in a checkerboard pattern
-Figure~\ref{fig:self-assembly}(c). This patterning is a consequence of
-energy minimality and allows each particle to simultaneously coordinate
-its head with the head of three other particles and its tail with the
-tail of three other particles. 
 
 \begin{wrapfigure}[14]{l}{2in}
   \vspace{-4pt}
@@ -295,24 +286,37 @@ tail of three other particles.
     Figure~\ref{fig:self-assembly}, $t = t_{\text{final}}$.
   }
 \end{wrapfigure}
+Finally, boundary condition \eqref{eq:bcs}(c) models 
+a \hl{particle with oppositelly charged ends} making the 
+particle heads repel the tails \cite{MaRa76, Ma77}.
+The particles initially form chains with their directors perpendicular to the
+length of the chain. The equilibrium structure consists of particles
+positioned on a square grid in a checkerboard pattern
+Figure~\ref{fig:self-assembly}(c). This patterning is a consequence of
+energy minimality and allows each particle to simultaneously coordinate
+its head with the head of three other particles and its tail with the
+tail of three other particles. 
+
 The ultimate goal is to use numerical simulations to aid
 the syntheses of soft matter materials.
 Here, mathematical models like the kind we propose are crucial
-because the model parameters control particle surface properties independently, 
-whereas these properties are often difficult to decouple in experiment
+because the model parameters control surface properties independently, 
+which can be difficult to accomplish experimentaly 
 ~\cite{Bradley2016,Mallory2017,Bradley2017}.
 The ability to translate phenomenological parameters
 into measurable quantities is important. 
 For example, Figure~\ref{fig:OrderPDFs} plots
-the probability density functions for
-relative orientation of nearby particles.
-The single peak and broad tails for the blue curve indicates a bilayer structure.
-The bimodal red curve indicates multilamellar monolayers. Finally,
-The yellow distribution has peaks at $\pm 45^{\circ}$ 
-indicating a checkboard pattern. 
-As another example, Janus particles
-with uniform surface properties are costly or difficult to
-manufacture.  Thus, we can replace the ideal boundary
+the probability density function for 
+relative orientation of adjacent particles
+for the three boundary condition cases:
+(a) is unimodal with a peak at $\theta = 0$,
+(b) is bimodal with peaks at $\theta = 0$ and $\theta = \pi$,
+and (c) is multimodal with peaks at $\theta = 0$ and $\theta = \pm \pi/2$.
+This kind of information can be used as an indicator
+of the collective morphology. As another example,
+it is costly or difficult to manufacture
+Janus particles with uniform shape.
+Thus, we can replace the idealistic boundary
 conditions \eqref{eq:bcs} with a more realistic one like
 \begin{equation}
 \label{eq:vonMises}
@@ -322,12 +326,12 @@ conditions \eqref{eq:bcs} with a more realistic one like
 \end{equation}
 Here, the term under the square root is the von Mises distribution with
 director angle $\theta^0_i$ and Bessel function $I_0$ of order zero~\cite{Fisher_1993}.
-The square of this function behaves as a normal distribution with variance
-like $1/\kappa_i$. We can replicated surface imperfections
+The square of this function is asymptotic to a normal distribution with variance
+like $1/\kappa_i$, $\kappa_i \to \infty$. We can replicated surface imperfections
 by randomizing the concentration $\kappa_i$ and particle radii $r_i$,
-for example. Collaboration with experimental groups will
+for example. \hl{Collaboration with experimental groups will
 use numerical methods to predict parameter regimes 
-to control particle-particle interactions.
+to control particle-particle interactions.}
 In Specific Aim 3, we discuss how to include ions and surface charge. 
 
 
@@ -344,16 +348,15 @@ In Specific Aim 3, we discuss how to include ions and surface charge.
 %\end{wrapfigure}
 
 
-\subsubsection{Hydrophobic forces as capillary wetting}
-A natural generalization of the linear response potential $f(u) = u^2$
-is a fourth-order, tilted double-well potential
-$f(u) = a(u-u_0)^2(u-u_1)^2 + bu$.
+\subsubsection{Hydrophobic forces with double-well potential}
+A natural generalization of the potential $f(u) = u^2$
+is a fourth-order, asymmetric double-well potential
+$f(u) = a(u-u_0)^2(u-u_1)^2 + c(u-u_0)^2 + bu$.
 Here, the order parameter $u$ is related to
 the mean number of nearest neighbors
 per water molecule \cite{GoHaKo94}.
 The value $u_0$ gives the absolute minimum in the bulk
-and $u_1$ gives a local minimum for the
-tetrahadral water network found at hydrophobic surfaces.
+and $u_1$ gives a local minimum at hydrophobic surfaces.
 Figure \ref{fig:CA}(a) illustrates a double-well potential
 and Specific Aim 2 describes the numerical implementation issues.
 
@@ -371,7 +374,7 @@ equation. The Allen-Cahn equation is used in phase field formulations of
 immisible fluids, for example.
 PI BQ has developed fast integral equation solvers for
 the Allen-Cahn equation \cite{kro-qua2011, qua2011}.
-PI RR and colaborators launched the
+PI RR has experience in the 
 simulation and asymptotic analysis of phase field functionals of
 membrane elastic energy, devising functionals for for the squared mean
 curvature (Willmore) energy~\cite{0951-7715-18-3-016}, spontaneous
@@ -390,11 +393,11 @@ but a realistic model of hydrophobic effect
 probably involves particle shapes in addition to distances of separation.
 The key innovation in the model we propose is that when particles are
 well-separated, the energetic cost for filling the interstitial region
-with $u_0$-phase water is prohibitive and there is a phase shift from
+with $u_1$-phase water is prohibitive and there is a phase shift from
 the $u_0$ to $u_1$ water order---the attraction landscape is more or
 less identical to the linear response theory. Conversely, when particles
 are proximal, it becomes energetically favorable to coalesce
-$u_0$-phases. This introduces a line tension for the phase transition
+$u_1$-phases. This introduces a line tension for the phase transition
 which is an effect not present in the one-dimensional model. 
 
 Some of the model parameters connect directly
@@ -403,8 +406,8 @@ Some of the model parameters connect directly
 to well-established experimental values. Other
 parameters, like the details of the well structure,
 are less well-understood and must be fit to the measured data.
-This improved model will allow us to more accurately 
-simulate colloidal suspensions.
+This improved model will afford greater physical accuracy to
+our simulations.
 %The experimental data on hydrophobic attraction between 
 %is well-established and the literature contains data for a number of
 %solvents and hydrocarbon species.

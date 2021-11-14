@@ -11,7 +11,7 @@ Reynolds2019, Cho2010}. Hydrodynamic effects cannot be ignored since
 they, like for the rates of biological functions like pore
 dynamics~\cite{RYHAM20112929}, set the rate of dissipation. In Specific
 Aim 2, we propose novel and efficient high-order numerical methods to
-simulate dynamic assembly of particles under HAP potential in a viscous
+simulate dynamic assembly of particles under the HAP in a viscous
 solvent. As described in~\eqref{eq:stokes} and illustrated in
 Figure~\ref{fig:flow_map}, the solvent phase is modeled by the Stokes
 equations for an incompressible, viscous fluid, and these equations are
@@ -59,39 +59,40 @@ The PIs have developed numerical methods to solve~\eqref{eq:SL} when
 $f(u) = u^2$---this choice results in the linear screened Laplace
 equation. For a more general $f$, such as a double well potential, we
 will interpret the solution of~\eqref{eq:SL} as the root finding problem
+for
 \begin{align}
   \label{eq:F}
-  J[u] = -\rho^2 \Delta u + f'(u).
+  J[u] = -\rho^2 \Delta u + \tfrac{1}{2}f'(u).
 \end{align}
 This non-linear PDE will be solved with Newton's method
 \begin{align*}
   u^{N+1} = u^{N} - \alpha (dJ^N)^{-1} J(u^N),
 \end{align*}
-where $dJ^N = -\rho^2 \Delta + f''(u^N)$ is the Fr\'{e}chet derivative
+where $dJ^N = -\rho^2 \Delta + \tfrac{1}{2}f''(u^N)$ is the Fr\'{e}chet derivative
 of $F$, and $\alpha$ is the step size which will be determined using
 backtracking. As expected, the biggest computational challenge is
-solving $- \rho^2 \Delta v + f''(u^{N}) v = J[u^N]$. Solving this
+solving $- \rho^2 \Delta v + \tfrac{1}{2}f''(u^{N}) v = J[u^N]$. Solving this
 variable coefficient PDE with an integral equation is challenging since
 a fundamental solution is not readily available. We propose to instead
 use an inexact Newton's method where $dJ^{-1}$ is defined in terms of
-the piecewise quadratic approximation
+the continuous, piecewise quadratic approximation
 \begin{align*}
   f(u) \approx \tilde{f}(u) = bu + \begin{cases}
     a(u - u_0)^2, &\mbox{if } u \leq (u_0 + u_1)/2, \\
-    (u - u_1)^2, &\mbox{if } u > (u_0 + u_1)/2.
+    (u - u_1)^2 + \tfrac{1}{4}(a-1)(u0-u1)^2 , &\mbox{if } u > (u_0 + u_1)/2,
   \end{cases}
 \end{align*}
 and the resulting inexact Newton's method requires solving the piecewise
 constant PDE
 \begin{align}
   \label{eq:screenedPoisson}
-  -\rho^2 \Delta v + \tilde{f}''(u^{N})v = J[u^N],
+  -\rho^2 \Delta v + \tfrac{1}{2}\tilde{f}''(u^{N})v = J[u^N],
 \end{align}
 which is a screened Poisson equation with piecewise a constant screening
 coefficient. We test the efficacy of exact and inexact Newton's method
 applied to~\eqref{eq:F} in $(0,1)$ by discretizing $dJ$ with a
 second-order finite difference method. The choice of parameters $a$,
-$b$, $U_0$, and $U_1$ result in the double well potential illustrated in
+$b$, $u_0$, and $u_1$ result in the double well potential illustrated in
 Figure~\ref{fig:CA}(a), and both the exact and inexact Newton's methods
 converge to the solution in Figure~\ref{fig:CA}(b).
 Figure~\ref{fig:CA}(c) shows the max norm of the residual at each Newton
@@ -111,14 +112,14 @@ dimensions.
 %  and inexact Newton's methods.}
 %\end{wrapfigure}
 Having demonstrated that the inexact Newton method converges in one
-dimension, it will be coupled with IE formulations to to
+dimension, it will be coupled with IE formulations to 
 solve~\eqref{eq:SL} in two and three dimensions. We first partition
 $\Omega$ into $\Omega_0 = \{\xx \in \Omega \:|\: u(\xx) < (u_0 +
 u_1)/2\}$ and $\Omega_1 = \{\xx \in \Omega \:|\: u(\xx) > (u_0 +
 u_1)/2\}$, and we let $\Lambda = \{\xx \in \Omega \:|\: u(\xx) = (u_0 +
 u_1)/2 \}$ be their common boundary, and we let $G_0$ be the fundamental
-solution of $(-\rho^2 \Delta - 2a)$ and $G_1$ be the fundamental
-solution of $(-\rho^2 \Delta + 2)$. Then, the solution
+\hl{solution of $(-\rho^2 \Delta + a)$ and $G_1$ be the fundamental
+solution of $(-\rho^2 \Delta + 1)$. Then, the solution}
 of~\eqref{eq:screenedPoisson} can be written as $u = u^P + u^H$ where
 $u^P$ is a volume potential and $u^H$ is a layer potential. The volume
 potential is
@@ -143,7 +144,7 @@ The density functions $\sigma$, $\eta_0$, and $\eta_1$ are determined so
 that $u = u^P + u^H$ satisfies the hydrophobic boundary condition on
 $\Gamma = \cup_i \Gamma_i$, and that it is continuous and differentiable
 across $\Lambda$. This approach for using IEs to solve elliptic PDEs
-with with piecewise constant coefficients has succesfully been used in
+with piecewise constant coefficients has succesfully been used in
 other application such as scattering~\cite{hyu-bar2014,
 che-cho-cai2018}.
 
