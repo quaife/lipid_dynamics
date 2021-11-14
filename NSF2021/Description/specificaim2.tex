@@ -31,26 +31,27 @@ and hydrophobic stress balance.
 The HAP model requires solving exterior problems for the order
 parameter~\eqref{eq:SL} and the Stokes equations~\eqref{eq:stokes}. We
 will develop methods based on combinations of volume and layer
-potentials. Numerical methods to solve these integral equations (IEs)
-have several advantages over their PDE-based counterpart: by
-construction, they satisfy far-field and mass conservation conditions;
-only $\partial\Omega$ needs to be discretized for layer potentials;
-carefully chosen IEs result in a well-conditioned linear system that is
-solved with a mesh-independent number of GMRES iterations; and
-high-order or spectral accuracy is attainable with appropriate
-quadrature methods. The PIs have demonstrated that IEs are a powerful
-tool to simulate two-dimensional suspensions of amphiphilic
+potentials, and inexact Newton's method. Numerical methods to solve
+these integral equations (IEs) have several advantages over their
+PDE-based counterpart: by construction, they satisfy far-field and mass
+conservation conditions; only $\partial\Omega$ needs to be discretized
+for layer potentials; carefully chosen IEs result in a well-conditioned
+linear system that is solved with a mesh-independent number of GMRES
+iterations; and high-order or spectral accuracy is attainable with
+appropriate quadrature methods. The PIs have demonstrated that IEs are a
+powerful tool to simulate two-dimensional suspensions of amphiphilic
 particles~\cite{Fu2018_SIAM, FuQuRyYo20}. Moreover, elements of these
 formulations have been described in three dimensions~\cite{ying_2006,
 manasthesis, rac-gre2016}. This proposal will extend the two-dimensional
 methods to more general amphiphilic particle models that
 satisfy~\eqref{eq:SL}, and all the methods can naturally be extended to
-three dimensions. \S\ref{subsec:AC} describes how the non-linear
-Allen-Cahn equation~\eqref{eq:SL} will be iteratively solved using IE
-formulations. Then, \S\ref{subsec:NumericalIssues} describes how we will
-combine preconditioning strategies with fast summation methods to
-accelerate the time to solution, and \S\ref{subsec:timeStepping}
-describes adaptive time stepping methods,
+three dimensions. These methods will be motivated by models and analysis
+developed in Specific Aims 1 and 3. \S\ref{subsec:AC} describes how the
+non-linear Allen-Cahn equation~\eqref{eq:SL} will be iteratively solved
+using an IE formulation. Then, \S\ref{subsec:NumericalIssues} describes
+how we will combine preconditioning strategies with fast summation
+methods to accelerate the time to solution, and
+\S\ref{subsec:timeStepping} describes adaptive time stepping methods.
 
 \subsubsection{Iterative methods for the Allen-Cahn HAP model}
 \label{subsec:AC}
@@ -82,8 +83,8 @@ the continuous, piecewise quadratic approximation
     (u - u_1)^2 + \tfrac{1}{4}(a-1)(u_0-u_1)^2 , &\mbox{if } u > (u_0 + u_1)/2,
   \end{cases}
 \end{align*}
-and the resulting inexact Newton's method requires solving the piecewise
-constant PDE
+where $a>0$, and the resulting inexact Newton's method requires solving
+the piecewise constant PDE
 \begin{align}
   \label{eq:screenedPoisson}
   -\rho^2 \Delta v + \tfrac{1}{2}\tilde{f}''(u^{N})v = J[u^N],
@@ -118,8 +119,8 @@ $\Omega$ into $\Omega_0 = \{\xx \in \Omega \:|\: u(\xx) < (u_0 +
 u_1)/2\}$ and $\Omega_1 = \{\xx \in \Omega \:|\: u(\xx) > (u_0 +
 u_1)/2\}$, and we let $\Lambda = \{\xx \in \Omega \:|\: u(\xx) = (u_0 +
 u_1)/2 \}$ be their common boundary, and we let $G_0$ be the fundamental
-\hl{solution of $(-\rho^2 \Delta + a)$ and $G_1$ be the fundamental
-solution of $(-\rho^2 \Delta + 1)$. Then, the solution}
+solution of $(-\rho^2 \Delta + a)$ and $G_1$ be the fundamental
+solution of $(-\rho^2 \Delta + 1)$. Then, the solution
 of~\eqref{eq:screenedPoisson} can be written as $u = u^P + u^H$ where
 $u^P$ is a volume potential and $u^H$ is a layer potential. The volume
 potential is
@@ -143,30 +144,31 @@ the boundary conditions will be enforced with the layer potentials
 The density functions $\sigma$, $\eta_0$, and $\eta_1$ are determined so
 that $u = u^P + u^H$ satisfies the hydrophobic boundary condition on
 $\Gamma = \cup_i \Gamma_i$, and that it is continuous and differentiable
-across $\Lambda$. This approach for using IEs to solve elliptic PDEs
-with piecewise constant coefficients has succesfully been used in
-other application such as scattering~\cite{hyu-bar2014,
-che-cho-cai2018}.
+across $\Lambda$. This approach of using IEs to solve elliptic PDEs with
+piecewise constant coefficients has successfully been used in other
+application such as scattering~\cite{hyu-bar2014, che-cho-cai2018}.
 
 % ----------------------------------------------------------------------
 \subsubsection{Accelerating the iterative solvers}
 \label{subsec:NumericalIssues}
 
 When solving for the density functions $\eta_0$, $\eta_1$, and $\sigma$,
-a carefully chosen IE formulation requires a mesh-independent number of
-GMRES iterations~\cite{cam-ips-kel-mey-xue1996}. Therefore, the required
-CPU time is proportional to the cost of a matrix-vector multiplication
-that can be performed in optimal or near-optimal time with the fast
-multipole method (FMM)~\cite{fmm5} and its extensions~\cite{fmm1, fmm2,
-fmm3, fmm4, fmm6, fmm7, fmm8}. PI BQ is experienced with applying FMMs
-for the Stokes equation~\cite{qua-bir2014, bys-sha-qua2020} and the
-screened Laplace equation~\cite{kro-qua2011, qua2011}. Furthermore, to
-reduce the number of GMRES iterations, preconditioning strategies such
-as the inverse Fast Multipole Method (IFMM)~\cite{cou-pou-dar2017} and
-domain decomposition~\cite{che-bir2021}. PI BQ used the IFMM to
-precondition Stokes equations~\cite{qua-cou-dar2018}. A suite of other
-preconditioners including sparse approximate inverses~\cite{che2000} and
-multigrid~\cite{hem-sch1981, sch1982} will be investigated.
+a carefully chosen IE formulation only requires a mesh-independent
+number of GMRES iterations~\cite{cam-ips-kel-mey-xue1996}. Therefore,
+the required CPU time is proportional to the cost of a matrix-vector
+multiplication that can be performed in optimal or near-optimal time
+with the fast multipole method (FMM)~\cite{fmm5} and its
+extensions~\cite{fmm1, fmm2, fmm3, fmm4, fmm6, fmm7, fmm8}. PI BQ is
+experienced with applying FMMs for the Stokes
+equation~\cite{qua-bir2014, bys-sha-qua2020} and the screened Laplace
+equation~\cite{kro-qua2011, qua2011}. Furthermore, to reduce the number
+of GMRES iterations, the efficacy of preconditioning strategies such as
+the inverse Fast Multipole Method (IFMM)~\cite{cou-pou-dar2017} and
+domain decomposition~\cite{che-bir2021} will be investigated. PI BQ used
+the IFMM to precondition Stokes equations~\cite{qua-cou-dar2018}. A
+suite of other preconditioners including sparse approximate
+inverses~\cite{che2000} and multigrid~\cite{hem-sch1981, sch1982} will
+be investigated.
 
 
 % ----------------------------------------------------------------------
@@ -187,13 +189,13 @@ adhesion in suspensions~\cite{qua-vee-you2019, kab-qua-bir2017}.
 Following this previous work, the proposed work will use a spectral
 deferred correction method~\cite{dut-gre-rok2000} since it iteratively
 applies a low-order, single-step method to achieve high-order accuracy.
-To estimate the error, at each time step, we will compute the total
-force and torque of the system which is computationally cheap and
-physically zero. PI BQ's experience is that error estimates based on
-physical constraints such as force- and torque-free conditions
-appropriately determine how the time step should be adjusted so that the
-dynamics are resolved without the computational expense of techniques
-such as embedded Runge-Kutta methods, step-doubling, and Richardson
+At each time step, we will compute the total force and torque of the
+system which is computationally cheap and physically zero, and therefore
+provides an estimate of the local truncation error. PI BQ's experience
+is that error estimates based on physical constraints, such as force-
+and torque-free conditions, appropriately determine adaptive time step
+sizes so that the dynamics are resolved without the computational
+expense of embedded Runge-Kutta methods, step-doubling, Richardson
 extrapolation.
 
 
