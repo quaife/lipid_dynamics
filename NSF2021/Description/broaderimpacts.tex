@@ -1,20 +1,19 @@
 \section{Broader Impacts}
 \label{sec:BroaderImpacts}
-
 This project aims to advance the mathematical modeling of collective
 dynamics of amphiphilic particles. The simulations use a new, yet
 intuitive, approach that accounts for important and complex systems
-that are out of reach in computational material science. These complex
-systems include fusion and fission of amphiphilic bilayer membranes and
-optimal shape design in metamaterials. The development of
-three-dimensional models describing colloidal systems could be
+that are presently out of reach in computational material science. These complex
+systems include optimal shape design in metamaterials and
+fusion and fission of amphiphilic bilayer membranes. The further
+development to three-dimensional models describing colloidal systems could be
 transformative in biomedicine and material science. The research draws
 from expertise in scientific computing, physics of fluids, and
-mathematics. The mathematical component incorporates leading techniques
-from geometric analysis and offers insight into fundamentals of material
+mathematics. The mathematical component incorporates leading
+variational techniques and offers insight into fundamentals of material
 science. The project brings socially consequential research into the
 classroom, and offers undergraduates the opportunity to train alongside
-graduate students and postdoctoral fellows. With its combination of
+faculty and postdoctoral fellows. With its combination of
 mathematical modeling, analysis, and scientific computing, the project
 highlights the importance of mathematics and computation to all areas of
 science and engineering.
@@ -42,44 +41,75 @@ science and engineering.
 
 \subsection{Educational Impacts}
 \label{subsec:Educational_plans}
-The topics of this proposal have application in robotics, machine
-learning, and engineering. To foster training in mathematical sciences,
-the project will include undergraduate researchers (URs). The proposal
-supports one UR per year from the lead institution, and will include one
-or two additional URs from actively supported in-house programs
+%The topics of this proposal have application in robotics, machine
+%learning, and engineering.
+To foster training in mathematical sciences,
+the proposal supports one undergraduate researcher (UR) per year
+from the lead institution.
+PI RR has worked side-by-side and
+published with undergraduate coauthors in
+\cite{RYHAM20112929, RyWaCo13, RyKlYaCo16}.
+He is presently mentoring a Clare Boothe Luce Scholar 
+on mathematical analysis of trends in election redistricting.
+With another Fordham supported UR,
+he is finishing a paper on a closed-form 
+energy density for translationally invariant bilayers. 
+Based on these experiences, we have outlined three projects for the present proposal.
+\begin{enumerate}[noitemsep]
+%\noitemsep
+\item Translate project code from MATLAB into a compiled language   
 
-The URs will work as a team for eight weeks in the summer. They will
-collaborate directly with the senior personnel, have tutorials in topics
-such as numerical quadrature and integral equations, and train in
-mathematical writing and presentation. To maximize vertical integration,
-and to the extent possible, the PIs and personnel will travel to New
-York for one or two weeks during the summers. Fordham University
-recently constructed a seminar/collaboration space specifically for
-collaborative research, and the URs will have office space with desks
-there. As a requirement, the URs will write quality summary reports and
-give presentations at the their respective research symposia. The work
-will be considered successful if the URs also participate in a national
-conference. In the best possible outcome, the URs will co-author a
-publication.
+\item Use machine learning to post-process data from the Janus particle self-assembly
+%  This project will train UR in the MATLAB and Python programming language,
+%  how to effectively deal with large data sets, and how to represent data meaningfully
+%  using plots and graphics. 
 
-There are two ways the proposal will meaningfully engage the community.
-To be more impactful, students from the Bronx High School of Science (PI
-RR) and Newark Science Park High School (PI YNY) will be encouraged to
-join the research team. PI BQ will work with undergraduate and high
-school students through the Undergraduate Research Opportunity Program
-and Young Scholar's Program, as he has done in the past. Secondly, the
-PIs will prioritize students who would most benefit from the grant
-activity. These include students from underrepresented groups,
-and we specifically target students whose socio-economic
+\item Mathematically investigate self-assembly in the zero-screen-length limit
+%  The UR will address the following conjecture about self-assembly:
+%  in the $\rho = 0$ limit, two convex polygons interacting through the hydrophobic attraction potential
+%  converge to a limit with maximally overlapping boundaries.
+%  This is a variational problem with ample numerical evidence. The student
+%  will learn elements of boundary layer analysis. 
+
+%\item Implementing a fast-multipole method
+  %  The UR will adapt code written by undergraduates in \cite{RyKlYaCo16}.
+%  The will analyze the energies of bilayer configurations under the new, closed form
+%  energy and compare them to energies calculated in molecular dynamics studies.
+  
+\end{enumerate}
+The UR support is for eight summer weeks. 
+In addition to collaborating with the PI,
+they will have tutorials and receive training in
+mathematical writing and presentation.
+The UR will have a desk and meeting room
+in a recently completed collaboration space
+built for the Mathematics Department. 
+As a condition of support, 
+they will be required to write a summary report and
+give a presentation in the university's undergraduate
+research symposium.  The PI 
+will encourage the
+UR to participate in a national conference.
+
+To meaningfully engage the community,
+the PIs will prioritize students coming
+from underrepresented groups and
+specifically target students whose socio-economic
 background prevents them from participating in out-of-state research
-experiences. 
+experiences.  PI RR will solicit applicants from Fordham University's
+Collegiate Science and Technology Entry Program.
+Students from the Bronx High School of Science (PI
+RR) and Newark Science Park High School (PI YNY) will also be encouraged to
+join the research team. PI BQ will work with undergraduates and high
+school students through the Undergraduate Research Opportunity Program
+and Young Scholar's Program, as he has done in the past.
 
+To maximize vertical integration, the PIs and personnel
+will travel to New York for one or two weeks during the summers.
 Finally, we will create several modules to include in our courses. These
 modules will introduce topics from numerical linear algebra and
-optimization, and be based on the ideas of the proposal. Additionally,
-we and our UR collaborators will give remote, guest lectures in each
-others' courses and undergraduate seminars. 
-
+optimization, and highlight concrete applications of mathematics
+based on the ideas of the proposal.
 %The proposed research will have an immediate impact on undergraduate and
 %graduate education. At the undergraduate level, the project will include
 %and support undergraduate researchers from Fordham University. The
@@ -145,11 +175,12 @@ long-range hydrophobic attraction. It turns out that this minimal model
 gives rise to rich phenomena for Janus particle aggregates and correctly
 predicts elastic properties of bilayer. The technical research tasks
 include quantifying collective properties of amphiphilic ensembles,
-mathematical analysis of continuum elastic energies, efficient,
-high-order numerical algorithms for large-scale simulations, and
-incorporating external fields through electric charge. Lastly, the
-proposal extends the results using three-dimensional boundary integral
-formulations.
+improving on mathematical models, 
+efficient, high-order numerical algorithms for large-scale simulations,
+and incorporating external fields through electric charge.
+%Lastly, the
+%proposal extends the results using three-dimensional boundary integral
+%formulations.
 
 %A central theme of the project is the mathematical development and
 %analysis of the physical model for interaction between many amphiphilic
