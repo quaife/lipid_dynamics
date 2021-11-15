@@ -194,21 +194,6 @@ and scaling to case (a), see Figure \ref{fig:bcs}.
 Using this setup, we simulate the dynamics of 100 particles with random
 initial position and orientation.
 
-Case (a) models amphiphilic particles.
-Amphiphilic particles have a hydrophobic tail and a hydrophilic head
-and these are accounted for as follows.
-The hydrophilic side takes the value $u =0$.
-This mimicks the apolar head of a lipid, for example, which does
-not alter the structure of adjacent waters. The hydrophobic side
-represents hydrocarbons and takes the value 
-$u > 0$. The interaction between particles is attractive,
-and particles will collectively orient their tails toward
-one another. 
-PIs RR and YNY's previous work showed that this   
-boundary condition produces two-dimensional micelles and
-bilayers~\cite{Fu2018_SIAM}, as illustrated in 
-Figure~\ref{fig:self-assembly}(a).
-
 \begin{wrapfigure}[9]{r}{0.65\textwidth}
   \vspace{-20pt}
   \begin{center}
@@ -224,7 +209,34 @@ Figure~\ref{fig:self-assembly}(a).
   positive/negative charge (right). The dashed curve is the boundary of the
   disk and the arrow is its director for each particle.}
 \end{wrapfigure}
+Case (a) models amphiphilic particles.
+Amphiphilic particles have a hydrophobic tail and a hydrophilic head
+and these are accounted for as follows.
+The hydrophilic side takes the value $u =0$.
+This mimicks the apolar head of a lipid, for example, which does
+not alter the structure of adjacent waters. The hydrophobic side
+represents hydrocarbons and takes the value 
+$u > 0$. The interaction between particles is attractive,
+and particles will collectively orient their tails toward
+one another. 
+PIs RR and YNY's previous work showed that this   
+boundary condition produces two-dimensional micelles and
+bilayers~\cite{Fu2018_SIAM}, as illustrated in 
+Figure~\ref{fig:self-assembly}(a).
 
+\begin{wrapfigure}[14]{l}{2in}
+  \vspace{-4pt}
+  \centering
+  \includegraphics[width=2in]{figures/SpecificAim1/OrderPDFs.jpg} 
+  \vspace{-20pt}
+  \caption{\footnotesize
+    \label{fig:OrderPDFs}
+    Probability density functions for
+    relative orientation of nearby particles
+    for the data in 
+    Figure~\ref{fig:self-assembly}, $t = t_{\text{final}}$.
+  }
+\end{wrapfigure}
 Multilamelar bilayers arise when both sides of the particle
 are hydrophobic (Figure~\ref{fig:self-assembly}(b)).
 The boundary condition \eqref{eq:bcs}(b) 
@@ -238,19 +250,6 @@ as a consequence of the interfacial tension of exposed particle
 heads~\cite{Huetal19, deMeetal21}. 
 
 
-\begin{wrapfigure}[16]{l}{2in}
-  \vspace{-4pt}
-  \centering
-  \includegraphics[width=2in]{figures/SpecificAim1/OrderPDFs.jpg} 
-  \vspace{-20pt}
-  \caption{\footnotesize
-    \label{fig:OrderPDFs}
-    Probability density functions for
-    relative orientation of nearby particles
-    for the data in 
-    Figure~\ref{fig:self-assembly}, $t = t_{\text{final}}$.
-  }
-\end{wrapfigure}
 Finally, boundary condition \eqref{eq:bcs}(c) models 
 a particle whose head surface repels the tail surface as proposed in
 \cite{MaRa76, Ma77}.
