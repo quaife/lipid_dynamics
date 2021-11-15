@@ -175,24 +175,18 @@ of the hydrophobic attraction potential theory are compatible with
 experimental measurements and may closely mirror the reality of
 the physical process at a molecular scale~\cite{FrRoPi17, Fretal21}.
 
-The HAP is a conceptual advance for modeling bilayer membranes.  
-Continuum elastic energies of membrane assume 
-an energy density that depends quadratically on the bilayer strain 
-\cite{Hamm2000,TerziDeserno17, PhysRevE.102.042406}.
-The coefficients of the continuum ansatz correspond
-to experimentally measured elastic moduli \cite{Nagle17, Nagle17-2, NAGLE2000159}.
-The HAP approach
-can potentially explain membrane properties from first principles
-because it derives elastic energies assuming parameters
-for the water structure and particle shape 
-\cite{
-Fu2018_SIAM,
-FuQuRyYo20,
-doi:10.1063/5.0009734,
-LiAn-Chang16}.
-Immersed boundary and boundary integral
-are highly effective for modeling intact, giant unilamellar vesicles (GUV)
-because they use relatively large time-step sizes and mesh sizes
+The HAP is a conceptual advance for modeling bilayer membranes.
+Continuum elastic energies of membrane assume an energy density that
+depends quadratically on the bilayer strain
+\cite{Hamm2000,TerziDeserno17, PhysRevE.102.042406}.  The coefficients
+of the continuum ansatz correspond to experimentally measured elastic
+moduli \cite{Nagle17, Nagle17-2, NAGLE2000159}.  The HAP approach can
+potentially explain membrane properties from first principles because it
+derives elastic energies assuming parameters for the water structure and
+particle shape \cite{Fu2018_SIAM, FuQuRyYo20, doi:10.1063/5.0009734,
+LiAn-Chang16}.  Immersed boundary and boundary integral are highly
+effective for modeling intact, giant unilamellar vesicles (GUV) because
+they use relatively large time-step sizes and mesh sizes
 \cite{
 Shravan09,
 Rahimian15,
@@ -206,22 +200,20 @@ Sinha15,
 Lowengrub13,
 Hu,
 Hu13}.
-Conversely, the number of course-grained
-particles needed to track a GUV
-in the HAP formalism is relatively large.
-For microscopic process like fusion, however, 
-membrane deformations occur at a length scale comparable to the thickness
-of the membrane \cite{Kuzmin7235,Aeffner2012,KoKo2002}. 
-The small deformation assumption of continuum theory
-no longer holds \cite{Hamm2000,TerziDeserno17, PhysRevE.102.042406}.
-The HAP theory does encode membrane thickness through particle diameter, 
-and it is comparatively straightforward to account for
-protiens and lipid mixtures
-by including several particle species.  Any ruptures or insertions
-occur self-consistently in the HAP formulation. 
-Phase-field and level-set methods allow for topological changes
-but are computationally expensive because
-they discritize the entire fluid and membrane region
+Conversely, the number of coarse-grained particles needed to track a GUV
+in the HAP formalism is relatively large.  For microscopic process like
+fusion, however, membrane deformations occur at a length scale
+comparable to the thickness of the membrane
+\cite{Kuzmin7235,Aeffner2012,KoKo2002}.  The small deformation
+assumption of continuum theory no longer holds
+\cite{Hamm2000,TerziDeserno17, PhysRevE.102.042406}.  The HAP theory
+does encode membrane thickness through particle diameter, and it is
+comparatively straightforward to account for proteins and lipid mixtures
+by including several particle species.  Any ruptures or insertions occur
+self-consistently in the HAP formulation.  Phase-field and level-set
+methods also allow for topological changes but they require multiple
+phase fields and level sets and additional (sometimes empirical) laws to
+couple them to model membrane-membrane interactions
 \cite{
 DuLiuWang2004_JCP,
 BibenKassnerMisbah2005_PRE,
@@ -232,11 +224,12 @@ doi:10.1098/rspa.2012.0505,
 doi:10.1137/130941432,
 Feetzl18,
 doi:10.1137/16M1108406}.
-In contrast, the HAP methodology allows
-evolution equations to be solved
-using integral equation methods that when optimized have
-linear or near-linear computational complexity in the number of particles 
-\cite{fmm1, fmm2, fmm3, fmm4, fmm5, fmm6, fmm7, fmm8}.
+In addition, these methods require the entire fluid and interfacial
+domains to be discretized.  In contrast, the HAP methodology allows
+evolution equations to be solved using integral equation methods that
+when optimized have linear or near-linear computational complexity in
+the number of particles~\cite{fmm1, fmm2, fmm3, fmm4, fmm5, fmm6, fmm7,
+fmm8}.
 
 
 %Assuming the location of pore nucleation,
