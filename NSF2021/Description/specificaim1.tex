@@ -22,10 +22,11 @@ catalytic activity, or stimuli-responsive shape-changes
  \vspace{-3pt}
  \includegraphics[width=0.55\textwidth]{figures/SpecificAim1/Domain.jpg}
  \caption{\label{fig:flow_map}
-   In the HAP formulation, hydronamic interactions
-   come from the Stokes equations and
-   hydrophobic interactions come from the structure order parameter $u$.
-   The colormap is for the intensity of $u$.}
+   In the HAP formulation,
+   a system of exterior problems 
+   defines the hydronamic and hydrophobic interactions.
+   The colormap is for the intensity of $u$.
+   The dynamics lead to self-organized structures like a vesicle bilayer.}
 \end{wrapfigure}
 
 The mathematical formulation is a nonlinear system for the dynamics of a
@@ -129,12 +130,25 @@ to semilinear elliptic equation \eqref{eq:SL}.
 Solving for the translational and rotational velocities gives the
 particle evolution.
 
+
+\begin{wrapfigure}[10]{r}{0.55\textwidth}
+ \centering
+ \vspace{-3pt}
+ \includegraphics[width=0.55\textwidth]{figures/SpecificAim1/3Particles.jpg}
+ \caption{\label{fig:3particles}
+   \footnotesize
+   Particles translate and rotate to lower the free energy $F[u]$
+   subject to \eqref{eq:SL}, $f(u) = u^2$, and reach a minimal configuration in
+   panel C. The colormap is blue for $u = 0$ and red for $u = 1$.
+   The arrows are the velocity field $\mathbf{u}$.
+ }
+\end{wrapfigure}
 The stress~\eqref{eq:stress} was first
 introduced by~\cite{Fu2018_SIAM} and is the higher-dimensional
 generalization of disjoining pressure \cite{MaRa76, ErLjCl89, KoNa15,
 Nagle17, KUZMIN2005}. It is the mathematical ingredient responsible for
 forming particle aggregates that sequester their hydrophobic surface
-regions.
+regions (Figure \ref{fig:3particles}).
 
 %By solving the above system, we obtain translational and angular
 %velocities of the many-body system. A second-order Adams-Bashforth
@@ -224,7 +238,7 @@ boundary condition produces two-dimensional micelles and
 bilayers~\cite{Fu2018_SIAM}, as illustrated in 
 Figure~\ref{fig:self-assembly}(a).
 
-\begin{wrapfigure}[14]{l}{2in}
+\begin{wrapfigure}[13]{l}{2in}
   \vspace{-4pt}
   \centering
   \includegraphics[width=2in]{figures/SpecificAim1/OrderPDFs.jpg} 
@@ -234,7 +248,7 @@ Figure~\ref{fig:self-assembly}(a).
     Probability density functions for
     relative orientation of nearby particles
     for the data in 
-    Figure~\ref{fig:self-assembly}, $t = t_{\text{final}}$.
+    Figure~\ref{fig:self-assembly}, long time.
   }
 \end{wrapfigure}
 Multilamelar bilayers arise when both sides of the particle
@@ -279,7 +293,7 @@ tail of three other particles Figure~\ref{fig:self-assembly}(c).
       &\includegraphics[width=1.8in]{figures/SpecificAim1/N100A3.jpg}    \\
       &\multicolumn{1}{c}{$t = 0$}
       &\multicolumn{1}{c}{intermediate time}
-      &\multicolumn{1}{c}{$t = t_{\text{final}}$}
+      &\multicolumn{1}{c}{long time}
   \end{tabular}
   \end{center}
   \vspace{-20pt}
@@ -426,10 +440,15 @@ equation~\eqref{eq:SL} numerically. Once we have established
 implementations, we will consider further generalizations
 of~\eqref{eq:free_energy}, for example to the Oseen-Frank energy for a
 nematic liquid crystal~\cite{doi:10.1137/15M103844X,
-Bartels,AIHPA_1997__66_4_411_0, deGennesProst,HaKiLi86,Virga}. For now,
+  Bartels,AIHPA_1997__66_4_411_0, deGennesProst,HaKiLi86,Virga}.
+Another opportunity to build on the results of the proposed work,
+is evaluating the role of particle multilayers on the stability of
+pickering emulsions. Particle-particle interactions in the aqueous
+layer (adjacent to the water-oil interface) may provide a
+``reservoir'' of particles to stabilize the interface upon droplet deformation (see \cite{Bradley2016} and references therein).
+For now,
 Specific Aim 3 describes in detail how we plan to handle charges and
 ions in solution.
-
 
 
 %Other approaches may be required if the modified phenomenological
