@@ -1,0 +1,51 @@
+Comments to the Author
+The manuscript extends the authors’ previous work on modeling
+amphiphilic particles in a viscous solvent to modeling amphiphilic Janus
+particles suspended in a viscous background flow. The authors adopted
+the GMRES iterative method to solve the screened Laplace equation for
+hydrophobic attraction. They investigated the inter-monolayer friction
+of vesicles formed by amphiphilic Janus particles and corresponding
+membrane ruptures in viscous flows, and simulated the spatial migration
+dynamics of a vesicle in a parabolic flow and also the hydrodynamics of
+two vesicles in shear and extensional flows. 
+
+This manuscript presents a systematic study of the hydrodynamics of
+vesicles formed by amphiphilic Janus particles in viscous flows. It
+provides quantitative analysis of the inter-monolayer friction, membrane
+permeability and the migration dynamics of soft suspended vesicles. The
+topic on hydrodynamics of complex fluids is interesting, and this
+research fits the scope of Journal of Fluid Mechanics. Here, I am in a
+favor of its publication at some points if the authors can address the
+following concerns in the revised manuscript.
+
+Comments: 1. In section 2.2, the authors defined a repulsion force with
+an empirical formula to prevent particle collisions. However, there is
+no benchmark test to show that this artificial repulsion force can
+generate correct hydrodynamic lubrication. The authors are suggested to
+justify and validate the use of the Imposed Forces with comparison to
+well-known lubrication forces between particles. 
+
+2. Fig. 3 plots the time evolution of the reduced area in (a) and the
+excess length of the bilayer structure in (b). Both show obvious
+oscillations with multiple frequencies, which are not as smooth as the
+inset of (c) showing one dominant frequency. The authors are suggested
+to explain the source of multiple frequencies generated in the time
+evolution of A and Δ. 
+
+3. Fig. 6 illustrates the migration process of a JP vesicle in a
+parabolic flow, where the moving velocity is 8 nm/ns and the time frame
+is 0 to 12 μs. Given the length scale R = 20 nm, the migration distance
+should be 1000x R. However, in the figure, it shows a migration distance
+about 4x R. The authors are suggested to double-check their model
+parameterization. 
+
+4. In Fig. 10, the significant discontinuities in streamlines across the
+surface of vesicles are observed, while in most other cases the
+streamlines are smooth across the interface of vesicles. The authors are
+suggested to describe such discontinuity and provide the explanation.  
+
+5. Minor: I read some grammatical errors in the manuscript that should
+be corrected, i.e., “replicate well-know vesicle hydrodynamics …” on
+page 2, “…a baseline JP vesicles…” on page 8, “circular vesicles has a
+Laplace pressure…” at Eq. (4.7). The authors are suggested to have a
+thorough read of the manuscript.
