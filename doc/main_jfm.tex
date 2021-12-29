@@ -173,11 +173,11 @@ model.
 In the present work, we extend the hybrid continuum model in~\cite{Fu20}
 for the Janus suspension to incorporate the collective hydrodynamics of
 a Janus suspension under various flows. The JP vesicles in our
-simulations replicate  well-know vesicle hydrodynamics such as
-tank-treading and inter-leaflet slippage in a shear flow and migration
-in Poiseuille flow from continuum models. Furthermore we use the hybrid
-continuum model to investigate permeability and rupture of a bilayer
-membrane due to an imposed flow.  Finally, we compare a pair of
+simulations replicate  \ReviewerOne{well-known} vesicle hydrodynamics
+such as tank-treading and inter-leaflet slippage in a shear flow and
+migration in Poiseuille flow from continuum models. Furthermore we use
+the hybrid continuum model to investigate permeability and rupture of a
+bilayer membrane due to an imposed flow.  Finally, we compare a pair of
 interacting JP vesicles with a continuum model of a pair of vesicles.
 
 \cite{Brandner2019} used the coarse-grained force field with a lattice
@@ -359,35 +359,37 @@ and torques requires the solution of elliptic partial differential
 equations (PDEs) in an unbounded complex domain. We recast both these
 PDEs as boundary integral equations (BIEs). We discretize each BIE at
 $N$ points on each of the $N_b$ particles with a collocation method.
-Integrals that are smooth are computed with the spectrally-accurate
-trapezoid rule, and nearly-singular integrals, caused by close contact
-between two particles, are computed with a high-order
-interpolation-based quadrature rule (\cite{qua-bir2014}). After
-discretizing and applying quadrature, the resulting linear system is
-solved with matrix-free GMRES, and we guarantee that the number of GMRES
-iterations is mesh-independent by using second-kind BIEs.
+\ReviewerOne{All derivatives are computed with spectrally-accurate
+Fourier differentiation.} Integrals that are smooth are computed with
+the spectrally-accurate trapezoid rule, and nearly-singular integrals,
+caused by close contact between two particles, are computed with a
+high-order interpolation-based quadrature rule (\cite{qua-bir2014}).
+After discretizing and applying quadrature, the resulting linear system
+is solved with matrix-free GMRES, and we guarantee that the number of
+GMRES iterations is mesh-independent by using second-kind BIEs.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{HAP Boundary Integral Equation}
-Similar to our previous work (\cite{Fu20}), we represent the HAP as a
-double-layer potential
+Similar to our previous work (\cite{Fu20}), we represent the
+\ReviewerTwo{hydrophobic attraction potential (HAP)} as a double-layer
+potential
 \begin{align}
   \label{eq:HAP_DLP}
-  u(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \pderiv{}{\nnu_\yy}
-    K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
-    \quad \xx \in \Omega,
+  u(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \left(\pderiv{}{\nnu_\yy}
+    K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) 
+    \sigma(\yy) \, \dif s_\yy, \quad \xx \in \Omega,
 \end{align}
 where $K_0$ is the zeroth-order modified Bessel function of the first
-kind and the integral is taken in the sense of principle value whenever $\xx \in \partial \Omega$. 
-By requiring that the density function $\sigma$ satisfies the
-second-kind integral equation
+kind and the integral is taken in the sense of principle value whenever
+$\xx \in \partial \Omega$.  By requiring that the density function
+$\sigma$ satisfies the second-kind integral equation
 \begin{equation}
 \label{eq:screenedSKIE}
   f(\xx) = \frac{1}{2}\sigma(\xx) + 
-    \frac{1}{2\pi}\int_{\bd\Omega} \pderiv{}{\nnu_\yy}
-    K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
-    \quad \xx \in \bd\Omega,
+    \frac{1}{2\pi}\int_{\bd\Omega} \left(\pderiv{}{\nnu_\yy}
+    K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) \sigma(\yy) \, 
+    \dif s_\yy, \quad \xx \in \bd\Omega,
 \end{equation}
 the HAP double-layer potential~\eqref{eq:HAP_DLP} satisfies the screened
 Laplace equation~\eqref{eq:SL}--\eqref{eq:SLff}. After
@@ -412,38 +414,38 @@ rotlets
 \begin{align}
   \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
-    \sum_{i=1}^{N_b} \left(\SS(\xx,\aa_i) \FF_i + 
+    \sum_{i=1}^{N_b} \left(\SS(\xx,\aa_i) \cdot \FF_i + 
     \RR(\xx,\aa_i) T_i\right), \quad \xx \in \Omega.
 \end{align}
 The double-layer potential is
 \begin{align}
   \DD[\eeta](\xx) = \frac{1}{\pi} \int_{\bd\Omega} 
     \frac{\rr \cdot \nnu}{|\rr|^2} \frac{\rr \otimes \rr}{|\rr|^2}
-    \eeta(\yy) \, \dif s_\yy,
+    \cdot \eeta(\yy) \, \dif s_\yy,
 \end{align}
 where $\rr = \xx - \yy$ and $\rho = |\rr|$. The Stokeslet and rotlets
 centred at $\aa_i$ are
 \begin{align}
-  \SS(\xx,\aa_i)\FF_i &= \frac{1}{4\pi} \left(-\log |\rr| + 
-    \frac{\rr \otimes \rr}{|\rr|^2}\right) \FF_i, \\
-  \RR(\xx,\aa_i)T_i &= \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2} T_i,
+  \SS(\xx,\aa_i) \cdot \FF_i &= \frac{1}{4\pi} \left(-\log |\rr| + 
+    \frac{\rr \otimes \rr}{|\rr|^2}\right) \cdot \FF_i, \\
+  \RR(\xx,\aa_i) T_i &= \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2} T_i,
 \end{align}
-respectively, where $\rr = \xx - \aa_i$. The
-Stokeslet is torque-free and has force $\FF_i$ while the rotlet is
-force-free and has torque $T_i$. Therefore, the
-velocity~\eqref{eq:velocity} satisfies the total force~\eqref{eq:force}
-and torque~\eqref{eq:torque} conditions if the double-layer potential
-$\DD[\eeta]$ is force- and torque-free.  Matching the limit
-of~\eqref{eq:velocity} with the rigid body motion, and imposing that
-$\DD[\eeta]$ is force- and torque-free, the density function $\eeta$,
-translational velocity $\vv_i$, and angular velocity $\omega_i$ satisfy
+respectively, where $\rr = \xx - \aa_i$. The Stokeslet is torque-free
+and has force $\FF_i$ while the rotlet is force-free and has torque
+$T_i$. Therefore, the velocity~\eqref{eq:velocity} satisfies the total
+force~\eqref{eq:force} and torque~\eqref{eq:torque} conditions if the
+double-layer potential $\DD[\eeta]$ is force- and torque-free.  Matching
+the limit of~\eqref{eq:velocity} with the rigid body motion, and
+imposing that $\DD[\eeta]$ is force- and torque-free, the density
+function $\eeta$, translational velocity $\vv_i$, and angular velocity
+$\omega_i$ satisfy
 \begin{alignat}{3}
   \nonumber
   \vv_i + \omega_i (\xx - \aa_i)^\perp &= \uu_\infty(\xx)
     -\frac{1}{2} \eeta(\xx) + \DD[\eeta](\xx) \\
   \label{eq:SKIE}
     + \sum_{j=1}^{N_b} &
-    \left(\SS(\xx,\aa_j) \FF_j + \RR(\xx,\aa_j) T_j\right),
+    \left(\SS(\xx,\aa_j) \cdot \FF_j + \RR(\xx,\aa_j) T_j\right),
     \quad &&\xx \in \Gamma_i,\: i=1,\ldots,N_b, \\
   \label{eq:mobility1}
   \int_{\bd\Gamma_i} \eeta \cdot \nnu_i \, \dif s &= {\bf 0}, 
@@ -507,9 +509,9 @@ first define
 \end{align}
 where
 \begin{align}
-  u_i(\xx) &= \frac{1}{2\pi} \int_{\Gamma_i} \pderiv{}{\nnu_\yy}
-    K_0 \left(\frac{|\xx - \yy|}{\rho}\right) \sigma(\yy) \, \dif s_\yy,
-    \quad \xx \in \mathbb{R}^2.
+  u_i(\xx) &= \frac{1}{2\pi} \int_{\Gamma_i} \left(\pderiv{}{\nnu_\yy}
+    K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) 
+    \sigma(\yy) \, \dif s_\yy, \quad \xx \in \mathbb{R}^2.
 \end{align}
 That is, $v_i(\xx)$ is the double-layer potential~\eqref{eq:HAP_DLP}
 with $\Gamma_i$ excluded from $\bd\Omega$. Having defined $v_i$, we prove
@@ -573,20 +575,17 @@ integrals.
 To prove \eqref{eq:recipforcetorque}, let 
 \begin{align*}
   {\bf T} &=
-    \mathbf{S}(u_i,u_i)
-  +(\mathbf{S}(u_i,v_i)
-  +\mathbf{S}(v_i,u_i))
-  +\mathbf{S}(v_i,v_i) \\
+    \SS(u_i,u_i) +(\SS(u_i,v_i) +\SS(v_i,u_i)) +\SS(v_i,v_i) \\
   &= {\bf T}_1 + {\bf T}_2 + {\bf T}_3
 \end{align*}
 where we introduce the bilinear form
 \begin{equation}
 \label{eq:Tsplit}
-\mathbf{S}(u,v)
-=  \gamma\rho^{-1} uv {\bf I} + \gamma\rho \nabla u \cdot \nabla v {\bf I} - 2 \gamma \rho \nabla u \nabla v^T .
+\SS(u,v)
+=  \gamma\rho^{-1} uv {\bf I} + \gamma\rho \nabla u \cdot \nabla v {\bf I} - 2 \gamma \rho \nabla u \nabla v^T.
 \end{equation}
 Using the fact that $u$,  $u_i$, and $v_i$ solve the screened Laplace
-equation~\eqref{eq:SL},  and that $\mathbf{T}$, $\mathbf{T}_j$, $j = 1,
+equation~\eqref{eq:SL}, and that $\mathbf{T}$, $\mathbf{T}_j$, $j = 1,
 2, 3$ are symmetric, it is straightforward to verify that 
   \begin{equation}
     \label{eq:decompdivfree}
@@ -652,30 +651,31 @@ the inside of $\Gamma_i$.
 \begin{lemma}
 \begin{align}
   \label{eq:prejump}
-  \FF_i^{\mathrm{hydro}} = \int_{\Gamma_i} \jump{{\bf T}_2  \nnu}  \, \dif s,\quad
-  T_i^{\mathrm{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot \jump{{\bf T}_2 \nnu} \, \dif s.
+  \FF_i^{\mathrm{hydro}} = \int_{\Gamma_i} \jump{{\bf T}_2 \cdot \nnu}  \, \dif s,\quad
+  T_i^{\mathrm{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot
+  \jump{{\bf T}_2 \cdot \nnu} \, \dif s.
 \end{align}
 \end{lemma}
 \begin{proof}
 To show~\eqref{eq:prejump}, we expand \eqref{eq:hydrophobicAttraction} as
 \begin{align}
-  \FF_i = \int_{\Gamma_i} {\bf T}_1\nnu + 
-    {\bf T}_2\nnu + {\bf T}_3\nnu\,\dif s.
+  \FF_i = \int_{\Gamma_i} \left({\bf T}_1 \cdot \nnu + 
+    {\bf T}_2 \cdot \nnu + {\bf T}_3 \cdot \nnu \right) \,\dif s.
 \end{align}
 By~\eqref{eq:uidef} and~\eqref{eq:decompdivfree}, we have that $u_i$ is
 smooth and $\nabla \cdot {\bf T}_1 = \mathbf{0}$ in $\mathbb{R}^n
 \setminus U_i$. Similarly, $v_i = u - u_i$ is smooth and $\nabla \cdot
 {\bf T}_3 = \mathbf{0}$ in $U_i$. By the divergence theorem,  
 \begin{align}
-  \int_{\Gamma_i}  {\bf T}_1\nnu \,\dif s
+  \int_{\Gamma_i}  {\bf T}_1 \cdot \nnu \,\dif s
   = -\int_{\mathbb{R}^n \setminus U_i} \nabla \cdot {\bf T}_1 \,\dif \xx = \mathbf{0},\quad
-    \int_{\Gamma_i}  {\bf T}_3 \nnu\,\dif s
+    \int_{\Gamma_i}  {\bf T}_3 \cdot \nnu\,\dif s
   = \int_{U_i} \nabla \cdot {\bf T}_3 \,\dif \xx = \mathbf{0}.
 \end{align}
 Finally, $u_i$ and $v_i$ are smooth and $\nabla \cdot {\bf T}_2= 0$ in $U_i$. This gives
 \begin{align}
   \mathbf{0} = \int_{U_i} \nabla \cdot {\bf T}_2 \, \dif \xx = -\int_{\Gamma_i}  
-    ({\bf T}_2 \nnu)^-\,\dif s,
+    ({\bf T}_2 \cdot \nnu)^-\,\dif s,
 \end{align}
 where the superscript denotes the limit taken from in $U_i$.  
 Combining the above gives the first equation in \eqref{eq:prejump}.
@@ -692,9 +692,14 @@ We have the following jump relations for \eqref{eq:uidef}:
 \end{equation}
 on $\Gamma_i$ (see, e.g. \cite{KlBaGrON13}). Therefore,
 \begin{align*}
-  \jump{{\bf T}_2\nnu}   &= \jump{\mathbf{S}(u_i,v_i)\nnu  +\mathbf{S}(v_i,u_i)\nnu} \\
-  &= \jump{( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
-- 2\gamma\rho \nabla u_i  \nabla v_i^T - 2\gamma\rho \nabla v_i \nabla u_i^T)  \nnu}\\
+  \jump{{\bf T}_2 \cdot \nnu}   &= \jump{\SS(u_i,v_i) \cdot \nnu +
+    \SS(v_i,u_i) \cdot \nnu} \\
+  &= \Big[\!\Big[ \left( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
+- 2\gamma\rho \nabla u_i  \nabla v_i^T - 2\gamma\rho \nabla v_i \nabla
+  u_i^T\right) \cdot \nnu \Big]\!\Big] \\
+%  &= \jump{\left( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
+%- 2\gamma\rho \nabla u_i  \nabla v_i^T - 2\gamma\rho \nabla v_i \nabla
+%  u_i^T\right) \cdot \nnu}\\
 &= 2\gamma\rho^{-1} \sigma v_i \nnu + 2\gamma\rho \frac{d\sigma }{ds}\frac{dv_i }{ds} \nnu
 - 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dv_i }{d\nu} \ttau = \JJ_i.
 \end{align*}
@@ -751,13 +756,14 @@ $p \mapsto p \text{ pN nm}^{-2}$.
 The numerical time step size is $\Delta t=0.2$.
 
 To reach consistent simulation outcomes, we first solve for a baseline
-JP vesicles that is suitably close to equilibrium. We start with an
-assumed configuration of $N=58$ JP in the form of two, circular,
-apposing monolayers of about $8$ nm in radius. The norms of the translational and
-rotational velocities vanish exponentially with an approximate decay
-rate $\sim 4.6$ $\upmu$s$^{-1}$. An equilibrium configuration is
-therefore rapidly attained. This equilibrium configuration serves as the
-initial data in the subsequent background flow simulations.
+JP \ReviewerThree{vesicle} that is suitably close to equilibrium. We
+start with an assumed configuration of $N=58$ JP in the form of two,
+circular, apposing monolayers of about $8$ nm in radius. The norms of
+the translational and rotational velocities vanish exponentially with an
+approximate decay rate $\sim 4.6$ $\upmu$s$^{-1}$. An equilibrium
+configuration is therefore rapidly attained. This equilibrium
+configuration serves as the initial data in the subsequent background
+flow simulations.
 
 %\subsection{Jeffery Orbit}
 %We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
@@ -1123,7 +1129,8 @@ two-dimensional vesicles, the tension becomes
 \tilde \gamma = K_A\left(\frac{L}{L_0} - 1 \right),
 \end{align}
 where $L$ and $L_0$ are the vesicle arc length and resting length,
-respectively. Moreover, stretched, circular vesicles has a Laplace pressure 
+respectively. Moreover, stretched, circular vesicles \ReviewerOne{have}
+a Laplace pressure 
 \begin{align}
 \label{eq:LaplacePressure}
 \Delta p = \frac{\tilde \gamma}{R},
