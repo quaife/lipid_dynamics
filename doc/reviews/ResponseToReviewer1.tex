@@ -1,0 +1,292 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{newtxmath}
+\newcommand{\comment}[1]{{\color{blue} #1}}
+
+\begin{document}
+
+\noindent
+Dear Prof.~Petia Vlahovska,
+\\ \\
+\noindent
+Thank you for handling the manuscript, and we would like to thank the
+reviewer for their positive and constructive comments. The attached
+manuscript addresses all the reviewer's comments and the result is what
+we believe is a stronger manuscript. An itemized list of the changes
+addressing the reviewer's comments are below. Changes to the manuscript
+from Reviewers 1, 2, and 3 are colored in \textcolor{red}{red},
+\textcolor{green}{green}, and \textcolor{magenta}{magenta},
+respectively. \\ \\
+\noindent
+Sincerely,
+\\
+\noindent
+Szu-Pei, Bryan Quaife, Rolf Ryham, and Yuan-Nan Young
+
+\section*{Response to Reviewer 1}
+\noindent
+\comment{Overall, the paper is original and interesting. The derivation
+of the hydrophobic force without singular integrals is smart and well
+written. The characterization of the effective properties of the
+coarse-grained vesicles is also of interest and carefully conducted.
+However, in many instances the manuscript looks more like a catalogue of
+the different behaviors JP vesicles can exhibit in linear flows, rather
+than a comprehensive study. The authors describe a few interesting
+phenomena but only partially address the exciting physical questions
+related to them. The paper lacks quantitative comparisons with continuum
+models, parametric studies and detailed explanations to meet the
+standards of JFM. In addition, the manuscript seems to have been written
+in haste: a figure with no apparent connection to the content of the
+paper has been inserted without being referenced or discussed in the
+text (see below), some parts need some serious proofreading and
+additional clarifications.}
+\begin{itemize}
+  \item Change 1
+  \begin{quotation}
+    \noindent
+    Can put verbatim change in this environment.
+  \end{quotation}
+\end{itemize}
+
+\noindent
+\comment{There is no parametric study of the effect of the particle size
+on the effective properties of the vesicles (interlayer friction,
+stretching modulus, permeability,etc$\ldots$). The authors defer this
+part for future work in the conclusions, but since the effect of the
+particle size is important, as evidenced in Section 4.3, it should be
+explored and explained more thoroughly in the manuscript, otherwise the
+research would be too incremental. The effect of particle shape seems
+indeed more complex and out of the scope of the current paper.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{The membrane rupture situation, briefly illustrated in Section
+4.2.3, is not investigated at all. Is there a dimensionless number
+related to this phenomenon with a critical value above which rupture
+happens? (e.g.~quantifying the competition between shear and
+attraction)}
+
+\noindent
+\comment{I understand that the results of Section 4.4 are mostly
+qualitative and that the goal is to show the visual agreement between
+the coarse-grained and continuum vesicle models, but it would be
+insightful to provide quantitative comparisons to measure how close they
+are to each other.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{The problem is not nondimensionalized with the characteristic
+scales of the system but with ns, nm and $\text{pN} \cdot
+\text{nm}^{-2}$. This (unusual) nondimensionalization makes it hard to
+compare physical quantities and to define order parameters that would
+explain/characterize some phenomena observed in the simulations
+(e.g.~the membrane rupture).}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{For the sake of clarity, at the end of Section 3 the authors
+should summarize the exact set of equations they use and the unknowns
+they solve for.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{General comment for all the figures with colormaps: it would be
+good to use colorblind friendly colormaps for colorblind people and for
+black and white printing.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Figure 1: the arc length $L$ does not appear in panel (c).}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Line 50: typo: ``well-known"}
+\begin{itemize}
+  \item This typo is corrected.
+\end{itemize}
+
+\noindent
+\comment{Page 3: the first two paragraphs seem to be a bit disconnected
+from the rest of the introduction. Maybe the authors should rewrite that
+part so that there is a transition from the physical problem into
+consideration to the various numerical methods used in the literature to
+simulate it.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Line 70: ``we maintain contact-free suspensions with a
+relatively weak non-stiff repulsive force". What do you mean by
+relatively weak repulsive force ? Weak compared to what? (see additional
+question on this hereinafter).}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Equation (2.4) is not necessary as the no-slip boundary
+condition is standard and it is redundant with (2.5).}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Section 2.2: for clarity, define the variable u as the
+hydrophobic attraction potential in the first paragraph.}
+
+\noindent
+\comment{The equations of the continuous time evolution of the particle
+positions and orientations should be written in Section 2 to close the
+problem.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{I think the time-discretization Section 2.3 should go at the
+end of Section 3 since this is the one devoted to the numerical
+discretization of the governing equations. Also, the sentence ``particle
+collisions are avoided even when using a relatively large time step" is
+very vague.  What do you mean by ``relatively large time step"? Compared
+to what time scale?}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Section 3: the acronym HAP is not defined in the text.}
+\begin{itemize}
+  \item Thank you for noticing this oversight. The definition of HAP has
+    been added at its first occurrence in Section 3.1. 
+  \item This change is in \textcolor{green} since it was also pointed
+    out by Reviewer 2.
+\end{itemize}
+
+\noindent
+\comment{Equation 3.1: use parenthesis to show that the normal
+derivative only applies to the Laplace’s Green function $K_0$ and not
+the density $\sigma$.}
+\begin{itemize}
+  \item Parenthesis have been added to equation (3.1) 
+
+  \item Equations (3.2) and (3.11) had the same notational issue, and
+    they have both been corrected.
+\end{itemize}
+
+\noindent
+\comment{For clarity, use contraction products ``$\cdot$" when a second
+order tensor multiplies a vector to avoid confusion (e.g.~${\bf S} \cdot
+{\bf F}$ instead of ${\bf SF}$) in eqs.~(3.4), (3.5), (3.7) and so on
+$\ldots$}
+\begin{itemize}
+  \item This notation has been adjusted throughout Section 3.
+\end{itemize}
+
+\noindent
+\comment{In practice, how do you compute the derivatives $d\sigma /ds$,
+$dv_i/ds$ and $dv_i/d\boldsymbol{\nu}$ in (3.13)?}
+\begin{itemize}
+  \item Since the only derivatives that are required are functions
+    defined only on the boundary of the Janus particles, they are
+    computed with spectrally-accurate Fourier differentiation.
+
+  \item We have added the following sentence to the start of Section 3
+    \begin{quotation}
+      All derivatives are computed with spectrally-accurate Fourier
+      differentiation.
+    \end{quotation}
+\end{itemize}
+
+\noindent
+\comment{Line 256: you set the strength of the repulsive force $M = 4k_B
+T$. In your simulations there is no thermal fluctuations, so why using
+$k_B T$ as a reference energy if it is no there in the simulations?
+There should be another energy scale that you could use to calibrate
+$M$, right?}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Related question: how much does the interparticle distance
+depend on on the strength and range of this artificial repulsive
+potential? What is the impact on the vesicle shape and effective
+properties?}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Figure 3a,b,d: what does the term in parenthesis ``(1)" means
+on the label of the ordinate axis?}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Line 302: the authors mention that tank-threading can only be
+observed for shear rate as high as $10^{6}\text{s}^{-1}$. Can such a
+high value be generated in experiments?}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Eq.~4.4, typo: $v$ should be $u$.}
+\begin{itemize}
+  \item This typo is fixed.
+\end{itemize}
+
+\noindent
+\comment{Figure 6: the yellow particle is not visible when printing in
+black and white.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Line 388, typo: ``has" should be ``have".}
+\begin{itemize}
+  \item This typo is corrected.
+\end{itemize}
+
+\noindent
+\comment{Figure 7a is never referred to and its content is never
+discussed in the text.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Line 393: The reference to panel ``Figure 7c" seems to be a
+typo. Same for ``Figures 7c and 7d" on line 394, I think it should be
+``Figures 7b and 7c".}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{Side question: Is it possible to change the vesicle stretching
+modulus and hydraulic permeability independently or are these two
+properties linked to each other and how?}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+
+\end{document}

@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{newtxmath}
+\newcommand{\comment}[1]{{\color{blue} #1}}
+
+\begin{document}
+
+\noindent
+Dear Prof.~Petia Vlahovska,
+\\ \\
+\noindent
+Thank you for handling the manuscript, and we would like to thank the
+reviewer for their positive and constructive comments. The attached
+manuscript addresses all the reviewer's comments and the result is what
+we believe is a stronger manuscript. An itemized list of the changes
+addressing the reviewer's comments are below. Changes to the manuscript
+from Reviewers 1, 2, and 3 are colored in \textcolor{red}{red},
+\textcolor{green}{green}, and \textcolor{magenta}{magenta},
+respectively. \\ \\
+\noindent
+Sincerely,
+\\
+\noindent
+Szu-Pei, Bryan Quaife, Rolf Ryham, and Yuan-Nan Young
+
+\section*{Response to Reviewer 2}
+\comment{
+\noindent
+The authors are introducing a novel numerical approach to study vesicles
+under flow conditions in two dimensions. The vesicle is modelled as a
+collection of amphiphilic Janus particles (JP) interacting with each
+other through a hydrophobic attraction potential (HAP) and a short-range
+repulsion force to avoid the overlap between particles. Both the
+mobility of the particles and the HAP are recast in the form of an
+integral equation of the second kind and solved numerically. The authors
+presented some results on the deformation and dynamic of a single
+vesicle and a pair of vesicles in different type of external flows.
+\\ \\
+\noindent
+The originality of this work stems from coupling the HAP and Stokes
+equations through a boundary integral formulation which I personally
+find quite interesting. However, numerical models for vesicles and other
+class of soft particles in 2D and 3D are already well established in the
+literature. Disregarding the 2D nature of the model, I am not fully
+convinced on how this approach outperforms the existing models either in
+computational performance or in new applications. The authors should
+make an extra effort to highlight this. Another weakness of this model,
+if I understood correctly, is that the area of the vesicle is not
+conserved beyond the small deformation limit. To the best of my
+knowledge, a 2D vesicle should fulfill both constant area and perimeter
+constraints. This means that the range of application of the model is
+limited to the small deformation limits when used to mimic vesicles
+under flow. Finally, this paper lacks a thorough validation of the
+numerical results with the existing data in the literature and/or an
+original application/result describing a physical phenomenon not covered
+by the previous literature. This work is suitable for publication in
+this journal but a major revision is needed. Below additional minor
+comments to be addressed.}
+\begin{itemize}
+  \item Change 1
+  \begin{quotation}
+    \noindent
+    Can put verbatim change in this environment.
+  \end{quotation}
+\end{itemize}
+
+
+\noindent
+\comment{The abbreviation HAP is not defined in the text. I guess it stands for hydrophobic attraction potential.
+}
+\begin{itemize}
+  \item Thank you for noticing this oversight. The definition of HAP has
+    been added at its first occurrence in Section 3.1. 
+\end{itemize}
+
+\noindent
+\comment{$u$ is used for both the velocity and the solutions of the
+Laplace equation. Please use another variable for the scalar function
+$u$.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{$\rho$ used in the HAP is not the same as the one used in the
+mobility boundary integral equation. One is a decay length of the
+attraction potential, while the second is the Euclidean distance between
+two JPs.}
+\begin{itemize}
+  \item We had used $\rho$ to denote the distance between source and
+    target points in one of the layer potentials. This has been removed.
+
+  \item We now use $\rho$ to denote the HAP decay length and $\rho_0$ to
+    denote the cutoff for the repulsion force.
+\end{itemize}
+
+\noindent
+\comment{$\nu$ is used on multiple instances, sometimes as a normal
+vector (see line 97 for example), and other times as some scalar
+function (see line 203).}
+\begin{itemize}
+  \item We now reserve $\boldsymbol{\nu}$ for the normal vector and
+    $w_i$ denote the scalar what we previously defined to be $\nu_i$.
+\end{itemize}
+
+\noindent
+\comment{What is the bending modulus here? I guess that it is not a
+direct input parameter in this model but rather a quantity that can be
+deduced from other input parameters. If I am right then, what are these
+parameters? And could you tune them if needed to simulate the effect of
+the membrane stiffness? This can be important in some applications such
+as rigidity-based microfluidic sorting devices.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{To compare the results with the existing literature, I would
+suggest introducing the capillary number for vesicles as defined in
+\url{https://doi.org/10.1016/j.crhy.2009.10.001}.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{For both examples with the linear shear flow and the Poiseuille
+flow, the area of the vesicle is not conserved and the relative error
+with respect to the stress-free area increases with the increase of the
+external stresses. It can reach roughly 7-8\% for the higher shear rate
+in the shear flow example. This is quite significant. Do you have a way
+to reduce this error to below 1\%? Note that in other numerical models
+for vesicles (e.g.~\url{https://doi.org/10.1016/j.jcp.2008.11.036}),
+both constant area and perimeter constraints are fulfilled even when the
+vesicle is more deformed than the cases reported here.}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+\noindent
+\comment{In some interesting applications, the fluid encapsulated by the
+bilayer membrane has a viscosity which is different from the suspending
+fluid. How difficult it is to add this feature to your model?}
+\begin{itemize}
+  \item Change 1 
+\end{itemize}
+
+
+\end{document}
