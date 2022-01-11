@@ -226,6 +226,7 @@ of each particle is denoted by $\Gamma_i$ so that $\bd \Omega = \Gamma_1
 \ref{fig:figure0}a). Assuming the inertial terms are negligible, the
 governing equations are
 \begin{alignat}{3}
+\label{eq:stokes}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
     && \xx \in \Omega, \\
   \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
@@ -261,7 +262,7 @@ balance gives
 \end{alignat}
 where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
 \right)$ is the hydrodynamic stress tensor (pressure tensor) and
-$\nnu_i$ is the particle outward normal. The process of finding the
+$\nnu$ is the particle outward normal. The process of finding the
 translational and angular velocities given the forces and torques is
 referred to as the mobility problem.
 
@@ -329,11 +330,12 @@ $\rho_0$-tubular neighborhood of $\Gamma_i$. For $0 \leq r < \rho_0,$ we use
 $P(r) = M(1 - \sin(r/\rho_0))$ where $M$ is sufficiently large to
 prevent particle collisions. Then, the total imposed force and torque
 are
-\begin{align}
+\begin{equation}
+\label{eq:total_forces}
   \FF_i = \FF_i^{\text{hydro}} + \FF_i^{\text{repul}},\quad
   T_i = T_i^{\text{hydro}} + T_i^{\text{repul}}, \qquad
   i=1,\ldots,N_b.
-\end{align}
+\end{equation}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -448,10 +450,10 @@ $\omega_i$ satisfy
     \left(\SS(\xx,\aa_j) \cdot \FF_j + \RR(\xx,\aa_j) T_j\right),
     \quad &&\xx \in \Gamma_i,\: i=1,\ldots,N_b, \\
   \label{eq:mobility1}
-  \int_{\bd\Gamma_i} \eeta \cdot \nnu_i \, \dif s &= {\bf 0}, 
+  \int_{\Gamma_i} \eeta \cdot \nnu \, \dif s &= {\bf 0}, 
   &&i = 1,\ldots,N_b, \\
   \label{eq:mobility2}
-  \int_{\bd\Gamma_i} \eeta\times(\xx-\aa_i)^\perp \cdot \nnu_i \, \dif s &= 0,
+  \int_{\Gamma_i} \eeta\times(\xx-\aa_i)^\perp \cdot \nnu \, \dif s &= 0,
   &&i = 1,\ldots,N_b.
 \end{alignat}
 
@@ -674,12 +676,12 @@ smooth and $\nabla \cdot {\bf T}_1 = \mathbf{0}$ in $\mathbb{R}^n
 \end{align}
 Finally, $u_i$ and $w_i$ are smooth and $\nabla \cdot {\bf T}_2= 0$ in $U_i$. This gives
 \begin{align}
-  \mathbf{0} = \int_{U_i} \nabla \cdot {\bf T}_2 \, \dif \xx = -\int_{\Gamma_i}  
+  \mathbf{0} = \int_{U_i} \nabla \cdot {\bf T}_2 \, \dif \xx = \int_{\Gamma_i}  
     ({\bf T}_2 \cdot \nnu)^-\,\dif s,
 \end{align}
 where the superscript denotes the limit taken from in $U_i$.  
 Combining the above gives the first equation in \eqref{eq:prejump}.
-The argument for the second equation in \eqref{eq:prejump} is identical. 
+The derivation for the second equation in \eqref{eq:prejump} is identical. 
 \end{proof}
 
 We have the following jump relations for \eqref{eq:uidef}: 
@@ -703,8 +705,8 @@ on $\Gamma_i$ (see, e.g. \cite{KlBaGrON13}). Therefore,
 &= 2\gamma\rho^{-1} \sigma w_i \nnu + 2\gamma\rho \frac{d\sigma }{ds}\frac{dw_i }{ds} \nnu
 - 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dw_i }{d\nnu} \ttau = \JJ_i.
 \end{align*}
-\todo[inline]{RR: Can you make sure the last line is correct? There was
-an unbolded $\nu$ which I changed to a bolded $\nnu$.}
+%\todo[inline]{RR: Can you make sure the last line is correct? There was
+%an unbolded $\nu$ which I changed to a bolded $\nnu$.} RJR -> Correct. Thank you.
 Combining this with~\eqref{eq:prejump} gives~\eqref{eq:recipforcetorque}
 as required. 
 
@@ -732,22 +734,23 @@ as required.
 \end{figure}
 
 \subsection{Model Parameters}
-\cite{Fu20} studied physical quantities for static JP vesicles for
-various particle shapes. In the present study, we fix the particle shape
-and vary the background flows. Specifically, the particles are circular
-disks with diameter $l_0 = 2.5$~nm. The boundary
-conditions~\eqref{eq:SLbc} are $f_i(\xx) = \tfrac{1}{2}(1 + \cos
-\theta_i)$ where $\theta_i$ is the angle between $\xx - \aa_i$ and
-$\dd_i$, where the vectors $\aa_i$ and $\dd_i$ are the particle centre
-and director respectively. The particle diameter is the thickness of
-monolayers and the director points in the direction of the hydrophobic
-side of the JP. 
+\cite{Fu20} studied physical quantities for static JP vesicles. 
+In the present work, we study JP vesicles in various background flows.
+We also perform parametric studies of effective properties of the JP vesicles 
+as a function of particle size and interaction strength.
+An analysis of the relationship between particle shape on effective properties is beyond 
+the scope of the current paper. 
 
-We use $\rho = 2 l_0$ for decay length, $\rho_0 = 0.2l_0$ for repulsion
-length, $M=4.0$~$k_BT$ for repulsion strength, $\gamma = \text{4.1 pN
-nm}^{-1}$ for interfacial tension, and $\mu = \text{1 cP} = \text{1 pN
-ns nm}^{-2}$ for viscosity of room-temperature water. We
-nondimensionalize the problem through the change of variables 
+The particles are circular disks with centres 
+$\aa_i$ and unit-length directors $\dd_i$ (Figure \ref{fig:figure0}(a)).
+The simulations use the reference length $l_0 = 2.5$~nm representing the
+thickness of a lipid monolayer.
+The boundary conditions~\eqref{eq:SLbc} are $f_i(\xx) = \tfrac{1}{2}(1 + \cos
+\theta_i)$ where $\theta_i$ is the angle between $\xx - \aa_i$ and
+$\dd_i$.
+We nondimensionalize the PDE systems 
+\eqref{eq:stokes}-\eqref{eq:total_forces}
+problem through the change of variables 
 %\begin{equation}
 %\label{eq:nondimensionalize}
 $t \mapsto t \text{ ns}$,
@@ -756,6 +759,12 @@ $\uu \mapsto \uu \text{ nm ns}^{-1}$, and %\quad
 $p \mapsto p \text{ pN nm}^{-2}$.
 %\end{equation}
 The numerical time step size is $\Delta t=0.2$.
+
+The base-case is a single JP vesicle consisting of $N_b = 58$ particles
+with $c = 0.5 l_0$ for particle radius, $\rho = 2 l_0$ for decay length, $\rho_0 = 0.2l_0$ for repulsion
+length, $M=4.0$~$k_BT$ for repulsion strength, $\gamma = \text{4.1 pN
+nm}^{-1}$ for interfacial tension.  The parameter $\mu = \text{1 cP} = \text{1 pN
+ns nm}^{-2}$ is viscosity of room-temperature water. 
 
 To reach consistent simulation outcomes, we first solve for a baseline
 JP \ReviewerThree{vesicle} that is suitably close to equilibrium. We
@@ -767,6 +776,16 @@ configuration is therefore rapidly attained. This equilibrium
 configuration serves as the initial data in the subsequent background
 flow simulations.
 
+For a single JP vesicle, we consider background flows for a shear flow 
+(Section \ref{sec:ves_in_shear}), 
+a parabolic flow (Section \ref{sec:ves_in_parabolic}),
+and a quiescent flow (Section \ref{sec:ves_in_parabolic}). 
+In addition to observing the familiar tank-treading motion, the shear
+flow studies yield a friction coefficient for inter-monolayer slip 
+and a critical rupture shear rate.  Permeability coefficients and 
+stretching moduli arise from analyzing stretched JP vesicles in the 
+quiescent background flow case.  
+ 
 %\subsection{Jeffery Orbit}
 %We use Jeffery orbits to numerically validate our solver for the mobility-problem.  
 %The background flow is a shear flow $\uu_{\infty}(\xx) = \dot\gamma  \xx \cdot \mathbf{e}_2 \mathbf{e}_1$ with shear rate $\dot\gamma$
@@ -1030,6 +1049,7 @@ off by the flow (Figure~\ref{figure8}d).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Vesicle in a Parabolic Flow}
+\label{sec:ves_in_parabolic}
 Finally, we consider the parabolic background flow
 \begin{align}
   \uu_\infty = v_{max}\left[ 1 - \left( 
@@ -1084,6 +1104,7 @@ where it reaches a steady height of about $1$ nm.
 
 
 \subsection{Stretching and Permeability}
+\label{sec:ves_in_quiescent}
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Figure2_Wrapper.pdf}
