@@ -88,6 +88,10 @@ for k = 1:nb
     lu(0.5*eye(N) + geom.DLPYukawa(:,:,k));
 end
 
+% build precomputed matrix with all necessary bessel functions that are
+% needed at every GMRES iteration
+geom.BesselDistanceMatrix;
+
 % Solve for the density function using GMRES
 %tic
 [sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
@@ -97,7 +101,6 @@ end
 %[sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
 %      @(etaY0) o.timeMatVecYukawa(etaY0,geom) ,...
 %      yukawaRHS, [], o.gmresTol, N*nb); 
-% the result appears insensitive to preconditioning 
 iterYukawa = iterYukawa(2);
 fprintf('Yukawa required %i iterations\n',iterYukawa);
 %toc
@@ -351,6 +354,7 @@ Tx = Tx + 0.5*eta;
 % ADD SELF CONTRIBUTION
 Tx = Tx + op.exactYukawaDLdiag(geom,geom.DLPYukawa,eta);
 
+if 0
 % DEFINE Yukawa DLP KERNELS
 kernel = @op.exactYukawaDL;
 kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
@@ -361,6 +365,25 @@ yukawaDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
 Tx = Tx + yukawaDLP(1:geom.N,:);
 
 Tx = Tx(:);
+end
+
+if 1
+% START OF AN EXPERIMENT TO SPEED UP THE CODE BY PRECOMPUTING BESSELK OF
+% ALL DISTANCES
+kernel = @op.exactYukawaDLMatFree;
+kernelDirect = @op.exactYukawaDL;
+kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
+
+yukawaDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
+    kernel,kernelDirect,geom,true,false);
+
+Tx = Tx + yukawaDLP(1:geom.N,:);
+
+Tx = Tx(:);
+% END OF AN EXPERIMENT TO SPEED UP THE CODE BY PRECOMPUTING BESSELK OF
+% ALL DISTANCES
+end
+
 
 end % timeMatVecYukawa
 

@@ -26,6 +26,11 @@ bcType        % type of the boundary condition
 nearStruct;   % structure for near-singular integration
 DLPStokes;    % double-layer potential matrix
 DLPYukawa;    % double-layer potential matrix for yukawa
+upRate;       % upsampling rate that is used for NSI quadrature
+BK1;          
+% besselk(1,~) function evaluated for each target point with upsampled
+% source points on all other bodies
+
 end %properties
 
 
@@ -47,6 +52,7 @@ o.center = xc; % center
 o.tau = tau; % inclination angle
 o.bcShift = prams.bcShift;
 o.bcType = prams.bcType;
+o.upRate = ceil(sqrt(o.N));
 
 oc = curve;
 
@@ -75,6 +81,8 @@ o.RepulLength = prams.RepulLength;
 o.RepulStrength = prams.RepulStrength;
 % repulsion length and strength
 
+o.BK1 = [];
+
 end % capsules: constructor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -88,6 +96,37 @@ torque = zeros(o.nb,1);   % original -10
 
 end % bodyForceTorque
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function BesselDistanceMatrix(geom)
+% BesselDistanceMatrix(o,geom) computes the bessel function between all
+% pairs of points on different bodies. This is used to accelerate the
+% number of times besselk has to be evaulated when doing matrix-vector
+% multiplication in GMRES for Yukawa solve
+
+oc = curve;
+N = geom.N;
+Nup = N*geom.upRate;
+nb = geom.nb;
+geom.BK1 = zeros(N,Nup*(nb-1),nb);
+for k = 1:nb
+  Ksou = [(1:k-1) (k+1:nb)];
+  [xtar,ytar] = oc.getXY(geom.X(:,k));
+  xtar = xtar(:,ones(Nup*(nb-1),1));
+  ytar = ytar(:,ones(Nup*(nb-1),1));
+
+  [xsou,ysou] = oc.getXY(geom.X(:,Ksou));
+  xsou = interpft(xsou,Nup);
+  ysou = interpft(ysou,Nup);
+  xsou = xsou(:); ysou = ysou(:);
+  xsou = xsou(:,ones(N,1))';
+  ysou = ysou(:,ones(N,1))';
+
+  dis = sqrt((xtar - xsou).^2 + (ytar - ysou).^2);
+  geom.BK1(:,:,k) = besselk(1,dis/geom.rho);
+end
+
+
+end % BesselDistanceMatrix
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
