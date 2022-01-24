@@ -5,7 +5,7 @@ clear
 format long e
 format compact
 
-profile on
+%profile on
 
 prams.N = 16;      % number of point per body
 prams.nb = 116;      % number of bodies
@@ -99,6 +99,8 @@ prams.radii = radii;
 prams.ar    = ar;
 
 [Xfinal, trajectory] = rigid2D(options, prams, xc, tau);
+%profile off;
+%profile viewer;
 
 
-profsave
+%profsave

@@ -361,10 +361,6 @@ kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
 
 yukawaDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
     kernel,kernel,geom,true,false);
-
-Tx = Tx + yukawaDLP(1:geom.N,:);
-
-Tx = Tx(:);
 end
 
 if 1
@@ -376,13 +372,12 @@ kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
 
 yukawaDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
     kernel,kernelDirect,geom,true,false);
-
-Tx = Tx + yukawaDLP(1:geom.N,:);
-
-Tx = Tx(:);
+end
 % END OF AN EXPERIMENT TO SPEED UP THE CODE BY PRECOMPUTING BESSELK OF
 % ALL DISTANCES
-end
+
+Tx = Tx + yukawaDLP(1:geom.N,:);
+Tx = Tx(:);
 
 
 end % timeMatVecYukawa

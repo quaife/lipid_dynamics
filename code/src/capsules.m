@@ -121,8 +121,16 @@ for k = 1:nb
   xsou = xsou(:,ones(N,1))';
   ysou = ysou(:,ones(N,1))';
 
+  [tx,ty] = oc.getXY(geom.xt(:,Ksou));
+  nx = interpft(-ty,Nup); nx = nx(:);
+  ny = interpft(+tx,Nup); ny = ny(:);
+  nx = nx(:,ones(N,1))';
+  ny = ny(:,ones(N,1))';
+
+  rdotn = (xtar - xsou).*nx + (ytar - ysou).*ny;
   dis = sqrt((xtar - xsou).^2 + (ytar - ysou).^2);
-  geom.BK1(:,:,k) = besselk(1,dis/geom.rho);
+
+  geom.BK1(:,:,k) = -1/2/pi/geom.rho*besselk(1,dis/geom.rho).*rdotn./dis;
 end
 
 

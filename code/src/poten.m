@@ -1279,39 +1279,39 @@ end
 den = f.*geom.sa*2*pi/geom.N;
 % jacobian term and 2*pi/N accounted for here
 
-oc = curve;
-[xsou,ysou] = oc.getXY(geom.X(:,K1));
-xsou = xsou(:); ysou = ysou(:);
-xsou = xsou(:,ones(Ntar,1))';
-ysou = ysou(:,ones(Ntar,1))';
+%oc = curve;
+%[xsou,ysou] = oc.getXY(geom.X(:,K1));
+%xsou = xsou(:); ysou = ysou(:);
+%xsou = xsou(:,ones(Ntar,1))';
+%ysou = ysou(:,ones(Ntar,1))';
 
 den = den(:,K1);
 den = den(:);
 den = den(:,ones(Ntar,1))';
 
-[tx,ty] = oc.getXY(geom.xt(:,K1));
-nx = -ty(:); ny = tx(:);
-normalx = nx(:,ones(Ntar,1))';
-normaly = ny(:,ones(Ntar,1))';
+%[tx,ty] = oc.getXY(geom.xt(:,K1));
+%nx = -ty(:); ny = tx(:);
+%normalx = nx(:,ones(Ntar,1))';
+%normaly = ny(:,ones(Ntar,1))';
 
-invrho = 1/geom.rho;
+%invrho = 1/geom.rho;
 for k = 1:ncol % loop over columns of target points
-  [xtar,ytar] = oc.getXY(Xtar(:,k));
-  xtar = xtar(:,ones(geom.N*numel(K1),1));
-  ytar = ytar(:,ones(geom.N*numel(K1),1));
-  
-  diffx = xtar - xsou; diffy = ytar - ysou;
-  % difference of source and target location
-  dis2 = diffx.^2 + diffy.^2;
-  % distance squared
-  dis = sqrt(dis2);
-  % distance
-  rdotn = diffx.*normalx + diffy.*normaly;
-  % difference dotted with normal
+%  [xtar,ytar] = oc.getXY(Xtar(:,k));
+%  xtar = xtar(:,ones(geom.N*numel(K1),1));
+%  ytar = ytar(:,ones(geom.N*numel(K1),1));
+%  
+%  diffx = xtar - xsou; diffy = ytar - ysou;
+%  % difference of source and target location
+%  dis2 = diffx.^2 + diffy.^2;
+%  % distance squared
+%  dis = sqrt(dis2);
+%  % distance
+%  rdotn = diffx.*normalx + diffy.*normaly;
+%  % difference dotted with normal
 
   % use the precomputed Bessel function evaulation between all pairs of
   % points from itar to other bodies
-  kernel = -1/2/pi*invrho*geom.BK1(:,:,itar).*rdotn./dis.*den;
+  kernel = geom.BK1(:,:,itar).*den;
   
   yukawaDLPtar(:,k) = yukawaDLPtar(:,k) + sum(kernel,2);
   % Yukawa DLP
@@ -1559,41 +1559,76 @@ function [Dh,Dh_X1,Dh_X2] = evalDL(o,X1,X2,Nb,N,x1,x2,nu1,nu2,dS,rho,h)
 % TODO: This routine must already be in the code
 % evaluates double layer potential at (X1, X2)
 
-Dh = 0*X1;
-Dh_X1 = 0*X1;
-Dh_X2 = 0*X1; 
+%Dh = 0*X1;
+%Dh_X1 = 0*X1;
+%Dh_X2 = 0*X1; 
+%
+%for q = 1:Nb
+%  for j = 1:N
+%    r1 = X1 - x1(j,q); r2 = X2 - x2(j,q);
+%    r = sqrt(r1.^2 + r2.^2);                        
+%    rdotnu = r1.*nu1(j,q) + r2.*nu2(j,q);            
+%
+%    K0 = besselk(0,r/rho);
+%    K1 = besselk(1,r/rho);
+%    K2 = besselk(2,r/rho);
+%    dK1 = -0.5*(K0 + K2); 
+%    % see identity
+%    % https://functions.wolfram.com/Bessel-TypeFunctions/BesselK/20/01/02/
+%
+%    % using r = x - y; hence lack of minus below
+%    Dh = Dh + 1/(2*pi)*(r/rho).*K1.*rdotnu./r.^2.*dS(j,q).*h(j,q);
+%
+%    Dh_X1 = Dh_X1 + 1/(2*pi)*( ...
+%        + r1./(r*rho).*K1.*rdotnu./r.^2 ...
+%        + (r/rho).*dK1.*r1./(r*rho).*rdotnu./r.^2 ...
+%        + (r/rho).*K1.*(1./r.^2).*(nu1(j,q) - 2*r1.*rdotnu./r.^2)) ...
+%        * dS(j,q)*h(j,q);
+%
+%    Dh_X2 = Dh_X2 + 1/(2*pi)*( ...
+%        + r2./(r*rho).*K1.*rdotnu./r.^2 ...
+%        + (r/rho).*dK1.*r2./(r*rho).*rdotnu./r.^2 ...
+%        + (r/rho).*K1.*(1./r.^2).*(nu2(j,q) - 2*r2.*rdotnu./r.^2)) ...
+%        *dS(j,q)*h(j,q);
+%  end
+%end
 
-for q = 1:Nb
-  for j = 1:N
-    r1 = X1 - x1(j,q); r2 = X2 - x2(j,q);
-    r = sqrt(r1.^2 + r2.^2);                        
-    rdotnu = r1.*nu1(j,q) + r2.*nu2(j,q);            
+Ntar = numel(X1);
+Nsou = numel(x1);
 
-    K0 = besselk(0,r/rho);
-    K1 = besselk(1,r/rho);
-    K2 = besselk(2,r/rho);
-    dK1 = -0.5*(K0 + K2); 
-    % see identity
-    % https://functions.wolfram.com/Bessel-TypeFunctions/BesselK/20/01/02/
+xtar = X1; ytar = X2;
+xtar = X1(:,ones(Nsou,1));
+ytar = X2(:,ones(Nsou,1));
+xsou = x1; ysou = x2;
+xsou = x1(:,ones(Ntar,1))';
+ysou = x2(:,ones(Ntar,1))';
+normalx = nu1(:,ones(Ntar,1))';
+normaly = nu2(:,ones(Ntar,1))';
+h = h.*dS;
+den = h(:,ones(Ntar,1))';
 
-    % using r = x - y; hence lack of minus below
-    Dh = Dh + 1/(2*pi)*(r/rho).*K1.*rdotnu./r.^2.*dS(j,q).*h(j,q);
+rx = xtar - xsou; ry = ytar - ysou;
+dis2 = rx.^2 + ry.^2;
+dis = sqrt(dis2);
+rdotn = rx.*normalx + ry.*normaly;
 
-    Dh_X1 = Dh_X1 + 1/(2*pi)*( ...
-        + r1./(r*rho).*K1.*rdotnu./r.^2 ...
-        + (r/rho).*dK1.*r1./(r*rho).*rdotnu./r.^2 ...
-        + (r/rho).*K1.*(1./r.^2).*(nu1(j,q) - 2*r1.*rdotnu./r.^2)) ...
-        * dS(j,q)*h(j,q);
+K0 = besselk(0,dis/rho);
+K1 = besselk(1,dis/rho);
+K2 = besselk(2,dis/rho);
+dK1 = -0.5*(K0 + K2); 
 
-    Dh_X2 = Dh_X2 + 1/(2*pi)*( ...
-        + r2./(r*rho).*K1.*rdotnu./r.^2 ...
-        + (r/rho).*dK1.*r2./(r*rho).*rdotnu./r.^2 ...
-        + (r/rho).*K1.*(1./r.^2).*(nu2(j,q) - 2*r2.*rdotnu./r.^2)) ...
-        *dS(j,q)*h(j,q);
-  end
-end
+Dh = 1/(2*pi*rho)*sum(K1./dis.*rdotn.*den,2);
+Dh_X1 = 1/(2*pi)*sum((rx./(dis*rho).*K1.*rdotn./dis2 + ...
+                dis/rho.*dK1.*rx./(dis*rho).*rdotn./dis2 + ...
+                dis/rho.*K1./dis2.*(normalx - 2*rx.*rdotn./dis2)).*den,2);
+Dh_X2 = 1/(2*pi)*sum((ry./(dis*rho).*K1.*rdotn./dis2 + ...
+                dis/rho.*dK1.*ry./(dis*rho).*rdotn./dis2 + ...
+                dis/rho.*K1./dis2.*(normaly - 2*ry.*rdotn./dis2)).*den,2);
+
 
 end % evalDL
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % END OF ROUTINES THAT CALCULATE FORCES USING JUMP RELATIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
