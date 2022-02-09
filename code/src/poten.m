@@ -1,4 +1,4 @@
-classdef poten 
+classdef poten < handle
 % this class defines single and double layers for various kernels
 % (stokes, laplace) on 2D periodic curves.
 % Defines the matricies that map a density function defined on the
@@ -31,6 +31,8 @@ o.interpMat = o.lagrangeInterp;
 
 o.N = N;
 o.rho = rho;
+%o.upRate = ceil(sqrt(N));
+%o.BK1 = [];
 
 end % poten: constructor
 
@@ -52,6 +54,7 @@ function LP = nearSingInt(o,geomSou,f,selfMat,...
 % argument if desired so that plots of the near-singular integration
 % algorithm are displayed
 
+
 if (tEqualS && size(geomSou.X,2) == 1)
   LP = zeros(size(geomSou.X));
   return
@@ -71,14 +74,14 @@ argnear = NearStruct.argnear;
 nearFibers = NearStruct.nearFibers;
 
 Xsou = geomSou.X; % source positions
-Nsou = size(Xsou,1)/2; % number of source points
+Nsou = size(Xsou,1)/2; % number of source points per body
 nsou = size(Xsou,2); % number of source 'geoms'
 Xtar = geomTar.X; % target positions
 Ntar = size(Xtar,1)/2; % number of target points
 ntar = size(Xtar,2); % number of target 'geoms'
 h = geomSou.length/Nsou; % arclength term
 
-Nup = Nsou*ceil(sqrt(Nsou));
+Nup = Nsou*geomSou.upRate;
 
 vself = selfMat(f);
 
@@ -102,13 +105,13 @@ prams.RepulLength = geomSou.RepulLength;
 prams.RepulStrength = geomSou.RepulStrength;
 prams.bcShift = geomSou.bcShift;
 prams.bcType = geomSou.bcType;
+% parameters that we will need when building the upsampled geometry
 
-xc = geomSou.center;
-tau = geomSou.tau;
-% BQ: tau and xc are implemented funny
 
-geomUp = capsules(prams,xc,tau);
+geomUp = capsules(prams,geomSou.center,geomSou.tau);
 % Build an object with the upsampled geom
+geomUp.BK1 = geomSou.BK1;
+% already computed the necessary besselk matrix
 
 interpOrder = size(o.interpMat,1);
 % lagrange interpolation order
@@ -118,9 +121,10 @@ p = ceil((interpOrder+1)/2);
 
 if tEqualS % sources == targets
   if nsou > 1
+    % THIS IS THE BOTTLENECK OF THE DIRECT SOLVER
     for k = 1:nsou
       K = [(1:k-1) (k+1:nsou)];
-      [~,farField(:,k)] = kernelDirect(geomUp,fup,Xtar(:,k),K);
+      [~,farField(:,k)] = kernel(geomUp,fup,Xtar(:,k),K);
     end
     % This is a huge savings if we are using a direct method rather
     % than the fmm to evaluate the layer potential.  The speedup is
@@ -177,13 +181,13 @@ for k1 = 1:nsou
       % compute values of layer  potential at required intermediate
       % points using local interpolant
             
-      if ((numel(J) + numel(fup)) >= 512 && numel(J) > 32)
-        [~,potTar] = kernel(geomUp,fup,...
-              [Xtar(J,k2);Xtar(J+Ntar,k2)],k1);
-      else
+%      if ((numel(J) + numel(fup)) >= 512 && numel(J) > 32)
         [~,potTar] = kernelDirect(geomUp,fup,...
               [Xtar(J,k2);Xtar(J+Ntar,k2)],k1);
-      end
+%      else
+%        [~,potTar] = kernelDirect(geomUp,fup,...
+%              [Xtar(J,k2);Xtar(J+Ntar,k2)],k1);
+%      end
       % Need to subtract off contribution due to geom k1 since its layer
       % potential will be evaulted using Lagrange interpolant of nearby
       % points
@@ -211,11 +215,11 @@ for k1 = 1:nsou
         % so that the Nup-trapezoid rule gives sufficient accuracy
       end
             
-      if (numel(XLag)/2 > 100)
-        [~,lagrangePts] = kernel(geomUp,fup,XLag,k1);
-      else
+%      if (numel(XLag)/2 > 100)
         [~,lagrangePts] = kernelDirect(geomUp,fup,XLag,k1);
-      end
+%      else
+%        [~,lagrangePts] = kernelDirect(geomUp,fup,XLag,k1);
+%      end
       % evaluate layer potential at the lagrange interpolation points
 
       if numel(f) == geomSou.N*geomSou.nb
@@ -633,7 +637,7 @@ end % exactYukawaDLdiag
 % TARGET POINTS Xtar
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [stokesDLP,stokesDLPtar] = exactStokesDL(~,geom,f,Xtar,K1)
-% [stokesDLP,stokesDLPtar] = exactStokesDL(geom,f,Xtar,K1) computes the
+% [stokesDLP,stokesDLPtar] = exactStokesDL(geom,f,Xtar,K1,itar) computes the
 % double-layer potential due to f around all parts of the geometry
 % except itself.  Also can pass a set of target points Xtar and a
 % collection of geom K1 and the double-layer potential due to components
@@ -729,6 +733,40 @@ end
 % oneself
 
 end % exactStokesDL
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%function BesselDistanceMatrix(o,geom)
+%% BesselDistanceMatrix(o,geom) computes the bessel function between all
+%% pairs of points on different bodies. This is used to accelerate the
+%% number of times besselk has to be evaulated when doing matrix-vector
+%% multiplication in GMRES for Yukawa solve
+%
+%oc = curve;
+%N = geom.N;
+%Nup = N*o.upRate;
+%nb = geom.nb;
+%o.BK1 = zeros(N,Nup*(nb-1),nb);
+%for k = 1:nb
+%  Ksou = [(1:k-1) (k+1:nb)];
+%  [xtar,ytar] = oc.getXY(geom.X(:,k));
+%  xtar = xtar(:,ones(Nup*(nb-1),1));
+%  ytar = ytar(:,ones(Nup*(nb-1),1));
+%
+%  [xsou,ysou] = oc.getXY(geom.X(:,Ksou));
+%  xsou = interpft(xsou,Nup);
+%  ysou = interpft(ysou,Nup);
+%  xsou = xsou(:); ysou = ysou(:);
+%  xsou = xsou(:,ones(N,1))';
+%  ysou = ysou(:,ones(N,1))';
+%
+%  dis = sqrt((xtar - xsou).^2 + (ytar - ysou).^2);
+%  o.BK1(:,:,k) = besselk(1,dis/geom.rho);
+%end
+%
+%
+%end % BesselDistanceMatrix
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [stokesDLPpressure,stokesDLPpressuretar] = ...
@@ -1113,10 +1151,8 @@ end
 
 end % RSstress
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [yukawaDLP,yukawaDLPtar] = exactYukawaDL(~,geom,f,Xtar,K1)
+function [yukawaDLP,yukawaDLPtar] = exactYukawaDL(o,geom,f,Xtar,K1)
 % [yukawaDLP,yukawaDLPtar] = exactYukawaDL(geom,f,Xtar,K1) computes the
 % Yukawa double-layer potential due to f around all parts of the
 % geometry except itself. Also can pass a set of target points Xtar and
@@ -1125,7 +1161,7 @@ function [yukawaDLP,yukawaDLPtar] = exactYukawaDL(~,geom,f,Xtar,K1)
 % Everything but Xtar is in the 2*N x n format Xtar is in the 2*Ntar x
 % ncol format
 
-if nargin == 5
+if nargin >= 5
   Ntar = size(Xtar,1)/2;
   ncol = size(Xtar,2);
   yukawaDLPtar = zeros(Ntar,ncol);
@@ -1155,6 +1191,7 @@ nx = -ty(:); ny = tx(:);
 normalx = nx(:,ones(Ntar,1))';
 normaly = ny(:,ones(Ntar,1))';
 
+invrho = 1/geom.rho;
 for k = 1:ncol % loop over columns of target points
   [xtar,ytar] = oc.getXY(Xtar(:,k));
   xtar = xtar(:,ones(geom.N*numel(K1),1));
@@ -1169,11 +1206,8 @@ for k = 1:ncol % loop over columns of target points
   rdotn = diffx.*normalx + diffy.*normaly;
   % difference dotted with normal
 
-  BK1 = besselk(1,dis/geom.rho);
-  kernel = -1/2/pi/geom.rho.*BK1.*rdotn./dis.*den;
-%  kernel = -1/2/pi/geom.rho.*besselk(1,dis/geom.rho).*...
-%        rdotn./dis.*den;
-  % BQ: NOT SURE WHY WE NEED A MINUS SIGN HERE, BUT IT MAKES IT WORK
+  BK1 = besselk(1,invrho*dis);
+  kernel = -1/2/pi*invrho*BK1.*rdotn./dis.*den;
   
   yukawaDLPtar(:,k) = yukawaDLPtar(:,k) + sum(kernel,2);
   % Yukawa DLP
@@ -1217,6 +1251,109 @@ end
 
 end % exactYukawaDL
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [yukawaDLP,yukawaDLPtar] = exactYukawaDLMatFree(o,geom,f,Xtar,K1)
+% [yukawaDLP,yukawaDLPtar] = exactYukawaDLMatFree(geom,f,Xtar,K1)
+% computes the Yukawa double-layer potential due to f around all parts
+% of the geometry except itself. Also can pass a set of target points
+% Xtar and a collection of geom K1 and the double-layer potential due to
+% components of the geometry in K1 will be evaluated at Xtar.
+% Everything but Xtar is in the 2*N x n format Xtar is in the 2*Ntar x
+% ncol format
+
+if nargin >= 5
+  Ntar = size(Xtar,1)/2;
+  ncol = size(Xtar,2);
+  yukawaDLPtar = zeros(Ntar,ncol);
+%  itar = setdiff(1:numel(K1)+1,K1); % index of target body
+  [~,itar] = max(~ismember(1:numel(K1)+1,K1)); 
+  % faster way to do the setdiff we need
+else
+  K1 = [];
+  yukawaDLPtar = [];
+  ncol = 0;
+  Ntar = 0;
+  % if nargin ~= 5, the user does not need the velocity at arbitrary
+  % points
+end
+den = f.*geom.sa*2*pi/geom.N;
+% jacobian term and 2*pi/N accounted for here
+
+%oc = curve;
+%[xsou,ysou] = oc.getXY(geom.X(:,K1));
+%xsou = xsou(:); ysou = ysou(:);
+%xsou = xsou(:,ones(Ntar,1))';
+%ysou = ysou(:,ones(Ntar,1))';
+
+den = den(:,K1);
+den = den(:);
+den = den(:,ones(Ntar,1))';
+
+%[tx,ty] = oc.getXY(geom.xt(:,K1));
+%nx = -ty(:); ny = tx(:);
+%normalx = nx(:,ones(Ntar,1))';
+%normaly = ny(:,ones(Ntar,1))';
+
+%invrho = 1/geom.rho;
+for k = 1:ncol % loop over columns of target points
+%  [xtar,ytar] = oc.getXY(Xtar(:,k));
+%  xtar = xtar(:,ones(geom.N*numel(K1),1));
+%  ytar = ytar(:,ones(geom.N*numel(K1),1));
+%  
+%  diffx = xtar - xsou; diffy = ytar - ysou;
+%  % difference of source and target location
+%  dis2 = diffx.^2 + diffy.^2;
+%  % distance squared
+%  dis = sqrt(dis2);
+%  % distance
+%  rdotn = diffx.*normalx + diffy.*normaly;
+%  % difference dotted with normal
+
+  % use the precomputed Bessel function evaulation between all pairs of
+  % points from itar to other bodies
+  kernel = geom.BK1(:,:,itar).*den;
+  
+  yukawaDLPtar(:,k) = yukawaDLPtar(:,k) + sum(kernel,2);
+  % Yukawa DLP
+end
+% double-layer potential due to geometry components indexed over K1
+% evaluated at arbitrary points
+
+yukawaDLP = zeros(geom.N,geom.nb);
+if (nargin == 3 && geom.N > 1)
+  for k = 1:geom.nb
+    K = [(1:k-1) (k+1:geom.nb)];
+    [x,y] = oc.getXY(geom.X(:,K));
+    [tx,ty] = oc.getXY(geom.xt(:,K));
+    nx = -ty; ny = tx;
+    den = f(:,K).*geom.sa(:,K)*2*pi/geom.N;
+    % density including the jacobian and arclength term
+    for j = 1:geom.N
+      diffx = geom.X(j,k) - x; diffy = geom.X(j+geom.N,k) - y;
+      % difference of source and target location
+      dis2 = diffx.^2 + diffy.^2;
+      % distance squared
+      dis = sqrt(dis2);
+      % distance
+      rdotn = diffx.*nx + diffy.*ny;
+      % difference dotted with normal
+
+      % double-layer potential for Yukawa
+      yukawaDLP(j,k) = yukawaDLP(j,k) - ...
+          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
+
+      % BQ: NOT SURE WHY WE NEED A MINUS SIGN HERE, BUT IT MAKES IT WORK
+    end
+  end
+
+  yukawaDLP = yukawaDLP/2/pi/geom.rho;
+  % 1/2/pi is the coefficient in front of the double-layer potential
+  % 1/geom.rho comes out of the chain rule
+end
+% double-layer potential due to all components of the geometry except
+% oneself
+
+end % exactYukawaDLMatFree
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % END OF ROUTINES THAT EVALUATE LAYER-POTENTIALS
@@ -1228,98 +1365,6 @@ end % exactYukawaDL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % START OF ROUTINES THAT CALCULATE FORCES USING JUMP RELATIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [F1, F2, Tq] = evalForcesTaylor(o,geom,eta)
-% NOTE: THIS CODE IS CURRENTLY NOT BEING CALLED, SO NO NEED TO CLEAN IT
-% UP. IDEA IS TO USE TAYLOR EXPANSIONS RATHER THAN QBX
-
-% Uses * Tpq + Tqp identity, 
-%      * Jpq jump value to evaluate on curve itself 
-%      * Taylor expansion to derive uq and uq_n on curve p, p ~= q
-%      * FFT for tangential derivatives     
-
-oc = curve;
-N = geom.N;
-[x1,x2] = oc.getXY(geom.X);
-[tau1,tau2] = oc.getXY(geom.xt);
-nu1 = +tau2;
-nu2 = -tau1;
-dS = geom.sa*2*pi/N;
-
-F1 = zeros(geom.nb,1);
-F2 = zeros(geom.nb,1);
-Tq = zeros(geom.nb,1);
-
-tol   = 1.0;
-
-p_max = 8;
-r_max = 0.2;
-r_m   = linspace(0, r_max, p_max+1);
-r_m   = r_m(2:end)';
-r_0   = r_m(p_max);
-pw    = (0:p_max-1);
-AA    = (r_m - r_0).^pw;
-BB    = (0 - r_0).^pw;
-
-IK = oc.modes(geom.N,1); % Fourier modes
-
-for p = 1:geom.nb
-  for q = [1:p-1, p+1:geom.nb]
-    x1p   = x1(:,p);
-    x2p   = x2(:,p);        
-    dSp   = dS(:,p);
-    nu1p  = nu1(:,p);
-    nu2p  = nu2(:,p);
-    tau1p = -nu2p;
-    tau2p =  nu1p;
-    etap    = eta(:, p);
-
-    % decide which strategy to use : expansion or standard evaluation 
-    D = min(pdist2([x1(:,p) x2(:,p)],[x1(:,q), x2(:,q)]),[],"all");
-               
-    if D < tol
-      [Uq,Uq_x1,Uq_x2] = o.evalDL(x1p - nu1p*r_m',x2p - nu2p*r_m', ...
-         1,N,x1(:,q),x2(:,q),nu1(:,q),nu2(:,q),dS(:,q),geom.rho,eta(:,q));
-
-      coef    = AA\Uq.';
-      coef_x1 = AA\Uq_x1.';
-      coef_x2 = AA\Uq_x2.';                
-
-      uq      = (BB*coef)';
-      uq_x1   = (BB*coef_x1)';
-      uq_x2   = (BB*coef_x2)';
-
-    else
-
-      [uq,uq_x1,uq_x2] = o.evalDL(x1p,x2p,1,N,x1(:,q),x2(:,q),...
-          nu1(:,q),nu2(:,q),dS(:,q),geom.rho,eta(:,q));
-
-    end % if D < tol                                               
-
-%    etap_t = o.tanDeriv(etap,geom.sa(:,p),IK);
-%    uq_t = o.tanDeriv(uq,geom.sa(:,p),IK);
-
-    % compute tangent derivatives of etap and uq.
-    etap_t = oc.diffFT(etap,IK)./geom.sa(:,p);
-    uq_t = oc.diffFT(uq,IK)./geom.sa(:,p);
-    uq_n = uq_x1.*nu1p + uq_x2.*nu2p;
-
-    Jpq1 = 2.0/geom.rho*etap.*uq.*nu1p + ...
-        2.0*geom.rho*etap_t.*uq_t.*nu1p - ...
-        2.0*geom.rho*etap_t.*uq_n.*tau1p;
-    Jpq2 = 2.0/geom.rho*etap.*uq.*nu2p + ...
-        2.0*geom.rho*etap_t.*uq_t.*nu2p - ...
-        2.0*geom.rho*etap_t.*uq_n.*tau2p;        
-
-    F1(p) = F1(p) + sum(Jpq1.*dSp);
-
-    F2(p) = F2(p) + sum(Jpq2.*dSp);
-
-    Tq(p) = Tq(p) + sum( ( x1p.*Jpq2 - x2p.*Jpq1 ) .* dSp );        
-             
-  end    
-end     
-
-end % evalForcesTaylor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [F1, F2, Tq] = evalForcesQBX(o,geom,eta)
@@ -1346,7 +1391,7 @@ Tq = zeros(geom.nb,1);
 pc1 = geom.center(1,:).';
 pc2 = geom.center(2,:).';
 
-rad   = 0.3;
+rad = 0.3;
 m_max = 6;
 
 if N <= 32
@@ -1359,8 +1404,8 @@ else
   rad = 0.2; m_max = 12;
 end
 
-tol   = rad;
-B_m   = zeros(N,2*m_max + 1);
+tol = rad;
+B_m = zeros(N,2*m_max + 1);
 
 IK = oc.modes(N,1); % Fourier modes;
 
@@ -1381,7 +1426,7 @@ for p = 1:geom.nb
 
     % setting argin geom.nb = 1 tricks evaluators to using only one geometry
     % column
-    etap = eta(:, p);
+    etap = eta(:,p);
 
     % decide which strategy to use : expansion or standard evaluation 
               
@@ -1410,9 +1455,6 @@ for p = 1:geom.nb
             nu1(:,q),nu2(:,q),dS(:,q),geom.rho,eta(:,q));
     end % if D < tol                                   
 
-%    etap_t = o.tanDeriv(etap,geom.sa(:,p),IK);
-%    uq_t = o.tanDeriv(uq,geom.sa(:,p),IK);
-
     % compute tangent derivatives of etap and uq.
     etap_t = oc.diffFT(etap,IK)./geom.sa(:,p);
     uq_t = oc.diffFT(uq,IK)./geom.sa(:,p);
@@ -1439,173 +1481,6 @@ F2 = gam*F2;
 Tq = gam*Tq;
 
 end % evalForcesQBX
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [F1, F2, Tq] = evalForcesTaylorOld(o,Nb,N,x1,x2,nu1,nu2,dS,rho,h)
-% NOTE: THIS CODE IS CURRENTLY NOT BEING CALLED, SO NO NEED TO CLEAN IT
-% UP. IDEA IS TO USE TAYLOR EXPANSIONS RATHER THAN QBX
-
-% Uses * Tpq + Tqp identity, 
-%      * Jpq jump value to evaluate on curve itself 
-%      * Taylor expansion to derive uq and uq_n on curve p, p ~= q
-%      * FFT for tangential derivatives     
-
-F1 = zeros(Nb,1);
-F2 = zeros(Nb,1);
-Tq = zeros(Nb,1);
-
-tol   = 1.0;
-
-p_max = 8;
-r_max = 0.2;
-r_m   = linspace(0, r_max, p_max+1);
-r_m   = r_m(2:end)';
-r_0   = r_m(p_max);
-pw    = (0:p_max-1);
-AA    = (r_m - r_0).^pw;
-BB    = (0 - r_0).^pw;
-
-%errors = zeros(Nb, 3);
-
-IK = 1i*[(0:N/2-1) 0 (-N/2+1:-1)]'; % Fourier modes    
-dT = 2*pi/N;     % to convert dS to sa
-
-for p = 1:Nb
-  for q = [1:p-1, p+1:Nb]
-
-    x1p   = x1(:,p);
-    x2p   = x2(:,p);        
-    dSp   = dS(:,p);
-    nu1p  = nu1(:,p);
-    nu2p  = nu2(:,p);
-    tau1p = -nu2p;
-    tau2p =  nu1p;
-    hp    = h(:, p);
-
-    % decide which strategy to use : expansion or standard evaluation 
-              
-    D = pdist2([x1(:,p) x2(:,p)],[x1(:,q), x2(:,q)]);
-    D = min(D, [], "all");
-               
-    if D < tol
-      [Uq,Uq_x1,Uq_x2] = o.evalDL(x1p - nu1p*r_m',x2p - nu2p*r_m', ...
-         1,N,x1(:,q),x2(:,q),nu1(:,q),nu2(:,q),dS(:,q),rho,h(:,q));
-
-      coef    = AA\Uq.';
-      coef_x1 = AA\Uq_x1.';
-      coef_x2 = AA\Uq_x2.';                
-
-      uq      = (BB*coef)';
-      uq_x1   = (BB*coef_x1)';
-      uq_x2   = (BB*coef_x2)';
-
-    else
-
-      [uq,uq_x1,uq_x2] = o.evalDL(x1p,x2p,1,N,x1(:,q),x2(:,q),...
-          nu1(:,q),nu2(:,q),dS(:,q),rho,h(:,q));
-
-    end % if D < tol                                               
-
-    hp_t = o.tanDeriv(hp,dSp/dT,IK);
-    uq_t = o.tanDeriv(uq,dSp/dT,IK);
-    uq_n = uq_x1.*nu1p + uq_x2.*nu2p;
-
-    Jpq1 = 2.0/rho*hp.*uq.*nu1p + 2.0*rho*hp_t.*uq_t.*nu1p - ...
-        2.0*rho*hp_t.*uq_n.*tau1p;
-    Jpq2 = 2.0/rho*hp.*uq.*nu2p + 2.0*rho*hp_t.*uq_t.*nu2p - ...
-        2.0*rho*hp_t.*uq_n.*tau2p;        
-
-    F1(p) = F1(p) + sum(Jpq1.*dSp);
-
-    F2(p) = F2(p) + sum(Jpq2.*dSp);
-
-    Tq(p) = Tq(p) + sum(( + (x1p - x1pc).*Jpq2 - (x2p - x2pc).*Jpq1 ) .* dSp);
-
-  end    
-end     
-
-end % evalForcesTaylorOld
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [F1,F2,Tq] = evalForcesQBXOld(o, Nb, N, x1, x2, nu1, nu2, dS, rho, h)
-
-% Uses * Tpq + Tqp identity, 
-%      * Jpq jump value to evaluate on curve itself 
-%      * QBX expansion to derive uq and uq_n on curve p, p ~= q
-%      * FFT for tangential derivatives     
-
-F1 = zeros(Nb,1);
-F2 = zeros(Nb,1);
-Tq = zeros(Nb,1);
-
-rad   = 0.3;
-m_max = 6;
-tol   = rad;
-B_m   = zeros(N,2*m_max + 1);
-
-%errors = zeros(Nb, 3);
-
-IK = 1i*[(0:N/2-1) 0 (-N/2+1:-1)]'; % Fourier modes
-dT = 2*pi/N;     % to convert dS to sa
-
-for p = 1:Nb
-  for q = [1:p-1, p+1:Nb]
-
-    x1p = x1(:,p);
-    x2p = x2(:,p);        
-    dSp = dS(:,p);
-    nu1p = nu1(:,p);
-    nu2p = nu2(:,p);
-    tau1p = -nu2p;
-    tau2p = +nu1p;
-
-    % setting argin Nb = 1 tricks evaluators to using only one geometry
-    % column
-    hp = h(:, p);
-
-    % decide which strategy to use : expansion or standard evaluation 
-              
-    D = pdist2([x1(:,p) x2(:,p)],[x1(:,q), x2(:,q)]);
-    D = min(D, [], "all");
-
-    if D < tol
-      uq = zeros(N,1);
-      uq_x1 = zeros(N,1);
-      uq_x2 = zeros(N,1);
-
-      c1 = x1p - rad*nu1p;
-      c2 = x2p - rad*nu2p;
-
-      for m = -m_max:m_max
-        B_m(:,m+m_max+1) = o.QBX_coeff(c1,c2,m,x1(:,q),x2(:,q), ...
-              nu1(:,q),nu2(:,q),dS(:,q),rho,h(:,q));
-      end                
-
-      [uq,uq_x1,uq_x2] = o.QBX_exp(x1p,x2p,c1,c2,B_m,m_max,rho); 
-
-    else
-      [uq,uq_x1,uq_x2] = o.evalDL(x1p,x2p,1,N,x1(:,q),x2(:,q), ...
-            nu1(:,q),nu2(:,q),dS(:,q),rho, h(:,q));
-    end % if D < tol                                   
-
-    hp_t = o.tanDeriv(hp,dSp/dT,IK);
-    uq_t = o.tanDeriv(uq,dSp/dT,IK);
-    uq_n = uq_x1.*nu1p + uq_x2.*nu2p;
-
-    Jpq1 = 2.0/rho*hp.*uq.*nu1p + 2.0*rho*hp_t.*uq_t.*nu1p - ...
-        2.0*rho*hp_t.*uq_n.*tau1p;
-    Jpq2 = 2.0/rho*hp.*uq.*nu2p + 2.0*rho*hp_t.*uq_t.*nu2p - ...
-        2.0*rho*hp_t.*uq_n.*tau2p;        
-
-    F1(p) = F1(p) + sum(Jpq1.*dSp);
-    F2(p) = F2(p) + sum(Jpq2.*dSp);
-    Tq(p) = Tq(p) + sum(( + (x1p - x1pc).*Jpq2 - (x2p - x2pc).*Jpq1 ) .* dSp);
-
-  end    
-
-end     
-    
-end % evalForcesQBXOld
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Dh,Dh_x1,Dh_x2] = QBX_exp(o,X1,X2,c1,c2,A_m,m_max,rho)
@@ -1652,19 +1527,10 @@ function a_m = QBX_coeff(o, c1, c2, m, y1, y2, nu1, nu2, dS, rho, h)
 % (c1, c2) and (y1, y2) point sets of differing size
 % output has size of (c1, c2)
 
-%c1 = reshape(c1, numel(c1),1); % m elements
-%c2 = reshape(c2, numel(c2),1); 
-
-%y1 = reshape(y1, 1, numel(y1)); % n elements
-%y2 = reshape(y2, 1, numel(y2));
 y1 = y1';
 y2 = y2';
 % transpose is much fater than reshape
 
-%nu1 = reshape(nu1, 1, numel(nu1));
-%nu2 = reshape(nu2, 1, numel(nu2));
-%dS  = reshape(dS, 1, numel(dS));
-%h   = reshape(h, 1, numel(h));
 nu1 = nu1';
 nu2 = nu2';
 dS = dS';
@@ -1693,53 +1559,75 @@ function [Dh,Dh_X1,Dh_X2] = evalDL(o,X1,X2,Nb,N,x1,x2,nu1,nu2,dS,rho,h)
 % TODO: This routine must already be in the code
 % evaluates double layer potential at (X1, X2)
 
-Dh = 0*X1;
-Dh_X1 = 0*X1;
-Dh_X2 = 0*X1; 
+%Dh = 0*X1;
+%Dh_X1 = 0*X1;
+%Dh_X2 = 0*X1; 
+%
+%for q = 1:Nb
+%  for j = 1:N
+%    r1 = X1 - x1(j,q); r2 = X2 - x2(j,q);
+%    r = sqrt(r1.^2 + r2.^2);                        
+%    rdotnu = r1.*nu1(j,q) + r2.*nu2(j,q);            
+%
+%    K0 = besselk(0,r/rho);
+%    K1 = besselk(1,r/rho);
+%    K2 = besselk(2,r/rho);
+%    dK1 = -0.5*(K0 + K2); 
+%    % see identity
+%    % https://functions.wolfram.com/Bessel-TypeFunctions/BesselK/20/01/02/
+%
+%    % using r = x - y; hence lack of minus below
+%    Dh = Dh + 1/(2*pi)*(r/rho).*K1.*rdotnu./r.^2.*dS(j,q).*h(j,q);
+%
+%    Dh_X1 = Dh_X1 + 1/(2*pi)*( ...
+%        + r1./(r*rho).*K1.*rdotnu./r.^2 ...
+%        + (r/rho).*dK1.*r1./(r*rho).*rdotnu./r.^2 ...
+%        + (r/rho).*K1.*(1./r.^2).*(nu1(j,q) - 2*r1.*rdotnu./r.^2)) ...
+%        * dS(j,q)*h(j,q);
+%
+%    Dh_X2 = Dh_X2 + 1/(2*pi)*( ...
+%        + r2./(r*rho).*K1.*rdotnu./r.^2 ...
+%        + (r/rho).*dK1.*r2./(r*rho).*rdotnu./r.^2 ...
+%        + (r/rho).*K1.*(1./r.^2).*(nu2(j,q) - 2*r2.*rdotnu./r.^2)) ...
+%        *dS(j,q)*h(j,q);
+%  end
+%end
 
-for q = 1:Nb
-  for j = 1:N
-    r1 = X1 - x1(j,q); r2 = X2 - x2(j,q);
-    r = sqrt(r1.^2 + r2.^2);                        
-    rdotnu = r1.*nu1(j,q) + r2.*nu2(j,q);            
+Ntar = numel(X1);
+Nsou = numel(x1);
 
-    K0 = besselk(0,r/rho);
-    K1 = besselk(1,r/rho);
-    K2 = besselk(2,r/rho);
-    dK1 = -0.5*(K0 + K2); 
-    % see identity
-    % https://functions.wolfram.com/Bessel-TypeFunctions/BesselK/20/01/02/
+xtar = X1; ytar = X2;
+xtar = X1(:,ones(Nsou,1));
+ytar = X2(:,ones(Nsou,1));
+xsou = x1; ysou = x2;
+xsou = x1(:,ones(Ntar,1))';
+ysou = x2(:,ones(Ntar,1))';
+normalx = nu1(:,ones(Ntar,1))';
+normaly = nu2(:,ones(Ntar,1))';
+h = h.*dS;
+den = h(:,ones(Ntar,1))';
 
-    % using r = x - y; hence lack of minus below
-    Dh = Dh + 1/(2*pi)*(r/rho).*K1.*rdotnu./r.^2.*dS(j,q).*h(j,q);
+rx = xtar - xsou; ry = ytar - ysou;
+dis2 = rx.^2 + ry.^2;
+dis = sqrt(dis2);
+rdotn = rx.*normalx + ry.*normaly;
 
-    Dh_X1 = Dh_X1 + 1/(2*pi)*( ...
-        + r1./(r*rho).*K1.*rdotnu./r.^2 ...
-        + (r/rho).*dK1.*r1./(r*rho).*rdotnu./r.^2 ...
-        + (r/rho).*K1.*(1./r.^2).*(nu1(j,q) - 2*r1.*rdotnu./r.^2)) ...
-        * dS(j,q)*h(j,q);
+K0 = besselk(0,dis/rho);
+K1 = besselk(1,dis/rho);
+K2 = besselk(2,dis/rho);
+dK1 = -0.5*(K0 + K2); 
 
-    Dh_X2 = Dh_X2 + 1/(2*pi)*( ...
-        + r2./(r*rho).*K1.*rdotnu./r.^2 ...
-        + (r/rho).*dK1.*r2./(r*rho).*rdotnu./r.^2 ...
-        + (r/rho).*K1.*(1./r.^2).*(nu2(j,q) - 2*r2.*rdotnu./r.^2)) ...
-        *dS(j,q)*h(j,q);
-  end
-end
+Dh = 1/(2*pi*rho)*sum(K1./dis.*rdotn.*den,2);
+Dh_X1 = 1/(2*pi)*sum((rx./(dis*rho).*K1.*rdotn./dis2 + ...
+                dis/rho.*dK1.*rx./(dis*rho).*rdotn./dis2 + ...
+                dis/rho.*K1./dis2.*(normalx - 2*rx.*rdotn./dis2)).*den,2);
+Dh_X2 = 1/(2*pi)*sum((ry./(dis*rho).*K1.*rdotn./dis2 + ...
+                dis/rho.*dK1.*ry./(dis*rho).*rdotn./dis2 + ...
+                dis/rho.*K1./dis2.*(normaly - 2*ry.*rdotn./dis2)).*den,2);
+
 
 end % evalDL
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function f_t = tanDeriv(o, f,dS,IK)
-% calculate tangential derivative of along curve with arclength differential dS
-% TODO: THIS ROUTINE IS ALREADY SOMEWHERE IN THE CODE
-    
-f_t = real(ifft(IK.*fft(f)))./dS;
-
-end
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % END OF ROUTINES THAT CALCULATE FORCES USING JUMP RELATIONS

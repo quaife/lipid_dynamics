@@ -9,6 +9,7 @@
 \usepackage{mathtools}
 \usepackage{commath}
 \usepackage{todonotes}
+
 %
 \usepackage[justification=justified]{caption}
 
@@ -965,18 +966,33 @@ midplane $C_M$ (Figure~\ref{figure5}a), and $U$ is the slip velocity.
 The time average $\langle \cdot \rangle$ is necessary to avoid division by zero
 whenever slip velocity vanishes.  
 
+%original table
+%\begin{table}
+%\caption{Friction Coefficients}
+%\centering
+%\begin{tabular}{c c c c c c c c }
+% $\dot\gamma$  (ns$^{-1}$) & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  \\
+%\hline                    
+%$b$ (pN ns nm$^{-3}$)    & 0.43 & 1.19 &   0.42  & 0.69 &   0.97  &   0.80  &  1.07 \\ 
+%\hline    
+%\end{tabular} 
+%\label{table1}
+%\end{table}
+
+%updated table
 \begin{table}
-\caption{Friction Coefficients}
+\caption{Friction Coefficients $b$ (pN ns nm$^{-3}$) \\
+}
 \centering
-\begin{tabular}{c c c c c c c c }
- $\dot\gamma$  (ns$^{-1}$) & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  \\
-\hline                    
-%$\dot\gamma$ (ns$^{-1}$)        & 0.0033 & 0.0041 & 0.0049 & 0.0057 & 0.0066 & 0.0074 & 0.0082\\
-%$F_{f}$ (pN nm$^{-1}$)           & 1.84 & 4.90 & 11.36 & 8.16 & 6.14 &  17.69 &  24.33 \\[1ex]
-%$\dot\theta$ (nm ns$^{-1}$)           & $6.84\times10^{-5}$ & $1.31\times10^{-4}$ & $3.46\times10^{-4}$ & $2.32\times10^{-4}$ & $1.81\times10^{-4}$ & $4.91\times10^{-4}$ & $5.83\times10^{-4}$\\ [1ex]
-%$b$ (pN$\cdot$ns nm$^{-3}$)    & 0.22 & 0.87*  & 0.22 &0.21 & 1.29* & 0.31 & 0.30\\ 
-$b$ (pN ns nm$^{-3}$)    & 0.43 & 1.19 &   0.42  & 0.69 &   0.97  &   0.80  &  1.07 \\ 
-\hline    
+\begin{tabular}{c c c c c c c c c }
+& & & & $\dot\gamma$  (ns$^{-1}$) & & & &\\
+\cline{2-8}\\
+ & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  & Average\\
+\cline{1-8}\\
+$N_b=53$  & 0.50  & 0.51  &  0.44 & 0.52  & 0.45 &  0.57   &  0.62 & 0.52  \\ 
+$N_b=56$ & 0.54 & 0.41 & 0.35  & 0.37 & 0.43 & 0.76  & 0.70 & 0.51\\ 
+$N_b=58$   & 0.42 & 0.63 & 0.50   & 0.40  & 0.48  & 0.53 & 0.55 & 0.50 \\   % new
+$N_b=61$  & 0.22 & 0.36 & 0.41   & 0.45  & 0.45 & 0.44   & 0.44 & 0.40\\ 
 \end{tabular} 
 \label{table1}
 \end{table}
@@ -1011,8 +1027,11 @@ Finally, the function $s(t) = \int_0^t dU $ records the distance one leaflet has
 slid past the other. Figure~\ref{figure5}b plots the sliding distance for various shear
 rates. 
 
-Table~\ref{table1} provides $b = 0.79 \pm 0.3$ pN ns nm$^{-3}$  
-over a range of shear rates
+%Table~\ref{table1} provides $b = 0.79 \pm 0.3$ pN ns nm$^{-3}$  
+\ReviewerOne{Table~\ref{table1} provides a series of numerical friction coefficients $b$ and the default number of particles is $N_b = 58$. With the fixed total length of the JP vesicle, we change parameters related to the length scale, for instances, $\rho$, $\rho_0$, and the radius of particles.
+With $-5\%$, $5\%$, and $10\%$ adjustments in these parameters, the resulting numbers of particles are $N_b=\{61,56,53\}$, respectively. }
+%
+Over a range of shear rates
 which is in good quantitative agreement with values previously reported in the literature.
 Atomistic studies have also considered inter-monolayer slip in lipid bilayers. 
 \cite{WuoEd06} and \cite{denOtter2007} reported $b = 0.7 \times 10^6$ Pa m$^{-1}$ s  
@@ -1162,6 +1181,32 @@ a Laplace pressure
 where $\Delta p$ is the difference in internal pressure to the pressure
 at infinity and $R^{-1}$ is the total curvature of the circular
 cylinder.
+
+
+% table 2
+
+
+\begin{table}
+\caption{Stretching Moduli and Permeabilities}
+\centering
+\begin{tabular}{ c c c c c c c }
+ radius ($l_0$) &  $\rho$ ($l_0$)  &  $\rho_0$ ($l_0$) &  $M (k_BT)$ & $\gamma$ (pN nm$^{-1})$ & $K_A$ (pN nm$^{-1}$) & $P$ (nm$^3$ ns$^{-1}$pN$^{-1}$) \\
+\hline      \hline 
+ 0.5 & 2.0  &   0.5  & 4.0 &  4.1  & 170$\pm9$   &  0.0296\\ 
+%
+ 0.475 & 1.9  &   0.475  & 4.0 &  4.1   & 184$\pm5$  &  0.0283 \\ 
+%
+ 0.45 & 1.8  &   0.45  & 4.0   &  4.1   & 189$\pm6$  &  0.0252  \\ 
+%
+ 0.5 & 2.0  &   0.5  & 4.2   &  4.31  & 185$\pm5$  &  0.0292  \\ 
+%
+ 0.5 & 2.0  &   0.5  & 4.4   &  4.51  & 195$\pm5$  &  0.0294 \\ 
+\end{tabular} 
+\label{table2}
+\end{table}
+
+
+
 
 Figure~\ref{figure2}c plots the data for the pressure jump $\Delta p$
 between the particle centre and the far-field (see
@@ -1515,7 +1560,8 @@ comparisons between computational and laboratory experiments.
 \bibliographystyle{jfm}
 \bibliography{reference}% Produces the bibliography via BibTeX.
 
-
+% Supplementary Materials
+\input{Supplementary}
 
 
 

@@ -173,3 +173,267 @@ for k=1:nb
     
 end
 %}
+
+
+% Code removed on Jan 23, 2022
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [F1,F2,Tq] = evalForcesQBXOld(o, Nb, N, x1, x2, nu1, nu2, dS, rho, h)
+
+% Uses * Tpq + Tqp identity, 
+%      * Jpq jump value to evaluate on curve itself 
+%      * QBX expansion to derive uq and uq_n on curve p, p ~= q
+%      * FFT for tangential derivatives     
+
+F1 = zeros(Nb,1);
+F2 = zeros(Nb,1);
+Tq = zeros(Nb,1);
+
+rad   = 0.3;
+m_max = 6;
+tol   = rad;
+B_m   = zeros(N,2*m_max + 1);
+
+%errors = zeros(Nb, 3);
+
+IK = 1i*[(0:N/2-1) 0 (-N/2+1:-1)]'; % Fourier modes
+dT = 2*pi/N;     % to convert dS to sa
+
+for p = 1:Nb
+  for q = [1:p-1, p+1:Nb]
+
+    x1p = x1(:,p);
+    x2p = x2(:,p);        
+    dSp = dS(:,p);
+    nu1p = nu1(:,p);
+    nu2p = nu2(:,p);
+    tau1p = -nu2p;
+    tau2p = +nu1p;
+
+    % setting argin Nb = 1 tricks evaluators to using only one geometry
+    % column
+    hp = h(:, p);
+
+    % decide which strategy to use : expansion or standard evaluation 
+              
+    D = pdist2([x1(:,p) x2(:,p)],[x1(:,q), x2(:,q)]);
+    D = min(D, [], "all");
+
+    if D < tol
+      uq = zeros(N,1);
+      uq_x1 = zeros(N,1);
+      uq_x2 = zeros(N,1);
+
+      c1 = x1p - rad*nu1p;
+      c2 = x2p - rad*nu2p;
+
+      for m = -m_max:m_max
+        B_m(:,m+m_max+1) = o.QBX_coeff(c1,c2,m,x1(:,q),x2(:,q), ...
+              nu1(:,q),nu2(:,q),dS(:,q),rho,h(:,q));
+      end                
+
+      [uq,uq_x1,uq_x2] = o.QBX_exp(x1p,x2p,c1,c2,B_m,m_max,rho); 
+
+    else
+      [uq,uq_x1,uq_x2] = o.evalDL(x1p,x2p,1,N,x1(:,q),x2(:,q), ...
+            nu1(:,q),nu2(:,q),dS(:,q),rho, h(:,q));
+    end % if D < tol                                   
+
+    hp_t = o.tanDeriv(hp,dSp/dT,IK);
+    uq_t = o.tanDeriv(uq,dSp/dT,IK);
+    uq_n = uq_x1.*nu1p + uq_x2.*nu2p;
+
+    Jpq1 = 2.0/rho*hp.*uq.*nu1p + 2.0*rho*hp_t.*uq_t.*nu1p - ...
+        2.0*rho*hp_t.*uq_n.*tau1p;
+    Jpq2 = 2.0/rho*hp.*uq.*nu2p + 2.0*rho*hp_t.*uq_t.*nu2p - ...
+        2.0*rho*hp_t.*uq_n.*tau2p;        
+
+    F1(p) = F1(p) + sum(Jpq1.*dSp);
+    F2(p) = F2(p) + sum(Jpq2.*dSp);
+    Tq(p) = Tq(p) + sum(( + (x1p - x1pc).*Jpq2 - (x2p - x2pc).*Jpq1 ) .* dSp);
+
+  end    
+
+end     
+    
+end % evalForcesQBXOld
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [F1, F2, Tq] = evalForcesTaylorOld(o,Nb,N,x1,x2,nu1,nu2,dS,rho,h)
+% NOTE: THIS CODE IS CURRENTLY NOT BEING CALLED, SO NO NEED TO CLEAN IT
+% UP. IDEA IS TO USE TAYLOR EXPANSIONS RATHER THAN QBX
+
+% Uses * Tpq + Tqp identity, 
+%      * Jpq jump value to evaluate on curve itself 
+%      * Taylor expansion to derive uq and uq_n on curve p, p ~= q
+%      * FFT for tangential derivatives     
+
+F1 = zeros(Nb,1);
+F2 = zeros(Nb,1);
+Tq = zeros(Nb,1);
+
+tol   = 1.0;
+
+p_max = 8;
+r_max = 0.2;
+r_m   = linspace(0, r_max, p_max+1);
+r_m   = r_m(2:end)';
+r_0   = r_m(p_max);
+pw    = (0:p_max-1);
+AA    = (r_m - r_0).^pw;
+BB    = (0 - r_0).^pw;
+
+%errors = zeros(Nb, 3);
+
+IK = 1i*[(0:N/2-1) 0 (-N/2+1:-1)]'; % Fourier modes    
+dT = 2*pi/N;     % to convert dS to sa
+
+for p = 1:Nb
+  for q = [1:p-1, p+1:Nb]
+
+    x1p   = x1(:,p);
+    x2p   = x2(:,p);        
+    dSp   = dS(:,p);
+    nu1p  = nu1(:,p);
+    nu2p  = nu2(:,p);
+    tau1p = -nu2p;
+    tau2p =  nu1p;
+    hp    = h(:, p);
+
+    % decide which strategy to use : expansion or standard evaluation 
+              
+    D = pdist2([x1(:,p) x2(:,p)],[x1(:,q), x2(:,q)]);
+    D = min(D, [], "all");
+               
+    if D < tol
+      [Uq,Uq_x1,Uq_x2] = o.evalDL(x1p - nu1p*r_m',x2p - nu2p*r_m', ...
+         1,N,x1(:,q),x2(:,q),nu1(:,q),nu2(:,q),dS(:,q),rho,h(:,q));
+
+      coef    = AA\Uq.';
+      coef_x1 = AA\Uq_x1.';
+      coef_x2 = AA\Uq_x2.';                
+
+      uq      = (BB*coef)';
+      uq_x1   = (BB*coef_x1)';
+      uq_x2   = (BB*coef_x2)';
+
+    else
+
+      [uq,uq_x1,uq_x2] = o.evalDL(x1p,x2p,1,N,x1(:,q),x2(:,q),...
+          nu1(:,q),nu2(:,q),dS(:,q),rho,h(:,q));
+
+    end % if D < tol                                               
+
+    hp_t = o.tanDeriv(hp,dSp/dT,IK);
+    uq_t = o.tanDeriv(uq,dSp/dT,IK);
+    uq_n = uq_x1.*nu1p + uq_x2.*nu2p;
+
+    Jpq1 = 2.0/rho*hp.*uq.*nu1p + 2.0*rho*hp_t.*uq_t.*nu1p - ...
+        2.0*rho*hp_t.*uq_n.*tau1p;
+    Jpq2 = 2.0/rho*hp.*uq.*nu2p + 2.0*rho*hp_t.*uq_t.*nu2p - ...
+        2.0*rho*hp_t.*uq_n.*tau2p;        
+
+    F1(p) = F1(p) + sum(Jpq1.*dSp);
+
+    F2(p) = F2(p) + sum(Jpq2.*dSp);
+
+    Tq(p) = Tq(p) + sum(( + (x1p - x1pc).*Jpq2 - (x2p - x2pc).*Jpq1 ) .* dSp);
+
+  end    
+end     
+
+end % evalForcesTaylorOld
+
+
+function [F1, F2, Tq] = evalForcesTaylor(o,geom,eta)
+% NOTE: THIS CODE IS CURRENTLY NOT BEING CALLED, SO NO NEED TO CLEAN IT
+% UP. IDEA IS TO USE TAYLOR EXPANSIONS RATHER THAN QBX
+
+% Uses * Tpq + Tqp identity, 
+%      * Jpq jump value to evaluate on curve itself 
+%      * Taylor expansion to derive uq and uq_n on curve p, p ~= q
+%      * FFT for tangential derivatives     
+
+oc = curve;
+N = geom.N;
+[x1,x2] = oc.getXY(geom.X);
+[tau1,tau2] = oc.getXY(geom.xt);
+nu1 = +tau2;
+nu2 = -tau1;
+dS = geom.sa*2*pi/N;
+
+F1 = zeros(geom.nb,1);
+F2 = zeros(geom.nb,1);
+Tq = zeros(geom.nb,1);
+
+tol   = 1.0;
+
+p_max = 8;
+r_max = 0.2;
+r_m   = linspace(0, r_max, p_max+1);
+r_m   = r_m(2:end)';
+r_0   = r_m(p_max);
+pw    = (0:p_max-1);
+AA    = (r_m - r_0).^pw;
+BB    = (0 - r_0).^pw;
+
+IK = oc.modes(geom.N,1); % Fourier modes
+
+for p = 1:geom.nb
+  for q = [1:p-1, p+1:geom.nb]
+    x1p   = x1(:,p);
+    x2p   = x2(:,p);        
+    dSp   = dS(:,p);
+    nu1p  = nu1(:,p);
+    nu2p  = nu2(:,p);
+    tau1p = -nu2p;
+    tau2p =  nu1p;
+    etap    = eta(:, p);
+
+    % decide which strategy to use : expansion or standard evaluation 
+    D = min(pdist2([x1(:,p) x2(:,p)],[x1(:,q), x2(:,q)]),[],"all");
+               
+    if D < tol
+      [Uq,Uq_x1,Uq_x2] = o.evalDL(x1p - nu1p*r_m',x2p - nu2p*r_m', ...
+         1,N,x1(:,q),x2(:,q),nu1(:,q),nu2(:,q),dS(:,q),geom.rho,eta(:,q));
+
+      coef    = AA\Uq.';
+      coef_x1 = AA\Uq_x1.';
+      coef_x2 = AA\Uq_x2.';                
+
+      uq      = (BB*coef)';
+      uq_x1   = (BB*coef_x1)';
+      uq_x2   = (BB*coef_x2)';
+
+    else
+
+      [uq,uq_x1,uq_x2] = o.evalDL(x1p,x2p,1,N,x1(:,q),x2(:,q),...
+          nu1(:,q),nu2(:,q),dS(:,q),geom.rho,eta(:,q));
+
+    end % if D < tol                                               
+
+%    etap_t = o.tanDeriv(etap,geom.sa(:,p),IK);
+%    uq_t = o.tanDeriv(uq,geom.sa(:,p),IK);
+
+    % compute tangent derivatives of etap and uq.
+    etap_t = oc.diffFT(etap,IK)./geom.sa(:,p);
+    uq_t = oc.diffFT(uq,IK)./geom.sa(:,p);
+    uq_n = uq_x1.*nu1p + uq_x2.*nu2p;
+
+    Jpq1 = 2.0/geom.rho*etap.*uq.*nu1p + ...
+        2.0*geom.rho*etap_t.*uq_t.*nu1p - ...
+        2.0*geom.rho*etap_t.*uq_n.*tau1p;
+    Jpq2 = 2.0/geom.rho*etap.*uq.*nu2p + ...
+        2.0*geom.rho*etap_t.*uq_t.*nu2p - ...
+        2.0*geom.rho*etap_t.*uq_n.*tau2p;        
+
+    F1(p) = F1(p) + sum(Jpq1.*dSp);
+
+    F2(p) = F2(p) + sum(Jpq2.*dSp);
+
+    Tq(p) = Tq(p) + sum( ( x1p.*Jpq2 - x2p.*Jpq1 ) .* dSp );        
+             
+  end    
+end     
+
+end % evalForcesTaylor

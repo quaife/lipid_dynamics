@@ -42,7 +42,7 @@ defaultOption.saveData  = true;
 defaultOption.saveVel   = true;
 defaultOption.usePlot   = true;
 defaultOption.plotAxis  = [-1 1 -1 1];
-defaultOption.tracer    = true;
+defaultOption.tracer    = false;
 
 for k = 1:length(OptionList)
   if ~isfield(options,OptionList{k})
