@@ -57,14 +57,21 @@ following concerns in the revised manuscript.
 \end{itemize}
 
 \noindent
-\comment{In section 2.2, the authors defined a repulsion force with an
+\comment{{\bf 1.} In section 2.2, the authors defined a repulsion force with an
 empirical formula to prevent particle collisions. However, there is no
 benchmark test to show that this artificial repulsion force can generate
 correct hydrodynamic lubrication. The authors are suggested to justify
 and validate the use of the Imposed Forces with comparison to well-known
 lubrication forces between particles.}
 \begin{itemize}
-  \item Change 1 
+  \item Response: The repulsive potential we used to prevent overlap of Janus particles is the repulsive Morse potential based on the electrostatic repulsive potential between two negatively (or positively) charged particles immersed in a medium of low electrolyte concentration so that there is a well-defined zeta potential on the charged particle (Coakley {\sl et al.}, 1999, Biophys. J). This repulsive potential has been approximated by the short-range repulsive Lennard-Jones potential (Flormann {\sl et al.}, 2017, Sci. Reports), which has been adopted by Quaife and Young to study the interaction between two membranes in a viscous solvent in Quaife, Veerapaneni and Young, 2019, Phys. Rev. Fluids, where Quaife {\sl et al.} showed that the lubrication hydrodynamics (draining of fluid between two membrane) is well captured and the scaling of lubrication thin film is recovered. 
+  
+This is evidence that the lubrication hydrodynamics of the thin film between two particles under the repulsive Morse potential is well captured  if the flow velocity can be accurately calculated in the boundary integral simulations when two particles are sufficiently close to each other and the short-range repulsion is the dominant force. 
+
+In this work we use similar techniques for solving the integral equations when some boundaries are quite close to each other.  As the repulsive More potential works well to prevent overlapping of particles (provided the time step size is sufficiently small), our previous results in Quaife, Veerapaneni and Young, 2019, Phys. Rev. Fluids gives us confidence in the accuracy of the fluid flow in the thin space between the particles.
+
+\item Change: We added a short paragraph to describe our methodology to capture the lubrication flow in the space between particles in close vicinity of each other in page, between lines \$\$\$ and \$\$\$.
+
 \end{itemize}
 
 \noindent
