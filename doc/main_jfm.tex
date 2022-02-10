@@ -712,6 +712,10 @@ Combining this with~\eqref{eq:prejump} gives~\eqref{eq:recipforcetorque}
 as required. 
 
 
+% what we solve for?
+\ReviewerOne{.....}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{results}Numerical Results}
@@ -987,7 +991,7 @@ whenever slip velocity vanishes.
 \begin{tabular}{c c c c c c c c c }
 & & & & $\dot\gamma$  (ns$^{-1}$) & & & &\\
 \cline{2-8}\\
- & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  & $\langle b\rangle$ \\
+ & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  & Average\\
 \cline{1-8}\\
 $N_b=53$  & 0.50  & 0.51  &  0.44 & 0.52  & 0.45 &  0.57   &  0.62 & 0.52  \\ 
 $N_b=56$ & 0.54 & 0.41 & 0.35  & 0.37 & 0.43 & 0.76  & 0.70 & 0.51\\ 
@@ -1027,9 +1031,13 @@ Finally, the function $s(t) = \int_0^t dU $ records the distance one leaflet has
 slid past the other. Figure~\ref{figure5}b plots the sliding distance for various shear
 rates. 
 
-Table~\ref{table1} provides $b = 0.79 \pm 0.3$ pN ns nm$^{-3}$  
-over a range of shear rates
-which is in good quantitative agreement with values previously reported in the literature.
+%Table~\ref{table1} provides $b = 0.79 \pm 0.3$ pN ns nm$^{-3}$  
+\ReviewerOne{Table~\ref{table1} provides a series of numerical friction coefficients $b$ and the default number of particles is $N_b = 58$. With the fixed total length of the JP vesicle, we change parameters related to the length scale, for instances, $\rho$, $\rho_0$, and the radius of particles.
+With $-5\%$, $5\%$, and $10\%$ adjustments in these parameters, the resulting numbers of particles are $N_b=\{61,56,53\}$, respectively. }
+%
+\ReviewerOne{There is no clear trend shown in Table~\ref{table1} but these values of $b$ are}
+%over a range of shear rates which is 
+in good quantitative agreement with values previously reported in the literature.
 Atomistic studies have also considered inter-monolayer slip in lipid bilayers. 
 \cite{WuoEd06} and \cite{denOtter2007} reported $b = 0.7 \times 10^6$ Pa m$^{-1}$ s  
 $=0.7$ pN ns nm$^{-3}$  
@@ -1060,6 +1068,9 @@ background flow and fissures appear in the bilayer structure in multiple
 locations (Figure~\ref{figure8}b). In Figure~\ref{figure8}c, the
 ruptured vesicles form two planar micelles which are eventually carried
 off by the flow (Figure~\ref{figure8}d). 
+%
+\ReviewerOne{An emperical numerical study has shown that the critical shear rate for a complete membrane rupture is $\chi=0.0655$. Supplementary Materials Movie 4 shows the membrane rupture at the critical shear rate.}
+
 
 
 
@@ -1179,6 +1190,8 @@ where $\Delta p$ is the difference in internal pressure to the pressure
 at infinity and $R^{-1}$ is the total curvature of the circular
 cylinder.
 
+
+
 Figure~\ref{figure2}c plots the data for the pressure jump $\Delta p$
 between the particle centre and the far-field (see
 Figures~\ref{figure2}c and~\ref{figure2}d). We use $R = L/(2\pi)$ for
@@ -1246,6 +1259,35 @@ L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t.
 \end{align}
 All in all, the theoretical time courses for \eqref{eq:perm_solution} are in good
 quantitative agreement with the JP data (Figure~\ref{figure2}f).
+
+
+% table 2
+
+
+\begin{table}
+\caption{Stretching Moduli and Permeabilities}
+\centering
+\begin{tabular}{ c c c c c c c }
+ radius ($l_0$) &  $\rho$ ($l_0$)  &  $\rho_0$ ($l_0$) &  $M (k_BT)$ & $\gamma$ (pN nm$^{-1})$ & $K_A$ (pN nm$^{-1}$) & $P$ (nm$^3$ ns$^{-1}$pN$^{-1}$) \\
+\hline      \hline 
+ 0.5 & 2.0  &   0.5  & 4.0 &  4.1  & 170$\pm9$   &  0.0296\\ 
+%
+ 0.475 & 1.9  &   0.475  & 4.0 &  4.1   & 184$\pm5$  &  0.0283 \\ 
+%
+ 0.45 & 1.8  &   0.45  & 4.0   &  4.1   & 189$\pm6$  &  0.0252  \\ 
+%
+ 0.5 & 2.0  &   0.5  & 4.2   &  4.31  & 185$\pm5$  &  0.0292  \\ 
+%
+ 0.5 & 2.0  &   0.5  & 4.4   &  4.51  & 195$\pm5$  &  0.0294 \\ 
+\end{tabular} 
+\label{table2}
+\end{table}
+%
+
+\ReviewerOne{Table~\ref{table2} provides the results of stretching moduli $K_A$ and permeabilities $P$ for various cases. The default setup is shown in the first row. The next two rows show the results for the cases where the length scale related parameters are decreased by 5$\%$ and 10$\%$. One can observe that the constant $K_A$ increases 
+and $P$ decreases as size of particles decreases. 
+The last two rows demonstrate the results when the force related parameters $\gamma$ and $M$ are adjusted by 5$\%$ and 10$\%$. The quantities examined for these two cases show that $K_A$ increases and $P$ remains constant as inter-particle interaction strength increases. As expected by the fact that the permeability is dependent of the particle size where the gap between each adjacent JP pair is controlled by the size of JP particles. However, the detailed correlation between all model parameters will be explored as 
+a direction of future work.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Two Vesicles in a Linear Flow}
