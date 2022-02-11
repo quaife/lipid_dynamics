@@ -237,19 +237,26 @@ governing equations are
 %
 where $\uu$ is the velocity, $p$ is the
 pressure, $\uu_\infty$ is the background flow, and $\mu$ is the constant viscosity. 
+%
 Since each particle $\Gamma_i$ with centre $\aa_i$ is a rigid body, its velocity satisfies 
+\ReviewerOne{the no-slip boundary condition}
 \begin{align}
-  \vv(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad 
+  \ReviewerOne{\uu}(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad 
     \xx \in \Gamma_i,
 \end{align}
 where $\vv_i$ is its translational velocity and $\omega_i$ is its
 angular velocity. Here, $\langle x, y \rangle^{\perp} = \langle -y, x
-\rangle$. Therefore, the no-slip boundary condition on each particle is
-\begin{align}
-\label{eq:rigid_bc}
-  \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad
-    \xx \in \Gamma_i.
-\end{align}
+\rangle$.
+%Therefore, the no-slip boundary condition on each particle is
+%
+%
+%\begin{align}
+%\label{eq:rigid_bc}
+%  \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, \quad
+%    \xx \in \Gamma_i.
+%\end{align}
+%
+%
 To determine the translational and angular velocities of each particle,
 we define imposed forces $\FF_i$ and torques $T_i$ acting on each
 particle. Since the small particles are inertialess, force and torque
