@@ -1147,111 +1147,187 @@ where it reaches a steady height of about $1$ nm.
   from left to right. The parameters are $v_{max} = 8$~nm ns$^{-1}$,
   $w=10$, and $R_0=20$ nm.}
 \end{figure}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \subsection{Stretching and Permeability}
 \label{sec:ves_in_quiescent}
+
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{Figure2_Wrapper.pdf}
-%\includegraphics[height=2in]{relax2.eps}
-%\includegraphics[height=2in]{relax.eps}\\
-%\includegraphics[height=2.in]{N58_0pres.pdf}
-%\includegraphics[height=2.in]{N58_5000pres.pdf}
-%  \todo[inline]{Put pressure of each of the two configurations below
-%  this.}
-\caption{\label{figure2} In JP vesicles, tension and pressure relax as
-  fluid is expelled through the particle interstices. In panel (a), the
-  thin curve plots the mean of the norm of the particle translational
-  velocities. The thick curve plots the mean of the absolute value of
-  the particle angular velocities. At $t = 0$ $\upmu$s, the vesicle has
-  a spatially constant internal pressure 0.05~pN nm$^{-2}$ (red color,
-  panel (b)). In panel (c), pressure has dissipated and the vesicle has
-  moved from its initial configuration (gray circles), to the
-  equilibrium configuration (black circles). The data in panels (d) and
-  (e) support the linear relationship expressed by
-  \eqref{eq:LaplacePressure} and \eqref{eq:perm}. Circles are for a
-  vesicle with 17 nm initial radius; square are for a 34 nm initial
-  radius. Asterisks are for a 18 nm initial radius but with smaller,
-  1.25 nm diameter particles. In panel (f), the theoretical time course
-  \eqref{eq:perm_solution} overlaps the data using constants $K_A$ and
-  $P$ derived from panels (d) and (e). }
+\includegraphics[width=\textwidth]{Figure2_part1_Wrapper.pdf}
+\caption{\label{figure2part1} Tension and pressure relax as
+  fluid is expelled through the particle interstices. In panel (a), inset, 
+  pressure is spatially constant inside the JP vesicle (inset). and 
+  Laplace pressure ((a), squares) and excess length ((b), squares) dissipate exponentially.  
+  The data in panels (b) and (c) show a linear relationship expressed by
+  \eqref{eq:LaplacePressure} and \eqref{eq:perm}. }
 \end{figure}
-Finally, we show that the JP vesicle behaves as a permeable membrane and the inextensibility comes
-about due to a large stretching modulus.
-%an extensible, permeable membrane. 
-Figures~\ref{figure2}b shows an initial, non-equilibrium JP
-vesicle suspended in a quiescent flow $\uu_{\infty} = 0$. The color map
-plots the pressure $p$. The red color in Figures~\ref{figure2}b shows a
-spatially constant, positive internal pressure (0.05~pN nm$^{-2}$) and the white
-shows a spatially constant zero, external pressure. There is some fluid flow and
-the pressure vanishes as the configuration tends toward the equilibrium
-state (Figures~\ref{figure2}c).
-\ReviewerOne{As shown in Figure~\ref{figure2}\ReviewerOne{a}, the particle translational and angular velocities vanish during the relaxation as expected.}
 
-What could be the source of this drop in pressure? In membrane
-continuum  mechanics, small changes in surface area give rise to a membrane tension
-$\tilde \gamma = K_A(A/A_0 - 1)$ where $A$ is the membrane surface area
-and $A_0$ is the reference surface area. The area modulus $K_A$ of
-bilayers is about $240$ pN nm$^{-1}$ (\cite{NaTr00}). In the
-two-dimensional vesicles, the tension becomes
+In this section, we consider a circular JP vesicle suspended in a quiescent flow $\uu_{\infty} = 0$.
+We show that the JP particle bilayer behaves as an inextensible, permeable membrane with
+the inextensibility coming from a large stretching modulus.
+
+In membrane continuum  mechanics, changes in membrane surface area $A$ give rise to a tension
+$\tilde \sigma = K_A(A/A_0 - 1)$ where $A_0$ is the reference surface area \cite{NaTr00}. 
+For a two-dimensional membrane, the tension is 
 \begin{align}
 \label{eq:stretch}
-\tilde \gamma = K_A\left(\frac{L}{L_0} - 1 \right),
+\tilde \sigma = K_A\left(L/L_0 - 1 \right),
 \end{align}
-where $L$ and $L_0$ are the vesicle arc length and resting length,
-respectively. Moreover, stretched, circular vesicles \ReviewerOne{have}
+where $L$ and $L_0$ are arc length and resting length,
+respectively. 
+Membrane tension gives rise to 
 a Laplace pressure 
 \begin{align}
 \label{eq:LaplacePressure}
-\Delta p = \frac{\tilde \gamma}{R},
+\Delta p = \tilde \sigma/R,
 \end{align}
-where $\Delta p$ is the difference in internal pressure to the pressure
-at infinity and $R^{-1}$ is the total curvature of the circular
-cylinder.
-
-%
-Figure~\ref{figure2}\ReviewerOne{b} plots the data for the pressure jump $\Delta p$
-between the particle centre and the far-field (see
-Figures~\ref{figure2}\ReviewerOne{b} and~\ref{figure2}\ReviewerOne{c}). 
-We use $R = L/(2\pi)$ for
-the vesicle radius, and the horizontal axis is the relative stretch.
-The circles are data for a vesicle with radius 17 nm. The linear fit
-(solid lines) shows that $R\Delta P$ is proportional to the relative
-stretching $L/L_0 - 1$. The squares are for a vesicle with twice the
-radius 34 nm, and the data overlap supports that the proportionality
-constant $K_A$ is a stretching modulus that is independent of vesicle
-size. The data give $K_A = 170 \pm 9$ pN nm$^{-1}$ which is in good
-agreement with the experimentally obtained area moduli of lipid bilayer. 
-%
-The reason the tank-treading vesicle appears inextensible ($L$ is more or less constant in Figure~\ref{figure4}c) is because the modulus $K_A$ is large.
-%
-To evaluate how changes to particle size lead to different
-physical properties, the asterisk symbols are for an 18 nm radius
-vesicle consisting of particles with diameter 1.25 nm, instead of the
-usual 2.5 nm. These data give a smaller stretching modulus of $K_A =
-102$~pN~nm$^{-1}$. 
-
-The particles in our setup do not abut but rather have small gaps due to
-repulsive forces. The gaps allow for some fluid flux across the JP
-bilayer, and in membrane mechanics aqueous flux is quantified by the equation
+where $\Delta p$ is the jump in far-field pressure to internal pressure and
+$R = L/2\pi$.
+In order to relieve Laplace pressure, 
+water flows across the membrane. The rate of efflux is governed by  
 \begin{align}
   \label{eq:perm} 
-  \frac{dA}{dt} = -P L \Delta p,
+  \frac{dA}{dt} = - P\Delta p,
 \end{align}
-where $P$ is a hydraulic permeability constant (\cite{chabanon2017,
-qua-gan-you2021}). Figure~\ref{figure2}e shows that the data for
-$L\Delta p$ and $dA/dt$ obey the linear relationship expressed by
-\eqref{eq:perm}. The slopes of the linear fits give the hydraulic
-permeabilities $P = 0.0296$ nm$^3$ ns$^{-1}$ pN$^{-1}$ and $P = 0.0283$
-nm$^3$ ns$^{-1}$ pN$^{-1}$ for the 17 nm and 34 nm radius cases,
-respectively. Like the area modulus, the data give a permeability 
-that is independent of vesicle size.
+where $P = k/(\mu \Delta x)$ is a constant, $k$ is hydraulic permeability, 
+$\mu$ is the solvent viscosity, and $\Delta x$ is the 
+membrane thickness, about 5 nm
+(\cite{chabanon2017, qua-gan-you2021}).
+
+Our  simulation setup consists of an initial, non-equilibrium JP
+obtained by dilating the equilibrium shape outward (Figures~\ref{figure2part1}a).
+At $t = 0$, pressure \eqref{eq:stokes} is spatially constant  inside and outside the vesicle 
+(Figures~\ref{figure2part1}a, inset)
+and Laplace pressure decreases to zero exponentially 
+(Figures~\ref{figure2part1}a,  squares).  
+At the same time, arc length decreases from its initial value $L(0)$ to its resting length $L_0$
+(Figures~\ref{figure2part1}b).
+
+To evaluate whether JP vesicles possess a stretching modulus,
+Figure~\ref{figure2part1}c plots $R \Delta p$ against the excess length $L/L_0 - 1$.  The squares
+are for the baseline simulation with vesicle diameter about 34 nm.  The diamonds 
+are for a vesicle with twice the diameter.  The linear relationships 
+are independent of vesicle size and give an area modulus $K_A = 170 \pm 9$ pN nm$^{-1}$.
+ This relatively large stretching modulus is the reason why the JP vesicle conserves length in the 
+shear-flow simulations (Figure \ref{figure2part1}c).
+The value also reasonably agrees with stretching moduli for 
+lipid bilayers, around $240$ pN nm$^{-1}$ \cite{NaTr00}.
+
+ In the initial, dilated vesicle,
+contractile motion is limited by the incompressibility of the 
+fluid bound by the vesicle.  
+Hence, the Laplace pressure 
+comes from an excess in inter-particle separation.  The vesicle-bound water,
+however, can escape through the gaps between the particles and this
+is how the JP vesicle relieves Laplace pressure over time (Figure \ref{figure2part1}a).  
+
+To evaluate the rate of water outflow, 
+Figure~\ref{figure2part1}d plots the the simulation values for $dA/dt$.  
+These values are proportional to $L\Delta p$ and like for the stretching modulus, 
+the proportionality constants are 
+independent of vesicle size.
+The  linear fits give a hydraulic permeability $P = 0.0290 \pm 0.007$ nm$^3$ ns$^{-1}$ pN$^{-1}$.
+We can combine~\eqref{eq:stretch},~\eqref{eq:LaplacePressure},
+and~\eqref{eq:perm} to derive
+\begin{align}
+\label{eq:perm_solution}
+L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t.
+\end{align}
+Using the fitted values for $P$ and $K_A$, the theoretical time course for 
+\eqref{eq:perm_solution} (Figure~\ref{figure2part1}b, solid curve) is in good
+agreement with the JP data (Figure~\ref{figure2part1}b, squares).
+
+Our value for permeability disagrees 
+with permeabilities for lipid bilayers by a few orders of magnitude  (\cite{chabanon2017, qua-gan-you2021}).
+Potential reasons for this include the following. 
+Our two-dimensional simulations correspond to water flowing past a collection
+of parallel cylinders, which has a larger permeability than for a collection
+of spheres of comparable radius.   
+Second, permeability vanishes with inter-particle separation.  
+However, in our simulations, inter-particle separation is intentionally made comparable to 
+particle radius to avoid aggresive mesh refinement.
 
 \begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Figure2_Wrapper.pdf}
+\caption{\label{figure2}  
+The ratios of the abscissa and ordinates from Figure \ref{figure2part1}c, d are well-fit by constant functions (baseline, dots).
+The open circles and diamonds are for $\gamma$ and $M$ increased by 5$\%$ and 10$\%$, respectively. 
+The x's and stars are for particle radius, $\rho$, and $\rho_0$ decreased by 5$\%$ and 10$\%$, respectively.
+The variable $x$ is used to denote the horizontal axis coordinate. 
+}
+\end{figure}
+
+\begin{table}
+\caption{Stretching Moduli and Permeabilities}
+\centering
+\begin{tabular}{ c c c |c c| c |c }
+ radius ($l_0$) &  $\rho$ ($l_0$)  &  $\rho_0$ ($l_0$) &  $M (\mathrm{k_BT})$ & $\gamma$ (pN nm$^{-1})$ & $K_A$ (pN nm$^{-1}$) & $P$ (nm$^3$ ns$^{-1}$pN$^{-1}$) \\
+\hline      \hline 
+ 0.5 & 2.0  &   0.5  & 4.0 &  4.1  & 170$\pm9$   &  0.0296\\ 
+%
+ \multicolumn{3}{c|}{same} & \multicolumn{2}{c|}{$+ 5 \%$}  & 185$\pm5$  &  0.0292  \\ 
+%
+ \multicolumn{3}{c|}{same} & \multicolumn{2}{c|}{$+ 10 \%$}  & 195$\pm5$  &  0.0294 \\ 
+%
+ \multicolumn{3}{c|}{$- 5 \%$} & \multicolumn{2}{c|}{same}   & 184$\pm5$  &  0.0283 \\ 
+%
+ \multicolumn{3}{c|}{$- 10 \%$} & \multicolumn{2}{c|}{same}   & 189$\pm6$  &  0.0252  \\ 
+\end{tabular} 
+\label{table2}
+\end{table}
+%
+
+We performed a parametric study of the dependence of $K_A$ and $P$
+on model parameters taking into account   
+(i) changes in interfacial strength and (ii) changes in size.
+Table~\ref{table2} provides the results of stretching moduli $K_A$ and permeabilities $P$ for various cases.
+ The baseline setup is shown in the first row.
+The next two rows demonstrate the results when the tension related parameters $\gamma$ and $M$ are increased by 5$\%$ and 10$\%$. 
+The final two rows show the results for the cases where the length scale related parameters are decreased by 5$\%$ and 10$\%$
+This data comes from Figure \ref{figure2} which  plots the \emph{ratio} of the abscissa and ordinates
+used in Figure \ref{figure2part1}c, d. The transformed data are fit by constant functions.  
+
+Increases in $\gamma$ and $M$ result in
+a commensurate increase in the stretching modulus. 
+Permeability, however, is insensitive to simultaneous increases in $\gamma$ and $M$.
+To give a detailed explanation for this, the JP system has the potential energy $E = G + H$ where 
+\begin{equation}
+\label{eq:baseline_energy}
+G = \gamma \int_{\Omega} \rho |\nabla u|^2 + \rho^{-1} u^2 \,dx,\quad H = M \sum_{i=1}^{N_b}\sum_{j \neq i} 
+       P(|\tilde{\xx}_i - \tilde{\xx}_j|).
+\end{equation}
+Here, $G$ is the hydrophobic attraction potential for the boundary value problem \eqref{eq:SL}--\eqref{eq:SLff},
+and $H$ is the repulsion potential.  
+For the circular vesicle, total energy depends only on the characteristic inter-particle distance $x$
+and has a minimum at $x_0$. 
+If $\gamma$ and $M$ are scaled by $c$, 
+we can related the scaled energy to that of the baseline case by 
+\[E_c(x) = c(G(x) + H(x)).\]
+Permeability does not change with like increases in $\gamma$ and $M$
+because the critical number for $E_c$, and hence inter-particle separations, are independent to $c$.
+The stretching modulus comes from $\frac{d^2E_c}{dx^2}$ and this 
+quantity varies proportionally with $c$. 
+
+One can observe that $K_A$ increases and $P$ decreases as the length scale decreases. 
+The decrease in  $P$ is expected because 
+the size of the gap between adjacent JP particles is directly proportional to length scale.
+To give a more detailed account, pressure $p$ and water flux across the membrane $q$ scale as 
+$p_{\lambda}(\mathbf{x}) = \lambda^{-1} p(\mathbf{x}/\lambda)$ and 
+$q_{\lambda}(\mathbf{x}) = q(\mathbf{x}/\lambda)$ 
+when $l_0$ is scaled by $\lambda$. As a result, the scaled permeability constant satisfies 
+\[
+P_{\lambda} = q_{\lambda}/\Delta p_{\lambda} = q/(\lambda^{-1} \Delta p) = \lambda P.
+\]
+For the stretching modulus, the total energy transforms as 
+\[E_{\lambda}(x) = \lambda G(x/\lambda) + H(x/\lambda ).\]
+The factor $\lambda$ comes from the change of 
+variables formula for the integral in \eqref{eq:baseline_energy}.
+The stretching modulus increases because $\frac{d^2E_{\lambda}}{dx^2}$ increases with decreases in $\lambda.$ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 \includegraphics[width=\textwidth]{Figure9_Wrapper.pdf}
 %  \includegraphics[width=0.9\textwidth]{ShearTraj.eps}
@@ -1262,61 +1338,7 @@ that is independent of vesicle size.
   located on the $x$-axis. The fluid velocity streamlines appear in
   grey.  The dimensionless shear rate is $\chi=0.005$.}
 \end{figure}
-
-The hydraulic permeability we calculate, however, is not in agreement
-with experimentally derived values and is larger by a few orders of
-magnitude. We suspect this discrepancy is due to inter-particle distance
-of the JP being large compared to the inter-lipid spacing in real
-bilayers. To test this, we calculate the permeability for the particles
-with diameter 1.25 nm. Due to their smaller size but fixed repulsion
-strength, these particles have a larger inter-particle spacing resulting
-in an increase in permeability, $P = 0.0566$~nm$^3$~ns$^{-1}$~pN$^{-1}$
-(Figure~\ref{figure2}e, asterisk symbols).
-
-Since the vesicles in Figure~\ref{figure2}a are nearly circular, we can
-combine~\eqref{eq:stretch},~\eqref{eq:LaplacePressure},
-and~\eqref{eq:perm}, to derive
-\begin{align}
-\label{eq:perm_solution}
-L_0(L-L(0)) + L_0^2 \ln\left|\frac{L-L_0}{L(0)-L_0}\right| = -4\pi^2 P K_A t.
-\end{align}
-All in all, the theoretical time courses for \eqref{eq:perm_solution} are in good
-quantitative agreement with the JP data (Figure~\ref{figure2}f).
-
-
-% table 2
-
-
-\begin{table}
-\caption{Stretching Moduli and Permeabilities}
-\centering
-\begin{tabular}{ c c c c c c c }
- radius ($l_0$) &  $\rho$ ($l_0$)  &  $\rho_0$ ($l_0$) &  $M (k_BT)$ & $\gamma$ (pN nm$^{-1})$ & $K_A$ (pN nm$^{-1}$) & $P$ (nm$^3$ ns$^{-1}$pN$^{-1}$) \\
-\hline      \hline 
- 0.5 & 2.0  &   0.5  & 4.0 &  4.1  & 170$\pm9$   &  0.0296\\ 
-%
- 0.475 & 1.9  &   0.475  & 4.0 &  4.1   & 184$\pm5$  &  0.0283 \\ 
-%
- 0.45 & 1.8  &   0.45  & 4.0   &  4.1   & 189$\pm6$  &  0.0252  \\ 
-%
- 0.5 & 2.0  &   0.5  & 4.2   &  4.31  & 185$\pm5$  &  0.0292  \\ 
-%
- 0.5 & 2.0  &   0.5  & 4.4   &  4.51  & 195$\pm5$  &  0.0294 \\ 
-\end{tabular} 
-\label{table2}
-\end{table}
-%
-
-\ReviewerOne{Table~\ref{table2} provides the results of stretching moduli $K_A$ and permeabilities $P$ for various cases. The default setup is shown in the first row. The next two rows show the results for the cases where the length scale related parameters are decreased by 5$\%$ and 10$\%$. One can observe that the constant $K_A$ increases 
-and $P$ decreases as size of particles decreases. 
-The last two rows demonstrate the results when the force related parameters $\gamma$ and $M$ are adjusted by 5$\%$ and 10$\%$. The quantities examined for these two cases show that $K_A$ increases and $P$ remains constant as inter-particle interaction strength increases. As expected by the fact that the permeability is dependent of the particle size where the gap between each adjacent JP pair is controlled by the size of JP. However, the detailed correlation between all model parameters will be explored as 
-a direction of future work.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Two Vesicles in a Linear Flow}
-
-
-
 \begin{figure}
   \centering
 \includegraphics[width=\textwidth]{Figure10_Wrapper.pdf}  
