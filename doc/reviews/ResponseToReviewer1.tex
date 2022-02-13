@@ -168,7 +168,8 @@ hydrophobic attraction potential in the first paragraph.}
 positions and orientations should be written in Section 2 to close the
 problem.}
 \begin{itemize}
-  \item Change 1 
+  \item Section 2.2 introduces the imposed forces and torques in hydrophobic attraction and repulstion that are not used to obtain particle directions directly. Following the next comment by 
+the Reviewer, we agreed that Section 2.3 should be moved to the end of Section 3 and we complete the change.
 \end{itemize}
 
 \noindent
@@ -179,7 +180,11 @@ collisions are avoided even when using a relatively large time step" is
 very vague.  What do you mean by ``relatively large time step"? Compared
 to what time scale?}
 \begin{itemize}
-  \item We thank the Review for the comment and we moved the original Section 2.3 {\it Time Marching} at the end of Section 3 combining the change based on the comment previously addressed about what to solve for in the proposed algorithm.
+  \item We thank the Review for the comment and we moved the original Section 2.3 {\it Time Marching} at the end of Section 3 combining the change based on the comment previously addressed about what to solve for in the proposed algorithm. 
+As described in Section 2.2, the repulsion force with a constant strength coefficient $M$ is chosen 
+to be a large number in order to avoid particle collisions. If $M$ is not large enough, the hydrophobic attraction will dominate the total force and the dynamics may cause particle collisions with the use of a larger time step. Therefore, with an empirical study to the relationship between 
+choices of M and $\gamma$, the parameter set in this work allows the time step to be as large as
+$O(10^{-1})$ with no error. Comparing the time step used in literatures, for instance, in Bystricky {\sl et al.}, Int. J. Numer. Methods Fluids), $\Delta t\sim O(10^{-2})$.
 \end{itemize}
 
 \noindent
