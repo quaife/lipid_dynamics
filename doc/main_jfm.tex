@@ -146,7 +146,7 @@ a ``thin film of Janus grains" that can breathe due to the interstices between J
 \end{center}
 \caption{Panel (a) illustrates the domain and boundary conditions for
   the mobility problem. The color map in panels (b)--(e) is the solution
-  $u$ of \eqref{eq:SL}. Red is for $u = 1$ and blue is for $u = 0$.
+  $u$ of \eqref{eq:SL}. Red is for $\ReviewerTwo{\eta} = 1$ and blue is for $\ReviewerTwo{\eta} = 0$.
   Particles self-assemble into vesicle bilayers (panel (b)) and
   eventually arrange along inner and outer leaflets. In panel (c), $C_M$
   is the midplane curve, \ReviewerOne{and} $A$ is the enclosed area\ReviewerOne{.}
@@ -287,11 +287,11 @@ We model hydrophobic attraction by solving the screened Laplace equation
 boundary value problem
 \begin{alignat}{2}
   \label{eq:SL}
--\rho^2 \Delta u + u &=0,            && \xx \in \Omega,\\
+-\rho^2 \Delta \ReviewerTwo{\eta} + \ReviewerTwo{\eta} &=0,            && \xx \in \Omega,\\
 \label{eq:SLbc}
-u(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i,\; i=1,\ldots,N_b, \\
+\ReviewerTwo{\eta}(\xx) &= f_i(\xx),\qquad  && \xx \in \Gamma_i,\; i=1,\ldots,N_b, \\
 \label{eq:SLff}
-u &\to 0,                          &&|\xx| \to \infty,
+\ReviewerTwo{\eta} &\to 0,                          &&|\xx| \to \infty,
 \end{alignat}
 where $0 \leq f_i \leq 1$ is a material label with $f_i = 0$,
 respectively $1$, representing hydrophilic, respectively hydrophobic,
@@ -308,8 +308,8 @@ where
 \begin{align}
   \label{eq:stress}
 \mathbf{T}
-= \gamma\rho^{-1}u^2 \mathbf{I} + 2\rho\gamma \left(\tfrac{1}{2}|\nabla
-  u|^2 \mathbf{I} - \nabla u  \nabla u^T\right)
+= \gamma\rho^{-1}\ReviewerTwo{\eta}^2 \mathbf{I} + 2\rho\gamma \left(\tfrac{1}{2}|\nabla
+  \ReviewerTwo{\eta}|^2 \mathbf{I} - \nabla \ReviewerTwo{\eta}  \nabla \ReviewerTwo{\eta}^T\right)
 \end{align}
 is the hydrophobic stress tensor and $\gamma > 0$ is
 the interfacial
@@ -391,7 +391,7 @@ Similar to our previous work (\cite{Fu20}), we represent the
 potential
 \begin{align}
   \label{eq:HAP_DLP}
-  u(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \left(\pderiv{}{\nnu_\yy}
+  \ReviewerTwo{\eta}(\xx) = \frac{1}{2\pi} \int_{\bd\Omega} \left(\pderiv{}{\nnu_\yy}
     K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) 
     \sigma(\yy) \, \dif s_\yy, \quad \xx \in \Omega,
 \end{align}
@@ -520,11 +520,11 @@ gradient of the double-layer potential. To avoid singular integrals, we
 first define
 \begin{align}
   \label{eq:uidef}
-  w_i(\xx) = u(\xx) - u_i(\xx),
+  w_i(\xx) = \ReviewerTwo{\eta}(\xx) - \ReviewerTwo{\eta}_i(\xx),
 \end{align}
 where
 \begin{align}
-  u_i(\xx) &= \frac{1}{2\pi} \int_{\Gamma_i} \left(\pderiv{}{\nnu_\yy}
+  \ReviewerTwo{\eta}_i(\xx) &= \frac{1}{2\pi} \int_{\Gamma_i} \left(\pderiv{}{\nnu_\yy}
     K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) 
     \sigma(\yy) \, \dif s_\yy, \quad \xx \in \mathbb{R}^2.
 \end{align}
@@ -590,16 +590,16 @@ integrals.
 To prove \eqref{eq:recipforcetorque}, let 
 \begin{align*}
   {\bf T} &=
-    \SS(u_i,u_i) +(\SS(u_i,w_i) +\SS(w_i,u_i)) +\SS(w_i,w_i) \\
+    \SS(\ReviewerTwo{\eta}_i,\ReviewerTwo{\eta}_i) +(\SS(\ReviewerTwo{\eta}_i,w_i) +\SS(w_i,\ReviewerTwo{\eta}_i)) +\SS(w_i,w_i) \\
   &= {\bf T}_1 + {\bf T}_2 + {\bf T}_3
 \end{align*}
 where we introduce the bilinear form
 \begin{equation}
 \label{eq:Tsplit}
-\SS(u,v)
-=  \gamma\rho^{-1} uv {\bf I} + \gamma\rho \nabla u \cdot \nabla v {\bf I} - 2 \gamma \rho \nabla u \nabla v^T.
+\SS(\ReviewerTwo{\eta},v)
+=  \gamma\rho^{-1} \ReviewerTwo{\eta}v {\bf I} + \gamma\rho \nabla \ReviewerTwo{\eta} \cdot \nabla v {\bf I} - 2 \gamma \rho \nabla \ReviewerTwo{\eta} \nabla v^T.
 \end{equation}
-Using the fact that $u$,  $u_i$, and $w_i$ solve the screened Laplace
+Using the fact that $\ReviewerTwo{\eta}$,  $\ReviewerTwo{\eta}_i$, and $w_i$ solve the screened Laplace
 equation~\eqref{eq:SL}, and that $\mathbf{T}$, $\mathbf{T}_j$, $j = 1,
 2, 3$ are symmetric, it is straightforward to verify that 
   \begin{equation}
@@ -679,7 +679,7 @@ To show~\eqref{eq:prejump}, we expand \eqref{eq:hydrophobicAttraction} as
 \end{align}
 By~\eqref{eq:uidef} and~\eqref{eq:decompdivfree}, we have that $u_i$ is
 smooth and $\nabla \cdot {\bf T}_1 = \mathbf{0}$ in $\mathbb{R}^n
-\setminus U_i$. Similarly, $w_i = u - u_i$ is smooth and $\nabla \cdot
+\setminus U_i$. Similarly, $w_i = \ReviewerTwo{\eta} - \ReviewerTwo{\eta}_i$ is smooth and $\nabla \cdot
 {\bf T}_3 = \mathbf{0}$ in $U_i$. By the divergence theorem,  
 \begin{align}
   \int_{\Gamma_i}  {\bf T}_1 \cdot \nnu \,\dif s
@@ -700,18 +700,18 @@ The derivation for the second equation in \eqref{eq:prejump} is identical.
 We have the following jump relations for \eqref{eq:uidef}: 
 \begin{equation}
 \label{eq:DLjump}
-\jump{u_i} = \sigma, \quad
+\jump{\ReviewerTwo{\eta}_i} = \sigma, \quad
 \jump{w_i} = 0, \quad
-\jump{\nabla u_i} = \frac{\dif \sigma}{\dif s}\ttau,\quad
+\jump{\nabla \ReviewerTwo{\eta}_i} = \frac{\dif \sigma}{\dif s}\ttau,\quad
 \jump{\nabla w_i} = \mathbf{0},
 \end{equation}
 on $\Gamma_i$ (see, e.g. \cite{KlBaGrON13}). Therefore,
 \begin{align*}
-  \jump{{\bf T}_2 \cdot \nnu}   &= \jump{\SS(u_i,w_i) \cdot \nnu +
-    \SS(w_i,u_i) \cdot \nnu} \\
-  &= \Big[\!\Big[ \left( 2\gamma\rho^{-1} u_i w_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla w_i \mathbf{I} 
-- 2\gamma\rho \nabla u_i  \nabla w_i^T - 2\gamma\rho \nabla w_i \nabla
-  u_i^T\right) \cdot \nnu \Big]\!\Big] \\
+  \jump{{\bf T}_2 \cdot \nnu}   &= \jump{\SS(\ReviewerTwo{\eta}_i,w_i) \cdot \nnu +
+    \SS(w_i,\ReviewerTwo{\eta}_i) \cdot \nnu} \\
+  &= \Big[\!\Big[ \left( 2\gamma\rho^{-1} \ReviewerTwo{\eta}_i w_i \mathbf{I} + 2\gamma\rho \nabla \ReviewerTwo{\eta}_i \cdot \nabla w_i \mathbf{I} 
+- 2\gamma\rho \nabla \ReviewerTwo{\eta}_i  \nabla w_i^T - 2\gamma\rho \nabla w_i \nabla
+  \ReviewerTwo{\eta}_i^T\right) \cdot \nnu \Big]\!\Big] \\
 %  &= \jump{\left( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
 %- 2\gamma\rho \nabla u_i  \nabla v_i^T - 2\gamma\rho \nabla v_i \nabla
 %  u_i^T\right) \cdot \nnu}\\
