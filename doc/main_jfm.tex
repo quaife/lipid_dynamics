@@ -338,7 +338,15 @@ repulsion length scale $\rho_0$. As such,~\eqref{eq:REPULforce}
 and~\eqref{eq:REPULtorque} ignore particles outside a
 $\rho_0$-tubular neighborhood of $\Gamma_i$. For $0 \leq r < \rho_0,$ we use
 $P(r) = M(1 - \sin(r/\rho_0))$ where $M$ is sufficiently large to
-prevent particle collisions. Then, the total imposed force and torque
+prevent particle collisions. 
+\textcolor{magenta}{
+The high-order interpolation-based quadrature rule used to compute the nearly-singular integrals has
+been shown to well capture the lubrication hydrodynamics in the narrow space between boundaries 
+when the repulsive potential $P$ gives a large steric force \cite{qua-bir2014}.  
+In the simulations we adjust the spatial resolution on the particle boundary to ensure that the lubrication hydrodynamics is well resolved as in \cite{qua-vee-you2019,qua-gan-you2021}.
+}
+%
+Then, the total imposed force and torque
 are
 \begin{equation}
 \label{eq:total_forces}
