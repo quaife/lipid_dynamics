@@ -76,8 +76,8 @@ terms of small changes in parameters.
 \comment{The abbreviation HAP is not defined in the text. I guess it stands for hydrophobic attraction potential.
 }
 \begin{itemize}
-  \item Thank you for noticing this oversight. The definition of HAP has
-    been added at its first occurrence in Section 3.1. 
+  \item Response: Thank you for noticing this oversight. 
+  \item Change: The definition of HAP has been added at its first occurrence in Section 3.1. 
 \end{itemize}
 
 \noindent
@@ -85,7 +85,8 @@ terms of small changes in parameters.
 Laplace equation. Please use another variable for the scalar function
 $u$.}
 \begin{itemize}
-  \item The velocity ${\bf u}({\bf x})$ introduced in the mobility problem (eqn. (2.1)--(2.3)) is in bold face and of a vector form. The scalar solution function $u$ is the solution of the screened Laplace equation boundary value problem (eqn. (2.7)--(2.9)). Therefore there is no duplication of usage in notation. In reponse to this point, in order to avoid confusions, we changed the scalar function to $\eta$.
+  \item Response: The velocity ${\bf u}({\bf x})$ introduced in the mobility problem (eqn. (2.1)--(2.3)) is in bold face and of a vector form. The scalar solution function $u$ is the solution of the screened Laplace equation boundary value problem (eqn. (2.7)--(2.9)). Therefore there is no duplication of usage in notation. 
+  \item Change: In response to this point, in order to avoid confusions, we changed the scalar function to $\eta$.
 \end{itemize}
 
 \noindent
@@ -94,10 +95,10 @@ mobility boundary integral equation. One is a decay length of the
 attraction potential, while the second is the Euclidean distance between
 two JPs.}
 \begin{itemize}
-  \item We had used $\rho$ to denote the distance between source and
+  \item Response: We had used $\rho$ to denote the distance between source and
     target points in one of the layer potentials. This has been removed.
 
-  \item We now use $\rho$ to denote the HAP decay length and $\rho_0$ to
+  \item Change: We now use $\rho$ to denote the HAP decay length and $\rho_0$ to
     denote the cutoff for the repulsion force.
 \end{itemize}
 
@@ -106,7 +107,8 @@ two JPs.}
 vector (see line 97 for example), and other times as some scalar
 function (see line 203).}
 \begin{itemize}
-  \item We now reserve $\boldsymbol{\nu}$ for the normal vector and
+  \item Response: We thank the referee for this oversight.
+  \item Change: We now reserve $\boldsymbol{\nu}$ for the normal vector and
     $w_i$ denote the scalar what we previously defined to be $\nu_i$.
 \end{itemize}
 
@@ -140,7 +142,7 @@ for vesicles (e.g.~\url{https://doi.org/10.1016/j.jcp.2008.11.036}),
 both constant area and perimeter constraints are fulfilled even when the
 vesicle is more deformed than the cases reported here.}
 \begin{itemize}
-  \item Change 1 
+  \item Response: We thank the referee for this comment. For impermeable vesicles, the referee is correct about the numerical errors reported in the literature. However, the Janus membrane is permeable and in our simulations we found that the Janus vesicle needs time so the Janus particles in the membrane can re-arrange themselves. During this process of rearrangement the Janus bilayer membrane behaves as a permeable membrane as in Quaife, Gannon and Young (PRF 2021). For a Janus vesicle in a linear shear flow with a shear rate of dimensionless shear $\chi = 0.002$ the enclosed area reaches a nearly constant value after $1$ $\mu$s. We would like to point out that this is not a numerical error, but a consequence of Janus particle hydrodynamics that gives rise to membrane permeability. 
 \end{itemize}
 
 \noindent
@@ -148,7 +150,13 @@ vesicle is more deformed than the cases reported here.}
 bilayer membrane has a viscosity which is different from the suspending
 fluid. How difficult it is to add this feature to your model?}
 \begin{itemize}
-  \item Change 1 
+  \item Response: Our current numerical method does not support a viscosity contrast in the system 
+or the setup similar to the ones in (Veerapaneni {\sl et al.}, {\bf 2011}, Phys. Rev. Lett.),
+(Vlahovska and Gracia, {\bf 2007}, Phys. Rev. E), and
+(Kaoui and Harting, {\bf 2016}, Rheol Acta). 
+As described in the manuscript, the JP vesicle is permeable and the mixture of two different
+fluids has to be analyzed within the framework, which would introduce a contact line between fluid 1- JP and fluid 2 -JP boundaries on the Janus particle surface. It is an interesting problem and we plan to study this in the future after we establish some basic knowledge of JP vesicle dynamics in a simpler configuration here.
+
 \end{itemize}
 
 

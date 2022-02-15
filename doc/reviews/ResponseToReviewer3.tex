@@ -69,9 +69,9 @@ lubrication forces between particles.}
   
 This is evidence that the lubrication hydrodynamics of the thin film between two particles under the repulsive Morse potential is well captured  if the flow velocity can be accurately calculated in the boundary integral simulations when two particles are sufficiently close to each other and the short-range repulsion is the dominant force. 
 
-In this work we use similar techniques for solving the integral equations when some boundaries are quite close to each other.  As the repulsive More potential works well to prevent overlapping of particles (provided the time step size is sufficiently small), our previous results in Quaife, Veerapaneni and Young, 2019, Phys. Rev. Fluids gives us confidence in the accuracy of the fluid flow in the thin space between the particles.
+In this work we used similar numerical techniques to solve the integral equations when some boundaries are quite close to each other.  As the repulsive Morse potential works well to prevent overlapping of particles (provided the time step size is sufficiently small), our previous results in Quaife, Veerapaneni and Young, 2019, Phys. Rev. Fluids gives us confidence in the accuracy of the fluid flow in the thin space between the particles.
 
-\item Change: We added a short paragraph to describe our methodology to capture the lubrication flow in the space between particles in close vicinity of each other in page, between lines \$\$\$ and \$\$\$.
+\item Change: We added sentences to describe how the lubrication hydrodynamics in a narrow space between boundaries is well-captured within the boundary integral formulation in page 4, starting in line 129.
 
 \end{itemize}
 
@@ -83,11 +83,16 @@ inset of (c) showing one dominant frequency. The authors are suggested
 to explain the source of multiple frequencies generated in the time
 evolution of $A$ and $\Delta$.}
 \begin{itemize}
-  \item Fig.~3(c) clearly shows that the total length of the JP vesicle has a steady periodic motion 
+  \item  Response: This part needs to be fixed with the FFT of the data that Rolf sent to Bryan.
+  {\sl What follows is from Peter:
+  Fig.~3(c) clearly shows that the total length of the JP vesicle has a steady periodic motion 
 which is different from the trends shown in panels (a) and (b). We showed the actual time evolution of $A^*$ and $\Delta$ and fitting curves in (a). 
 The idea is to show that we can use the fitting data to acquire the numerical expected teminal 
 reduced area $A^*_\infty$. Therefore the multiple frequencies during simulations have no correlations between
-the output in (c) and (d).
+the output in (c) and (d).}
+
+\item Change: 
+
 \end{itemize}
 
 \noindent
@@ -98,8 +103,9 @@ distance should be $1000 \times R$. However, in the figure, it shows a
 migration distance about $4 \times R$. The authors are suggested to
 double-check their model parameterization.}
 \begin{itemize}
-  \item Fig.~6 shows snapshots for 4 time frames from 0 to 12 $\mu$s and the trajectory of the centriod is demonstrated. Therefore the $x$-axis of Fig.~6 represents the time horizon in unit of $\mu$s and 
-the $y$-axis represents the $y$ position of the centroid of the JP vesicle.
+  \item Response: Fig.~6 shows snapshots for 4 time frames from 0 to 12 $\mu$s and the trajectory of the centriod is demonstrated. Therefore the dashed horizontal line of Fig.~6 represents time in units of $\mu$s and the vertical axis represents the scaled $y$ position of the centroid of the JP vesicle.
+  \item Change: In the caption of Fig.~6 (page 14) we explain that the horizontal and vertical axes.
+  
 \end{itemize}
 
 \noindent
@@ -109,8 +115,10 @@ the streamlines are smooth across the interface of vesicles. The authors
 are suggested to describe such discontinuity and provide the
 explanation.}
 \begin{itemize}
-  \item We corrected the original Fig.~10 by plotting all continuous streamlines. We thank the Reviewer for pointing this out and this issue occurred due to a mistake made in post-processing
-steps.
+  \item Response: We thank the Reviewer for pointing this out and this issue occurred due to a mistake made in post-processing
+steps. Moreover, we do expect some  streamlines with large variation in gradient when they cross the JP vesicle interface.
+
+\item Change: We corrected the original Fig.~10 by plotting all continuous streamlines. 
 \end{itemize}
 
 \noindent
