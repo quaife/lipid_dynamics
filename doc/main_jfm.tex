@@ -182,13 +182,13 @@ the hybrid continuum model to investigate permeability and rupture of a
 bilayer membrane due to an imposed flow.  Finally, we compare a pair of
 interacting JP vesicles with a continuum model of a pair of vesicles.
 
-\cite{Brandner2019} used the coarse-grained force field with a lattice
-Boltzmann molecular dynamics to simulate the hydrodynamics of a
-nano-sized vesicle under a shear flow.  In MD simulations, the
-hydrodynamic interactions for the solvent phase are often approximated
-by an implicit solvent coarse-grained model.  In the present work, the
-hydrodynamic interactions come from the mobility problem for the Stokes
-equations for the incompressible, viscous solvent.  
+%\cite{Brandner2019} used the coarse-grained force field with a lattice
+%Boltzmann molecular dynamics to simulate the hydrodynamics of a
+%nano-sized vesicle under a shear flow.  In MD simulations, the
+%hydrodynamic interactions for the solvent phase are often approximated
+%by an implicit solvent coarse-grained model.  In the present work, the
+%hydrodynamic interactions come from the mobility problem for the Stokes
+%equations for the incompressible, viscous solvent.  
 
 We require a numerical method to avoid unphysical contact between rigid
 Janus particles. Optimization-based contact methods introduce
@@ -201,8 +201,8 @@ artificial repulsion force that increases in strength as two particles
 approach one another (\cite{glo-pan-hes-jos-per2001, fen-mic2004,
 kab-qua-bir2018}). Strong repulsion forces can introduce numerical
 stiffness, but with the presence of the hydrophobic forces, we maintain
-contact-free suspensions with a relatively weak non-stiff repulsive
-force.
+contact-free suspensions with a relatively \textcolor{red}{soft} repulsive
+force \textcolor{red}{(compared to the short-range repulsion that diverges in the Lennard-Jones potential)}.
 
 The paper is organized as follows. In \S~\ref{sec:governing_eqs} we
 present the formulation for the Janus particles in a viscous fluid in

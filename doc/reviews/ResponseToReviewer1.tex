@@ -63,13 +63,8 @@ explored and explained more thoroughly in the manuscript, otherwise the
 research would be too incremental. The effect of particle shape seems
 indeed more complex and out of the scope of the current paper.}
 \begin{itemize}
-  \item This comment encouraged us to have more convergence studies in the choices of model parameters. We made a worthwhile effort to perform a large number of simulations. 
-We revised Table 1 and added Table 2 to account for effective properties of vesicles with different size of particles. We agree with the Reviewer that the particle/vesicle shape is complex with the setup therefore we adopted small changes in particle sizes and reported all the reults.
-
-
-
-
-
+  \item Response: This comment encouraged us to present more convergence studies in the choices of model parameters. We made a worthwhile effort to perform a large number of simulations. We agree with the Reviewer that the particle/vesicle shape is complex with the setup therefore we adopted small changes in particle sizes and reported all the results.
+  \item Change: We revised Table 1 (page 12) and added Table 2 (page 16) to account for effective properties of vesicles with different size of particles. We added a short description of the new Table 1 in lines 354-359. 
 \end{itemize}
 
 \noindent
@@ -86,7 +81,9 @@ the coarse-grained and continuum vesicle models, but it would be
 insightful to provide quantitative comparisons to measure how close they
 are to each other.}
 \begin{itemize}
-  \item We agree with the Reviewer that we briefly illustrated the capability of simulating membrane rupture via the proposed model and numerical algorithm in the first submission of the manuscript. We further performed a series of study to find the critical shear rate for the appearance of membrane rupture and the corresopnding movie is added as a supplementary material. We also included the description in the section of membrane rupture.
+  \item Response: We agree with the Reviewer that we briefly illustrated the capability of simulating membrane rupture via the proposed model and numerical algorithm in the first submission of the manuscript. We further performed a series of study to find the critical shear rate for the appearance of membrane rupture and the correspnding movie is added as a supplementary material. We also included the description in the section of membrane rupture.
+  \item Change: We added a short description of vesicle rupture (lines 374-376) in page 13. We added a movie of vesicle rupture (Movie S4) in the supplementary material (page 25).
+  
 \end{itemize}
 
 \noindent
@@ -98,13 +95,18 @@ explain/characterize some phenomena observed in the simulations
 (e.g.~the membrane rupture).}
 
 \begin{itemize}
-  \item We thank the Reviewer to point this out. There is a significant difference between 
+  \item Response: We thank the Reviewer to point this out. There is a significant difference between 
 the proposed model in the manuscript and other continuum models in literatures. For example, refer to \emph{Rahimian, et al., J. Comput. Phys., 2011}, the 
-provided time scale is $\tau = \mu R_0^3/\kappa_B$ where $\mu$ the fluid viscosity and $\kappa_B$ the bending modulus. $R_0$ is the initial radius of the reference vesicle. Since the bending modulus does not play any roles in the proposed model, we then scaled time unit with a realistic characteristic time ns. With the use of the detailed scaling laws described in section 4.1, we aim to have comparable
-numerical results against the experiments. Moreover, if we attempt to calculate the characterstic 
-time scale using characteristic length and energy scales, it will also result a vaule of order ns. 
+provided time scale is $\tau = \mu R_0^3/\kappa_B$ where $\mu$ the fluid viscosity and $\kappa_B$ the bending modulus. $R_0$ is the initial radius of the reference vesicle. Since the bending modulus results from the hydrophobic attraction between Janus particles and their dynamics in a viscous fluid in the proposed model, we thus scaled time with a realistic characteristic time ns. With the use of the detailed scaling laws described in section 4.1, we aim to have comparable
+numerical results against the experiments. Moreover, if we attempt to calculate the characteristic 
+time scale using characteristic length and energy scales, it will also result a value of order ns. 
 Since the system involves multiple length scales, diameter of the particle $l_0$ and size of the JP
 vesicle $R_0$, we decided to use ns to perform nondimensionalization for simplicity.
+
+Finally we did manage to come up with an appropriate capillary number to characterize the rupture of a Janus vesicle under a linear shear flow at a high shear rate.
+
+\item Change: Place where the critical capillary number is given and discussed.
+
 \end{itemize}
 
 \noindent
@@ -112,7 +114,8 @@ vesicle $R_0$, we decided to use ns to perform nondimensionalization for simplic
 should summarize the exact set of equations they use and the unknowns
 they solve for.}
 \begin{itemize}
-  \item We followed the suggestion given by the Reviewer that a summary about what to solve throughout the entire algorithm is provided at the end of Section 3.
+  \item Response: We followed the suggestion given by the Reviewer that a summary about what to solve throughout the entire algorithm is provided at the end of Section 3.
+  \item Change: A short paragraph is added in page 8 (lines 248-253).
 \end{itemize}
 
 \noindent
@@ -120,20 +123,22 @@ they solve for.}
 good to use colorblind friendly colormaps for colorblind people and for
 black and white printing.}
 \begin{itemize}
-  \item We thank the Review for having this meaningful comment and we agree that changing all the figure 
-to colorblind friendly colormap is insightful. We would love to make this change once the manuscript is accepted.
+  \item Response: We thank the Review for having this meaningful comment and we agree that changing all the figure 
+to colorblind friendly colormap is insightful. We will make this change for all figures once the manuscript is accepted. All the new figures are made with colorblind friendly colormaps.
+
+\item Change: All the modified figures (Figs.~ 9, 10, 11, 12,  13) are made with colorblind friendly colormaps. 
 \end{itemize}
 
 \noindent
 \comment{Figure 1: the arc length $L$ does not appear in panel (c).}
 \begin{itemize}
-  \item We deleted the sentence ``$L$ is the arc length''.
+  \item Change: We deleted the sentence ``$L$ is the arc length''.
 \end{itemize}
 
 \noindent
 \comment{Line 50: typo: ``well-known"}
 \begin{itemize}
-  \item This typo is corrected.
+  \item Change: This typo is corrected.
 \end{itemize}
 
 \noindent
@@ -143,7 +148,8 @@ part so that there is a transition from the physical problem into
 consideration to the various numerical methods used in the literature to
 simulate it.}
 \begin{itemize}
-  \item Change 1 
+ \item Response: We thank the referee for pointing this out. We deleted the disconnected paragraph that started with "Brandner...." and modified the end of the following paragraph in response to the next comment from the reviewer.
+  \item Change: The paragraph ``Brandner {\it et al} (2019) used the coarsae-grained...." is removed.
 \end{itemize}
 
 \noindent
@@ -152,14 +158,16 @@ relatively weak non-stiff repulsive force". What do you mean by
 relatively weak repulsive force ? Weak compared to what? (see additional
 question on this hereinafter).}
 \begin{itemize}
-  \item Change 1 
+  \item Response: We modified this description for better clarity.
+  \item Change: Page 3, lines 64-65, we changed ``relatively weak repulsive force" to ``relatively soft repulsive force" and added ``(compared to the short-range repulsion that diverges in the Lennard-Jones potential)".
+  
 \end{itemize}
 
 \noindent
 \comment{Equation (2.4) is not necessary as the no-slip boundary
 condition is standard and it is redundant with (2.5).}
 \begin{itemize}
-  \item We deleted the redundant equation (2.5) mentioned by the Reviewer.
+  \item Change: We deleted the redundant equation (2.5) mentioned by the Reviewer.
 \end{itemize}
 
 \noindent
@@ -171,8 +179,9 @@ hydrophobic attraction potential in the first paragraph.}
 positions and orientations should be written in Section 2 to close the
 problem.}
 \begin{itemize}
-  \item Section 2.2 introduces the imposed forces and torques in hydrophobic attraction and repulstion that are not used to obtain particle directions directly. Following the next comment by 
+  \item Response: Section 2.2 introduces the imposed forces and torques in hydrophobic attraction and repulsion that are not used to obtain particle directions directly. Following the next comment by 
 the Reviewer, we agreed that Section 2.3 should be moved to the end of Section 3 and we complete the change.
+\item Change: We moved Section 2.3 to the end of Section 3.
 \end{itemize}
 
 \noindent
@@ -183,19 +192,20 @@ collisions are avoided even when using a relatively large time step" is
 very vague.  What do you mean by ``relatively large time step"? Compared
 to what time scale?}
 \begin{itemize}
-  \item We thank the Review for the comment and we moved the original Section 2.3 {\it Time Marching} at the end of Section 3 combining the change based on the comment previously addressed about what to solve for in the proposed algorithm. 
+  \item Response: We thank the Review for the comment and we moved the original Section 2.3 {\it Time Marching} at the end of Section 3 combining the change based on the comment previously addressed about what to solve for in the proposed algorithm. 
 As described in Section 2.2, the repulsion force with a constant strength coefficient $M$ is chosen 
 to be a large number in order to avoid particle collisions. If $M$ is not large enough, the hydrophobic attraction will dominate the total force and the dynamics may cause particle collisions with the use of a larger time step. Therefore, with an empirical study to the relationship between 
 choices of M and $\gamma$, the parameter set in this work allows the time step to be as large as
 $O(10^{-1})$ with no instability. Comparing the time step used in literatures, for instance, in Bystricky {\sl et al.}, {\bf 2020}, Int. J. Numer. Methods Fluids), $\Delta t\sim O(10^{-2})$.
+\item Change: We moved Section 2.3 to the end of Section 3 (Section 3.4, page 8, lines 243-248).
 \end{itemize}
 
 \noindent
 \comment{Section 3: the acronym HAP is not defined in the text.}
 \begin{itemize}
-  \item Thank you for noticing this oversight. The definition of HAP has
+  \item Response: Thank you for noticing this oversight. The definition of HAP has
     been added at its first occurrence in Section 3.1. 
-  \item This change is in \textcolor{green}{green} since it was also pointed
+  \item Change: This change is in \textcolor{green}{green} (page 5, line 144) since it was also pointed
     out by Reviewer 2.
 \end{itemize}
 
@@ -204,9 +214,7 @@ $O(10^{-1})$ with no instability. Comparing the time step used in literatures, f
 derivative only applies to the Laplace’s Green function $K_0$ and not
 the density $\sigma$.}
 \begin{itemize}
-  \item Parenthesis have been added to equation (3.1) 
-
-  \item Equations (3.2) and (3.11) had the same notational issue, and
+  \item Change: Parenthesis have been added to equation (3.1).  Equations (3.2) and (3.11) had the same notational issue, and
     they have both been corrected.
 \end{itemize}
 
@@ -216,18 +224,18 @@ order tensor multiplies a vector to avoid confusion (e.g.~${\bf S} \cdot
 {\bf F}$ instead of ${\bf SF}$) in eqs.~(3.4), (3.5), (3.7) and so on
 $\ldots$}
 \begin{itemize}
-  \item This notation has been adjusted throughout Section 3.
+  \item Change: This notation has been adjusted throughout Section 3.
 \end{itemize}
 
 \noindent
 \comment{In practice, how do you compute the derivatives $d\sigma /ds$,
 $dv_i/ds$ and $dv_i/d\boldsymbol{\nu}$ in (3.13)?}
 \begin{itemize}
-  \item Since the only derivatives that are required are functions
+  \item Response: Since the only derivatives that are required are functions
     defined only on the boundary of the Janus particles, they are
     computed with spectrally-accurate Fourier differentiation.
 
-  \item We have added the following sentence to the start of Section 3
+  \item Change: We have added the following sentence to the start of Section 3
     \begin{quotation}
       All derivatives are computed with spectrally-accurate Fourier
       differentiation.
@@ -241,7 +249,7 @@ $k_B T$ as a reference energy if it is no there in the simulations?
 There should be another energy scale that you could use to calibrate
 $M$, right?}
 \begin{itemize}
-  \item All physical quantities in membrane mechanics such as interfacial tension, bending  modulus, and energy constant in pairwise interactions are defined in units of $k_BT$. 
+  \item Response: All physical quantities in membrane mechanics such as interfacial tension, bending  modulus, and energy constant in pairwise interactions are defined in units of $k_BT$. 
 \end{itemize}
 
 \noindent
@@ -250,14 +258,14 @@ depend on on the strength and range of this artificial repulsive
 potential? What is the impact on the vesicle shape and effective
 properties?}
 \begin{itemize}
-  \item We tested the model parameters based on matching simulation results in the previous paper  (Fu {\sl et al.}, {\bf 2020}, Multiscale Model. Simul.). The proposed work adopts a different repulsion force from the previous one and we have done studies in choosing the default parameter set to achieve similar structures. For the effective properties, we leave it as a future work.
+  \item Response: We tested the model parameters based on matching simulation results in the previous paper  (Fu {\sl et al.}, {\bf 2020}, Multiscale Model. Simul.). The proposed work adopts a different repulsion force from the previous one and we have done studies in choosing the default parameter set to achieve similar structures. For the effective properties, we leave it as a future work.
 \end{itemize}
 
 \noindent
 \comment{Figure 3a,b,d: what does the term in parenthesis ``(1)" means
 on the label of the ordinate axis?}
 \begin{itemize}
-  \item The term (1) means the magnitude of the corresponding $y$-axis is of order 1.
+  \item Response: The term (1) means the magnitude of the corresponding $y$-axis is of order 1.
 \end{itemize}
 
 \noindent
@@ -265,7 +273,7 @@ on the label of the ordinate axis?}
 observed for shear rate as high as $10^{6}\text{s}^{-1}$. Can such a
 high value be generated in experiments?}
 \begin{itemize}
-  \item A shear rate of order $10^{6}\text{s}^{-1}$ is too high to be generated in experiments.
+  \item Response: A shear rate of order $10^{6}\text{s}^{-1}$ is too high to be generated in experiments.
 Since the size of the JP vesicle in this work is much smaller than experimental use vesicles, 
 a very high shear rate of the flow is needed to acquire the tank-treading motion.
 \end{itemize}
@@ -273,27 +281,28 @@ a very high shear rate of the flow is needed to acquire the tank-treading motion
 \noindent
 \comment{Eq.~4.4, typo: $v$ should be $u$.}
 \begin{itemize}
-  \item This typo is fixed.
+  \item Change: This typo is fixed.
 \end{itemize}
 
 \noindent
 \comment{Figure 6: the yellow particle is not visible when printing in
 black and white.}
 \begin{itemize}
-  \item Change 1 
+  \item Response: We thank the referee for this comment. We will re-plot all color figures with colorblind friendly colormap if the manuscript should be accepted for publication. We will take this into account as well.
 \end{itemize}
 
 \noindent
 \comment{Line 388, typo: ``has" should be ``have".}
 \begin{itemize}
-  \item This typo is corrected.
+  \item Change: This typo is corrected.
 \end{itemize}
 
 \noindent
 \comment{Figure 7a is never referred to and its content is never
 discussed in the text.}
 \begin{itemize}
-  \item Thank you for noticing this missing connection. We added a description connected to Figure 7a.
+  \item Response: Thank you for noticing this missing connection. 
+  \item Change: We added a description connected to Figure 7a.
 \end{itemize}
 
 \noindent
@@ -301,7 +310,7 @@ discussed in the text.}
 typo. Same for ``Figures 7c and 7d" on line 394, I think it should be
 ``Figures 7b and 7c".}
 \begin{itemize}
-  \item This typo is corrected.
+  \item Change: This typo is corrected.
 \end{itemize}
 
 \noindent
@@ -309,9 +318,10 @@ typo. Same for ``Figures 7c and 7d" on line 394, I think it should be
 modulus and hydraulic permeability independently or are these two
 properties linked to each other and how?}
 \begin{itemize}
-  \item We added a parametric study in new Table 2 and the trend provides an idea about 
+  \item Response: We added a parametric study in new Table 2 and the trend provides an idea about 
 how to change vesicle stretching modulus and hydraulic permeability by adjusting the length related parameters or force related parameters. We think that it is possible to have better understanding about the link between all parameters and these physical quantities after more 
 convergence study.
+\item Change: We added a new Table 2 in page 16.
 \end{itemize}
 
 
