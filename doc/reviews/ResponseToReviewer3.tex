@@ -72,7 +72,8 @@ This is evidence that the lubrication hydrodynamics of the thin film between two
 In this work we used similar numerical techniques to solve the integral equations when some boundaries are quite close to each other.  As the repulsive Morse potential works well to prevent overlapping of particles (provided the time step size is sufficiently small), our previous results in Quaife, Veerapaneni and Young, 2019, Phys. Rev. Fluids gives us confidence in the accuracy of the fluid flow in the thin space between the particles.
 
 \item Change: We added sentences to describe how the lubrication hydrodynamics in a narrow space between boundaries is well-captured within the boundary integral formulation in page 4, starting in line 129.
-
+  Then, in section 4.1 \textit{Model Parameters}, we show quantitatively that the lubrication and
+  artificial repulsion are comparable for our simulation parameters.
 \end{itemize}
 
 \noindent
@@ -83,15 +84,14 @@ inset of (c) showing one dominant frequency. The authors are suggested
 to explain the source of multiple frequencies generated in the time
 evolution of $A$ and $\Delta$.}
 \begin{itemize}
-  \item  Response: This part needs to be fixed with the FFT of the data that Rolf sent to Bryan.
-  {\sl What follows is from Peter:
-  Fig.~3(c) clearly shows that the total length of the JP vesicle has a steady periodic motion 
-which is different from the trends shown in panels (a) and (b). We showed the actual time evolution of $A^*$ and $\Delta$ and fitting curves in (a). 
-The idea is to show that we can use the fitting data to acquire the numerical expected teminal 
-reduced area $A^*_\infty$. Therefore the multiple frequencies during simulations have no correlations between
-the output in (c) and (d).}
+\item Response: We thank the Reviewer for pointing out this feature of
+  the curves.  We analyzed the outputs more carefully and concluded that
+  the noted frequencies correspond to the tank-treading of the slightly
+  polygonal vesicle and particles, respectively. 
 
-\item Change: 
+\item Change: We modified the second to last paragraph in Section 4.1.
+  Moreover, we scaled the abscissas of Figure 3 to percent, and corrected
+  a scaling factor in the time axes. 
 
 \end{itemize}
 

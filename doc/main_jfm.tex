@@ -337,15 +337,7 @@ The repulsion profile $P(r)$ is set to zero for distances $r$ larger than a
 repulsion length scale $\rho_0$. As such,~\eqref{eq:REPULforce}
 and~\eqref{eq:REPULtorque} ignore particles outside a
 $\rho_0$-tubular neighborhood of $\Gamma_i$. For $0 \leq r < \rho_0,$ we use
-$P(r) = M(1 - \sin(r/\rho_0))$ where $M$ is sufficiently large to
-prevent particle collisions. 
-\textcolor{magenta}{
-The high-order interpolation-based quadrature rule used to compute the nearly-singular integrals has
-been shown to well capture the lubrication hydrodynamics in the narrow space between boundaries 
-when the repulsive potential $P$ gives a large steric force \cite{qua-bir2014}.  
-In the simulations we adjust the spatial resolution on the particle boundary to ensure that the lubrication hydrodynamics is well resolved as in \cite{qua-vee-you2019,qua-gan-you2021}.
-}
-%
+$P(r) = M(1 - \sin(r/\rho_0))$.
 Then, the total imposed force and torque
 are
 \begin{equation}
@@ -355,6 +347,13 @@ are
   i=1,\ldots,N_b.
 \end{equation}
 
+\ReviewerThree{
+The high-order interpolation-based quadrature rule used to compute the nearly-singular integrals has
+been shown to well capture the lubrication hydrodynamics in the narrow space between boundaries 
+when the repulsive potential $P$ gives a large steric force \cite{qua-bir2014}.  
+In the simulations we adjust the spatial resolution on the particle boundary to ensure that the lubrication hydrodynamics is well resolved as in \cite{qua-vee-you2019,qua-gan-you2021}.
+}
+%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -713,7 +712,7 @@ We have the following jump relations for \eqref{eq:uidef}:
 \jump{\nabla \ReviewerTwo{\eta}_i} = \frac{\dif \sigma}{\dif s}\ttau,\quad
 \jump{\nabla w_i} = \mathbf{0},
 \end{equation}
-on $\Gamma_i$ (see, e.g. \cite{KlBaGrON13}). Therefore,
+on $\Gamma_i$ (see, e.g., \cite{KlBaGrON13}). Therefore,
 \begin{align*}
   \jump{{\bf T}_2 \cdot \nnu}   &= \jump{\SS(\ReviewerTwo{\eta}_i,w_i) \cdot \nnu +
     \SS(w_i,\ReviewerTwo{\eta}_i) \cdot \nnu} \\
@@ -798,10 +797,22 @@ $p \mapsto p \text{ pN nm}^{-2}$.
 The numerical time step size is $\Delta t=0.2$.
 
 The base-case is a single JP vesicle consisting of $N_b = 58$ particles
-with $c = 0.5 l_0$ for particle radius, $\rho = 2 l_0$ for decay length, $\rho_0 = 0.2l_0$ for repulsion
-length, $M=4.0$~$k_BT$ for repulsion strength, $\gamma = \text{4.1 pN
-nm}^{-1}$ for interfacial tension.  The parameter $\mu = \text{1 cP} = \text{1 pN
+with $c = 0.5 l_0$ for particle radius, $\rho = 2 l_0$ for decay length,
+$\gamma = \text{4.1 pN nm}^{-1}$ for interfacial tension.
+The parameter $\mu = \text{1 cP} = \text{1 pN
 ns nm}^{-2}$ is viscosity of room-temperature water. 
+\ReviewerThree{
+  We select \ReviewerOne{$M=4.0$~$\text{pN}$} and $\rho_0 = 0.2l_0$ so that \eqref{eq:REPULforce}
+  prevents particle collisions and is comparable to hydrodynamic lubrication.
+  \cite{cawthorn_balmforth_2010} provide the asymptotic expression 
+  $F_{\text{lubr}} = -\tfrac{3}{2}\pi \mu \dot \epsilon (c/\epsilon)^{3/2}$
+  for the lubrication force between two cylinders in the distance of separation $\epsilon \to 0$.
+  For our choice of simulation parameters, $F_{\text{lubr}}$ and \eqref{eq:REPULforce} are comparable
+  because the particle gaps smaller than the particle radius
+  and the relative velocities $\dot \epsilon$ between particles are on
+  the order of nm $\text{ns}^{-1}$.
+}
+
 
 To reach consistent simulation outcomes, we first solve for a baseline
 JP \ReviewerThree{vesicle} that is suitably close to equilibrium. We
@@ -922,8 +933,9 @@ directions, respectively. We use the dimensionless shear rate $\chi =
   quarter revolutions in the same time the blue particle completes two
   revolutions. The curves in panel (b) are the distance the outer
   leaflet has slid past the inner leaflet. The slopes of the curves
-  give the slip velocity. With the exception of $\chi = 0.0035$, the
-  slip velocity is generally monotonic in the shear rate.}
+  give the slip velocity. 
+  Slip velocity is generally monotonic in the shear rate.
+  The case $\chi = 0.003$ is an exception.}
 \end{figure}
 
 Figure~\ref{figure3} shows snapshots of the JP vesicle in the shear flow
@@ -954,16 +966,26 @@ a permeable membrane.
 Since the starting configuration is nearly circular, the reduced area
 decreases from an initial value close to $1$ and tends to a steady-state
 value $A^*_{\infty}$. The data in panel (a) are fit to the model $A^* =
-(A^*_{\infty}-a_1-a_2) + a_1 \exp(-k_1t) + a_2 \exp(-k_2t),$ $0 < k_2 <
+A^*_{\infty} + a_1 \exp(-k_1t) + a_2 \exp(-k_2t),$ $0 < k_2 <
 k_1$. Panel (d) shows that $A^*_{\infty}$ decreases with the shear rate.
 The JP vesicle achieves a steady-state reduced area earlier when the
 shear rate is low (inset), but the decay rate $k_2$ is more or less
 constant for higher shearer rates. 
 
-The oscillations in the data of Figure~\ref{figure4} are due to the
-granularity of the JP vesicle. The inset of Figure~\ref{figure4}c zooms
+\ReviewerThree{The time courses contain oscillations due to the
+granularity of the JP vesicle.
+The curve for $\chi = 0.003$ in Figure~\ref{figure4}a, for example, 
+has a low-frequency oscillation with a period around $0.7$ $\upmu$s,
+and a high-frequency oscillation with a period four times smaller.
+The JP vesicle is somwhat hexagonal (see, e.g., Figure~\ref{figure5}a)
+and the low-frequency oscillations corresponds to the tank-treading of a 
+polygon, rather than smooth, curve. The higher frequency oscillations
+comes from the trank-treading of individual particles, that is
+it corresponds to the rate of passage of particles through a fixed-angle
+axis about the vesicle centre.} 
+The inset of Figure~\ref{figure4}c zooms
 in on the arc length data for the shear rate $\chi = 0.003$. It shows
-that the oscillations are smooth and well-resolved by our second-order
+that the curves are smooth and well-resolved by our second-order
 Adams-Bashforth scheme.
 
 We point out that the range of values for $\chi$ where we measured for
@@ -1064,7 +1086,7 @@ slid past the other. Figure~\ref{figure5}b plots the sliding distance for variou
 rates. 
 
 %Table~\ref{table1} provides $b = 0.79 \pm 0.3$ pN ns nm$^{-3}$  
-\ReviewerOne{Table~\ref{table1} provides a series of numerical friction coefficients $b$ and the default number of particles is $N_b = 58$. With the fixed total length of the JP vesicle, we change parameters related to the length scale, for instances, $\rho$, $\rho_0$, and the radius of particles.
+\ReviewerOne{Table~\ref{table1} provides a series of numerical friction coefficients $b$ and the baseline number of particles is $N_b = 58$. With the fixed total length of the JP vesicle, we change parameters related to the length scale, for instances, $\rho$, $\rho_0$, and the radius of particles.
 With $-5\%$, $5\%$, and $10\%$ adjustments in these parameters, the resulting numbers of particles are $N_b=\{61,56,53\}$, respectively. }
 %
 \ReviewerOne{The overall trend shown in Table~\ref{table1} is values of $b$ decreases as $\rho$
@@ -1597,7 +1619,7 @@ Poiseuille flow.
 %proportional to JP bilayer stretch. We describe the aqueous flux in membrane 
 %using a differential equation~\ref{eq:perm} and solve for the theoretical 
 %permeability constant $P$. In spite of producing these values with some discrepancy
-%using the default parameter set, we provide a new framework in measuring coarse-grained 
+%using the baseline parameter set, we provide a new framework in measuring coarse-grained 
 %membrane permeability.
 
 We further simulated the hydrodynamics of two JP vesicles, and drew
