@@ -734,8 +734,9 @@ two density functions $\sigma$ and  $\eeta$ are solved in the second-kind integr
 %velocities of the $N_b$-body system. 
 Moreover, a second-order Adams-Bashforth
 scheme updates the particle positions and orientations. By including the
-repulsion force~\eqref{eq:REPULforce}, particle collisions are avoided even
-when using a relatively larger time step than $\Delta t\sim O(10^{-1})$ ns. 
+repulsion force~\eqref{eq:REPULforce}, particle collisions can be avoided by setting time step
+size $\Delta t\sim O(10^{-1})$.
+%are avoided even when using a relatively larger time step than $\Delta t\sim O(10^{-1})$ ns. 
 }
 
 
@@ -1011,15 +1012,15 @@ whenever slip velocity vanishes.
 \caption{Friction Coefficients $b$ (pN ns nm$^{-3}$) \\
 }
 \centering
-\begin{tabular}{c c c c c c c c c }
-& & & & $\dot\gamma$  (ns$^{-1}$) & & & &\\
-\cline{2-8}\\
- & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  & Average\\
-\cline{1-8}\\
-$N_b=53$  & 0.50  & 0.51  &  0.44 & 0.52  & 0.45 &  0.57   &  0.62 & 0.52  \\ 
-$N_b=56$ & 0.54 & 0.41 & 0.35  & 0.37 & 0.43 & 0.76  & 0.70 & 0.51\\ 
-$N_b=58$   & 0.42 & 0.63 & 0.50   & 0.40  & 0.48  & 0.53 & 0.55 & 0.50 \\   % new
-$N_b=61$  & 0.22 & 0.36 & 0.41   & 0.45  & 0.45 & 0.44   & 0.44 & 0.40\\ 
+\begin{tabular}{c c c c c c c c c c c c }
+& & & & & & & $\dot\gamma$  (ns$^{-1}$) & & & &\\
+\cline{1-11}\\
+  radius ($l_0$) &  $\rho$ ($l_0$) & $\rho_0(l_0)$ & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  & Average\\
+\cline{4-10}\\
+& $+ 10 \%$ &     & 0.50  & 0.51  &  0.44 & 0.52  & 0.45 &  0.57   &  0.62 & 0.52  \\ 
+& $+ 5 \%$ & & 0.54 & 0.41 & 0.35  & 0.37 & 0.43 & 0.76  & 0.70 & 0.51\\ 
+0.5 &  2.0 & 0.5    & 0.42 & 0.63 & 0.50   & 0.40  & 0.48  & 0.53 & 0.55 & 0.50 \\   % new
+& $- 5 \%$ &  & 0.22 & 0.36 & 0.41   & 0.45  & 0.45 & 0.44   & 0.44 & 0.40\\ 
 \end{tabular} 
 \label{table1}
 \end{table}
@@ -1058,7 +1059,8 @@ rates.
 \ReviewerOne{Table~\ref{table1} provides a series of numerical friction coefficients $b$ and the default number of particles is $N_b = 58$. With the fixed total length of the JP vesicle, we change parameters related to the length scale, for instances, $\rho$, $\rho_0$, and the radius of particles.
 With $-5\%$, $5\%$, and $10\%$ adjustments in these parameters, the resulting numbers of particles are $N_b=\{61,56,53\}$, respectively. }
 %
-\ReviewerOne{There is no clear trend shown in Table~\ref{table1} but these values of $b$ are}
+\ReviewerOne{The overall trend shown in Table~\ref{table1} is values of $b$ decreases as $\rho$
+decreases and $b$ are}
 %over a range of shear rates which is 
 in good quantitative agreement with values previously reported in the literature.
 Atomistic studies have also considered inter-monolayer slip in lipid bilayers. 
@@ -1141,7 +1143,9 @@ where it reaches a steady height of about $1$ nm.
 %\includegraphics[width=0.8\textwidth]{slipper.eps}
   \caption{\label{figure6} A JP vesicle placed in a parabolic flow
   drifts toward the central axis. It assumes a slipper shape and
-  undergoes tank-treading motion like in the shear flow case. The arrows
+  undergoes tank-treading motion like in the shear flow case. 
+ \ReviewerThree{The horizontal dashed line represents time in units of $\mu$s and the vertical axis represents the scaled $y$ position of the centroid of the JP vesicle.}
+  The arrows
   on the left illustrate the background flow and the arrows on the right
   show the velocity relative to the vesicle's moving frame. The thick
   black curve plots the distance from the axis as a function of time
@@ -1381,7 +1385,6 @@ behaviour is absent when two JP vesicles are well-separated.
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.97\textwidth]{Figure11_Wrapper_New.pdf}
-%\includegraphics[width=0.9\textwidth]{ExtTraj.eps}
 \end{center} 
   \caption{\label{figure11} The initial placement of two JP vesicles
   suspended in an extensional flow affects the long-time dynamics. The
@@ -1394,24 +1397,19 @@ behaviour is absent when two JP vesicles are well-separated.
   below the $x$-axis. (iv) The centroid of the left JP vesicle is
   $1.25$~nm above the $x$-axis and the centroid of the right JP vesicle
   is $1.25$~nm below the $x$-axis. The streamlines appear in grey and
-  the flow rate is $\dot \gamma =0.005$~ns$^{-1}$ in all cases.}
+  the flow rate is $\dot \gamma =0.005$~ns$^{-1}$ in all cases.
+	  }
 \end{figure}
 
 
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{Figure12_Wrapper.pdf}
-%\includegraphics[height=2in]{N116_ext_0.pdf}
-%\includegraphics[height=2in]{N116_ext_2000.pdf}\\
-%\includegraphics[height=2in]{N116_ext_4000.pdf}
-%\includegraphics[height=2in]{N116_ext_6500.pdf}
   \caption{\label{figure12} The figure is for the simulation case (iii) of Figure~\ref{figure11},
   and additionally plots the pressure $p$.  The color bar is shared by all panels. 
   The insets of all panels are generated from simulations of a continuum
   model of the vesicles and the streamlines agree between the two models.}
 \end{figure}
-
-
 
 
 

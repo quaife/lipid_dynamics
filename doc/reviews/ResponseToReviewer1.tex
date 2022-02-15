@@ -187,7 +187,7 @@ to what time scale?}
 As described in Section 2.2, the repulsion force with a constant strength coefficient $M$ is chosen 
 to be a large number in order to avoid particle collisions. If $M$ is not large enough, the hydrophobic attraction will dominate the total force and the dynamics may cause particle collisions with the use of a larger time step. Therefore, with an empirical study to the relationship between 
 choices of M and $\gamma$, the parameter set in this work allows the time step to be as large as
-$O(10^{-1})$ with no error. Comparing the time step used in literatures, for instance, in Bystricky {\sl et al.}, Int. J. Numer. Methods Fluids), $\Delta t\sim O(10^{-2})$.
+$O(10^{-1})$ with no instability. Comparing the time step used in literatures, for instance, in Bystricky {\sl et al.}, {\bf 2020}, Int. J. Numer. Methods Fluids), $\Delta t\sim O(10^{-2})$.
 \end{itemize}
 
 \noindent
@@ -195,7 +195,7 @@ $O(10^{-1})$ with no error. Comparing the time step used in literatures, for ins
 \begin{itemize}
   \item Thank you for noticing this oversight. The definition of HAP has
     been added at its first occurrence in Section 3.1. 
-  \item This change is in \textcolor{green} since it was also pointed
+  \item This change is in \textcolor{green}{green} since it was also pointed
     out by Reviewer 2.
 \end{itemize}
 
@@ -241,7 +241,7 @@ $k_B T$ as a reference energy if it is no there in the simulations?
 There should be another energy scale that you could use to calibrate
 $M$, right?}
 \begin{itemize}
-  \item Change 1 
+  \item All physical quantities in membrane mechanics such as interfacial tension, bending  modulus, and energy constant in pairwise interactions are defined in units of $k_BT$. 
 \end{itemize}
 
 \noindent
@@ -250,7 +250,7 @@ depend on on the strength and range of this artificial repulsive
 potential? What is the impact on the vesicle shape and effective
 properties?}
 \begin{itemize}
-  \item Change 1 
+  \item We tested the model parameters based on matching simulation results in the previous paper  (Fu {\sl et al.}, {\bf 2020}, Multiscale Model. Simul.). The proposed work adopts a different repulsion force from the previous one and we have done studies in choosing the default parameter set to achieve similar structures. For the effective properties, we leave it as a future work.
 \end{itemize}
 
 \noindent
