@@ -918,7 +918,7 @@ $58$-body JP vesicle lies at the origin and the background shear flow
 is applied for shear rate $\dot\gamma$, and orthogonal unit vectors
 $\mathbf{e}_x$ and $\mathbf{e}_y$ for the horizontal and vertical
 directions, respectively. We use the dimensionless shear rate $\chi =
-\dot \gamma$ (s$^{-1}$) ns.
+\dot \gamma$ ns.
 
 \begin{figure}
 \begin{center}
@@ -1044,14 +1044,15 @@ whenever slip velocity vanishes.
 }
 \centering
 \begin{tabular}{c c c c c c c c c c c c }
-& & & & & & & $\dot\gamma$  (ns$^{-1}$) & & & &\\
-\cline{1-11}\\
+  \hline
+& & & & & & $\dot\gamma$  (ns$^{-1}$)& & & & &
+  \\
   radius ($l_0$) &  $\rho$ ($l_0$) & $\rho_0(l_0)$ & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  & Average\\
 \cline{4-10}\\
-& $+ 10 \%$ &     & 0.50  & 0.51  &  0.44 & 0.52  & 0.45 &  0.57   &  0.62 & 0.52  \\ 
-& $+ 5 \%$ & & 0.54 & 0.41 & 0.35  & 0.37 & 0.43 & 0.76  & 0.70 & 0.51\\ 
+$-5 \%$ & $- 5 \%$ & $-5 \%$  & 0.22 & 0.36 & 0.41   & 0.45  & 0.45 & 0.44   & 0.44 & 0.40\\
 0.5 &  2.0 & 0.5    & 0.42 & 0.63 & 0.50   & 0.40  & 0.48  & 0.53 & 0.55 & 0.50 \\   % new
-& $- 5 \%$ &  & 0.22 & 0.36 & 0.41   & 0.45  & 0.45 & 0.44   & 0.44 & 0.40\\ 
+$+5 \%$ & $+ 5 \%$ & $+ 5 \%$  & 0.54 & 0.41 & 0.35  & 0.37 & 0.43 & 0.76  & 0.70 & 0.51\\ 
+$+ 10 \%$ & $+ 10 \%$ & $+ 10 \%$    & 0.50  & 0.51  &  0.44 & 0.52  & 0.45 &  0.57   &  0.62 & 0.52  
 \end{tabular} 
 \label{table1}
 \end{table}
@@ -1090,9 +1091,9 @@ rates.
 \ReviewerOne{Table~\ref{table1} provides a series of numerical friction coefficients $b$ and the baseline number of particles is $N_b = 58$. With the fixed total length of the JP vesicle, we change parameters related to the length scale, for instances, $\rho$, $\rho_0$, and the radius of particles.
 With $-5\%$, $5\%$, and $10\%$ adjustments in these parameters, the resulting numbers of particles are $N_b=\{61,56,53\}$, respectively. }
 %
-\ReviewerOne{The overall trend shown in Table~\ref{table1} is values of $b$ decreases as $\rho$
-decreases and $b$ are}
-%over a range of shear rates which is 
+\ReviewerOne{The trends in Table~\ref{table1}
+  suggest that $b$ decreases with decreasing $\rho$, $\rho_0$, and particle radius.}
+Overall, the values for $b$ are 
 in good quantitative agreement with values previously reported in the literature.
 Atomistic studies have also considered inter-monolayer slip in lipid bilayers. 
 \cite{WuoEd06} and \cite{denOtter2007} reported $b = 0.7 \times 10^6$ Pa m$^{-1}$ s  
@@ -1168,14 +1169,14 @@ the dimensionless, critical shear rate is $\chi_*=0.0655$ so that the membrane r
   $\text{Ca} = K c^2/(\rho L)$. Here $\text{Ca}$ would be approximately $1.7$
   so that surface forces are comparable to viscous forces.  
   There is a related \emph{elastic} capillary number
-  $\tilde{\text{Ca}} = \mu \dot{\gamma} R_0^3/\kappa$
+  $\tilde{\text{Ca}} = \mu \dot{\gamma} R_0^3/K_B$
   used to characterize rheological properties of lipid bilayer membranes
-  where $R_0$ is vesicle radius $\kappa$ is bending rigidity \citep{VLAHOVSKA2009775, keller_skalak_1982}. 
+  where $R_0$ is vesicle radius $K_B$ is bending rigidity \citep{VLAHOVSKA2009775, keller_skalak_1982}. 
   Setting $\text{Ca}$ and $\tilde{\text{Ca}}$ equal, we can derive
   \[
-  \kappa = \frac{\mu \dot \gamma_* R_0^3}{\text{Ca}}
+  K_B = \frac{\mu \dot \gamma_* R_0^3}{\text{Ca}}
   \]
-  which yields $\kappa \approx 60$ pN $\text{nm}^{-1}$, which is a reasonable
+  which yields $K_B \approx 60$ pN $\text{nm}^{-1}$, which is a reasonable
   value for the bending modulus of a lipid bilayer, for example \citep{NaTr00}.}
 
 
@@ -1225,7 +1226,9 @@ where it reaches a steady height of about $1$ nm.
   \caption{\label{figure6} A JP vesicle placed in a parabolic flow
   drifts toward the central axis. It assumes a slipper shape and
   undergoes tank-treading motion like in the shear flow case. 
- \ReviewerThree{The horizontal dashed line represents time in units of $\mu$s and the vertical axis represents the scaled $y$ position of the centroid of the JP vesicle.}
+  \ReviewerThree{The horizontal dashed line represents time in units of
+    $\upmu$s and the vertical axis represents the scaled $y$ position
+    of the centroid of the JP vesicle.}
   The arrows
   on the left illustrate the background flow and the arrows on the right
   show the velocity relative to the vesicle's moving frame. The thick
@@ -1344,21 +1347,37 @@ The variable $x$ is used to denote the horizontal axis coordinate.
 }
 \end{figure}
 
+%\begin{table}
+%\caption{Stretching Moduli and Permeabilities}
+%\centering
+%\begin{tabular}{ c c c |c c| c |c }
+% radius ($l_0$) &  $\rho$ ($l_0$)  &  $\rho_0$ ($l_0$) &  $M (\mathrm{k_BT})$ & $\gamma$ (pN nm$^{-1})$ & $K_A$ (pN nm$^{-1}$) & $P$ (nm$^3$ ns$%^{-1}$pN$^{-1}$) \\
+%\hline      \hline 
+% 0.5 & 2.0  &   0.5  & 4.0 &  4.1  & 170$\pm9$   &  0.0296\\ 
+% \multicolumn{3}{c|}{same} & \multicolumn{2}{c|}{$+ 5 \%$}  & 185$\pm5$  &  0.0292  \\ 
+% \multicolumn{3}{c|}{same} & \multicolumn{2}{c|}{$+ 10 \%$}  & 195$\pm5$  &  0.0294 \\ 
+% \multicolumn{3}{c|}{$- 5 \%$} & \multicolumn{2}{c|}{same}   & 184$\pm5$  &  0.0283 \\ 
+% \multicolumn{3}{c|}{$- 10 \%$} & \multicolumn{2}{c|}{same}   & 189$\pm6$  &  0.0252  \\ 
+%\end{tabular} 
+%\label{table2}
+%\end{table}
+%
+
 \begin{table}
 \caption{Stretching Moduli and Permeabilities}
 \centering
-\begin{tabular}{ c c c |c c| c |c }
- radius ($l_0$) &  $\rho$ ($l_0$)  &  $\rho_0$ ($l_0$) &  $M (\mathrm{k_BT})$ & $\gamma$ (pN nm$^{-1})$ & $K_A$ (pN nm$^{-1}$) & $P$ (nm$^3$ ns$^{-1}$pN$^{-1}$) \\
-\hline      \hline 
- 0.5 & 2.0  &   0.5  & 4.0 &  4.1  & 170$\pm9$   &  0.0296\\ 
+\begin{tabular}{ c |c| c |c }
+ $k$ & $\lambda$ & $K_A$ (pN nm$^{-1}$) & $P$ (nm$^3$ ns$^{-1}$pN$^{-1}$) \\
+\hline    
+ 1  & 1  & 170$\pm9$   &  0.0296\\ 
 %
- \multicolumn{3}{c|}{same} & \multicolumn{2}{c|}{$+ 5 \%$}  & 185$\pm5$  &  0.0292  \\ 
+ 1.05 & 1  & 185$\pm5$  &  0.0292  \\ 
 %
- \multicolumn{3}{c|}{same} & \multicolumn{2}{c|}{$+ 10 \%$}  & 195$\pm5$  &  0.0294 \\ 
+ 1.10 & 1  & 195$\pm5$  &  0.0294 \\ 
 %
- \multicolumn{3}{c|}{$- 5 \%$} & \multicolumn{2}{c|}{same}   & 184$\pm5$  &  0.0283 \\ 
+ 1 & 0.95  & 184$\pm5$  &  0.0283 \\ 
 %
- \multicolumn{3}{c|}{$- 10 \%$} & \multicolumn{2}{c|}{same}   & 189$\pm6$  &  0.0252  \\ 
+ 1  & 0.9   & 189$\pm6$  &  0.0252  \\ 
 \end{tabular} 
 \label{table2}
 \end{table}
@@ -1368,9 +1387,12 @@ We performed a parametric study of the dependence of $K_A$ and $P$
 on model parameters taking into account   
 (i) changes in interfacial strength and (ii) changes in size.
 Table~\ref{table2} provides the results of stretching moduli $K_A$ and permeabilities $P$ for various cases.
- The baseline setup is shown in the first row.
+The baseline setup is shown in the first row.
 The next two rows demonstrate the results when the tension related parameters $\gamma$ and $M$ are increased by 5$\%$ and 10$\%$. 
+The parameter $k$ is used to scale the force paramaters $\gamma, M \to k\gamma, kM$.
 The final two rows show the results for the cases where the length scale related parameters are decreased by 5$\%$ and 10$\%$
+The parameter $\lambda$ is used to simultaneously scale length parameters;
+$\rho, \rho_0, c \to \lambda \rho, \lambda \rho_0, \lambda c$.
 This data comes from Figure \ref{figure2} which  plots the \emph{ratio} of the abscissa and ordinates
 used in Figure \ref{figure2part1}c, d. The transformed data are fit by constant functions.  
 
@@ -1387,13 +1409,13 @@ Here, $G$ is the hydrophobic attraction potential for the boundary value problem
 and $H$ is the repulsion potential.  
 For the circular vesicle, total energy depends only on the characteristic inter-particle distance $x$
 and has a minimum at $x_0$. 
-If $\gamma$ and $M$ are scaled by $c$, 
+If $\gamma$ and $M$ are scaled by a parameter $k$, 
 we can related the scaled energy to that of the baseline case by 
-\[E_c(x) = c(G(x) + H(x)).\]
+\[E_k(x) = k(G(x) + H(x)).\]
 Permeability does not change with like increases in $\gamma$ and $M$
-because the critical number for $E_c$, and hence inter-particle separations, are independent to $c$.
-The stretching modulus comes from $\frac{d^2E_c}{dx^2}$ and this 
-quantity varies proportionally with $c$. 
+because the critical number for $E_k$, and hence inter-particle separations, are independent to $k$.
+The stretching modulus comes from $\frac{d^2E_k}{dx^2}$ and this 
+quantity varies proportionally with $k$. 
 
 One can observe that $K_A$ increases and $P$ decreases as the length scale decreases. 
 The decrease in  $P$ is expected because 
