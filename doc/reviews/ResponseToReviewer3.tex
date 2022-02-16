@@ -12,13 +12,12 @@
 Dear Professor Petia Vlahovska,
 \\ \\
 \noindent
-We thank you for handling the manuscript and the
-Reviewers for carefully evaluating our work. 
-The revisions address all the comments and concerns
-raised by the Reviewers 
-and we believe the result is a significantly improved manuscript.
-An itemized list of the specific changes and responses follows.
-Changes to the manuscript from Reviewers 1, 2, and 3 are colored in \textcolor{red}{red},
+We thank you for handling the manuscript and the Reviewers for carefully
+evaluating our work. The revisions address all the comments and
+concerns raised by the Reviewers and we believe the result is a
+significantly improved manuscript. An itemized list of the specific
+changes and responses follows. Changes to the manuscript from Reviewers
+1, 2, and 3 are colored in \textcolor{red}{red},
 \textcolor{green}{green}, and \textcolor{magenta}{magenta},
 respectively. \\ \\
 \noindent
@@ -51,12 +50,8 @@ following concerns in the revised manuscript.
 }
 \begin{itemize}
 \item We thank the Reviewer for their positive feedback
-  and suggestions which have helped improve the content and presentation of the
-  manusript.
-%  \begin{quotation}
-%    \noindent
-%    Can put verbatim change in this environment.
-%  \end{quotation}
+  and suggestions which have helped improve the content and presentation
+    of the manuscript.
 \end{itemize}
 
 \noindent
@@ -67,17 +62,31 @@ correct hydrodynamic lubrication. The authors are suggested to justify
 and validate the use of the Imposed Forces with comparison to well-known
 lubrication forces between particles.}
 \begin{itemize}
-  \item Response: The repulsive potential we used to prevent overlap of Janus particles is the repulsive Morse potential based on the electrostatic repulsive potential between two negatively (or positively) charged particles immersed in a medium of low electrolyte concentration so that there is a well-defined zeta potential on the charged particle (Coakley {\sl et al.}, 1999, Biophys. J). This repulsive potential has been approximated by the short-range repulsive Lennard-Jones potential (Flormann {\sl et al.}, 2017, Sci. Reports), which has been adopted by Quaife and Young to study the interaction between two membranes in a viscous solvent in Quaife, Veerapaneni and Young, 2019, Phys. Rev. Fluids, where Quaife {\sl et al.} showed that the lubrication hydrodynamics (draining of fluid between two membrane) is well-captured and the scaling of lubrication thin film is recovered. 
+  \item Response: The repulsive potential we used to prevent overlap of
+    Janus particles is the repulsive Morse potential based on the
+    electrostatic repulsive potential between two negatively (or
+    positively) charged particles immersed in a medium of low
+    electrolyte concentration so that there is a well-defined zeta
+    potential on the charged particle (Coakley {\sl et al.}, 1999,
+    Biophys. J). This repulsive potential has been approximated by the
+    short-range repulsive Lennard-Jones potential (Flormann {\sl et
+    al.}, 2017, Sci. Reports), which has been adopted by Quaife and
+    Young to study the interaction between two membranes in a viscous
+    solvent in Quaife, Veerapaneni and Young, 2019, Phys. Rev. Fluids,
+    where Quaife {\sl et al.} showed that the lubrication hydrodynamics
+    (draining of fluid between two membrane) is well-captured and the
+    scaling of lubrication thin film is recovered. 
   
-This is evidence that the lubrication hydrodynamics of the thin film between two particles under the repulsive Morse potential is well captured  if the flow velocity can be accurately calculated in the boundary integral simulations when two particles are sufficiently close to each other and the short-range repulsion is the dominant force. 
+This is evidence that the lubrication hydrodynamics of the thin film between two particles under the repulsive Morse potential is well captured if the flow velocity can be accurately calculated in the boundary integral simulations when two particles are sufficiently close to each other and the short-range repulsion is the dominant force. 
 
-In this work we used similar numerical techniques to solve the integral equations when some boundaries are quite close to each other.  As the repulsive Morse potential works well to prevent overlapping of particles (provided the time step size is sufficiently small), our previous results in Quaife, Veerapaneni and Young, 2019, Phys. Rev. Fluids gives us confidence in the accuracy of the fluid flow in the thin space between the particles.
+In this work we used similar numerical techniques to solve the integral equations when some boundaries are quite close to each other. As the repulsive Morse potential works well to prevent overlapping of particles (provided the time step size is sufficiently small), our previous results in Quaife, Veerapaneni and Young, 2019, Phys. Rev. Fluids gives us confidence in the accuracy of the fluid flow in the thin space between the particles.
 
-\item Change: We added added a paragraph at the end of Section 2.2 describing
-  how the lubrication hydrodynamics in a narrow space between boundaries is
-  well-captured within the boundary integral formulation.
-  Then, in section 4.1 \textit{Model Parameters}, we show quantitatively how the lubrication and
-  artificial repulsion are comparable when substituing for our simulation parameters.
+\item Change: We added added a paragraph at the end of Section 2.2
+  describing how the lubrication hydrodynamics in a narrow space between
+    boundaries is well-captured within the boundary integral
+    formulation. Then, in section 4.1 \textit{Model Parameters}, we
+    show quantitatively how the lubrication and artificial repulsion are
+    comparable when substituting for our simulation parameters.
 \end{itemize}
 
 \noindent
@@ -106,11 +115,12 @@ distance should be $1000 \times R$. However, in the figure, it shows a
 migration distance about $4 \times R$. The authors are suggested to
 double-check their model parameterization.}
 \begin{itemize}
-\item Response: Fig.~6 shows 4 snapshots in the time frame from 0 to 12 $\mu$s along with the trajectory of the centriod.
+\item Response: Fig.~6 shows 4 snapshots in the time frame from 0 to 12
+  $\mu$s along with the trajectory of the centroid.
 
-  \item Change: In the caption of Fig.~6,  we now clarify that the horizontal axis 
-    represents time and that the vertical axis has been scaled to make the
-    migration stand out.
+  \item Change: In the caption of Fig.~6, we now clarify that the
+    horizontal axis represents time and that the vertical axis has been
+    scaled to make the migration stand out.
   
 \end{itemize}
 
@@ -126,7 +136,8 @@ explanation.}
   to generate streamlines in post-processing.
 
 \item Change: We improved the software and the corrected streamlines now appear in Fig.~11.
-  As expected, the streamlines are continuous while their gradient is peicewise continuous
+  As expected, the streamlines are continuous while their gradient is
+    piecewise continuous
   across the JP vesicle interface.
 \end{itemize}
 
@@ -137,8 +148,8 @@ $\ldots$" on page 2, ``$\ldots$ a baseline JP vesicles $\ldots$" on page
 8, ``circular vesicles has a Laplace pressure $\ldots$" at Eq.~(4.7).
 The authors are suggested to have a thorough read of the manuscript.}
 \begin{itemize}
-  \item The typo with ``well-know" is corrected, but colored in red
-    since it was pointed out by Reviewer 1 as well.
+  \item The typo with ``well-know" is corrected, but colored in
+    \textcolor{red}{red} since it was pointed out by Reviewer 1 as well.
 
   \item The manuscript now reads
     \begin{quotation}
@@ -146,7 +157,8 @@ The authors are suggested to have a thorough read of the manuscript.}
     \end{quotation}
 
   \item The typo with ``has" instead of ``have" is corrected, but
-    colored in red since it was pointed out by Reviewer 1.
+    colored in \textcolor{red}{red} since it was pointed out by Reviewer
+    1.
 
   \item We have read through the manuscript and done our best to
     remove further grammatical errors.

@@ -6,13 +6,15 @@ N = val(1);
 nb = val(2);
 val = val(3:end);
 
-ntime = numel(val)/(3*nb+1);
+ntime = numel(val)/(3*nb);
 % 2 velocities, 1 torque, 1 time
+numel(val)
+pause
 if ntime ~= ceil(ntime);
   disp('PROBLEM WITH VALUES FOR N AND nb');
 end
 
-time = zeros(ntime,1);
+%time = zeros(ntime,1);
 velx = zeros(1,nb,ntime);
 vely = zeros(1,nb,ntime);
 torq = zeros(1,nb,ntime);
@@ -40,8 +42,8 @@ for m = 1:ntime
     istart = iend + 1;
   end
 
-  time(m) = val(istart);
-  istart = istart + 1;
+%  time(m) = val(istart);
+%  istart = istart + 1;
 end
 
 

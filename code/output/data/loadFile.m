@@ -1,4 +1,4 @@
-function [yukawaRHS,posx,posy,xc,tau,time] = loadFile(file)
+function [yukawaRHS,posx,posy,xc,tau] = loadFile(file)
 fid = fopen(file,'r');
 val = fread(fid,'double');
 fclose(fid);
@@ -8,15 +8,15 @@ val = val(3:end);
 yukawaRHS = val(1:N*nb);
 val = val(N*nb+1:end);
 
-ntime = numel(val)/(2*N*nb+3*nb+1);
-% 2 positions, 2 centers, 1 angle, 1 time
+ntime = numel(val)/(2*N*nb+3*nb);
+% 2 positions, 2 centers, 1 angle
 if ntime ~= ceil(ntime);
   disp('PROBLEM WITH VALUES FOR N AND nb');
 end
 
 posx = zeros(N,nb,ntime);
 posy = zeros(N,nb,ntime);
-time = zeros(ntime,1);
+%time = zeros(ntime,1);
 xc = zeros(2,nb,ntime);
 tau = zeros(1,nb,ntime);
 
@@ -50,8 +50,8 @@ for m = 1:ntime
     istart = iend + 1;
   end
 
-  time(m) = val(istart);
-  istart = istart + 1;
+%  time(m) = val(istart);
+%  istart = istart + 1;
 end
 
 
