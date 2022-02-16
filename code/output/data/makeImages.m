@@ -4,14 +4,14 @@ set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 options.saveVelData = true;
 
-file = 'shear.bin';
+file = 'shearBryan.bin';
 velfile = 'shear_vel.bin';
 
 irate = 1; % controls the speed of the visualization
-ax = 5*[-1 1 -1 1];
+ax = 8*[-1 1 -1 1];
 % ax = [-1 6 -1 4];
 
-[yukawaRHS,posx,posy,xc,tau,time] = loadFile(file);
+[yukawaRHS,posx,posy,xc,tau] = loadFile(file);
 % load right hand side for Yukawa solve, positions, centers, inclination
 % angles, and times
 [velx,vely,torq] = loadVelFile(velfile);
@@ -54,7 +54,7 @@ for k = 1:irate:ntime;
   set(gca,'ytick',[])
   set(gca,'xcolor','white')
   set(gca,'ycolor','white')
-  titleStr = ['t = ' num2str(time(k),'%4.2e')];
+%  titleStr = ['t = ' num2str(time(k),'%4.2e')];
   title(titleStr)
   pause(0.01)
   if options.savefig

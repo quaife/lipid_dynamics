@@ -349,10 +349,14 @@ are
 \end{equation}
 
 \ReviewerThree{
-The high-order interpolation-based quadrature rule used to compute the nearly-singular integrals has
-been shown to capture well the lubrication hydrodynamics in the narrow space between boundaries 
-when the repulsive potential $P$ gives a large steric force \citep{qua-bir2014}.  
-In the simulations we adjust the spatial resolution on the particle boundary to ensure that the lubrication hydrodynamics is well resolved as in \citep{qua-vee-you2019,qua-gan-you2021}.
+The high-order interpolation-based quadrature rule used to compute the
+nearly-singular integrals has been shown to accurately capture the
+lubrication hydrodynamics in the narrow space between boundaries when
+the repulsive potential $P$ gives a large steric
+force~\citep{qua-bir2014}. In the simulations we adjust the spatial
+resolution on the particle boundary to ensure that the lubrication
+hydrodynamics is well resolved as in~\citep{qua-vee-you2019,
+qua-gan-you2021}.
 }
 %
 
@@ -735,9 +739,12 @@ as required.
 % what we solve for?
 \ReviewerOne{
 \subsection{Time Marching}
-To summarize, the proposed algorithm aims to obtain the JP velocities ${\bf v}_i$ and $\omega_i$. 
-After calculating the imposed forces $\FF_i$ and torques $T_i$, 
-two density functions $\sigma$ and  $\eeta$ are solved in the second-kind integral equations involving the HAP~\eqref{eq:screenedSKIE} and the mobility problem~\eqref{eq:SKIE}-\eqref{eq:mobility2} via GMRES.
+To summarize, the proposed algorithm aims to obtain the JP velocities
+${\bf v}_i$ and $\omega_i$. After calculating the imposed forces $\FF_i$
+and torques $T_i$, two density functions $\sigma$ and  $\eeta$ are
+solved in the second-kind integral equations involving the
+HAP~\eqref{eq:screenedSKIE} and the mobility
+problem~\eqref{eq:SKIE}--\eqref{eq:mobility2} via GMRES.
 %By solving the mobility problem, we obtain translational and angular
 %velocities of the $N_b$-body system. 
 Moreover, a second-order Adams-Bashforth
@@ -811,7 +818,7 @@ ns nm}^{-2}$ is viscosity of room-temperature water.
   For our choice of simulation parameters, $F_{\text{lubr}}$ and \eqref{eq:REPULforce} are comparable
   because the particle gaps are comparable to the particle radius
   and the relative velocities $\dot \epsilon$ between particles are on
-  the order of nm $\text{ns}^{-1}$.
+  the order of a nm $\text{ns}^{-1}$.
 }
 
 
@@ -1150,16 +1157,18 @@ ruptured vesicles form two planar micelles which are eventually carried
 off by the flow (Figure~\ref{figure8}d). 
 %
 
-\ReviewerOne{An emperical numerical study found that for the baseline parameter set,
-the dimensionless, critical shear rate is $\chi_*=0.0655$ so that the membrane ruptured whenever $\chi > \chi_*$
-  and did not rupture whenever $\chi < \chi_*.$ 
-  Supplementary Materials Movie 4 shows the membrane rupture at the critical shear rate.
-  To further quantify the competition between shear and attraction,
-  we found that a 5 \% relative increase in the parameters $\gamma$ and $M$ 
-  resulted in a  4.24 \% relative increase in $\chi_*$, from $0.0655$ to $0.0688$.
-  A 5 \% decrease in the particle radius $c$, screening length $\rho$ gave a $-9.55$ \% decrease, $5.0 \%$ increase
-  respectively in $\chi_*$.
-  Finally, a 10 \% increase in resting length $L_0$ gave a 20.61 \% decrease in critical shear rate $\chi_*$.}  
+\ReviewerOne{An empirical numerical study found that for the baseline
+parameter set, the dimensionless, critical shear rate is $\chi_*=0.0655$
+so that the membrane ruptured whenever $\chi > \chi_*$ and did not
+rupture whenever $\chi < \chi_*.$ Supplementary Materials Movie 4 shows
+the membrane rupture at the critical shear rate.  To further quantify
+the competition between shear and attraction, we found that a $5 \%$
+relative increase in the parameters $\gamma$ and $M$ resulted in a $4.24
+\%$ relative increase in $\chi_*$, from $0.0655$ to $0.0688$.  A $5 \%$
+decrease in the particle radius $c$, screening length $\rho$ gave a
+$-9.55 \%$ decrease, $5.0 \%$ increase respectively in $\chi_*$.
+Finally, a $10 \%$ increase in resting length $L_0$ gave a $20.61 \%$
+decrease in critical shear rate $\chi_*$.}  
   \ReviewerOne{These relative changes suggest that there is dimensionless number $K$ given by 
   \begin{equation}
     \label{eq:CSR}
