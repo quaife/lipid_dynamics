@@ -62,8 +62,13 @@ this journal but a major revision is needed. Below additional minor
 comments to be addressed.}
 \begin{itemize}
   \item {\bf Response}: We thank the Reviewer for this positive appraisal of our manuscript.  
-The goal of our work, however, is not to provide an alternative vesicle model that outperforms pre-existing continuum models for a lipid bilayer vesicle in the literature. Inspired by de Gennes' suggestion of a thin film from self-assembly of Janus particles, we provide a model for the dynamics of Janus particles that self-assemble into a bilayer (JP vesicle) under various flowing conditions. 
-As we showed in the manuscript, there are a lot of similarities between the JP vesicle and the lipid bilayer vesicle reported in the literature.
+    The goal of our work, however, is not to provide an alternative vesicle model that outperforms
+    pre-existing continuum models for a lipid bilayer vesicle in the literature.
+    Inspired by de Gennes' suggestion of a thin film from self-assembly of Janus particles,
+    we provide a model for the dynamics of Janus particles that self-assemble into a bilayer
+    (JP vesicle) under various flowing conditions. 
+    As we showed in the manuscript, there are a lot of similarities between the
+    JP vesicle and the lipid bilayer vesicle reported in the literature.
 
 To highlight both the similarity and difference between our JP vesicle and the lipid bilayer vesicle, we study (1) the hydrodynamics of a JP vesicle in various flow conditions to compare with the corresponding results for a lipid bilayer vesicle,
 and (2) we compute the friction between the two JP leaflet, and the permeability of a JP bilayer. We find that the permeability of a JP vesicle allows the total water content enclosed in the JP vesicle to reach an equilibrium value in a flow. We find that the JP vesicle is actually closer to a permeable vesicle that we studied previously, where the 2D vesicle has a constant perimeter but the enclosed area does not stay constant.
@@ -92,8 +97,11 @@ Finally we provide a critical capillary number for rupture of a JP vesicle under
 Laplace equation. Please use another variable for the scalar function
 $u$.}
 \begin{itemize}
-  \item Response: The velocity ${\bf u}({\bf x})$ introduced in the mobility problem (eqn. (2.1)--(2.3)) is in bold face and of a vector form. The scalar solution function $u$ is the solution of the screened Laplace equation boundary value problem (eqn. (2.7)--(2.9)). Therefore there is no duplication of usage in notation. 
-  \item Change: In response to this point, in order to avoid confusions, we changed the scalar function to $\eta$.
+\item Response: The velocity ${\bf u}({\bf x})$ introduced in the mobility problem (eqn. (2.1)--(2.3)) is in bold face and of a vector form. The scalar solution function $u$ is the solution of the screened Laplace equation boundary value problem (eqn. (2.7)--(2.9)).
+  We can see, however, how this might result in confusion. 
+\item Change: In response to this point, we changed the scalar function $u$ to $\eta$ throughout the manuscript.
+  The notation $\eta$ was used by Stjepan Marcelja to first pose the HAP formulation
+  (Croatica Chemica Acta, 1977).
 \end{itemize}
 
 \noindent
@@ -127,7 +135,14 @@ parameters? And could you tune them if needed to simulate the effect of
 the membrane stiffness? This can be important in some applications such
 as rigidity-based microfluidic sorting devices.}
 \begin{itemize}
-  \item Change 1 
+\item Response: The Reviewer is correct that realistic bending moduli
+  and other elastic parameters can be deduced from simulation data.
+  At this point, however, we do not have an analytical connection between
+  the input and moduli and inputs, other than some scaling relationship.
+  Please see the next comment, though, regarding the bending and stretching
+  moduli.
+\item Change: In the beginning of Section 4.1,
+  we now point out that such an analysis was part of our previous work.  
 \end{itemize}
 
 \noindent
@@ -135,7 +150,11 @@ as rigidity-based microfluidic sorting devices.}
 suggest introducing the capillary number for vesicles as defined in
 \url{https://doi.org/10.1016/j.crhy.2009.10.001}.}
 \begin{itemize}
-  \item Change 1 
+\item Response:  We thank the Reviewer for pointing out this interesting connection. 
+\item Change:  Reviewer 1 requested a parametric study of membrane rupture which
+  we now supply in Section 4.2.3. There we take up the present Reviewer's
+  suggestion and show how the critical rupture shear rate ties in with the capillary
+  number, and then use the capillary number to derive an effective bending rigidity. 
 \end{itemize}
 
 \noindent
@@ -149,7 +168,10 @@ for vesicles (e.g.~\url{https://doi.org/10.1016/j.jcp.2008.11.036}),
 both constant area and perimeter constraints are fulfilled even when the
 vesicle is more deformed than the cases reported here.}
 \begin{itemize}
-  \item Response: We thank the referee for this comment. For impermeable vesicles, the referee is correct about the numerical errors reported in the literature. However, the Janus membrane is permeable and in our simulations we found that the Janus vesicle needs time so the Janus particles in the membrane can re-arrange themselves. During this process of rearrangement the Janus bilayer membrane behaves as a permeable membrane as in Quaife, Gannon and Young (PRF 2021). For a Janus vesicle in a linear shear flow with a shear rate of dimensionless shear $\chi = 0.002$ the enclosed area reaches a nearly constant value after $1$ $\mu$s. We would like to point out that this is not a numerical error, but a consequence of Janus particle hydrodynamics that gives rise to membrane permeability. 
+\item Response: We thank the referee for this comment. For impermeable vesicles, the referee is correct about the numerical errors reported in the literature. However, the JP membrane is permeable and in our simulations we found that the Janus vesicle needs time so the Janus particles in the membrane can re-arrange themselves. During this process of rearrangement the JP bilayer membrane behaves as a permeable membrane as in Quaife, Gannon and Young (PRF 2021). For a JP vesicle in a linear shear flow with a shear rate of dimensionless shear $\chi = 0.002$ the enclosed area reaches a nearly constant value after $1$ $\mu$s. We would like to point out that this is not a numerical error, but a consequence of Janus particle hydrodynamics that gives rise to membrane permeability.
+
+\item Change: In response to Reviewer 1, we have rewritten Section 4.3 from scratch.
+  This section now performs a parametric study of membrane permeability.
 \end{itemize}
 
 \noindent
@@ -157,7 +179,8 @@ vesicle is more deformed than the cases reported here.}
 bilayer membrane has a viscosity which is different from the suspending
 fluid. How difficult it is to add this feature to your model?}
 \begin{itemize}
-  \item Response: Our current numerical method does not support a viscosity contrast in the system 
+\item Change:
+  We now mention in the conclusion that our current numerical method does not support a viscosity contrast in the system 
 or the setup similar to the ones in (Veerapaneni {\sl et al.}, {\bf 2011}, Phys. Rev. Lett.),
 (Vlahovska and Gracia, {\bf 2007}, Phys. Rev. E), and
 (Kaoui and Harting, {\bf 2016}, Rheol Acta). 

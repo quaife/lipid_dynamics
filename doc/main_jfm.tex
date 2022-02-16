@@ -771,12 +771,12 @@ size $\Delta t\sim O(10^{-1})$.
 \end{figure}
 
 \subsection{Model Parameters}
-\cite{Fu20} studied physical quantities for static JP vesicles. 
+\cite{Fu20} studied physical quantities for static JP vesicles
+\ReviewerTwo{and empitically deduced realistic bending moduli, stretching moduli,
+  and tilt moduli under reasonable assumptions for the input parameters.}
 In the present work, we study JP vesicles in various background flows.
 We also perform parametric studies of effective properties of the JP vesicles 
 as a function of particle size and interaction strength.
-An analysis of the relationship between particle shape on effective properties is beyond 
-the scope of the current paper. 
 
 The particles are circular disks with centres 
 $\aa_i$ and unit-length directors $\dd_i$ (Figure \ref{fig:figure0}(a)).
@@ -1157,16 +1157,17 @@ the dimensionless, critical shear rate is $\chi_*=0.0655$ so that the membrane r
   To further quantify the competition between shear and attraction,
   we found that a 5 \% relative increase in the parameters $\gamma$ and $M$ 
   resulted in a  4.24 \% relative increase in $\chi_*$, from $0.0655$ to $0.0688$.
-  A 5 \% decrease in the particle radius $c$ gave a -9.55 \% decrease in $\chi_*$
-  and a 10 \% increase in resting length $L_0$ gave a 20.61 \% decrease in critical shear rate $\chi_*$.
-  These relative changes suggest that there is dimensionless number $K$ given by 
+  A 5 \% decrease in the particle radius $c$, screening length $\rho$ gave a $-9.55$ \% decrease, $5.0 \%$ increase
+  respectively in $\chi_*$.
+  Finally, a 10 \% increase in resting length $L_0$ gave a 20.61 \% decrease in critical shear rate $\chi_*$.}  
+  \ReviewerOne{These relative changes suggest that there is dimensionless number $K$ given by 
   \begin{equation}
     \label{eq:CSR}
   \mu \dot\gamma_* = K \frac{\gamma c^2}{\rho L^2}
   \end{equation}
   that relates hydrophobic attraction to the dimensional critical shear rate $\dot \gamma_* = \chi_* \text{ ns}^{-1}$.
   Assuming a characteristic velocity $L\dot \gamma$, the number $K$ relates to the vesicle's capillary number
-  $\text{Ca} = K c^2/(\rho L)$. Here $\text{Ca}$ would be approximately $1.7$
+  $\text{Ca} = K c^2/(\rho L)$. Based on the above data, $\text{Ca}$ would be approximately $1.7$
   so that surface forces are comparable to viscous forces.  
   There is a related \emph{elastic} capillary number
   $\tilde{\text{Ca}} = \mu \dot{\gamma} R_0^3/K_B$
@@ -1238,7 +1239,7 @@ where it reaches a steady height of about $1$ nm.
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Stretching and Permeability}
+\subsection{\ReviewerOne{Stretching and Permeability}}
 \label{sec:ves_in_quiescent}
 
 \begin{figure}
@@ -1278,7 +1279,7 @@ water flows across the membrane. The rate of efflux is governed by
   \label{eq:perm} 
   \frac{dA}{dt} = - P\Delta p,
 \end{align}
-where $P = k/(\mu \Delta x)$ is a constant, $k$ is hydraulic permeability, 
+where $P = K/(\mu \Delta x)$ is a constant, $K$ is hydraulic permeability, 
 $\mu$ is the solvent viscosity, and $\Delta x$ is the 
 membrane thickness, about 5 nm
 (\cite{chabanon2017, qua-gan-you2021}).
@@ -1716,16 +1717,29 @@ evaluation. These alternative integrals allow us to accurately resolve
 trajectories over long times without having to rely on computationally
 expensive quadratures.
 
+Our current numerical method does not support a viscosity contrast
+like that found in
+\citep{PhysRevLett.106.158103,
+  PhysRevE.75.016313,
+  Kaoui2016}.
+The JP vesicle is permeable and the mixture of two different
+fluids requires an introduce of a contact line between
+the two phases.
+
 Our future goals include extending the current framework to a
 three-dimensional JP vesicle system. This will require additional
 algorithmic implementation including a fast summation method such as the
-fast multipole method. Another research direction is to include the
+fast multipole method. Oother research directions include
 fluctuating hydrodynamics for Brownian suspensions~(\cite{Bao2018}),
 %introduce thermal fluctuations into the model. 
 %This will result in Janus particles that include Brownian motion, 
-and this is critical to understand membrane diffusion. Finally, a more
+critical to understanding membrane diffusion,
+and an analysis of the relationship between particle shape on effective
+properties.
+Finally, more
 physical boundary conditions for the HAP model will allow us to draw
 comparisons between computational and laboratory experiments.
+
 
 
 \begin{acknowledgments}
