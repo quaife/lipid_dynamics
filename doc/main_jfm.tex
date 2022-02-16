@@ -56,7 +56,7 @@
 % {\MakeUppercase{\romannumeral #1}}
 
 %\title{Two-Dimensional Vesicles Under External Flow via Integral Equation Method}
-\title{Two-Dimensional Vesicle Hydrodynamics from Hydrophobic Attraction Potential}
+\title{Two-Dimensional Hydrodynamics of a Janus Particle Vesicle}
 %\title{Hydrodynamics of Amphiphilic Particles in Background Flows}
 %\author{Alan N. Jones\aff{1}
 %  \corresp{\email{JFMEditorial@cambridge.org}},
@@ -99,9 +99,9 @@ Yuan-Nan Young\aff{3}
   in a two-dimensional vesicle made of Janus particles.
   The results yield measurements of inter-monolayer friction, membrane permeability, 
   and at large shear rates, membrane rupture. 
-  The simulations studies include a vesicle in parabolic flow and vesicle-vesicle 
-  interactions in shear and extensional flows. The hydrodynamics of the Janus 
-  particles vesicle replicate the behaviour of an inextensible elastic vesicle membrane.
+  The simulations studies include a Janus particle vesicle in both linear and parabolic shear flows,  and 
+  interactions between two Janus particle vesicles in shear and extensional flows. The hydrodynamics of the Janus 
+  particles vesicle is similar to the behaviour of an inextensible elastic vesicle membrane with permeability.
 %    We develop a new model, to our knowledge,  for the hydrodynamics of amphiphilic particles in background flows. 
 %  In this work, we study the dynamics of many-body systems immersed in a
 %  viscous fluid with a specified interparticle force. In particular, we
@@ -190,7 +190,8 @@ interacting JP vesicles with a continuum model of a pair of vesicles.
 %hydrodynamic interactions come from the mobility problem for the Stokes
 %equations for the incompressible, viscous solvent.  
 
-We require a numerical method to avoid unphysical contact between rigid
+To simulate the hydrodynamics of Janus particles in Stokes flow,
+we require a numerical method to avoid unphysical contact between rigid
 Janus particles. Optimization-based contact methods introduce
 constraints, such as enforcing a non-positive space-time interference
 volume (\cite{lu-rah-zor2017, Lukas19, yan-cor-mal-vee-she2020}). These
@@ -1103,6 +1104,29 @@ It is understandable that there is uncertainty in the friction coefficients of
 Table~\ref{table1}.  The scatter in our data, however, is fully consistent with that calculated
 from MD simulations, c.f. the transient rise in values of Table~\ref{table1} and in \cite{Zgorski2019}, Figure 10
 for low shear rates. 
+%\subsubsection{Membrane Ruptures}
+%\begin{figure}
+%\centering
+%\includegraphics[width=11.32cm]{Figure8_Wrapper.pdf}
+%%\includegraphics[height=2in]{N58_rupt_0.pdf}
+%%\includegraphics[height=2in]{N58_rupt_200.pdf}
+%\\
+%%\includegraphics[height=2in]{N58_rupt_400.pdf}
+%%\includegraphics[height=2in]{N58_rupt_600.pdf}
+%  \caption{\label{figure8} Tank-treading leads to membrane rupture for
+%  large shear rates.} 
+%\end{figure}
+%A temporary fissure or a complete membrane rupture can occur at large
+%shear rates. Figure~\ref{figure8} demonstrates how a vesicle can rupture
+%when suspended in a shear flow. For $\chi = 0.1$, starting with a
+%circular shape (Figure~\ref{figure8}a), the vesicle is stretched by the
+%background flow and fissures appear in the bilayer structure in multiple
+%locations (Figure~\ref{figure8}b). In Figure~\ref{figure8}c, the
+%ruptured vesicles form two planar micelles which are eventually carried
+%off by the flow (Figure~\ref{figure8}d). 
+%%
+%\ReviewerOne{An emperical numerical study has shown that the critical shear rate for a complete membrane rupture is $\chi=0.0655$. Supplementary Materials Movie 4 shows the membrane rupture at the critical shear rate.}
+
 \subsubsection{Membrane Ruptures}
 \begin{figure}
 \centering
@@ -1124,8 +1148,35 @@ locations (Figure~\ref{figure8}b). In Figure~\ref{figure8}c, the
 ruptured vesicles form two planar micelles which are eventually carried
 off by the flow (Figure~\ref{figure8}d). 
 %
-\ReviewerOne{An emperical numerical study has shown that the critical shear rate for a complete membrane rupture is $\chi=0.0655$. Supplementary Materials Movie 4 shows the membrane rupture at the critical shear rate.}
 
+\ReviewerOne{An emperical numerical study found that for the baseline parameter set,
+the dimensionless, critical shear rate is $\chi_*=0.0655$ so that the membrane ruptured whenever $\chi > \chi_*$
+  and did not rupture whenever $\chi < \chi_*.$ 
+  Supplementary Materials Movie 4 shows the membrane rupture at the critical shear rate.
+  To further quantify the competition between shear and attraction,
+  we found that a 5 \% relative increase in the parameters $\gamma$ and $M$ 
+  resulted in a  4.24 \% relative increase in $\chi_*$, from $0.0655$ to $0.0688$.
+  A 5 \% decrease in the particle radius $c$ gave a -9.55 \% decrease in $\chi_*$
+  and a 10 \% increase in resting length $L_0$ gave a 20.61 \% decrease in critical shear rate $\chi_*$.
+  These relative changes suggest that there is dimensionless number $K$ given by 
+  \begin{equation}
+    \label{eq:CSR}
+  \mu \dot\gamma_* = K \frac{\gamma c^2}{\rho L^2}
+  \end{equation}
+  that relates hydrophobic attraction to the dimensional critical shear rate $\dot \gamma_* = \chi_* \text{ ns}^{-1}$.
+  Assuming a characteristic velocity $L\dot \gamma$, the number $K$ relates to the vesicle's capillary number
+  $\text{Ca} = K c^2/(\rho L)$. Here $\text{Ca}$ would be approximately $1.7$
+  so that surface forces are comparable to viscous forces.  
+  There is a related \emph{elastic} capillary number
+  $\tilde{\text{Ca}} = \mu \dot{\gamma} R_0^3/\kappa$
+  used to characterize rheological properties of lipid bilayer membranes
+  where $R_0$ is vesicle radius $\kappa$ is bending rigidity \citep{VLAHOVSKA2009775, keller_skalak_1982}. 
+  Setting $\text{Ca}$ and $\tilde{\text{Ca}}$ equal, we can derive
+  \[
+  \kappa = \frac{\mu \dot \gamma_* R_0^3}{\text{Ca}}
+  \]
+  which yields $\kappa \approx 60$ pN $\text{nm}^{-1}$, which is a reasonable
+  value for the bending modulus of a lipid bilayer, for example \citep{NaTr00}.}
 
 
 
