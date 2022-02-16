@@ -73,8 +73,8 @@ indeed more complex and out of the scope of the current paper.}
 \item Response: This comment encouraged us to present more convergence
   studies in the choices of model parameters. We made a worthwhile
   effort to perform a large number of simulations. We agree with the
-  Reviewer that the particle/vesicle shape is complex with the setup
-  therefore we adopted small changes in particle sizes and reported all the results.
+  Reviewer that analyzing dependence on particle shape is complex task.
+  Therefore we focus on changes in particle sizes and reported all the results.
 \item Change: We performed more than twenty new experiments to fill out Table 1
   accounting for variations in particle size.  
   We rewrote section 4.3 from scratch. 
@@ -95,17 +95,17 @@ attraction)}
 \item Response: We thank the Reviewer for this fruitful suggestion.
   By tuning the shear rate, we were able to determine critical
   shear rates for membrane rupture.  Then we studied the relative
-  change in critical shear rate as a function of model parameter
-  changes.
+  change in critical shear rate as a function of model parameters.
+
 \item Change:
   The new text on Page 13 reports how critical shear rate changes
   with model parameters, and uses these values to formulate
-  a dimensional scale factor.  Reviewer 2 suggested we make
+  a dimensional scale factor.  Reviewer 2 suggested that we make
   a connection with the elastic capillary number, which we now do,
   and we use this connection to derive an effective and realistic
   bending rigidity.
 
-  Furthermore, We added a movie of vesicle rupture (Movie S4) in the supplementary material (page 25).
+  Furthermore, we added a movie of vesicle rupture (Movie S4) in the supplementary material (page 25).
 \end{itemize}
 
 \noindent
@@ -121,7 +121,7 @@ are to each other.}
   in shear flow and extensional flow.
   The plots track the distance between the vesicle centroids 
   and show quantitative agreement as well as qualitative differences.
-  One difference is that present model has an adhesion effect that
+  One difference is that the present model has an adhesion effect that
   binds two vesicles in a shear flow.  
 \end{itemize}
 
@@ -135,28 +135,30 @@ explain/characterize some phenomena observed in the simulations
 
 \begin{itemize}
   \item Response:
-Other continuum models in literature
-like  \emph{Rahimian, et al., J. Comput. Phys., 2011}, 
+Other continuum models in the literature
+such as  \emph{Rahimian, et al., J. Comput. Phys., 2011}, 
  provide a time scale $\tau = \mu R_0^3/\kappa_B$ where $\mu$ the fluid
     viscosity and $\kappa_B$ the bending modulus, and 
     $R_0$ is the initial radius of the reference vesicle.
     In our model, the bending modulus is an output and cannot be used
-    to formulate the adimensionalization a priori.
+    to formulate an adimensionalization.
 
     We did manage to formulate an appropriate capillary number to characterize the rupture of a JP vesicles
     under a linear shear flow at a high shear rate and derive a bending modulus that way. 
     
     One of the benefits of our nondimensionalization is that it enables
     us to cover multiple time scales inherent to the particle-based formulation. 
-    It is possible form a time scale using the interfacial tension, as done
-    in our previous work (Fu {\sl et al.}, {\bf 2020}, Multiscale Model. Simul.),
+    It is possible to pose a time scale using the interfacial tension, as done
+    in our previous work (Fu {\sl et al.}, {\bf 2020}, Multiscale Model. Simul.),=.
     This time scale is small, a few nanoseconds, and
     corresponds to the times for particle self-assembly.
     The time scale for the interesting vesicle deformations is longer,
-    on the order of microseconds.    
+    on the order of microseconds.
+    Although this leads to longer simulation times, our approach can
+    handle topological changes which are presently out of reach for continuum methods. 
     Finally, another benefit is that we can compare
-    results with molecular dynamics simulations
-    as well as with established continuum models.  
+    results with both molecular dynamics simulations
+    and established continuum models.  
 
 \end{itemize}
 
@@ -166,8 +168,8 @@ should summarize the exact set of equations they use and the unknowns
 they solve for.}
 \begin{itemize}
 \item Response: We followed the suggestion given by the
-  Reviewer that a summary about what to solve throughout the entire algorithm is provided at the end of Section 3.
-  \item Change: A summary paragraph was added on page 8.
+  Reviewer that a summary about what to solve throughout the entire algorithm is helpful. 
+  \item Change: A summary paragraph was added on page 8, at the end of Section 3.
 \end{itemize}
 
 \noindent
@@ -175,9 +177,9 @@ they solve for.}
 good to use colorblind friendly colormaps for colorblind people and for
 black and white printing.}
 \begin{itemize}
-\item Response: We agree that changing all the figure 
-  to colorblind friendly colormap is helpful.  At this point,
-  we are still deciding what the best choice is for needed color
+\item Response: We agree that changing all the figures 
+  to a colorblind friendly colormap is helpful.  At this point,
+  we are still deciding what the best choice is for color
   contrast and will make this change for all relevant figures once the
   manuscript is accepted.
 \end{itemize}
@@ -212,7 +214,7 @@ relatively weak repulsive force ? Weak compared to what? (see additional
 question on this hereinafter).}
 \begin{itemize}
   \item Response: We modified this description for better clarity.
-  \item Change: Page 3, lines 64-65, we changed ``relatively weak repulsive force" to ``relatively soft repulsive force" and added ``(compared to the short-range repulsion that diverges in the Lennard-Jones potential)".
+  \item Change: Page 3, we changed ``relatively weak repulsive force" to ``relatively soft repulsive force" and added ``(compared to the short-range repulsion that diverges in the Lennard-Jones potential)".
   
 \end{itemize}
 
@@ -232,7 +234,8 @@ hydrophobic attraction potential in the first paragraph.}
 positions and orientations should be written in Section 2 to close the
 problem.}
 \begin{itemize}
-  \item Response: Section 2.2 introduces the imposed forces and torques in hydrophobic attraction and repulsion that are not used to obtain particle directions directly. Following the next comment by 
+\item Response: Section 2.2 introduces the imposed forces and torques in hydrophobic attraction.
+  Following the next comment by 
 the Reviewer, we agreed that Section 2.3 should be moved to the end of Section 3 and we complete the change.
 \item Change: We moved Section 2.3 to the end of Section 3.
 \end{itemize}
@@ -246,10 +249,11 @@ very vague.  What do you mean by ``relatively large time step"? Compared
 to what time scale?}
 \begin{itemize}
   \item Response: We thank the Review for the comment and we moved the original Section 2.3 {\it Time Marching} at the end of Section 3 combining the change based on the comment previously addressed about what to solve for in the proposed algorithm. 
-As described in Section 2.2, the repulsion force with a constant strength coefficient $M$ is chosen 
+As newly described in Sections 2.2 and 4.1, the repulsion force with a constant strength coefficient $M$ is chosen 
 to be a large number in order to avoid particle collisions. If $M$ is not large enough, the hydrophobic attraction will dominate the total force and the dynamics may cause particle collisions with the use of a larger time step. Therefore, with an empirical study to the relationship between 
 choices of M and $\gamma$, the parameter set in this work allows the time step to be as large as
-$O(10^{-1})$ with no instability. Comparing the time step used in literatures, for instance, in Bystricky {\sl et al.}, {\bf 2020}, Int. J. Numer. Methods Fluids), $\Delta t\sim O(10^{-2})$.
+$O(10^{-1})$ with no instability.
+%Comparing the time step used in literatures, for instance, in Bystricky {\sl et al.}, {\bf 2020}, Int. J. Numer. Methods Fluids), $\Delta t\sim O(10^{-2})$.
 \item Change: We moved Section 2.3 to the end of Section 3 (Section 3.4, page 8).
 \end{itemize}
 
@@ -318,7 +322,7 @@ properties?}
 \comment{Figure 3a,b,d: what does the term in parenthesis ``(1)" means
 on the label of the ordinate axis?}
 \begin{itemize}
-  \item Response: The term (1) means the magnitude of the corresponding $y$-axis is of order 1.
+  \item Response: We change the adimensional unit (1) to percent (\%) where appropriate. 
 \end{itemize}
 
 \noindent
@@ -326,9 +330,11 @@ on the label of the ordinate axis?}
 observed for shear rate as high as $10^{6}\text{s}^{-1}$. Can such a
 high value be generated in experiments?}
 \begin{itemize}
-  \item Response: A shear rate of order $10^{6}\text{s}^{-1}$ is too high to be generated in experiments.
+\item Response:
 Since the size of the JP vesicle in this work is much smaller than experimental use vesicles, 
 a very high shear rate of the flow is needed to acquire the tank-treading motion.
+A large shear rate of order $10^{6}\text{s}^{-1}$ is used in molecular dynamics
+simulations for systems of the same size as ours c.f., Brandner {\it et al} (2019).
 \end{itemize}
 
 \noindent
@@ -355,7 +361,7 @@ black and white.}
 discussed in the text.}
 \begin{itemize}
   \item Response: Thank you for noticing this missing connection. 
-  \item Change: We added a description connected to Figure 7a.
+  \item Change: We replaced Figure 7a with one connected to the text.
 \end{itemize}
 
 \noindent
