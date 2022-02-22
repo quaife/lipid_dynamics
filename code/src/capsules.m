@@ -22,11 +22,14 @@ RepulLength   % repulsion length
 RepulStrength % repulusion strength
 bcShift       % boundary condition shifting parameter
 bcType        % type of the boundary condition
+shape         % determine the type of particle shape
+petal         % number of petal if particle shape is star
 
 nearStruct;   % structure for near-singular integration
 DLPStokes;    % double-layer potential matrix
 DLPYukawa;    % double-layer potential matrix for yukawa
 upRate;       % upsampling rate that is used for NSI quadrature
+NPeaks;       % change the number of peaks in cosine bc
 BK1;          
 % besselk(1,~) function evaluated for each target point with upsampled
 % source points on all other bodies
@@ -53,23 +56,39 @@ o.tau = tau; % inclination angle
 o.bcShift = prams.bcShift;
 o.bcType = prams.bcType;
 o.upRate = ceil(sqrt(o.N));
+o.NPeaks = prams.NPeaks;
+o.shape  = prams.shape;
+o.petal  = prams.petal;
 
 oc = curve;
 
 theta = (0:o.N-1)'*2*pi/o.N;
 X = zeros(o.N*2,o.nb);  
 
-for i = 1:o.nb
-  refX = kron([cos(tau(i)) -sin(tau(i)); +sin(tau(i)) cos(tau(i))],eye(o.N)) * ... 
-      [o.ar(i)*cos(theta);sin(theta)]*o.radii(i);  
-  % shape of particle
-
-  % rotated circle
-  X(1:o.N,i) = refX(1:o.N) + xc(1,i);
-  X(o.N+1:2*o.N,i) = refX(o.N+1:end) + xc(2,i);
-  % shift to the correct center
+switch o.shape
+    case 'circle'
+        for i = 1:o.nb
+        % shape of particle
+        refX = kron([cos(tau(i)) -sin(tau(i)); +sin(tau(i)) cos(tau(i))],...
+            eye(o.N))*[o.ar(i)*cos(theta);sin(theta)]*o.radii(i);  
+        % rotated circle
+        X(1:o.N,i) = refX(1:o.N) + xc(1,i);
+        X(o.N+1:2*o.N,i) = refX(o.N+1:end) + xc(2,i);
+        % shift to the correct center
+        end
+    case 'star'
+        for i = 1:o.nb
+        % shape of star
+        rr = o.radii(i)+o.ar(i)*cos(o.petal*theta);
+        refX = kron([cos(tau(i)) -sin(tau(i));...
+               +sin(tau(i)) cos(tau(i))],...
+            eye(o.N))*[rr.*cos(theta);rr.*sin(theta)];
+        % rotated star
+        X(1:o.N,i) = refX(1:o.N) + xc(1,i);
+        X(o.N+1:2*o.N,i) = refX(o.N+1:end) + xc(2,i);
+        % shift to the correct center
+        end
 end
-
 o.X = X;
 
 [o.sa,o.xt,o.cur] = oc.diffProp(o.X); 
@@ -676,6 +695,7 @@ oc = curve;
 [xc,yc] = oc.getXY(geom.center);
 [x,  y] = oc.getXY(geom.X);
 tau     = geom.tau;
+NPeaks = geom.NPeaks;
 
 theta   = atan2(y - yc, x - xc);
 
@@ -684,8 +704,8 @@ bcs = meshgrid(geom.bcShift, ones(geom.N,1));
 
 %rhs = geom.yukawaExact(x,y);
 switch geom.bcType
-  case 'cosine'
-    rhs  = 0.5*(1 + cos(theta - tau)) + bcs;
+  case 'cosine'  
+    rhs  = 0.5*(1 + cos(NPeaks*(theta - tau))) + bcs;
   case 'vonMises'
     rhs  = exp(bcs.*cos(theta - tau))/2/pi./besseli(0,bcs);
 end

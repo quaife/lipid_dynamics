@@ -105,6 +105,9 @@ prams.RepulLength = geomSou.RepulLength;
 prams.RepulStrength = geomSou.RepulStrength;
 prams.bcShift = geomSou.bcShift;
 prams.bcType = geomSou.bcType;
+prams.NPeaks = geomSou.NPeaks;
+prams.shape = geomSou.shape;
+prams.petal = geomSou.petal;
 % parameters that we will need when building the upsampled geometry
 
 
