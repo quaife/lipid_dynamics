@@ -5,7 +5,9 @@ clear
 format long e
 format compact
 
-prams.N = 64;      % number of point per body
+%profile on
+
+prams.N = 16;      % number of point per body
 prams.nb = 2;      % number of bodies
 prams.sstep = 0;   % starting step
 
@@ -52,7 +54,7 @@ prams.petal         = 5;
 % circle:  (x,y) = (ar*radii*cos(th), radii*sin(th))
 % star  :  (x,y) = radii + ar*cos(petal*th)
 radii = 2.0*ones(1,prams.nb);
-ar    = 1.*ones(1,prams.nb);
+ar    = 1.0*ones(1,prams.nb);
 
 
 % 1. Please input the number of bodies and have the corresponding initial
@@ -106,3 +108,9 @@ prams.radii = radii;
 prams.ar    = ar;
 
 [Xfinal, trajectory] = rigid2D(options, prams, xc, tau);
+
+%profile off;
+%profile viewer;
+
+
+%profsave
