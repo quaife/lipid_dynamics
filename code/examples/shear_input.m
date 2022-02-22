@@ -1,33 +1,31 @@
-if ~EXTERNAL_OPTIONS
+% if ~EXTERNAL_OPTIONS
 
 clear
 % clf
 format long e
 format compact
 
-prams.N = 16;      % number of point per body
-prams.nb = 3;      % number of bodies
+prams.N = 64;      % number of point per body
+prams.nb = 2;      % number of bodies
 prams.sstep = 0;   % starting step
 
-radii = 1.0*ones(1,prams.nb);
-ar    = 1.0*ones(1,prams.nb);
-
-prams.rho = 4.0;      % screen length
-prams.gam = 4.0;      % molecular tension
+prams.rho = 2.0;      % screen length
+prams.gam = 1.0;      % molecular tension
 
 prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
 prams.bcShift       = 0.0*ones(1,prams.nb); % shift constant for yukawaRHS
 prams.bcType        = 'cosine'; % options: 'cosine'; 'vonMises'
+prams.NPeaks        = 1;   % for boundary condition 'cosine'
 
-dt      = 0.3;
-prams.m = 500;        % number of time steps
+
+dt      = 0.2;
+prams.m = 50;        % number of time steps
 prams.T = prams.m*dt; % time horizon
 prams.order = 2;      % time-stepping order 
 
-end
-
+% end
 
 options.farField  = 'shear'; 
 % options: 'shear'; 'extensional'; 'parabolic'; 'taylorgreen'
@@ -46,6 +44,16 @@ options.gmresTol  = 1e-10;
 options.usePlot   = true;
 options.tracer    = false;
 options.plotAxis  = [-10 10 -10 10];
+
+
+% shape parameters
+prams.shape         = 'star'; % options: 'circle'; 'star'
+prams.petal         = 5;
+% circle:  (x,y) = (ar*radii*cos(th), radii*sin(th))
+% star  :  (x,y) = radii + ar*cos(petal*th)
+radii = 2.0*ones(1,prams.nb);
+ar    = 1.*ones(1,prams.nb);
+
 
 % 1. Please input the number of bodies and have the corresponding initial
 % configuration file ready.
@@ -68,6 +76,7 @@ x = data(:,1)';
 y = data(:,2)';
 tau = data(:,3)';
 xc = [x;y];
+
 
 % tracers 
 if options.tracer
