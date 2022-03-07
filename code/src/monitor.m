@@ -244,7 +244,7 @@ if o.usePlot
 end
 
 
-end % plotData
+end % plotField
 
 
 end % methods

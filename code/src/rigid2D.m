@@ -9,7 +9,6 @@ tt = tstep(options,prams);
 % build initial condition of rigid body particle
 geom = capsules(prams,xc,tau);
 % plot geometry if usePlot == true
-om.plotData(geom);
 
 om.initializeFiles(geom);
 
@@ -30,11 +29,6 @@ while step <= prams.m
   % start a timer for this particular time step
   tSingleStep = tic;   
 
-%  msg = ['Yukwa reguired  ' num2str(iterYukawa) ' iterations'];
-%  om.writeMessage(msg);
-%  msg = ['Stokes reguired ' num2str(iterStokes) ' iterations'];
-%  om.writeMessage(msg);
-
   % comupute density function, translational velocity, angular velocity,
   % and the GMRES output
 
@@ -51,7 +45,8 @@ while step <= prams.m
     if step == step0
       % update geometry
       geom0 = capsules(prams,xc0,tau0);
-      [Up0, wp0,~,~,etaY0,etaS0,force,torque] = tt.timeStep(geom0,geom0.X,geom0.X);
+      [Up0, wp0,~,~,etaY0,etaS0,force,torque] = tt.timeStep(...
+          geom0,geom0.X,geom0.X);
 
       % write the velocity to a file
       om.writeVelData(time,Up0,wp0);
@@ -110,27 +105,25 @@ while step <= prams.m
       ' of time horizon ' , num2str(prams.T,'%4.2e')];
   om.writeMessage(message);
   
-
-  
   % update tracers
   if options.tracer
-  XX = load("../examples/tracers.dat");
-  UU = load("../examples/tracer_vel.dat");
-   
-  XX = XX + tt.dt*UU;
-  
-  % pacman correction for points wandering out-of-bounds
-  il = find(XX(:,1) < options.plotAxis(1)); 
-  ir = find(XX(:,1) > options.plotAxis(2)); 
-  ib = find(XX(:,2) < options.plotAxis(3)); 
-  it = find(XX(:,2) > options.plotAxis(4)); 
-  
-  XX(il,1) = options.plotAxis(2);
-  XX(ir,1) = options.plotAxis(1);
-  XX(ib,2) = options.plotAxis(4);
-  XX(it,2) = options.plotAxis(3);
-  
-  save("-ascii", "../examples/tracers.dat", "XX");
+    XX = load("../examples/tracers.dat");
+    UU = load("../examples/tracer_vel.dat");
+     
+    XX = XX + tt.dt*UU;
+    
+    % pacman correction for points wandering out-of-bounds
+    il = find(XX(:,1) < options.plotAxis(1)); 
+    ir = find(XX(:,1) > options.plotAxis(2)); 
+    ib = find(XX(:,2) < options.plotAxis(3)); 
+    it = find(XX(:,2) > options.plotAxis(4)); 
+    
+    XX(il,1) = options.plotAxis(2);
+    XX(ir,1) = options.plotAxis(1);
+    XX(ib,2) = options.plotAxis(4);
+    XX(it,2) = options.plotAxis(3);
+    
+    save("-ascii", "../examples/tracers.dat", "XX");
   end
   
   % output data
@@ -140,8 +133,9 @@ while step <= prams.m
   save("-ascii", fileName, "DATA");
  
   if options.tracer
-  fileName = sprintf("../output/data/frames/N%d_%f_%d.tracer", geom2.nb, options.shearRate, step+tt.sstep);
-  save("-ascii", fileName, "XX");  
+    fileName = sprintf("../output/data/frames/N%d_%f_%d.tracer", ...
+      geom2.nb, options.shearRate, step+tt.sstep);
+    save("-ascii", fileName, "XX");  
   end
   
   
@@ -182,12 +176,6 @@ while step <= prams.m
 %  save("-ascii", fileName, "SPV");  
 %fileName = sprintf("../output/data/frames/N%d_%f_%d.tardata", geom2.nb, options.shearRate, step+tt.sstep);
 %  save("-ascii", fileName, "TARDATA");  
-  
-  
-  
-  
-  
-  
   
   % update step counter
   step = step + 1;

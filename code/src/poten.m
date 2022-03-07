@@ -31,8 +31,6 @@ o.interpMat = o.lagrangeInterp;
 
 o.N = N;
 o.rho = rho;
-%o.upRate = ceil(sqrt(N));
-%o.BK1 = [];
 
 end % poten: constructor
 
@@ -110,11 +108,11 @@ prams.shape = geomSou.shape;
 prams.petal = geomSou.petal;
 % parameters that we will need when building the upsampled geometry
 
-
 geomUp = capsules(prams,geomSou.center,geomSou.tau);
 % Build an object with the upsampled geom
 geomUp.BK1 = geomSou.BK1;
-% already computed the necessary besselk matrix
+% already computed the necessary Stokes DLP matrix
+geomUp.StokesDL = geomSou.StokesDL;
 
 interpOrder = size(o.interpMat,1);
 % lagrange interpolation order
@@ -426,8 +424,6 @@ for k=1:geom.nb  % Loop over curves
   % normal that points into each body (ie. outward normal)
   nx = nx(:,ones(Ng,1))';
   ny = ny(:,ones(Ng,1))';
-%  kernel = diffx.*(tysou(ones(Ng,1),:)) - ...
-%            diffy.*(txsou(ones(Ng,1),:));
 
   sa = geom.sa(:,k)'; % Jacobian
   cur = geom.cur(:,k)'; % curvature
@@ -457,8 +453,6 @@ for k=1:geom.nb  % Loop over curves
 
   D11 = 1/2/pi/geom.rho.*besselk(1,r12/geom.rho).*...
       rdotn./r12.*sa;
-%  omega = 1i*geom.rho;
-%  kernel = -1i/4*(omega*r12).*besselh(1,omega*r12);  
 
   D11(1:Ng+1:Ng^2) = +0.25/pi*cur.*sa(1,:);
   D(:,:,k) = D11;
@@ -491,11 +485,7 @@ for k=1:geom.nb  % Loop over curves
   yy = y(:,k);
 
   % normal vector
-  normal = [geom.xt(Ng+1:2*Ng,k) -geom.xt(1:Ng,k)]; % Normal vector(y)  
-  
-%   [tx,ty] = oc.getXY(geom.xt);
-%   tx = tx(:,k); ty = ty(:,k);
-%   % Vesicle tangent
+  normal = [geom.xt(Ng+1:2*Ng,k) -geom.xt(1:Ng,k)];
 
   % Jacobian
   sa = geom.sa(:,k)';
@@ -640,8 +630,8 @@ end % exactYukawaDLdiag
 % TARGET POINTS Xtar
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [stokesDLP,stokesDLPtar] = exactStokesDL(~,geom,f,Xtar,K1)
-% [stokesDLP,stokesDLPtar] = exactStokesDL(geom,f,Xtar,K1,itar) computes the
-% double-layer potential due to f around all parts of the geometry
+% [stokesDLP,stokesDLPtar] = exactStokesDL(geom,f,Xtar,K1,itar) computes
+% the double-layer potential due to f around all parts of the geometry
 % except itself.  Also can pass a set of target points Xtar and a
 % collection of geom K1 and the double-layer potential due to components
 % of the geometry in K1 will be evaluated at Xtar.  Everything but Xtar
@@ -736,40 +726,82 @@ end
 % oneself
 
 end % exactStokesDL
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%function BesselDistanceMatrix(o,geom)
-%% BesselDistanceMatrix(o,geom) computes the bessel function between all
-%% pairs of points on different bodies. This is used to accelerate the
-%% number of times besselk has to be evaulated when doing matrix-vector
-%% multiplication in GMRES for Yukawa solve
-%
-%oc = curve;
-%N = geom.N;
-%Nup = N*o.upRate;
-%nb = geom.nb;
-%o.BK1 = zeros(N,Nup*(nb-1),nb);
-%for k = 1:nb
-%  Ksou = [(1:k-1) (k+1:nb)];
-%  [xtar,ytar] = oc.getXY(geom.X(:,k));
-%  xtar = xtar(:,ones(Nup*(nb-1),1));
-%  ytar = ytar(:,ones(Nup*(nb-1),1));
-%
-%  [xsou,ysou] = oc.getXY(geom.X(:,Ksou));
-%  xsou = interpft(xsou,Nup);
-%  ysou = interpft(ysou,Nup);
-%  xsou = xsou(:); ysou = ysou(:);
-%  xsou = xsou(:,ones(N,1))';
-%  ysou = ysou(:,ones(N,1))';
-%
-%  dis = sqrt((xtar - xsou).^2 + (ytar - ysou).^2);
-%  o.BK1(:,:,k) = besselk(1,dis/geom.rho);
-%end
-%
-%
-%end % BesselDistanceMatrix
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [StokesDLP,StokesDLPtar] = exactStokesDLMatFree(o,geom,f,Xtar,K1)
+% [yukawaDLP,yukawaDLPtar] = exactStokesDLMatFree(geom,f,Xtar,K1)
+% computes the Stokes double-layer potential due to f around all parts
+% of the geometry except itself. Also can pass a set of target points
+% Xtar and a collection of geom K1 and the double-layer potential due to
+% components of the geometry in K1 will be evaluated at Xtar.
+% Everything but Xtar is in the 2*N x n format Xtar is in the 2*Ntar x
+% ncol format
 
+if nargin >= 5
+  Ntar = size(Xtar,1)/2;
+  ncol = size(Xtar,2);
+  StokesDLPtar = zeros(2*Ntar,ncol);
+%  itar = setdiff(1:numel(K1)+1,K1); % index of target body
+  [~,itar] = max(~ismember(1:numel(K1)+1,K1)); 
+  % faster way to do the setdiff we need
+else
+  K1 = [];
+  StokesDLPtar = [];
+  ncol = 0;
+  Ntar = 0;
+  % if nargin ~= 5, the user does not need the velocity at arbitrary
+  % points
+end
+den = f.*[geom.sa;geom.sa]*2*pi/geom.N;
+% jacobian term and 2*pi/N accounted for here
+
+den = den(:,K1);
+denx = den(1:geom.N,:);
+deny = den(geom.N+1:end,:);
+den = [denx(:);deny(:)];
+den = den(:,ones(2*Ntar,1))';
+for k = 1:ncol % loop over columns of target points
+  kernel = geom.StokesDL(:,:,itar).*den;
+  
+  StokesDLPtar(:,k) = StokesDLPtar(:,k) + sum(kernel,2);
+  % Stokes DLP
+end
+% double-layer potential due to geometry components indexed over K1
+% evaluated at arbitrary points
+
+StokesDLP = zeros(2*geom.N,geom.nb);
+if (nargin == 3 && geom.N > 1)
+  for k = 1:geom.nb
+    K = [(1:k-1) (k+1:geom.nb)];
+    [x,y] = oc.getXY(geom.X(:,K));
+    [tx,ty] = oc.getXY(geom.xt(:,K));
+    nx = -ty; ny = tx;
+    den = f(:,K).*geom.sa(:,K)*2*pi/geom.N;
+    % density including the jacobian and arclength term
+    for j = 1:geom.N
+      diffx = geom.X(j,k) - x; diffy = geom.X(j+geom.N,k) - y;
+      % difference of source and target location
+      dis2 = diffx.^2 + diffy.^2;
+      % distance squared
+      dis = sqrt(dis2);
+      % distance
+      rdotn = diffx.*nx + diffy.*ny;
+      % difference dotted with normal
+
+      % double-layer potential for Stokes
+%      StokesDLP(j,k) = StokesDLP(j,k) - ...
+%          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
+    end
+  end
+
+  StokesDLP = StokesDLP/2/pi/geom.rho;
+  % 1/2/pi is the coefficient in front of the double-layer potential
+  % 1/geom.rho comes out of the chain rule
+end
+% double-layer potential due to all components of the geometry except
+% oneself
+
+end % exactStokesDLMatFree
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [stokesDLPpressure,stokesDLPpressuretar] = ...
@@ -836,40 +868,6 @@ stokesDLPpressuretar = -stokesDLPpressuretar/pi;
 % indexed over K1 evaluated at arbitrary points
 
 stokesDLPpressure = [];
-% April 1, 2021, BQ: THIS CODE HAS NOT BEEN UPDATED SINCE I DON'T
-% BELIEVE WE'LL USE IT
-%if (nargin == 4 && geom.nb > 1)
-%  for k = 1:geom.n
-%    K = [(1:k-1) (k+1:geom.nb)];
-%    [x,y] = oc.getXY(geom.X(:,K));
-%    [nx,ny] = oc.getXYperp(geom.xt(:,K));
-%    [denx,deny] = oc.getXY(den(:,K));
-%    for j=1:geom.N
-%      diffxy = [geom.X(j,k) - x ; geom.X(j+geom.N,k) - y];
-%      dis2 = diffxy(1:geom.N,:).^2 + ...
-%          diffxy(geom.N+1:2*geom.N,:).^2;
-%      % difference of source and target location and distance squared
-%
-%      rdotfTIMESrdotn = ...
-%        (diffxy(1:geom.N,:).*nx + ...
-%        diffxy(geom.N+1:2*geom.N,:).*ny)./dis2.^2 .* ...
-%        (diffxy(1:geom.N,:).*denx + ...
-%        diffxy(geom.N+1:2*geom.N,:).*deny);
-%      % \frac{(r \dot n)(r \dot density)}{\rho^{4}} term
-%
-%      stokesDLP(j,k) = stokesDLP(j,k) + ...
-%          sum(sum(rdotfTIMESrdotn.*diffxy(1:geom.N,:)));
-%      stokesDLP(j+geom.N,k) = stokesDLP(j+geom.N,k) + ...
-%          sum(sum(rdotfTIMESrdotn.*diffxy(geom.N+1:2*geom.N,:)));
-%      % double-layer potential for Stokes
-%    end
-%  end
-%
-%  stokesDLP = stokesDLP/pi;
-%  % 1/pi is the coefficient in front of the double-layer potential
-%end
-%% double-layer potential due to all components of the geometry except
-%% oneself
 
 end % exactStokesDLstress
 
@@ -1066,12 +1064,6 @@ for j = 1:nb
 
   vLets = vLets + (1/4/pi)*tor*[-ry./rho2;+rx./rho2]; 
 end
-%clf; hold on
-%plot(vLets(1:end/2,2));
-%plot(vLets(1+end/2:end,2),'r');
-%quiver(x,y,vLets(1:end/2,:),vLets(end/2+1:end,:))
-%[x(:,2) y(:,2) vLets(1:end/2,2) vLets(end/2+1:end,2)]
-%pause
 
 end % StokesletRotlet
 
@@ -1211,6 +1203,7 @@ for k = 1:ncol % loop over columns of target points
 
   BK1 = besselk(1,invrho*dis);
   kernel = -1/2/pi*invrho*BK1.*rdotn./dis.*den;
+%  kernel = -1/2/pi*normaly.*den;
   
   yukawaDLPtar(:,k) = yukawaDLPtar(:,k) + sum(kernel,2);
   % Yukawa DLP
@@ -1282,38 +1275,10 @@ end
 den = f.*geom.sa*2*pi/geom.N;
 % jacobian term and 2*pi/N accounted for here
 
-%oc = curve;
-%[xsou,ysou] = oc.getXY(geom.X(:,K1));
-%xsou = xsou(:); ysou = ysou(:);
-%xsou = xsou(:,ones(Ntar,1))';
-%ysou = ysou(:,ones(Ntar,1))';
-
 den = den(:,K1);
 den = den(:);
 den = den(:,ones(Ntar,1))';
-
-%[tx,ty] = oc.getXY(geom.xt(:,K1));
-%nx = -ty(:); ny = tx(:);
-%normalx = nx(:,ones(Ntar,1))';
-%normaly = ny(:,ones(Ntar,1))';
-
-%invrho = 1/geom.rho;
 for k = 1:ncol % loop over columns of target points
-%  [xtar,ytar] = oc.getXY(Xtar(:,k));
-%  xtar = xtar(:,ones(geom.N*numel(K1),1));
-%  ytar = ytar(:,ones(geom.N*numel(K1),1));
-%  
-%  diffx = xtar - xsou; diffy = ytar - ysou;
-%  % difference of source and target location
-%  dis2 = diffx.^2 + diffy.^2;
-%  % distance squared
-%  dis = sqrt(dis2);
-%  % distance
-%  rdotn = diffx.*normalx + diffy.*normaly;
-%  % difference dotted with normal
-
-  % use the precomputed Bessel function evaulation between all pairs of
-  % points from itar to other bodies
   kernel = geom.BK1(:,:,itar).*den;
   
   yukawaDLPtar(:,k) = yukawaDLPtar(:,k) + sum(kernel,2);
@@ -1561,40 +1526,6 @@ end % QBX_coeff
 function [Dh,Dh_X1,Dh_X2] = evalDL(o,X1,X2,Nb,N,x1,x2,nu1,nu2,dS,rho,h)
 % TODO: This routine must already be in the code
 % evaluates double layer potential at (X1, X2)
-
-%Dh = 0*X1;
-%Dh_X1 = 0*X1;
-%Dh_X2 = 0*X1; 
-%
-%for q = 1:Nb
-%  for j = 1:N
-%    r1 = X1 - x1(j,q); r2 = X2 - x2(j,q);
-%    r = sqrt(r1.^2 + r2.^2);                        
-%    rdotnu = r1.*nu1(j,q) + r2.*nu2(j,q);            
-%
-%    K0 = besselk(0,r/rho);
-%    K1 = besselk(1,r/rho);
-%    K2 = besselk(2,r/rho);
-%    dK1 = -0.5*(K0 + K2); 
-%    % see identity
-%    % https://functions.wolfram.com/Bessel-TypeFunctions/BesselK/20/01/02/
-%
-%    % using r = x - y; hence lack of minus below
-%    Dh = Dh + 1/(2*pi)*(r/rho).*K1.*rdotnu./r.^2.*dS(j,q).*h(j,q);
-%
-%    Dh_X1 = Dh_X1 + 1/(2*pi)*( ...
-%        + r1./(r*rho).*K1.*rdotnu./r.^2 ...
-%        + (r/rho).*dK1.*r1./(r*rho).*rdotnu./r.^2 ...
-%        + (r/rho).*K1.*(1./r.^2).*(nu1(j,q) - 2*r1.*rdotnu./r.^2)) ...
-%        * dS(j,q)*h(j,q);
-%
-%    Dh_X2 = Dh_X2 + 1/(2*pi)*( ...
-%        + r2./(r*rho).*K1.*rdotnu./r.^2 ...
-%        + (r/rho).*dK1.*r2./(r*rho).*rdotnu./r.^2 ...
-%        + (r/rho).*K1.*(1./r.^2).*(nu2(j,q) - 2*r2.*rdotnu./r.^2)) ...
-%        *dS(j,q)*h(j,q);
-%  end
-%end
 
 Ntar = numel(X1);
 Nsou = numel(x1);

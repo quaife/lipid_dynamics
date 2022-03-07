@@ -93,7 +93,6 @@ end
 geom.BesselDistanceMatrix;
 
 % Solve for the density function using GMRES
-%tic
 [sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
       @(etaY0) o.timeMatVecYukawa(etaY0,geom) ,...
       yukawaRHS, [], o.gmresTol, N*nb, ...
@@ -103,8 +102,6 @@ geom.BesselDistanceMatrix;
 %      yukawaRHS, [], o.gmresTol, N*nb); 
 iterYukawa = iterYukawa(2);
 fprintf('Yukawa required %i iterations\n',iterYukawa);
-%toc
-%pause
 
 % Unstack the density function so that it is arranged as columns for
 % each body
@@ -191,6 +188,10 @@ o.precoStokesMatrix(geom);
 % max GMRES iterations
 maxit = 2*N*nb; 
 
+
+% Build the upsampled matrix for doing stokes Layer potentials
+geom.StokesDLMatrix;
+
 % SOLVE SYSTEM USING GMRES
 %tic
 
@@ -234,7 +235,8 @@ end
 % motion to define a velocity in rigid bodies. The goal is to see
 % something cotinuous
 if o.tracer
-    op.bulkVelocity(geom,etaStokes,Up,wp,force,torque, @(X) o.farField(X));
+  op.bulkVelocity(geom,etaStokes,Up,wp,force,torque,...
+      @(X) o.farField(X));
 end
 
 end % timeStep
@@ -286,6 +288,8 @@ valFibers = valFibers + jump*eta;
 % ADD SELF CONTRIBUTION
 valFibers = valFibers + op.exactStokesDLdiag(geom,geom.DLPStokes,eta);
 
+% Matrix-free version
+if 0
 % DEFINE STOKES DLP KERNELS
 kernel = @op.exactStokesDL;
 kernelSelf = @(z) +jump*z + op.exactStokesDLdiag(geom,geom.DLPStokes,z);
@@ -293,6 +297,18 @@ kernelSelf = @(z) +jump*z + op.exactStokesDLdiag(geom,geom.DLPStokes,z);
 % ADD CONTRIBUTION FROM OTHER FIBERS
 stokesDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
     kernel,kernel,geom,true,false);
+end
+
+% Precomputing and using matrix (memory-intensive)
+if 1
+kernel = @op.exactStokesDLMatFree;
+kernelDirect = @op.exactStokesDL;
+kernelSelf = @(z) jump*z + op.exactStokesDLdiag(geom,geom.DLPStokes,z);
+
+stokesDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
+    kernel,kernelDirect,geom,true,false);
+end
+
 valFibers = valFibers + stokesDLP;
 
 % ADD TRANSLATIONAL VELOCITY CONTRIBUTION
@@ -378,7 +394,6 @@ end
 
 Tx = Tx + yukawaDLP(1:geom.N,:);
 Tx = Tx(:);
-
 
 end % timeMatVecYukawa
 

@@ -33,6 +33,7 @@ NPeaks;       % change the number of peaks in cosine bc
 BK1;          
 % besselk(1,~) function evaluated for each target point with upsampled
 % source points on all other bodies
+StokesDL;
 
 end %properties
 
@@ -101,6 +102,7 @@ o.RepulStrength = prams.RepulStrength;
 % repulsion length and strength
 
 o.BK1 = [];
+o.StokesDL = [];
 
 end % capsules: constructor
 
@@ -136,13 +138,19 @@ for k = 1:nb
   [xsou,ysou] = oc.getXY(geom.X(:,Ksou));
   xsou = interpft(xsou,Nup);
   ysou = interpft(ysou,Nup);
+  [~,tangent] = oc.diffProp([xsou;ysou]);
+  [tx,ty] = oc.getXY(tangent);
   xsou = xsou(:); ysou = ysou(:);
   xsou = xsou(:,ones(N,1))';
   ysou = ysou(:,ones(N,1))';
 
-  [tx,ty] = oc.getXY(geom.xt(:,Ksou));
-  nx = interpft(-ty,Nup); nx = nx(:);
-  ny = interpft(+tx,Nup); ny = ny(:);
+  % wrong way of computing the normal vector of upsampled shapes
+%  [tx,ty] = oc.getXY(geom.xt(:,Ksou));
+%  nx = interpft(-ty,Nup); nx = nx(:);
+%  ny = interpft(+tx,Nup); ny = ny(:);
+
+  nx = -ty; nx = nx(:);
+  ny = tx; ny = ny(:);
   nx = nx(:,ones(N,1))';
   ny = ny(:,ones(N,1))';
 
@@ -152,15 +160,68 @@ for k = 1:nb
   geom.BK1(:,:,k) = -1/2/pi/geom.rho*besselk(1,dis/geom.rho).*rdotn./dis;
 end
 
-
 end % BesselDistanceMatrix
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function StokesDLMatrix(geom)
+% StokesDLMatrix(o,geom) computes the Stokes double-layer potential
+% between all pairs of points on different bodies. This is used to
+% accelerate the number of times exactStokesDL has to be evaulated when
+% doing matrix-vector multiplication in GMRES for Stokes solve
+
+oc = curve;
+N = geom.N;
+Nup = N*geom.upRate;
+nb = geom.nb;
+geom.StokesDL = zeros(2*N,2*Nup*(nb-1),nb);
+for k = 1:nb
+  Ksou = [(1:k-1) (k+1:nb)];
+  [xtar,ytar] = oc.getXY(geom.X(:,k));
+  xtar = xtar(:,ones(Nup*(nb-1),1));
+  ytar = ytar(:,ones(Nup*(nb-1),1));
+
+  [xsou,ysou] = oc.getXY(geom.X(:,Ksou));
+  xsou = interpft(xsou,Nup);
+  ysou = interpft(ysou,Nup);
+  [~,tangent] = oc.diffProp([xsou;ysou]);
+  [tx,ty] = oc.getXY(tangent);
+  xsou = xsou(:); ysou = ysou(:);
+  xsou = xsou(:,ones(N,1))';
+  ysou = ysou(:,ones(N,1))';
+
+  % wrong way of computing the normal vector of upsampled shapes
+%  [tx,ty] = oc.getXY(geom.xt(:,Ksou));
+%  nx = interpft(-ty,Nup); nx = nx(:);
+%  ny = interpft(+tx,Nup); ny = ny(:);
+
+  nx = -ty; nx = nx(:);
+  ny = tx; ny = ny(:);
+  nx = nx(:,ones(N,1))';
+  ny = ny(:,ones(N,1))';
+
+  rdotn = (xtar - xsou).*nx + (ytar - ysou).*ny;
+  dis2 = (xtar - xsou).^2 + (ytar - ysou).^2;
+
+  geom.StokesDL(1:N,1:Nup*(nb-1),k) = ...
+        rdotn./dis2.*(xtar - xsou).^2./dis2;
+  geom.StokesDL(1:N,Nup*(nb-1)+1:2*Nup*(nb-1),k) = ...
+        rdotn./dis2.*(xtar - xsou).*(ytar - ysou)./dis2;
+  geom.StokesDL(N+1:2*N,1:Nup*(nb-1),k) = ...
+        geom.StokesDL(1:N,Nup*(nb-1)+1:2*Nup*(nb-1),k);
+  geom.StokesDL(N+1:2*N,Nup*(nb-1)+1:2*Nup*(nb-1),k) = ...
+        rdotn./dis2.*(ytar - ysou).^2./dis2;
+end
+
+geom.StokesDL = -geom.StokesDL/pi;
+
+end % StokesDLMatrix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [NearSelf,NearOther] = getZone(o,bd2,relate)
 % [NearSelf,NearOther] = getZone(bd1,bd2,relate) constructs
 % each boundary, index of the closest point, nearest point on a local
-% interapolant, and argument of that nearest point.  bd1 contains
+% interapolant, and argument of that nearest point. bd1 contains
 % the source points (which are also target points) and bd2
 % contains additional target points.  The
 % values of relate corresond to
