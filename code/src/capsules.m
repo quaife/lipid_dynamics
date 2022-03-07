@@ -756,6 +756,7 @@ oc = curve;
 [xc,yc] = oc.getXY(geom.center);
 [x,  y] = oc.getXY(geom.X);
 tau     = geom.tau;
+rad     = geom.radii;
 NPeaks = geom.NPeaks;
 
 theta   = atan2(y - yc, x - xc);
@@ -767,9 +768,17 @@ bcs = meshgrid(geom.bcShift, ones(geom.N,1));
 switch geom.bcType
   case 'cosine'  
     rhs  = 0.5*(1 + cos(NPeaks*(theta - tau))) + bcs;
-  case 'vonMises'
+
+% The boundary condition 'cosine' is normalize by a factor.
+    for i = 1:geom.nb
+        rhs(:,i) = rhs(:,i)/(norm(rhs(:,i))*sqrt(2*pi*rad(i)/geom.N));
+    end    
+    
+    case 'vonMises'
     rhs  = exp(bcs.*cos(theta - tau))/2/pi./besseli(0,bcs);
 end
+
+
 
 rhs = rhs(:);
 

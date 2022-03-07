@@ -5,11 +5,16 @@ clear
 format long e
 format compact
 
-%profile on
+% profile on
 
-prams.N = 16;      % number of point per body
-prams.nb = 2;      % number of bodies
+prams.N = 24;      % number of point per body
+prams.nb = 5;      % number of bodies
+
+dt      = 0.2;
 prams.sstep = 0;   % starting step
+prams.m = 1;       % number of time steps
+prams.T = prams.m*dt; % time horizon
+prams.order = 2;      % time-stepping order 
 
 prams.rho = 2.0;      % screen length
 prams.gam = 1.0;      % molecular tension
@@ -17,15 +22,11 @@ prams.gam = 1.0;      % molecular tension
 prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
-prams.bcShift       = 0.0*ones(1,prams.nb); % shift constant for yukawaRHS
+% The energy is asymptotically equal to the \int_\sigma f^2 dS
+% We normalize the boundary condition by a factor.
+prams.bcShift       = 1.0*ones(1,prams.nb); % shift constant for yukawaRHS
 prams.bcType        = 'cosine'; % options: 'cosine'; 'vonMises'
 prams.NPeaks        = 1;   % for boundary condition 'cosine'
-
-
-dt      = 0.2;
-prams.m = 50;        % number of time steps
-prams.T = prams.m*dt; % time horizon
-prams.order = 2;      % time-stepping order 
 
 % end
 
@@ -49,11 +50,11 @@ options.plotAxis  = [-10 10 -10 10];
 
 
 % shape parameters
-prams.shape         = 'star'; % options: 'circle'; 'star'
-prams.petal         = 5;
+prams.shape         = 'circle'; % options: 'circle'; 'star'
+prams.petal         = 4;
 % circle:  (x,y) = (ar*radii*cos(th), radii*sin(th))
 % star  :  (x,y) = radii + ar*cos(petal*th)
-radii = 2.0*ones(1,prams.nb);
+radii = 1.0*ones(1,prams.nb);
 ar    = 1.0*ones(1,prams.nb);
 
 
@@ -74,8 +75,8 @@ else
 end
 
 % initial centers and angles 
-x = data(:,1)';
-y = data(:,2)';
+x = data(:,1)'; %x = x-mean(x);
+y = data(:,2)'; %y = y-mean(y);
 tau = data(:,3)';
 xc = [x;y];
 
@@ -109,8 +110,9 @@ prams.ar    = ar;
 
 [Xfinal, trajectory] = rigid2D(options, prams, xc, tau);
 
-%profile off;
-%profile viewer;
 
-
-%profsave
+% profile off;
+% profile viewer;
+% 
+% 
+% profsave
