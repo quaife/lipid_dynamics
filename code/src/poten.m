@@ -25,9 +25,9 @@ methods
 function o = poten(N,rho)
 % o = poten(N): constructor; N is the number of points per curve
 
-o.interpMat = o.lagrangeInterp;
 % load in the interpolation matrix which is precomputed with 7
 % interpolation points
+o.interpMat = o.lagrangeInterp;
 
 o.N = N;
 o.rho = rho;
@@ -81,6 +81,8 @@ h = geomSou.length/Nsou; % arclength term
 
 Nup = Nsou*geomSou.upRate;
 
+% contribution on self for dealing with the interpolation point that is
+% exactly on the body
 vself = selfMat(f);
 
 % pad vself with zeros if dealing with a scalar layer potential
@@ -92,6 +94,7 @@ else
   fup = [interpft(f(1:Nsou,:),Nup); interpft(f(Nsou+1:2*Nsou,:),Nup)];
 end
 
+% parameters that we will need when building the upsampled geometry
 prams.N = Nup;
 prams.nb = geomSou.nb;
 prams.tau = geomSou.tau;
@@ -106,19 +109,18 @@ prams.bcType = geomSou.bcType;
 prams.NPeaks = geomSou.NPeaks;
 prams.shape = geomSou.shape;
 prams.petal = geomSou.petal;
-% parameters that we will need when building the upsampled geometry
 
-geomUp = capsules(prams,geomSou.center,geomSou.tau);
 % Build an object with the upsampled geom
+geomUp = capsules(prams,geomSou.center,geomSou.tau);
+% already computed the necessary Yukawa and Stokes DLP matrix
 geomUp.BK1 = geomSou.BK1;
-% already computed the necessary Stokes DLP matrix
 geomUp.StokesDL = geomSou.StokesDL;
 
-interpOrder = size(o.interpMat,1);
 % lagrange interpolation order
-p = ceil((interpOrder+1)/2);
+interpOrder = size(o.interpMat,1);
 % want half of the lagrange interpolation points to the left of the
 % closest point and the other half to the right
+p = ceil((interpOrder+1)/2);
 
 if tEqualS % sources == targets
   if nsou > 1
@@ -147,9 +149,9 @@ end
 
 nearField = zeros(2*Ntar,ntar);
 
-beta = 1.1;
 % small buffer to make sure Lagrange interpolation points are not in the
 % near zone
+beta = 1.1;
 vel = zeros(2*Ntar, nsou, nsou); %allocate array for vel
 
 for k1 = 1:nsou
@@ -161,81 +163,72 @@ for k1 = 1:nsou
     % consider all geoms
   end
   for k2 = K
-    J = find(zone{k1}(:,k2) == 1);
     % set of points on geom k2 close to geom k1
+    J = find(zone{k1}(:,k2) == 1);
     if (numel(J) ~= 0)
-      indcp = icp{k1}(J,k2);
       % closest point on geom k1 to each point on geom k2 that is close
       % to geom k1
+      indcp = icp{k1}(J,k2);
       for j = 1:numel(J)
-        pn = mod((indcp(j)-p+1:indcp(j)-p+interpOrder)' - 1,Nsou) + 1;
         % index of points to the left and right of the closest point
+        pn = mod((indcp(j)-p+1:indcp(j)-p+interpOrder)' - 1,Nsou) + 1;
+        % x-component of the layer potential at the closest point
         v = filter(1,[1 -full(argnear{k1}(J(j),k2))],...
               o.interpMat*vself(pn,k1));
         vel(J(j),k2,k1) = v(end);
-        % x-component of the layer potential at the closest point
+        % y-component of the layer potential at the closest point
         v = filter(1,[1 -full(argnear{k1}(J(j),k2))],...
               o.interpMat*vself(pn+Nsou,k1));
         vel(J(j)+Ntar,k2,k1) = v(end);
-        % y-component of the layer potential at the closest point
       end
       % compute values of layer  potential at required intermediate
       % points using local interpolant
             
-%      if ((numel(J) + numel(fup)) >= 512 && numel(J) > 32)
-        [~,potTar] = kernelDirect(geomUp,fup,...
-              [Xtar(J,k2);Xtar(J+Ntar,k2)],k1);
-%      else
-%        [~,potTar] = kernelDirect(geomUp,fup,...
-%              [Xtar(J,k2);Xtar(J+Ntar,k2)],k1);
-%      end
       % Need to subtract off contribution due to geom k1 since its layer
       % potential will be evaulted using Lagrange interpolant of nearby
       % points
-      nearField(J,k2) =  nearField(J,k2) - potTar(1:numel(J));
+      [~,potTar] = kernelDirect(geomUp,fup,...
+              [Xtar(J,k2);Xtar(J+Ntar,k2)],k1);
+      nearField(J,k2) = nearField(J,k2) - potTar(1:numel(J));
       if numel(f) == geomSou.N*geomSou.nb
         nearField(J+Ntar,k2) = 0;
       else
-        nearField(J+Ntar,k2) =  nearField(J+Ntar,k2) - ...
+        nearField(J+Ntar,k2) = nearField(J+Ntar,k2) - ...
               potTar(numel(J)+1:end);
       end
             
-      XLag = zeros(2*numel(J),interpOrder - 1);
       % initialize space for initial tracer locations
+      XLag = zeros(2*numel(J),interpOrder - 1);
       for i = 1:numel(J)
         nx = (Xtar(J(i),k2) - nearest{k1}(J(i),k2))/...
               dist{k1}(J(i),k2);
         ny = (Xtar(J(i)+Ntar,k2) - nearest{k1}(J(i)+Ntar,k2))/...
               dist{k1}(J(i),k2);
+        % Lagrange interpolation points coming off of geom k1 All points
+        % are behind Xtar(J(i),k2) and are sufficiently far from geom k1
+        % so that the Nup-trapezoid rule gives sufficient accuracy
         XLag(i,:) = nearest{k1}(J(i),k2) + ...
               beta*h(k1)*nx*(1:interpOrder-1);
         XLag(i+numel(J),:) = nearest{k1}(J(i)+Ntar,k2) + ...
               beta*h(k1)*ny*(1:interpOrder-1);
-        % Lagrange interpolation points coming off of geom k1 All points
-        % are behind Xtar(J(i),k2) and are sufficiently far from geom k1
-        % so that the Nup-trapezoid rule gives sufficient accuracy
       end
             
-%      if (numel(XLag)/2 > 100)
-        [~,lagrangePts] = kernelDirect(geomUp,fup,XLag,k1);
-%      else
-%        [~,lagrangePts] = kernelDirect(geomUp,fup,XLag,k1);
-%      end
       % evaluate layer potential at the lagrange interpolation points
+      [~,lagrangePts] = kernelDirect(geomUp,fup,XLag,k1);
 
       if numel(f) == geomSou.N*geomSou.nb
         lagrangePts = [lagrangePts;lagrangePts];
       end
             
       for i = 1:numel(J)
+        % Build polynomial interpolant along the one-dimensional points
+        % coming out of the geom
         Px = o.interpMat*[vel(J(i),k2,k1) ...
               lagrangePts(i,:)]';
         Py = o.interpMat*[vel(J(i)+Ntar,k2,k1) ...
               lagrangePts(i+numel(J),:)]';
-        % Build polynomial interpolant along the one-dimensional points
-        % coming out of the geom
-        dscaled = full(dist{k1}(J(i),k2)/(beta*h(k1)*(interpOrder-1)));
         % Point where interpolant needs to be evaluated
+        dscaled = full(dist{k1}(J(i),k2)/(beta*h(k1)*(interpOrder-1)));
                 
         v = filter(1,[1 -dscaled],Px);
         nearField(J(i),k2) = nearField(J(i),k2) + v(end);
@@ -243,11 +236,10 @@ for k1 = 1:nsou
         v = filter(1,[1 -dscaled],Py);
         nearField(J(i)+Ntar,k2) = nearField(J(i)+Ntar,k2) + v(end);
                 
+        % DEBUG: PASS IN idebug=true INTO THIS ROUTINE AND THEN YOU CAN
+        % SEE THE INTERPOLATION POINTS AND CHECK THE SMOOTHNESS OF THE
+        % INTERPOLANT
         if idebug
-%          if numel(f) == geomSou.N*geomSou.nb
-%            f = [f;zeros(geomSou.N,geomSou.nb)];
-%          end
-
           figure(2); clf; hold on;
           plot(Xsou(1:Nsou,:),Xsou(Nsou+1:end,:),'r.','markersize',10)
           plot(Xtar(1:Ntar,:),Xtar(Ntar+1:end,:),'k.','markersize',10)
@@ -276,11 +268,7 @@ for k1 = 1:nsou
                     
           drawnow;
           pause
-                    
         end
-        % DEBUG: PASS IN idebug=true INTO THIS ROUTINE AND THEN YOU CAN
-        % SEE THE INTERPOLATION POINTS AND CHECK THE SMOOTHNESS OF THE
-        % INTERPOLANT
       end % i
     end % numel(J) ~= 0
     % Evaluate layer potential at Lagrange interpolation points if there
@@ -303,83 +291,84 @@ end % nearSingInt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function D = stokesDLmatrix(~,geom)
-% D = stokesDLmatrix(geom), generate double-layer potential for 
-% Stokes. geom is a data structure defined as in the capsules class
-% D is (2N,2N,n) array where Np is the number of points per curve and 
-% n is the number of curves in X 
+% D = stokesDLmatrix(geom), generate double-layer potential for Stokes.
+% geom is a data structure defined as in the capsules class D is
+% (2N,2N,n) array where N is the number of points per curve and n is the
+% number of curves in X 
 
 oc = curve;
 [x,y] = oc.getXY(geom.X);
 % Vesicle positions
-Ng = geom.N;
+N = geom.N;
 % number of points per geoms
-D = zeros(2*Ng,2*Ng,geom.nb);
+D = zeros(2*N,2*N,geom.nb);
 % initialize space for double-layer potential matrix
 
 for k=1:geom.nb  % Loop over curves
+  % locations
   xx = x(:,k);
   yy = y(:,k);
-  % locations
+  % Vesicle tangent
   [tx,ty] = oc.getXY(geom.xt);
   tx = tx(:,k); ty = ty(:,k);
-  % Vesicle tangent
-  sa = geom.sa(:,k)';
   % Jacobian
-  cur = geom.cur(:,k)';
+  sa = geom.sa(:,k)';
   % curvature
+  cur = geom.cur(:,k)';
 
-  xtar = xx(:,ones(Ng,1));
-  ytar = yy(:,ones(Ng,1));
   % target points
+  xtar = xx(:,ones(N,1));
+  ytar = yy(:,ones(N,1));
 
-  xsou = xx(:,ones(Ng,1))';
-  ysou = yy(:,ones(Ng,1))';
   % source points
+  xsou = xx(:,ones(N,1))';
+  ysou = yy(:,ones(N,1))';
 
+  % tangent at sources
   txsou = tx';
   tysou = ty';
-  % tangent at sources
-  sa = sa(ones(Ng,1),:);
-  % Jacobian
+  % Jacobian at sources
+  sa = sa(ones(N,1),:);
 
   diffx = xtar - xsou;
   diffy = ytar - ysou;
   rho4 = (diffx.^2 + diffy.^2).^(-2);
-  rho4(1:Ng+1:Ng^2) = 0;
   % set diagonal terms to 0
+  rho4(1:N+1:N^2) = 0;
 
-  kernel = diffx.*(tysou(ones(Ng,1),:)) - ...
-            diffy.*(txsou(ones(Ng,1),:));
+  kernel = diffx.*(tysou(ones(N,1),:)) - ...
+            diffy.*(txsou(ones(N,1),:));
   kernel = kernel.*rho4.*sa;
 
-  D11 = kernel.*diffx.^2;
   % (1,1) component
-  D11(1:Ng+1:Ng^2) = -0.5*cur.*sa(1,:).*txsou.^2;
+  D11 = kernel.*diffx.^2;
   % diagonal limiting term
+  D11(1:N+1:N^2) = -0.5*cur.*sa(1,:).*txsou.^2;
 
-  D12 = kernel.*diffx.*diffy;
   % (1,2) component
-  D12(1:Ng+1:Ng^2) = -0.5*cur.*sa(1,:).*txsou.*tysou;
+  D12 = kernel.*diffx.*diffy;
   % diagonal limiting term
+  D12(1:N+1:N^2) = -0.5*cur.*sa(1,:).*txsou.*tysou;
 
-  D22 = kernel.*diffy.^2;
   % (2,2) component
-  D22(1:Ng+1:Ng^2) = -0.5*cur.*sa(1,:).*tysou.^2;
+  D22 = kernel.*diffy.^2;
   % diagonal limiting term
+  D22(1:N+1:N^2) = -0.5*cur.*sa(1,:).*tysou.^2;
 
-  D(:,:,k) = [D11 D12; D12 D22];
   % build matrix with four blocks
-  D(:,:,k) = 1/pi*D(:,:,k)*2*pi/Ng;
+  D(:,:,k) = [D11 D12; D12 D22];
   % scale with the arclength spacing and divide by pi
+  D(:,:,k) = 1/pi*D(:,:,k)*2*pi/N;
 end % k
 
 end % stokesDLmatrix
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function N0 = stokesN0matrix(~,wall)
-% N0 = stokesN0matrix(vesicle) generates the the integral operator with 
-% kernel normal(x) \otimes normal(y) which removes the rank one defficiency 
-% of the double-layer potential.  Need this operator for solid walls
+% N0 = stokesN0matrix(vesicle) generates the the integral operator with
+% kernel normal(x) \otimes normal(y) which removes the rank one
+% defficiency of the double-layer potential. Need this operator for
+% solid walls
 
 % Normal vector
 normal = [wall.xt(wall.N+1:2*wall.N,:);-wall.xt(1:wall.N,:)]; 
@@ -406,12 +395,12 @@ function D = yukawaDLmatrix(~,geom)
 % of curves in X 
 
 oc = curve;
+% particle positions
 [x,y] = oc.getXY(geom.X);
-% Vesicle positions
-Ng = geom.N;
 % number of points per geoms
-D = zeros(Ng,Ng,geom.nb);
+N = geom.N;
 % initialize space for double-layer potential matrix
+D = zeros(N,N,geom.nb);
 
 for k=1:geom.nb  % Loop over curves
   % x and y coordinates of the sources/targets
@@ -419,25 +408,25 @@ for k=1:geom.nb  % Loop over curves
   yy = y(:,k);
 
   % Normal vector(y)  
-  nx = -geom.xt(Ng+1:2*Ng,k);
-  ny = geom.xt(1:Ng,k);
+  nx = -geom.xt(N+1:2*N,k);
+  ny = geom.xt(1:N,k);
   % normal that points into each body (ie. outward normal)
-  nx = nx(:,ones(Ng,1))';
-  ny = ny(:,ones(Ng,1))';
+  nx = nx(:,ones(N,1))';
+  ny = ny(:,ones(N,1))';
 
   sa = geom.sa(:,k)'; % Jacobian
   cur = geom.cur(:,k)'; % curvature
 
   % target points
-  xtar = xx(:,ones(Ng,1));
-  ytar = yy(:,ones(Ng,1));
+  xtar = xx(:,ones(N,1));
+  ytar = yy(:,ones(N,1));
 
   % source points
   xsou = xtar';
   ysou = ytar';
 
   % Jacobian
-  sa = sa(ones(Ng,1),:);
+  sa = sa(ones(N,1),:);
 
   diffx = xtar - xsou;
   diffy = ytar - ysou;
@@ -447,17 +436,16 @@ for k=1:geom.nb  % Loop over curves
 
   r2 = diffx.^2 + diffy.^2;
   r12 = r2.^(0.5);
-  r12(1:Ng+1:Ng^2) = 0;
-
   % set diagonal terms to 0
+  r12(1:N+1:N^2) = 0;
 
   D11 = 1/2/pi/geom.rho.*besselk(1,r12/geom.rho).*...
       rdotn./r12.*sa;
 
-  D11(1:Ng+1:Ng^2) = +0.25/pi*cur.*sa(1,:);
+  D11(1:N+1:N^2) = +0.25/pi*cur.*sa(1,:);
   D(:,:,k) = D11;
   
-  D(:,:,k) = -D(:,:,k)*2*pi/Ng;
+  D(:,:,k) = -D(:,:,k)*2*pi/N;
   % scale with the arclength spacing and divide by pi
 end % k
 
@@ -474,9 +462,9 @@ function GradDmat = yukawaGradDLmatrix(~,geom)
 oc = curve;
 [x,y] = oc.getXY(geom.X);
 % Vesicle positions
-Ng = geom.N;
+N = geom.N;
 % number of points per geoms
-GradDmat = zeros(2*Ng,2*Ng,geom.nb);
+GradDmat = zeros(2*N,2*N,geom.nb);
 % initialize space for double-layer potential matrix
 
 for k=1:geom.nb  % Loop over curves
@@ -485,14 +473,14 @@ for k=1:geom.nb  % Loop over curves
   yy = y(:,k);
 
   % normal vector
-  normal = [geom.xt(Ng+1:2*Ng,k) -geom.xt(1:Ng,k)];
+  normal = [geom.xt(N+1:2*N,k) -geom.xt(1:N,k)];
 
   % Jacobian
   sa = geom.sa(:,k)';
 
   % target points
-  xtar = xx(:,ones(Ng,1));
-  ytar = yy(:,ones(Ng,1));
+  xtar = xx(:,ones(N,1));
+  ytar = yy(:,ones(N,1));
 
   % source points
   xsou = xtar';
@@ -503,7 +491,7 @@ for k=1:geom.nb  % Loop over curves
 %   % tangent at sources
   
   % Jacobian
-  sa = sa(ones(Ng,1),:);
+  sa = sa(ones(N,1),:);
 
   % rx and ry terms
   diffx = xtar - xsou;
@@ -511,7 +499,7 @@ for k=1:geom.nb  % Loop over curves
   
   r2 = diffx.^2 + diffy.^2;
   r12 = r2.^(0.5);
-  r12(1:Ng+1:Ng^2) = 0;
+  r12(1:N+1:N^2) = 0;
   % set diagonal terms to 0
 
   rdotn = (diffx.*normal(:,1) + diffy.*normal(:,2))./r2;
@@ -525,35 +513,29 @@ for k=1:geom.nb  % Loop over curves
   GradD11 = ((kernel1+kernel3).*diffx.*rdotn + ...
               kernel2.*normal(:,1)).*sa;
   % (1,1) component
-  GradD11(1:Ng+1:Ng^2) = 0;
+  GradD11(1:N+1:N^2) = 0;
   % diagonal limiting term
-
-%   figure(2);
-%   surf(GradD11*2*pi/Ng)
-%   shading interp
-% plot(GradD11(:,10))
-%   pause  
   
-  GradD12 = zeros(Ng);
+  GradD12 = zeros(N);
   % (1,2) component
 
   GradD22 = ((kernel1+kernel3).*diffy.*rdotn + ...
               kernel2.*normal(:,2)).*sa;
   % (2,2) component
-  GradD22(1:Ng+1:Ng^2) = 0;
+  GradD22(1:N+1:N^2) = 0;
   % diagonal limiting term
 
   GradDmat(:,:,k) = [GradD11 GradD12; GradD12 GradD22];
   % build matrix with four blocks
   
-  GradDmat(:,:,k) = GradDmat(:,:,k)*2*pi/Ng;
+  GradDmat(:,:,k) = GradDmat(:,:,k)*2*pi/N;
   % scale with the arclength spacing
   
 end % k
 
 end % yukawaGradDLmatrix
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function DLP = exactStokesDLdiag(~,geom,D,f)
 % DLP = exactStokesDLdiag(geom,f,K) computes the diagonal term of the
 % double-layer potential due to f around all geoms. Source and target
@@ -572,7 +554,7 @@ end
 
 end % exactStokesDLdiag
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function N0 = exactStokesN0diag(~,wall,N0,f)
 % DLP = exactStokesN0diag(vesicle,f) computes the diagonal term of the
 % modification of the double-layer potential due to f around outermost
@@ -597,7 +579,7 @@ end
 
 end % exactStokesN0diag
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function DLP = exactYukawaDLdiag(~,geom,D,f)
 % DLP = exactYukawaDLdiag(geom,f,K) computes the diagonal term of the
 % double-layer potential due to f around all geoms. Source and target
@@ -617,24 +599,23 @@ end
 end % exactYukawaDLdiag
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % END OF ROUTINES THAT EVALUATE LAYER-POTENTIALS
 % WHEN SOURCES == TARGETS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% START OF ROUTINES THAT EVALUATE LAYER-POTENTIALS
-% WHEN SOURCES ~= TARGETS.  CAN COMPUTE LAYER POTENTIAL ON EACH
-% VESICLE DUE TO ALL OTHER VESICLES (ex. stokesSLP) AND CAN
-% COMPUTE LAYER POTENTIAL DUE TO VESICLES INDEXED IN K1 AT 
-% TARGET POINTS Xtar
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START OF ROUTINES THAT EVALUATE LAYER-POTENTIALS WHEN SOURCES ~=
+% TARGETS. CAN COMPUTE LAYER POTENTIAL ON EACH VESICLE DUE TO ALL OTHER
+% VESICLES (ex. stokesSLP) AND CAN COMPUTE LAYER POTENTIAL DUE TO
+% VESICLES INDEXED IN K1 AT TARGET POINTS Xtar
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [stokesDLP,stokesDLPtar] = exactStokesDL(~,geom,f,Xtar,K1)
 % [stokesDLP,stokesDLPtar] = exactStokesDL(geom,f,Xtar,K1,itar) computes
 % the double-layer potential due to f around all parts of the geometry
-% except itself.  Also can pass a set of target points Xtar and a
+% except itself. Also can pass a set of target points Xtar and a
 % collection of geom K1 and the double-layer potential due to components
-% of the geometry in K1 will be evaluated at Xtar.  Everything but Xtar
+% of the geometry in K1 will be evaluated at Xtar. Everything but Xtar
 % is in the 2*N x n format Xtar is in the 2*Ntar x ncol format
 
 if nargin == 5
@@ -727,8 +708,9 @@ end
 
 end % exactStokesDL
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [StokesDLP,StokesDLPtar] = exactStokesDLMatFree(o,geom,f,Xtar,K1)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [StokesDLP,StokesDLPtar] = exactStokesDLMatFree(o,...
+            geom,f,Xtar,K1)
 % [yukawaDLP,yukawaDLPtar] = exactStokesDLMatFree(geom,f,Xtar,K1)
 % computes the Stokes double-layer potential due to f around all parts
 % of the geometry except itself. Also can pass a set of target points
@@ -955,44 +937,10 @@ stokesDLPstresstar = stokesDLPstresstar/pi;
 
 %stokesDLPstress = zeros(3*geom.N,geom.nb);
 stokesDLPstress = [];
-% April 1, 2021, BQ: THIS CODE HAS NOT BEEN UPDATED SINCE I DON'T
-% BELIEVE WE'LL USE IT
-%if (nargin == 4 && geom.nb > 1)
-%  for k = 1:geom.n
-%    K = [(1:k-1) (k+1:geom.nb)];
-%    [x,y] = oc.getXY(geom.X(:,K));
-%    [nx,ny] = oc.getXYperp(geom.xt(:,K));
-%    [denx,deny] = oc.getXY(den(:,K));
-%    for j=1:geom.N
-%      diffxy = [geom.X(j,k) - x ; geom.X(j+geom.N,k) - y];
-%      dis2 = diffxy(1:geom.N,:).^2 + ...
-%          diffxy(geom.N+1:2*geom.N,:).^2;
-%      % difference of source and target location and distance squared
-%
-%      rdotfTIMESrdotn = ...
-%        (diffxy(1:geom.N,:).*nx + ...
-%        diffxy(geom.N+1:2*geom.N,:).*ny)./dis2.^2 .* ...
-%        (diffxy(1:geom.N,:).*denx + ...
-%        diffxy(geom.N+1:2*geom.N,:).*deny);
-%      % \frac{(r \dot n)(r \dot density)}{\rho^{4}} term
-%
-%      stokesDLP(j,k) = stokesDLP(j,k) + ...
-%          sum(sum(rdotfTIMESrdotn.*diffxy(1:geom.N,:)));
-%      stokesDLP(j+geom.N,k) = stokesDLP(j+geom.N,k) + ...
-%          sum(sum(rdotfTIMESrdotn.*diffxy(geom.N+1:2*geom.N,:)));
-%      % double-layer potential for Stokes
-%    end
-%  end
-%
-%  stokesDLP = stokesDLP/pi;
-%  % 1/pi is the coefficient in front of the double-layer potential
-%end
-%% double-layer potential due to all components of the geometry except
-%% oneself
 
 end % exactStokesDLstress
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [vLets,vLetsTar] = StokesletRotlet(o,geom,force,torque,Xtar,K1)
 % [vLets,vLetsTar] = StokesletRotlet(geom,force,torque,Xtar,K1) computes
 % the velocity due to stokeslets and rotlets. Also can pass a set of
@@ -1247,8 +1195,9 @@ end
 
 end % exactYukawaDL
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [yukawaDLP,yukawaDLPtar] = exactYukawaDLMatFree(o,geom,f,Xtar,K1)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [yukawaDLP,yukawaDLPtar] = exactYukawaDLMatFree(o,...
+            geom,f,Xtar,K1)
 % [yukawaDLP,yukawaDLPtar] = exactYukawaDLMatFree(geom,f,Xtar,K1)
 % computes the Yukawa double-layer potential due to f around all parts
 % of the geometry except itself. Also can pass a set of target points
@@ -1261,9 +1210,8 @@ if nargin >= 5
   Ntar = size(Xtar,1)/2;
   ncol = size(Xtar,2);
   yukawaDLPtar = zeros(Ntar,ncol);
-%  itar = setdiff(1:numel(K1)+1,K1); % index of target body
-  [~,itar] = max(~ismember(1:numel(K1)+1,K1)); 
   % faster way to do the setdiff we need
+  [~,itar] = max(~ismember(1:numel(K1)+1,K1)); 
 else
   K1 = [];
   yukawaDLPtar = [];
@@ -1392,8 +1340,8 @@ for p = 1:geom.nb
     tau1p = tau1(:,p);
     tau2p = tau2(:,p);
 
-    % setting argin geom.nb = 1 tricks evaluators to using only one geometry
-    % column
+    % setting argin geom.nb = 1 tricks evaluators to using only one
+    % geometry column
     etap = eta(:,p);
 
     % decide which strategy to use : expansion or standard evaluation 
@@ -1437,8 +1385,8 @@ for p = 1:geom.nb
 
     F1(p) = F1(p) + sum(Jpq1.*dSp);
     F2(p) = F2(p) + sum(Jpq2.*dSp);
-    Tq(p) = Tq(p) + sum(( + (x1p - pc1(p)).* Jpq2 - (x2p - pc2(p)).* Jpq1 ) .* dSp);
-    
+    Tq(p) = Tq(p) + sum((+(x1p - pc1(p)).*Jpq2  ...
+                         -(x2p - pc2(p)).*Jpq1).*dSp);
   end    
 end     
 
