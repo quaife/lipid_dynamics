@@ -7,21 +7,13 @@ properties
 
 dt              % time step size
 sstep           % starting step
-Dp              % Stokes DLP for fiber-fiber interaction
-rhs             % Right hand side of mobility problem
-rhs2            % Right hand side of screen laplace problem
-inear           % flag for using near-singular integration
 gmresTol        % GMRES tolerance
-plotAxis        % plot axes
 farField        % background flow
 janusbc         % particle boundary condition
 tracer          % flag for tracer
-precow          % block-diagonal preconditioner for walls
-potp            % class for fiber layer potentials
-potw            % class for wall layer potentials
-om              % monitor class
-precoYukawa
-precoStokes
+precoYukawa     % block-diagonal preconditioner for Yukawa
+precoStokes     % block-diagonal preconditioner for Stokes on bodies
+precoWalls      % block-diagonal preconditioner for walls
 
 end % properties
 
@@ -32,11 +24,9 @@ function o = tstep(options,prams)
 % o.tstep(options,prams): constructor.  Initialize class.  Take all
 % elements of options and prams needed by the time stepper
 
-o.inear    = options.inear;
 o.dt       = prams.T/prams.m;
 o.sstep    = prams.sstep;
 o.gmresTol = options.gmresTol;
-o.plotAxis = options.plotAxis;
 o.farField = @(X) o.bgFlow(X,options);
 o.tracer   = options.tracer;
 
@@ -47,7 +37,8 @@ end % constructor: tstep
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Up,wp,iterYukawa,iterStokes,etaYukawa,etaStokes,fforce,torque] = timeStep(o,geom,etaY0,etaS0)
+function [Up,wp,iterYukawa,iterStokes,etaYukawa,etaStokes,...
+      fforce,torque] = timeStep(o,geom,etaY0,etaS0)
 % Main time stepping routine
 oc     = curve;
 N      = geom.N;
@@ -60,24 +51,17 @@ gam    = geom.gam;
 radii  = geom.radii;
 
 % CREATE NEAR SINGULAR INTEGRATION STRUCTURES
-if o.inear
-  geom.nearStruct = geom.getZone([],1);
-end
+geom.nearStruct = geom.getZone([],1);
 
-% START OF REPULSION CALCULATION
- 
 op = poten(geom.N,geom.rho);
+% START OF REPULSION CALCULATION
 [R1, R2, RTq, pp] = op.Repul(geom);
-
 % END OF REPULSION CALCULATION
 
 
 % START OF SCREENED LAPLACE SOLVE USING GMRES
-
 % right hand side for the screened Laplace solver
 yukawaRHS = geom.yukawaRHS;
-
-op = poten(geom.N,geom.rho);
 
 % build the DLP Yukawa matrix
 geom.DLPYukawa = op.yukawaDLmatrix(geom); 

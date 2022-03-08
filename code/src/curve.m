@@ -92,6 +92,8 @@ area = sum( x.*Dy - y.*Dx)*pi/N;
 
 end % geomProp
 
+end % methods
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 methods (Static)
@@ -191,8 +193,6 @@ function out = isLeft(o, p1, p2, q1, q2, r1, r2)
 out = (q1 - p1) .* (r2 - p2) - (r1 -  p1) .* (q2 - p2);
 
 end % isLeft
-
-
 
 end % methods (Static)
 

@@ -38,8 +38,6 @@ options.saveData  = false;
 options.fileBase  = options.farField;
 
 options.append    = false;
-options.inear     = true;
-options.usePreco  = false;
 options.verbose   = true;
 options.timeOrder = 2;
 options.gmresTol  = 1e-10;
