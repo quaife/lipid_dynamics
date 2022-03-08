@@ -437,3 +437,16 @@ for p = 1:geom.nb
 end     
 
 end % evalForcesTaylor
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [force,torque] = bodyForceTorque(o)
+
+% will direct the calculated force, torque here
+force = zeros(2*o.nb,1);  % original [1;2]
+torque = zeros(o.nb,1);   % original -10
+
+
+end % bodyForceTorque
+
+

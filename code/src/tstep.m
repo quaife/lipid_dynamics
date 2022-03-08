@@ -90,7 +90,7 @@ end
 
 % build precomputed matrix with all necessary bessel functions that are
 % needed at every GMRES iteration
-geom.BesselDistanceMatrix;
+geom.YukawaKernelMatrix;
 
 % Solve for the density function using GMRES
 [sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...

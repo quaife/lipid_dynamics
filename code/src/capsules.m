@@ -30,9 +30,11 @@ DLPStokes;    % double-layer potential matrix
 DLPYukawa;    % double-layer potential matrix for yukawa
 upRate;       % upsampling rate that is used for NSI quadrature
 NPeaks;       % change the number of peaks in cosine bc
+% besselk(1,~) kernel for each target point with upsampled source points
+% on all other bodies
 BK1;          
-% besselk(1,~) function evaluated for each target point with upsampled
-% source points on all other bodies
+% Stokes double-layer kernel for each target point with upsampled source
+% points on all other bodies
 StokesDL;
 
 end %properties
@@ -67,59 +69,48 @@ theta = (0:o.N-1)'*2*pi/o.N;
 X = zeros(o.N*2,o.nb);  
 
 switch o.shape
-    case 'circle'
-        for i = 1:o.nb
-        % shape of particle
-        refX = kron([cos(tau(i)) -sin(tau(i)); +sin(tau(i)) cos(tau(i))],...
-            eye(o.N))*[o.ar(i)*cos(theta);sin(theta)]*o.radii(i);  
-        % rotated circle
-        X(1:o.N,i) = refX(1:o.N) + xc(1,i);
-        X(o.N+1:2*o.N,i) = refX(o.N+1:end) + xc(2,i);
-        % shift to the correct center
-        end
-    case 'star'
-        for i = 1:o.nb
-        % shape of star
-        rr = o.radii(i)+o.ar(i)*cos(o.petal*theta);
-        refX = kron([cos(tau(i)) -sin(tau(i));...
-               +sin(tau(i)) cos(tau(i))],...
-            eye(o.N))*[rr.*cos(theta);rr.*sin(theta)];
-        % rotated star
-        X(1:o.N,i) = refX(1:o.N) + xc(1,i);
-        X(o.N+1:2*o.N,i) = refX(o.N+1:end) + xc(2,i);
-        % shift to the correct center
-        end
-end
+  case 'circle'
+    for i = 1:o.nb
+      % shape of particle with rotation
+      refX = kron([cos(tau(i)) -sin(tau(i)); +sin(tau(i)) cos(tau(i))],...
+          eye(o.N))*[o.ar(i)*cos(theta);sin(theta)]*o.radii(i);  
+      % shift to the correct center
+      X(1:o.N,i) = refX(1:o.N) + xc(1,i);
+      X(o.N+1:2*o.N,i) = refX(o.N+1:end) + xc(2,i);
+    end
+  case 'star'
+    for i = 1:o.nb
+      % shape of star
+      rr = o.radii(i)+o.ar(i)*cos(o.petal*theta);
+      % rotated star
+      refX = kron([cos(tau(i)) -sin(tau(i));...
+             +sin(tau(i)) cos(tau(i))],...
+          eye(o.N))*[rr.*cos(theta);rr.*sin(theta)];
+      % shift to the correct center
+      X(1:o.N,i) = refX(1:o.N) + xc(1,i);
+      X(o.N+1:2*o.N,i) = refX(o.N+1:end) + xc(2,i);
+    end
+  end
 o.X = X;
 
+% compute arlength, tangent, and curvature
 [o.sa,o.xt,o.cur] = oc.diffProp(o.X); 
-% compute arlenght, tangent, and curvature
-[~,o.length] = oc.geomProp(o.X);
 % compute total length
+[~,o.length] = oc.geomProp(o.X);
 
+% repulsion length and strength
 o.RepulLength = prams.RepulLength;
 o.RepulStrength = prams.RepulStrength;
-% repulsion length and strength
 
+% store as empty arrays. These are only constructed when needed
 o.BK1 = [];
 o.StokesDL = [];
 
 end % capsules: constructor
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [force,torque] = bodyForceTorque(o)
-
-% will direct the calculated force, torque here
-    
-force = zeros(2*o.nb,1);  % original [1;2]
-torque = zeros(o.nb,1);   % original -10
-
-
-end % bodyForceTorque
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function BesselDistanceMatrix(geom)
-% BesselDistanceMatrix(o,geom) computes the bessel function between all
+function YukawaKernelMatrix(geom)
+% YukawaKernelMatrix(o,geom) computes the bessel function between all
 % pairs of points on different bodies. This is used to accelerate the
 % number of times besselk has to be evaulated when doing matrix-vector
 % multiplication in GMRES for Yukawa solve
@@ -144,11 +135,6 @@ for k = 1:nb
   xsou = xsou(:,ones(N,1))';
   ysou = ysou(:,ones(N,1))';
 
-  % wrong way of computing the normal vector of upsampled shapes
-%  [tx,ty] = oc.getXY(geom.xt(:,Ksou));
-%  nx = interpft(-ty,Nup); nx = nx(:);
-%  ny = interpft(+tx,Nup); ny = ny(:);
-
   nx = -ty; nx = nx(:);
   ny = tx; ny = ny(:);
   nx = nx(:,ones(N,1))';
@@ -160,7 +146,7 @@ for k = 1:nb
   geom.BK1(:,:,k) = -1/2/pi/geom.rho*besselk(1,dis/geom.rho).*rdotn./dis;
 end
 
-end % BesselDistanceMatrix
+end % YukawaKernelMatrix
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -176,11 +162,14 @@ Nup = N*geom.upRate;
 nb = geom.nb;
 geom.StokesDL = zeros(2*N,2*Nup*(nb-1),nb);
 for k = 1:nb
+  % skip self-contribution
   Ksou = [(1:k-1) (k+1:nb)];
+  % compute target points
   [xtar,ytar] = oc.getXY(geom.X(:,k));
   xtar = xtar(:,ones(Nup*(nb-1),1));
   ytar = ytar(:,ones(Nup*(nb-1),1));
 
+  % compute source points
   [xsou,ysou] = oc.getXY(geom.X(:,Ksou));
   xsou = interpft(xsou,Nup);
   ysou = interpft(ysou,Nup);
@@ -190,11 +179,7 @@ for k = 1:nb
   xsou = xsou(:,ones(N,1))';
   ysou = ysou(:,ones(N,1))';
 
-  % wrong way of computing the normal vector of upsampled shapes
-%  [tx,ty] = oc.getXY(geom.xt(:,Ksou));
-%  nx = interpft(-ty,Nup); nx = nx(:);
-%  ny = interpft(+tx,Nup); ny = ny(:);
-
+  % compute upsampled normal
   nx = -ty; nx = nx(:);
   ny = tx; ny = ny(:);
   nx = nx(:,ones(N,1))';
@@ -236,20 +221,22 @@ N1 = o.N;  % number of source/target points per boundary component
 nb = o.nb; % number of source/target boundaries
 X1 = o.X;  % source and target points
 oc = curve;
-[xsou,ysou] = oc.getXY(X1);
 % separate targets into x and y coordinates
-
-h = max(o.length)/N1;
+[xsou,ysou] = oc.getXY(X1);
 
 % smallest arclength over all boundaries
-ptsperbox = 10;
-% Estimate for number of points per box.  This simply sets the
-% number of uniformly refined boxes we take.  Estimate is not very
-% accurate.  What ptsperbox represents is the total number of points
-% that could be put in each two-dimensional bin where no two are
-% less than distance h from one another.  However, our points live
-% on curves and thus will not fill up an entire bin
+h = max(o.length)/N1;
 
+% Estimate for number of points per box. This simply sets the number of
+% uniformly refined boxes we take. Estimate is not very accurate. What
+% ptsperbox represents is the total number of points that could be put
+% in each two-dimensional bin where no two are less than distance h from
+% one another. However, our points live on curves and thus will not fill
+% up an entire bin
+ptsperbox = 10;
+
+% Add a buffer around the points so that it is easier to
+% work with bd2
 H = sqrt(ptsperbox)*h;
 xmin = min(min(xsou));
 xmax = max(max(xsou));
@@ -259,42 +246,30 @@ ymin = min(min(ysou));
 ymax = max(max(ysou));
 ymin = ymin - H;
 ymax = ymax + H;
-% Add a buffer around the points so that it is easier to
-% work with bd2
 
+% Find bounds for box that contains all points and add a buffer so that
+% all points are guaranteed to be in the box
 Nx = ceil((xmax - xmin)/H);
 Ny = ceil((ymax - ymin)/H);
-% Find bounds for box that contains all points and add a buffer
-% so that all points are guaranteed to be in the box
 
 Nbins = Nx * Ny; % Total number of bins
 
+% Index in x and y direction of the box containing each point
 ii = ceil((xsou - xmin)/H);
 jj = ceil((ysou - ymin)/H);
-% Index in x and y direction of the box containing each point
+% Find bin of each point using lexiographic ordering (x then y)
 bin = (jj-1)*Nx + ii;
 
-% bin = reshape(bin,N1,nb);
-
-% Find bin of each point using lexiographic ordering (x then y)
-
+% allocate space for storing first and last points
 fpt = zeros(Nbins,nb);
 lpt = zeros(Nbins,nb);
-% allocate space for storing first and last points
+% build permute. Need binsort to find first and last points in each box
 [binsort,permute] = sort(bin);
-% build permute.  Need binsort to find first and last points in each box
 
-
-%%%
-% binsort = reshape(binsort,N1,nb);
-% permute = reshape(permute,N1,nb);
-% bin = reshape(bin,N1,nb);
-% xsou = reshape(xsou,N1,nb);
-% ysou = reshape(ysou,N1,nb);
-%%%
-
-
-
+% Construct first and last point in each box corresponding to each
+% boundary. The order is based on permute. For example,
+% permute(fpt(ibox,k)),...,permute(lpt(ibox,k)) is the set of all points
+% from boundary k contained in box ibox
 for k = 1:nb % Loop over boundaries
   for j = 1:N1 % Loop over bins
     ibox = binsort(j,k);
@@ -307,144 +282,140 @@ for k = 1:nb % Loop over boundaries
   end
   lpt(:,k) = fpt(:,k) + lpt(:,k) - 1;
 end
-% Construct first and last point in each box corresponding to each
-% boundary.  The order is based on permute.  For example,
-% permute(fpt(ibox,k)),...,permute(lpt(ibox,k)) is the set of all points
-% from boundary k contained in box ibox
 
 neigh = zeros(Nbins,9);
 
 %Do corners first
-neigh(1,1:4) = [1 2 Nx+1 Nx+2];
 % bottom left corner
-neigh(Nx,1:4) = [Nx Nx-1 2*Nx 2*Nx-1];
+neigh(1,1:4) = [1 2 Nx+1 Nx+2];
 % bottom right corner
+neigh(Nx,1:4) = [Nx Nx-1 2*Nx 2*Nx-1];
+% top left corner
 neigh(Nbins-Nx+1,1:4) = [Nbins-Nx+1 Nbins-Nx+2 ...
 Nbins-2*Nx+1 Nbins-2*Nx+2];
-% top left corner
-neigh(Nbins,1:4) = [Nbins Nbins-1 Nbins-Nx Nbins-Nx-1];
 % top right corner
+neigh(Nbins,1:4) = [Nbins Nbins-1 Nbins-Nx Nbins-Nx-1];
 
+% neighbors of bottom row
 for j = 2:Nx-1
   neigh(j,1:6) = j + [-1 0 1 Nx-1 Nx Nx+1];
 end
-% neighbors of bottom row
 
+% neighbors of top row
 for j = Nbins-Nx+2:Nbins-1
   neigh(j,1:6) = j + [-1 0 1 -Nx-1 -Nx -Nx+1];
 end
-% neighbors of top row
 
+% neighbors of left column
 for j=Nx+1:Nx:Nbins-2*Nx+1
   neigh(j,1:6) = j + [-Nx -Nx+1 0 1 Nx Nx+1];
 end
-% neighbors of left column
 
+% neighbors of right column
 for j=2*Nx:Nx:Nbins-Nx
   neigh(j,1:6) = j + [-Nx-1 -Nx -1 0 Nx-1 Nx];
 end
-% neighbors of right column
 
+% J is the index of boxes that are not on the boundary
 J = (Nx + 1:Nbins - Nx);
 J = J(mod(J-1,Nx)~=0);
 J = J(mod(J,Nx)~=0);
-% J is the index of boxes that are not on the boundary
+% neighbors of interior points
 for j=J
   neigh(j,:) = j + [-Nx-1 -Nx -Nx+1 -1 0 1 Nx-1 Nx Nx+1];
 end
-% neighbors of interior points
 % TREE STRUCTURE IS COMPLETE
 
 
 if (relate == 1 || relate == 3)
   for k = 1:nb
-    distSS{k} = spalloc(N1,nb,0);
     % dist(n,k,j) is the distance of point n on boundary k to boundary j
-    zoneSS{k} = spalloc(N1,nb,0);
+    distSS{k} = spalloc(N1,nb,0);
     % near or far zone
-    nearestSS{k} = spalloc(2*N1,nb,0);
+    zoneSS{k} = spalloc(N1,nb,0);
     % nearest point using local interpolant
-    icpSS{k} = spalloc(N1,nb,0);
+    nearestSS{k} = spalloc(2*N1,nb,0);
     % index of closest discretization point
-    argnearSS{k} = spalloc(N1,nb,0);
+    icpSS{k} = spalloc(N1,nb,0);
     % argument in [0,1] of local interpolant
+    argnearSS{k} = spalloc(N1,nb,0);
     nearFibersSS{k} = {};
   end
-  % New way of representing near-singular integration structure so that
-  % we can use sparse matricies.
+  % Represent near-singular integration structure in such a way that we
+  % can use sparse matricies.
 
 
   % begin classifying points where we are considering
   % boundary to boundary relationships
   for k = 1:nb
-    boxes = unique(bin(:,k));
     % Find all boxes containing points of boundary k
-    boxes = neigh(boxes,:);
+    boxes = unique(bin(:,k));
     % Look at all neighbors of boxes containing boundary k
-    boxes = unique(boxes(:));
+    boxes = neigh(boxes,:);
     % Remove repetition
-    boxes = boxes(boxes~=0);
+    boxes = unique(boxes(:));
     % Delete non-existent boxes that came up because of neigh
+    boxes = boxes(boxes~=0);
 
     K = [(1:k-1) (k+1:nb)];
     for k2 = K
+      % Find index of all points in neighboring boxes of boundary k that
+      % are in boundary k2
       istart = fpt(boxes,k2);
       iend = lpt(boxes,k2);
       istart = istart(istart ~= 0);
       iend = iend(iend ~= -1);
-      % Find index of all points in neighboring boxes of boundary k that
-      % are in boundary k2
 
-      neighpts = zeros(sum(iend-istart+1),1);
       % Allocate space to assign possible near points
+      neighpts = zeros(sum(iend-istart+1),1);
       is = 1;
+      % neighpts contains all points on boundary k2 that are in
+      % neighboring boxes to boundary k
       for j=1:numel(istart)
         ie = is + iend(j) - istart(j);
         neighpts(is:ie) = permute(istart(j):iend(j),k2);
         is = ie + 1;
       end
-      % neighpts contains all points on boundary k2 that are in
-      % neighboring boxes to boundary k
 
-      neighpts = sort(neighpts);
       % sorting should help speedup as we won't be jumping around
       % through different boxes
+      neighpts = sort(neighpts);
 
       n = 0;
       for i=1:numel(neighpts)
         ipt = neighpts(i);
-        ibox = bin(ipt,k2);
         % box containing ipt on boundary k2
+        ibox = bin(ipt,k2);
         if (ibox ~= n)
-          n = ibox;
           % Check if we need to move to a new box
-          neighbors = neigh(ibox,:);
+          n = ibox;
           % neighbors of this box
-          neighbors = neighbors(neighbors~=0);
+          neighbors = neigh(ibox,:);
           % Remove non-existent neighbors
+          neighbors = neighbors(neighbors~=0);
+          % Find points on boundary k in neighboring boxes
           istart = fpt(neighbors,k);
           iend = lpt(neighbors,k);
           istart = istart(istart ~= 0);
           iend = iend(iend ~= -1);
-          % Find points on boundary k in neighboring boxes
           neighpts2 = zeros(sum(iend-istart+1),1);
           is = 1;
+          % neighpts2 contains all points on boundary k that
+          % are in neighboring box of ibox
           for j=1:numel(istart)
             ie = is + iend(j) - istart(j);
             neighpts2(is:ie) = permute(istart(j):iend(j),k);
             is = ie + 1;
           end
-          % neighpts2 contains all points on boundary k that
-          % are in neighboring box of ibox
         end % decide if we need to switch boxes
 
-        [d0,d0loc] = min((xsou(ipt,k2) - xsou(:,k)).^2 + ...
-                         (ysou(ipt,k2) - ysou(:,k)).^2);
         % Find minimum distance between ipt on boundary k2 to possible
         % closest points on boundary k
-        d0 = sqrt(d0);
+        [d0,d0loc] = min((xsou(ipt,k2) - xsou(:,k)).^2 + ...
+                         (ysou(ipt,k2) - ysou(:,k)).^2);
         % Save on not taking the square root on a vector but instead on
         % a single real number
+        d0 = sqrt(d0);
 
         icpSS{k}(ipt,k2) = d0loc;
         if (d0 < 2*h);
@@ -455,15 +426,15 @@ if (relate == 1 || relate == 3)
             nearestSS{k}(ipt,k2) = nearestx;
             nearestSS{k}(ipt+N1,k2) = nearesty;
             
-          nearFibersSS{k}= [nearFibersSS{k},k2];
           % Find closest point along a local interpolant using Newton's
           % method.
+          nearFibersSS{k}= [nearFibersSS{k},k2];
             
+          % Point ipt of boundary k2 is in the near zone of
+          % boundary k
           if (distSS{k}(ipt,k2) < h)
             zoneSS{k}(ipt,k2) = 1;
           end
-          % Point ipt of boundary k2 is in the near zone of
-          % boundary k
         end
       end % ipt
     end % k2
@@ -471,14 +442,14 @@ if (relate == 1 || relate == 3)
     nearFibersSS{k} = unique([nftmp{:}]);
   end % k
 
+  % Store everything in the structure NearSelf. This way it is much
+  % cleaner to pass everything around
   NearSelf.dist = distSS;
   NearSelf.zone = zoneSS;
   NearSelf.nearest = nearestSS;
   NearSelf.icp = icpSS;
   NearSelf.argnear = argnearSS;
   NearSelf.nearFibers = nearFibersSS;
-  % Store everything in the structure NearSelf.  This way it is
-  % much cleaner to pass everything around
 
 end % relate == 1 || relate == 3
 
@@ -490,27 +461,27 @@ if (relate == 2 || relate == 3)
   X2 = bd2.X; % additional target points
   [xtar,ytar] = oc.getXY(X2);
 
+  % Represent near-singular integration structure so that we can use
+  % sparse matricies.
   for k = 1:nb
-    distST{k} = spalloc(N1,nb2,0);
     % dist(n,k,j) is the distance of point n on boundary k to
-    zoneST{k} = spalloc(N1,nb2,0);
+    distST{k} = spalloc(N1,nb2,0);
     % near or far zone
-    nearestST{k} = spalloc(2*N1,nb2,0);
+    zoneST{k} = spalloc(N1,nb2,0);
     % nearest point using local interpolant
-    icpST{k} = spalloc(N1,nb2,0);
+    nearestST{k} = spalloc(2*N1,nb2,0);
     % index of closest discretization point
-    argnearST{k} = spalloc(N1,nb2,0);
+    icpST{k} = spalloc(N1,nb2,0);
     % argument in [0,1] of local interpolant
+    argnearST{k} = spalloc(N1,nb2,0);
   end
-  % New way of representing near-singular integration structure so that
-  % we can use sparse matricies.
 
+  % Only have to consider xx(ind),yy(ind) since all other points
+  % are not contained in the box [xmin xmax] x [ymin ymax]
   itar = ceil((xtar - xmin)/H);
   jtar = ceil((ytar - ymin)/H);
   [indx,indy] = find((itar >= 1) & (itar <= Nx) & ...
   (jtar >= 1) & (jtar <= Ny));
-  % Only have to consider xx(ind),yy(ind) since all other points
-  % are not contained in the box [xmin xmax] x [ymin ymax]
 
   for k = 1:nb % loop over sources
     for nind = 1:numel(indx)
@@ -526,23 +497,23 @@ if (relate == 2 || relate == 3)
       istart = istart(istart ~= 0);
       iend = iend(iend ~= -1);
 
-      neighpts = zeros(sum(iend-istart+1),1);
       % Allocate space to assign possible near points
+      neighpts = zeros(sum(iend-istart+1),1);
       if numel(neighpts) > 0
         % it is possible of the neighboring boxes to contain no points.
         is = 1;
+        % Find set of potentially nearest points to (xtar(jj),ytar(jj))
         for j = 1:numel(istart)
           ie = is + iend(j) - istart(j);
           neighpts(is:ie) = permute(istart(j):iend(j),k);
           is = ie + 1;
         end
-        % Set of potentially nearest points to (xtar(jj),ytar(jj))
 
+        % find closest point and distance between (xtar(jj),ytar(jj))
+        % and boundary k. Only need to look at points in neighboring
+        % boxes
         [d0,d0loc] = min((xtar(ii,jj) - xsou(neighpts,k)).^2 + ...
                          (ytar(ii,jj) - ysou(neighpts,k)).^2);
-        % find closest point and distance between (xtar(jj),ytar(jj))
-        % and boundary k.  Only need to look at points in neighboring
-        % boxes
         d0 = sqrt(d0);
         icpST{k}(ii,jj) = neighpts(d0loc);
 
@@ -553,9 +524,9 @@ if (relate == 2 || relate == 3)
           nearestST{k}(ii,jj) = nearestx;
           nearestST{k}(ii+Np2,jj) = nearesty;
           if distST{k}(ii,jj) < h
-            zoneST{k}(ii,jj) = 1;
             % (xtar(ii,jj),ytar(ii,jj)) is in the near zone of boundary
             % k
+            zoneST{k}(ii,jj) = 1;
           end
         end % d0 < 2*h
       end % numel(neighpts) > 0
@@ -563,13 +534,13 @@ if (relate == 2 || relate == 3)
     end % ii and jj
   end % k
 
+  % store near-singluar integration requirements in structure NearOther
   NearOther.dist = distST;
   NearOther.zone = zoneST;
   NearOther.nearest = nearestST;
   NearOther.icp = icpST;
   NearOther.argnear = argnearST;
   NearOther.nearFibers = [];
-  % store near-singluar integration requirements in structure NearOther
 
 end % relate == 2 || relate == 3
 
@@ -586,27 +557,29 @@ function [dist,nearestx,nearesty,theta] = closestPnt(~,X,...
 
 N = size(X,1)/2; % Number of points per boundary 
 A = poten.lagrangeInterp;
-interpOrder = size(A,1);
 % need interpolation matrix and its size
+interpOrder = size(A,1);
 
-p = ceil((interpOrder+1)/2);
 % Accommodate for either an even or odd number of interpolation
 % points
-pn = mod((icp-p+1:icp-p+interpOrder)' - 1,N) + 1;
+p = ceil((interpOrder+1)/2);
 % band of points around icp.  The -1,+1 combination sets index
 % 0 to N as required by the code
+pn = mod((icp-p+1:icp-p+interpOrder)' - 1,N) + 1;
 
 px = A*X(pn,k); % polynomial interpolant of x-coordinate
 py = A*X(pn+N,k); % polynomial interpolant of y-coordinate
+% To do Newton's method, need two derivatives
 Dpx = px(1:end-1).*(interpOrder-1:-1:1)';
 Dpy = py(1:end-1).*(interpOrder-1:-1:1)';
 D2px = Dpx(1:end-1).*(interpOrder-2:-1:1)';
 D2py = Dpy(1:end-1).*(interpOrder-2:-1:1)';
-% To do Newton's method, need two derivatives
 
-theta = 1/2;
 % midpoint is a good initial guess
+theta = 1/2;
 for newton = 1:2
+  % Using filter is the same as polyval, but it is much
+  % faster when only requiring a single polyval such as here.
   zx = filter(1,[1 -theta],px);
   zx = zx(end);
   zy = filter(1,[1 -theta],py);
@@ -619,25 +592,23 @@ for newton = 1:2
   D2zx = D2zx(end);
   D2zy = filter(1,[1 -theta],D2py);
   D2zy = D2zy(end);
-  % Using filter is the same as polyval, but it is much
-  % faster when only requiring a single polyval such as here.
 
-  newtonNum = (zx-xTar)*Dzx + (zy-ytar)*Dzy;
   % numerator of Newton's method
+  newtonNum = (zx-xTar)*Dzx + (zy-ytar)*Dzy;
+  % denominator of Newton's method
   newtonDen = (zx-xTar)*D2zx + (zy-ytar)*D2zy + ...
       Dzx^2 + Dzy^2;
-  % denominator of Newton's method
-  theta = theta - newtonNum/newtonDen;
   % one step of Newton's method
+  theta = theta - newtonNum/newtonDen;
 end
 % Do a few (no more than 3) Newton iterations
 
+% Compute nearest point and its distance from the target point
 nearestx = filter(1,[1,-theta],px);
 nearestx = nearestx(end);
 nearesty = filter(1,[1,-theta],py);
 nearesty = nearesty(end);
 dist = sqrt((nearestx - xTar)^2 + (nearesty - ytar)^2);
-% Compute nearest point and its distance from the target point
 
 end % closestPnt
 
@@ -645,20 +616,19 @@ end % closestPnt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [dist,x1,x2,y1,y2] = closestPntPair(~,X,...
         k,l,jk,jl)
-% [dist,x1,x2,y1,y2] = closestPntPair(X,k,l,icp,jcp)
-% computes the closest pair of points (x1, x2) and (y1, y2) 
-% between boundaries k and l using a Lagrange interpolant.  
-% jk, jl are the indeces of points on the discrete mesh used as an 
-% initial guess
+% [dist,x1,x2,y1,y2] = closestPntPair(X,k,l,icp,jcp) computes the
+% closest pair of points (x1, x2) and (y1, y2) between boundaries k and
+% l using a Lagrange interpolant. jk, jl are the indeces of points on
+% the discrete mesh used as an initial guess
 
 N = size(X,1)/2; % Number of points per boundary 
 A = poten.lagrangeInterp;
-interpOrder = size(A,1);
 % need interpolation matrix and its size
+interpOrder = size(A,1);
 
-p = ceil((interpOrder+1)/2);
 % Accommodate for either an even or odd number of interpolation
 % points
+p = ceil((interpOrder+1)/2);
 pn = mod((jk-p+1:jk-p+interpOrder)' - 1,N) + 1;
 qn = mod((jl-p+1:jl-p+interpOrder)' - 1,N) + 1;
 % band of points around icp, jcp respectively.  The -1,+1 combination sets index
@@ -707,11 +677,6 @@ for newton = 1:2
   DDv2 = filter(1,[1,-t],DDq2); DDv2 = DDv2(end);  
   % Using filter is the same as polyval, but it is much
   % faster when only requiring a single polyval such as here.
-
-  % f(s,t) = (u1(s) - v1(t))^2 + (u2(s) - v2(t))^2 
-  % f_s(s,t) =  2*(u1(s) - v1(t))*Du1(s) + 2*(u2(s) - v2(t))*Du2(s) 
-  % f_t(s,t) = -2*(u1(s) - v1(t))*Dv1(t) - 2*(u2(s) - v2(t))*Dv2(t) 
-  % ... 
 
   f   = 0.5*(u1 - v1)^2 + 0.5*(u2 - v2)^2;
   f_s = (u1 - v1)*Du1 + (u2 - v2)*Du2;
@@ -769,16 +734,14 @@ switch geom.bcType
   case 'cosine'  
     rhs  = 0.5*(1 + cos(NPeaks*(theta - tau))) + bcs;
 
-% The boundary condition 'cosine' is normalize by a factor.
+    % The boundary condition 'cosine' is normalize by a factor.
     for i = 1:geom.nb
         rhs(:,i) = rhs(:,i)/sqrt(sum(rhs(:,i).^2.*geom.sa(:,i))*2*pi/geom.N);
     end    
     
-    case 'vonMises'
-    rhs  = exp(bcs.*cos(theta - tau))/2/pi./besseli(0,bcs);
+  case 'vonMises'
+  rhs  = exp(bcs.*cos(theta - tau))/2/pi./besseli(0,bcs);
 end
-
-
 
 rhs = rhs(:);
 
@@ -811,7 +774,6 @@ for i = 1:geom.nb
   j = i;
   r_ref = min(geom.radii(i)*geom.ar(i), geom.radii(i));
   z = z + besselk(j,rad/geom.rho).*cos(j*th)/besselk(j,r_ref/geom.rho);
-
 end
 
 end % primal
@@ -819,7 +781,4 @@ end % primal
 end % methods
 
 end %capsules
-
-
-
 
