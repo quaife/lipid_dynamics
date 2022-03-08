@@ -92,68 +92,6 @@ area = sum( x.*Dy - y.*Dx)*pi/N;
 
 end % geomProp
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function X = redistributeArcLength(o, X)
-% X = resdistributeArcLength(o,X) resdistributes the geometry shape
-% eqiuspaced in arclength
-
-N = size(X,1)/2;
-modes = [(0:N/2-1) (-N/2:-1)];
-
-jac = o.diffProp(X);
-
-tol = 1e-10;
-
-if norm(jac - mean(jac),inf) > tol*mean(jac)
-  theta = o.arcLengthParameter(X(1:end/2),...
-      X(end/2+1:end));
-  zX = X(1:end/2) + 1i*X(end/2+1:end);
-  zXh = fft(zX)/N;
-  zX = zeros(N,1);
-  for j = 1:N
-    zX = zX + zXh(j)*exp(1i*modes(j)*theta);
-  end
-  X = o.setXY(real(zX),imag(zX));
-  % redistribute the geometry so that it is
-  % equispaced in arclength
-end
-
-end % redistributeArcLength
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [theta,arcLength] = arcLengthParameter(o,x,y)
-% theta = arcLengthParamter(o,x,y) finds a discretization of parameter
-% space theta so that the resulting geometry will be equispaced in
-% arclength
-
-uprate = 1;
-N = numel(x);
-Nup = uprate*N;
-t = (0:Nup-1)'*2*pi/Nup; % this is not correct when you iterate
-x = interpft(x,Nup);
-y = interpft(y,Nup);
-[~,len] = o.geomProp([x;y]);
-% find total perimeter
-[Dx,Dy] = o.getDXY([x;y]);
-% find derivative
-arc = sqrt(Dx.^2 + Dy.^2);
-arch = fft(arc);
-modes = -1i./[(0:Nup/2-1) 0 (-Nup/2+1:-1)]';
-modes(1) = 0;
-modes(Nup/2+1) = 0;
-arcLength = real(ifft(modes.*arch) - sum(modes.*arch/Nup) + ...
-    arch(1)*t/Nup);
-
-z1 = [arcLength(end-6:end)-len;arcLength;arcLength(1:7)+len];
-z2 = [t(end-6:end)-2*pi;t;t(1:7)+2*pi];
-% put in some overlap to account for periodicity
-
-theta = [interp1(z1,z2,(0:N-1)'*len/N,'spline')];
-
-end % arcLengthParamter
-
-end % methods
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 methods (Static)
@@ -227,46 +165,32 @@ function wn = wn_PnPoly(o, p1, p2, v1, v2, N)
 
 % wn_PnPoly(): winding number test for a point in a polygon
 %              useful for zeroing out interior
-%      Input:   P = a point (p1, p2)
-%               V = (v1, v2) = vertex points of a polygon with V(1) = V(N+1)
-%      Return:  wn = the winding number (=0 only when P is outside)
+% Input:   P = a point (p1, p2)
+%          V = (v1, v2) = vertex points of a polygon with V(1) = V(N+1)
+% Output:  wn = the winding number (=0 only when P is outside)
 
-    wn = 0*p1;
+wn = 0*p1;
 
-    for i = 1:N
-    
-        wn = wn + (v2(i) <= p2).*(v2(i+1)  > p2).*(o.isLeft(v1(i), v2(i), v1(i+1), v2(i+1), p1, p2) > 0);
-        wn = wn - (v2(i)  > p2).*(v2(i+1) <= p2).*(o.isLeft(v1(i), v2(i), v1(i+1), v2(i+1), p1, p2) < 0);
-
-    end
-    
+for i = 1:N
+  wn = wn + (v2(i) <= p2).*(v2(i+1)  > p2).*...
+        (o.isLeft(v1(i), v2(i), v1(i+1), v2(i+1), p1, p2) > 0);
+  wn = wn - (v2(i)  > p2).*(v2(i+1) <= p2).*...
+        (o.isLeft(v1(i), v2(i), v1(i+1), v2(i+1), p1, p2) < 0);
 end
+    
+end % wn_PnPoly
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function out = isLeft(o, p1, p2, q1, q2, r1, r2)
-    %    Input:  three points p, q, and r
-    %    Return: >0 for r left of the line through p and q
-    %            =0 for r  on the line
-    %            <0 for r  right of the line     
-    %http://geomalgorithms.com/a03-_inclusion.html
+%    Input:  three points p, q, and r
+%    Return: >0 for r left of the line through p and q
+%            =0 for r  on the line
+%            <0 for r  right of the line     
+% http://geomalgorithms.com/a03-_inclusion.html
 
-    out = (q1 - p1) .* (r2 - p2) - (r1 -  p1) .* (q2 - p2) ;
+out = (q1 - p1) .* (r2 - p2) - (r1 -  p1) .* (q2 - p2);
 
-end 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function y = FFTsmooth(y, co)
-y = fft(y);
-n = length(y);
-% Y = y;
-y(co:(n-co)+2) = 0;
-%[(1:n)' Y y]
-%pause
-y = ifft(y);
-end
-
+end % isLeft
 
 
 

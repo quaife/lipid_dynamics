@@ -450,3 +450,80 @@ torque = zeros(o.nb,1);   % original -10
 end % bodyForceTorque
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function X = redistributeArcLength(o, X)
+% X = resdistributeArcLength(o,X) resdistributes the geometry shape
+% equispaced in arclength
+
+N = size(X,1)/2;
+modes = [(0:N/2-1) (-N/2:-1)];
+
+jac = o.diffProp(X);
+
+tol = 1e-10;
+
+if norm(jac - mean(jac),inf) > tol*mean(jac)
+  theta = o.arcLengthParameter(X(1:end/2),...
+      X(end/2+1:end));
+  zX = X(1:end/2) + 1i*X(end/2+1:end);
+  zXh = fft(zX)/N;
+  zX = zeros(N,1);
+  for j = 1:N
+    zX = zX + zXh(j)*exp(1i*modes(j)*theta);
+  end
+  X = o.setXY(real(zX),imag(zX));
+  % redistribute the geometry so that it is
+  % equispaced in arclength
+end
+
+end % redistributeArcLength
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [theta,arcLength] = arcLengthParameter(o,x,y)
+% theta = arcLengthParamter(o,x,y) finds a discretization of parameter
+% space theta so that the resulting geometry will be equispaced in
+% arclength
+
+uprate = 1;
+N = numel(x);
+Nup = uprate*N;
+t = (0:Nup-1)'*2*pi/Nup; % this is not correct when you iterate
+x = interpft(x,Nup);
+y = interpft(y,Nup);
+[~,len] = o.geomProp([x;y]);
+% find total perimeter
+[Dx,Dy] = o.getDXY([x;y]);
+% find derivative
+arc = sqrt(Dx.^2 + Dy.^2);
+arch = fft(arc);
+modes = -1i./[(0:Nup/2-1) 0 (-Nup/2+1:-1)]';
+modes(1) = 0;
+modes(Nup/2+1) = 0;
+arcLength = real(ifft(modes.*arch) - sum(modes.*arch/Nup) + ...
+    arch(1)*t/Nup);
+
+z1 = [arcLength(end-6:end)-len;arcLength;arcLength(1:7)+len];
+z2 = [t(end-6:end)-2*pi;t;t(1:7)+2*pi];
+% put in some overlap to account for periodicity
+
+theta = [interp1(z1,z2,(0:N-1)'*len/N,'spline')];
+
+end % arcLengthParamter
+
+end % methods
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function y = FFTsmooth(y, co)
+y = fft(y);
+n = length(y);
+% Y = y;
+y(co:(n-co)+2) = 0;
+%[(1:n)' Y y]
+%pause
+y = ifft(y);
+end
+
+
+
+
+
