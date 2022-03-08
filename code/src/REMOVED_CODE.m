@@ -524,6 +524,44 @@ y = ifft(y);
 end
 
 
+function Deriv = D1(N)
+% Deriv = D1(N) constructs a N by N fourier differentiation matrix
+[FF,FFI] = fft1.fourierInt(N);
+Deriv = FFI * diag(1i*([0 -N/2+1:N/2-1])) * FF;
+Deriv = real(Deriv);
+
+end % D1
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [FF,FFI] = fourierInt(N)
+% [FF,FFI] = fourierInt(N) returns a matrix that take in the point
+% values of a function in [0,2*pi) and returns the fourier coefficients % (FF) and a matrix that takes in the fourier coefficients and returns
+% the function values (FFI)
+
+theta = (0:N-1)'*2*pi/N;
+%modes = [0;(-N/2+1:N/2-1)'];
+modes = [-N/2;(-N/2+1:N/2-1)'];
+
+FF = zeros(N);
+for i=1:N
+  FF(:,i) = exp(-1i*theta(i)*modes);
+end
+FF = FF/N;
+% FF takes function values and returns the Fourier coefficients
+
+if (nargout > 1)
+  FFI = zeros(N);
+  for i=1:N
+    FFI(:,i) = exp(1i*modes(i)*theta);
+  end
+  % FFI takes the Fourier coefficients and returns function values.
+else
+  FFI = [];
+end
+
+
+end % fourierInt
+
 
 
 
