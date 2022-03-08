@@ -771,7 +771,7 @@ switch geom.bcType
 
 % The boundary condition 'cosine' is normalize by a factor.
     for i = 1:geom.nb
-        rhs(:,i) = rhs(:,i)/(norm(rhs(:,i))*sqrt(2*pi*rad(i)/geom.N));
+        rhs(:,i) = rhs(:,i)/sqrt(sum(rhs(:,i).^2.*geom.sa(:,i))*2*pi/geom.N);
     end    
     
     case 'vonMises'
