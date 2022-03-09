@@ -286,7 +286,8 @@ LP = farField + nearField;
 end % nearSingInt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% START OF ROUTINES THAT BUILD LAYER-POTENTIAL MATRICES
+% START OF ROUTINES THAT BUILD LAYER-POTENTIAL MATRICES WHEN SOURCE ==
+% TARGET
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -364,30 +365,29 @@ end % k
 end % stokesDLmatrix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function N0 = stokesN0matrix(~,wall)
+function N0 = stokesN0matrix(~,geom)
 % N0 = stokesN0matrix(vesicle) generates the the integral operator with
 % kernel normal(x) \otimes normal(y) which removes the rank one
 % defficiency of the double-layer potential. Need this operator for
 % solid walls
 
 % Normal vector
-normal = [wall.xt(wall.N+1:2*wall.N,:);-wall.xt(1:wall.N,:)]; 
-normal = normal(:,ones(2*wall.N,1));
+normal = [geom.xt(geom.N+1:2*geom.N,:);-geom.xt(1:geom.N,:)]; 
+normal = normal(:,ones(2*geom.N,1));
 
-sa = [wall.sa(:,1);wall.sa(:,1)];
-sa = sa(:,ones(2*wall.N,1));
-N0 = zeros(2*wall.N,2*wall.N,wall.n);
-N0(:,:,1) = normal.*normal'.*sa'*2*pi/wall.N;
-% Use N0 if solving (-1/2 + DLP)\eta = f where f has no flux through
-% the boundary.  By solving (-1/2 + DLP + N0)\eta = f, we guarantee
-% that \eta also has no flux through the boundary.  This is not
-% required, but it means we're enforcing one addition condition on eta
-% which removes the rank one kernel.  DLP is the double-layer potential
-% for stokes equation
+% Jacobian
+sa = [geom.sa(:,1);geom.sa(:,1)];
+sa = sa(:,ones(2*geom.N,1));
+N0 = normal.*normal'.*sa'*2*pi/geom.N;
+% Use N0 if solving (-1/2 + DLP)\eta = f where f has no flux through the
+% boundary. By solving (-1/2 + DLP + N0)\eta = f, we guarantee that \eta
+% also has no flux through the boundary. This is not required, but it
+% means we're enforcing one addition condition on eta which removes the
+% rank one kernel. DLP is the double-layer potential for stokes equation
 
 end % stokesN0matrix
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function D = yukawaDLmatrix(~,geom)
 % D = yukawaDLmatrix(geom) generates double-layer potential for yukawa.
 % geom is a data structure defined as in the capsules class D is (N,N,n)
@@ -434,13 +434,12 @@ for k=1:geom.nb  % Loop over curves
   % r dot n term
   rdotn = diffx.*nx + diffy.*ny;
 
-  r2 = diffx.^2 + diffy.^2;
-  r12 = r2.^(0.5);
+  dist = sqrt(diffx.^2 + diffy.^2);
   % set diagonal terms to 0
-  r12(1:N+1:N^2) = 0;
+  dist(1:N+1:N^2) = 0;
 
-  D11 = 1/2/pi/geom.rho.*besselk(1,r12/geom.rho).*...
-      rdotn./r12.*sa;
+  D11 = 1/2/pi/geom.rho.*besselk(1,dist/geom.rho).*...
+      rdotn./dist.*sa;
 
   D11(1:N+1:N^2) = +0.25/pi*cur.*sa(1,:);
   D(:,:,k) = D11;
@@ -460,12 +459,12 @@ function GradDmat = yukawaGradDLmatrix(~,geom)
 % curve and n is the number of curves in X 
 
 oc = curve;
+% geometry positions
 [x,y] = oc.getXY(geom.X);
-% Vesicle positions
-N = geom.N;
 % number of points per geoms
-GradDmat = zeros(2*N,2*N,geom.nb);
+N = geom.N;
 % initialize space for double-layer potential matrix
+GradDmat = zeros(2*N,2*N,geom.nb);
 
 for k=1:geom.nb  % Loop over curves
   % locations
@@ -486,10 +485,6 @@ for k=1:geom.nb  % Loop over curves
   xsou = xtar';
   ysou = ytar';
 
-%   txsou = tx';
-%   tysou = ty';
-%   % tangent at sources
-  
   % Jacobian
   sa = sa(ones(N,1),:);
 
@@ -497,43 +492,215 @@ for k=1:geom.nb  % Loop over curves
   diffx = xtar - xsou;
   diffy = ytar - ysou;
   
-  r2 = diffx.^2 + diffy.^2;
-  r12 = r2.^(0.5);
-  r12(1:N+1:N^2) = 0;
+  dist2 = diffx.^2 + diffy.^2;
+  dist = dist2.^(0.5);
   % set diagonal terms to 0
+  dist(1:N+1:N^2) = 0;
 
-  rdotn = (diffx.*normal(:,1) + diffy.*normal(:,2))./r2;
+  rdotn = (diffx.*normal(:,1) + diffy.*normal(:,2))./dist2;
 
   omega = 1i*geom.rho;
-  tmp = omega*r12;
-  kernel1 = 1i/4*(omega*r12).^2.*besselh(0,omega*r12);  
-  kernel2 = 1i/4*omega*besselh(1,omega*r12)./r12;
-  kernel3 = -1i/2*omega.*besselh(1,omega*r12)./r12;
+  kernel1 = 1i/4*(omega*dist).^2.*besselh(0,omega*dist);  
+  kernel2 = 1i/4*omega*besselh(1,omega*dist)./dist;
+  kernel3 = -1i/2*omega.*besselh(1,omega*dist)./dist;
 
+  % (1,1) component
   GradD11 = ((kernel1+kernel3).*diffx.*rdotn + ...
               kernel2.*normal(:,1)).*sa;
-  % (1,1) component
-  GradD11(1:N+1:N^2) = 0;
   % diagonal limiting term
+  GradD11(1:N+1:N^2) = 0;
   
-  GradD12 = zeros(N);
   % (1,2) component
+  GradD12 = zeros(N);
 
+  % (2,2) component
   GradD22 = ((kernel1+kernel3).*diffy.*rdotn + ...
               kernel2.*normal(:,2)).*sa;
-  % (2,2) component
-  GradD22(1:N+1:N^2) = 0;
   % diagonal limiting term
+  GradD22(1:N+1:N^2) = 0;
 
-  GradDmat(:,:,k) = [GradD11 GradD12; GradD12 GradD22];
   % build matrix with four blocks
+  GradDmat(:,:,k) = [GradD11 GradD12; GradD12 GradD22];
   
-  GradDmat(:,:,k) = GradDmat(:,:,k)*2*pi/N;
   % scale with the arclength spacing
+  GradDmat(:,:,k) = GradDmat(:,:,k)*2*pi/N;
   
 end % k
 
 end % yukawaGradDLmatrix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% END OF ROUTINES THAT BUILD LAYER-POTENTIAL MATRICES WHEN SOURCE ==
+% TARGET
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START OF ROUTINES THAT BUILD LAYER-POTENTIAL MATRICES WHEN SOURCE ~=
+% TARGET
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [StokesDLP,StokesDLPtar] = exactStokesDLMatFree(o,...
+            geom,f,Xtar,K1)
+% [yukawaDLP,yukawaDLPtar] = exactStokesDLMatFree(geom,f,Xtar,K1)
+% computes the Stokes double-layer potential due to f around all parts
+% of the geometry except itself. Also can pass a set of target points
+% Xtar and a collection of geom K1 and the double-layer potential due to
+% components of the geometry in K1 will be evaluated at Xtar.
+% Everything but Xtar is in the 2*N x n format Xtar is in the 2*Ntar x
+% ncol format
+
+if nargin >= 5
+  Ntar = size(Xtar,1)/2;
+  ncol = size(Xtar,2);
+  StokesDLPtar = zeros(2*Ntar,ncol);
+%  itar = setdiff(1:numel(K1)+1,K1); % index of target body
+  [~,itar] = max(~ismember(1:numel(K1)+1,K1)); 
+  % faster way to do the setdiff we need
+else
+  K1 = [];
+  StokesDLPtar = [];
+  ncol = 0;
+  Ntar = 0;
+  % if nargin ~= 5, the user does not need the velocity at arbitrary
+  % points
+end
+den = f.*[geom.sa;geom.sa]*2*pi/geom.N;
+% jacobian term and 2*pi/N accounted for here
+
+den = den(:,K1);
+denx = den(1:geom.N,:);
+deny = den(geom.N+1:end,:);
+den = [denx(:);deny(:)];
+den = den(:,ones(2*Ntar,1))';
+for k = 1:ncol % loop over columns of target points
+  kernel = geom.StokesDL(:,:,itar).*den;
+  
+  StokesDLPtar(:,k) = StokesDLPtar(:,k) + sum(kernel,2);
+  % Stokes DLP
+end
+% double-layer potential due to geometry components indexed over K1
+% evaluated at arbitrary points
+
+%BQ: DON"T THINK THIS IS EVER BEING CALLED
+StokesDLP = zeros(2*geom.N,geom.nb);
+if (nargin == 3 && geom.N > 1)
+  for k = 1:geom.nb
+    K = [(1:k-1) (k+1:geom.nb)];
+    [x,y] = oc.getXY(geom.X(:,K));
+    [tx,ty] = oc.getXY(geom.xt(:,K));
+    nx = -ty; ny = tx;
+    den = f(:,K).*geom.sa(:,K)*2*pi/geom.N;
+    % density including the jacobian and arclength term
+    for j = 1:geom.N
+      diffx = geom.X(j,k) - x; diffy = geom.X(j+geom.N,k) - y;
+      % difference of source and target location
+      dis2 = diffx.^2 + diffy.^2;
+      % distance squared
+      dis = sqrt(dis2);
+      % distance
+      rdotn = diffx.*nx + diffy.*ny;
+      % difference dotted with normal
+
+      % double-layer potential for Stokes
+%      StokesDLP(j,k) = StokesDLP(j,k) - ...
+%          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
+    end
+  end
+
+  StokesDLP = StokesDLP/2/pi/geom.rho;
+  % 1/2/pi is the coefficient in front of the double-layer potential
+  % 1/geom.rho comes out of the chain rule
+end
+% double-layer potential due to all components of the geometry except
+% oneself
+
+end % exactStokesDLMatFree
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [yukawaDLP,yukawaDLPtar] = exactYukawaDLMatFree(o,...
+            geom,f,Xtar,K1)
+% [yukawaDLP,yukawaDLPtar] = exactYukawaDLMatFree(geom,f,Xtar,K1)
+% computes the Yukawa double-layer potential due to f around all parts
+% of the geometry except itself. Also can pass a set of target points
+% Xtar and a collection of geom K1 and the double-layer potential due to
+% components of the geometry in K1 will be evaluated at Xtar.
+% Everything but Xtar is in the 2*N x n format Xtar is in the 2*Ntar x
+% ncol format
+
+if nargin >= 5
+  Ntar = size(Xtar,1)/2;
+  ncol = size(Xtar,2);
+  yukawaDLPtar = zeros(Ntar,ncol);
+  % faster way to do the setdiff we need
+  [~,itar] = max(~ismember(1:numel(K1)+1,K1)); 
+else
+  K1 = [];
+  yukawaDLPtar = [];
+  ncol = 0;
+  Ntar = 0;
+  % if nargin ~= 5, the user does not need the velocity at arbitrary
+  % points
+end
+den = f.*geom.sa*2*pi/geom.N;
+% jacobian term and 2*pi/N accounted for here
+
+den = den(:,K1);
+den = den(:);
+den = den(:,ones(Ntar,1))';
+for k = 1:ncol % loop over columns of target points
+  kernel = geom.BK1(:,:,itar).*den;
+  
+  yukawaDLPtar(:,k) = yukawaDLPtar(:,k) + sum(kernel,2);
+  % Yukawa DLP
+end
+% double-layer potential due to geometry components indexed over K1
+% evaluated at arbitrary points
+
+yukawaDLP = zeros(geom.N,geom.nb);
+if (nargin == 3 && geom.N > 1)
+  for k = 1:geom.nb
+    K = [(1:k-1) (k+1:geom.nb)];
+    [x,y] = oc.getXY(geom.X(:,K));
+    [tx,ty] = oc.getXY(geom.xt(:,K));
+    nx = -ty; ny = tx;
+    den = f(:,K).*geom.sa(:,K)*2*pi/geom.N;
+    % density including the jacobian and arclength term
+    for j = 1:geom.N
+      diffx = geom.X(j,k) - x; diffy = geom.X(j+geom.N,k) - y;
+      % difference of source and target location
+      dis2 = diffx.^2 + diffy.^2;
+      % distance squared
+      dis = sqrt(dis2);
+      % distance
+      rdotn = diffx.*nx + diffy.*ny;
+      % difference dotted with normal
+
+      % double-layer potential for Yukawa
+      yukawaDLP(j,k) = yukawaDLP(j,k) - ...
+          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
+
+      % BQ: NOT SURE WHY WE NEED A MINUS SIGN HERE, BUT IT MAKES IT WORK
+    end
+  end
+
+  yukawaDLP = yukawaDLP/2/pi/geom.rho;
+  % 1/2/pi is the coefficient in front of the double-layer potential
+  % 1/geom.rho comes out of the chain rule
+end
+% double-layer potential due to all components of the geometry except
+% oneself
+
+end % exactYukawaDLMatFree
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% END OF ROUTINES THAT BUILD LAYER-POTENTIAL MATRICES WHEN SOURCE ~=
+% TARGET
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START OF ROUTINES THAT EVALUATE LAYER POTENTIALS WHEN SOURCE == TARGET
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function DLP = exactStokesDLdiag(~,geom,D,f)
@@ -598,10 +765,8 @@ end
 
 end % exactYukawaDLdiag
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% END OF ROUTINES THAT EVALUATE LAYER-POTENTIALS
-% WHEN SOURCES == TARGETS
+% END OF ROUTINES THAT EVALUATE LAYER POTENTIALS WHEN SOURCE == TARGET
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -708,13 +873,12 @@ end
 
 end % exactStokesDL
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [StokesDLP,StokesDLPtar] = exactStokesDLMatFree(o,...
-            geom,f,Xtar,K1)
-% [yukawaDLP,yukawaDLPtar] = exactStokesDLMatFree(geom,f,Xtar,K1)
-% computes the Stokes double-layer potential due to f around all parts
-% of the geometry except itself. Also can pass a set of target points
-% Xtar and a collection of geom K1 and the double-layer potential due to
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [yukawaDLP,yukawaDLPtar] = exactYukawaDL(o,geom,f,Xtar,K1)
+% [yukawaDLP,yukawaDLPtar] = exactYukawaDL(geom,f,Xtar,K1) computes the
+% Yukawa double-layer potential due to f around all parts of the
+% geometry except itself. Also can pass a set of target points Xtar and
+% a collection of geom K1 and the double-layer potential due to
 % components of the geometry in K1 will be evaluated at Xtar.
 % Everything but Xtar is in the 2*N x n format Xtar is in the 2*Ntar x
 % ncol format
@@ -722,36 +886,59 @@ function [StokesDLP,StokesDLPtar] = exactStokesDLMatFree(o,...
 if nargin >= 5
   Ntar = size(Xtar,1)/2;
   ncol = size(Xtar,2);
-  StokesDLPtar = zeros(2*Ntar,ncol);
-%  itar = setdiff(1:numel(K1)+1,K1); % index of target body
-  [~,itar] = max(~ismember(1:numel(K1)+1,K1)); 
-  % faster way to do the setdiff we need
+  yukawaDLPtar = zeros(Ntar,ncol);
 else
   K1 = [];
-  StokesDLPtar = [];
+  yukawaDLPtar = [];
   ncol = 0;
   Ntar = 0;
   % if nargin ~= 5, the user does not need the velocity at arbitrary
   % points
 end
-den = f.*[geom.sa;geom.sa]*2*pi/geom.N;
+den = f.*geom.sa*2*pi/geom.N;
 % jacobian term and 2*pi/N accounted for here
 
+oc = curve;
+[xsou,ysou] = oc.getXY(geom.X(:,K1));
+xsou = xsou(:); ysou = ysou(:);
+xsou = xsou(:,ones(Ntar,1))';
+ysou = ysou(:,ones(Ntar,1))';
+
 den = den(:,K1);
-denx = den(1:geom.N,:);
-deny = den(geom.N+1:end,:);
-den = [denx(:);deny(:)];
-den = den(:,ones(2*Ntar,1))';
+den = den(:);
+den = den(:,ones(Ntar,1))';
+
+[tx,ty] = oc.getXY(geom.xt(:,K1));
+nx = -ty(:); ny = tx(:);
+normalx = nx(:,ones(Ntar,1))';
+normaly = ny(:,ones(Ntar,1))';
+
+invrho = 1/geom.rho;
 for k = 1:ncol % loop over columns of target points
-  kernel = geom.StokesDL(:,:,itar).*den;
+  [xtar,ytar] = oc.getXY(Xtar(:,k));
+  xtar = xtar(:,ones(geom.N*numel(K1),1));
+  ytar = ytar(:,ones(geom.N*numel(K1),1));
   
-  StokesDLPtar(:,k) = StokesDLPtar(:,k) + sum(kernel,2);
-  % Stokes DLP
+  diffx = xtar - xsou; diffy = ytar - ysou;
+  % difference of source and target location
+  dis2 = diffx.^2 + diffy.^2;
+  % distance squared
+  dis = sqrt(dis2);
+  % distance
+  rdotn = diffx.*normalx + diffy.*normaly;
+  % difference dotted with normal
+
+  BK1 = besselk(1,invrho*dis);
+  kernel = -1/2/pi*invrho*BK1.*rdotn./dis.*den;
+%  kernel = -1/2/pi*normaly.*den;
+  
+  yukawaDLPtar(:,k) = yukawaDLPtar(:,k) + sum(kernel,2);
+  % Yukawa DLP
 end
 % double-layer potential due to geometry components indexed over K1
 % evaluated at arbitrary points
 
-StokesDLP = zeros(2*geom.N,geom.nb);
+yukawaDLP = zeros(geom.N,geom.nb);
 if (nargin == 3 && geom.N > 1)
   for k = 1:geom.nb
     K = [(1:k-1) (k+1:geom.nb)];
@@ -770,20 +957,20 @@ if (nargin == 3 && geom.N > 1)
       rdotn = diffx.*nx + diffy.*ny;
       % difference dotted with normal
 
-      % double-layer potential for Stokes
-%      StokesDLP(j,k) = StokesDLP(j,k) - ...
-%          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
+      % double-layer potential for Yukawa
+      yukawaDLP(j,k) = yukawaDLP(j,k) - ...
+          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
     end
   end
 
-  StokesDLP = StokesDLP/2/pi/geom.rho;
+  yukawaDLP = yukawaDLP/2/pi/geom.rho;
   % 1/2/pi is the coefficient in front of the double-layer potential
   % 1/geom.rho comes out of the chain rule
 end
 % double-layer potential due to all components of the geometry except
 % oneself
 
-end % exactStokesDLMatFree
+end % exactYukawaDL
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [stokesDLPpressure,stokesDLPpressuretar] = ...
@@ -941,6 +1128,15 @@ stokesDLPstress = [];
 end % exactStokesDLstress
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% END OF ROUTINES THAT EVALUATE LAYER-POTENTIALS WHEN SOURCES ~=
+% TARGETS.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START OF ROUTINES THAT EVALUATE ROTLETS AND STOKESLETS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [vLets,vLetsTar] = StokesletRotlet(o,geom,force,torque,Xtar,K1)
 % [vLets,vLetsTar] = StokesletRotlet(geom,force,torque,Xtar,K1) computes
 % the velocity due to stokeslets and rotlets. Also can pass a set of
@@ -988,7 +1184,6 @@ for k = 1:ncol % loop over columns of target points
     vLetsTar = vLetsTar + (1/4/pi)*tor*[-ry./rho2;+rx./rho2]; 
   end
 end
-
 
 % stokeslet and torques along the bodies
 vLets = zeros(2*N,nb);
@@ -1094,188 +1289,9 @@ end
 
 end % RSstress
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [yukawaDLP,yukawaDLPtar] = exactYukawaDL(o,geom,f,Xtar,K1)
-% [yukawaDLP,yukawaDLPtar] = exactYukawaDL(geom,f,Xtar,K1) computes the
-% Yukawa double-layer potential due to f around all parts of the
-% geometry except itself. Also can pass a set of target points Xtar and
-% a collection of geom K1 and the double-layer potential due to
-% components of the geometry in K1 will be evaluated at Xtar.
-% Everything but Xtar is in the 2*N x n format Xtar is in the 2*Ntar x
-% ncol format
-
-if nargin >= 5
-  Ntar = size(Xtar,1)/2;
-  ncol = size(Xtar,2);
-  yukawaDLPtar = zeros(Ntar,ncol);
-else
-  K1 = [];
-  yukawaDLPtar = [];
-  ncol = 0;
-  Ntar = 0;
-  % if nargin ~= 5, the user does not need the velocity at arbitrary
-  % points
-end
-den = f.*geom.sa*2*pi/geom.N;
-% jacobian term and 2*pi/N accounted for here
-
-oc = curve;
-[xsou,ysou] = oc.getXY(geom.X(:,K1));
-xsou = xsou(:); ysou = ysou(:);
-xsou = xsou(:,ones(Ntar,1))';
-ysou = ysou(:,ones(Ntar,1))';
-
-den = den(:,K1);
-den = den(:);
-den = den(:,ones(Ntar,1))';
-
-[tx,ty] = oc.getXY(geom.xt(:,K1));
-nx = -ty(:); ny = tx(:);
-normalx = nx(:,ones(Ntar,1))';
-normaly = ny(:,ones(Ntar,1))';
-
-invrho = 1/geom.rho;
-for k = 1:ncol % loop over columns of target points
-  [xtar,ytar] = oc.getXY(Xtar(:,k));
-  xtar = xtar(:,ones(geom.N*numel(K1),1));
-  ytar = ytar(:,ones(geom.N*numel(K1),1));
-  
-  diffx = xtar - xsou; diffy = ytar - ysou;
-  % difference of source and target location
-  dis2 = diffx.^2 + diffy.^2;
-  % distance squared
-  dis = sqrt(dis2);
-  % distance
-  rdotn = diffx.*normalx + diffy.*normaly;
-  % difference dotted with normal
-
-  BK1 = besselk(1,invrho*dis);
-  kernel = -1/2/pi*invrho*BK1.*rdotn./dis.*den;
-%  kernel = -1/2/pi*normaly.*den;
-  
-  yukawaDLPtar(:,k) = yukawaDLPtar(:,k) + sum(kernel,2);
-  % Yukawa DLP
-end
-% double-layer potential due to geometry components indexed over K1
-% evaluated at arbitrary points
-
-yukawaDLP = zeros(geom.N,geom.nb);
-if (nargin == 3 && geom.N > 1)
-  for k = 1:geom.nb
-    K = [(1:k-1) (k+1:geom.nb)];
-    [x,y] = oc.getXY(geom.X(:,K));
-    [tx,ty] = oc.getXY(geom.xt(:,K));
-    nx = -ty; ny = tx;
-    den = f(:,K).*geom.sa(:,K)*2*pi/geom.N;
-    % density including the jacobian and arclength term
-    for j = 1:geom.N
-      diffx = geom.X(j,k) - x; diffy = geom.X(j+geom.N,k) - y;
-      % difference of source and target location
-      dis2 = diffx.^2 + diffy.^2;
-      % distance squared
-      dis = sqrt(dis2);
-      % distance
-      rdotn = diffx.*nx + diffy.*ny;
-      % difference dotted with normal
-
-      % double-layer potential for Yukawa
-      yukawaDLP(j,k) = yukawaDLP(j,k) - ...
-          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
-
-      % BQ: NOT SURE WHY WE NEED A MINUS SIGN HERE, BUT IT MAKES IT WORK
-    end
-  end
-
-  yukawaDLP = yukawaDLP/2/pi/geom.rho;
-  % 1/2/pi is the coefficient in front of the double-layer potential
-  % 1/geom.rho comes out of the chain rule
-end
-% double-layer potential due to all components of the geometry except
-% oneself
-
-end % exactYukawaDL
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [yukawaDLP,yukawaDLPtar] = exactYukawaDLMatFree(o,...
-            geom,f,Xtar,K1)
-% [yukawaDLP,yukawaDLPtar] = exactYukawaDLMatFree(geom,f,Xtar,K1)
-% computes the Yukawa double-layer potential due to f around all parts
-% of the geometry except itself. Also can pass a set of target points
-% Xtar and a collection of geom K1 and the double-layer potential due to
-% components of the geometry in K1 will be evaluated at Xtar.
-% Everything but Xtar is in the 2*N x n format Xtar is in the 2*Ntar x
-% ncol format
-
-if nargin >= 5
-  Ntar = size(Xtar,1)/2;
-  ncol = size(Xtar,2);
-  yukawaDLPtar = zeros(Ntar,ncol);
-  % faster way to do the setdiff we need
-  [~,itar] = max(~ismember(1:numel(K1)+1,K1)); 
-else
-  K1 = [];
-  yukawaDLPtar = [];
-  ncol = 0;
-  Ntar = 0;
-  % if nargin ~= 5, the user does not need the velocity at arbitrary
-  % points
-end
-den = f.*geom.sa*2*pi/geom.N;
-% jacobian term and 2*pi/N accounted for here
-
-den = den(:,K1);
-den = den(:);
-den = den(:,ones(Ntar,1))';
-for k = 1:ncol % loop over columns of target points
-  kernel = geom.BK1(:,:,itar).*den;
-  
-  yukawaDLPtar(:,k) = yukawaDLPtar(:,k) + sum(kernel,2);
-  % Yukawa DLP
-end
-% double-layer potential due to geometry components indexed over K1
-% evaluated at arbitrary points
-
-yukawaDLP = zeros(geom.N,geom.nb);
-if (nargin == 3 && geom.N > 1)
-  for k = 1:geom.nb
-    K = [(1:k-1) (k+1:geom.nb)];
-    [x,y] = oc.getXY(geom.X(:,K));
-    [tx,ty] = oc.getXY(geom.xt(:,K));
-    nx = -ty; ny = tx;
-    den = f(:,K).*geom.sa(:,K)*2*pi/geom.N;
-    % density including the jacobian and arclength term
-    for j = 1:geom.N
-      diffx = geom.X(j,k) - x; diffy = geom.X(j+geom.N,k) - y;
-      % difference of source and target location
-      dis2 = diffx.^2 + diffy.^2;
-      % distance squared
-      dis = sqrt(dis2);
-      % distance
-      rdotn = diffx.*nx + diffy.*ny;
-      % difference dotted with normal
-
-      % double-layer potential for Yukawa
-      yukawaDLP(j,k) = yukawaDLP(j,k) - ...
-          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
-
-      % BQ: NOT SURE WHY WE NEED A MINUS SIGN HERE, BUT IT MAKES IT WORK
-    end
-  end
-
-  yukawaDLP = yukawaDLP/2/pi/geom.rho;
-  % 1/2/pi is the coefficient in front of the double-layer potential
-  % 1/geom.rho comes out of the chain rule
-end
-% double-layer potential due to all components of the geometry except
-% oneself
-
-end % exactYukawaDLMatFree
-
+% START OF ROUTINES THAT EVALUATE ROTLETS AND STOKESLETS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% END OF ROUTINES THAT EVALUATE LAYER-POTENTIALS
-% WHEN SOURCES ~= TARGETS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1580,10 +1596,10 @@ for p = 1:Nb
     jjp = i(arg);
     jjq = j(arg); 
 
+    % (x1nrt, x2nrt) and (y1nrt, y2nrt) are the nearest points in curves
+    % p, q respectively
     [dist,x1nrt,x2nrt,y1nrt,y2nrt] = geom.closestPntPair(geom.X,p,q,jjp,jjq);      
 
-    %(x1nrt, x2nrt) and (y1nrt, y2nrt) are the nearest points in curves
-    %p, q respectively
     
     r1 = x1nrt - y1nrt;
     r2 = x2nrt - y2nrt;
@@ -1639,8 +1655,8 @@ end % Repul
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [R, dR] = Repul_profile(o, z)
 
-% a repulsion profile with cut-off. Cut-off must occur at z = 1 (inside function)
-% ie dist = l0 on outside call. 
+% a repulsion profile with cut-off. Cut-off must occur at z = 1 (inside
+% function) ie dist = l0 on outside call. 
 
 %R  =  exp(-z); %
 R  = (1 - sin(z*pi/2)).*( z < 1 );
