@@ -13,9 +13,7 @@ properties
     
   N; % points per curve
   interpMat;  
-  profile;
   rho % screen length
-  om;
   
 end % properties
 
@@ -51,7 +49,6 @@ function LP = nearSingInt(o,geomSou,f,selfMat,...
 % precomputed). Everything is in the 2*N x n format. Can pass a final
 % argument if desired so that plots of the near-singular integration
 % algorithm are displayed
-
 
 if (tEqualS && size(geomSou.X,2) == 1)
   LP = zeros(size(geomSou.X));
@@ -582,38 +579,8 @@ end
 % double-layer potential due to geometry components indexed over K1
 % evaluated at arbitrary points
 
-%BQ: DON"T THINK THIS IS EVER BEING CALLED
-StokesDLP = zeros(2*geom.N,geom.nb);
-if (nargin == 3 && geom.N > 1)
-  for k = 1:geom.nb
-    K = [(1:k-1) (k+1:geom.nb)];
-    [x,y] = oc.getXY(geom.X(:,K));
-    [tx,ty] = oc.getXY(geom.xt(:,K));
-    nx = -ty; ny = tx;
-    den = f(:,K).*geom.sa(:,K)*2*pi/geom.N;
-    % density including the jacobian and arclength term
-    for j = 1:geom.N
-      diffx = geom.X(j,k) - x; diffy = geom.X(j+geom.N,k) - y;
-      % difference of source and target location
-      dis2 = diffx.^2 + diffy.^2;
-      % distance squared
-      dis = sqrt(dis2);
-      % distance
-      rdotn = diffx.*nx + diffy.*ny;
-      % difference dotted with normal
-
-      % double-layer potential for Stokes
-%      StokesDLP(j,k) = StokesDLP(j,k) - ...
-%          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
-    end
-  end
-
-  StokesDLP = StokesDLP/2/pi/geom.rho;
-  % 1/2/pi is the coefficient in front of the double-layer potential
-  % 1/geom.rho comes out of the chain rule
-end
-% double-layer potential due to all components of the geometry except
-% oneself
+% DON'T NEED STOKESDLP IN ANY FUNCTION THAT CALLS THIS ROUTINE
+StokesDLP = [];
 
 end % exactStokesDLMatFree
 
@@ -657,39 +624,7 @@ end
 % double-layer potential due to geometry components indexed over K1
 % evaluated at arbitrary points
 
-yukawaDLP = zeros(geom.N,geom.nb);
-if (nargin == 3 && geom.N > 1)
-  for k = 1:geom.nb
-    K = [(1:k-1) (k+1:geom.nb)];
-    [x,y] = oc.getXY(geom.X(:,K));
-    [tx,ty] = oc.getXY(geom.xt(:,K));
-    nx = -ty; ny = tx;
-    den = f(:,K).*geom.sa(:,K)*2*pi/geom.N;
-    % density including the jacobian and arclength term
-    for j = 1:geom.N
-      diffx = geom.X(j,k) - x; diffy = geom.X(j+geom.N,k) - y;
-      % difference of source and target location
-      dis2 = diffx.^2 + diffy.^2;
-      % distance squared
-      dis = sqrt(dis2);
-      % distance
-      rdotn = diffx.*nx + diffy.*ny;
-      % difference dotted with normal
-
-      % double-layer potential for Yukawa
-      yukawaDLP(j,k) = yukawaDLP(j,k) - ...
-          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
-
-      % BQ: NOT SURE WHY WE NEED A MINUS SIGN HERE, BUT IT MAKES IT WORK
-    end
-  end
-
-  yukawaDLP = yukawaDLP/2/pi/geom.rho;
-  % 1/2/pi is the coefficient in front of the double-layer potential
-  % 1/geom.rho comes out of the chain rule
-end
-% double-layer potential due to all components of the geometry except
-% oneself
+yukawaDLP = [];
 
 end % exactYukawaDLMatFree
 
@@ -837,39 +772,7 @@ stokesDLPtar = stokesDLPtar/pi;
 % double-layer potential due to geometry components indexed over K1
 % evaluated at arbitrary points
 
-stokesDLP = zeros(2*geom.N,geom.nb);
-if (nargin == 4 && geom.nb > 1)
-  for k = 1:geom.n
-    K = [(1:k-1) (k+1:geom.nb)];
-    [x,y] = oc.getXY(geom.X(:,K));
-    [nx,ny] = oc.getXYperp(geom.xt(:,K));
-    [denx,deny] = oc.getXY(den(:,K));
-    for j=1:geom.N
-      diffxy = [geom.X(j,k) - x ; geom.X(j+geom.N,k) - y];
-      dis2 = diffxy(1:geom.N,:).^2 + ...
-          diffxy(geom.N+1:2*geom.N,:).^2;
-      % difference of source and target location and distance squared
-
-      rdotfTIMESrdotn = ...
-        (diffxy(1:geom.N,:).*nx + ...
-        diffxy(geom.N+1:2*geom.N,:).*ny)./dis2.^2 .* ...
-        (diffxy(1:geom.N,:).*denx + ...
-        diffxy(geom.N+1:2*geom.N,:).*deny);
-      % \frac{(r \dot n)(r \dot density)}{\rho^{4}} term
-
-      stokesDLP(j,k) = stokesDLP(j,k) + ...
-          sum(sum(rdotfTIMESrdotn.*diffxy(1:geom.N,:)));
-      stokesDLP(j+geom.N,k) = stokesDLP(j+geom.N,k) + ...
-          sum(sum(rdotfTIMESrdotn.*diffxy(geom.N+1:2*geom.N,:)));
-      % double-layer potential for Stokes
-    end
-  end
-
-  stokesDLP = stokesDLP/pi;
-  % 1/pi is the coefficient in front of the double-layer potential
-end
-% double-layer potential due to all components of the geometry except
-% oneself
+stokesDLP = [];
 
 end % exactStokesDL
 
@@ -938,37 +841,7 @@ end
 % double-layer potential due to geometry components indexed over K1
 % evaluated at arbitrary points
 
-yukawaDLP = zeros(geom.N,geom.nb);
-if (nargin == 3 && geom.N > 1)
-  for k = 1:geom.nb
-    K = [(1:k-1) (k+1:geom.nb)];
-    [x,y] = oc.getXY(geom.X(:,K));
-    [tx,ty] = oc.getXY(geom.xt(:,K));
-    nx = -ty; ny = tx;
-    den = f(:,K).*geom.sa(:,K)*2*pi/geom.N;
-    % density including the jacobian and arclength term
-    for j = 1:geom.N
-      diffx = geom.X(j,k) - x; diffy = geom.X(j+geom.N,k) - y;
-      % difference of source and target location
-      dis2 = diffx.^2 + diffy.^2;
-      % distance squared
-      dis = sqrt(dis2);
-      % distance
-      rdotn = diffx.*nx + diffy.*ny;
-      % difference dotted with normal
-
-      % double-layer potential for Yukawa
-      yukawaDLP(j,k) = yukawaDLP(j,k) - ...
-          sum(sum(besselk(1,dis/geom.rho).*rdotn./dis.*den));
-    end
-  end
-
-  yukawaDLP = yukawaDLP/2/pi/geom.rho;
-  % 1/2/pi is the coefficient in front of the double-layer potential
-  % 1/geom.rho comes out of the chain rule
-end
-% double-layer potential due to all components of the geometry except
-% oneself
+yukawaDLP = [];
 
 end % exactYukawaDL
 
