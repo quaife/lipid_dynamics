@@ -5,7 +5,7 @@ properties
 verbose    % write data to console
 save       % save data to the dat files and log file
 dataFile   % name of data file containing fibre centres and orientations
-velFile   % name of data file containing velocities
+velFile    % name of data file containing velocities
 logFile    % name of log file
 usePlot    % flag for plotting
 plotAxis   % plotting axis
@@ -88,8 +88,8 @@ end % welcomeMessage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function writeStars(o)
-% writeStars writes a message of stars to the console
-% and the log file depending on verbose and saveData
+% writeStars writes a message of stars to the console and the log file
+% depending on verbose and saveData
 
 stars = '***********************************************************';
 o.writeMessage(stars)
@@ -98,19 +98,18 @@ end % writeStars
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function writeMessage(o,message)
-% function writeMessage(message) appends message 
-% to o.fileName
+% function writeMessage(message) appends message to o.fileName
 
+% save to log file
 if o.save
   fid = fopen(o.logFile,'a');
   fprintf(fid,'%s\n',message);
   fclose(fid);
 end
-% save to log file
+% write to console if verbose==true
 if o.verbose
   disp(message)
 end
-% write to console if verbose==true
 
 
 end % writeMessage
@@ -176,9 +175,6 @@ if o.usePlot
   oc = curve;
   figure(1); clf;
   for i = 1:geom.nb
-%    xind = [geom.X(1:geom.N,i); geom.X(1,i)];
-%    yind = [geom.X(geom.N+1:2*geom.N,i); geom.X(geom.N+1,i)];
-%    plot(xind,yind,'k');
     xx = geom.center(1,i);
     yy = geom.center(2,i);
     th = geom.tau(i);
@@ -244,7 +240,7 @@ if o.usePlot
 end
 
 
-end % plotData
+end % plotField
 
 
 end % methods

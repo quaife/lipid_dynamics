@@ -7,21 +7,13 @@ properties
 
 dt              % time step size
 sstep           % starting step
-Dp              % Stokes DLP for fiber-fiber interaction
-rhs             % Right hand side of mobility problem
-rhs2            % Right hand side of screen laplace problem
-inear           % flag for using near-singular integration
 gmresTol        % GMRES tolerance
-plotAxis        % plot axes
 farField        % background flow
 janusbc         % particle boundary condition
 tracer          % flag for tracer
-precow          % block-diagonal preconditioner for walls
-potp            % class for fiber layer potentials
-potw            % class for wall layer potentials
-om              % monitor class
-precoYukawa
-precoStokes
+precoYukawa     % block-diagonal preconditioner for Yukawa
+precoStokes     % block-diagonal preconditioner for Stokes on bodies
+precoWalls      % block-diagonal preconditioner for walls
 
 end % properties
 
@@ -32,11 +24,9 @@ function o = tstep(options,prams)
 % o.tstep(options,prams): constructor.  Initialize class.  Take all
 % elements of options and prams needed by the time stepper
 
-o.inear    = options.inear;
 o.dt       = prams.T/prams.m;
 o.sstep    = prams.sstep;
 o.gmresTol = options.gmresTol;
-o.plotAxis = options.plotAxis;
 o.farField = @(X) o.bgFlow(X,options);
 o.tracer   = options.tracer;
 
@@ -47,7 +37,8 @@ end % constructor: tstep
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Up,wp,iterYukawa,iterStokes,etaYukawa,etaStokes,fforce,torque] = timeStep(o,geom,etaY0,etaS0)
+function [Up,wp,iterYukawa,iterStokes,etaYukawa,etaStokes,...
+      fforce,torque] = timeStep(o,geom,etaY0,etaS0)
 % Main time stepping routine
 oc     = curve;
 N      = geom.N;
@@ -60,24 +51,16 @@ gam    = geom.gam;
 radii  = geom.radii;
 
 % CREATE NEAR SINGULAR INTEGRATION STRUCTURES
-if o.inear
-  geom.nearStruct = geom.getZone([],1);
-end
+geom.nearStruct = geom.getZone([],1);
 
-% START OF REPULSION CALCULATION
- 
 op = poten(geom.N,geom.rho);
+% START OF REPULSION CALCULATION
 [R1, R2, RTq, pp] = op.Repul(geom);
-
 % END OF REPULSION CALCULATION
 
-
-% START OF SCREENED LAPLACE SOLVE USING GMRES
-
+% START OF SCREENED LAPLACE SOLVE TO FIND HYDROPHOBIC FORCE AND TORQUE
 % right hand side for the screened Laplace solver
 yukawaRHS = geom.yukawaRHS;
-
-op = poten(geom.N,geom.rho);
 
 % build the DLP Yukawa matrix
 geom.DLPYukawa = op.yukawaDLmatrix(geom); 
@@ -90,21 +73,15 @@ end
 
 % build precomputed matrix with all necessary bessel functions that are
 % needed at every GMRES iteration
-geom.BesselDistanceMatrix;
+geom.YukawaKernelMatrix;
 
 % Solve for the density function using GMRES
-%tic
 [sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
       @(etaY0) o.timeMatVecYukawa(etaY0,geom) ,...
       yukawaRHS, [], o.gmresTol, N*nb, ...
       @(etaY0) o.precoYukawaBD(etaY0)); 
-%[sigma,iflagYukawa,resYukawa,iterYukawa] = gmres(...
-%      @(etaY0) o.timeMatVecYukawa(etaY0,geom) ,...
-%      yukawaRHS, [], o.gmresTol, N*nb); 
 iterYukawa = iterYukawa(2);
 fprintf('Yukawa required %i iterations\n',iterYukawa);
-%toc
-%pause
 
 % Unstack the density function so that it is arranged as columns for
 % each body
@@ -120,10 +97,10 @@ end
 
 % tst = fopen("HAP_force_distance.dat", "r");
 % if tst == -1
-%     fid = fopen("HAP_force_distance.dat", "w");
+%   fid = fopen("HAP_force_distance.dat", "w");
 % else 
-%     fclose(tst);
-%     fid = fopen("HAP_force_distance.dat", "a");
+%   fclose(tst);
+%   fid = fopen("HAP_force_distance.dat", "a");
 % end
 % fprintf(fid,"%d %d\n", [geom.center(1,2) - geom.center(1,1) - 2,  F1(1)]');
 % fclose(fid);
@@ -151,13 +128,9 @@ pause(0.01)
 fforce  = [F1 + R1, F2 + R2].';
 force  = fforce(:);
 torque = Tq + RTq;
+% END OF SCREENED LAPLACE SOLVE TO FIND HYDROPHOBIC FORCE AND TORQUE
 
-%force = 0*[-2;1;0;0;2;-1];
-%torque = 1*[-10;0;+10];
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% solve mobility problem here
-
+% START OF MOBILITY PROBLEM
 % far field condition plus the stokeslet and rotlet terms
 rhs = o.farField(X) + op.StokesletRotlet(geom,force,torque);
 
@@ -191,17 +164,14 @@ o.precoStokesMatrix(geom);
 % max GMRES iterations
 maxit = 2*N*nb; 
 
-% SOLVE SYSTEM USING GMRES
-%tic
+% Build the upsampled matrix for doing stokes Layer potentials
+geom.StokesDLMatrix;
 
+%tic
 [sigma, iflagStokes, resStokes, iterStokes] = gmres(...
       @(etaS0) o.timeMatVecStokes(etaS0,geom),...
       rhs,[],o.gmresTol,maxit,...
       @(etaY0) o.precoStokesBD(etaY0));
-      
-%[sigma, iflagStokes, resStokes, iterStokes] = gmres(...
-%      @(etaS0) o.timeMatVecStokes(etaS0,geom),...
-%      rhs,[],o.gmresTol,maxit);
 %toc
 
 iterStokes = iterStokes(2);
@@ -209,7 +179,8 @@ fprintf('Stokes required %i iterations\n',iterStokes);
 
 % REORGANIZE COLUMN VECTOR INTO MATRIX
 % EXTRACT DENSITY FUNCITONS ON FIBRES AND WALLS
-% each column of etaStokes corresponds to the density function of a rigid body
+% each column of etaStokes corresponds to the density function of a
+% rigid body
 etaStokes = zeros(2*N,nb);
 for k = 1:nb
   etaStokes(:,k) = sigma((k-1)*2*N+1:k*2*N);
@@ -232,9 +203,10 @@ end
 
 % Routine to compute the velocity in the bulk and use the rigid body
 % motion to define a velocity in rigid bodies. The goal is to see
-% something cotinuous
+% something continuous
 if o.tracer
-    op.bulkVelocity(geom,etaStokes,Up,wp,force,torque, @(X) o.farField(X));
+  op.bulkVelocity(geom,etaStokes,Up,wp,force,torque,...
+      @(X) o.farField(X));
 end
 
 end % timeStep
@@ -286,6 +258,8 @@ valFibers = valFibers + jump*eta;
 % ADD SELF CONTRIBUTION
 valFibers = valFibers + op.exactStokesDLdiag(geom,geom.DLPStokes,eta);
 
+% Matrix-free version
+if 0
 % DEFINE STOKES DLP KERNELS
 kernel = @op.exactStokesDL;
 kernelSelf = @(z) +jump*z + op.exactStokesDLdiag(geom,geom.DLPStokes,z);
@@ -293,6 +267,18 @@ kernelSelf = @(z) +jump*z + op.exactStokesDLdiag(geom,geom.DLPStokes,z);
 % ADD CONTRIBUTION FROM OTHER FIBERS
 stokesDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
     kernel,kernel,geom,true,false);
+end
+
+% Precomputing and using matrix (memory-intensive)
+if 1
+kernel = @op.exactStokesDLMatFree;
+kernelDirect = @op.exactStokesDL;
+kernelSelf = @(z) jump*z + op.exactStokesDLdiag(geom,geom.DLPStokes,z);
+
+stokesDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
+    kernel,kernelDirect,geom,true,false);
+end
+
 valFibers = valFibers + stokesDLP;
 
 % ADD TRANSLATIONAL VELOCITY CONTRIBUTION
@@ -311,14 +297,15 @@ end
 
 % EVALUTATE FORCES ON FIBERS
 for k = 1:nb
-  valForce(1,k) = 1/(2*pi)*sum(eta(1:N,k).*geom.sa(:,k))*2*pi/N;
-  valForce(2,k) = 1/(2*pi)*sum(eta(N+1:2*N,k).*geom.sa(:,k))*2*pi/N;
+  valForce(1,k) = 1/2/pi*sum(eta(1:N,k).*geom.sa(:,k))*2*pi/N;
+  valForce(2,k) = 1/2/pi*sum(eta(N+1:2*N,k).*geom.sa(:,k))*2*pi/N;
 end
 
 % EVALUATE TORQUES ON FIBERS
 for k = 1:nb
-  valTorque(k) = 1/(2*pi)*sum((-(geom.X(N+1:2*N,k)-geom.center(2,k)).*eta(1:N,k) + ...
-                     (geom.X(1:N,k)-geom.center(1,k)).*eta(N+1:2*N,k)).*...
+  valTorque(k) = 1/2/pi*sum((-...
+      (geom.X(N+1:2*N,k)-geom.center(2,k)).*eta(1:N,k) + ...
+      (geom.X(1:N,k)-geom.center(1,k)).*eta(N+1:2*N,k)).*...
                      geom.sa(:,k))*2*pi/N;
 end
 
@@ -354,6 +341,7 @@ Tx = Tx + 0.5*eta;
 % ADD SELF CONTRIBUTION
 Tx = Tx + op.exactYukawaDLdiag(geom,geom.DLPYukawa,eta);
 
+% Matrix-free version
 if 0
 % DEFINE Yukawa DLP KERNELS
 kernel = @op.exactYukawaDL;
@@ -363,9 +351,8 @@ yukawaDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
     kernel,kernel,geom,true,false);
 end
 
+% Precomputing and using matrix (memory-intensive)
 if 1
-% START OF AN EXPERIMENT TO SPEED UP THE CODE BY PRECOMPUTING BESSELK OF
-% ALL DISTANCES
 kernel = @op.exactYukawaDLMatFree;
 kernelDirect = @op.exactYukawaDL;
 kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
@@ -373,16 +360,13 @@ kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,geom.DLPYukawa,z);
 yukawaDLP = op.nearSingInt(geom,eta,kernelSelf,geom.nearStruct,...
     kernel,kernelDirect,geom,true,false);
 end
-% END OF AN EXPERIMENT TO SPEED UP THE CODE BY PRECOMPUTING BESSELK OF
-% ALL DISTANCES
 
 Tx = Tx + yukawaDLP(1:geom.N,:);
 Tx = Tx(:);
 
-
 end % timeMatVecYukawa
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function vInf = bgFlow(~,X,options)
     
 N = size(X,1)/2;
@@ -409,7 +393,7 @@ end
 end % bgFlow
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function bc = bcfunc(~,X,tau,center,options)
     
 N = size(X,1)/2;
@@ -430,7 +414,7 @@ end
 end % bcfunc
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function z = precoYukawaBD(o,eta); 
 
 N = size(o.precoYukawa.U,1);
@@ -446,9 +430,10 @@ end
 end % precoYukawaBD
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function precoStokesMatrix(o,geom)
-% Build the LU decomposition of the Stokes linear system.
+% Build the LU decomposition of the Stokes linear system. It is actually
+% applied in the function precoStokesBD
 
 N = geom.N;
 nb = geom.nb;
@@ -483,8 +468,9 @@ end
 end % precoStokesMatrix
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function z = precoStokesBD(o,eta); 
+% Apply the preconditioner. This routine is called within GMRES
 
 N = (size(o.precoStokes.U,1) - 3)/2;
 nb = size(o.precoYukawa.U,3);

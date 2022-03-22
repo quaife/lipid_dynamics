@@ -28,15 +28,13 @@ for k = 1:length(PramList)
 end
 
 
-OptionList = {'timeOrder','inear','farField','shearRate','verbose',...
- 'usePreco','gmresTol','saveData','saveVel','usePlot','plotAxis','tracer'};
+OptionList = {'timeOrder','farField','shearRate','verbose',...
+ 'gmresTol','saveData','saveVel','usePlot','plotAxis','tracer'};
     
 defaultOption.timeOrder = 1;
-defaultOption.inear     = true;
 defaultOption.farField  = 'shear';
 defaultOption.shearRate = 1;
 defaultOption.verbose   = true;
-defaultOption.usePreco  = false;
 defaultOption.gmresTol  = 1e-6;
 defaultOption.saveData  = true;
 defaultOption.saveVel   = true;

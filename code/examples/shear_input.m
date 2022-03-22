@@ -1,33 +1,34 @@
-if ~EXTERNAL_OPTIONS
+% if ~EXTERNAL_OPTIONS
 
 clear
 % clf
 format long e
 format compact
 
-prams.N = 16;      % number of point per body
-prams.nb = 3;      % number of bodies
+% profile on
+
+prams.N = 24;      % number of point per body
+prams.nb = 5;      % number of bodies
+
+dt      = 0.2;
 prams.sstep = 0;   % starting step
+prams.m = 1;       % number of time steps
+prams.T = prams.m*dt; % time horizon
+prams.order = 2;      % time-stepping order 
 
-radii = 1.0*ones(1,prams.nb);
-ar    = 1.0*ones(1,prams.nb);
-
-prams.rho = 4.0;      % screen length
-prams.gam = 4.0;      % molecular tension
+prams.rho = 2.0;      % screen length
+prams.gam = 1.0;      % molecular tension
 
 prams.RepulLength   = 0.5; % repulsion length
 prams.RepulStrength = 4.0; % repulsion strength
 
-prams.bcShift       = 0.0*ones(1,prams.nb); % shift constant for yukawaRHS
+% The energy is asymptotically equal to the \int_\sigma f^2 dS
+% We normalize the boundary condition by a factor.
+prams.bcShift       = 1.0*ones(1,prams.nb); % shift constant for yukawaRHS
 prams.bcType        = 'cosine'; % options: 'cosine'; 'vonMises'
+prams.NPeaks        = 1;   % for boundary condition 'cosine'
 
-dt      = 0.3;
-prams.m = 500;        % number of time steps
-prams.T = prams.m*dt; % time horizon
-prams.order = 2;      % time-stepping order 
-
-end
-
+% end
 
 options.farField  = 'shear'; 
 % options: 'shear'; 'extensional'; 'parabolic'; 'taylorgreen'
@@ -37,8 +38,6 @@ options.saveData  = false;
 options.fileBase  = options.farField;
 
 options.append    = false;
-options.inear     = true;
-options.usePreco  = false;
 options.verbose   = true;
 options.timeOrder = 2;
 options.gmresTol  = 1e-10;
@@ -46,6 +45,16 @@ options.gmresTol  = 1e-10;
 options.usePlot   = true;
 options.tracer    = false;
 options.plotAxis  = [-10 10 -10 10];
+
+
+% shape parameters
+prams.shape         = 'circle'; % options: 'circle'; 'star'
+prams.petal         = 4;
+% circle:  (x,y) = (ar*radii*cos(th), radii*sin(th))
+% star  :  (x,y) = radii + ar*cos(petal*th)
+radii = 1.0*ones(1,prams.nb);
+ar    = 1.0*ones(1,prams.nb);
+
 
 % 1. Please input the number of bodies and have the corresponding initial
 % configuration file ready.
@@ -64,10 +73,11 @@ else
 end
 
 % initial centers and angles 
-x = data(:,1)';
-y = data(:,2)';
+x = data(:,1)'; %x = x-mean(x);
+y = data(:,2)'; %y = y-mean(y);
 tau = data(:,3)';
 xc = [x;y];
+
 
 % tracers 
 if options.tracer
@@ -97,3 +107,10 @@ prams.radii = radii;
 prams.ar    = ar;
 
 [Xfinal, trajectory] = rigid2D(options, prams, xc, tau);
+
+
+% profile off;
+% profile viewer;
+% 
+% 
+% profsave
