@@ -98,10 +98,10 @@ Yuan-Nan Young\aff{3}
   Under a linear shear flow,  we observe the tank-treading deformation
   in a two-dimensional vesicle made of Janus particles.
   The results yield measurements of inter-monolayer friction, membrane permeability, 
-  and at large shear rates, membrane rupture. 
-  The simulations studies include a Janus particle vesicle in both linear and parabolic shear flows,  and 
-  interactions between two Janus particle vesicles in shear and extensional flows. The hydrodynamics of the Janus 
-  particles vesicle is similar to the behaviour of an inextensible elastic vesicle membrane with permeability.
+  and, at large shear rates, membrane rupture. 
+  The simulation studies include a Janus particle vesicle in both linear and parabolic shear flows,  and 
+  interactions between two, Janus particle vesicles in shear and extensional flows. The hydrodynamics of the Janus 
+  particle vesicle is similar to the behaviour of an inextensible, elastic vesicle membrane with permeability.
 %    We develop a new model, to our knowledge,  for the hydrodynamics of amphiphilic particles in background flows. 
 %  In this work, we study the dynamics of many-body systems immersed in a
 %  viscous fluid with a specified interparticle force. In particular, we
@@ -138,18 +138,18 @@ dynamics of Janus particles in a viscous solvent is inevitably the combination o
 hydrodynamics interactions with both short- and intermediate-range 
 particle-particle interactions. Such multi-scale nature of Janus particle dynamics underlies 
 the richness of a Janus particle suspension, as \cite{deGennes1991} suggested by the example of 
-a ``thin film of Janus grains" that can breathe due to the interstices between Janus particles.
+a ``thin film of Janus grains" that can breathe due to the interstices between particles.
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=\textwidth]{fig1.eps}
 \end{center}
 \caption{Panel (a) illustrates the domain and boundary conditions for
-  the mobility problem. The color map in panels (b)--(e) is the solution
-  $u$ of \eqref{eq:SL}. Red is for $\eta  = 1$ and blue is for $\eta  = 0$.
+  the mobility problem. The color map in panels (b)--(e) is the solution 
+  $\eta$ of \eqref{eq:SL}. Red is for $\eta  = 1$ and blue is for $\eta  = 0$.
   Particles self-assemble into vesicle bilayers (panel (b)) and
   eventually arrange along inner and outer leaflets. In panel (c), $C_M$
-  is the midplane curve, and $A$ is the enclosed area.
+  is the midplane curve and $A$ is the enclosed area.
   %, and $L$ is the arc length. 
   Initially stretched vesicles relax to equilibrium with fluid
   flow across the bilayer. The study considers a single vesicle in
@@ -173,12 +173,12 @@ model.
 %This boundary integral formulation has inspired more recent work
 
 In the present work, we extend the hybrid continuum model in~\cite{Fu20}
-for the Janus suspension to incorporate the collective hydrodynamics of
-a Janus suspension under various flows. The JP vesicles in our
+for suspensions to incorporate the collective hydrodynamics of
+a JP suspension under various flows. The JP vesicles in our
 simulations replicate well-known vesicle hydrodynamics
 such as tank-treading and inter-leaflet slippage in a shear flow and
 migration in Poiseuille flow from continuum models. Furthermore we use
-the hybrid continuum model to investigate permeability and rupture of a
+the hybrid continuum model to investigate permeability as well as rupture of a
 bilayer membrane due to an imposed flow.  Finally, we compare a pair of
 interacting JP vesicles with a continuum model of a pair of vesicles.
 
@@ -203,14 +203,14 @@ approach one another (\cite{glo-pan-hes-jos-per2001, fen-mic2004,
 kab-qua-bir2018}). Strong repulsion forces can introduce numerical
 stiffness, but with the presence of the hydrophobic forces, we maintain
 contact-free suspensions with a relatively soft repulsive
-force (compared to the short-range repulsion that diverges in the Lennard-Jones potential).
+force compared to the short-range repulsion that diverges in the Lennard-Jones potential.
 
 The paper is organized as follows. In \S~\ref{sec:governing_eqs} we
 present the formulation for the Janus particles in a viscous fluid in
 the zero-Reynolds number regime (Figure \ref{fig:figure0}a). In
-\S~\ref{sec:IEM} we extend the hybrid continuum model for a Janus
+\S~\ref{sec:IEM}, we extend the hybrid continuum model for a Janus
 suspension to include the effects of a far-field flow via the mobility
-problem formulation. In \S~\ref{results} we validate our model and
+problem formulation. In \S~\ref{results}, we validate our model and
 present simulation results for a single JP vesicle (Figure
 \ref{fig:figure0}d) and for a pair of JP vesicles (Figure
 \ref{fig:figure0}e) under various flowing conditions. Finally we provide
@@ -237,7 +237,7 @@ governing equations are
 \end{alignat}
 %
 where $\uu$ is the velocity, $p$ is the
-pressure, $\uu_\infty$ is the background flow, and $\mu$ is the constant viscosity. 
+pressure, $\uu_\infty$ is the background velocity, and $\mu$ is the constant viscosity. 
 %
 Since each particle $\Gamma_i$ with centre $\aa_i$ is a rigid body, its velocity satisfies 
 the no-slip boundary condition
@@ -317,28 +317,28 @@ the interfacial
 tension. 
 
 The second part of the imposed forces and torques comes from repulsion
-between proximal particles. Given a pair particles indexed with $i$ and
+between proximal particles. Given a pair of particles indexed with $i$ and
 $j$, we find the two points $\tilde{\xx}_i \in \Gamma_i$ and
 $\tilde{\xx}_j \in \Gamma_j$ that are closest to one another (Figure \ref{fig:figure0}a). We then
 define the repulsion force and torque
 \begin{align}
   \label{eq:REPULforce}
-  \FF_i^{\text{repul}} &= \sum_{j \neq i} 
+  \FF_i^{\text{repul}} &= \frac{M}{\rho_0} \sum_{j \neq i} 
     \frac{\tilde{\xx}_i - \tilde{\xx}_j}
     {|\tilde{\xx}_i - \tilde{\xx}_j|} 
-    P'(|\tilde{\xx}_i - \tilde{\xx}_j|), \\
+     P'\left(\frac{|\tilde{\xx}_i - \tilde{\xx}_j|}{\rho_0}\right), \\
   \label{eq:REPULtorque}
-  T_i^{\text{repul}} &= \sum_{j \neq i} 
+  T_i^{\text{repul}} &= \frac{M}{\rho_0} \sum_{j \neq i} 
     (\tilde{\xx}_i - \aa_i)^{\perp} \cdot 
     \frac{\tilde{\xx}_i - \tilde{\xx}_j}
     {|\tilde{\xx}_i - \tilde{\xx}_j|} 
-    P'(|\tilde{\xx}_i - \tilde{\xx}_j|).
+     P'\left(\frac{|\tilde{\xx}_i - \tilde{\xx}_j|}{\rho_0}\right).
 \end{align}
-The repulsion profile $P(r)$ is set to zero for distances $r$ larger than a
+The repulsion profile $P(r/\rho_0)$ is set to zero for distances $r$ larger than a
 repulsion length scale $\rho_0$. As such,~\eqref{eq:REPULforce}
 and~\eqref{eq:REPULtorque} ignore particles outside a
 $\rho_0$-tubular neighborhood of $\Gamma_i$. For $0 \leq r < \rho_0,$ we use
-$P(r) = M(1 - \sin(r/\rho_0))$.
+$P(r) = 1 - \sin(\pi r/2)$.
 Then, the total imposed force and torque
 are
 \begin{equation}
@@ -382,7 +382,7 @@ qua-gan-you2021}.
 \label{sec:IEM}
 Computing the hydrophobic attraction potential and the particle forces
 and torques requires the solution of elliptic partial differential
-equations (PDEs) in an unbounded complex domain. We recast both these
+equations (PDEs) in an unbounded complicated domain. We recast both these
 PDEs as boundary integral equations (BIEs). We discretize each BIE at
 $N$ points on each of the $N_b$ particles with a collocation method.
 All derivatives are computed with spectrally-accurate
@@ -397,7 +397,7 @@ GMRES iterations is mesh-independent by using second-kind BIEs.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{HAP Boundary Integral Equation}
-Similar to our previous work (\cite{Fu20}), we represent the
+Similar to the previous work (\cite{Fu20}), we represent the
 hydrophobic attraction potential (HAP) as a double-layer
 potential
 \begin{align}
@@ -449,21 +449,24 @@ The double-layer potential is
     \frac{\rr \cdot \nnu}{|\rr|^2} \frac{\rr \otimes \rr}{|\rr|^2}
     \cdot \eeta(\yy) \, \dif s_\yy,
 \end{align}
-where $\rr = \xx - \yy$. The Stokeslet and rotlets centred at $\aa_i$
+where $\rr = \xx - \yy$. The Stokeslets and rotlets centred at $\aa_i$
 are
 \begin{align}
+\label{eq:stokeslet}
   \SS(\xx,\aa_i) \cdot \FF_i &= \frac{1}{4\pi} \left(-\log |\rr| + 
     \frac{\rr \otimes \rr}{|\rr|^2}\right) \cdot \FF_i, \\
+    \label{eq:rotlet}
   \RR(\xx,\aa_i) T_i &= \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2} T_i,
 \end{align}
-respectively, where $\rr = \xx - \aa_i$. The Stokeslet is torque-free
-and has force $\FF_i$ while the rotlet is force-free and has torque
+respectively, where $\rr = \xx - \aa_i$. The Stokeslet~\eqref{eq:stokeslet}  is torque-free
+and has force $\FF_i$ while the rotlet~\eqref{eq:rotlet} is force-free and has torque
 $T_i$. Therefore, the velocity~\eqref{eq:velocity} satisfies the total
 force~\eqref{eq:force} and torque~\eqref{eq:torque} conditions if the
 double-layer potential $\DD[\eeta]$ is force- and torque-free.  Matching
-the limit of~\eqref{eq:velocity} with the rigid body motion, and
-imposing that $\DD[\eeta]$ is force- and torque-free, the density
-function $\eeta$, translational velocity $\vv_i$, and angular velocity
+the limit of~\eqref{eq:velocity} with the rigid body motion, 
+%and imposing that $\DD[\eeta]$ is force- and torque-free, 
+%
+the density function $\eeta$, translational velocity $\vv_i$, and angular velocity
 $\omega_i$ satisfy
 \begin{alignat}{3}
   \nonumber
@@ -474,7 +477,7 @@ $\omega_i$ satisfy
     \left(\SS(\xx,\aa_j) \cdot \FF_j + \RR(\xx,\aa_j) T_j\right),
     \quad &&\xx \in \Gamma_i,\: i=1,\ldots,N_b, \\
   \label{eq:mobility1}
-  \int_{\Gamma_i} \eeta \cdot \nnu \, \dif s &= {\bf 0}, 
+  \int_{\Gamma_i} \eeta \cdot \nnu \, \dif s &= 0, 
   &&i = 1,\ldots,N_b, \\
   \label{eq:mobility2}
   \int_{\Gamma_i} \eeta\times(\xx-\aa_i)^\perp \cdot \nnu \, \dif s &= 0,
@@ -488,12 +491,12 @@ mobility problem use single-layer potentials (\cite{cor-gre-rac-vee2017,
 rac-gre2016}) or a combination of single- and double-layer potentials
 (\cite{cor-vee2018}).
 
-We have validated our solver for~\eqref{eq:SKIE}--\eqref{eq:mobility2}
+We validated our solver for~\eqref{eq:SKIE}--\eqref{eq:mobility2}
 using a single elliptical particle suspended in a background shear flow
 (see \S~\ref{sec:ves_in_shear}). Hydrophobic attraction and repulsion
 are zero for a single particle (see \cite{Fu20} equation 2.13). The
 angle of the ellipse's major axis coming from the integral equation
-method agrees with the theoretical, Jeffery orbit time-course
+method agreed with the theoretical, Jeffery orbit time-course
 (\cite{jef1922}). 
   
 %The Jeffrey orbit  
@@ -552,17 +555,17 @@ where
 \begin{align}
   \label{eq:jumpstress1}
   \JJ_{i} = 2\gamma\rho^{-1} \sigma w_i \nnu + 
-    2\gamma\rho \frac{d\sigma}{ds} \frac{dw_i}{ds} \nnu -
-    2\gamma\rho \frac{d\sigma}{ds} \frac{dw_i}{d\nnu} \ttau.
+    2\gamma\rho \frac{\dif \sigma}{\dif s} \frac{\dif w_i}{\dif s} \nnu -
+    2\gamma\rho \frac{\dif \sigma}{\dif s} \frac{\dif w_i}{\dif \nnu} \ttau.
 \end{align}
 \end{theorem}
-The symbols $\ttau$ and $\frac{d}{ds}$ are the unit tangent and arc
+The symbols $\ttau$ and $\frac{\dif }{\dif s}$ are the unit tangent and arc
 length derivative for $\Gamma_i$, respectively (Figure
 \ref{fig:figure0}a.) The result is valid for any smooth particle shape
 or boundary condition. The advantage of
 using~\eqref{eq:recipforcetorque} over
 using~\eqref{eq:hydrophobicAttraction} is that the components $\sigma$,
-$w_i$, $\frac{d\sigma}{ds}$, and $\frac{dw_i}{ds}$ of $\JJ_i$ are smooth
+$w_i$, $\frac{\dif \sigma}{\dif s}$, and $\frac{\dif w_i}{\dif s}$ of $\JJ_i$ are smooth
 functions, whereas the components of \eqref{eq:stress} are singular
 integrals. 
 
@@ -688,17 +691,17 @@ To show~\eqref{eq:prejump}, we expand \eqref{eq:hydrophobicAttraction} as
   \FF_i = \int_{\Gamma_i} \left({\bf T}_1 \cdot \nnu + 
     {\bf T}_2 \cdot \nnu + {\bf T}_3 \cdot \nnu \right) \,\dif s.
 \end{align}
-By~\eqref{eq:uidef} and~\eqref{eq:decompdivfree}, we have that $u_i$ is
+By~\eqref{eq:uidef} and~\eqref{eq:decompdivfree}, we have that $\eta_i$ is
 smooth and $\nabla \cdot {\bf T}_1 = \mathbf{0}$ in $\mathbb{R}^n
 \setminus U_i$. Similarly, $w_i = \eta  - \eta _i$ is smooth and $\nabla \cdot
-{\bf T}_3 = \mathbf{0}$ in $U_i$. By the divergence theorem,  
+{\bf T}_3 = \mathbf{0}$ in $\overline{U}_i$. By the divergence theorem,  
 \begin{align}
   \int_{\Gamma_i}  {\bf T}_1 \cdot \nnu \,\dif s
   = -\int_{\mathbb{R}^n \setminus U_i} \nabla \cdot {\bf T}_1 \,\dif \xx = \mathbf{0},\quad
     \int_{\Gamma_i}  {\bf T}_3 \cdot \nnu\,\dif s
   = \int_{U_i} \nabla \cdot {\bf T}_3 \,\dif \xx = \mathbf{0}.
 \end{align}
-Finally, $u_i$ and $w_i$ are smooth and $\nabla \cdot {\bf T}_2= 0$ in $U_i$. This gives
+Finally, $\eta_i$ and $w_i$ are smooth and $\nabla \cdot {\bf T}_2= 0$ in $U_i$. This gives
 \begin{align}
   \mathbf{0} = \int_{U_i} \nabla \cdot {\bf T}_2 \, \dif \xx = \int_{\Gamma_i}  
     ({\bf T}_2 \cdot \nnu)^-\,\dif s,
@@ -721,13 +724,13 @@ on $\Gamma_i$ (see, e.g., \cite{KlBaGrON13}). Therefore,
   \jump{{\bf T}_2 \cdot \nnu}   &= \jump{\SS(\eta _i,w_i) \cdot \nnu +
     \SS(w_i,\eta _i) \cdot \nnu} \\
   &= \Big[\!\Big[ \left( 2\gamma\rho^{-1} \eta _i w_i \mathbf{I} + 2\gamma\rho \nabla \eta _i \cdot \nabla w_i \mathbf{I} 
-- 2\gamma\rho \nabla \eta _i  \nabla w_i^T - 2\gamma\rho \nabla w_i \nabla
-  \eta _i^T\right) \cdot \nnu \Big]\!\Big] \\
+- 2\gamma\rho \nabla \eta _i  \nabla w_i - 2\gamma\rho \nabla w_i \nabla
+  \eta _i\right) \cdot \nnu \Big]\!\Big] \\
 %  &= \jump{\left( 2\gamma\rho^{-1} u_i v_i \mathbf{I} + 2\gamma\rho \nabla u_i \cdot \nabla v_i \mathbf{I} 
 %- 2\gamma\rho \nabla u_i  \nabla v_i^T - 2\gamma\rho \nabla v_i \nabla
 %  u_i^T\right) \cdot \nnu}\\
-&= 2\gamma\rho^{-1} \sigma w_i \nnu + 2\gamma\rho \frac{d\sigma }{ds}\frac{dw_i }{ds} \nnu
-- 2\gamma\rho \ \frac{d\sigma }{ds} \frac{dw_i }{d\nnu} \ttau = \JJ_i.
+&= 2\gamma\rho^{-1} \sigma w_i \nnu + 2\gamma\rho \frac{\dif \sigma }{\dif s}\frac{\dif w_i }{\dif s} \nnu
+- 2\gamma\rho \ \frac{\dif \sigma }{\dif s} \frac{\dif w_i }{\dif \nnu} \ttau = \JJ_i.
 \end{align*}
 %\todo[inline]{RR: Can you make sure the last line is correct? There was
 %an unbolded $\nu$ which I changed to a bolded $\nnu$.} RJR -> Correct. Thank you.
@@ -747,8 +750,8 @@ problem~\eqref{eq:SKIE}--\eqref{eq:mobility2} via GMRES.
 %velocities of the $N_b$-body system. 
 Moreover, a second-order Adams-Bashforth
 scheme updates the particle positions and orientations. By including the
-repulsion force~\eqref{eq:REPULforce}, particle collisions can be avoided by setting time step
-size $\Delta t\sim O(10^{-1})$.
+repulsion force~\eqref{eq:REPULforce}, particle collisions can be avoided by setting the time step
+sizes comparable to the characteristic time.
 %are avoided even when using a relatively larger time step than $\Delta t\sim O(10^{-1})$ ns. 
 
 
@@ -766,7 +769,7 @@ size $\Delta t\sim O(10^{-1})$.
   In panel (a),  the initial, 58-body vesicle is circular and the black arrows point in the direction of the
   hydrophobic side of the JP.
   In panel (b), the JP suspension rotates and deforms with the shear flow.
-  The color map is for the solution $u$ of \eqref{eq:SL}. 
+  The color map is for the solution $\eta$ of \eqref{eq:SL}. 
   The white curves are the streamlines of $\uu.$ 
    The shear rate is $\chi=0.0025$.}
 \end{figure}
@@ -803,10 +806,10 @@ with $c = 0.5 l_0$ for particle radius, $\rho = 2 l_0$ for decay length,
 $\gamma = \text{4.1 pN nm}^{-1}$ for interfacial tension.
 The parameter $\mu = \text{1 cP} = \text{1 pN
 ns nm}^{-2}$ is viscosity of room-temperature water. 
-We select $M=4.0$~$\text{pN}$ and $\rho_0 = 0.2l_0$ so that \eqref{eq:REPULforce}
+We select $M=2.0$~$\text{pN}$ and $\rho_0 = 0.2l_0$ so that \eqref{eq:REPULforce}
   prevents particle collisions and is comparable to hydrodynamic lubrication.
   With a slight modification, the appendix of
-  \citep{cawthorn_balmforth_2010} provides the asymptotic expression 
+  \cite{cawthorn_balmforth_2010} provides the asymptotic expression 
   $F_{\text{lubr}} = -\tfrac{3}{2}\pi \mu \dot \epsilon (c/\epsilon)^{3/2}$
   for the lubrication force between two cylinders in the distance of separation $\epsilon \to 0$.
   For our choice of simulation parameters, $F_{\text{lubr}}$ and \eqref{eq:REPULforce} are comparable
@@ -950,7 +953,7 @@ maintains its bilayer structure throughout the simulation.
 To extract physical quantities, let $A^* = 4\pi A/L^2$ be the reduced
 area and $\Delta=L/\sqrt{A/\pi} - 2\pi$ the excess length of the bilayer
 structure (\cite{Finken08}). Here, $A$ is the enclosed area and $L$ is
-the total length of the JP vesicle (Figure \ref{fig:figure0}a).
+the total length of the JP vesicle (Figure \ref{fig:figure0}c).
 Figure~\ref{figure4} shows the evolution of the area and length for
 various shear rates. Panels (a) and (b) show that $A^*$ decreases and
 $\Delta$ increases with time, respectively, and that the rate of
@@ -965,8 +968,8 @@ value $A^*_{\infty}$. The data in panel (a) are fit to the model $A^* =
 A^*_{\infty} + a_1 \exp(-k_1t) + a_2 \exp(-k_2t),$ $0 < k_2 <
 k_1$. Panel (d) shows that $A^*_{\infty}$ decreases with the shear rate.
 The JP vesicle achieves a steady-state reduced area earlier when the
-shear rate is low (inset), but the decay rate $k_2$ is more or less
-constant for higher shearer rates. 
+shear rate is low, but the decay rate $k_2$ is more or less
+constant for higher shearer rates (inset). 
 
 The time courses contain oscillations due to the
 granularity of the JP vesicle.
@@ -989,8 +992,8 @@ tank-treading correspond to shear rates $\dot \gamma = \mathcal{O}(10^6$
 s$^{-1}$) which gives fluid velocities $\mathcal{O}($m s$^{-1}$$)$ in
 the vicinity of the vesicle. While large, these orders of magnitude are identical to
 ones used in prior MD studies (\cite{Brandner2019}) and are a
-consequence of the fact that larger shear rates are required to produce
-the viscous stresses needed to appreciably deform smaller vesicles. 
+consequence of the fact that large shear rates are required to produce
+the viscous stresses needed to appreciably deform small vesicles. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Inter-Monolayer Friction}
@@ -1000,7 +1003,7 @@ are able to slide past one another.
 Monolayer slip effects have been incorporated in continuum models (\cite{sch-vla-mik2010}).
 In the present setting, slip is limited by viscous
 friction of the aqueous gaps between particles and by the constant
-unbinding and binding of particles pairs in apposing leaflets. 
+unbinding and binding of particle pairs in apposing leaflets. 
 
 
 Figure~\ref{figure5}a illustrates inter-monolayer slip by tracking the distances
@@ -1018,8 +1021,10 @@ From the data, we obtain an inter-monolayer friction coefficient
 \end{align}
 where $F$ is the tangential force jump, $L$ is the length of the
 midplane $C_M$ (Figure~\ref{figure5}a), and $U$ is the slip velocity.
-The time average $\langle \cdot \rangle$ is necessary to avoid division by zero
-whenever slip velocity vanishes.  
+The time average $\langle \cdot \rangle$ is taken over the intervals where $U$ lies in the 
+tenth percentile of positive slip velocities.
+
+%necessary to avoid division by zero whenever slip velocity vanishes.  
 
 %original table
 %\begin{table}
@@ -1043,7 +1048,7 @@ whenever slip velocity vanishes.
   \hline
 & & & & & & $\dot\gamma$  (ns$^{-1}$)& & & & &
   \\
-  radius ($l_0$) &  $\rho$ ($l_0$) & $\rho_0(l_0)$ & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  & Average\\
+  $c$ ($l_0$) &  $\rho$ ($l_0$) & $\rho_0(l_0)$ & 0.0020   &  0.0025 &  0.0030 &  0.0035 &  0.0040 & 0.0045 & 0.0050  & Average\\
 \cline{4-10}\\
 $-5 \%$ & $- 5 \%$ & $-5 \%$  & 0.22 & 0.36 & 0.41   & 0.45  & 0.45 & 0.44   & 0.44 & 0.40\\
 0.5 &  2.0 & 0.5    & 0.42 & 0.63 & 0.50   & 0.40  & 0.48  & 0.53 & 0.55 & 0.50 \\   % new
@@ -1061,7 +1066,7 @@ To calculate  $F$, we first let
 \begin{align}
 F_h = \int_{\mathcal{C}_M^+} 
   \ttau \cdot \sigma \cdot \nnu \,\dif s - \int_{\mathcal{C}_M^-} 
- \ttau \cdot \sigma \cdot \nnu \,\dif s 
+ \ttau \cdot \sigma \cdot \nnu \,\dif s,
 \end{align}
 where $C_M^+$ and $C_M^-$ are target curves obtained by projecting the
 midplane curve $C_M$  a distance $h$ outward,
@@ -1159,8 +1164,8 @@ These relative changes suggest that there is dimensionless number $K$ given by
   \mu \dot\gamma_* = K \frac{\gamma c^2}{\rho L^2}
   \end{equation}
   that relates hydrophobic attraction to the dimensional critical shear rate $\dot \gamma_* = \chi_* \text{ ns}^{-1}$.
-  Assuming a characteristic velocity $L\dot \gamma$, the number $K$ relates to the vesicle's capillary number
-  $\text{Ca} = K c^2/(\rho L)$. Based on the above data, $\text{Ca}$ would be approximately $1.7$
+  Assuming a characteristic velocity $L\dot \gamma_*$, the number $K$ relates to the vesicle's capillary number
+  $\text{Ca} = K c^2/(\rho L)$. Based on the above data, $\text{Ca}$ would be approximately $1.8$
   so that surface forces are comparable to viscous forces.  
   There is a related \emph{elastic} capillary number
   $\widetilde{\text{Ca}} = \mu \dot{\gamma} R_0^3/K_B$
@@ -1170,8 +1175,8 @@ These relative changes suggest that there is dimensionless number $K$ given by
   \[
   K_B = \frac{\mu \dot \gamma_* R_0^3}{\text{Ca}}
   \]
-  which yields $K_B \approx 60$ pN $\text{nm}^{-1}$, which is a reasonable
-  value for the bending modulus of a lipid bilayer, for example \citep{NaTr00}.
+  which yields $K_B \approx 100$ pN $\text{nm}$, which is a large
+  value for the bending modulus of a reasonable lipid bilayer given the many assumptions and approximations \citep{NaTr00}.
 
 
 
@@ -1185,8 +1190,9 @@ Finally, we consider the parabolic background flow
     \right]\mathbf{e}_x,
 \end{align}
 %
-where $v_{max}$ is the flow strength and $w$ determines the shape of the
-flow. The parameter $R_0$ is the radius of the JP vesicle at $t=0$ and
+where $v_{max}$ is the flow strength. 
+%and $w$ determines the shape of the flow. 
+The parameter $R_0$ is the radius of the JP vesicle at $t=0$ and
 $w$ sets the width of the profile. \cite{Kaoui09, cou-kao-pod-mis2008,
 dan-vla-mis2009} have shown that the behaviour of a vesicle in this
 unbounded flow includes vertical migration, and depending on the flow
@@ -1221,14 +1227,14 @@ where it reaches a steady height of about $1$ nm.
   drifts toward the central axis. It assumes a slipper shape and
   undergoes tank-treading motion like in the shear flow case. 
 The horizontal dashed line represents time in units of
-    $\upmu$s and the vertical axis represents the scaled $y$ position
+    $\upmu$s and the vertical axis represents the scaled $y$-position
     of the centroid of the JP vesicle.
   The arrows
   on the left illustrate the background flow and the arrows on the right
   show the velocity relative to the vesicle's moving frame. The thick
   black curve plots the distance from the axis as a function of time
   from left to right. The parameters are $v_{max} = 8$~nm ns$^{-1}$,
-  $w=10$, and $R_0=20$ nm.}
+  $w=10$, and $R_0=17$ nm.}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1250,7 +1256,7 @@ We show that the JP particle bilayer behaves as an inextensible, permeable membr
 the inextensibility coming from a large stretching modulus.
 
 In membrane continuum  mechanics, changes in membrane surface area $A$ give rise to a tension
-$\tilde \sigma = K_A(A/A_0 - 1)$ where $A_0$ is the reference surface area \cite{NaTr00}. 
+$\tilde \sigma = K_A(A/A_0 - 1)$ where $A_0$ is the reference surface area \citep{NaTr00}. 
 For a two-dimensional membrane, the tension is 
 \begin{align}
 \label{eq:stretch}
@@ -1270,14 +1276,14 @@ In order to relieve Laplace pressure,
 water flows across the membrane. The rate of efflux is governed by  
 \begin{align}
   \label{eq:perm} 
-  \frac{dA}{dt} = - P\Delta p,
+  \frac{\dif A}{\dif t} = - P\Delta p,
 \end{align}
 where $P = K/(\mu \Delta x)$ is a constant, $K$ is hydraulic permeability, 
 $\mu$ is the solvent viscosity, and $\Delta x$ is the 
 membrane thickness, about 5 nm
 (\cite{chabanon2017, qua-gan-you2021}).
 
-Our  simulation setup consists of an initial, non-equilibrium JP
+Our  simulation setup consists of an initial, non-equilibrium JP vesicle
 obtained by dilating the equilibrium shape outward (Figures~\ref{figure2part1}a).
 At $t = 0$, pressure \eqref{eq:stokes} is spatially constant  inside and outside the vesicle 
 (Figures~\ref{figure2part1}a, inset)
@@ -1294,7 +1300,7 @@ are independent of vesicle size and give an area modulus $K_A = 170 \pm 9$ pN nm
  This relatively large stretching modulus is the reason why the JP vesicle conserves length in the 
 shear-flow simulations (Figure \ref{figure2part1}c).
 The value also reasonably agrees with stretching moduli for 
-lipid bilayers, around $240$ pN nm$^{-1}$ \cite{NaTr00}.
+lipid bilayers, around $240$ pN nm$^{-1}$ \citep{NaTr00}.
 
  In the initial, dilated vesicle,
 contractile motion is limited by the incompressibility of the 
@@ -1305,11 +1311,11 @@ however, can escape through the gaps between the particles and this
 is how the JP vesicle relieves Laplace pressure over time (Figure \ref{figure2part1}a).  
 
 To evaluate the rate of water outflow, 
-Figure~\ref{figure2part1}d plots the the simulation values for $dA/dt$.  
+Figure~\ref{figure2part1}d plots the the simulation values for $\dif A/\dif t$.  
 These values are proportional to $L\Delta p$ and like for the stretching modulus, 
 the proportionality constants are 
 independent of vesicle size.
-The  linear fits give a hydraulic permeability $P = 0.0290 \pm 0.007$ nm$^3$ ns$^{-1}$ pN$^{-1}$.
+The  linear fits give a hydraulic permeability with $P = 0.0290 \pm 0.007$ nm$^3$ ns$^{-1}$ pN$^{-1}$.
 We can combine~\eqref{eq:stretch},~\eqref{eq:LaplacePressure},
 and~\eqref{eq:perm} to derive
 \begin{align}
@@ -1361,7 +1367,7 @@ The variable $x$ is used to denote the horizontal axis coordinate.
 \caption{Stretching Moduli and Permeabilities}
 \centering
 \begin{tabular}{ c |c| c |c }
- $k$ & $\lambda$ & $K_A$ (pN nm$^{-1}$) & $P$ (nm$^3$ ns$^{-1}$pN$^{-1}$) \\
+ $k$ & $\lambda$ & $K_A$ (pN nm$^{-1}$) & $P$ (nm$^3$ ns$^{-1}$ pN$^{-1}$) \\
 \hline    
  1  & 1  & 170$\pm9$   &  0.0296\\ 
 %
@@ -1382,12 +1388,12 @@ on model parameters taking into account
 (i) changes in interfacial strength and (ii) changes in size.
 Table~\ref{table2} provides the results of stretching moduli $K_A$ and permeabilities $P$ for various cases.
 The baseline setup is shown in the first row.
-The next two rows demonstrate the results when the tension related parameters $\gamma$ and $M$ are increased by 5$\%$ and 10$\%$. 
+The next two rows demonstrate the results when the force parameters $\gamma$ and $M$ are increased by 5$\%$ and 10$\%$. 
 The parameter $k$ is used to scale the force paramaters $\gamma, M \to k\gamma, kM$.
-The final two rows show the results for the cases where the length scale related parameters are decreased by 5$\%$ and 10$\%$
+The final two rows show the results for the cases where the length scale related parameters are decreased by 5$\%$ and 10$\%$.
 The parameter $\lambda$ is used to simultaneously scale length parameters;
 $\rho, \rho_0, c \to \lambda \rho, \lambda \rho_0, \lambda c$.
-This data comes from Figure \ref{figure2} which  plots the \emph{ratio} of the abscissa and ordinates
+The data comes from Figure \ref{figure2} which  plots the \emph{ratio} of the abscissa and ordinates
 used in Figure \ref{figure2part1}c, d. The transformed data are fit by constant functions.  
 
 Increases in $\gamma$ and $M$ result in
@@ -1396,8 +1402,8 @@ Permeability, however, is insensitive to simultaneous increases in $\gamma$ and 
 To give a detailed explanation for this, the JP system has the potential energy $E = G + H$ where 
 \begin{equation}
 \label{eq:baseline_energy}
-G = \gamma \int_{\Omega} \rho |\nabla \eta |^2 + \rho^{-1} \eta ^2 \,\dif\xx,\quad H = M \sum_{i=1}^{N_b}\sum_{j \neq i} 
-       P(|\tilde{\xx}_i - \tilde{\xx}_j|).
+G = \gamma \int_{\Omega} \rho |\nabla \eta |^2 + \rho^{-1} \eta ^2 \,\dif\xx,\quad H = \frac{M}{\rho_0} \sum_{i=1}^{N_b}\sum_{j \neq i} 
+       P\left(\frac{|\tilde{\xx}_i - \tilde{\xx}_j|}{\rho_0}\right).
 \end{equation}
 Here, $G$ is the hydrophobic attraction potential for the boundary value problem \eqref{eq:SL}--\eqref{eq:SLff},
 and $H$ is the repulsion potential.  
@@ -1435,8 +1441,7 @@ The stretching modulus increases because $\frac{d^2E_{\lambda}}{dx^2}$ increases
   \caption{\label{figure9} Two JP vesicles suspended in a shear flow
   interact by orbiting about the origin. The moving paths of the two
   centroids are plotted in blue and red. The centroids are initially
-  located on the $x$-axis. The fluid velocity streamlines appear in
-  grey.  The dimensionless shear rate is $\chi=0.005$.}
+  located on the $x$-axis. The fluid velocity streamlines are for the dimensionless shear rate $\chi=0.005$.}
 \end{figure}
 \subsection{Two Vesicles in a Linear Flow}
 \begin{figure}
@@ -1490,8 +1495,8 @@ behaviour is absent when two JP vesicles are well-separated.
   is $0.25$~nm above the $x$-axis and the right JP vesicle is $0.25$~nm
   below the $x$-axis. (iv) The centroid of the left JP vesicle is
   $1.25$~nm above the $x$-axis and the centroid of the right JP vesicle
-  is $1.25$~nm below the $x$-axis. The streamlines appear in grey and
-  the flow rate is $\dot \gamma =0.005$~ns$^{-1}$ in all cases.
+  is $1.25$~nm below the $x$-axis. The streamlines are for
+  the flow rate $\dot \gamma =0.005$~ns$^{-1}$ in all cases.
 	  }
 \end{figure}
 
@@ -1514,7 +1519,7 @@ Using a similar setup to the shear flow case, we suspend the same two,
 pre-relaxed, $58$-body JP vesicles and consider their dynamics in an
 extensional flow 
 \begin{equation}
-\uu_{\infty}(\xx) = \dot \gamma ((\mathbf{e}_x \cdot \xx)\mathbf{e}_x - (\mathbf{e}_y \cdot \xx)\mathbf{e}_y)
+\uu_{\infty}(\xx) = \dot \gamma (-(\mathbf{e}_x \cdot \xx)\mathbf{e}_x + (\mathbf{e}_y \cdot \xx)\mathbf{e}_y)
 \end{equation}
 with extensional rate $\dot \gamma =0.005$ ns$^{-1}$. This extensional
 flow is stretching in the $y$-direction and squeezing in the
@@ -1538,7 +1543,7 @@ vesicles eventually separate along the $\pm y$-directions and we compare
 the results against a continuum model as shown in all insets. Panels
 (b)--(d) show the transient behaviour of the JP vesicles and the
 continuum vesicles under an extensional flow. In both the coarse-grained
-model and the continuum model, the vesicles initially converge towards
+model and the continuum model, the vesicles initially approach
 one other and then diverge along the $y$-axis. The behaviour of the
 streamlines in both cases are similar. The pressure is initially largest
 in the gap formed by two JP vesicles and decreases during the
@@ -1557,17 +1562,17 @@ particle collisions.
   \caption{\label{figure13} Comparisons between the proposed HAP model and a continuum model
     for two vesicles in shear flow and in extensional flow.
   The value $d_{1,2}$ is the distance between two centroids of JP vesicles. The thin curves plot the trajectories
-  of $d_{1,2}$ generated by the continuum model and the thick curves are computed from using
+  of $d_{1,2}$ generated by the continuum model and the thick curves are computed using
   the proposed HAP model.}
 \end{figure}
 
 
-Since the behavior of the suspended JP vesicles has similarities to the numerical 
+The behavior of the suspended JP vesicles has similarities to the numerical 
 results generated by using the algorithm adopted in \cite{qua-vee-you2019} (refer to all figure
 insets in Figure~\ref{figure10} and Figure~\ref{figure12}). Figure~\ref{figure13} shows 
 trajectory comparisons between the proposed model and the continuum modeling for both 
 shear flow and extensional flow cases in two vesicle simulations. The quantity $d_{1,2}$
-represents the distance between two centroids of JP vesicles. The centroid positions are 
+represents the distance between two centroids of JP vesicles. The initial centroid positions are 
 identical for both models and the geometry in the continuum model is created along the 
 midplane locations of JP vesicles and the initial reduced area is matched. Panel (a) shows that 
 the results of continuum model does not have a periodic motion and two vesicles flow apart 
@@ -1584,7 +1589,7 @@ assembly and mechanics of a JP vesicle in a viscous solvent. The
 interactions between JP are formulated as a second-kind integral
 equation, which is coupled to the Stokes equations for the surrounding
 incompressible fluid at the zero-Reynolds-number limit. Numerical
-simulations of a JP suspensions revealed self-assembly of JP into
+simulations of a JP suspension revealed self-assembly of JP into
 micelles and bilayers, providing an alternative means for computing
 mechanical moduli, which often requires the knowledge of an equation of
 state from experiments on a colloidal
@@ -1629,9 +1634,8 @@ elongation and tank-treading dynamics observed for a lipid bilayer GUV.
 %vesicle. 
 %
 The results showed that the reduced area $A^*$ decreases with shear rate
-but that the total length of a JP vesicle is conserved. The decay rate
-of the reduced area was independent of the shear rate values between
-$0.003$~ns$^{-1}$ and~$0.005$~ns$^{-1}$. Moreover, the proposed model
+but that the total length is conserved. The decay rate
+of the reduced area was independent of the shear rate values. Moreover, the proposed model
 describes membrane rupture in high shear rates. Therefore, our method
 can be applied to vesicles undergoing topological changes which is
 difficult to simulate when using a continuum model that represents
@@ -1652,7 +1656,7 @@ tangential shear force and slip velocities with respect to the bilayer
 mid-plane. The range of friction coefficients agree with values reported
 by~\cite{denOtter2007} in their MD study. The coarse-graining level of
 the JP vesicle has a larger length scale than molecular dynamics
-simulations, and in the future convergence studies we will investigate
+simulations, and future convergence studies will investigate
 how physical properties like the friction coefficient and membrane
 permeability depend on the particle shape and size.
 
@@ -1661,7 +1665,7 @@ shear flow.
 %The chosen parameter values result in an asymmetric
 %slipper shape. 
 %
-Replicating the hydrodynamics of a GUV in a Poiseuille
+Replicating the hydrodynamics of a giant unilamellar vesicle in a Poiseuille
 flow~(\cite{Kaoui09, dan-vla-mis2009, cou-kao-pod-mis2008}), the JP
 vesicle moves toward the centre of the shear flow. While the initial
 reduced area of the JP vesicle is $A^* \approx 1$, the equilibrium
@@ -1672,7 +1676,7 @@ above the centre of flow and exhibits tank-treading motion.
 %agreement is made by comparing the JP vesicle shape with the
 %two-dimensional inextensible membrane in continuum modeling
 %simulations~(\cite{Kaoui09, dan-vla-mis2009, cou-kao-pod-mis2008}). 
-An interesting result contrast with continuum results is that the JP
+An interesting contrast with continuum results is that the JP
 vesicle oscillates at a height slightly above the centre of the
 Poiseuille flow. 
 
@@ -1691,7 +1695,7 @@ Helfrich continuum model. A comparison of the vesicle shapes and the
 streamlines demonstrate remarkable similarities. The two overlapping
 trajectories of the JP vesicles' centroids in a shear flow evolve as
 expected when the two centroids are initialized on the same horizontal
-level. We also observe a rotating behaviour that is observed for models
+level. We also observe a rotating behaviour that is present in models
 involving vesicle adhesion~(\cite{qua-vee-you2019}). The hydrophobic
 attraction led to this adhesive effect when two JP bilayers are
 sufficiently close. We also performed several simulations of a pair of
@@ -1712,13 +1716,13 @@ like that found in
   PhysRevE.75.016313,
   Kaoui2016}.
 The JP vesicle is permeable and the mixture of two different
-fluids requires an introduce of a contact line between
+fluids requires the introduction of a contact line between
 the two phases.
 
 Our future goals include extending the current framework to a
 three-dimensional JP vesicle system. This will require additional
 algorithmic implementation including a fast summation method such as the
-fast multipole method. Oother research directions include
+fast multipole method. Other research directions include
 fluctuating hydrodynamics for Brownian suspensions~(\cite{Bao2018}),
 %introduce thermal fluctuations into the model. 
 %This will result in Janus particles that include Brownian motion, 
