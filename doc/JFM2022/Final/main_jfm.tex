@@ -454,7 +454,7 @@ where $\rr = \xx - \yy$. The Stokeslets and rotlets centred at $\aa_i$
 are
 \begin{align}
 \label{eq:stokeslet}
-  \SS(\xx,\aa_i) \cdot \FF_i &= \frac{1}{4\pi} \left(-\log |\rr| + 
+  \SS(\xx,\aa_i) \cdot \FF_i &= \frac{1}{4\pi} \left(-\log |\rr|\mathbf{I} + 
     \frac{\rr \otimes \rr}{|\rr|^2}\right) \cdot \FF_i, \\
     \label{eq:rotlet}
   \RR(\xx,\aa_i) T_i &= \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2} T_i,
@@ -478,10 +478,10 @@ $\omega_i$ satisfy
     \left(\SS(\xx,\aa_j) \cdot \FF_j + \RR(\xx,\aa_j) T_j\right),
     \quad &&\xx \in \Gamma_i,\: i=1,\ldots,N_b, \\
   \label{eq:mobility1}
-  \int_{\Gamma_i} \eeta \cdot \nnu \, \dif s &= 0, 
+  \int_{\Gamma_i} \eeta \, \dif s &= \mathbf{F}_i, 
   &&i = 1,\ldots,N_b, \\
   \label{eq:mobility2}
-  \int_{\Gamma_i} \eeta\times(\xx-\aa_i)^\perp \cdot \nnu \, \dif s &= 0,
+  \int_{\Gamma_i} \eeta \dot (\xx-\aa_i)^\perp \, \dif s &= T_i,
   &&i = 1,\ldots,N_b.
 \end{alignat}
 
