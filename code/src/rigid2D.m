@@ -8,9 +8,27 @@ tt = tstep(options,prams);
 
 % build initial condition of rigid body particle
 geom = capsules(prams,xc,tau);
-% plot geometry if usePlot == true
 
-om.initializeFiles(geom);
+if options.confined
+  prams.N = prams.Nwall;
+  prams.nb = 1; % only simply-connected solid walls for now
+  prams.shape = options.walls;
+  walls = capsules(prams,[0;0],0);
+  prams.N = geom.N;
+  prams.nb = geom.nb;
+  prams.shape = geom.shape;
+else
+  walls.N = 0;
+  walls.nb = 0;
+  walls.X = [];
+end
+%clf; hold on;
+%plot(walls.X(1:end/2),walls.X(end/2+1:end),'k')
+%plot(geom.X(1:end/2,:),geom.X(end/2+1:end,:),'k')
+%axis equal
+%pause
+
+om.initializeFiles(geom,walls);
 
 time = tt.dt*tt.sstep;
 step0 = 0;
@@ -35,18 +53,21 @@ while step <= prams.m
   % Regular Forward Euler
   if prams.order == 1
     geom = capsules(prams,xc,tau);
-    [Up, wp] = tt.timeStep(geom);
-    xc  = xc  + tt.dt*Up;
-    tau = tau + tt.dt*wp;
+    [Up0,wp0,~,~,etaY0,etaS0,force,torque] = ...
+          tt.timeStep(geom,[],[],walls);
+    xc  = xc  + tt.dt*Up0;
+    tau = tau + tt.dt*wp0;
     geom2 = geom;
+    xc1 = xc;
+    tau1 = tau;
   
   %Adams-Bashforth 
   elseif prams.order == 2
     if step == step0
       % update geometry
       geom0 = capsules(prams,xc0,tau0);
-      [Up0, wp0,~,~,etaY0,etaS0,force,torque] = tt.timeStep(...
-          geom0,geom0.X,geom0.X);
+      [Up0,wp0,~,~,etaY0,etaS0,force,torque] = ...
+            tt.timeStep(geom0,geom0.X,geom0.X,walls);
 
       % write the velocity to a file
       om.writeVelData(time,Up0,wp0);
@@ -74,7 +95,8 @@ while step <= prams.m
     end
       
     geom1 = capsules(prams,xc1,tau1);
-    [Up1, wp1,~,~,etaY,etaS,force,torque] = tt.timeStep(geom1,etaY0,etaS0);
+    [Up1, wp1,~,~,etaY,etaS,force,torque] = ...
+          tt.timeStep(geom1,etaY0,etaS0,walls);
     etaY0 = etaY; etaS0 = etaS;
     
     % Applying two-step Adams-Bashforth
@@ -88,14 +110,18 @@ while step <= prams.m
     geom2 = capsules(prams,xc2,tau2);
   end
 
-  om.plotData(geom2);
+  om.plotData(geom2,walls.X);
+%  hold on;
+%%  clf
+%  surf(xx,yy,pot)
+%  view(2); shading interp; axis equal;
+%  pause
 
   % write the shape to a file
   om.writeData(time,geom2.center,geom2.tau,geom2.X);
 
   % write the velocity to a file
   om.writeVelData(time,Up0,wp0); 
-  
   
   % update time
   time = time + tt.dt;

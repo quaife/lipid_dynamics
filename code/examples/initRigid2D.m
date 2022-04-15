@@ -9,7 +9,7 @@ if isempty(strfind(P, subPath))
 end
 
 PramList = {'N','nb','T','number_steps',...
-            'RepulLength','RepulStrength','bcShift','bcType'};
+            'RepulLength','RepulStrength','bcShift','bcType','Nwall'};
 defaultPram.N             = 64;
 defaultPram.nb            = 1;
 defaultPram.T             = 1;
@@ -19,6 +19,7 @@ defaultPram.RepulLength   = 0.3;
 defaultPram.RepulStrength = 0.5;
 defaultPram.bcShift       = 0;
 defaultPram.bcType        = 'cosine';
+defaultPram.Nwall         = 128;
 
 for k = 1:length(PramList)
   if ~isfield(prams,PramList{k})
@@ -29,7 +30,8 @@ end
 
 
 OptionList = {'timeOrder','farField','shearRate','verbose',...
- 'gmresTol','saveData','saveVel','usePlot','plotAxis','tracer'};
+ 'gmresTol','saveData','saveVel','usePlot','plotAxis','tracer',...
+ 'confined','walls'};
     
 defaultOption.timeOrder = 1;
 defaultOption.farField  = 'shear';
@@ -41,6 +43,8 @@ defaultOption.saveVel   = true;
 defaultOption.usePlot   = true;
 defaultOption.plotAxis  = [-1 1 -1 1];
 defaultOption.tracer    = false;
+defaultOption.confined  = false;
+defaultOption.walls     = 'tube';
 
 for k = 1:length(OptionList)
   if ~isfield(options,OptionList{k})

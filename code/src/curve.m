@@ -10,7 +10,7 @@ classdef curve
 methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [x,y]=getXY(o,X)
+function [x,y] = getXY(o,X)
 % [x,y] = getXY(X) get the [x,y] component of curves X
 N = size(X,1)/2;
 x = X(1:N,:);
@@ -18,7 +18,7 @@ y = X(N+1:end,:);
 end % getXY
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [x,y]=getXYperp(o,X)
+function [x,y] = getXYperp(o,X)
 % [x,y] = getXY(X) get the [x,y] component of curves X
 N = size(X,1)/2;
 x = X(N+1:end,:);
@@ -91,6 +91,9 @@ length = sum( sqrt(Dx.^2 + Dy.^2) )*2*pi/N;
 area = sum( x.*Dy - y.*Dx)*pi/N;
 
 end % geomProp
+
+
+
 
 end % methods
 
