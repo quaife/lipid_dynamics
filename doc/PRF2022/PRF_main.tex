@@ -266,10 +266,10 @@ Follow the divergence theorem on the last term in the equation above and denote 
 \begin{align}
 \label{eq:free_energy3}
   E[u(\xx)] &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} g \frac{\partial w_i}{\partial \nnu} \,\dif s 
-  + \int_{U_i}\nabla g_i \nabla u_i + g_i (u_i+\frac12\sigma) \,\dif \xx\right)\\
+  + \int_{\mathbb{R}^n\setminus \overline{U}_i}\nabla g_i \cdot\nabla \left(u_i+\frac12\sigma\right) + g_i \left(u_i+\frac12\sigma\right) \,\dif \xx\right)\\
   &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} g_i \frac{\partial w_i}{\partial \nnu} 
- + u_i \frac{\partial g_i}{\partial \nnu} \,\dif s - \int_{U_i}\Delta g_i u_i - g_i (u_i+\frac12\sigma) \,\dif \xx\right) \\
- &= C\rho\sum_{i=1}^{N_b}\int_{\Gamma_i} g \frac{\partial w_i}{\partial \nnu}+ (u_i+\frac12\sigma)  \frac{\partial g_i}{\partial \nnu}\,\dif s, \quad \xx\in\Gamma_i.
+ +  \left(u_i+\frac12\sigma\right)  \frac{\partial g_i}{\partial \nnu} \,\dif s - \int_{\mathbb{R}^n\setminus \overline{U}_i}\Delta g_i  \left(u_i+\frac12\sigma\right)  - g_i \left(u_i+\frac12\sigma\right) \,\dif \xx\right) \\
+ &= C\rho\sum_{i=1}^{N_b}\int_{\Gamma_i} g \frac{\partial w_i}{\partial \nnu}+ \left(u_i+\frac12\sigma\right)  \frac{\partial g_i}{\partial \nnu}\,\dif s, \quad \xx\in\Gamma_i.
 \end{align}
 %
 $\sigma$ satisfies the second-kind integral equation
