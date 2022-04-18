@@ -25,9 +25,14 @@ bcType        % type of the boundary condition
 shape         % determine the type of particle shape
 petal         % number of petal if particle shape is star
 
-nearStruct;   % structure for near-singular integration
-DLPStokes;    % double-layer potential matrix
-DLPYukawa;    % double-layer potential matrix for yukawa
+% structure for near-singular integration from body to body
+nearStructB2B;   
+% structure for near-singular integration from body to target
+nearStructB2T;   
+DLPStokes;    % double-layer potential matrix for Stokes
+% rank-one correction for Stokes to remove one dimensional null space
+N0Stokes;     
+DLPYukawa;    % double-layer potential matrix for Yukawa
 upRate;       % upsampling rate that is used for NSI quadrature
 NPeaks;       % change the number of peaks in cosine bc
 % besselk(1,~) kernel for each target point with upsampled source points
@@ -63,8 +68,6 @@ o.NPeaks = prams.NPeaks;
 o.shape  = prams.shape;
 o.petal  = prams.petal;
 
-oc = curve;
-
 theta = (0:o.N-1)'*2*pi/o.N;
 X = zeros(o.N*2,o.nb);  
 
@@ -81,7 +84,7 @@ switch o.shape
   case 'star'
     for i = 1:o.nb
       % shape of star
-      rr = o.radii(i)+o.ar(i)*cos(o.petal*theta);
+      rr = o.radii(i) + o.ar(i)*cos(o.petal*theta);
       % rotated star
       refX = kron([cos(tau(i)) -sin(tau(i));...
              +sin(tau(i)) cos(tau(i))],...
@@ -90,17 +93,50 @@ switch o.shape
       X(1:o.N,i) = refX(1:o.N) + xc(1,i);
       X(o.N+1:2*o.N,i) = refX(o.N+1:end) + xc(2,i);
     end
-  end
+
+  case 'tube'
+    % parameters for the boundary:
+    % a and b control the length and height and order controls the
+    % regularity
+    a = 10; b = 3; order = 8;
+    t = (0:o.N-1)'*2*pi/o.N;
+    % radius of the "ellipse"
+    r = (cos(-t).^order + sin(-t).^order).^(-1/order);
+    % rounded off cylinder. 
+    x = a*r.*cos(-t); y = b*r.*sin(-t);
+
+    X = [x;y];
+
+  case 'choke'
+    % parameters for the boundary:
+    % a and b control the length and height and order controls the
+    % regularity
+    a = 20; b = 3; c = 0.6; order = 8;
+    t = (0:o.N-1)'*2*pi/o.N;
+    % radius of the "ellipse"
+    r = (cos(-t).^order + sin(-t).^order).^(-1/order);
+    x = a*r.*cos(-t); y = b*r.*sin(-t);
+    ind = abs(x) < 10;
+    scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/10)).^10 + ...
+      (1-c)/(1+c);
+    y(ind) = y(ind).*[scalRat;scalRat];
+%    y(ind) = y(ind).*(1 - c*cos(x(ind)))/(1+c);
+    % rounded off cylinder and pinched off in the midle
+    X = [x;y];
+end
 o.X = X;
 
+% repulsion length and strength for interactions between Janus
+% particles
+o.RepulLength = prams.RepulLength;
+o.RepulStrength = prams.RepulStrength;
+
+oc = curve;
 % compute arlength, tangent, and curvature
 [o.sa,o.xt,o.cur] = oc.diffProp(o.X); 
 % compute total length
 [~,o.length] = oc.geomProp(o.X);
 
-% repulsion length and strength
-o.RepulLength = prams.RepulLength;
-o.RepulStrength = prams.RepulStrength;
 
 % store as empty arrays. These are only constructed when needed
 o.BK1 = [];

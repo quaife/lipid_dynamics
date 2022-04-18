@@ -10,6 +10,7 @@ logFile    % name of log file
 usePlot    % flag for plotting
 plotAxis   % plotting axis
 tracer     % flag for tracer
+confined   % flag to determine if geometry is confined or not
 
 OUTPUTPATH_DATA % folder in which to save data
 OUTPUTPATH_LOG  % folder in which to save logs
@@ -36,6 +37,7 @@ o.dataFile = [o.OUTPUTPATH_DATA, options.fileBase, '.bin'];
 o.velFile  = [o.OUTPUTPATH_VEL, options.fileBase, '_vel.bin'];
 o.logFile  = [o.OUTPUTPATH_LOG, options.fileBase, '.log'];
 
+o.confined = options.confined;
 o.usePlot  = options.usePlot;
 o.plotAxis = options.plotAxis;
 o.tracer   = options.tracer;
@@ -78,11 +80,16 @@ message2 = ['SIMULATING ' num2str(nb) ...
 o.writeMessage(message2);
 o.writeStars;
 
-% write the number of points per body and number of bodies to the data
-% file
-fid = fopen(o.dataFile,'a');
-fwrite(fid,[N;nb],'double');
-fclose(fid);
+% This file was being overwritten in initializeFiles
+%fid = fopen(o.dataFile,'a');
+%% write the number of points per body and number of bodies to the data
+%% file
+%fwrite(fid,[N;nb],'double');
+%% write the solid walls to the data file
+%if numel(Xwalls) ~= 0
+%  fwrite(fid,Xwalls(:),'double');
+%end
+%fclose(fid);
 
 end % welcomeMessage
 
@@ -111,22 +118,33 @@ if o.verbose
   disp(message)
 end
 
-
 end % writeMessage
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function initializeFiles(o,geom);
+function initializeFiles(o,geom,walls);
 
 N = geom.N;
 nb = geom.nb;
 yukawaRHS = reshape(geom.yukawaRHS,geom.N,geom.nb);
 oc = curve;
 [x,y] = oc.getXY(geom.X);
+if o.confined
+  Nwall = walls.N;
+  nbwall = walls.nb;
+  Xwalls = walls.X;
+else
+  Nwall = 0;
+  nbwall = 0;
+  Xwalls = [];
+end
 
 if o.save;
   fid = fopen(o.dataFile,'w');
-  fwrite(fid,[N;nb],'double');
+  % number of points per body, number of bodies, number of points on
+  % solid wall
+  fwrite(fid,[N;nb;Nwall;nbwall],'double'); 
+  fwrite(fid,Xwalls(:),'double');
   fwrite(fid,yukawaRHS(:),'double'); % yukawa right hand side
   fclose(fid);
 
@@ -154,8 +172,9 @@ end % writeData
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function writeVelData(o,time,Up,wp)
-% writeData(time,xc,tau,X) writes the current time, center, inclination
-% angle, and geometry shape to a data file for postprocessing
+% writeVelData(time,xc,tau,X) writes the current time, center,
+% inclination angle, and geometry shape to a data file for
+% postprocessing
 
 Upx = Up(1,:);
 Upy = Up(2,:);
@@ -169,7 +188,7 @@ fclose(fid);
 end % writeVelData
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function plotData(o,geom)
+function plotData(o,geom,Xwalls)
 
 if o.usePlot
   oc = curve;
@@ -193,6 +212,17 @@ if o.usePlot
 %    set(h,'FaceColor','none');
     colormap(jet);
   end
+
+  if o.confined
+    xx = Xwalls(1:end/2,:); xx = [xx;xx(1,:)];
+    yy = Xwalls(end/2+1:end,:); yy = [yy;yy(1,:)];
+    % solid walls always have 0 for the HAP model
+    zz = zeros(size(Xwalls,1)/2+1,size(Xwalls,2));
+%    plot(Xwalls(1:end/2,:),Xwalls(end/2+1:end,:),'k','linewidth',2)
+    h = cline(xx,yy,zz);
+    set(h,'linewidth',2);
+  end
+
   axis equal
   axis(o.plotAxis);  
   hold on  

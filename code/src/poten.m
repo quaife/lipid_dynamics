@@ -82,8 +82,8 @@ Nup = Nsou*geomSou.upRate;
 % exactly on the body
 vself = selfMat(f);
 
-% pad vself with zeros if dealing with a scalar layer potential
-% and upsample to N^(3/2).  
+% pad vself with zeros if dealing with a scalar layer potential and
+% upsample to desired number of quadrature points.
 if size(vself,1) == geomSou.N
   vself = [vself;zeros(geomSou.N,geomSou.nb)];
   fup = interpft(f,Nup);
@@ -110,6 +110,7 @@ prams.petal = geomSou.petal;
 % Build an object with the upsampled geom
 geomUp = capsules(prams,geomSou.center,geomSou.tau);
 % already computed the necessary Yukawa and Stokes DLP matrix
+
 geomUp.BK1 = geomSou.BK1;
 geomUp.StokesDL = geomSou.StokesDL;
 
@@ -399,7 +400,7 @@ N = geom.N;
 % initialize space for double-layer potential matrix
 D = zeros(N,N,geom.nb);
 
-for k=1:geom.nb  % Loop over curves
+for k = 1:geom.nb  % Loop over curves
   % x and y coordinates of the sources/targets
   xx = x(:,k);
   yy = y(:,k);
@@ -435,7 +436,7 @@ for k=1:geom.nb  % Loop over curves
   % set diagonal terms to 0
   dist(1:N+1:N^2) = 0;
 
-  D11 = 1/2/pi/geom.rho.*besselk(1,dist/geom.rho).*...
+  D11 = 1/2/pi/geom.rho*besselk(1,dist/geom.rho).*...
       rdotn./dist.*sa;
 
   D11(1:N+1:N^2) = +0.25/pi*cur.*sa(1,:);
@@ -1012,7 +1013,7 @@ end % exactStokesDLstress
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [vLets,vLetsTar] = StokesletRotlet(o,geom,force,torque,Xtar,K1)
 % [vLets,vLetsTar] = StokesletRotlet(geom,force,torque,Xtar,K1) computes
-% the velocity due to stokeslets and rotlets. Also can pass a set of
+% the velocity due to Stokeslets and Rotlets. Also can pass a set of
 % target points Xtar and a collection of geom K1 and the Stokeslet and
 % Rotlet velocities due to components of the geometry in K1 will be
 % evaluated at Xtar. Everything but Xtar is in the 2*nb x n format Xtar
@@ -1172,7 +1173,7 @@ end % RSstress
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [F1, F2, Tq] = evalForcesQBX(o,geom,eta)
+function [F1, F2, Tq] = evalHydroForces(o,geom,etaJanus,walls,etaWalls)
 
 % Uses * Tpq + Tqp identity, 
 %      * Jpq jump value to evaluate on curve itself 
@@ -1196,9 +1197,7 @@ Tq = zeros(geom.nb,1);
 pc1 = geom.center(1,:).';
 pc2 = geom.center(2,:).';
 
-rad = 0.3;
-m_max = 6;
-
+% parameters for QBX
 if N <= 32
   rad = 0.4; m_max = 2;
 elseif N <= 64
@@ -1215,26 +1214,31 @@ B_m = zeros(N,2*m_max + 1);
 IK = oc.modes(N,1); % Fourier modes;
 
 for p = 1:geom.nb
+  % center of particle p
+  x1pc = pc1(p);
+  x2pc = pc2(p);    
+
+  % discretization points of particle p
+  x1p  = x1(:,p);
+  x2p  = x2(:,p);        
+  % Jacobian of particle p
+  dSp  = dS(:,p);
+  
+  % unit outward normal of particle p
+  nu1p = nu1(:,p);
+  nu2p = nu2(:,p);
+  
+  % unit tangent of particle p
+  tau1p = tau1(:,p);
+  tau2p = tau2(:,p);
+
+  % setting argin geom.nb = 1 tricks evaluators to using only one
+  % geometry column
+  etaJanusp = etaJanus(:,p);
+
+  % contribution due to the other Janus particles
   for q = [1:p-1, p+1:geom.nb]
-    x1pc = pc1(p);
-    x2pc = pc2(p);    
-
-    x1p  = x1(:,p);
-    x2p  = x2(:,p);        
-    dSp  = dS(:,p);
-    
-    nu1p = nu1(:,p);
-    nu2p = nu2(:,p);
-    
-    tau1p = tau1(:,p);
-    tau2p = tau2(:,p);
-
-    % setting argin geom.nb = 1 tricks evaluators to using only one
-    % geometry column
-    etap = eta(:,p);
-
-    % decide which strategy to use : expansion or standard evaluation 
-              
+    % decide which strategy to use : QBX or standard evaluation 
     D = min(pdist2([x1(:,p) x2(:,p)],[x1(:,q), x2(:,q)]),[],"all");
 
     if D < tol
@@ -1245,38 +1249,95 @@ for p = 1:geom.nb
       c1 = x1p - rad*nu1p;
       c2 = x2p - rad*nu2p;
 
-      % Form QBX coefficients
+      % Form QBX coefficients for contribution from particle q
       for m = -m_max:m_max
         B_m(:,m+m_max+1) = o.QBX_coeff(c1,c2,m,x1(:,q),x2(:,q), ...
-              nu1(:,q),nu2(:,q),dS(:,q),geom.rho,eta(:,q));
+              nu1(:,q),nu2(:,q),dS(:,q),geom.rho,etaJanus(:,q));
       end                
 
-      % Evaluate QBX expansion
+      % Evaluate QBX expansion for contribution from particle q
+      % evaluated on particle p
       [uq,uq_x1,uq_x2] = o.QBX_exp(x1p,x2p,c1,c2,B_m,m_max,geom.rho); 
 
     else
       % Evaluate DL potential directly
-      [uq,uq_x1,uq_x2] = o.evalDL(x1p,x2p,1,N,x1(:,q),x2(:,q), ...
-            nu1(:,q),nu2(:,q),dS(:,q),geom.rho,eta(:,q));
+      [uq,uq_x1,uq_x2] = o.evalDL(x1p,x2p,x1(:,q),x2(:,q), ...
+            nu1(:,q),nu2(:,q),dS(:,q),geom.rho,etaJanus(:,q));
     end % if D < tol                                   
 
-    % compute tangent derivatives of etap and uq.
-    etap_t = oc.diffFT(etap,IK)./geom.sa(:,p);
+    % compute tangent derivatives of etaJanusp.
+    etaJanusp_t = oc.diffFT(etaJanusp,IK)./geom.sa(:,p);
+    % compute tangent derivatives of uq.
     uq_t = oc.diffFT(uq,IK)./geom.sa(:,p);
     uq_n = uq_x1.*nu1p + uq_x2.*nu2p;
 
-    Jpq1 = 2.0/geom.rho*etap.*uq.*nu1p + ...
-        2.0*geom.rho*etap_t.*uq_t.*nu1p - ...
-        2.0*geom.rho*etap_t.*uq_n.*tau1p;
-    Jpq2 = 2.0/geom.rho*etap.*uq.*nu2p + ...
-        2.0*geom.rho*etap_t.*uq_t.*nu2p - ...
-        2.0*geom.rho*etap_t.*uq_n.*tau2p;        
+    Jpq1 = 2.0/geom.rho*etaJanusp.*uq.*nu1p + ...
+        2.0*geom.rho*etaJanusp_t.*uq_t.*nu1p - ...
+        2.0*geom.rho*etaJanusp_t.*uq_n.*tau1p;
+    Jpq2 = 2.0/geom.rho*etaJanusp.*uq.*nu2p + ...
+        2.0*geom.rho*etaJanusp_t.*uq_t.*nu2p - ...
+        2.0*geom.rho*etaJanusp_t.*uq_n.*tau2p;        
 
     F1(p) = F1(p) + sum(Jpq1.*dSp);
     F2(p) = F2(p) + sum(Jpq2.*dSp);
     Tq(p) = Tq(p) + sum((+(x1p - pc1(p)).*Jpq2  ...
                          -(x2p - pc2(p)).*Jpq1).*dSp);
   end    
+
+  % if not confined, need to add in the contribution due to solid walls
+  if walls.N > 0
+    [xWall,yWall] = oc.getXY(walls.X);
+    [txWall,tyWall] = oc.getXY(walls.xt);
+    nxWall = +tyWall;
+    nyWall = -txWall;
+    jacWall = walls.sa*2*pi/walls.N;
+
+    C_m = zeros(N,2*m_max + 1);
+
+    % decide which strategy to use : QBX or standard evaluation 
+    D = min(pdist2([x1(:,p) x2(:,p)],[xWall,yWall]),[],"all");
+
+    if D < tol
+      uq = zeros(walls.N,1);
+      uq_x1 = zeros(walls.N,1);
+      uq_x2 = zeros(walls.N,1);
+
+      c1 = x1p - rad*nu1p;
+      c2 = x2p - rad*nu2p;
+
+      % Form QBX coefficients for contribution from walls
+      for m = -m_max:m_max
+        C_m(:,m+m_max+1) = o.QBX_coeff(c1,c2,m,xWall,yWall, ...
+              nxWall,nyWall,jacWall,walls.rho,etaWalls);
+      end                
+
+      % Evaluate QBX expansion for contribution from solid walls
+      % evaluated on particle p
+      [uWall,uWall_x1,uWall_x2] = o.QBX_exp(x1p,x2p,c1,c2,C_m,m_max,walls.rho); 
+    else
+      % Evaluate DL potential directly
+      [uWall,uWall_x1,uWall_x2] = o.evalDL(x1p,x2p,xWall,yWall,...
+          nxWall,nyWall,jacWall,walls.rho,etaWalls);
+    end % if D < tol                                   
+
+    % compute tangent derivatives of etaJanusp.
+    etaJanusp_t = oc.diffFT(etaJanusp,IK)./geom.sa(:,p);
+    % compute tangent derivatives of uWall
+    uWall_t = oc.diffFT(uWall,IK)./geom.sa(:,p);
+    uWall_n = uWall_x1.*nu1p + uWall_x2.*nu2p;
+
+    JpWall1 = 2.0/geom.rho*etaJanusp.*uWall.*nu1p + ...
+        2.0*geom.rho*etaJanusp_t.*uWall_t.*nu1p - ...
+        2.0*geom.rho*etaJanusp_t.*uWall_n.*tau1p;
+    JpWall2 = 2.0/geom.rho*etaJanusp.*uWall.*nu2p + ...
+        2.0*geom.rho*etaJanusp_t.*uWall_t.*nu2p - ...
+        2.0*geom.rho*etaJanusp_t.*uWall_n.*tau2p;        
+
+    F1(p) = F1(p) + sum(JpWall1.*dSp);
+    F2(p) = F2(p) + sum(JpWall2.*dSp);
+    Tq(p) = Tq(p) + sum((+(x1p - pc1(p)).*JpWall2  ...
+                         -(x2p - pc2(p)).*JpWall1).*dSp);
+  end
 end     
 
 %F1, F2 and Tq have numerically mean zero
@@ -1285,7 +1346,7 @@ F1 = gam*F1;
 F2 = gam*F2;
 Tq = gam*Tq;
 
-end % evalForcesQBX
+end % evalHydroForces
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Dh,Dh_x1,Dh_x2] = QBX_exp(o,X1,X2,c1,c2,A_m,m_max,rho)
@@ -1360,7 +1421,7 @@ a_m = sum(f.*h.*dS, 2); % want m by 1 output, second dimension
 end % QBX_coeff
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Dh,Dh_X1,Dh_X2] = evalDL(o,X1,X2,Nb,N,x1,x2,nu1,nu2,dS,rho,h)
+function [Dh,Dh_X1,Dh_X2] = evalDL(o,X1,X2,x1,x2,nu1,nu2,dS,rho,h)
 % TODO: This routine must already be in the code
 % evaluates double layer potential at (X1, X2)
 

@@ -30,6 +30,46 @@
 % below if necessary.
 %\bibliographystyle{apsrev4-2}
 
+\usepackage{graphicx}
+%\usepackage{epstopdf,epsfig}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{commath}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newcommand{\RomanNumeralCaps}[1]
+\linenumbers
+
+
+% Bryan's Marcros
+\renewcommand{\aa}{\mathbf{a}}
+\newcommand{\bd}{\partial}
+\newcommand{\dd}{\mathbf{d}}
+\newcommand{\DD}{\mathcal{D}}
+\newcommand{\eeta}{\boldsymbol{\eta}}
+\newcommand{\FF}{\mathbf{F}}
+\newcommand{\GG}{\mathbf{G}}
+\newcommand{\JJ}{\mathbf{J}}
+\newcommand{\nnu}{\boldsymbol{\nu}}
+\newcommand{\ttau}{\boldsymbol{\tau}}
+\newcommand{\ssigma}{\boldsymbol{\sigma}}
+\newcommand{\rr}{\mathbf{r}}
+\newcommand{\RR}{\mathbf{R}}
+\renewcommand{\SS}{\mathbf{S}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\XX}{\mathbf{X}}
+\newcommand{\uu}{\mathbf{u}}
+\renewcommand{\vv}{\mathbf{v}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\jump}[1]{[\![ #1 ]\!]}
+
+
 \begin{document}
 
 % Use the \preprint command to place your local institutional report
@@ -64,7 +104,7 @@
 \author{Bryan Quaife}
 \email{bquaife@fsu.edu}
  \affiliation{Department of Scientific Computing, Florida State University, Tallahassee, Florida 32306, USA}
- \author{Yuan-Nan Young}
+ \author{Y.-N. Young}
  \email{yyoung@njit.edu}
  \affiliation{Department of Mathematical Sciences, New Jersey Institute of Technology, Newark, New Jersey 07102, USA
  }
@@ -96,7 +136,11 @@
 \section{Introduction}
 % Put \label in argument of \section for cross-referencing
 %\section{\label{}}
+
+
 \subsection{}
+
+
 \subsubsection{}
 
 
@@ -110,13 +154,217 @@
 \section{Governing Equations}
 
 
-%%%
+\subsection{Screened Laplace Mobility Problem}
 
+
+The mathematical formulation is a nonlinear system for the dynamics of a
+collection of particles. The interactions come from a system of 
+partial differential equations (PDEs) that comprise hydrodynamic
+interactions and hydrophobic interactions.
+The hydrodynamic interactions come from the mobility problem for rigid
+particles immersed in a viscous solvent. We then use a
+second-order Adams-Bashforth method to update the particle configuration.
+Assuming inertial terms are
+negligible, the particle motion is goverened by the Stokes equations
+\begin{alignat}{3}
+\label{eq:stokes}
+  -\mu \Delta \uu + \nabla p &= \mathbf{0},     && \xx \in \Omega, \\
+  \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
+  \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
+\end{alignat}
+where $\uu$ is the velocity and $p$ is the pressure of the solvent,
+$\uu_\infty$ is the background flow, and $\mu$ is the constant solvent
+viscosity. The domain $\Omega = \Omega(t)$ is the fluid region surrounding the
+particles and changes shape as the particles move.
+Since the particles are rigid, the solvent velocity satisfies
+a no-slip boundary condition for a rigid body motion 
+on the particle boundary $\Gamma_i$ with translational velocity $\vv_i$
+and angular velocity $\omega_i$.
+Given imposed forces acting on each
+particle, the \emph{mobility problem} consists of finding
+translational and angular velocities so that viscous fluid forces
+balance the imposed forces.
+
+The hydrophobic interactions come from the tendency of particles to
+minimize the free energy of the structure of the surrounding water
+molecules. The free energy functional takes the form 
+\begin{equation}
+\label{eq:free_energy}
+  F[u] = C \int_{\Omega} \left(\rho |\nabla u|^2 + \rho^{-1} f(u)\right)
+  \,d\xx,
+\end{equation}
+where $u$ is an order parameter for the structure of water, $\rho$ is a
+decay length, $C$ is a constant, and $f(u)$ is a potential.
+Hydrogen-bond persistence times are on the order of picoseconds
+which is much smaller than characteristic time for 
+particle motion.% \cite{MaGa13}.
+Thus we assume $u$ minimizes $F[u]$ for all times.
+Assuming appropriate conditions on $f(u)$,% (\cite{evans10}, \S 8.2),
+$u$ is bounded and satisfies the Euler-Lagrange equation
+\begin{equation}
+\label{eq:SL}
+-\rho^2 \Delta u + \tfrac{1}{2}f'(u) = 0  \text{ in } \Omega,\quad u = g,
+\text{ on } \bd\Omega.
+\end{equation}
+The boundary condition $g$ is a material label that is transported with
+the particle (Figure~\ref{fig:bcs}).
+
+The particles lower the free energy $F[u]$ of the surrounding water
+by moving. We calculate the rate of change of $F[u]$ using
+\emph{variation of the domain}% ~\cite{Fu2018_SIAM,Bandle2015, Schiffer1954, Grinfeld2010}.
+Carrying out this variation yields a stress  
+\begin{align}
+  \label{eq:stress}
+\mathbf{T}
+= C \left[ \rho^{-1} f(u) \mathbf{I}
+  + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right].
+\end{align}
+The imposed forces and torques come from the integration of $\mathbf{T}$
+along the particle boundary.
+These forces and torques couple the Stokes equations \eqref{eq:stokes},
+to semilinear elliptic equation \eqref{eq:SL}.
+Solving for the translational and rotational velocities gives the
+particle evolution.
+
+\begin{align}
+  \label{eq:velocity}
+  \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
+    \sum_{i=1}^{N_b} \left(\SS(\xx,\aa_i) \cdot \FF_i + 
+    \RR(\xx,\aa_i) T_i\right), \quad \xx \in \Omega.
+\end{align}
+
+\begin{alignat}{3}
+  \nonumber
+  \vv_i + \omega_i (\xx - \aa_i)^\perp &= \uu_\infty(\xx)
+    -\frac{1}{2} \eeta(\xx) + \DD[\eeta](\xx) \\
+  \label{eq:SKIE}
+    + \sum_{j=1}^{N_b} &
+    \left(\SS(\xx,\aa_j) \cdot \FF_j + \RR(\xx,\aa_j) T_j\right),
+    \quad &&\xx \in \Gamma_i,\: i=1,\ldots,N_b, \\
+  \label{eq:mobility1}
+  \int_{\Gamma_i} \eeta \, \dif s &= \mathbf{F}_i, 
+  &&i = 1,\ldots,N_b, \\
+  \label{eq:mobility2}
+  \int_{\Gamma_i} \eeta \cdot (\xx-\aa_i)^\perp \, \dif s &= T_i,
+  &&i = 1,\ldots,N_b.
+\end{alignat}
+
+
+\subsection{Energy Calculation via Singularity Subtraction}
+
+Suppose we split the solution to the screened Laplace boundary value problem~\eqref{eq:stokes}
+into smooth portion $w_i$ and singular portion $u_i$. That is, $u = w_i + u_i$.
+Consider the case when $f(u)=u^2$ in~\eqref{eq:free_energy}, we can rewrite the free energy functional as 
+
+\begin{align}
+\label{eq:free_energy2}
+  E[u(\xx)] &= C\rho \sum_{i=1}^{N_b}\int_{\Gamma_i} u \frac{\partial u}{\partial \nnu}  \,\dif s
+= C\rho\sum_{i=1}^{N_b}\int_{\Gamma_i} g \left(\frac{\partial w_i}{\partial \nnu}+\frac{\partial u_i}{\partial \nnu} \right) \, \dif s, \quad \xx\in\Gamma_i.
+\end{align}
+%%%
+Follow the divergence theorem on the last term in the equation above and denote $g_i(x)$ as the boundary data on $\Gamma_i$, we obtain
+\begin{align}
+\label{eq:free_energy3}
+  E[u(\xx)] &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} g \frac{\partial w_i}{\partial \nnu} \,\dif s 
+  + \int_{\mathbb{R}^n\setminus \overline{U}_i}\nabla g_i \cdot\nabla \left(u_i+\frac12\sigma\right) + g_i \left(u_i+\frac12\sigma\right) \,\dif \xx\right)\\
+  &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} g_i \frac{\partial w_i}{\partial \nnu} 
+ +  \left(u_i+\frac12\sigma\right)  \frac{\partial g_i}{\partial \nnu} \,\dif s - \int_{\mathbb{R}^n\setminus \overline{U}_i}\Delta g_i  \left(u_i+\frac12\sigma\right)  - g_i \left(u_i+\frac12\sigma\right) \,\dif \xx\right) \\
+ &= C\rho\sum_{i=1}^{N_b}\int_{\Gamma_i} g \frac{\partial w_i}{\partial \nnu}+ \left(u_i+\frac12\sigma\right)  \frac{\partial g_i}{\partial \nnu}\,\dif s, \quad \xx\in\Gamma_i.
+\end{align}
+%
+$\sigma$ satisfies the second-kind integral equation
+\begin{equation}
+\label{eq:screenedSKIE}
+  g(\xx) = \frac{1}{2}\sigma(\xx) + 
+    \frac{1}{2\pi}\int_{\bd\Omega} \left(\pderiv{}{\nnu_\yy}
+    K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) \sigma(\yy) \, 
+    \dif s_\yy, \quad \xx \in \bd\Omega,
+\end{equation}
 
 \section{Numerical Results}
 
+\subsection{Self-Assembled Janus Particle with Specific Boundary Conditions}
+
+Distinct morphologies can be obtained from 
+the HAP model by shifting the boundary condition $g(\xx)$.
+Consider the linear case where $f(u) = u^2$.
+This choice makes \eqref{eq:SL} a boundary value
+problem for the screened-Laplace equation
+and the solutions have a boundary layer structure that decays to $0$ in the
+bulk with the decay length $\rho$.
+We consider three kinds of boundary conditions
+on particle $\Gamma_i$:
+\begin{equation}
+  \label{eq:bcs}
+  \begin{tabular}{c|c|c}
+     \text{(a)} & \text{(b)} & \text{(c)} \\
+    \hline
+    \rule{0pt}{4ex} 
+      $g(\mathbf{x}) = \displaystyle \frac{1+\cos (\theta_i(\xx))}{\sqrt{3\pi r}}$
+    & $g(\mathbf{x}) = \displaystyle \frac{2+\cos (\theta_i(\xx))}{\sqrt{9\pi r}}$
+    & $g(\mathbf{x}) = \displaystyle \frac{\cos (\theta_i(\xx))}{\sqrt{\pi r}}$
+\end{tabular}
+\end{equation}
+  The number $\theta_i(\xx)$ is the angle formed by the position $\xx$, the
+particle center $\aa_i$, and the particle director $\dd_i$.% (Figure \ref{fig:flow_map}).
+The normalizations e.g., $(\pi r)^{-1/2}$, provide a uniform
+surface energy $\int_{\Gamma_i} g^2 \,ds = 1$ for circular particles
+of radius $r$. 
+The cases (b) and (c) are obtained by applying a vertical shift
+and scaling to case (a), see Figure \ref{fig:bcs}.
+Using this setup, we simulate the dynamics of 100 particles with random
+initial position and orientation.
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.2\textwidth]{LPA.jpg}
+  \includegraphics[width=0.2\textwidth]{LPB.jpg}
+  \includegraphics[width=0.2\textwidth]{LPC.jpg}
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:bcs} Boundary conditions characterize the water
+    structure at the particle interface: an amphiphilic particle (left),
+    a hydrophobic
+  particle with anisotropic intensity (middle), a water structure with
+  positive/negative charge (right). The dashed curve is the boundary of the
+  disk and the arrow is its director for each particle.}
+\end{figure}
+Case (a) models amphiphilic particles.
+Amphiphilic particles have a hydrophobic tail and a hydrophilic head
+and these are accounted for as follows.
+The hydrophilic side takes the value $u =0$.
+This mimicks the apolar head of a lipid, for example, which does
+not alter the structure of adjacent waters. The hydrophobic side
+represents hydrocarbons and takes the value 
+$u > 0$. The interaction between particles is attractive,
+and particles will collectively orient their tails toward
+one another. 
 
 
+Multilamelar bilayers arise when both sides of the particle
+are hydrophobic.
+The boundary condition \eqref{eq:bcs}(b) 
+gives a particle with a hydrophobic intensity that is greater
+on the $\theta_i = 0$ side than on the $\theta_i = \pi$ side.
+The initial self-assembly is similar to that in case (a).
+The difference arises in the long-time dynamics where the bilayers
+no longer remain well-separated. 
+Rather, the bilayers form layers 
+as a consequence of the interfacial tension of exposed particle
+heads.%~\cite{Huetal19, deMeetal21}. 
+
+
+Finally, boundary condition \eqref{eq:bcs}(c) models 
+a particle whose head surface repels the tail surface as proposed in
+\cite{MaRa76, Ma77}.
+The particles initially form chains with their directors perpendicular to the
+length of the chain. The equilibrium structure
+resembles a checkerboard pattern
+where each particle coordinates
+its head with the head of three other particles and its tail with the
+tail of three other particles. % Figure~\ref{fig:self-assembly}(c).
+
+\subsection{Collective Janus Particles Suspended in a Shear Flow}
 %%%
 
 
@@ -201,9 +449,11 @@
 %\section{}
 
 % If you have acknowledgments, this puts in the proper section head.
-%\begin{acknowledgments}
+\begin{acknowledgments}
+We thank Dr. S\'ebastien Michelin and Dr. Cecile Cottin-Bizzonne from LadHyX - Ecole Polytechnique Institut Polytechnique de Paris for organizing the focus-session ``interfacial active matter'' in the conference APS-DFD 2021 and the invitation of submitting a special collection paper. 
+
 % put your acknowledgments here.
-%\end{acknowledgments}
+\end{acknowledgments}
 
 % Create the reference section using BibTeX:
 %\bibliography{basename of .bib file}
