@@ -252,34 +252,51 @@ particle evolution.
 
 \subsection{Energy Calculation via Singularity Subtraction}
 
-Suppose we split the solution to the screened Laplace boundary value problem~\eqref{eq:stokes}
-into smooth portion $w_i$ and singular portion $u_i$. That is, $u = w_i + u_i$.
+Suppose we split the solution to the screened Laplace boundary value problem~\eqref{eq:SL}
+into smooth portion $w_i$ and singular portion $u_i$. That is, 
+\begin{equation}
+w_i({\bf x}) = u({\bf x}) - u_i = u({\bf x}) - \int_{\Gamma_i }\left(\pderiv{}{\nnu_\yy}
+    K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) \sigma_i(\yy) \,
+    \dif s_\yy \quad \xx \in \Gamma_i.
+\end{equation}
 Consider the case when $f(u)=u^2$ in~\eqref{eq:free_energy}, we can rewrite the free energy functional as 
 
 \begin{align}
 \label{eq:free_energy2}
   E[u(\xx)] &= C\rho \sum_{i=1}^{N_b}\int_{\Gamma_i} u \frac{\partial u}{\partial \nnu}  \,\dif s
-= C\rho\sum_{i=1}^{N_b}\int_{\Gamma_i} g \left(\frac{\partial w_i}{\partial \nnu}+\frac{\partial u_i}{\partial \nnu} \right) \, \dif s, \quad \xx\in\Gamma_i.
+= C\rho\sum_{i=1}^{N_b}\int_{\Gamma_i} u \left(\frac{\partial w_i}{\partial \nnu}+\frac{\partial u_i}{\partial \nnu} \right) \, \dif s, \quad \xx\in\Gamma_i.
 \end{align}
 %%%
 Follow the divergence theorem on the last term in the equation above and denote $g_i(x)$ as the boundary data on $\Gamma_i$, we obtain
 \begin{align}
 \label{eq:free_energy3}
-  E[u(\xx)] &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} g \frac{\partial w_i}{\partial \nnu} \,\dif s 
-  + \int_{\mathbb{R}^n\setminus \overline{U}_i}\nabla g_i \cdot\nabla \left(u_i+\frac12\sigma\right) + g_i \left(u_i+\frac12\sigma\right) \,\dif \xx\right)\\
-  &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} g_i \frac{\partial w_i}{\partial \nnu} 
- +  \left(u_i+\frac12\sigma\right)  \frac{\partial g_i}{\partial \nnu} \,\dif s - \int_{\mathbb{R}^n\setminus \overline{U}_i}\Delta g_i  \left(u_i+\frac12\sigma\right)  - g_i \left(u_i+\frac12\sigma\right) \,\dif \xx\right) \\
- &= C\rho\sum_{i=1}^{N_b}\int_{\Gamma_i} g \frac{\partial w_i}{\partial \nnu}+ \left(u_i+\frac12\sigma\right)  \frac{\partial g_i}{\partial \nnu}\,\dif s, \quad \xx\in\Gamma_i.
-\end{align}
+  E[u(\xx)] &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} u \frac{\partial w_i}{\partial \nnu} \,\dif s  + \int_{\mathbb{R}^n\setminus \overline{U}_i} \left( \nabla u \cdot\nabla u_i + u\Delta u_i\right) \,\dif \xx\right)\\
 %
-$\sigma$ satisfies the second-kind integral equation
-\begin{equation}
-\label{eq:screenedSKIE}
-  g(\xx) = \frac{1}{2}\sigma(\xx) + 
-    \frac{1}{2\pi}\int_{\bd\Omega} \left(\pderiv{}{\nnu_\yy}
-    K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) \sigma(\yy) \, 
-    \dif s_\yy, \quad \xx \in \bd\Omega,
-\end{equation}
+&= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} u \frac{\partial w_i}{\partial \nnu} \,\dif s  + \int_{\mathbb{R}^n\setminus \overline{U}_i} u\Delta u_i\,\dif \xx
++\int_{\Gamma_i}\left(u_i+\frac12\sigma_i\right)\frac{\partial u}{\partial \nnu} \,\dif s     
+- \int_{\mathbb{R}^n\setminus \overline{U}_i} u_i\Delta u\,\dif \xx \right)\\
+&= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} u \frac{\partial w_i}{\partial \nnu} + 
+\left(g_i+\frac12\sigma_i\right)\frac{\partial u}{\partial \nnu}   \,\dif s \right).
+\end{align}
+
+
+
+
+%  &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} g_i \frac{\partial w_i}{\partial \nnu} 
+% +  \left(u_i+\frac12\sigma\right)  \frac{\partial g_i}{\partial \nnu} \,\dif s - \int_{\mathbb{R}^n\setminus \overline{U}_i}\Delta g_i  \left(u_i+\frac12\sigma\right)  - g_i \left(u_i+\frac12\sigma\right) \,\dif \xx\right) \\
+% &= C\rho\sum_{i=1}^{N_b}\int_{\Gamma_i} g_i \frac{\partial w_i}{\partial \nnu}+ \left(u_i+\frac12\sigma\right)  \frac{\partial g_i}{\partial \nnu}\,\dif s, \quad \xx\in\Gamma_i.
+
+
+
+%%
+%$\sigma$ satisfies the second-kind integral equation
+%\begin{equation}
+%\label{eq:screenedSKIE}
+%  g(\xx) = \frac{1}{2}\sigma(\xx) + 
+%    \frac{1}{2\pi}\int_{\bd\Omega} \left(\pderiv{}{\nnu_\yy}
+%    K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) \sigma(\yy) \, 
+%    \dif s_\yy, \quad \xx \in \bd\Omega,
+%\end{equation}
 
 \section{Numerical Results}
 
