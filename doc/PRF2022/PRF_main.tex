@@ -181,7 +181,7 @@ a no-slip boundary condition for a rigid body motion
 on the particle boundary $\Gamma_i$ with translational velocity $\vv_i$
 and angular velocity $\omega_i$.
 Given imposed forces acting on each
-particle, the \emph{mobility problem} consists of finding
+particle, the mobility problem consists of finding
 translational and angular velocities so that viscous fluid forces
 balance the imposed forces.
 
@@ -197,10 +197,10 @@ where $u$ is an order parameter for the structure of water, $\rho$ is a
 decay length, $C$ is a constant, and $f(u)$ is a potential.
 Hydrogen-bond persistence times are on the order of picoseconds
 which is much smaller than characteristic time for 
-particle motion.% \cite{MaGa13}.
+particle motion. % \cite{MaGa13}.
 Thus we assume $u$ minimizes $F[u]$ for all times.
 Assuming appropriate conditions on $f(u)$,% (\cite{evans10}, \S 8.2),
-$u$ is bounded and satisfies the Euler-Lagrange equation
+ $u$ is bounded and satisfies the Euler-Lagrange equation
 \begin{equation}
 \label{eq:SL}
 -\rho^2 \Delta u + \tfrac{1}{2}f'(u) = 0  \text{ in } \Omega,\quad u = g,
@@ -211,7 +211,7 @@ the particle (Figure~\ref{fig:bcs}).
 
 The particles lower the free energy $F[u]$ of the surrounding water
 by moving. We calculate the rate of change of $F[u]$ using
-\emph{variation of the domain}% ~\cite{Fu2018_SIAM,Bandle2015, Schiffer1954, Grinfeld2010}.
+variation of the domain. % ~\cite{Fu2018_SIAM,Bandle2015, Schiffer1954, Grinfeld2010}.
 Carrying out this variation yields a stress  
 \begin{align}
   \label{eq:stress}
@@ -232,6 +232,8 @@ particle evolution.
     \sum_{i=1}^{N_b} \left(\SS(\xx,\aa_i) \cdot \FF_i + 
     \RR(\xx,\aa_i) T_i\right), \quad \xx \in \Omega.
 \end{align}
+%
+where the density function $\eeta$, translation velocity $\vv_i$ and angular velocity $\omega_i$ satisfy
 
 \begin{alignat}{3}
   \nonumber
@@ -329,8 +331,8 @@ surface energy $\int_{\Gamma_i} g^2 \,ds = 1$ for circular particles
 of radius $r$. 
 The cases (b) and (c) are obtained by applying a vertical shift
 and scaling to case (a), see Figure \ref{fig:bcs}.
-Using this setup, we simulate the dynamics of 100 particles with random
-initial position and orientation.
+Using this setup, we simulate the dynamics of 60 particles with random
+initial position and orientation as shown in Figure~\ref{fig:relax}.
 
 \begin{figure}
   \begin{center}
@@ -346,6 +348,20 @@ initial position and orientation.
   positive/negative charge (right). The dashed curve is the boundary of the
   disk and the arrow is its director for each particle.}
 \end{figure}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{Fig2a.png}
+  \includegraphics[width=0.4\textwidth]{Fig2b.png}\\
+  \includegraphics[width=0.4\textwidth]{Fig2c.png}
+  \includegraphics[width=0.4\textwidth]{Fig2d.png}
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:relax} (a) Initial configuration; (b)--(d) Equilibruim states for all boundary conditions~\eqref{eq:bcs}(a)--(c), respectively. Colors represent the boundary values that increases from minimum (blue) to maximum (red).  }
+\end{figure}
+
+
 Case (a) models amphiphilic particles.
 Amphiphilic particles have a hydrophobic tail and a hydrophilic head
 and these are accounted for as follows.
@@ -355,11 +371,11 @@ not alter the structure of adjacent waters. The hydrophobic side
 represents hydrocarbons and takes the value 
 $u > 0$. The interaction between particles is attractive,
 and particles will collectively orient their tails toward
-one another. 
+one another. Figure~\ref{fig:relax}(b) demonstrates multiple bilayer structures such as pancake and vesicle shapes.
 
 
-Multilamelar bilayers arise when both sides of the particle
-are hydrophobic.
+Multilamelar bilayers arise when both sides of the particle 
+are hydrophobic. 
 The boundary condition \eqref{eq:bcs}(b) 
 gives a particle with a hydrophobic intensity that is greater
 on the $\theta_i = 0$ side than on the $\theta_i = \pi$ side.
@@ -369,6 +385,8 @@ no longer remain well-separated.
 Rather, the bilayers form layers 
 as a consequence of the interfacial tension of exposed particle
 heads.%~\cite{Huetal19, deMeetal21}. 
+Figure~\ref{fig:relax}(c) shows the multilamellar structure with 8 layers when $N_b=60$. 
+The number of folds depends on a number of factors, for instances, number of particles and intial configurations.
 
 
 Finally, boundary condition \eqref{eq:bcs}(c) models 
@@ -380,9 +398,28 @@ resembles a checkerboard pattern
 where each particle coordinates
 its head with the head of three other particles and its tail with the
 tail of three other particles. % Figure~\ref{fig:self-assembly}(c).
+Figure~\ref{fig:relax}(d) gives an example that this boundary condition results a checker board/stripes equilibrium state.
+
 
 \subsection{Collective Janus Particles Suspended in a Shear Flow}
 %%%
+
+Consider placing equilibrium states of cases (b) and (c) for 60 particles in a shear flow,
+\begin{equation}
+\uu_\infty(\xx) = \dot\gamma ({\bf e}_y\cdot\xx){\bf e}_x,
+\end{equation}
+%
+where $\dot\gamma$ is the shear rate. 
+
+
+\subsection{Collective Janus Particles Suspended in a Taylor-Green Flow}
+
+Similar to shear flow simulations, we then place equilibrium states of all boundary conditions \eqref{eq:bcs} in a rotating Taylor-Green Flow
+\begin{equation}
+\uu_\infty(\xx) = V_0 \left(-\cos({\bf e}_x\cdot\xx)\sin({\bf e}_y\cdot\xx)){\bf e}_x+\sin({\bf e}_x\cdot\xx)\cos({\bf e}_y\cdot\xx)\right){\bf e}_y.
+\end{equation}
+%
+The magnitude of the vortex flow is controlled by the velocity scale $V_0$.
 
 
 \section{Conclusions}
