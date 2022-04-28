@@ -1476,7 +1476,7 @@ function [R1, R2, RTq, pp] = Repul(o, geom)
 %pp are point pairs (p1, p2, q1, q2) of interacting points
 
 N    = geom.N;                % number of points per componenet
-Nb   = geom.nb;               % number of rigid bodies
+nb   = geom.nb;               % number of rigid bodies
 x1   = geom.X(1:N,:);         % grid points on curves
 x2   = geom.X(N+1:2*N,:);
 pc   = geom.center;           % center of each rigid body
@@ -1487,59 +1487,67 @@ pc2  = pc(2,:);
 l0 = geom.RepulLength;   % repulsion length
 M  = geom.RepulStrength; % repulsion strength
 
-% temporarily alter geom.length parameter  
-% for present purposes
-h_store = geom.length;          
+% temporarily alter geom.length parameter for present purposes
+h_store = geom.length;
 
 geom.length = l0*N/2;
 
-NearOther = geom.getZone([],1); % get near structure 
+NearSelf = geom.getZone([],1); % get near structure 
 
 % identifies which pairs of particles have distance < l0
-nf = NearOther.nearFibers; 
+nf = NearSelf.nearFibers; 
 
 % structure identifying point in discrete curve q
 % that is closest to point in curve p
-icp = NearOther.icp; 
+icp = NearSelf.icp; 
+
+if 0
+  clf; hold on
+  plot(x1,x2,'ro')
+  plot(x1(1,:),x2(1,:),'k.','markersize',10)
+  axis equal
+%  icp{1}
+%  icp{2}
+%  pause
+end
 
 R1 = zeros(geom.nb,1); % repulsive force 
 R2 = zeros(geom.nb,1); % repulsize force  
 RTq = zeros(geom.nb,1); % repulsive torque
 pp  = [];
 
-for p = 1:Nb
-  [iq, qq, jp] = find(icp{p}); %an N by nb sparse matrix         
+for p = 1:nb
+  [iq, qq, jp] = find(icp{p}); % an N by nb sparse matrix
   % point iq(l) in curve qq(l) is within l0 of curve p, and 
   % the jp(l) is the point in curve p closest to iq(l) 
    
   q_list = unique(qq); %set of q within l0 of curve p
 
   for k = 1:length(q_list)
-      
     q  = q_list(k); %curve q within l0 of p
     in = find(qq == q); 
       
     i = jp(in); %vertex (i, p) closest to following point 
     j = iq(in); %vertex (j, q) within l0 of p curve
 
-    %goal: find point on q curve closest to current, p curve      
+    %goal: find point on q curve closest to current, p curve
     dist = (x1(i,p) - x1(j,q)).^2 + (x2(i,p) - x2(j,q)).^2;
       
-    [dist, arg] = min(dist);
+    [~,arg] = min(dist);
       
     jjp = i(arg);
     jjq = j(arg); 
 
     % (x1nrt, x2nrt) and (y1nrt, y2nrt) are the nearest points in curves
     % p, q respectively
-    [dist,x1nrt,x2nrt,y1nrt,y2nrt] = geom.closestPntPair(geom.X,p,q,jjp,jjq);      
-
+    [dist,x1nrt,x2nrt,y1nrt,y2nrt] = geom.closestPntPair(...
+          geom.X,p,q,jjp,jjq);
     
     r1 = x1nrt - y1nrt;
     r2 = x2nrt - y2nrt;
 
     r1 = r1/(dist+eps);
-    r2 = r2/(dist+eps);            
+    r2 = r2/(dist+eps);
 
     % repulsion profile
     [~, dR] = o.Repul_profile(dist/l0);
@@ -1550,25 +1558,27 @@ for p = 1:Nb
     r2 = -dR*r2; 
 
     R1(p)  = R1(p)  + r1;
-    R2(p)  = R2(p)  + r2;            
+    R2(p)  = R2(p)  + r2;
     RTq(p) = RTq(p) + r1.*(x2nrt-pc2(p)) - r2.*(x1nrt-pc1(p));
-%{    
-     hold off
-     plot(x1, x2, 'k');
-     hold on
-     plot(pc1(p), pc2(p), 'o', pc1(q_list), pc2(q_list), '*')
-     plot(x1(:,p), x2(:,p), 'r');
-     plot(x1(:,q), x2(:,q), 'm'); 
-     plot(x1nrt, x2nrt, 'r+');
-     plot(y1nrt, y2nrt, 'm+');
-     plot([pc1(p) pc1(q)], [pc2(p) pc2(q)])
-     quiver( pc1(p), pc2(p), r1, r2, 'k') 
-     pause
-%}
+
+    if 0
+    [p q]
+    hold off
+    plot(x1, x2, 'k');
+    hold on
+    plot(pc1(p), pc2(p), 'o', pc1(q_list), pc2(q_list), '*')
+    plot(x1(:,p), x2(:,p), 'r');
+    plot(x1(:,q), x2(:,q), 'm'); 
+    plot(x1nrt, x2nrt, 'r+');
+    plot(y1nrt, y2nrt, 'm+');
+    plot([pc1(p) pc1(q)], [pc2(p) pc2(q)])
+    quiver( pc1(p), pc2(p), r1, r2, 'k') 
+    axis equal
+    pause
+    end
     pp = [pp; x1nrt, x2nrt, y1nrt, y2nrt];
 
   end
-
 end
 
 %system computes force free

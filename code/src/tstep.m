@@ -41,7 +41,7 @@ end % constructor: tstep
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Up,wp,iterYukawa,iterStokes,etaYukawaJanus,etaStokesJanus,...
-      fforce,torque] = timeStep(o,geom,etaY0,etaS0,walls)
+      fforce,torque,Energy] = timeStep(o,geom,etaY0,etaS0,walls)
 % Main time stepping routine
 oc     = curve;
 N      = geom.N;
@@ -121,6 +121,8 @@ for k = 1:nbwall
   etaYukawaWalls(:,k) = sigma(nb*N + (k-1)*Nwall+1:nb*N + k*Nwall);
 end
 
+Energy = geom.computeEnergy(etaYukawaJanus);
+
 if 0
   [xtar,ytar] = meshgrid(-9:0.01:-7,-1:0.01:1);
   [nx,ny] = size(xtar);
@@ -189,23 +191,26 @@ end
 % fclose(fid);
 %fprintf("%d %d\n", [geom.center(1,2) - geom.center(1,1) - 2,  F1(1)]');
 
-%{
- th = linspace(0, 2*pi)'; 
- hold off
- plot(center(1,:), center(2,:), 'ob');
- hold on
- plot(center(1,:) + radii.*cos(th), center(2,:) + radii.*sin(th), 'b');
- l0 = geom.RepulLength;
- plot(center(1,:) + (radii+l0).*cos(th), center(2,:) + (radii+l0).*sin(th), 'r:');
- quiver(center(1,:), center(2,:), R1', R2', 0, 'r');
-% quiver(center(1,:), center(2,:), F1', F2', 'm');
-if pp
-   plot([pp(:,1) pp(:,3)], [pp(:,2) pp(:,4)], 'k*');
-end
+if 0
+  th = linspace(0, 2*pi)'; 
+  hold off
+  plot(center(1,:), center(2,:), 'ob');
+  hold on
+  plot(center(1,:) + radii.*cos(th), center(2,:) + radii.*sin(th), 'b');
+  l0 = geom.RepulLength;
+  plot(center(1,:) + (radii+l0).*cos(th), center(2,:) + (radii+l0).*sin(th), 'r:');
+  quiver(center(1,:), center(2,:), R1', R2', 0, 'r');
+  % quiver(center(1,:), center(2,:), F1', F2', 'm');
+  if pp
+    plot([pp(:,1) pp(:,3)], [pp(:,2) pp(:,4)], 'k*');
+  end
 
- axis equal
-pause(0.01)
-%}
+  axis equal
+  plot(walls.X(1:end/2),walls.X(end/2+1:end),'k','linewidth',2)
+  axis([-16 -10 -3.1 3.1])
+  pause
+  pause(0.01)
+end
 
 %outputs: 
 fforce  = [F1 + R1, F2 + R2].';

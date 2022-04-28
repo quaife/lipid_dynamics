@@ -584,6 +584,49 @@ end % getZone
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function E = computeEnergy(geom,eta)
+
+oc = curve;
+[x,y] = oc.getXY(geom.X);
+[tx,ty] = oc.getXY(geom.xt);
+nx = ty;
+ny = -tx;
+
+ds = 1e-2;
+xtar = x + ds*nx;
+ytar = y + ds*ny;
+%clf; hold on;
+%plot(x,y,'r')
+%plot(xtar,ytar,'b.')
+%pause
+
+targets.N = geom.N;
+targets.nb = geom.nb;
+targets.X = [xtar;ytar];
+
+[~,NearJanusTargets] = geom.getZone(targets,2);
+
+op = poten(geom.N,geom.rho);
+kernel = @op.exactYukawaDL;
+kernelDirect = @op.exactYukawaDL;
+kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,...
+      geom.DLPYukawa,z);
+
+potJanus = op.nearSingInt(geom,eta,kernelSelf,...
+    NearJanusTargets,kernel,kernelDirect,targets,false,false);
+% get rid of second half which is only used when solving a vector PDE
+% (Stokes)
+potJanus = potJanus(1:end/2,:);
+
+bdCond = reshape(geom.yukawaRHS,geom.N,geom.nb);
+integrand = bdCond.*(bdCond - potJanus)/ds;
+E = sum(integrand(:).*geom.sa(:))*2*pi/geom.N;
+
+end
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [dist,nearestx,nearesty,theta] = closestPnt(~,X,...
         xTar,ytar,k,icp)
 % [dist,nearestx,nearesty,theta] = closestPnt(X,xTar,ytar,k,icp)
@@ -649,12 +692,11 @@ dist = sqrt((nearestx - xTar)^2 + (nearesty - ytar)^2);
 end % closestPnt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [dist,x1,x2,y1,y2] = closestPntPair(~,X,...
         k,l,jk,jl)
 % [dist,x1,x2,y1,y2] = closestPntPair(X,k,l,icp,jcp) computes the
 % closest pair of points (x1, x2) and (y1, y2) between boundaries k and
-% l using a Lagrange interpolant. jk, jl are the indeces of points on
+% l using a Lagrange interpolant. jk, jl are the indices of points on
 % the discrete mesh used as an initial guess
 
 N = size(X,1)/2; % Number of points per boundary 
@@ -665,10 +707,10 @@ interpOrder = size(A,1);
 % Accommodate for either an even or odd number of interpolation
 % points
 p = ceil((interpOrder+1)/2);
-pn = mod((jk-p+1:jk-p+interpOrder)' - 1,N) + 1;
-qn = mod((jl-p+1:jl-p+interpOrder)' - 1,N) + 1;
 % band of points around icp, jcp respectively.  The -1,+1 combination sets index
 % 0 to N as required by the code
+pn = mod((jk-p+1:jk-p+interpOrder)' - 1,N) + 1;
+qn = mod((jl-p+1:jl-p+interpOrder)' - 1,N) + 1;
 
 p1 = A*X(pn,  k); % polynomial interpolant of x1-coordinate
 p2 = A*X(pn+N,k); % polynomial interpolant of x2-coordinate
@@ -682,13 +724,12 @@ Dp2 = p2(1:end-1).*(interpOrder-1:-1:1)';
 Dq1 = q1(1:end-1).*(interpOrder-1:-1:1)';
 Dq2 = q2(1:end-1).*(interpOrder-1:-1:1)';
 
+% To do Newton's method, need two derivatives
 DDp1 = Dp1(1:end-1).*(interpOrder-2:-1:1)';
 DDp2 = Dp2(1:end-1).*(interpOrder-2:-1:1)';
 
 DDq1 = Dq1(1:end-1).*(interpOrder-2:-1:1)';
 DDq2 = Dq2(1:end-1).*(interpOrder-2:-1:1)';
-
-% To do Newton's method, need two derivatives
 
 s = 1/2;
 t = 1/2;
@@ -723,12 +764,11 @@ for newton = 1:2
   f_ts = -Du1*Dv1 - Du2*Dv2;
   f_tt = Dv1*Dv1 + (v1 - u1)*DDv1 + Dv2*Dv2 + (v2 - u2)*DDv2;
 
-  w = -inv([f_ss f_st; f_ts f_tt])*[f_s; f_t];
+  w = -([f_ss f_st; f_ts f_tt])\[f_s; f_t];
   
   s = s + w(1);
   t = t + w(2);
   % one step of Newton's method
-  
 end
 % Do a few (no more than 3) Newton iterations
 

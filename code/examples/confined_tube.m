@@ -49,12 +49,20 @@ if 0
   radii = 0.4;
   ar = 1;
 end
-if 1
+if 0
   xx = linspace(-14,-11,4); xx = [xx xx];
   yy = [0.8*rand(1,4)+0.5 -0.8*rand(1,4)-0.5];
 %  yy = [1.4*ones(1,4) -1.4*ones(1,4)];
   xc = [xx;yy];
   tau = 2*pi*rand(size(xx));
+  radii = 0.4*ones(size(xx));
+  ar = ones(size(xx));
+end
+if 1
+  xx = [-14 -13.1 -12 -11.1];
+  yy = [0 0.1 -0.8 -0.9];
+  xc = [xx;yy];
+  tau = zeros(1,4);
   radii = 0.4*ones(size(xx));
   ar = ones(size(xx));
 end
