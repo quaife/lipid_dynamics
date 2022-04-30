@@ -1471,9 +1471,10 @@ end % evalDL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [R1, R2, RTq, pp] = Repul(o, geom)
+function [RE, R1, R2, RTq, pp] = Repul(o, geom)
 
 %pp are point pairs (p1, p2, q1, q2) of interacting points
+RE   = 0;                     % total repulsion energy
 
 N    = geom.N;                % number of points per componenet
 nb   = geom.nb;               % number of rigid bodies
@@ -1550,9 +1551,10 @@ for p = 1:nb
     r2 = r2/(dist+eps);
 
     % repulsion profile
-    [~, dR] = o.Repul_profile(dist/l0);
-
+    [R, dR] = o.Repul_profile(dist/l0);
+    
     % weight and chain rule
+    RE = RE+M*R/10;
     dR = M*dR/l0; %<---repulsive strength multiplied here
     r1 = -dR*r1;
     r2 = -dR*r2; 

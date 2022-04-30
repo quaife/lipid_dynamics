@@ -69,7 +69,7 @@ end
 
 op = poten(geom.N,geom.rho);
 % START OF REPULSION BETWEEN JANUS PARTICLES CALCULATION
-[R1, R2, RTq, pp] = op.Repul(geom);
+[RE, R1, R2, RTq, pp] = op.Repul(geom);
 % END OF REPULSION BETWEEN JANUS PARTICLES CALCULATION
 
 % START OF SCREENED LAPLACE SOLVE TO FIND HYDROPHOBIC FORCE AND TORQUE
@@ -121,7 +121,7 @@ for k = 1:nbwall
   etaYukawaWalls(:,k) = sigma(nb*N + (k-1)*Nwall+1:nb*N + k*Nwall);
 end
 
-Energy = geom.computeEnergy(etaYukawaJanus);
+Energy = geom.computeEnergy(etaYukawaJanus) + RE;
 
 if 0
   [xtar,ytar] = meshgrid(-9:0.01:-7,-1:0.01:1);

@@ -621,7 +621,7 @@ potJanus = potJanus(1:end/2,:);
 bdCond = reshape(geom.yukawaRHS,geom.N,geom.nb);
 integrand = bdCond.*(bdCond - potJanus)/ds;
 E = sum(integrand(:).*geom.sa(:))*2*pi/geom.N;
-
+E = E*geom.gam;
 end
 
 
