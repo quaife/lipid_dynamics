@@ -1554,7 +1554,7 @@ for p = 1:nb
     [R, dR] = o.Repul_profile(dist/l0);
     
     % weight and chain rule
-    RE = RE+M*R/10;
+    RE = RE+M*R;
     dR = M*dR/l0; %<---repulsive strength multiplied here
     r1 = -dR*r1;
     r2 = -dR*r2; 
