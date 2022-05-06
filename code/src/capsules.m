@@ -33,6 +33,7 @@ DLPStokes;    % double-layer potential matrix for Stokes
 % rank-one correction for Stokes to remove one dimensional null space
 N0Stokes;     
 DLPYukawa;    % double-layer potential matrix for Yukawa
+SLPYukawa;    % single-layer potential matrix for Yukawa
 upRate;       % upsampling rate that is used for NSI quadrature
 NPeaks;       % change the number of peaks in cosine bc
 % besselk(1,~) kernel for each target point with upsampled source points
@@ -582,6 +583,48 @@ end % relate == 2 || relate == 3
 
 end % getZone
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function E = computeEnergyNew(geom,eta)
+
+oc = curve;
+[x,y] = oc.getXY(geom.X);
+[tx,ty] = oc.getXY(geom.xt);
+nx = ty;
+ny = -tx;
+
+op = poten(geom.N,geom.rho);
+kernel = @op.exactYukawaSL;
+kernelDirect = @op.exactYukawaSL;
+kernelSelf = @(z) op.exactYukawaSLdiag(geom,geom.SLPYukawa,z);
+
+% Compute potential at target points
+pot1 = op.nearSingInt(geom,eta.*tx,kernelSelf,...
+    geom.nearStructB2B,kernel,kernelDirect,geom,true,false);
+pot1 = pot1(1:end/2,:);
+pot1 = pot1 + op.exactYukawaSLdiag(geom,geom.SLPYukawa,eta.*tx);
+
+pot2 = op.nearSingInt(geom,eta.*ty,kernelSelf,...
+    geom.nearStructB2B,kernel,kernelDirect,geom,true,false);
+pot2 = pot2(1:end/2,:);
+pot2 = pot2 + op.exactYukawaSLdiag(geom,geom.SLPYukawa,eta.*ty);
+
+IK = oc.modes(geom.N,1);
+deta = oc.diffFT(eta,IK)./geom.sa;
+pot3 = op.nearSingInt(geom,deta,kernelSelf,...
+    geom.nearStructB2B,kernel,kernelDirect,geom,true,false);
+pot3 = pot3(1:end/2,:);
+pot3 = pot3 + op.exactYukawaSLdiag(geom,geom.SLPYukawa,deta);
+dpot3 = oc.diffFT(pot3,IK)./geom.sa;
+
+% normal derivative of the DLP applied to the density eta
+dDeta = +1/geom.rho^2*(tx.*pot1 + ty.*pot2) - dpot3;
+
+bdCond = reshape(geom.yukawaRHS,geom.N,geom.nb);
+% finite difference to approximate normal derivative
+integrand = bdCond.*dDeta;
+E = sum(integrand(:).*geom.sa(:))*2*pi/geom.N;
+
+end % computeEnergyNew
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function E = computeEnergy(geom,eta)
@@ -592,26 +635,26 @@ oc = curve;
 nx = ty;
 ny = -tx;
 
-ds = 1e-2;
+% define a set of target points close to the boundary but in the bulk
+ds = 1e-4;
 xtar = x + ds*nx;
 ytar = y + ds*ny;
-%clf; hold on;
-%plot(x,y,'r')
-%plot(xtar,ytar,'b.')
-%pause
 
 targets.N = geom.N;
 targets.nb = geom.nb;
 targets.X = [xtar;ytar];
 
+% create near-singular integration structure
 [~,NearJanusTargets] = geom.getZone(targets,2);
 
+% routines for doing near-singular integration algorithm
 op = poten(geom.N,geom.rho);
 kernel = @op.exactYukawaDL;
 kernelDirect = @op.exactYukawaDL;
 kernelSelf = @(z) +0.5*z + op.exactYukawaDLdiag(geom,...
       geom.DLPYukawa,z);
 
+% Compute potential at target points
 potJanus = op.nearSingInt(geom,eta,kernelSelf,...
     NearJanusTargets,kernel,kernelDirect,targets,false,false);
 % get rid of second half which is only used when solving a vector PDE
@@ -619,10 +662,11 @@ potJanus = op.nearSingInt(geom,eta,kernelSelf,...
 potJanus = potJanus(1:end/2,:);
 
 bdCond = reshape(geom.yukawaRHS,geom.N,geom.nb);
+% finite difference to approximate normal derivative
 integrand = bdCond.*(bdCond - potJanus)/ds;
 E = sum(integrand(:).*geom.sa(:))*2*pi/geom.N;
 
-end
+end % computeEnergy
 
 
 

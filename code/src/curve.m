@@ -93,14 +93,14 @@ area = sum( x.*Dy - y.*Dx)*pi/N;
 end % geomProp
 
 
-
-
 end % methods
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 methods (Static)
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function df = arcDeriv(f,m,sa,IK)
 % df = arcDeriv(f,m,s,IK) is the arclength derivative of order m.
 % f is a matrix of scalar functions (each function is a column)

@@ -7,6 +7,32 @@ properties
 N; % Number of points in the incoming periodic functions
 end
 
+methods
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function A = sinterpS(o,N,y)
+% A = sinterpS(N,y) constructs the interpolation matrix A that maps
+% a function defined periodically at N equispaced points to the
+% function value at the points y
+% The points y are assumed to be the in the 0-2*pi range.
+
+A = zeros(numel(y),N);
+modes = [(0:N/2-1) 0 (-N/2+1:-1)];
+f = zeros(1,N);
+
+for j=1:N
+  f(j) = 1;
+  fhat = fft(f)/N;
+  fhat = fhat(ones(numel(y),1),:);
+  A(:,j) = A(:,j) + sum(fhat.*exp(1i*y*modes),2);
+  f(j) = 0;
+end
+% Input is real, so interpolant should be real
+A = real(A);
+
+end % sinterpS
+
+end % methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 methods (Static)

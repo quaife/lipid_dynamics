@@ -207,10 +207,10 @@ while step <= prams.m
   % update step counter
   step = step + 1;
 
-  figure(2);
-  plot(Energy)
-  figure(1);
-  pause(0.01) 
+%  figure(2);
+%  plot(Energy)
+%  figure(1);
+%  pause(0.01) 
 end
 
 % save final time step

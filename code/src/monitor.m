@@ -231,6 +231,22 @@ if o.usePlot
     XX = load("../examples/tracers.dat");
     plot(XX(:,1),XX(:,2),'k.');  
   end
+
+
+  if 0
+  hold on;
+  plot(2*[-5 5],[-3*pi -3*pi],'k--')
+  plot(2*[-5 5],[-pi -pi],'k--')
+  plot(2*[-5 5],[pi pi],'k--')
+  plot(2*[-5 5],[3*pi 3*pi],'k--')
+  plot([-3*pi -3*pi],2*[-5 5],'k--')
+  plot([-pi -pi],2*[-5 5],'k--')
+  plot([pi pi],2*[-5 5],'k--')
+  plot([3*pi 3*pi],2*[-5 5],'k--')
+  axis(2*[-5 5 -5 5])
+  hold off
+  end
+
   drawnow  
   pause(0.01);
   hold off
