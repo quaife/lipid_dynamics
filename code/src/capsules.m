@@ -623,6 +623,7 @@ bdCond = reshape(geom.yukawaRHS,geom.N,geom.nb);
 % finite difference to approximate normal derivative
 integrand = bdCond.*dDeta;
 E = sum(integrand(:).*geom.sa(:))*2*pi/geom.N;
+E = E*geom.gam;
 
 end % computeEnergyNew
 
@@ -665,6 +666,7 @@ bdCond = reshape(geom.yukawaRHS,geom.N,geom.nb);
 % finite difference to approximate normal derivative
 integrand = bdCond.*(bdCond - potJanus)/ds;
 E = sum(integrand(:).*geom.sa(:))*2*pi/geom.N;
+E = E*geom.gam;
 
 end % computeEnergy
 
