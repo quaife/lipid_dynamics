@@ -51,6 +51,7 @@
 \newcommand{\bd}{\partial}
 \newcommand{\dd}{\mathbf{d}}
 \newcommand{\DD}{\mathcal{D}}
+\newcommand{\SSS}{\mathcal{S}}
 \newcommand{\eeta}{\boldsymbol{\eta}}
 \newcommand{\FF}{\mathbf{F}}
 \newcommand{\GG}{\mathbf{G}}
@@ -62,6 +63,7 @@
 \newcommand{\RR}{\mathbf{R}}
 \renewcommand{\SS}{\mathbf{S}}
 \newcommand{\xx}{\mathbf{x}}
+\newcommand{\zz}{\mathbf{z}}
 \newcommand{\XX}{\mathbf{X}}
 \newcommand{\uu}{\mathbf{u}}
 \renewcommand{\vv}{\mathbf{v}}
@@ -252,37 +254,72 @@ where the density function $\eeta$, translation velocity $\vv_i$ and angular vel
 \end{alignat}
 
 
-\subsection{Energy Calculation via Singularity Subtraction}
+\subsection{Normal Derivative of Double Layer Potential and HAP Energy}
 
-Suppose we split the solution to the screened Laplace boundary value problem~\eqref{eq:SL}
-into smooth portion $w_i$ and singular portion $u_i$. That is, 
-\begin{equation}
-w_i({\bf x}) = u({\bf x}) - u_i = u({\bf x}) - \int_{\Gamma_i }\left(\pderiv{}{\nnu_\yy}
-    K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) \sigma_i(\yy) \,
-    \dif s_\yy, \quad \xx \in \Gamma_i.
-\end{equation}
-Consider the case when $f(u)=u^2$ in~\eqref{eq:free_energy}, we can rewrite the free energy functional as 
-
+Suppose we use the double layer potential to express the solution of \eqref{eq:SL} where the condition is $f(u)=u^2$. Then it is given by 
+\begin{align}
+u({\bf x}) = \DD[\sigma](\xx) = \int_\Gamma \frac{\partial G(\xx-\yy)}{\partial \nnu_\yy}\sigma(\yy)\, \dif s_\yy,
+\end{align}
+%
+where $G(\xx)$ is the fundamental solution to the screened Laplace equation \eqref{eq:SL}.
+Since the free energy functional can be written as 
 \begin{align}
 \label{eq:free_energy2}
-  E[u(\xx)] &= C\rho \sum_{i=1}^{N_b}\int_{\Gamma_i} u \frac{\partial u}{\partial \nnu}  \,\dif s
-= C\rho\sum_{i=1}^{N_b}\int_{\Gamma_i} u \left(\frac{\partial w_i}{\partial \nnu}+\frac{\partial u_i}{\partial \nnu} \right) \, \dif s, \quad \xx\in\Gamma_i.
+  E[u(\xx)] &= C\rho \int_\Gamma u \frac{\partial u}{\partial \nnu}  \,\dif s, \quad \xx\in\Gamma_i,
 \end{align}
-%%%
-Follow the divergence theorem on the last term in the equation above and denote $g_i(x)$ as the boundary data on $\Gamma_i$, we obtain
-\begin{align}
-\label{eq:free_energy3}
-  E[u(\xx)] &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} u \frac{\partial w_i}{\partial \nnu} \,\dif s  + \int_{\mathbb{R}^n\setminus \overline{U}_i} \left( \nabla u \cdot\nabla u_i + u\Delta u_i\right) \,\dif \xx\right)\\
 %
-&= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} u \frac{\partial w_i}{\partial \nnu} \,\dif s  + \int_{\mathbb{R}^n\setminus \overline{U}_i} u\Delta u_i\,\dif \xx
-+\int_{\Gamma_i}\left(u_i+\frac12\sigma_i\right)\frac{\partial u}{\partial \nnu} \,\dif s     
-- \int_{\mathbb{R}^n\setminus \overline{U}_i} u_i\Delta u\,\dif \xx \right)\\
-&= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} u \frac{\partial w_i}{\partial \nnu} + 
-\left(g_i+\frac12\sigma_i\right)\frac{\partial u}{\partial \nnu}   \,\dif s \right), \quad \xx \in \Gamma_i.
+we can then use the following identity to calculate this boundary equation without evaluating 
+the normal derivative of the double layer potential directly.
+
+\begin{align}
+\nnu_\xx \cdot \nabla_\zz u(\zz) &=\nnu_\xx \cdot \nabla_\zz \int_\Gamma \frac{\partial G(\zz-\yy)}{\partial \nnu_\yy}\sigma(\yy) \,\dif s_\yy\\
+&=\int_\Gamma \nnu_\xx\cdot \left(\nabla_\zz\nabla_\yy^\top  G(\zz-\yy)\right)\cdot \nnu_\yy\sigma(\yy)  \,\dif s_\yy\\
+&=-\int_\Gamma \nnu_\xx\cdot \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\cdot\nnu_\yy\sigma(\yy)\ \dif s_\yy\\
+&=-\int_\Gamma {\bf t}_\xx\cdot\Delta_\yy G(\zz-\yy) {\bf t}_\yy \sigma(\yy)\ \dif s_\yy+\int_\Gamma({\bf t}_\xx\cdot\nabla_\yy)({\bf t}_\yy\cdot\nabla_\yy G(\zz-\yy))\sigma(\yy)\ \dif s_\yy\\
+&= -\int_\Gamma {\bf t}_\xx\cdot\frac1\rho^2 G(\zz-\yy) {\bf t}_\yy \sigma(\yy)\ \dif s_\yy - 
+({\bf t}_\xx\cdot\nabla_\zz)\int_\Gamma \frac{\partial G(\zz-\yy)}{\partial s_\yy}\sigma(\yy)\ \dif s_\yy\\
+&= -\frac1\rho^2 {\bf t}_\xx\cdot \int_\Gamma G(\zz-\yy){\bf t}_\yy \sigma(\yy)\ \dif s_\yy + 
+({\bf t}_\xx \cdot \nabla_\zz)\int_\Gamma G(\zz-\yy)\frac{\partial \sigma(\yy)}{\partial s}\ \dif s_\yy.
 \end{align}
+%
+Here ${\bf t}_\xx$ is the tangent vector at the point $\xx$ and $d/ds$ is the arclength derivative.
+Letting $\zz\to\xx\in\Gamma$, we obtain
+%
+\begin{equation}
+\frac{\partial}{\partial \nnu_\xx} \DD[\sigma](\xx) = -\frac1\rho^2 {\bf t}_\xx\cdot \SSS[\sigma{\bf t}](\xx) + \frac{\partial}{\partial s}\SSS\left[\frac{\partial \sigma}{\partial s}\right](\xx).
+\end{equation}
+%
 
 
-
+%Suppose we split the solution to the screened Laplace boundary value problem~\eqref{eq:SL}
+%into smooth portion $w_i$ and singular portion $u_i$. That is, 
+%\begin{equation}
+%w_i({\bf x}) = u({\bf x}) - u_i = u({\bf x}) - \int_{\Gamma_i }\left(\pderiv{}{\nnu_\yy}
+%    K_0 \left(\frac{|\xx - \yy|}{\rho}\right)\right) \sigma_i(\yy) \,
+%    \dif s_\yy, \quad \xx \in \Gamma_i.
+%\end{equation}
+%Consider the case when $f(u)=u^2$ in~\eqref{eq:free_energy}, we can rewrite the free energy functional as 
+%
+%\begin{align}
+%\label{eq:free_energy2}
+%  E[u(\xx)] &= C\rho \sum_{i=1}^{N_b}\int_{\Gamma_i} u \frac{\partial u}{\partial \nnu}  \,\dif s
+%= C\rho\sum_{i=1}^{N_b}\int_{\Gamma_i} u \left(\frac{\partial w_i}{\partial \nnu}+\frac{\partial u_i}{\partial \nnu} \right) \, \dif s, \quad \xx\in\Gamma_i.
+%\end{align}
+%%%%
+%Follow the divergence theorem on the last term in the equation above and denote $g_i(x)$ as the boundary data on $\Gamma_i$, we obtain
+%\begin{align}
+%\label{eq:free_energy3}
+%  E[u(\xx)] &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} u \frac{\partial w_i}{\partial \nnu} \,\dif s  + \int_{\mathbb{R}^n\setminus \overline{U}_i} \left( \nabla u \cdot\nabla u_i + u\Delta u_i\right) \,\dif \xx\right)\\
+%%
+%&= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} u \frac{\partial w_i}{\partial \nnu} \,\dif s  + \int_{\mathbb{R}^n\setminus \overline{U}_i} u\Delta u_i\,\dif \xx
+%+\int_{\Gamma_i}\left(u+\frac12\sigma\right)\frac{\partial u_i}{\partial \nnu} \,\dif s     
+%- \int_{\mathbb{R}^n\setminus \overline{U}_i} u\Delta u_i\,\dif \xx \right)\\
+%&= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} u \frac{\partial w_i}{\partial \nnu} + 
+%\left(g_i+\frac12\sigma_i\right)\frac{\partial u_i}{\partial \nnu}   \,\dif s \right), \quad \xx \in \Gamma_i.
+%\end{align}
+%
+%
+%
 
 %  &= C\rho\sum_{i=1}^{N_b}\left(\int_{\Gamma_i} g_i \frac{\partial w_i}{\partial \nnu} 
 % +  \left(u_i+\frac12\sigma\right)  \frac{\partial g_i}{\partial \nnu} \,\dif s - \int_{\mathbb{R}^n\setminus \overline{U}_i}\Delta g_i  \left(u_i+\frac12\sigma\right)  - g_i \left(u_i+\frac12\sigma\right) \,\dif \xx\right) \\
@@ -412,14 +449,21 @@ Consider placing equilibrium states of cases (b) and (c) for 60 particles in a s
 where $\dot\gamma$ is the shear rate. 
 
 
+
+
 \subsection{Collective Janus Particles Suspended in a Taylor-Green Flow}
 
 Similar to shear flow simulations, we then place equilibrium states of all boundary conditions \eqref{eq:bcs} in a rotating Taylor-Green Flow
 \begin{equation}
-\uu_\infty(\xx) = V_0 \left(-\cos({\bf e}_x\cdot\xx)\sin({\bf e}_y\cdot\xx)){\bf e}_x+\sin({\bf e}_x\cdot\xx)\cos({\bf e}_y\cdot\xx)\right){\bf e}_y.
+\uu_\infty(\xx) = V_0 \left(-\cos({\bf e}_x\cdot\xx)\sin({\bf e}_y\cdot\xx){\bf e}_x+\sin({\bf e}_x\cdot\xx)\cos({\bf e}_y\cdot\xx){\bf e}_y\right).
 \end{equation}
 %
 The magnitude of the vortex flow is controlled by the velocity scale $V_0$.
+
+
+\subsection{Steady-State Structure Confined in Narrow Channels}
+
+
 
 
 \section{Conclusions}
