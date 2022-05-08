@@ -1727,6 +1727,7 @@ end
 % restore h value   
 geom.length = h_store;
 
+RE = RE/2;
 end % Repul
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

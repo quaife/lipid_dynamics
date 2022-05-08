@@ -140,19 +140,19 @@ if 0
 end
 
 % Finite difference way of computing energy
-%Energy = geom.computeEnergy(etaYukawaJanus);
+% Energy2 = geom.computeEnergy(etaYukawaJanus) + RE;
 
 % generate Yukawa single-layer potential matrix for
 % self-contribution of each individual Janus particle
 geom.SLPYukawa = op.yukawaSLmatrix(geom); 
 % Layer potential way of computing energy
-Energy = geom.computeEnergyNew(etaYukawaJanus);
+Energy = geom.computeEnergyNew(etaYukawaJanus) + RE;
 
-%[Energy Energy2]
-%abs(Energy - Energy2)/Energy2
-%pause
+% [Energy Energy2]
+% abs(Energy - Energy2)/Energy2
+% pause
 
-%Energy = geom.computeEnergy(etaYukawaJanus) + RE;
+
 
 if 0
   [xtar,ytar] = meshgrid(-9:0.01:-7,-1:0.01:1);
