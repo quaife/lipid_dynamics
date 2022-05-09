@@ -448,14 +448,14 @@ Consider placing equilibrium states of cases (b) and (c) for 60 particles in a s
 %
 where $\dot\gamma$ is the shear rate. 
 
-
+We measure the end-to-end distance of the multi-lamellar structure when the flow is on. 
 
 
 \subsection{Collective Janus Particles Suspended in a Taylor-Green Flow}
 
-Similar to shear flow simulations, we then place equilibrium states of all boundary conditions \eqref{eq:bcs} in a rotating Taylor-Green Flow
+Similar to shear flow simulations, we then place equilibrium states of all boundary conditions \eqref{eq:bcs} in a rotating Taylor-Green Flow with a length scale $l$
 \begin{equation}
-\uu_\infty(\xx) = V_0 \left(-\cos({\bf e}_x\cdot\xx)\sin({\bf e}_y\cdot\xx){\bf e}_x+\sin({\bf e}_x\cdot\xx)\cos({\bf e}_y\cdot\xx){\bf e}_y\right).
+\uu_\infty(\xx) = V_0 \left(-\cos(l{\bf e}_x\cdot\xx)\sin(l{\bf e}_y\cdot\xx){\bf e}_x+\sin(l{\bf e}_x\cdot\xx)\cos(l{\bf e}_y\cdot\xx){\bf e}_y\right).
 \end{equation}
 %
 The magnitude of the vortex flow is controlled by the velocity scale $V_0$.
@@ -464,6 +464,31 @@ The magnitude of the vortex flow is controlled by the velocity scale $V_0$.
 \subsection{Steady-State Structure Confined in Narrow Channels}
 
 
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{VesConf_0.png}
+  \includegraphics[width=0.4\textwidth]{VesConf_2000.png}\\
+  \includegraphics[width=0.4\textwidth]{VesConf_5000.png}
+  \includegraphics[width=0.4\textwidth]{VesConf_10000.png}
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:confined_vesicle} A JP vesicle confined in a narrow channel where $N_b=25$ and $\dot\gamma=0.01$.  }
+\end{figure}
+
+
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{MultConf_100.png}
+  \includegraphics[width=0.4\textwidth]{MultConf_600.png}\\
+  \includegraphics[width=0.4\textwidth]{MultConf_1200.png}
+  \includegraphics[width=0.4\textwidth]{MultConf_2400.png}
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:confined_lamellar} A JP multi-lamellar structure confined in a narrow channel where $N_b=40$ and $\dot\gamma=0.05$.  }
+\end{figure}
 
 
 \section{Conclusions}
