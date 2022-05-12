@@ -256,21 +256,22 @@ where the density function $\eeta$, translation velocity $\vv_i$ and angular vel
 
 \subsection{Normal Derivative of Double Layer Potential and HAP Energy}
 
-Suppose we use the double layer potential to express the solution of \eqref{eq:SL} where the condition is $f(u)=u^2$. Then it is given by 
+We adopt the double layer potential to express the solution of \eqref{eq:SL} where the condition is $f(u)=u^2$. Then it is given by 
 \begin{align}
+\label{eq:energy_BIE}
 u({\bf x}) = \DD[\sigma](\xx) = \int_\Gamma \frac{\partial G(\xx-\yy)}{\partial \nnu_\yy}\sigma(\yy)\, \dif s_\yy,
 \end{align}
 %
-where $G(\xx)$ is the fundamental solution to the screened Laplace equation \eqref{eq:SL}.
+where $G(\xx)$ is the fundamental solution to the screened Laplace equation \eqref{eq:SL} and $\nnu$ is the outward normal.
 Since the free energy functional can be written as 
 \begin{align}
 \label{eq:free_energy2}
   E[u(\xx)] &= C\rho \int_\Gamma u \frac{\partial u}{\partial \nnu}  \,\dif s, \quad \xx\in\Gamma_i,
 \end{align}
 %
-we can then use the following identity to calculate this boundary equation without evaluating 
-the normal derivative of the double layer potential directly.
+we can then refer to the identity (\cite{Hsiao2008}, \S 1.2) to calculate this boundary integral equation without evaluating the normal derivative of the double layer potential directly.
 
+Consider
 \begin{align}
 \nnu_\xx \cdot \nabla_\zz u(\zz) &=\nnu_\xx \cdot \nabla_\zz \int_\Gamma \frac{\partial G(\zz-\yy)}{\partial \nnu_\yy}\sigma(\yy) \,\dif s_\yy\\
 &=\int_\Gamma \nnu_\xx\cdot \left(\nabla_\zz\nabla_\yy^\top  G(\zz-\yy)\right)\cdot \nnu_\yy\sigma(\yy)  \,\dif s_\yy\\
@@ -286,10 +287,13 @@ Here ${\bf t}_\xx$ is the tangent vector at the point $\xx$ and $d/ds$ is the ar
 Letting $\zz\to\xx\in\Gamma$, we obtain
 %
 \begin{equation}
+\label{eq:normal_deriv}
 \frac{\partial}{\partial \nnu_\xx} \DD[\sigma](\xx) = -\frac1\rho^2 {\bf t}_\xx\cdot \SSS[\sigma{\bf t}](\xx) + \frac{\partial}{\partial s}\SSS\left[\frac{\partial \sigma}{\partial s}\right](\xx).
 \end{equation}
 %
 
+Substituting \eqref{eq:normal_deriv} to \eqref{eq:energy_BIE} provides the total energy calculation
+throughout this paper and this expression takes the advantage of not calculating the quadruple layer potential.
 
 %Suppose we split the solution to the screened Laplace boundary value problem~\eqref{eq:SL}
 %into smooth portion $w_i$ and singular portion $u_i$. That is, 
@@ -353,7 +357,7 @@ on particle $\Gamma_i$:
 \begin{equation}
   \label{eq:bcs}
   \begin{tabular}{c|c|c}
-     \text{(a)} & \text{(b)} & \text{(c)} \\
+     \text{(i)} & \text{(ii)} & \text{(iii)} \\
     \hline
     \rule{0pt}{4ex} 
       $g(\mathbf{x}) = \displaystyle \frac{1+\cos (\theta_i(\xx))}{\sqrt{3\pi r}}$
@@ -366,10 +370,10 @@ particle center $\aa_i$, and the particle director $\dd_i$.% (Figure \ref{fig:fl
 The normalizations e.g., $(\pi r)^{-1/2}$, provide a uniform
 surface energy $\int_{\Gamma_i} g^2 \,ds = 1$ for circular particles
 of radius $r$. 
-The cases (b) and (c) are obtained by applying a vertical shift
-and scaling to case (a), see Figure \ref{fig:bcs}.
-Using this setup, we simulate the dynamics of 60 particles with random
-initial position and orientation as shown in Figure~\ref{fig:relax}.
+The cases (ii) and (iii) are obtained by applying a vertical shift
+and scaling to case (i), see Figure \ref{fig:bcs}.
+Using this setup, we simulate the dynamics of 60 particles with one set of random
+initial positions and orientations as shown in Figure~\ref{fig:relax}(a).
 
 \begin{figure}
   \begin{center}
@@ -395,11 +399,11 @@ initial position and orientation as shown in Figure~\ref{fig:relax}.
   \includegraphics[width=0.4\textwidth]{Fig2d.png}
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:relax} (a) Initial configuration; (b)--(d) Equilibruim states for all boundary conditions~\eqref{eq:bcs}(a)--(c), respectively. Colors represent the boundary values that increases from minimum (blue) to maximum (red).  }
+  \caption{\label{fig:relax} (a) Initial configuration for $N_b=60$ structure. In order to expedite the self-assembly procedure, all particles are placed in a $8\times8$ box initially. (b)--(d) Equilibruim states for all boundary conditions~\eqref{eq:bcs}(i)--(iii), respectively. Colors represent the boundary values that increases from minimum (blue) to maximum (red).  Panel (b) reaches the equilibrium at $t=1200$; Panel (c) reaches the steady-state at $t=600$; Panel (d) reaches the final state at $t=180$.}
 \end{figure}
 
 
-Case (a) models amphiphilic particles.
+Case (i) models amphiphilic particles.
 Amphiphilic particles have a hydrophobic tail and a hydrophilic head
 and these are accounted for as follows.
 The hydrophilic side takes the value $u =0$.
@@ -413,20 +417,20 @@ one another. Figure~\ref{fig:relax}(b) demonstrates multiple bilayer structures 
 
 Multilamelar bilayers arise when both sides of the particle 
 are hydrophobic. 
-The boundary condition \eqref{eq:bcs}(b) 
+The boundary condition \eqref{eq:bcs}(ii) 
 gives a particle with a hydrophobic intensity that is greater
 on the $\theta_i = 0$ side than on the $\theta_i = \pi$ side.
-The initial self-assembly is similar to that in case (a).
+The initial self-assembly is similar to that in case (i).
 The difference arises in the long-time dynamics where the bilayers
 no longer remain well-separated. 
 Rather, the bilayers form layers 
 as a consequence of the interfacial tension of exposed particle
 heads.%~\cite{Huetal19, deMeetal21}. 
 Figure~\ref{fig:relax}(c) shows the multilamellar structure with 8 layers when $N_b=60$. 
-The number of folds depends on a number of factors, for instances, number of particles and intial configurations.
+The number of folds depends on several factors, for instances, number of particles and intial configurations.
 
 
-Finally, boundary condition \eqref{eq:bcs}(c) models 
+Finally, boundary condition \eqref{eq:bcs}(iii) models 
 a particle whose head surface repels the tail surface as proposed in
 \cite{MaRa76, Ma77}.
 The particles initially form chains with their directors perpendicular to the
@@ -441,16 +445,34 @@ Figure~\ref{fig:relax}(d) gives an example that this boundary condition results 
 \subsection{Collective Janus Particles Suspended in a Shear Flow}
 %%%
 
+
+Consider placing equilibrium states of boundary condition \eqref{eq:bcs} (ii) for 60 particles in a shear flow,
+\begin{equation}
+\uu_\infty(\xx) = \dot\gamma ({\bf e}_y\cdot\xx){\bf e}_x,
+\end{equation}
+%
+where $\dot\gamma$ is the shear rate. Figure~\ref{fig:shear_1} (a)--(c) show the snapshots of simulation results when $\dot\gamma=0.05$.
+We measure the ratio of major and minor axes $\lambda$ by adopting an ellipse fitting using the singular value decomposition and track the ratio of this multi-lamellar structure when the flow is on. 
+The result is shown in panel (d) and we observe that the multi-lamellar structure will be stretched 
+to a pancake shape while the ratio reaches above $\lambda=3.5$ level.
+
+Notice that for this simulation, the center of mass position of the initial configuration is not at the origin and it is slightly to the right of the origin. Therefore, the result has shown that the structure stretching occurs earlier that the case when we shift the center of mass position to the origin. 
+
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.4\textwidth]{shear_0.png}
   \includegraphics[width=0.4\textwidth]{shear_1000.png}\\
   \includegraphics[width=0.4\textwidth]{shear_2000.png}
-    \includegraphics[width=0.4\textwidth]{shear_dist.jpg}
+    \includegraphics[width=0.4\textwidth]{shear_dist_all.jpg}
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(b) in a shear flow when $\dot\gamma=0.05$. }
+  \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
 \end{figure}
+
+%%%
+
+The second set of simulation is putting the equilibrium state of the boundary condition \eqref{eq:bcs} (iii), the checker board, in a shear flow. After a set of empirical numerical investigations, we obtain a critical shear rate $\dot\gamma=0.15$ where the checker board deforms into stripes and small groups of JP. Figure~\ref{fig:shear_2}(a)--(d) show configurations when $t=\{0,50,100,150\}$. %The deformation starts with stripe separations
+
 
 
 
@@ -464,16 +486,6 @@ Figure~\ref{fig:relax}(d) gives an example that this boundary condition results 
   \vspace{-20pt}  
   \caption{\label{fig:shear_2} Snapshots of simulation using boundary condition \eqref{eq:bcs}(c) in a shear flow when $\dot\gamma=0.15$. }
 \end{figure}
-
-
-Consider placing equilibrium states of cases (b) and (c) for 60 particles in a shear flow,
-\begin{equation}
-\uu_\infty(\xx) = \dot\gamma ({\bf e}_y\cdot\xx){\bf e}_x,
-\end{equation}
-%
-where $\dot\gamma$ is the shear rate. 
-
-We measure the end-to-end distance of the multi-lamellar structure when the flow is on. 
 
 
 \subsection{Collective Janus Particles Suspended in a Taylor-Green Flow}
