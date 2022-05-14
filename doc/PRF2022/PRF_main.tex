@@ -292,8 +292,8 @@ Letting $\zz\to\xx\in\Gamma$, we obtain
 \end{equation}
 %
 
-Substituting \eqref{eq:normal_deriv} to \eqref{eq:energy_BIE} provides the total energy calculation
-throughout this paper and this expression takes the advantage of not calculating the quadruple layer potential.
+Substituting \eqref{eq:normal_deriv} to \eqref{eq:free_energy2} provides the total energy calculation
+throughout this paper and this expression takes the advantage of not calculating the quadruple layer potential which has well-known obstacle in numerical implementation.
 
 %Suppose we split the solution to the screened Laplace boundary value problem~\eqref{eq:SL}
 %into smooth portion $w_i$ and singular portion $u_i$. That is, 
@@ -460,18 +460,18 @@ Figure~\ref{fig:relax_energy} shows the energy profile of boundary conditions (i
 %%%
 
 
-Consider placing equilibrium states of boundary condition \eqref{eq:bcs} (ii) for 60 particles in a shear flow,
+Consider placing the equilibrium state of boundary condition \eqref{eq:bcs} (ii) for 60 particles in a shear flow,
 \begin{equation}
 \uu_\infty(\xx) = \dot\gamma ({\bf e}_y\cdot\xx){\bf e}_x,
 \end{equation}
 %
 where $\dot\gamma$ is the shear rate. Figure~\ref{fig:shear_1} (a)--(c) show the snapshots of simulation results when $\dot\gamma=0.05$.
-We measure the ratio of major and minor axes $\lambda$ by adopting an ellipse fitting using the singular value decomposition and track the ratio of this multi-lamellar structure when the flow is on. 
+We measure the ratio of major and minor axes $\lambda$ by adopting an ellipse fitting using the singular value decomposition and track this aspect ratio for this multi-lamellar structure when the flow is on. 
 The result is shown in panel (d) and we observe that the multi-lamellar structure will be stretched 
 to a pancake shape while the ratio reaches above $\lambda=3.5$ level.
-
+%
 Notice that for this simulation, the center of mass position of the initial configuration is not at the origin and it is slightly to the right of the origin. Therefore, the result has shown that the structure stretching occurs earlier than the case when we shift the center of mass position to the origin. 
-
+%
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.4\textwidth]{shear_0.png}
@@ -482,14 +482,26 @@ Notice that for this simulation, the center of mass position of the initial conf
   \vspace{-20pt}  
   \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
 \end{figure}
+%
+
+%Consider the energy profiles for two simulations where the centor of mass is on and off the origin.
+%The 
+%
+%\begin{figure}
+%  \begin{center}
+%  \includegraphics[width=0.4\textwidth]{shear_energy1.jpg}
+%  \end{center}
+%  \vspace{-20pt}  
+%  \caption{\label{fig:shear_energy1} Energy profiles tracked during the simulations using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+%\end{figure}
+
+
+
 
 %%%
 
 The second set of simulation is putting the equilibrium state of the boundary condition \eqref{eq:bcs} (iii), the checker board, in a shear flow. After a set of empirical numerical investigations, we obtain a critical shear rate $\dot\gamma=0.15$ where the checker board deforms into stripes and small groups of JP. Figure~\ref{fig:shear_2}(a)--(d) show configurations when $t=\{0,50,100,150\}$. %The deformation starts with stripe separations
-
-
-
-
+%
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.4\textwidth]{shear_checker_0.png}
@@ -504,6 +516,19 @@ The second set of simulation is putting the equilibrium state of the boundary co
 
 \subsection{Collective Janus Particles Suspended in a Taylor-Green Flow}
 
+Similar to shear flow simulations, we then place equilibrium states of all boundary conditions \eqref{eq:bcs} in a rotating Taylor-Green Flow with a length scale $l$,
+\begin{equation}
+\uu_\infty(\xx) = V_0 \left(-\cos(l{\bf e}_x\cdot\xx)\sin(l{\bf e}_y\cdot\xx){\bf e}_x+\sin(l{\bf e}_x\cdot\xx)\cos(l{\bf e}_y\cdot\xx){\bf e}_y\right).
+\end{equation}
+%
+The magnitude of the vortex flow is controlled by the velocity scale $V_0$.
+Similar to the setup in the shear flow cases, we shift the center of mass position to the origin then turn on the Taylor-Green flow with $V_0=0.1$ and tune the sides of zero-velocity box to $\pi$, i.e., $l=0.5$, Figure~\ref{fig:TG_1}(a)--(c) show three frames of simulation results and we 
+track the aspect ratio $\lambda$ described in the previous section which is provided in panel (d). 
+The stiffness of the multi-lamellar structure is able to compete with the flow therefore the structure
+does not deform to any states other than multi-lamellar shape. 
+%We also found that the flow strength coefficient above $V_0=0.1$ will result to clear group separations during the simulations.
+
+
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.4\textwidth]{TG_0.png}
@@ -516,16 +541,14 @@ The second set of simulation is putting the equilibrium state of the boundary co
 \end{figure}
 
 
-Similar to shear flow simulations, we then place equilibrium states of all boundary conditions \eqref{eq:bcs} in a rotating Taylor-Green Flow with a length scale $l$
-\begin{equation}
-\uu_\infty(\xx) = V_0 \left(-\cos(l{\bf e}_x\cdot\xx)\sin(l{\bf e}_y\cdot\xx){\bf e}_x+\sin(l{\bf e}_x\cdot\xx)\cos(l{\bf e}_y\cdot\xx){\bf e}_y\right).
-\end{equation}
-%
-The magnitude of the vortex flow is controlled by the velocity scale $V_0$.
 
 
 \subsection{Steady-State Structure Confined in Narrow Channels}
 
+
+Here are demonstrations of having JP vesical and multi-lamellar structure in a narrow channel 
+under a shear flow.
+Simulation results and snapshot are shown in Figures~\ref{fig:confined_vesicle} and Figure~\ref{fig:confined_lamellar} where the JP vesicle has $N_b=25$ particles and JP lamellar has $N_b=40$ particles. Both starting configurations are relaxed and the channel width in the narrow part is about 5 length units in the vesicle case and 4 length units in the lamellar case.
 
 
 \begin{figure}
