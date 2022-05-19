@@ -495,33 +495,34 @@ Consider placing the equilibrium state of boundary condition \eqref{eq:bcs} (ii)
 %
 where $\dot\gamma$ is the shear rate. Figure~\ref{fig:shear_1} (a)--(c) show the snapshots of simulation results when $\dot\gamma=0.05$.
 We measure the ratio of major and minor axes $\lambda$ by adopting an ellipse fitting using the singular value decomposition and track this aspect ratio for this multi-lamellar structure when the flow is on. 
-The result is shown in panel (d) and we observe that the multi-lamellar structure will be stretched 
-to a pancake shape while the ratio reaches above $\lambda=3.5$ level.
+The result is shown in panel (d) and we observe that the multi-lamellar structure will be slightly stretched and the aspect ratio $\lambda=3.5$ increases over time.
 %
-Notice that for this simulation, the center of mass position of the initial configuration is not at the origin and it is slightly to the right of the origin. Therefore, the result has shown that the structure stretching occurs earlier than the case when we shift the center of mass position to the origin. 
+Notice that for this simulation, the center of mass position of the initial configuration is not at the origin and it is slightly to the right of the origin. We also track the aspect ratio $\lambda$ for the case that the center of mass position is shifted to the origin. Panel (d) also shows that the dynamics 
+of two sets of simulations are invariant of center of mass position in a shear flow.
+
 %
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.4\textwidth]{shear_0.png}
   \includegraphics[width=0.4\textwidth]{shear_1000.png}\\
   \includegraphics[width=0.4\textwidth]{shear_2000.png}
-    \includegraphics[width=0.4\textwidth]{shear_dist_all.jpg}
+    \includegraphics[width=0.4\textwidth]{lambda_fig1.jpg}
   \end{center}
   \vspace{-20pt}  
   \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
 \end{figure}
 %
 
-Consider the energy profiles for two simulations where the centor of mass is on and off the origin.
-Figure~\ref{fig:shear_energy1} shows numerical results for both energy profiles and magnitude of energy differences is significantly large when there is a large deformation, for instance, the case when a multi-lamellar structure deformed to a pancake shape.
-
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.5\textwidth]{shear_energy1.jpg}
-  \end{center}
-  \vspace{-20pt}  
-  \caption{\label{fig:shear_energy1} Energy profiles tracked during the simulations using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
-\end{figure}
+%Consider the energy profiles for two simulations where the centor of mass is on and off the origin.
+%Figure~\ref{fig:shear_energy1} shows numerical results for both energy profiles and magnitude of energy differences is significantly large when there is a large deformation, for instance, the case when a multi-lamellar structure deformed to a pancake shape.
+%
+%\begin{figure}
+%  \begin{center}
+%  \includegraphics[width=0.5\textwidth]{shear_energy1.jpg}
+%  \end{center}
+%  \vspace{-20pt}  
+%  \caption{\label{fig:shear_energy1} Energy profiles tracked during the simulations using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+%\end{figure}
 
 
 
