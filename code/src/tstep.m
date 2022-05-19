@@ -41,7 +41,7 @@ end % constructor: tstep
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Up,wp,iterYukawa,iterStokes,etaYukawaJanus,etaStokesJanus,...
-      fforce,torque] = timeStep(o,geom,etaY0,etaS0,walls)
+      fforce,torque,Energy] = timeStep(o,geom,etaY0,etaS0,walls)
 % Main time stepping routine
 oc     = curve;
 N      = geom.N;
@@ -69,7 +69,7 @@ end
 
 op = poten(geom.N,geom.rho);
 % START OF REPULSION BETWEEN JANUS PARTICLES CALCULATION
-[R1, R2, RTq, pp] = op.Repul(geom);
+[RE, R1, R2, RTq, pp] = op.Repul(geom);
 % END OF REPULSION BETWEEN JANUS PARTICLES CALCULATION
 
 % START OF SCREENED LAPLACE SOLVE TO FIND HYDROPHOBIC FORCE AND TORQUE
@@ -91,7 +91,7 @@ if o.confined
   op2 = poten(Nwall,walls.rho);
   walls.DLPYukawa = op2.yukawaDLmatrix(walls); 
   o.precoYukawaWalls.L = zeros(Nwall,Nwall,nbwall);
-  o.precoYukawaWalls.U = zeros(Nwall,Nwall,nbwall);
+  o.precoYukawaWalls.U = zeros(Nwall,Nwall,nbjwall);
   for k = 1:nbwall
     [o.precoYukawaWalls.L(:,:,k),o.precoYukawaWalls.U(:,:,k)] = ...
       lu(0.5*eye(Nwall) + walls.DLPYukawa(:,:,k));
@@ -120,6 +120,39 @@ end
 for k = 1:nbwall
   etaYukawaWalls(:,k) = sigma(nb*N + (k-1)*Nwall+1:nb*N + k*Nwall);
 end
+
+if 0
+  [xtar,ytar] = meshgrid(-7:1.01:+7,-7:1.01:7);
+  [nx,ny] = size(xtar);
+  targets.N = numel(xtar);
+  targets.nb = 1;
+  targets.X = [xtar(:);ytar(:)];
+  [~,NearJanusTargets] = geom.getZone(targets,2);
+
+  kernel = @op.exactYukawaSL;
+  kernelDirect = @op.exactYukawaSL;
+  kernelSelf = @(z) op.exactYukawaSLdiag(geom,...
+        S,z);
+
+  potJanus = op.nearSingInt(geom,etaYukawaJanus,kernelSelf,...
+    NearJanusTargets,kernel,kernelDirect,targets,false,false);
+  potJanus = potJanus(1:targets.N,:);
+end
+
+% Finite difference way of computing energy
+% Energy2 = geom.computeEnergy(etaYukawaJanus) + RE;
+
+% generate Yukawa single-layer potential matrix for
+% self-contribution of each individual Janus particle
+geom.SLPYukawa = op.yukawaSLmatrix(geom); 
+% Layer potential way of computing energy
+Energy = geom.computeEnergyNew(etaYukawaJanus) + RE;
+
+% [Energy Energy2]
+% abs(Energy - Energy2)/Energy2
+% pause
+
+
 
 if 0
   [xtar,ytar] = meshgrid(-9:0.01:-7,-1:0.01:1);
@@ -189,23 +222,26 @@ end
 % fclose(fid);
 %fprintf("%d %d\n", [geom.center(1,2) - geom.center(1,1) - 2,  F1(1)]');
 
-%{
- th = linspace(0, 2*pi)'; 
- hold off
- plot(center(1,:), center(2,:), 'ob');
- hold on
- plot(center(1,:) + radii.*cos(th), center(2,:) + radii.*sin(th), 'b');
- l0 = geom.RepulLength;
- plot(center(1,:) + (radii+l0).*cos(th), center(2,:) + (radii+l0).*sin(th), 'r:');
- quiver(center(1,:), center(2,:), R1', R2', 0, 'r');
-% quiver(center(1,:), center(2,:), F1', F2', 'm');
-if pp
-   plot([pp(:,1) pp(:,3)], [pp(:,2) pp(:,4)], 'k*');
-end
+if 0
+  th = linspace(0, 2*pi)'; 
+  hold off
+  plot(center(1,:), center(2,:), 'ob');
+  hold on
+  plot(center(1,:) + radii.*cos(th), center(2,:) + radii.*sin(th), 'b');
+  l0 = geom.RepulLength;
+  plot(center(1,:) + (radii+l0).*cos(th), center(2,:) + (radii+l0).*sin(th), 'r:');
+  quiver(center(1,:), center(2,:), R1', R2', 0, 'r');
+  % quiver(center(1,:), center(2,:), F1', F2', 'm');
+  if pp
+    plot([pp(:,1) pp(:,3)], [pp(:,2) pp(:,4)], 'k*');
+  end
 
- axis equal
-pause(0.01)
-%}
+  axis equal
+  plot(walls.X(1:end/2),walls.X(end/2+1:end),'k','linewidth',2)
+  axis([-16 -10 -3.1 3.1])
+  pause
+  pause(0.01)
+end
 
 %outputs: 
 fforce  = [F1 + R1, F2 + R2].';
@@ -605,7 +641,7 @@ switch options.farField
   case 'extensional'
     vInf = shearRate*[-x;y];
   case 'taylorgreen'
-    vInf = shearRate*[-cos(x).*sin(y);sin(x).*cos(y)];
+    vInf = shearRate*[-cos(x/2).*sin(y/2);sin(x/2).*cos(y/2)];
   case 'parabolic'
     vInf = [shearRate*(1-(y/80).^2);zeros(N,nb)];
   case 'channel'

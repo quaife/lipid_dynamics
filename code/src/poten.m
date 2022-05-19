@@ -385,6 +385,63 @@ N0 = normal.*normal'.*sa'*2*pi/geom.N;
 
 end % stokesN0matrix
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function S = yukawaSLmatrix(o,geom)
+% S = yukawaSLmatrix(geom) generates single-layer potential for yukawa.
+% geom is a data structure defined as in the capsules class S is (N,N,n)
+% array where Np is the number of points per curve and n is the number
+% of curves in X 
+
+oc = curve;
+% Particle positions
+[x,y] = oc.getXY(geom.X);
+
+% quadrature weights and points
+[qw,qp] = o.quadratureS(8);
+Nquad = numel(qw);
+qw = qw(:,ones(o.N,1));
+% rotation matrices
+[Rfor,Rbac] = o.rotationIndicies;
+% number of quadrature points including the extra terms that Alpert's
+% rule brings into the quadrature
+
+S = zeros(o.N,o.N,geom.nb);
+for k = 1:geom.nb % loop over all Janus particles
+  % locations
+  xx = x(:,k);
+  yy = y(:,k);
+  % jacobian
+  sa = geom.sa(:,k)';
+
+  % put target points in matrix format for quick construction of SLP
+  % matrix
+  xtar = xx(:,ones(Nquad,1))';
+  ytar = yy(:,ones(Nquad,1))';
+
+  % put source points and Jacobian in matrix format for quick
+  % construction of SLP matrix
+  xsou = xx(:,ones(geom.N,1));
+  ysou = yy(:,ones(geom.N,1));
+  sa = sa(ones(geom.N,1),:);
+
+  % rotate source points appropriately for quadrature
+  xsou = xsou(Rfor);
+  ysou = ysou(Rfor);
+
+  diffx = xtar - qp*xsou;
+  diffy = ytar - qp*ysou;
+  dist = sqrt(diffx.^2 + diffy.^2);
+
+  G = 1/2/pi*qp'*(qw.*besselk(0,dist/geom.rho));
+  G = G(Rbac);
+  S(:,:,k) = G'.*sa;
+end
+
+
+end % yukawaSLmatrix
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function D = yukawaDLmatrix(~,geom)
 % D = yukawaDLmatrix(geom) generates double-layer potential for yukawa.
@@ -640,7 +697,7 @@ end % exactYukawaDLMatFree
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function DLP = exactStokesDLdiag(~,geom,D,f)
-% DLP = exactStokesDLdiag(geom,f,K) computes the diagonal term of the
+% DLP = exactStokesDLdiag(geom,D,f) computes the diagonal term of the
 % double-layer potential due to f around all geoms. Source and target
 % points are the same. This uses trapezoid rule with the curvature at
 % the diagonal in order to guarantee spectral accuracy.  This routine
@@ -683,8 +740,23 @@ end
 end % exactStokesN0diag
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function SLP = exactYukawaSLdiag(~,geom,S,f)
+% SLP = exactYukawaSLdiag(geom,S,f) computes the diagonal term of the
+% single-layer potential due to f around all geoms. Source and target
+% points are the same. This uses weakly singluar quadrature in order to
+% guarantee spectral accuracy.
+
+SLP = zeros(geom.N,geom.nb);
+for k = 1:geom.nb
+  A = S(:,:,k);
+  SLP(:,k) = A * f(:,k);
+end
+
+end % exactYukawaSLdiag
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function DLP = exactYukawaDLdiag(~,geom,D,f)
-% DLP = exactYukawaDLdiag(geom,f,K) computes the diagonal term of the
+% DLP = exactYukawaDLdiag(geom,D,f) computes the diagonal term of the
 % double-layer potential due to f around all geoms. Source and target
 % points are the same. This uses trapezoid rule with the curvature at
 % the diagonal in order to guarantee spectral accuracy. This routine
@@ -776,6 +848,65 @@ stokesDLPtar = stokesDLPtar/pi;
 stokesDLP = [];
 
 end % exactStokesDL
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [yukawaSLP,yukawaSLPtar] = exactYukawaSL(o,geom,f,Xtar,K1)
+% [yukawaSLP,yukawaSLPtar] = exactYukawaSL(geom,f,Xtar,K1) computes the
+% Yukawa single-layer potential due to f around all parts of the
+% geometry except itself. Also can pass a set of target points Xtar and
+% a collection of geom K1 and the double-layer potential due to
+% components of the geometry in K1 will be evaluated at Xtar.
+% Everything but Xtar is in the 2*N x n format Xtar is in the 2*Ntar x
+% ncol format
+
+if nargin >= 5
+  Ntar = size(Xtar,1)/2;
+  ncol = size(Xtar,2);
+  yukawaSLPtar = zeros(Ntar,ncol);
+else
+  K1 = [];
+  yukawaSLPtar = [];
+  ncol = 0;
+  Ntar = 0;
+  % if nargin ~= 5, the user does not need the velocity at arbitrary
+  % points
+end
+den = f.*geom.sa*2*pi/geom.N;
+% jacobian term and 2*pi/N accounted for here
+
+oc = curve;
+[xsou,ysou] = oc.getXY(geom.X(:,K1));
+xsou = xsou(:); ysou = ysou(:);
+xsou = xsou(:,ones(Ntar,1))';
+ysou = ysou(:,ones(Ntar,1))';
+
+den = den(:,K1);
+den = den(:);
+den = den(:,ones(Ntar,1))';
+
+invrho = 1/geom.rho;
+for k = 1:ncol % loop over columns of target points
+  [xtar,ytar] = oc.getXY(Xtar(:,k));
+  xtar = xtar(:,ones(geom.N*numel(K1),1));
+  ytar = ytar(:,ones(geom.N*numel(K1),1));
+  
+  % difference of source and target location
+  diffx = xtar - xsou; diffy = ytar - ysou;
+  % distance
+  dis = sqrt(diffx.^2 + diffy.^2);
+
+  BK0 = besselk(0,invrho*dis);
+  kernel = 1/2/pi*BK0.*den;
+  
+  yukawaSLPtar(:,k) = yukawaSLPtar(:,k) + sum(kernel,2);
+  % Yukawa SLP
+end
+% single-layer potential due to geometry components indexed over K1
+% evaluated at arbitrary points
+
+yukawaSLP = [];
+
+end % exactYukawaSL
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [yukawaDLP,yukawaDLPtar] = exactYukawaDL(o,geom,f,Xtar,K1)
@@ -1471,12 +1602,13 @@ end % evalDL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [R1, R2, RTq, pp] = Repul(o, geom)
+function [RE, R1, R2, RTq, pp] = Repul(o, geom)
 
 %pp are point pairs (p1, p2, q1, q2) of interacting points
+RE   = 0;                     % total repulsion energy
 
 N    = geom.N;                % number of points per componenet
-Nb   = geom.nb;               % number of rigid bodies
+nb   = geom.nb;               % number of rigid bodies
 x1   = geom.X(1:N,:);         % grid points on curves
 x2   = geom.X(N+1:2*N,:);
 pc   = geom.center;           % center of each rigid body
@@ -1487,88 +1619,99 @@ pc2  = pc(2,:);
 l0 = geom.RepulLength;   % repulsion length
 M  = geom.RepulStrength; % repulsion strength
 
-% temporarily alter geom.length parameter  
-% for present purposes
-h_store = geom.length;          
+% temporarily alter geom.length parameter for present purposes
+h_store = geom.length;
 
 geom.length = l0*N/2;
 
-NearOther = geom.getZone([],1); % get near structure 
+NearSelf = geom.getZone([],1); % get near structure 
 
 % identifies which pairs of particles have distance < l0
-nf = NearOther.nearFibers; 
+nf = NearSelf.nearFibers; 
 
 % structure identifying point in discrete curve q
 % that is closest to point in curve p
-icp = NearOther.icp; 
+icp = NearSelf.icp; 
+
+if 0
+  clf; hold on
+  plot(x1,x2,'ro')
+  plot(x1(1,:),x2(1,:),'k.','markersize',10)
+  axis equal
+%  icp{1}
+%  icp{2}
+%  pause
+end
 
 R1 = zeros(geom.nb,1); % repulsive force 
 R2 = zeros(geom.nb,1); % repulsize force  
 RTq = zeros(geom.nb,1); % repulsive torque
 pp  = [];
 
-for p = 1:Nb
-  [iq, qq, jp] = find(icp{p}); %an N by nb sparse matrix         
+for p = 1:nb
+  [iq, qq, jp] = find(icp{p}); % an N by nb sparse matrix
   % point iq(l) in curve qq(l) is within l0 of curve p, and 
   % the jp(l) is the point in curve p closest to iq(l) 
    
   q_list = unique(qq); %set of q within l0 of curve p
 
   for k = 1:length(q_list)
-      
     q  = q_list(k); %curve q within l0 of p
     in = find(qq == q); 
       
     i = jp(in); %vertex (i, p) closest to following point 
     j = iq(in); %vertex (j, q) within l0 of p curve
 
-    %goal: find point on q curve closest to current, p curve      
+    %goal: find point on q curve closest to current, p curve
     dist = (x1(i,p) - x1(j,q)).^2 + (x2(i,p) - x2(j,q)).^2;
       
-    [dist, arg] = min(dist);
+    [~,arg] = min(dist);
       
     jjp = i(arg);
     jjq = j(arg); 
 
     % (x1nrt, x2nrt) and (y1nrt, y2nrt) are the nearest points in curves
     % p, q respectively
-    [dist,x1nrt,x2nrt,y1nrt,y2nrt] = geom.closestPntPair(geom.X,p,q,jjp,jjq);      
-
+    [dist,x1nrt,x2nrt,y1nrt,y2nrt] = geom.closestPntPair(...
+          geom.X,p,q,jjp,jjq);
     
     r1 = x1nrt - y1nrt;
     r2 = x2nrt - y2nrt;
 
     r1 = r1/(dist+eps);
-    r2 = r2/(dist+eps);            
+    r2 = r2/(dist+eps);
 
     % repulsion profile
-    [~, dR] = o.Repul_profile(dist/l0);
-
+    [R, dR] = o.Repul_profile(dist/l0);
+    
     % weight and chain rule
+    RE = RE+M*R;
     dR = M*dR/l0; %<---repulsive strength multiplied here
     r1 = -dR*r1;
     r2 = -dR*r2; 
 
     R1(p)  = R1(p)  + r1;
-    R2(p)  = R2(p)  + r2;            
+    R2(p)  = R2(p)  + r2;
     RTq(p) = RTq(p) + r1.*(x2nrt-pc2(p)) - r2.*(x1nrt-pc1(p));
-%{    
-     hold off
-     plot(x1, x2, 'k');
-     hold on
-     plot(pc1(p), pc2(p), 'o', pc1(q_list), pc2(q_list), '*')
-     plot(x1(:,p), x2(:,p), 'r');
-     plot(x1(:,q), x2(:,q), 'm'); 
-     plot(x1nrt, x2nrt, 'r+');
-     plot(y1nrt, y2nrt, 'm+');
-     plot([pc1(p) pc1(q)], [pc2(p) pc2(q)])
-     quiver( pc1(p), pc2(p), r1, r2, 'k') 
-     pause
-%}
+
+    if 0
+    [p q]
+    hold off
+    plot(x1, x2, 'k');
+    hold on
+    plot(pc1(p), pc2(p), 'o', pc1(q_list), pc2(q_list), '*')
+    plot(x1(:,p), x2(:,p), 'r');
+    plot(x1(:,q), x2(:,q), 'm'); 
+    plot(x1nrt, x2nrt, 'r+');
+    plot(y1nrt, y2nrt, 'm+');
+    plot([pc1(p) pc1(q)], [pc2(p) pc2(q)])
+    quiver( pc1(p), pc2(p), r1, r2, 'k') 
+    axis equal
+    pause
+    end
     pp = [pp; x1nrt, x2nrt, y1nrt, y2nrt];
 
   end
-
 end
 
 %system computes force free
@@ -1584,6 +1727,7 @@ end
 % restore h value   
 geom.length = h_store;
 
+RE = RE/2;
 end % Repul
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1741,7 +1885,97 @@ function out = isLeft(o, p1, p2, q1, q2, r1, r2)
 
 end
     
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [qw,qp] = quadratureS(o,q)
+% [qw,qp] = quadratureS(q) generates the quadrature rules for a function
+% with o.N points and a logarithmic singularity at the origin.  q
+% controls the accuracy.  All rules are from Alpert 1999.  This is
+% Bryan's reformulation which uses Alpert's quadrature rules as
+% described in Section 7, but with Fourier interpolation
+
+[v,u,a] = o.getWeights(q);
+% get the weights coming from Table 8 of Alpert's 1999 paper
+
+h = 2*pi/o.N;
+n = o.N - 2*a + 1;
+
+of = fft1;
+A1 = of.sinterpS(o.N,v*h);
+A2 = of.sinterpS(o.N,2*pi-flipud(v*h));
+yt = h*(a:n-1+a)';
+% regular points away from the singularity
+wt = [h*u; h*ones(length(yt),1); h*flipud(u)];
+% quadrature points away from singularity
+
+B = sparse(length(yt),o.N);
+pos = 1 + (a:n-1+a)';
+
+for k = 1:length(yt)
+  B(k, pos(k)) = 1;
+end
+A = [sparse(A1); B; sparse(A2)];
+qw = [wt, A];
+
+qp = qw(:,2:end);
+qw = qw(:,1);
+
+
+end % quadratureS
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [v,u,a] = getWeights(o,q)
+% [v,u,a] = getWeights(q) loads quadrature rules for weak singularities.
+% All rules come from Bradley Alpert's papers.
+
+xp = o.nodesLog;
+lenth = [3;7;15];
+par = [2;5;10];
+
+
+switch q
+case 4
+  v = xp(1:lenth(1), 1);
+  u = xp(1:lenth(1), 2);
+  a = par(1);
+case 8
+  v = xp(1+lenth(1):lenth(1)+lenth(2),1);
+  u = xp(1+lenth(1):lenth(1)+lenth(2),2);
+  a = par(2);
+case 16
+  v = xp(1+lenth(2)+lenth(1):sum(lenth),1);
+  u = xp(1+lenth(2)+lenth(1):sum(lenth),2);
+  a = par(3);
+end
+
+end % getWeights
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [Rfor,Rbac] = rotationIndicies(o)
+% [Rfor,Rbac] = rotationIndicies generates two matricies of indicies
+% that are used in stokesSLmatrix to implement Alpert's quadrature
+% rules
+
+ind = (1:o.N)';
+Rfor = zeros(o.N);
+Rbac = zeros(o.N);
+% vector of indicies so that we can apply circshift to each column
+% efficiently. Need one for going 'forward' and one for going
+% 'backwards'
+Rfor(:,1) = ind;
+Rbac(:,1) = ind;
+for k = 2:o.N
+  Rfor(:,k) = (k-1)*o.N + [ind(k:o.N);ind(1:k-1)];
+  Rbac(:,k) = (k-1)*o.N + [...
+      ind(o.N-k+2:o.N);ind(1:o.N-k+1)];
+end
+
+end % rotationIndicies
+
+
+
 end % methods
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 methods(Static)
@@ -1804,6 +2038,65 @@ LP(7,1) = 1e0;
 % rest of the coefficients are zero
 
 end % lagrangeInterp
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function xp = nodesLog
+
+xp = zeros(25,2);
+xp(1,1) = 2.379647284118974e-2;
+xp(1,2) = 8.795942675593887e-2;
+xp(2,1) = 2.935370741501914e-1;
+xp(2,2) = 4.989017152913699e-1;
+xp(3,1) = 1.023715124251890e+0;
+xp(3,2) = 9.131388579526912e-1;
+xp(4,1) = 6.531815708567918e-3;
+xp(4,2) = 2.462194198995203e-2;
+xp(5,1) = 9.086744584657729e-2;
+xp(5,2) = 1.701315866854178e-1;
+xp(6,1) = 3.967966533375878e-1;
+xp(6,2) = 4.609256358650077e-1;
+xp(7,1) = 1.027856640525646e+0;
+xp(7,2) = 7.947291148621895e-1;
+xp(8,1) = 1.945288592909266e+0;
+xp(8,2) = 1.008710414337933e+0;
+xp(9,1) = 2.980147933889640e+0;
+xp(9,2) = 1.036093649726216e+0;
+xp(10,1) = 3.998861349951123e+0;
+xp(10,2) = 1.004787656533285e+0;
+xp(11,1) = 8.371529832014113e-4;
+xp(11,2) = 3.190919086626234e-3;
+xp(12,1) = 1.239382725542637e-2;
+xp(12,2) = 2.423621380426338e-2;
+xp(13,1) = 6.009290785739468e-2;
+xp(13,2) = 7.740135521653088e-2;
+xp(14,1) = 1.805991249601928e-1;
+xp(14,2) = 1.704889420286369e-1;
+xp(15,1) = 4.142832599028031e-1;
+xp(15,2) = 3.029123478511309e-1;
+xp(16,1) = 7.964747731112430e-1;
+xp(16,2) = 4.652220834914617e-1;
+xp(17,1) = 1.348993882467059e+0;
+xp(17,2) = 6.401489637096768e-1;
+xp(18,1) = 2.073471660264395e+0;
+xp(18,2) = 8.051212946181061e-1;
+xp(19,1) = 2.947904939031494e+0;
+xp(19,2) = 9.362411945698647e-1;
+xp(20,1) = 3.928129252248612e+0;
+xp(20,2) = 1.014359775369075e+0;
+xp(21,1) = 4.957203086563112e+0;
+xp(21,2) = 1.035167721053657e+0;
+xp(22,1) = 5.986360113977494e+0;
+xp(22,2) = 1.020308624984610e+0;
+xp(23,1) = 6.997957704791519e+0;
+xp(23,2) = 1.004798397441514e+0;
+xp(24,1) = 7.999888757524622e+0;
+xp(24,2) = 1.000395017352309e+0;
+xp(25,1) = 8.999998754306120e+0;
+xp(25,2) = 1.000007149422537e+0;
+
+end % nodesLog
+
 
 end % methods(Static)
 

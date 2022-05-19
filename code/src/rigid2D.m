@@ -43,6 +43,7 @@ trajectory = [xc(1,:) xc(2,:) tau];
 
 % begin time loop
 %while time < prams.T
+Energy = [];
 while step <= prams.m
   % start a timer for this particular time step
   tSingleStep = tic;   
@@ -53,7 +54,7 @@ while step <= prams.m
   % Regular Forward Euler
   if prams.order == 1
     geom = capsules(prams,xc,tau);
-    [Up0,wp0,~,~,etaY0,etaS0,force,torque] = ...
+    [Up0,wp0,~,~,etaY0,etaS0,force,torque,Energy(step)] = ...
           tt.timeStep(geom,[],[],walls);
     xc  = xc  + tt.dt*Up0;
     tau = tau + tt.dt*wp0;
@@ -95,7 +96,7 @@ while step <= prams.m
     end
       
     geom1 = capsules(prams,xc1,tau1);
-    [Up1, wp1,~,~,etaY,etaS,force,torque] = ...
+    [Up1, wp1,~,~,etaY,etaS,force,torque,Energy(step)] = ...
           tt.timeStep(geom1,etaY0,etaS0,walls);
     etaY0 = etaY; etaS0 = etaS;
     
@@ -205,6 +206,11 @@ while step <= prams.m
   
   % update step counter
   step = step + 1;
+
+%  figure(2);
+%  plot(Energy)
+%  figure(1);
+%  pause(0.01) 
 end
 
 % save final time step
