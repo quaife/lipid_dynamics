@@ -130,15 +130,19 @@
 
 Unbouned Flow: 
 \begin{enumerate}
-\item $N_b=60$ self-assembly/relaxation runs with all 3 boundary conditions using $N=24$ points per particle (FIG. 2). Energy profiles in a linear-log plot (FIG. 3) ($E(t)$ or $\Delta E(t)$ v.s. time).
+\item $N_b=60$ self-assembly/relaxation runs with all 3 boundary
+  conditions using $N=24$ points per particle (FIG. 2). Energy profiles
+    in a log-log plot (FIG. 3) ($E(t)$ or $\Delta E(t)$ v.s. time).
 
 \item $N_b=198$ relaxation runs with all 3 boundary conditions using $N=24$ points per particle.
-Add energy profiles to check local/absolute minimum.
+Add energy profiles to check local/absolute minimum. Superimpose these
+    energies on Figure 3, but scale the energies by the number of Janus
+    particles so that it is ``energy per particle"
 
-\item $N_b=60$ structures in a shear flow: For both boundary conditions, lamellar (FIG. 4) and polar (FIG. 4), convergence tests using $N=16$ and $N=24$ are not yet verified. 
+\item $N_b=60$ structures in a shear flow: For both boundary conditions, lamellar (FIG. 4) and polar (FIG. 5), convergence tests using $N=16$ and $N=24$ are not yet verified. 
 Compare results using $N_b=24$ with the current FIG 4. (d). Revise FIG. 5 with more details. 
 
-\item Use particle/checker board alignment to identify the critical shear rate for phase separation.
+\item Use particle/checker board alignment and/or aspect ratio to identify the critical shear rate for phase separation.
 
 \item $N_b=60$ structures in a Taylor-Green flow (FIG. 7-8). Add more frames for further comparison between values of flow strength $V_0$.
 \end{enumerate}
@@ -503,10 +507,15 @@ of two sets of simulations are invariant of center of mass position in a shear f
 %
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.4\textwidth]{shear_0.png}
-  \includegraphics[width=0.4\textwidth]{shear_1000.png}\\
-  \includegraphics[width=0.4\textwidth]{shear_2000.png}
-    \includegraphics[width=0.4\textwidth]{lambda_fig1.jpg}
+  \includegraphics[width=0.21\textwidth]{shear_0.png}
+  \includegraphics[width=0.21\textwidth]{shear_1000.png}
+  \includegraphics[width=0.21\textwidth]{shear_2000.png} 
+  \includegraphics[width=0.21\textwidth]{shear_2000.png} \\
+  \includegraphics[width=0.21\textwidth]{shear_checker_0.png}
+  \includegraphics[width=0.21\textwidth]{shear_checker_250.png}
+  \includegraphics[width=0.21\textwidth]{shear_checker_500.png}
+  \includegraphics[width=0.21\textwidth]{shear_checker_750.png} \\
+  \includegraphics[width=0.4\textwidth]{lambda_fig1.jpg}
   \end{center}
   \vspace{-20pt}  
   \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
@@ -531,16 +540,16 @@ of two sets of simulations are invariant of center of mass position in a shear f
 
 The second set of simulation is putting the equilibrium state of the boundary condition \eqref{eq:bcs} (iii), the checker board, in a shear flow. After a set of empirical numerical investigations, we obtain a critical shear rate $\dot\gamma=0.15$ where the checker board deforms into stripes and small groups of JP. Figure~\ref{fig:shear_2}(a)--(d) show configurations when $t=\{0,50,100,150\}$. %The deformation starts with stripe separations
 %
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.4\textwidth]{shear_checker_0.png}
-  \includegraphics[width=0.4\textwidth]{shear_checker_250.png}\\
-  \includegraphics[width=0.4\textwidth]{shear_checker_500.png}
-    \includegraphics[width=0.4\textwidth]{shear_checker_750.png}
-  \end{center}
-  \vspace{-20pt}  
-  \caption{\label{fig:shear_2} Snapshots of simulation using boundary condition \eqref{eq:bcs}(iii) in a shear flow when $\dot\gamma=0.15$. }
-\end{figure}
+%\begin{figure}
+%  \begin{center}
+%  \includegraphics[width=0.4\textwidth]{shear_checker_0.png}
+%  \includegraphics[width=0.4\textwidth]{shear_checker_250.png}\\
+%  \includegraphics[width=0.4\textwidth]{shear_checker_500.png}
+%    \includegraphics[width=0.4\textwidth]{shear_checker_750.png}
+%  \end{center}
+%  \vspace{-20pt}  
+%  \caption{\label{fig:shear_2} Snapshots of simulation using boundary condition \eqref{eq:bcs}(iii) in a shear flow when $\dot\gamma=0.15$. }
+%\end{figure}
 
 
 \subsection{Collective Janus Particles Suspended in a Taylor-Green Flow}
