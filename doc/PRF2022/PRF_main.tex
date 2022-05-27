@@ -184,62 +184,65 @@ Channel Flow:
 
 %%%
 
-
 \section{Governing Equations}
+We consider a suspension of $N_b$ Janus particles in the fluid domain
+$\Omega$. The boundary of the $\Omega$ is $\bd\Omega = \Gamma_1 \cup
+\cdots \cup \Gamma_{N_b}$, where $\Gamma_i$ is the boundary of Janus
+particle $i$. We also consider a bounded fluid domain where $\Gamma_0$
+is the fixed boundary of $\Omega$. In this case, $\bd\Omega = \Gamma_0
+\cup \Gamma_1 \cup \cdots \cup \Gamma_{N_b}$.
 
-
-\subsection{Screened Laplace Mobility Problem}
-
-
+%%%
+\subsection{Hydrophobic Attraction Potential Mobility Problem} 
 The mathematical formulation is a nonlinear system for the dynamics of a
-collection of particles. The interactions come from a system of 
-partial differential equations (PDEs) that comprise hydrodynamic
-interactions and hydrophobic interactions.
-The hydrodynamic interactions come from the mobility problem for rigid
-particles immersed in a viscous solvent. We then use a
-second-order Adams-Bashforth method to update the particle configuration.
-Assuming inertial terms are
-negligible, the particle motion is goverened by the Stokes equations
+collection of rigid Janus particles. The interactions satisfy a system
+of partial differential equations (PDEs) that describe the hydrodynamic
+interactions and hydrophobic interactions. Assuming inertial terms are
+negligible, the solvent is goverened by the Stokes equations
 \begin{alignat}{3}
 \label{eq:stokes}
   -\mu \Delta \uu + \nabla p &= \mathbf{0},     && \xx \in \Omega, \\
   \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
 \end{alignat}
-where $\uu$ is the velocity and $p$ is the pressure of the solvent,
-$\uu_\infty$ is the background flow, and $\mu$ is the constant solvent
-viscosity. The domain $\Omega = \Omega(t)$ is the fluid region surrounding the
-particles and changes shape as the particles move.
-Since the particles are rigid, the solvent velocity satisfies
-a no-slip boundary condition for a rigid body motion 
-on the particle boundary $\Gamma_i$ with translational velocity $\vv_i$
-and angular velocity $\omega_i$.
-Given imposed forces acting on each
-particle, the mobility problem consists of finding
-translational and angular velocities so that viscous fluid forces
-balance the imposed forces.
+where $\uu$ is the velocity, $p$ is the pressure, $\uu_\infty$ is the
+background flow, and $\mu$ is the constant viscosity. The domain $\Omega
+= \Omega(t)$ is the fluid region surrounding the particles and changes
+shape as the particles move. Since the particles are rigid, the solvent
+velocity satisfies a no-slip boundary condition for a rigid body motion
+\begin{align}
+  \vv_i + \omega_i (\xx - \aa_i)^\perp = \uu(\xx), 
+    \quad \xx \in \Gamma_i
+\end{align}
+where $\vv_i$ is the translational velocity and $\omega_i$ is the
+angular velocity. Once these quantities are determined, we use
+second-order Adams-Bashforth to update the particle configuration. 
 
-The hydrophobic interactions come from the tendency of particles to
-minimize the free energy of the structure of the surrounding water
-molecules. The free energy functional takes the form 
-\begin{equation}
+The translational and angular velocities guarantee that the fluid forces
+balanace the imposed forces. The imposed forces include the hydrophobic
+interactions that arise so that particles minimize the free energy of
+the structure of the surronding water molecules. The free energy
+functional is
+\begin{align}
 \label{eq:free_energy}
   F[u] = C \int_{\Omega} \left(\rho |\nabla u|^2 + \rho^{-1} f(u)\right)
   \,d\xx,
-\end{equation}
+\end{align}
 where $u$ is an order parameter for the structure of water, $\rho$ is a
 decay length, $C$ is a constant, and $f(u)$ is a potential.
-Hydrogen-bond persistence times are on the order of picoseconds
-which is much smaller than characteristic time for 
-particle motion. % \cite{MaGa13}.
-Thus we assume $u$ minimizes $F[u]$ for all times.
-Assuming appropriate conditions on $f(u)$,% (\cite{evans10}, \S 8.2),
- $u$ is bounded and satisfies the Euler-Lagrange equation
-\begin{equation}
-\label{eq:SL}
--\rho^2 \Delta u + \tfrac{1}{2}f'(u) = 0  \text{ in } \Omega,\quad u = g,
-\text{ on } \bd\Omega.
-\end{equation}
+Hydrogen-bond persistence times are on the order of picoseconds which is
+much smaller than characteristic time for particle motion.
+%\cite{MaGa13}. 
+Thus we assume $u$ minimizes $F[u]$ for all times. Assuming appropriate
+conditions on $f(u)$,
+% (\cite{evans10}, \S 8.2),
+$u$ satisfies the Euler-Lagrange equation
+\begin{alignat}{3}
+  \label{eq:SL}
+  -\rho^2 \Delta u + \tfrac{1}{2}f'(u) &= 0, && \xx \in \Omega, \\
+  u &= g, && \xx \in \bd\Omega, \\
+  u &\rightarrow 0, \qquad&& |\xx| \rightarrow \infty.
+\end{alignat}
 The boundary condition $g$ is a material label that is transported with
 the particle (Figure~\ref{fig:bcs}).
 
