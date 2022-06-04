@@ -147,6 +147,8 @@ Compare results using $N_b=24$ with the current FIG 4. (d). Revise FIG. 5 with m
 \item $N_b=60$ structures in a Taylor-Green flow (FIG. 7-8). Add more frames for further comparison between values of flow strength $V_0$.
 \end{enumerate}
 
+
+{\bf May do list:}
 Channel Flow: 
 \begin{enumerate}
 \item Convergence tests for $N_b=25$ vesicle in a narrow channel.  Add energy profile.
@@ -155,8 +157,12 @@ Channel Flow:
 
 \end{enumerate}
 
-
 \end{abstract}
+
+
+
+
+
 
 % insert suggested keywords - APS authors don't need to do this
 %\keywords{}
@@ -172,6 +178,56 @@ Channel Flow:
 
 
 
+
+{\bf More results:}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{multilamellar_shear_Energy}
+    \includegraphics[width=0.4\textwidth]{multilamellar_shear_MSD}
+  \end{center}
+      \caption{A multi-lamellar structure in shear flows with shear rates $\dot\gamma=\{0.05, 0.1, 0.15\}$. We compute the energy and the mean square displacement $MSD(t) = \frac{1}{N_b^2}\sum_{i=1}^{N_b} ||D(t)-D(0) ||_2$ where the matrix $D$ is the pairwise distance matrix at time $t$.    }
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{multilamellar_shear0p1_Energy_LsFs}
+    \includegraphics[width=0.4\textwidth]{multilamellar_shear0p1_MSD_LsFs}
+  \end{center}
+    \caption{ A multi-lamellar structure in a shear flow when the shear rate is $\dot\gamma=0.1$. We tune the length scale parameters, radius, $\rho$ and $\rho_0$, by $\pm 5\%$ and the force scale parameters, $\gamma$ and $M$, by $\pm 5\%$.    }
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{multilamellar_TG_Energy}
+    \includegraphics[width=0.4\textwidth]{multilamellar_TG_MSD}
+  \end{center}
+    \caption{A multi-lamellar structure in a Taylor-Green flow when the flow strength $V_0=\{0.1,0.15,0.2\}$. }
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{checker_board_shear_Energy}
+    \includegraphics[width=0.4\textwidth]{checker_board_shear_MSD}\\
+  \includegraphics[width=0.4\textwidth]{checker_board_shear0p125_OP}
+    \includegraphics[width=0.4\textwidth]{checker_board_shear0p15_OP}
+  \end{center}
+\caption{A checker board in shear flows with shear rates $\dot\gamma=\{0.125, 0.15\}$. We propose the order parameter defined by $S_2 = \frac12(3\cos(\theta-\bar\theta)^2-1)$}
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{checker_board_TG_Energy}
+    \includegraphics[width=0.4\textwidth]{checker_board_TG_MSD}\\
+      \includegraphics[width=0.4\textwidth]{checker_board_TG0p2_OP}
+    \includegraphics[width=0.4\textwidth]{checker_board_TG0p3_OP}
+  \end{center}
+\caption{A checker board in Taylor-Green flows when the flow strength $V_0=\{0.2,0.3\}$. }
+\end{figure}
 
 
 
