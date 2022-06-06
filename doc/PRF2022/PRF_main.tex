@@ -253,10 +253,11 @@ is the fixed boundary of $\Omega$. In this case, $\bd\Omega = \Gamma_0
 The mathematical formulation is a nonlinear system for the dynamics of a
 collection of rigid Janus particles. For the sake of completeness, we
 summarize the governing equations here, and a complete description is in
-our previous work~\cite{our_paper}. The interactions satisfy a system
-of partial differential equations (PDEs) that describe the hydrodynamic
-interactions and hydrophobic interactions. Assuming inertial terms are
-negligible, the solvent is goverened by the Stokes equations
+our previous work~\cite{fu-qua-ryh-you2022}. The interactions satisfy a
+system of partial differential equations (PDEs) that describe the
+hydrodynamic interactions and hydrophobic interactions. Assuming
+inertial terms are negligible, the solvent is goverened by the Stokes
+equations
 \begin{alignat}{3}
 \label{eq:stokes}
   -\mu \Delta \uu + \nabla p &= \mathbf{0},     && \xx \in \Omega, \\
@@ -301,7 +302,7 @@ $u$ satisfies the Euler-Lagrange equation
   u &= g, && \xx \in \bd\Omega, \\
   u &\rightarrow 0, \qquad&& |\xx| \rightarrow \infty.
 \end{alignat}
-Equation~\eqref{eqn:eq:SL} is solved with a boundary integral equation
+Equation~\eqref{eq:SL} is solved with a boundary integral equation
 method. The boundary condition $g$ is a material label that is
 transported with the particle (Figure~\ref{fig:bcs}).
 
@@ -322,6 +323,9 @@ to semilinear elliptic equation \eqref{eq:SL}.
 Solving for the translational and rotational velocities gives the
 particle evolution.
 
+To solve the Stokes equation with the correct boundary conditions, we
+represent the velocity as the of a layer potential with Stokeslets and
+rotlets
 \begin{align}
   \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
@@ -329,8 +333,8 @@ particle evolution.
     \RR(\xx,\aa_i) T_i\right), \quad \xx \in \Omega.
 \end{align}
 %
-where the number of particles $N_b$, the density function $\eeta$, translation velocity $\vv_i$ and angular velocity $\omega_i$ satisfy
-
+Then, the density function $\eeta$, translation velocity $\vv_i$ and
+angular velocity $\omega_i$ satisfy
 \begin{alignat}{3}
   \nonumber
   \vv_i + \omega_i (\xx - \aa_i)^\perp &= \uu_\infty(\xx)
