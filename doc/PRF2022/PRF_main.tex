@@ -251,7 +251,9 @@ is the fixed boundary of $\Omega$. In this case, $\bd\Omega = \Gamma_0
 %%%
 \subsection{Hydrophobic Attraction Potential Mobility Problem} 
 The mathematical formulation is a nonlinear system for the dynamics of a
-collection of rigid Janus particles. The interactions satisfy a system
+collection of rigid Janus particles. For the sake of completeness, we
+summarize the governing equations here, and a complete description is in
+our previous work~\cite{our_paper}. The interactions satisfy a system
 of partial differential equations (PDEs) that describe the hydrodynamic
 interactions and hydrophobic interactions. Assuming inertial terms are
 negligible, the solvent is goverened by the Stokes equations
@@ -265,13 +267,13 @@ where $\uu$ is the velocity, $p$ is the pressure, $\uu_\infty$ is the
 background flow, and $\mu$ is the constant viscosity. The domain $\Omega
 = \Omega(t)$ is the fluid region surrounding the particles and changes
 shape as the particles move. Since the particles are rigid, the solvent
-velocity satisfies a no-slip boundary condition for a rigid body motion
+velocity satisfies the no-slip rigid body motion boundary condition
 \begin{align}
   \vv_i + \omega_i (\xx - \aa_i)^\perp = \uu(\xx), 
-    \quad \xx \in \Gamma_i
+    \quad \xx \in \Gamma_i,
 \end{align}
 where $\vv_i$ is the translational velocity and $\omega_i$ is the
-angular velocity. Once these quantities are determined, we use
+angular velocity. Once these velocities are determined, we use
 second-order Adams-Bashforth to update the particle configuration. 
 
 The translational and angular velocities guarantee that the fluid forces
@@ -299,13 +301,14 @@ $u$ satisfies the Euler-Lagrange equation
   u &= g, && \xx \in \bd\Omega, \\
   u &\rightarrow 0, \qquad&& |\xx| \rightarrow \infty.
 \end{alignat}
-The boundary condition $g$ is a material label that is transported with
-the particle (Figure~\ref{fig:bcs}).
+Equation~\eqref{eqn:eq:SL} is solved with a boundary integral equation
+method. The boundary condition $g$ is a material label that is
+transported with the particle (Figure~\ref{fig:bcs}).
 
 The particles lower the free energy $F[u]$ of the surrounding water
 by moving. We calculate the rate of change of $F[u]$ using
 variation of the domain. % ~\cite{Fu2018_SIAM,Bandle2015, Schiffer1954, Grinfeld2010}.
-Carrying out this variation yields a stress  
+Carrying out this variation yields the stress  
 \begin{align}
   \label{eq:stress}
 \mathbf{T}
