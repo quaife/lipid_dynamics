@@ -130,19 +130,25 @@
 
 Unbouned Flow: 
 \begin{enumerate}
-\item $N_b=60$ self-assembly/relaxation runs with all 3 boundary conditions using $N=24$ points per particle (FIG. 2). Energy profiles in a linear-log plot (FIG. 3) ($E(t)$ or $\Delta E(t)$ v.s. time).
+\item $N_b=60$ self-assembly/relaxation runs with all 3 boundary
+  conditions using $N=24$ points per particle (FIG. 2). Energy profiles
+    in a log-log plot (FIG. 3) ($E(t)$ or $\Delta E(t)$ v.s. time).
 
 \item $N_b=198$ relaxation runs with all 3 boundary conditions using $N=24$ points per particle.
-Add energy profiles to check local/absolute minimum.
+Add energy profiles to check local/absolute minimum. Superimpose these
+    energies on Figure 3, but scale the energies by the number of Janus
+    particles so that it is ``energy per particle"
 
-\item $N_b=60$ structures in a shear flow: For both boundary conditions, lamellar (FIG. 4) and polar (FIG. 4), convergence tests using $N=16$ and $N=24$ are not yet verified. 
+\item $N_b=60$ structures in a shear flow: For both boundary conditions, lamellar (FIG. 4) and polar (FIG. 5), convergence tests using $N=16$ and $N=24$ are not yet verified. 
 Compare results using $N_b=24$ with the current FIG 4. (d). Revise FIG. 5 with more details. 
 
-\item Use particle/checker board alignment to identify the critical shear rate for phase separation.
+\item Use particle/checker board alignment and/or aspect ratio to identify the critical shear rate for phase separation.
 
 \item $N_b=60$ structures in a Taylor-Green flow (FIG. 7-8). Add more frames for further comparison between values of flow strength $V_0$.
 \end{enumerate}
 
+
+{\bf May do list:}
 Channel Flow: 
 \begin{enumerate}
 \item Convergence tests for $N_b=25$ vesicle in a narrow channel.  Add energy profile.
@@ -151,8 +157,12 @@ Channel Flow:
 
 \end{enumerate}
 
-
 \end{abstract}
+
+
+
+
+
 
 % insert suggested keywords - APS authors don't need to do this
 %\keywords{}
@@ -169,6 +179,56 @@ Channel Flow:
 
 
 
+{\bf More results:}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{multilamellar_shear_Energy}
+    \includegraphics[width=0.4\textwidth]{multilamellar_shear_MSD}
+  \end{center}
+      \caption{A multi-lamellar structure in shear flows with shear rates $\dot\gamma=\{0.05, 0.1, 0.15\}$. We compute the energy and the mean square displacement $MSD(t) = \frac{1}{N_b^2}\sum_{i=1}^{N_b} ||D(t)-D(0) ||_2$ where the matrix $D$ is the pairwise distance matrix at time $t$.    }
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{multilamellar_shear0p1_Energy_LsFs}
+    \includegraphics[width=0.4\textwidth]{multilamellar_shear0p1_MSD_LsFs}
+  \end{center}
+    \caption{ A multi-lamellar structure in a shear flow when the shear rate is $\dot\gamma=0.1$. We tune the length scale parameters, radius, $\rho$ and $\rho_0$, by $\pm 5\%$ and the force scale parameters, $\gamma$ and $M$, by $\pm 5\%$.    }
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{multilamellar_TG_Energy}
+    \includegraphics[width=0.4\textwidth]{multilamellar_TG_MSD}
+  \end{center}
+    \caption{A multi-lamellar structure in a Taylor-Green flow when the flow strength $V_0=\{0.1,0.15,0.2\}$. }
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{checker_board_shear_Energy}
+    \includegraphics[width=0.4\textwidth]{checker_board_shear_MSD}\\
+  \includegraphics[width=0.4\textwidth]{checker_board_shear0p125_OP}
+    \includegraphics[width=0.4\textwidth]{checker_board_shear0p15_OP}
+  \end{center}
+\caption{A checker board in shear flows with shear rates $\dot\gamma=\{0.125, 0.15\}$. We propose the order parameter defined by $S_2 = \frac12(3\cos(\theta-\bar\theta)^2-1)$}
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{checker_board_TG_Energy}
+    \includegraphics[width=0.4\textwidth]{checker_board_TG_MSD}\\
+      \includegraphics[width=0.4\textwidth]{checker_board_TG0p2_OP}
+    \includegraphics[width=0.4\textwidth]{checker_board_TG0p3_OP}
+  \end{center}
+\caption{A checker board in Taylor-Green flows when the flow strength $V_0=\{0.2,0.3\}$. }
+\end{figure}
+
 
 
 \subsubsection{}
@@ -180,62 +240,65 @@ Channel Flow:
 
 %%%
 
-
 \section{Governing Equations}
+We consider a suspension of $N_b$ Janus particles in the fluid domain
+$\Omega$. The boundary of the $\Omega$ is $\bd\Omega = \Gamma_1 \cup
+\cdots \cup \Gamma_{N_b}$, where $\Gamma_i$ is the boundary of Janus
+particle $i$. We also consider a bounded fluid domain where $\Gamma_0$
+is the fixed boundary of $\Omega$. In this case, $\bd\Omega = \Gamma_0
+\cup \Gamma_1 \cup \cdots \cup \Gamma_{N_b}$.
 
-
-\subsection{Screened Laplace Mobility Problem}
-
-
+%%%
+\subsection{Hydrophobic Attraction Potential Mobility Problem} 
 The mathematical formulation is a nonlinear system for the dynamics of a
-collection of particles. The interactions come from a system of 
-partial differential equations (PDEs) that comprise hydrodynamic
-interactions and hydrophobic interactions.
-The hydrodynamic interactions come from the mobility problem for rigid
-particles immersed in a viscous solvent. We then use a
-second-order Adams-Bashforth method to update the particle configuration.
-Assuming inertial terms are
-negligible, the particle motion is goverened by the Stokes equations
+collection of rigid Janus particles. The interactions satisfy a system
+of partial differential equations (PDEs) that describe the hydrodynamic
+interactions and hydrophobic interactions. Assuming inertial terms are
+negligible, the solvent is goverened by the Stokes equations
 \begin{alignat}{3}
 \label{eq:stokes}
   -\mu \Delta \uu + \nabla p &= \mathbf{0},     && \xx \in \Omega, \\
   \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
 \end{alignat}
-where $\uu$ is the velocity and $p$ is the pressure of the solvent,
-$\uu_\infty$ is the background flow, and $\mu$ is the constant solvent
-viscosity. The domain $\Omega = \Omega(t)$ is the fluid region surrounding the
-particles and changes shape as the particles move.
-Since the particles are rigid, the solvent velocity satisfies
-a no-slip boundary condition for a rigid body motion 
-on the particle boundary $\Gamma_i$ with translational velocity $\vv_i$
-and angular velocity $\omega_i$.
-Given imposed forces acting on each
-particle, the mobility problem consists of finding
-translational and angular velocities so that viscous fluid forces
-balance the imposed forces.
+where $\uu$ is the velocity, $p$ is the pressure, $\uu_\infty$ is the
+background flow, and $\mu$ is the constant viscosity. The domain $\Omega
+= \Omega(t)$ is the fluid region surrounding the particles and changes
+shape as the particles move. Since the particles are rigid, the solvent
+velocity satisfies a no-slip boundary condition for a rigid body motion
+\begin{align}
+  \vv_i + \omega_i (\xx - \aa_i)^\perp = \uu(\xx), 
+    \quad \xx \in \Gamma_i
+\end{align}
+where $\vv_i$ is the translational velocity and $\omega_i$ is the
+angular velocity. Once these quantities are determined, we use
+second-order Adams-Bashforth to update the particle configuration. 
 
-The hydrophobic interactions come from the tendency of particles to
-minimize the free energy of the structure of the surrounding water
-molecules. The free energy functional takes the form 
-\begin{equation}
+The translational and angular velocities guarantee that the fluid forces
+balanace the imposed forces. The imposed forces include the hydrophobic
+interactions that arise so that particles minimize the free energy of
+the structure of the surronding water molecules. The free energy
+functional is
+\begin{align}
 \label{eq:free_energy}
   F[u] = C \int_{\Omega} \left(\rho |\nabla u|^2 + \rho^{-1} f(u)\right)
   \,d\xx,
-\end{equation}
+\end{align}
 where $u$ is an order parameter for the structure of water, $\rho$ is a
 decay length, $C$ is a constant, and $f(u)$ is a potential.
-Hydrogen-bond persistence times are on the order of picoseconds
-which is much smaller than characteristic time for 
-particle motion. % \cite{MaGa13}.
-Thus we assume $u$ minimizes $F[u]$ for all times.
-Assuming appropriate conditions on $f(u)$,% (\cite{evans10}, \S 8.2),
- $u$ is bounded and satisfies the Euler-Lagrange equation
-\begin{equation}
-\label{eq:SL}
--\rho^2 \Delta u + \tfrac{1}{2}f'(u) = 0  \text{ in } \Omega,\quad u = g,
-\text{ on } \bd\Omega.
-\end{equation}
+Hydrogen-bond persistence times are on the order of picoseconds which is
+much smaller than characteristic time for particle motion.
+%\cite{MaGa13}. 
+Thus we assume $u$ minimizes $F[u]$ for all times. Assuming appropriate
+conditions on $f(u)$,
+% (\cite{evans10}, \S 8.2),
+$u$ satisfies the Euler-Lagrange equation
+\begin{alignat}{3}
+  \label{eq:SL}
+  -\rho^2 \Delta u + \tfrac{1}{2}f'(u) &= 0, && \xx \in \Omega, \\
+  u &= g, && \xx \in \bd\Omega, \\
+  u &\rightarrow 0, \qquad&& |\xx| \rightarrow \infty.
+\end{alignat}
 The boundary condition $g$ is a material label that is transported with
 the particle (Figure~\ref{fig:bcs}).
 
@@ -503,10 +566,15 @@ of two sets of simulations are invariant of center of mass position in a shear f
 %
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.4\textwidth]{shear_0.png}
-  \includegraphics[width=0.4\textwidth]{shear_1000.png}\\
-  \includegraphics[width=0.4\textwidth]{shear_2000.png}
-    \includegraphics[width=0.4\textwidth]{lambda_fig1.jpg}
+  \includegraphics[width=0.21\textwidth]{shear_0.png}
+  \includegraphics[width=0.21\textwidth]{shear_1000.png}
+  \includegraphics[width=0.21\textwidth]{shear_2000.png} 
+  \includegraphics[width=0.21\textwidth]{shear_2000.png} \\
+  \includegraphics[width=0.21\textwidth]{shear_checker_0.png}
+  \includegraphics[width=0.21\textwidth]{shear_checker_250.png}
+  \includegraphics[width=0.21\textwidth]{shear_checker_500.png}
+  \includegraphics[width=0.21\textwidth]{shear_checker_750.png} \\
+  \includegraphics[width=0.4\textwidth]{lambda_fig1.jpg}
   \end{center}
   \vspace{-20pt}  
   \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
@@ -531,16 +599,16 @@ of two sets of simulations are invariant of center of mass position in a shear f
 
 The second set of simulation is putting the equilibrium state of the boundary condition \eqref{eq:bcs} (iii), the checker board, in a shear flow. After a set of empirical numerical investigations, we obtain a critical shear rate $\dot\gamma=0.15$ where the checker board deforms into stripes and small groups of JP. Figure~\ref{fig:shear_2}(a)--(d) show configurations when $t=\{0,50,100,150\}$. %The deformation starts with stripe separations
 %
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.4\textwidth]{shear_checker_0.png}
-  \includegraphics[width=0.4\textwidth]{shear_checker_250.png}\\
-  \includegraphics[width=0.4\textwidth]{shear_checker_500.png}
-    \includegraphics[width=0.4\textwidth]{shear_checker_750.png}
-  \end{center}
-  \vspace{-20pt}  
-  \caption{\label{fig:shear_2} Snapshots of simulation using boundary condition \eqref{eq:bcs}(iii) in a shear flow when $\dot\gamma=0.15$. }
-\end{figure}
+%\begin{figure}
+%  \begin{center}
+%  \includegraphics[width=0.4\textwidth]{shear_checker_0.png}
+%  \includegraphics[width=0.4\textwidth]{shear_checker_250.png}\\
+%  \includegraphics[width=0.4\textwidth]{shear_checker_500.png}
+%    \includegraphics[width=0.4\textwidth]{shear_checker_750.png}
+%  \end{center}
+%  \vspace{-20pt}  
+%  \caption{\label{fig:shear_2} Snapshots of simulation using boundary condition \eqref{eq:bcs}(iii) in a shear flow when $\dot\gamma=0.15$. }
+%\end{figure}
 
 
 \subsection{Collective Janus Particles Suspended in a Taylor-Green Flow}
