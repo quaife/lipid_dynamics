@@ -184,16 +184,17 @@ Channel Flow:
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.4\textwidth]{multilamellar_shear_Energy}
-    \includegraphics[width=0.4\textwidth]{multilamellar_shear_MSD}
+  \includegraphics[height=0.2\textheight]{multilamellar_shear_Energy}
+    \includegraphics[height=0.2\textheight]{multilamellar_shear_MSD}\\
+          \includegraphics[height=0.2\textheight]{multilamellar_shear_LocPar}
   \end{center}
       \caption{A multi-lamellar structure in shear flows with shear rates $\dot\gamma=\{0.05, 0.1, 0.15\}$. We compute the energy and the mean square displacement $MSD(t) = \frac{1}{N_b^2}\sum_{i=1}^{N_b} ||D(t)-D(0) ||_2$ where the matrix $D$ is the pairwise distance matrix at time $t$.    }
 \end{figure}
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.4\textwidth]{multilamellar_shear0p1_Energy_LsFs}
-    \includegraphics[width=0.4\textwidth]{multilamellar_shear0p1_MSD_LsFs}
+  \includegraphics[height=0.2\textheight]{multilamellar_shear0p1_Energy_LsFs}
+    \includegraphics[height=0.2\textheight]{multilamellar_shear0p1_MSD_LsFs}
   \end{center}
     \caption{ A multi-lamellar structure in a shear flow when the shear rate is $\dot\gamma=0.1$. We tune the length scale parameters, radius, $\rho$ and $\rho_0$, by $\pm 5\%$ and the force scale parameters, $\gamma$ and $M$, by $\pm 5\%$.    }
 \end{figure}
@@ -201,8 +202,9 @@ Channel Flow:
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.4\textwidth]{multilamellar_TG_Energy}
-    \includegraphics[width=0.4\textwidth]{multilamellar_TG_MSD}
+  \includegraphics[height=0.2\textheight]{multilamellar_TG_Energy}
+    \includegraphics[height=0.2\textheight]{multilamellar_TG_MSD}\\
+    \includegraphics[height=0.2\textheight]{multilamellar_TG_LocPar}
   \end{center}
     \caption{A multi-lamellar structure in a Taylor-Green flow when the flow strength $V_0=\{0.1,0.15,0.2\}$. }
 \end{figure}
@@ -210,10 +212,9 @@ Channel Flow:
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.4\textwidth]{checker_board_shear_Energy}
-    \includegraphics[width=0.4\textwidth]{checker_board_shear_MSD}\\
-  \includegraphics[width=0.4\textwidth]{checker_board_shear0p125_OP}
-    \includegraphics[width=0.4\textwidth]{checker_board_shear0p15_OP}
+  \includegraphics[height=0.2\textheight]{checker_board_shear_Energy}
+    \includegraphics[height=0.2\textheight]{checker_board_shear_MSD}\\
+  \includegraphics[height=0.2\textheight]{checker_board_shear_LocPar}
   \end{center}
 \caption{A checker board in shear flows with shear rates $\dot\gamma=\{0.125, 0.15\}$. We propose the order parameter defined by $S_2 = \frac12(3\cos(\theta-\bar\theta)^2-1)$}
 \end{figure}
@@ -221,10 +222,9 @@ Channel Flow:
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.4\textwidth]{checker_board_TG_Energy}
-    \includegraphics[width=0.4\textwidth]{checker_board_TG_MSD}\\
-      \includegraphics[width=0.4\textwidth]{checker_board_TG0p2_OP}
-    \includegraphics[width=0.4\textwidth]{checker_board_TG0p3_OP}
+  \includegraphics[height=0.2\textheight]{checker_board_TG_Energy}
+    \includegraphics[height=0.2\textheight]{checker_board_TG_MSD}\\
+      \includegraphics[height=0.2\textheight]{checker_board_TG_LocPar}
   \end{center}
 \caption{A checker board in Taylor-Green flows when the flow strength $V_0=\{0.2,0.3\}$. }
 \end{figure}
@@ -251,10 +251,13 @@ is the fixed boundary of $\Omega$. In this case, $\bd\Omega = \Gamma_0
 %%%
 \subsection{Hydrophobic Attraction Potential Mobility Problem} 
 The mathematical formulation is a nonlinear system for the dynamics of a
-collection of rigid Janus particles. The interactions satisfy a system
-of partial differential equations (PDEs) that describe the hydrodynamic
-interactions and hydrophobic interactions. Assuming inertial terms are
-negligible, the solvent is goverened by the Stokes equations
+collection of rigid Janus particles. For the sake of completeness, we
+summarize the governing equations here, and a complete description is in
+our previous work~\cite{fu-qua-ryh-you2022}. The interactions satisfy a
+system of partial differential equations (PDEs) that describe the
+hydrodynamic interactions and hydrophobic interactions. Assuming
+inertial terms are negligible, the solvent is goverened by the Stokes
+equations
 \begin{alignat}{3}
 \label{eq:stokes}
   -\mu \Delta \uu + \nabla p &= \mathbf{0},     && \xx \in \Omega, \\
@@ -265,13 +268,13 @@ where $\uu$ is the velocity, $p$ is the pressure, $\uu_\infty$ is the
 background flow, and $\mu$ is the constant viscosity. The domain $\Omega
 = \Omega(t)$ is the fluid region surrounding the particles and changes
 shape as the particles move. Since the particles are rigid, the solvent
-velocity satisfies a no-slip boundary condition for a rigid body motion
+velocity satisfies the no-slip rigid body motion boundary condition
 \begin{align}
   \vv_i + \omega_i (\xx - \aa_i)^\perp = \uu(\xx), 
-    \quad \xx \in \Gamma_i
+    \quad \xx \in \Gamma_i,
 \end{align}
 where $\vv_i$ is the translational velocity and $\omega_i$ is the
-angular velocity. Once these quantities are determined, we use
+angular velocity. Once these velocities are determined, we use
 second-order Adams-Bashforth to update the particle configuration. 
 
 The translational and angular velocities guarantee that the fluid forces
@@ -299,13 +302,14 @@ $u$ satisfies the Euler-Lagrange equation
   u &= g, && \xx \in \bd\Omega, \\
   u &\rightarrow 0, \qquad&& |\xx| \rightarrow \infty.
 \end{alignat}
-The boundary condition $g$ is a material label that is transported with
-the particle (Figure~\ref{fig:bcs}).
+Equation~\eqref{eq:SL} is solved with a boundary integral equation
+method. The boundary condition $g$ is a material label that is
+transported with the particle (Figure~\ref{fig:bcs}).
 
 The particles lower the free energy $F[u]$ of the surrounding water
 by moving. We calculate the rate of change of $F[u]$ using
 variation of the domain. % ~\cite{Fu2018_SIAM,Bandle2015, Schiffer1954, Grinfeld2010}.
-Carrying out this variation yields a stress  
+Carrying out this variation yields the stress  
 \begin{align}
   \label{eq:stress}
 \mathbf{T}
@@ -319,6 +323,9 @@ to semilinear elliptic equation \eqref{eq:SL}.
 Solving for the translational and rotational velocities gives the
 particle evolution.
 
+To solve the Stokes equation with the correct boundary conditions, we
+represent the velocity as the of a layer potential with Stokeslets and
+rotlets
 \begin{align}
   \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
@@ -326,8 +333,8 @@ particle evolution.
     \RR(\xx,\aa_i) T_i\right), \quad \xx \in \Omega.
 \end{align}
 %
-where the number of particles $N_b$, the density function $\eeta$, translation velocity $\vv_i$ and angular velocity $\omega_i$ satisfy
-
+Then, the density function $\eeta$, translation velocity $\vv_i$ and
+angular velocity $\omega_i$ satisfy
 \begin{alignat}{3}
   \nonumber
   \vv_i + \omega_i (\xx - \aa_i)^\perp &= \uu_\infty(\xx)
