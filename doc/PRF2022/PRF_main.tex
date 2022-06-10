@@ -68,6 +68,7 @@
 \newcommand{\uu}{\mathbf{u}}
 \renewcommand{\vv}{\mathbf{v}}
 \newcommand{\yy}{\mathbf{y}}
+\renewcommand{\tt}{\mathbf{t}}
 \newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\jump}[1]{[\![ #1 ]\!]}
 
@@ -235,15 +236,15 @@ $\nnu$ is the particle outward normal.
 
 To get $\FF_i$ and $T_i$,
 the particles minimizes the free energy
-\begin{align}
+\begin{equation}
 \label{eq:free_energy}
-F[u] = \gamma
+F = \gamma
 \int_{\Omega} \rho |\nabla u|^2 + \rho^{-1} u^2
 \,d\xx
 + \frac{M}{2}
 \sum_{j \neq i} 
 P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right), \quad
-\end{align}
+\end{equation}
 Here, $u(\xx,t)$ is an order parameter for the structure of water
 in the presence of hydrophobic surfaces,
 $\rho$ is a decay length, and $\gamma$ is an interfacial tension. 
@@ -285,7 +286,7 @@ $P(s) = 1 - \sin(\pi s/2)$ for $0 \leq s < 1$
 and $P(s) = 0$ for $1 \leq s < \infty$.
 As such, only those particles within
 a $\rho_0$-tubular neighborhood of $\Gamma_i$
-contribute to repulsion.  The parameter $M$ is the repuslion modulus.
+contribute to repulsion.  The parameter $M$ is the repulsion modulus.
 
 \subsection{Boundary integral represenation and time stepping}
 We recast \eqref{eq:stokes}-\eqref{eq:rigid-vel} and \eqref{eq:SL}
@@ -299,7 +300,8 @@ u({\bf x}) = \DD[\sigma](\xx) = \int_\Gamma \frac{\partial G(\xx-\yy)}{\partial 
 , \quad \xx \in \Omega,
 \end{align}
 where $G(\xx)$ is the fundamental solution to the screened Laplace equation \eqref{eq:SL}
-and where $\sigma$ is a scalar-valued density function. 
+and where $\sigma$ is a scalar-valued density function.
+The subscript in $\dif s_\yy$ denotes integration with respect to $\yy \in \Gamma$. 
 For the velocity, we use the representation  
 \begin{align}
   \label{eq:velocity}
@@ -431,6 +433,129 @@ where the particles lie on a
 grid and the orientations alternate between layers (Figure~\ref{fig:relax}(d)).
 
 
+\section{Measuring deformation}
+We use the free energy $F$,
+the Euclidean distance matrix $D(t)$,
+and a scalar order parameter $S_{2}(t)$ to measure
+the deformation of particle configurations under background flows. 
+
+We simplify the
+form of the free energy \eqref{eq:free_energy}
+using integration by parts and \eqref{eq:SL}
+to obtain
+\begin{equation}
+\label{eq:free_energy2}
+F[u] = -\gamma
+\int_{\Gamma} \rho g \nabla u \cdot \nnu \,\dif s
++ \frac{M}{2}
+\sum_{j \neq i} 
+P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right).
+\end{equation}
+%
+This is simpler because the boundary data $g$ are known.
+Evaluating $\nabla u \cdot \nnu$ on $\Gamma$ based on \eqref{eq:SL_BIE}
+directly, however,
+involves calculating a quadruple layer potential which has a
+well-known obstacle in numerical implementation.
+To overcome this obstacle, we use
+%
+\begin{equation}
+\label{eq:normal_deriv}
+\nabla u(\xx) \cdot \nnu(\xx)=
+%\frac{\partial}{\partial \nnu_\xx} \DD[\sigma](\xx) =
+-\frac{1}{\rho^2} {\bf t}_\xx\cdot \SSS[\sigma{\bf t}](\xx)
++ \frac{\dif}{\dif s}\SSS\left[\frac{\dif \sigma}{\dif s}\right](\xx), \quad \xx \in \Gamma.
+\end{equation}
+%
+Here, ${\bf t}(\xx)$ is the tangent vector and $\dif/\dif s$ is the arclength derivative.
+See the Appendix section \ref{sec:appendix} for the proof and details.
+Substituting \eqref{eq:normal_deriv} into \eqref{eq:free_energy2} for the normal derivative
+leads to single layer integral which is more straightforward to evaluate and we compute the
+arclength derivative using spectrally accurate Fourier transform.
+
+The $N_b$ by $N_b$ Euclidian distance matrix is 
+\begin{equation}
+  \label{eq:EDM}
+[D(t)]_{ij} = \|\aa_{i} - \aa_{j}\|, \quad i, j = 1, \dots, N_b.
+\end{equation}
+For weak background flow strengths, the deformation in particle
+configurations will be relatively small and the collection of
+particles behaves as a rigid body i.e., $\|D(t) - D(0)\| \ll 1$. 
+
+To study the change in orientational order, we use the scalar order parameter 
+\begin{equation}
+  \label{eq:S2}
+S_2(t) = \frac{1}{N_b} \sum_{i=1}^{N_b} \frac{1}{2}(3\cos^2(\theta_i - \bar \theta) - 1).
+\end{equation}
+Here $\bar \theta$ is a circular mean defined as the
+orientation of the largest eigenvalue eigenvector of the projection 
+$\dd_1\dd_1^\top + \dots + \dd_{N_b}\dd_{N_b}^\top$.
+A value $S_2(t) = 1$ indicates a complete orientational order where all particle
+directors lie on a common axis. A value far from 1 indicated disorder.
+
+It turns out that $S_2$ is an inadequate measure of order for the bilayer and
+multilamellar configurations.  For example, the directors of a circular
+bilayer vesicle are uniformly distributed along a circle, even though
+there is a strong orientational order between neighboring particles.
+To account for these latter cases, we use
+\begin{equation}
+  \label{eq:localS2}
+\tilde{S}_2(t) = \frac{1}{N_b} \sum_{i=1}^{N_b}
+\frac{1}{2}(3\cos^2(\theta_i - \bar \theta_i) - 1).
+\end{equation}
+where $\bar \theta_i$ is the circular mean restricted to particles
+indexed by $j$ for which $\|\aa_i - \aa_j\| < 4c$. In practice, if a particle is
+isolated and has no neighbors within a distance $4c$, then we exclude it from
+the sum \eqref{eq:localS2}. 
+
+
+
+
+\section{Appendix}
+\label{sec:appendix}
+To prove \eqref{eq:normal_deriv}, let 
+\begin{equation}
+  \label{eq:SLP}
+  \mathcal{S}[\sigma](\xx) = \int_\Gamma G(\xx-\yy) \sigma(\yy)\, \dif s_\yy
+\end{equation}
+be the single layer potential for a density function $\sigma.$
+Fix $\xx \in \Gamma$,
+let $\nnu_{\xx} = \nnu(\xx)$ and $\nnu_{\yy}$ be the unit normal at $\xx$, respectively $\yy$, in $\Gamma$,
+and let $\zz \in \Omega$.  The subscripts in $\nabla_{\zz}$ and $\nabla_{\yy}$ denote
+differentiation with respect to $\zz$, respectively $\yy$.
+
+Recall from \eqref{eq:SL_BIE} that $u = \mathcal{D}[\sigma]$.
+Then  
+\begin{align*}
+\nabla_{\zz} u(\zz) \cdot \nnu_{\xx}
+&=\nnu_\xx \cdot \nabla_\zz \int_\Gamma \frac{\partial G(\zz-\yy)}{\partial \nnu_\yy}\sigma(\yy) \,\dif s_\yy\\
+&=\int_\Gamma \nnu_\xx^\top \left(\nabla_\zz\nabla_\yy^\top  G(\zz-\yy)\right) \nnu_\yy\sigma(\yy)  \,\dif s_\yy\\
+  &=-\int_\Gamma \nnu_\xx^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\nnu_\yy\sigma(\yy)\ \dif s_\yy,
+\end{align*}
+since we can interchange $\nabla_\zz$ with $-\nabla_\yy$.
+Following \cite{Hsiao2008}, \S 1.2,
+\[
+\nnu_\xx^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\nnu_\yy
+=
+-\tt_{\xx}^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\tt_{\yy}
++ \Delta_{\yy}G(\zz-\yy) \tt_{\xx}\cdot \tt_{\yy}
+\]
+Then, using that $\Delta_{\yy} G(\zz-\yy) = \rho^{-2} G(\zz-\yy)$,
+interchanging $\nabla_\yy$ with $-\nabla_\zz$ once more,
+and integrating by parts in arclength $s$,
+we obtain 
+\begin{align*}
+\nabla_{\zz} u(\zz) \cdot \nnu_{\xx}
+&=-\int_\Gamma  \Delta_\yy G(\zz-\yy) {\bf t}_\xx \cdot   {\bf t}_\yy \sigma(\yy)\ \dif s_\yy
++\int_\Gamma({\bf t}_\xx\cdot\nabla_\yy)({\bf t}_\yy\cdot\nabla_\yy G(\zz-\yy))\sigma(\yy)\ \dif s_\yy\\
+&= -\int_\Gamma \frac{1}{\rho^{2}} G(\zz-\yy) {\bf t}_\xx \cdot {\bf t}_\yy \sigma(\yy)\ \dif s_\yy  
+-({\bf t}_\xx\cdot\nabla_\zz)\int_\Gamma \frac{\dif}{\dif s_\yy}G(\zz-\yy) \sigma(\yy)\ \dif s_\yy\\
+&= -\frac{1}{\rho^2} {\bf t}_\xx\cdot \int_\Gamma G(\zz-\yy){\bf t}_\yy \sigma(\yy)\ \dif s_\yy + 
+({\bf t}_\xx \cdot \nabla_\zz)\int_\Gamma G(\zz-\yy)\frac{\dif }{\dif s} \sigma(\yy)  \dif s_\yy.
+\end{align*}
+%
+Letting $\zz\to\xx\in\Gamma$, and noting that both sides of the equation are continuous,
+we obtain \eqref{eq:normal_deriv}.
 
 \section{DRAFT RESULTS BELOW}
 {\bf More results:}
