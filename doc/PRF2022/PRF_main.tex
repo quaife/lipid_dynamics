@@ -190,11 +190,11 @@ Particle collisions are avoided through a near-field, pair
 potential.
 
 \subsection{Mobility problem}
-A suspension of $N_b$ Janus particles is immersed in a vicsous solvent.
-The domain $\Omega(t) \subset \mathbb{R}^2$ denotes the solvent phase
-where $t$ is time.
-The particles are disks of radius $c$ with center $\aa_i$ and
-orientation $\theta_i$ relative to a fixed horizontal axis.  
+A suspension of $N_b$ Janus particles is immersed in a viscous solvent.
+The domain $\Omega(t) \subset \mathbb{R}^2$ is the solvent phase
+and $t$ is time.
+The particles are disks of radius $c$, center $\aa_i$, and
+orientation $\theta_i$ relative to the horizontal axis.  
 The boundary of the $\Omega$ is $\bd\Omega = \Gamma_1 \cup
 \cdots \cup \Gamma_{N_b}$, where $\Gamma_i$ is the boundary of Janus
 particle $i$. Assuming inertial terms are
@@ -207,12 +207,12 @@ negligible, we have
 \end{alignat}
 where $\uu$ is the velocity of the solvent,
 $p$ is the pressure, $\uu_\infty$ is the
-background flow, and $\mu$ is the constant viscosity.
-On the boundaries, the solvent
-velocity satisfies a no-slip boundary condition for a rigid body motion
+background flow velocity, and $\mu$ is the constant viscosity.
+The solvent velocity satisfies a no-slip boundary
+condition for a rigid body motion
 \begin{equation}
   \label{eq:rigid-vel}
-  \vv_i + \omega_i (\xx - \aa_i)^\perp = \uu(\xx), 
+  \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, 
     \quad \xx \in \Gamma_i,
 \end{equation}
 where $\vv_i$ is the translational velocity, $\omega_i$ is the
@@ -231,11 +231,11 @@ we use
 where $\FF_i \in \mathbb{R}^2$ and $T_i \in \mathbb{R}$
 are interparticle forces and torques. 
 Here $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
-\right)$ is the hydrodynamic stress tensor (pressure tensor) and
+\right)$ is the hydrodynamic stress tensor (pressure tensor), and
 $\nnu$ is the particle outward normal.
 
 To get $\FF_i$ and $T_i$,
-the particles minimizes the free energy
+the particles minimize the free energy
 \begin{equation}
 \label{eq:free_energy}
 F = \gamma
@@ -245,8 +245,7 @@ F = \gamma
 \sum_{j \neq i} 
 P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right), \quad
 \end{equation}
-Here, $u(\xx,t)$ is an order parameter for the structure of water
-in the presence of hydrophobic surfaces,
+Here, $u(\xx,t)$ is an order parameter for the structure of water,
 $\rho$ is a decay length, and $\gamma$ is an interfacial tension. 
 We model water structure
 using the screened Laplace equation boundary value problem:
@@ -256,8 +255,8 @@ using the screened Laplace equation boundary value problem:
   u = g, \quad \xx \in \bd\Omega, \quad 
   u \rightarrow 0, \quad |\xx| \rightarrow \infty.
 \end{gather}
-The boundary condition $g$ represents the degree of hydrophobicity
-the particle (Figure~\ref{fig:bcs}).
+The boundary condition $g$ gives the degree of hydrophobicity
+the particle-solvent interface (Figure~\ref{fig:bcs}).
 
 Variation of the
 the free energy \eqref{eq:free_energy}
@@ -277,17 +276,20 @@ $
 = \gamma \left[ \rho^{-1} u^2 \mathbf{I}
   + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right]
 $
-is the hydrophobic stress it is derived from 
-variation of the domain as described in ~\cite{Fu2018_SIAM}.
+is the hydrophobic stress identified in ~\cite{Fu2018_SIAM} 
+and derived by variation of the domain techniques.
 
 The dimensionless repulsion profile $P$
 takes the form
 $P(s) = 1 - \sin(\pi s/2)$ for $0 \leq s < 1$
 and $P(s) = 0$ for $1 \leq s < \infty$.
 As such, only those particles within
-a $\rho_0$-tubular neighborhood of $\Gamma_i$
-contribute to repulsion.  The parameter $M$ is the repulsion modulus.
+a distance $\rho_0$ of $\Gamma_i$
+contribute to repulsion.
+The parameter $M$ is the repulsion modulus.
 
+We use the parameters $\mu = 1$ cP, $\gamma = 4$ pN nm$^{-1}$,
+$\rho = 5$ nm, $c = 1.25$ nm, $M = 2$ pN, and $\rho_0 = 0.5$ nm.
 \subsection{Boundary integral represenation and time stepping}
 We recast \eqref{eq:stokes}-\eqref{eq:rigid-vel} and \eqref{eq:SL}
 as boundary integral equations (BIEs) and discretize each BIE at
@@ -299,10 +301,11 @@ we adopt the double layer potential
 u({\bf x}) = \DD[\sigma](\xx) = \int_\Gamma \frac{\partial G(\xx-\yy)}{\partial \nnu_\yy}\sigma(\yy)\, \dif s_\yy
 , \quad \xx \in \Omega,
 \end{align}
-where $G(\xx)$ is the fundamental solution to the screened Laplace equation \eqref{eq:SL}
-and where $\sigma$ is a scalar-valued density function.
+where $G(\xx) = \frac{1}{2\pi}K_0(|\xx|/\rho)$ is the fundamental solution to the screened Laplace equation \eqref{eq:SL},
+$K_0$ is the zeroth-order modified Bessel function of the first kind,
+and $\sigma$ is a scalar-valued density function.
 The subscript in $\dif s_\yy$ denotes integration with respect to $\yy \in \Gamma$. 
-For the velocity, we use the representation  
+For the velocity, we use the representation [REF]
 \begin{align}
   \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
@@ -313,7 +316,8 @@ with the vector-valued density function $\eeta$,
 Stokeslet 
 $\SS(\xx,\aa_i) = \frac{1}{4\pi} \left(-\log |\rr|\mathbf{I} + \frac{\rr \otimes \rr}{|\rr|^2}\right)$,
 and Rotlet
-$\RR(\xx,\aa_i) = \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2}$.
+$\RR(\xx,\aa_i) = \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2}$,
+$\rr = \xx - \aa_i$ [REF].
     
 
 Finally, together with \eqref{eq:velocity},
@@ -328,7 +332,7 @@ Finally, together with \eqref{eq:velocity},
   \int_{\Gamma_i} \eeta \, \dif s &= \mathbf{F}_i, \quad
   \int_{\Gamma_i} \eeta \cdot (\xx-\aa_i)^\perp \, \dif s = T_i,
 \end{alignat}
-for $\xx \in \Gamma_i$ and $i = 1,\dots,N_b$.
+for $\xx \in \Gamma_i$ and $i = 1,\dots,N_b$ [REF].
 
 We discretize \eqref{eq:SL_BIE} and \eqref{eq:vel_BLM_rep}
 using high-order interpolation-based quadrature rules.
@@ -343,7 +347,7 @@ linear system for \eqref{eq:SL_BIE} and \eqref{eq:vel_BLM_rep}, respectively.
 These are solved with matrix-free GMRES, and we guarantee that the number of
 GMRES iterations is mesh-independent by using second-kind BIEs.
 
-Once determined the translational and angular velocities $\vv_i, \omega_i$
+Once the translational and angular velocities $\vv_i, \omega_i$
 have been determined, a second-order Adams-Bashforth scheme updates the particle
 positions and orientations:
 \begin{equation}
@@ -385,38 +389,39 @@ g(\xx) = a(b + \cos \alpha),\quad a = (\pi c(2b^2 + 1))^{-1/2},\quad \xx \in \Ga
 \end{equation}
 where $\alpha$ is the angle between $\xx - \aa_i$ and the particle director
 $\dd_i = (\cos \theta_i, \sin \theta_i)$.
-We refer to the side of the particle where $\alpha = 0$ as the head and the
-side where $\alpha = \pi$ as the tail. 
-The boundary conditions are
-normalized so that $\int_{\Gamma_i} g^2(\xx) \, \dif s = 1$.
+The parameter $a$ normalizes the boundary conditions 
+so that $\int_{\Gamma_i} g^2(\xx) \, \dif s = 1$.
+We refer to the side of the particle where $\alpha = 0$
+as the tail and the side where $\alpha = \pi$ as the head. 
+
 
 To see the effect of the shift parameter $b$, we simulate the dynamics of
-60 particles in a quiescent flow as shown in Figure~\ref{fig:relax}.
-There are three cases:
-(i) $b = 1$, bilayers,
-(ii) $b = 2$, multilamellar
-and (iii) $b = 0$, striated.
+198 particles in a quiescent flow as shown in Figure~\ref{fig:relax}.
+Three distinct configurations emerge:
+(i) bilayers for $b = 1$, 
+(ii) multilamellar for $b = 2$, and 
+(iii) striated for $b = 0$.
 
-Case (i), $b = 1$, mimicks an amphiphilic particle.
+Case (i) with $b = 1$, mimicks an amphiphilic particle.
 The boundary condition $g$ is everywhere nonnegative,
 takes the value $0$ on the
-hydrophilic tail,
+hydrophilic head,
 and takes the maximum value $a$ on the
-hydrophobic head. 
+hydrophobic tail. 
 The interaction is attractive, and particles collectively orient their
 hydrophobic sides to form bilayers  (Figure~\ref{fig:relax}(b)). 
 
-In case (ii), $b = 1$ the boundary condition is positive everywhere.
-It takes the maximum value $3a$ on head where $\alpha = 0$ and the
-minimum value $a$ on the tail side where $\alpha = \pi$. This way,
-both sides of the Janus particle are hydrophobic but
+In case (ii) with $b = 1$, the boundary condition is positive everywhere.
+It takes the maximum value $3a$ on tail and the
+minimum value $a$ on the head side. 
+Both sides of the Janus particle are hydrophobic but
 moreso on the $\alpha = 0$ side.  
 Over a short time scale, these particles also self-assemble into bilayers. But unlike for case (i),
 the heads are also hydrophobic and so in the long-time dynamics
 these bilayers also adhere to one another 
 forming multilamella structures. Figure~\ref{fig:relax}(c), for example, shows a
-multilamellar structure with 2 layers. The number of folds depends on several factors,
-for instances, number of particles and intial configurations.
+multilamellar structure with 2 layers.
+At equilibrium, the number of folds depends primarily on the number of particles.
 
 A water structure with
 positive/negative charge is possible in case (iii), $b = 0$
@@ -424,22 +429,40 @@ positive/negative charge is possible in case (iii), $b = 0$
 Here, the head repels the tail of other particles
 and the particles initially form chains with their directors perpendicular
 to the length of the chain.  
-It is worth noting that in the dipolar molecules modeled by
-Laplace equation, the equilibrium configurations consist of strands,
-rather than a patch, of particles and also have
-alternating orientations \cite{}. Unlike the electrical case, though,
-the chains form striated layers
+The chains form stria
 where the particles lie on a 
 grid and the orientations alternate between layers (Figure~\ref{fig:relax}(d)).
 
+The equilibrium configurations for case (ii) and (iii) are used as initial data in the
+background flow simulations found in Section \ref{sec:results}.
+In case (i), there are several connected
+components forming isolated bilayers, micelles, and vesicles (Figure~\ref{fig:relax}(b)).
+To have a single, coherent vesicle (i), we reinitialize
+the case (i) particles in the form of a ring and run the relaxation procedure once more.
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.5\textwidth]{Relax_Energy.jpg}
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:relax_energy}
+    The free energy \eqref{eq:free_energy} is decreasing
+    in the mobility problem formulation.  The initial energies
+    are for the configuration in Figure \ref{fig:relax}a
+    and the final energies are for the near-equilibrium
+    configurations Figure \ref{fig:relax}b--c, respectively. 
+    The red curves are the energies for the $N_b = 198$ cases normalized
+    by $60/198$, showing that the energy approximately scales with the number of
+    particles.
+  }
+\end{figure}
 
 \section{Measuring deformation}
 We use the free energy $F$,
-the Euclidean distance matrix $D(t)$,
+a Euclidean distance-based measure $d(t)$,
 and a scalar order parameter $S_{2}(t)$ to measure
 the deformation of particle configurations under background flows. 
 
-We simplify the
+First, we must simplify the
 form of the free energy \eqref{eq:free_energy}
 using integration by parts and \eqref{eq:SL}
 to obtain
@@ -452,9 +475,8 @@ F[u] = -\gamma
 P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right).
 \end{equation}
 %
-This is simpler because the boundary data $g$ are known.
-Evaluating $\nabla u \cdot \nnu$ on $\Gamma$ based on \eqref{eq:SL_BIE}
-directly, however,
+Here, we have substituted $g$ for $u$ since the boundary values are given.
+However, evaluating $\nabla u \cdot \nnu$ on $\Gamma$ based on \eqref{eq:SL_BIE}
 involves calculating a quadruple layer potential which has a
 well-known obstacle in numerical implementation.
 To overcome this obstacle, we use
@@ -472,29 +494,37 @@ See the Appendix section \ref{sec:appendix} for the proof and details.
 Substituting \eqref{eq:normal_deriv} into \eqref{eq:free_energy2} for the normal derivative
 leads to single layer integral which is more straightforward to evaluate and we compute the
 arclength derivative using spectrally accurate Fourier transform.
+We have validated the form of \eqref{eq:normal_deriv} by extrapolating 
+the primal energy \eqref{eq:free_energy} along test curves placed slightly
+outside the particles. 
 
-The $N_b$ by $N_b$ Euclidian distance matrix is 
+The Euclidian distance matrix is the $N_b \times N_b$ matrix 
+$[D(t)]_{ij} = \|\aa_{i} - \aa_{j}\|$ for $i, j = 1, \dots, N_b$
+To measure positional order, we use
 \begin{equation}
-  \label{eq:EDM}
-[D(t)]_{ij} = \|\aa_{i} - \aa_{j}\|, \quad i, j = 1, \dots, N_b.
+\label{eq:EDM}
+d(t) = \frac{1}{N_b^2}\|D(t) - D(0)\|
 \end{equation}
+where $\| \cdot \|$ is the Frobeneous norm.
 For weak background flow strengths, the deformation in particle
 configurations will be relatively small and the collection of
-particles behaves as a rigid body i.e., $\|D(t) - D(0)\| \ll 1$. 
-
-To study the change in orientational order, we use the scalar order parameter 
+particles behaves as a rigid body i.e., $d(t) \ll 1$. 
+ 
+To study orientational order, we use the scalar order parameter 
 \begin{equation}
   \label{eq:S2}
 S_2(t) = \frac{1}{N_b} \sum_{i=1}^{N_b} \frac{1}{2}(3\cos^2(\theta_i - \bar \theta) - 1).
 \end{equation}
 Here $\bar \theta$ is a circular mean defined as the
-orientation of the largest eigenvalue eigenvector of the projection 
+orientation of the largest eigenvalue eigenvector of 
 $\dd_1\dd_1^\top + \dots + \dd_{N_b}\dd_{N_b}^\top$.
-A value $S_2(t) = 1$ indicates a complete orientational order where all particle
-directors lie on a common axis. A value far from 1 indicated disorder.
+A value $S_2(t) = 1$ indicates a complete orientational
+order where all particle directors lie on a common axis e.g.,
+two parallel vectors with possibly opposite direction are ordered. 
+A value far from 1 indicates disorder.
 
-It turns out that $S_2$ is an inadequate measure of order for the bilayer and
-multilamellar configurations.  For example, the directors of a circular
+The measure $S_2$ is an inadequate for the bilayer and
+multilamellar structures.  For example, the directors of a circular
 bilayer vesicle are uniformly distributed along a circle, even though
 there is a strong orientational order between neighboring particles.
 To account for these latter cases, we use
@@ -508,7 +538,165 @@ indexed by $j$ for which $\|\aa_i - \aa_j\| < 4c$. In practice, if a particle is
 isolated and has no neighbors within a distance $4c$, then we exclude it from
 the sum \eqref{eq:localS2}. 
 
+\section{Results}
+\label{sec:results}
+\begin{figure}
+\caption{\label{fig:ves_shear} A vesicle in shear flow}
+\end{figure}
+\begin{figure}
+\caption{\label{fig:ves_shear} A vesicle in Taylor-Green flow}
+\end{figure}
+\subsection{Boundary condition (i):   bilayer configurations}
+The vesicle in a shear flow undergoes the familiar tank-treading deformation.
+Our previous paper \cite{Fu2022_JFM} studied the geometry,
+intermonolayer slip, and critical shear rates $\gamma^*$
+for vesicles comprised of amphiphilic Janus particles. 
 
+The vesicle is subject to a shear background flow
+\begin{equation}
+\uu_\infty(\xx) = \dot\gamma ({\bf e}_y\cdot\xx){\bf e}_x,
+\end{equation}
+%
+where $\dot\gamma$ is the shear rate. Figure~\ref{fig:shear_1} (a)--(c)
+shows snapshots of the vesicle when $\dot\gamma= ... $ is
+below the critical shear rate $\dot \gamma_* = ...$
+Here, the free energy and order parameter are more or less constant
+(Figure \ref{fig:BC1_shear}ab, solid curves).  The is a slight upward shift
+in $d(t)$ (Figure \ref{fig:BC1_shear}c, solid curve) due to relative
+displacement as the two leaflets slide past one another.  
+
+
+In, Figure~\ref{fig:shear_2} (a)--(c), 
+$\dot\gamma= ...$ is above the critical shear rate,
+and there is a jump in energy (Figure \ref{fig:BC1_shear}a, dashed curve)
+due to the breaking of the vesicle into two components.  
+There is greater variation in the order parameter $\tilde{S}_2(t)$ as well
+with a baseline value around $0.7$
+(Figure \ref{fig:BC1_shear}b, dashed curve).The oscillations occur due to the
+orbit of the two bilayer components, and $\tilde{S}_2(t)$ increases
+to about $0.9$ when the components are nearly parallel and slide past one another.
+Positional order, however, diverges since the two component configuration
+is uncorrelated to the initial circular configuration (Figure \ref{fig:BC1_shear}c, dashed curve).
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{VS_E.pdf}
+   \includegraphics[width=0.3\textwidth]{VS_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{VS_MSD.pdf}
+  \end{center}
+  \caption{
+    \label{fig:BC1_shear}
+    A vesicle in shear flows with shear rates $\dot\gamma=\{0.05, 0.1\}$. We propose the order parameter defined by $S_{loc} = \frac12(3\cos(\theta-\bar\theta)^2-1)$}
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{VTG_E.pdf}
+   \includegraphics[width=0.3\textwidth]{VTG_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{VTG_MSD.pdf}
+  \end{center}
+\caption{A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1,0.2\}$. }
+\end{figure}
+
+The Taylor-Green (TG) background flow is
+\begin{equation}
+  \uu_\infty(\xx) = V_0 \left(-\cos({\bf e}_x\cdot\xx/l)\sin({\bf e}_y\cdot\xx/l){\bf e}_x
+  +\sin({\bf e}_x\cdot\xx/l)\cos({\bf e}_y\cdot\xx/l){\bf e}_y\right).
+\end{equation}
+where $l$ sets the size of the rotating cells and $V_0$ is the flow strength. 
+%
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.24\textwidth]{shear_0.png}
+  \includegraphics[width=0.24\textwidth]{shear_1000.png}
+  \includegraphics[width=0.24\textwidth]{shear_2000.png} 
+  \includegraphics[width=0.24\textwidth]{shear_2000.png} \\
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+\end{figure}
+%
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.32\textwidth]{TG_0.png}
+  \includegraphics[width=0.32\textwidth]{TG_2500.png}
+  \includegraphics[width=0.32\textwidth]{TG_5000.png}
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:TG_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(b) in a Taylor-Green flow when $V_0=0.1$ and $l=0.5$.}
+\end{figure}
+\subsection{Boundary condition (ii):  multilamellar configurations}
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{MS_E.pdf}
+   \includegraphics[width=0.3\textwidth]{MS_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{MS_MSD.pdf}
+  \end{center}
+      \caption{A multi-lamellar structure in shear flows with shear rates $\dot\gamma=\{0.05, 0.1, 0.15\}$. We compute the energy and the mean square displacement $MSD(t) = \frac{1}{N_b^2}\sum_{i=1}^{N_b} ||D(t)-D(0) ||_2$ where the matrix $D$ is the pairwise distance matrix at time $t$.    }
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{MTG_E.pdf}
+   \includegraphics[width=0.3\textwidth]{MTG_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{MTG_MSD.pdf}
+  \end{center}
+    \caption{A multi-lamellar structure in a Taylor-Green flow when the flow strength $V_0=\{0.1,0.15,0.2\}$. }
+\end{figure}
+
+
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.21\textwidth]{shear_checker_0.png}
+  \includegraphics[width=0.21\textwidth]{shear_checker_250.png}
+  \includegraphics[width=0.21\textwidth]{shear_checker_500.png}
+  \includegraphics[width=0.21\textwidth]{shear_checker_750.png} \\
+%  \includegraphics[width=0.4\textwidth]{lambda_fig1.jpg}
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+\end{figure}
+%
+\subsection{Boundary condition (iii): striated configurations} 
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{CS_E.pdf}
+   \includegraphics[width=0.3\textwidth]{CS_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{CS_MSD.pdf}
+  \end{center}
+\caption{A checker board in shear flows with shear rates $\dot\gamma=\{0.125, 0.15\}$. We propose the order parameter defined by $S_{loc} = \frac12(3\cos(\theta-\bar\theta)^2-1)$}
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{CTG_E.pdf}
+   \includegraphics[width=0.3\textwidth]{CTG_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{CTG_MSD.pdf}
+  \end{center}
+\caption{A checker board in Taylor-Green flows when the flow strength $V_0=\{0.2,0.3\}$. }
+\end{figure}
+
+
+\section{Discussion}
+\begin{figure}
+  \begin{center}
+  \includegraphics[height=0.2\textheight]{multilamellar_shear0p1_Energy_LsFs}
+    \includegraphics[height=0.2\textheight]{multilamellar_shear0p1_MSD_LsFs}
+  \end{center}
+    \caption{ A multi-lamellar structure in a shear flow when the shear rate is $\dot\gamma=0.1$. We tune the length scale parameters, radius, $\rho$ and $\rho_0$, by $\pm 5\%$ and the force scale parameters, $\gamma$ and $M$, by $\pm 5\%$.    }
+\end{figure}
+
+It is worth noting that in the dipolar molecules modeled by
+Laplace equation, the equilibrium configurations consist of strands,
+rather than a patch, of particles and also have
+alternating orientations \cite{}. 
 
 
 \section{Appendix}
@@ -557,36 +745,12 @@ we obtain
 Letting $\zz\to\xx\in\Gamma$, and noting that both sides of the equation are continuous,
 we obtain \eqref{eq:normal_deriv}.
 
+\end{document}
+
 \section{DRAFT RESULTS BELOW}
 {\bf More results:}
 
 
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.3\textwidth]{MS_E.pdf}
-   \includegraphics[width=0.3\textwidth]{MS_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{MS_MSD.pdf}
-  \end{center}
-      \caption{A multi-lamellar structure in shear flows with shear rates $\dot\gamma=\{0.05, 0.1, 0.15\}$. We compute the energy and the mean square displacement $MSD(t) = \frac{1}{N_b^2}\sum_{i=1}^{N_b} ||D(t)-D(0) ||_2$ where the matrix $D$ is the pairwise distance matrix at time $t$.    }
-\end{figure}
-
-\begin{figure}
-  \begin{center}
-  \includegraphics[height=0.2\textheight]{multilamellar_shear0p1_Energy_LsFs}
-    \includegraphics[height=0.2\textheight]{multilamellar_shear0p1_MSD_LsFs}
-  \end{center}
-    \caption{ A multi-lamellar structure in a shear flow when the shear rate is $\dot\gamma=0.1$. We tune the length scale parameters, radius, $\rho$ and $\rho_0$, by $\pm 5\%$ and the force scale parameters, $\gamma$ and $M$, by $\pm 5\%$.    }
-\end{figure}
-
-
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.3\textwidth]{MTG_E.pdf}
-   \includegraphics[width=0.3\textwidth]{MTG_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{MTG_MSD.pdf}
-  \end{center}
-    \caption{A multi-lamellar structure in a Taylor-Green flow when the flow strength $V_0=\{0.1,0.15,0.2\}$. }
-\end{figure}
 
 
 \begin{figure}
@@ -611,24 +775,6 @@ we obtain \eqref{eq:normal_deriv}.
 
 
 
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.3\textwidth]{VS_E.pdf}
-   \includegraphics[width=0.3\textwidth]{VS_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{VS_MSD.pdf}
-  \end{center}
-\caption{A vesicle in shear flows with shear rates $\dot\gamma=\{0.05, 0.1\}$. We propose the order parameter defined by $S_{loc} = \frac12(3\cos(\theta-\bar\theta)^2-1)$}
-\end{figure}
-
-
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.3\textwidth]{VTG_E.pdf}
-   \includegraphics[width=0.3\textwidth]{VTG_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{VTG_MSD.pdf}
-  \end{center}
-\caption{A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1,0.2\}$. }
-\end{figure}
 
 
 \subsubsection{}
