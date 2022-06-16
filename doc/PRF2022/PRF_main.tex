@@ -126,37 +126,37 @@
 
 \begin{abstract}
 % insert abstract here
-
-{\bf To do list:}
-
-Unbouned Flow: 
-\begin{enumerate}
-\item $N_b=60$ self-assembly/relaxation runs with all 3 boundary
-  conditions using $N=24$ points per particle (FIG. 2). Energy profiles
-    in a log-log plot (FIG. 3) ($E(t)$ or $\Delta E(t)$ v.s. time).
-
-\item $N_b=198$ relaxation runs with all 3 boundary conditions using $N=24$ points per particle.
-Add energy profiles to check local/absolute minimum. Superimpose these
-    energies on Figure 3, but scale the energies by the number of Janus
-    particles so that it is ``energy per particle"
-
-\item $N_b=60$ structures in a shear flow: For both boundary conditions, lamellar (FIG. 4) and polar (FIG. 5), convergence tests using $N=16$ and $N=24$ are not yet verified. 
-Compare results using $N_b=24$ with the current FIG 4. (d). Revise FIG. 5 with more details. 
-
-\item Use particle/checker board alignment and/or aspect ratio to identify the critical shear rate for phase separation.
-
-\item $N_b=60$ structures in a Taylor-Green flow (FIG. 7-8). Add more frames for further comparison between values of flow strength $V_0$.
-\end{enumerate}
-
-
-{\bf May do list:}
-Channel Flow: 
-\begin{enumerate}
-\item Convergence tests for $N_b=25$ vesicle in a narrow channel.  Add energy profile.
-
-\item Convergence tests for $N_b=40$ multi-lamellar structure in a narrow channel. Add energy profile.
-
-\end{enumerate}
+%
+%{\bf To do list:}
+%
+%Unbouned Flow: 
+%\begin{enumerate}
+%\item $N_b=60$ self-assembly/relaxation runs with all 3 boundary
+%  conditions using $N=24$ points per particle (FIG. 2). Energy profiles
+%    in a log-log plot (FIG. 3) ($E(t)$ or $\Delta E(t)$ v.s. time).
+%
+%\item $N_b=198$ relaxation runs with all 3 boundary conditions using $N=24$ points per particle.
+%Add energy profiles to check local/absolute minimum. Superimpose these
+%    energies on Figure 3, but scale the energies by the number of Janus
+%    particles so that it is ``energy per particle"
+%
+%\item $N_b=60$ structures in a shear flow: For both boundary conditions, lamellar (FIG. 4) and polar (FIG. 5), convergence tests using $N=16$ and $N=24$ are not yet verified. 
+%Compare results using $N_b=24$ with the current FIG 4. (d). Revise FIG. 5 with more details. 
+%
+%\item Use particle/checker board alignment and/or aspect ratio to identify the critical shear rate for phase separation.
+%
+%\item $N_b=60$ structures in a Taylor-Green flow (FIG. 7-8). Add more frames for further comparison between values of flow strength $V_0$.
+%\end{enumerate}
+%
+%
+%{\bf May do list:}
+%Channel Flow: 
+%\begin{enumerate}
+%\item Convergence tests for $N_b=25$ vesicle in a narrow channel.  Add energy profile.
+%
+%\item Convergence tests for $N_b=40$ multi-lamellar structure in a narrow channel. Add energy profile.
+%
+%\end{enumerate}
 
 \end{abstract}
 
@@ -366,17 +366,17 @@ positions and orientations:
 
 \begin{figure}
 \begin{center}
-  \includegraphics[width=0.24\textwidth]{Fig2a.png}
-  \includegraphics[width=0.24\textwidth]{Fig2b.png}
-  \includegraphics[width=0.24\textwidth]{Fig2c.png}
-  \includegraphics[width=0.24\textwidth]{Fig2d.png}
+  \includegraphics[width=0.4\textwidth]{Nb198a.pdf}
+  \includegraphics[width=0.4\textwidth]{Nb198b.pdf}\\
+  \includegraphics[width=0.4\textwidth]{Nb198c.pdf}
+  \includegraphics[width=0.4\textwidth]{Nb198d.pdf}
 \end{center}
 \begin{caption}{\label{fig:relax}
-  Panel (a) shows 60 particles confined to a square with random 
+  Panel (a) shows 198 particles confined to a square with random 
   positions and orientation.
   In a quiescent background flow, 
   the self-assembled particles take on distinct configurations
-  depending on the value of the shift parameter $b$.}
+  depending on the value of the shift parameter $b$. (b)-(d) show the equilibrium states for $b=1, 2, 0$, respectively.}
 \end{caption}
 \end{figure}
 
@@ -441,7 +441,10 @@ To have a single, coherent vesicle (i), we reinitialize
 the case (i) particles in the form of a ring and run the relaxation procedure once more.
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.5\textwidth]{Relax_Energy.jpg}
+  \includegraphics[width=0.5\textwidth]{Relax_Energy.jpg}\\
+  \includegraphics[width=0.3\textwidth]{Nb60b.pdf}
+  \includegraphics[width=0.3\textwidth]{Nb60c.pdf}
+  \includegraphics[width=0.3\textwidth]{Nb60d.pdf}
   \end{center}
   \vspace{-20pt}  
   \caption{\label{fig:relax_energy}
@@ -587,7 +590,7 @@ is uncorrelated to the initial circular configuration (Figure \ref{fig:BC1_shear
   \end{center}
   \caption{
     \label{fig:BC1_shear}
-    A vesicle in shear flows with shear rates $\dot\gamma=\{0.05, 0.1\}$. We propose the order parameter defined by $S_{loc} = \frac12(3\cos(\theta-\bar\theta)^2-1)$}
+    A vesicle in shear flows with shear rates $\dot\gamma=\{0.05, 0.0655, 0.075\}$. We propose the order parameter defined by $S_{loc} = \frac12(3\cos(\theta-\bar\theta)^2-1)$}
 \end{figure}
 
 
@@ -597,7 +600,7 @@ is uncorrelated to the initial circular configuration (Figure \ref{fig:BC1_shear
    \includegraphics[width=0.3\textwidth]{VTG_LOP.pdf}
     \includegraphics[width=0.3\textwidth]{VTG_MSD.pdf}
   \end{center}
-\caption{A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1,0.2\}$. }
+\caption{A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1, 0.15, 0.2\}$. }
 \end{figure}
 
 The Taylor-Green (TG) background flow is
@@ -609,10 +612,21 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 %
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.24\textwidth]{shear_0.png}
-  \includegraphics[width=0.24\textwidth]{shear_1000.png}
-  \includegraphics[width=0.24\textwidth]{shear_2000.png} 
-  \includegraphics[width=0.24\textwidth]{shear_2000.png} \\
+  \includegraphics[width=0.32\textwidth]{vesTG_0.png}
+  \includegraphics[width=0.32\textwidth]{vesTG_2500.png}
+  \includegraphics[width=0.32\textwidth]{vesTG_5000.png} 
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+\end{figure}
+
+%
+%
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.32\textwidth]{shear_0.png}
+  \includegraphics[width=0.32\textwidth]{shear_1000.png}
+  \includegraphics[width=0.32\textwidth]{shear_2000.png} 
   \end{center}
   \vspace{-20pt}  
   \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
