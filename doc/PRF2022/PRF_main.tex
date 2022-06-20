@@ -374,19 +374,24 @@ positions and orientations:
   \end{aligned}
 \end{equation}
 
-\begin{figure}
+\begin{figure}[h!]
 \begin{center}
-  \includegraphics[width=0.4\textwidth]{Nb198a.pdf}\\
-  \includegraphics[width=0.32\textwidth]{Nb198b_eta.pdf}
-  \includegraphics[width=0.32\textwidth]{Nb198c_eta.pdf}
-  \includegraphics[width=0.32\textwidth]{Nb198d_eta.pdf}
+  \includegraphics[width=0.49\textwidth]{Nb198a.pdf}
+  \includegraphics[width=0.49\textwidth]{Nb198b_eta.pdf}\\
+  \includegraphics[width=0.49\textwidth]{Nb198c_eta.pdf}
+  \includegraphics[width=0.49\textwidth]{Nb198d_eta.pdf}
 \end{center}
 \begin{caption}{\label{fig:relax}
-  Panel (a) shows 198 particles confined to a square with random 
+  Panel (a) shows $N_b = 198$ particles confined to a square with random 
   positions and orientation.
-  In a quiescent background flow, 
-  the self-assembled particles take on distinct configurations
-  depending on the value of the shift parameter $b$. (b)-(d) show the equilibrium states for $b=1, 2, 0$, respectively.}
+  Depending on the boundary condition \eqref{eq:bc-type},
+  the particles selc-assemble into distinct configurations.
+  Panel (b) is for $b=1$ and the boundary condition mimicks that
+  of an amphiphilic particle. 
+  Panel (c) is for $b=2$ which gives rise to a multilamellar configuration. 
+  In panel (d), the case $b = 0$ is for a water structure with
+  positive/negative charge. 
+  The false color maps use blue for $u < 0$, green for $u = 0$, and yellow then red for $u > 0$.}
 \end{caption}
 \end{figure}
 
@@ -451,10 +456,11 @@ To have a single, coherent vesicle (i), we reinitialize
 the case (i) particles in the form of a ring and run the relaxation procedure once more.
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.5\textwidth]{Relax_Energy.jpg}\\
-  \includegraphics[width=0.3\textwidth]{Nb60b.pdf}
-  \includegraphics[width=0.3\textwidth]{Nb60c.pdf}
-  \includegraphics[width=0.3\textwidth]{Nb60d.pdf}
+  \includegraphics[width=0.49\textwidth]{Relax_Energy_inset.pdf}
+%  \includegraphics[width=0.3\textwidth]{Nb60b.pdf}
+%  \includegraphics[width=0.3\textwidth]{Nb60c.pdf}
+  %  \includegraphics[width=0.3\textwidth]{Nb60d.pdf}
+  Panel (b): same but for order parameters 
   \end{center}
   \vspace{-20pt}  
   \caption{\label{fig:relax_energy}
@@ -562,6 +568,19 @@ the sum \eqref{eq:localS2}.
 %\caption{\label{fig:ves_shear} A vesicle in Taylor-Green flow}
 %\end{figure}
 
+\begin{figure}
+  \begin{center}
+      \includegraphics[width=0.22\textwidth]{VS_0.pdf}
+      \includegraphics[width=0.22\textwidth]{VS_1.pdf}
+   \includegraphics[width=0.22\textwidth]{VS_2.pdf}
+   \includegraphics[width=0.22\textwidth]{VS_3.pdf}\\
+   Panels (e)-(f) same but for non-vesicle initial configuration
+  \end{center}
+  \caption{
+    \label{fig:BC1_shear}
+    The figure shows a vesicle in shear flow (panels (a)-(d), $\dot \gamma = ...$) 
+    and the multiple component bilayers in shear (panels (e)-(f), $\dot \gamma = ...$).}
+\end{figure}
 
 \subsection{Boundary condition (i):   bilayer configurations}
 The vesicle in a shear flow undergoes the familiar tank-treading deformation.
@@ -582,6 +601,25 @@ Here, the free energy and order parameter are more or less constant
 in $d(t)$ (Figure \ref{fig:BC1_shear}c, solid curve) due to relative
 displacement as the two leaflets slide past one another.  
 
+%\begin{figure}
+%\caption{\label{fig:ves_shear} A vesicle in shear flow}
+%\end{figure}
+%\begin{figure}
+%\caption{\label{fig:ves_shear} A vesicle in Taylor-Green flow}
+%\end{figure}
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{VS_E.pdf}
+   \includegraphics[width=0.3\textwidth]{VS_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{VS_MSD.pdf}
+  \end{center}
+  \caption{
+    \label{fig:BC1_shear}
+    The quantities $E(t)$, $\tilde S_2(t)$, and $d(t)$
+    are indicators of bilayer (case (i)) deformation at various shear rates. }
+\end{figure}
+
 
 In, Figure~\ref{fig:shear_2} (a)--(c), 
 $\dot\gamma= ...$ is above the critical shear rate,
@@ -596,38 +634,10 @@ Positional order, however, diverges since the two component configuration
 is uncorrelated to the initial circular configuration (Figure \ref{fig:BC1_shear}c, dashed curve).
 
 
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.3\textwidth]{VS_E.pdf}
-   \includegraphics[width=0.3\textwidth]{VS_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{VS_MSD.pdf}\\
-      \includegraphics[width=0.22\textwidth]{VS_0.pdf}
-      \includegraphics[width=0.22\textwidth]{VS_1.pdf}
-   \includegraphics[width=0.22\textwidth]{VS_2.pdf}
-    \includegraphics[width=0.22\textwidth]{VS_3.pdf}
-  \end{center}
-  \caption{
-    \label{fig:BC1_shear}
-    A vesicle in shear flows with shear rates $\dot\gamma=\{0.05, 0.0655, 0.075\}$. We propose the order parameter defined by $S_{loc} = \frac12(3\cos(\theta-\bar\theta)^2-1)$}
-\end{figure}
 
 
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.3\textwidth]{VTG_E.pdf}
-   \includegraphics[width=0.3\textwidth]{VTG_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{VTG_MSD.pdf}
-  \end{center}
-\caption{A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1, 0.15, 0.2\}$. }
-\end{figure}
 
-The Taylor-Green (TG) background flow is
-\begin{equation}
-  \uu_\infty(\xx) = V_0 \left(-\cos({\bf e}_x\cdot\xx/l)\sin({\bf e}_y\cdot\xx/l){\bf e}_x
-  +\sin({\bf e}_x\cdot\xx/l)\cos({\bf e}_y\cdot\xx/l){\bf e}_y\right).
-\end{equation}
-where $l$ sets the size of the rotating cells and $V_0$ is the flow strength. 
-%
+
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.32\textwidth]{vesTG_0.png}
@@ -639,6 +649,26 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 \end{figure}
 
 %
+
+The Taylor-Green (TG) background flow is
+\begin{equation}
+  \uu_\infty(\xx) = V_0 \left(-\cos({\bf e}_x\cdot\xx/l)\sin({\bf e}_y\cdot\xx/l){\bf e}_x
+  +\sin({\bf e}_x\cdot\xx/l)\cos({\bf e}_y\cdot\xx/l){\bf e}_y\right).
+\end{equation}
+where $l$ sets the size of the rotating cells and $V_0$ is the flow strength. 
+%
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{VTG_E.pdf}
+   \includegraphics[width=0.3\textwidth]{VTG_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{VTG_MSD.pdf}
+  \end{center}
+\caption{A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1, 0.15, 0.2\}$. }
+\end{figure}
+
+
 %
 \begin{figure}
   \begin{center}
