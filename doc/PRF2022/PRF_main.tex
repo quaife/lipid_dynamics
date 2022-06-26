@@ -570,6 +570,21 @@ the sum \eqref{eq:localS2}.
 %\begin{figure}
 %\caption{\label{fig:ves_shear} A vesicle in Taylor-Green flow}
 %\end{figure}
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{VS_E.pdf}
+   \includegraphics[width=0.3\textwidth]{VS_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{VS_MSD.pdf}\\
+      \includegraphics[width=0.3\textwidth]{BS_E.pdf}
+   \includegraphics[width=0.3\textwidth]{BS_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{BS_MSD.pdf}
+  \end{center}
+  \caption{
+    \label{fig:BC1_shear}
+    The quantities $E(t)$, $\tilde S_2(t)$, and $d(t)$
+    are indicators of bilayer (case (i)) deformation at various shear rates. }
+\end{figure}
+
 
 \begin{figure}
   \begin{center}
@@ -577,10 +592,14 @@ the sum \eqref{eq:localS2}.
       \includegraphics[width=0.22\textwidth]{VS_1.pdf}
    \includegraphics[width=0.22\textwidth]{VS_2.pdf}
    \includegraphics[width=0.22\textwidth]{VS_3.pdf}\\
-   Panels (e)-(f) same but for non-vesicle initial configuration
+         \includegraphics[width=0.22\textwidth]{BS_0.pdf}
+      \includegraphics[width=0.22\textwidth]{BS_1.pdf}
+   \includegraphics[width=0.22\textwidth]{BS_2.pdf}
+   \includegraphics[width=0.22\textwidth]{BS_3.pdf}
+%   Panels (e)-(f) same but for non-vesicle initial configuration
   \end{center}
   \caption{
-    \label{fig:BC1_shear}
+    \label{fig:BC1_shear_flow}
     The figure shows a vesicle in shear flow (panels (a)-(d), $\dot \gamma = ...$) 
     and the multiple component bilayers in shear (panels (e)-(f), $\dot \gamma = ...$).}
 \end{figure}
@@ -611,17 +630,7 @@ displacement as the two leaflets slide past one another.
 %\caption{\label{fig:ves_shear} A vesicle in Taylor-Green flow}
 %\end{figure}
 
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.3\textwidth]{VS_E.pdf}
-   \includegraphics[width=0.3\textwidth]{VS_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{VS_MSD.pdf}
-  \end{center}
-  \caption{
-    \label{fig:BC1_shear}
-    The quantities $E(t)$, $\tilde S_2(t)$, and $d(t)$
-    are indicators of bilayer (case (i)) deformation at various shear rates. }
-\end{figure}
+
 
 
 In, Figure~\ref{fig:shear_2} (a)--(c), 
@@ -641,16 +650,6 @@ is uncorrelated to the initial circular configuration (Figure \ref{fig:BC1_shear
 
 
 
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.32\textwidth]{vesTG_0.png}
-  \includegraphics[width=0.32\textwidth]{vesTG_2500.png}
-  \includegraphics[width=0.32\textwidth]{vesTG_5000.png} 
-  \end{center}
-  \vspace{-20pt}  
-  \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
-\end{figure}
-
 %
 
 The Taylor-Green (TG) background flow is
@@ -666,10 +665,32 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
   \begin{center}
   \includegraphics[width=0.3\textwidth]{VTG_E.pdf}
    \includegraphics[width=0.3\textwidth]{VTG_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{VTG_MSD.pdf}
+    \includegraphics[width=0.3\textwidth]{VTG_MSD.pdf}\\
+  \includegraphics[width=0.3\textwidth]{BTG_E.pdf}
+   \includegraphics[width=0.3\textwidth]{BTG_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{BTG_MSD.pdf}
   \end{center}
 \caption{A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1, 0.15, 0.2\}$. }
 \end{figure}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.22\textwidth]{VTG_0.pdf}
+  \includegraphics[width=0.22\textwidth]{VTG_1.pdf}
+  \includegraphics[width=0.22\textwidth]{VTG_2.pdf} 
+    \includegraphics[width=0.22\textwidth]{VTG_3.pdf} \\
+      \includegraphics[width=0.22\textwidth]{BTG_0.pdf}
+  \includegraphics[width=0.22\textwidth]{BTG_1.pdf}
+  \includegraphics[width=0.22\textwidth]{BTG_2.pdf} 
+    \includegraphics[width=0.22\textwidth]{BTG_3.pdf}
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:BTG_flow} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+\end{figure}
+
+
+
 
 
 %
