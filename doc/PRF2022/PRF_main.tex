@@ -694,25 +694,25 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 
 
 %
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.32\textwidth]{shear_0.png}
-  \includegraphics[width=0.32\textwidth]{shear_1000.png}
-  \includegraphics[width=0.32\textwidth]{shear_2000.png} 
-  \end{center}
-  \vspace{-20pt}  
-  \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
-\end{figure}
+%\begin{figure}
+%  \begin{center}
+%  \includegraphics[width=0.32\textwidth]{shear_0.png}
+%  \includegraphics[width=0.32\textwidth]{shear_1000.png}
+%  \includegraphics[width=0.32\textwidth]{shear_2000.png} 
+%  \end{center}
+%  \vspace{-20pt}  
+%  \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+%\end{figure}
 %
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.32\textwidth]{TG_0.png}
-  \includegraphics[width=0.32\textwidth]{TG_2500.png}
-  \includegraphics[width=0.32\textwidth]{TG_5000.png}
-  \end{center}
-  \vspace{-20pt}  
-  \caption{\label{fig:TG_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(b) in a Taylor-Green flow when $V_0=0.1$ and $l=0.5$.}
-\end{figure}
+%\begin{figure}
+%  \begin{center}
+%  \includegraphics[width=0.32\textwidth]{TG_0.png}
+%  \includegraphics[width=0.32\textwidth]{TG_2500.png}
+%  \includegraphics[width=0.32\textwidth]{TG_5000.png}
+%  \end{center}
+%  \vspace{-20pt}  
+%  \caption{\label{fig:TG_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(b) in a Taylor-Green flow when $V_0=0.1$ and $l=0.5$.}
+%\end{figure}
 \subsection{Boundary condition (ii):  multilamellar configurations}
 
 \begin{figure}
@@ -724,6 +724,23 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
       \caption{A multi-lamellar structure in shear flows with shear rates $\dot\gamma=\{0.05, 0.1, 0.15\}$. We compute the energy and the mean square displacement $MSD(t) = \frac{1}{N_b^2}\sum_{i=1}^{N_b} ||D(t)-D(0) ||_2$ where the matrix $D$ is the pairwise distance matrix at time $t$.    }
 \end{figure}
 
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.22\textwidth]{MS_0.pdf}
+  \includegraphics[width=0.22\textwidth]{MS_1.pdf}
+  \includegraphics[width=0.22\textwidth]{MS_2.pdf} 
+    \includegraphics[width=0.22\textwidth]{MS_3.pdf} 
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:MS_flow} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+\end{figure}
+
+
+
+
+
+
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.3\textwidth]{MTG_E.pdf}
@@ -733,20 +750,29 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
     \caption{A multi-lamellar structure in a Taylor-Green flow when the flow strength $V_0=\{0.1,0.15,0.2\}$. }
 \end{figure}
 
-
-
-
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.21\textwidth]{shear_checker_0.png}
-  \includegraphics[width=0.21\textwidth]{shear_checker_250.png}
-  \includegraphics[width=0.21\textwidth]{shear_checker_500.png}
-  \includegraphics[width=0.21\textwidth]{shear_checker_750.png} \\
-%  \includegraphics[width=0.4\textwidth]{lambda_fig1.jpg}
+  \includegraphics[width=0.22\textwidth]{MTG_0.pdf}
+  \includegraphics[width=0.22\textwidth]{MTG_1.pdf}
+  \includegraphics[width=0.22\textwidth]{MTG_2.pdf} 
+    \includegraphics[width=0.22\textwidth]{MTG_3.pdf} 
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+  \caption{\label{fig:MTG_flow} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
 \end{figure}
+
+
+%\begin{figure}
+%  \begin{center}
+%  \includegraphics[width=0.21\textwidth]{shear_checker_0.png}
+%  \includegraphics[width=0.21\textwidth]{shear_checker_250.png}
+%  \includegraphics[width=0.21\textwidth]{shear_checker_500.png}
+%  \includegraphics[width=0.21\textwidth]{shear_checker_750.png} \\
+%%  \includegraphics[width=0.4\textwidth]{lambda_fig1.jpg}
+%  \end{center}
+%  \vspace{-20pt}  
+%  \caption{\label{fig:shear_1} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+%\end{figure}
 %
 \subsection{Boundary condition (iii): striated configurations} 
 
@@ -762,6 +788,18 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 
 \begin{figure}
   \begin{center}
+  \includegraphics[width=0.22\textwidth]{CS_0.pdf}
+  \includegraphics[width=0.22\textwidth]{CS_1.pdf}
+  \includegraphics[width=0.22\textwidth]{CS_2.pdf} 
+    \includegraphics[width=0.22\textwidth]{CS_3.pdf} 
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:CS_flow} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
   \includegraphics[width=0.3\textwidth]{CTG_E.pdf}
    \includegraphics[width=0.3\textwidth]{CTG_LOP.pdf}
     \includegraphics[width=0.3\textwidth]{CTG_MSD.pdf}
@@ -769,6 +807,16 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 \caption{A checker board in Taylor-Green flows when the flow strength $V_0=\{0.2,0.3\}$. }
 \end{figure}
 
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.22\textwidth]{CTG_0.pdf}
+  \includegraphics[width=0.22\textwidth]{CTG_1.pdf}
+  \includegraphics[width=0.22\textwidth]{CTG_2.pdf} 
+    \includegraphics[width=0.22\textwidth]{CTG_3.pdf} 
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:CTG_flow} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+\end{figure}
 
 \section{Discussion}
 \begin{figure}
