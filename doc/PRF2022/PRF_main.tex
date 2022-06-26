@@ -670,7 +670,7 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
    \includegraphics[width=0.3\textwidth]{BTG_LOP.pdf}
     \includegraphics[width=0.3\textwidth]{BTG_MSD.pdf}
   \end{center}
-\caption{A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1, 0.15, 0.2\}$. The result indicates that the highest flow strength ($V_0=0.2$) makes the vesicle (top row) rupture within a short period of time and the energy rapidly increases. As expected, the local order parameter drops and the MSD increases. For bilayer structure (bottom row), for $V_0=0.15$ and $V_0 = 0.2$, the energy gradually increases over the time but the other two measures do not have  a clear trend.}
+\caption{\label{fig:BC1_TG} A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1, 0.15, 0.2\}$. The result indicates that the highest flow strength ($V_0=0.2$) makes the vesicle (top row) rupture within a short period of time and the energy rapidly increases. As expected, the local order parameter drops and the MSD increases. For bilayer structure (bottom row), for $V_0=0.15$ and $V_0 = 0.2$, the energy gradually increases over the time but the other two measures do not have  a clear trend.}
 \end{figure}
 
 
@@ -686,7 +686,7 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
     \includegraphics[width=0.22\textwidth]{BTG_3.pdf}
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:BTG_flow} The figure shows a vesicle in Taylor-Green flow (panel (a) shows the pre-relaxed initial configuration; panels (b)-(d): $V_0 = \{0.1, 0.15, 0.2\}$ at $t=600$) 
+  \caption{\label{fig:BC1_TG_flow} The figure shows a vesicle in Taylor-Green flow (panel (a) shows the pre-relaxed initial configuration; panels (b)-(d): $V_0 = \{0.1, 0.15, 0.2\}$ at $t=600$) 
     and the multiple component bilayers in Taylor-Green flow (The insets of Fig~\ref{fig:relax}b is used for panels (e); panels (f)-(h): $V_0 = \{0.1, 0.15, 0.2\}$ at $t=200$). The streamlines are plotted in the background.
   }
 \end{figure}
@@ -710,7 +710,7 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
     \includegraphics[width=0.22\textwidth]{VTG_Scale_3.pdf}
       \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:BTG_Scale_flow} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+  \caption{\label{fig:BTG_Scale_flow} With $V_0=0.1$, panels (a)-(d) show the configurations with streamlines when a vesicle is in Taylor-Green flow at $t=1000$ and $l= 1,2,3,4$, respectively.}
 \end{figure}
 
 
@@ -722,7 +722,8 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
    \includegraphics[width=0.3\textwidth]{MS_LOP.pdf}
     \includegraphics[width=0.3\textwidth]{MS_MSD.pdf}
   \end{center}
-      \caption{A multi-lamellar structure in shear flows with shear rates $\dot\gamma=\{0.05, 0.1, 0.15\}$. We compute the energy and the mean square displacement $MSD(t) = \frac{1}{N_b^2}\sum_{i=1}^{N_b} ||D(t)-D(0) ||_2$ where the matrix $D$ is the pairwise distance matrix at time $t$.    }
+      \caption{\label{fig:BC2_shear} 
+      A multi-lamellar structure in shear flows with shear rates $\dot\gamma=\{0.05, 0.1, 0.15\}$. For this set of simulations, the local order parameter is a good indicator for tracking the rupture or structure separations. Moreover, all three measure show that the energy, orderparameter, and MSD increase as shear rate increases.}
 \end{figure}
 
 
@@ -734,7 +735,7 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
     \includegraphics[width=0.22\textwidth]{MS_3.pdf} 
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:MS_flow} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+  \caption{\label{fig:BC2_shear_flow} Multi-lamellar stracture in shear flows. The insets of Fig~\ref{fig:relax}c is used for panels (a). Panels (b)-(d) are snapshots when shear rates are $\dot\gamma=\{0.05, 0.1, 0.15\}$ at $t=500$, respecitively. The streamlines are plotted in the background.}
 \end{figure}
 
 
@@ -748,7 +749,7 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
    \includegraphics[width=0.3\textwidth]{MTG_LOP.pdf}
     \includegraphics[width=0.3\textwidth]{MTG_MSD.pdf}
   \end{center}
-    \caption{A multi-lamellar structure in a Taylor-Green flow when the flow strength $V_0=\{0.1,0.15,0.2\}$. }
+    \caption{\label{fig:BC2_TG}  A multi-lamellar structure in a Taylor-Green flow when the flow strength $V_0=\{0.1,0.15,0.2\}$. The energy profile when $V_0=0.2$ has an increasing trend that results a large deformation after a period of time. Since the flow strengths for all cases are not strong enough, the convergent MSD represents that the rupture does not occur before $t=1000$.}
 \end{figure}
 
 \begin{figure}
@@ -759,7 +760,7 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
     \includegraphics[width=0.22\textwidth]{MTG_3.pdf} 
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:MTG_flow} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+  \caption{\label{fig:BC2_TG_flow} Multi-lamellar stracture in Taylor-Green flows. The insets of Fig~\ref{fig:relax}c is used for panels (a). Panels (b)-(d) are snapshots when shear rates are $\dot\gamma=\{0.1, 0.15, 0.2\}$ at $t=600$, respecitively. The streamlines are plotted in the background. }
 \end{figure}
 
 
@@ -772,7 +773,7 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
    \includegraphics[width=0.3\textwidth]{CS_LOP.pdf}
     \includegraphics[width=0.3\textwidth]{CS_MSD.pdf}
   \end{center}
-\caption{A checker board in shear flows with shear rates $\dot\gamma=\{0.125, 0.15\}$. We propose the order parameter defined by $S_{loc} = \frac12(3\cos(\theta-\bar\theta)^2-1)$}
+\caption{\label{fig:BC3_shear} A striated configuration in shear flows with shear rates $\dot\gamma=\{0.1, 0.125, 0.15\}$. The energy profile, order parameter, and MSD for the case $\dot\gamma=0.15$ show that a rupture occurs during the simulation. For other two cases, all measures remain nearly constant. }
 \end{figure}
 
 
@@ -784,7 +785,8 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
     \includegraphics[width=0.22\textwidth]{CS_3.pdf} 
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:CS_flow} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+  \caption{\label{fig:BC3_shear_flow} A striated configuration in shear flows where the streamlines are plotted in the background. Panel (a) uses the insets of Fig~\ref{fig:relax}d and panels (b)-(d) are snapshots for the shear rates $\dot\gamma=\{0.1, 0.125, 0.15\}$ at $t=100$, respectively. 
+  }
 \end{figure}
 
 
@@ -794,7 +796,7 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
    \includegraphics[width=0.3\textwidth]{CTG_LOP.pdf}
     \includegraphics[width=0.3\textwidth]{CTG_MSD.pdf}
   \end{center}
-\caption{A checker board in Taylor-Green flows when the flow strength $V_0=\{0.2,0.3\}$. }
+\caption{\label{fig:BC3_TG} A striated configuration in Taylor-Green flows with flow strengths $V_0=\{0.2, 0.25, 0.3\}$.   }
 \end{figure}
 
 \begin{figure}
@@ -805,16 +807,18 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
     \includegraphics[width=0.22\textwidth]{CTG_3.pdf} 
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:CTG_flow} Snapshots of simulation using boundary condition \eqref{eq:bcs}(ii) in a shear flow when $\dot\gamma=0.05$. }
+  \caption{\label{fig:BC3_TG_flow}  A striated configuration in shear flows where the streamlines are plotted in the background. Panel (a) uses the insets of Fig~\ref{fig:relax}d and panels (b)-(d) are snapshots for the flow strengths $V_0=\{0.2, 0.25, 0.3\}$ at $t=400$, respectively. . }
 \end{figure}
 
 \section{Discussion}
+
+
 \begin{figure}
   \begin{center}
   \includegraphics[height=0.2\textheight]{multilamellar_shear0p1_Energy_LsFs}
     \includegraphics[height=0.2\textheight]{multilamellar_shear0p1_MSD_LsFs}
   \end{center}
-    \caption{ A multi-lamellar structure in a shear flow when the shear rate is $\dot\gamma=0.1$. We tune the length scale parameters, radius, $\rho$ and $\rho_0$, by $\pm 5\%$ and the force scale parameters, $\gamma$ and $M$, by $\pm 5\%$.    }
+    \caption{\label{fig:BC2_tests} A multi-lamellar structure in a shear flow when the shear rate is $\dot\gamma=0.1$. We tune the length scale parameters, radius, $\rho$ and $\rho_0$, by $\pm 5\%$ and the force scale parameters, $\gamma$ and $M$, by $\pm 5\%$.    }
 \end{figure}
 
 It is worth noting that in the dipolar molecules modeled by
