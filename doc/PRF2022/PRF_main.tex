@@ -176,6 +176,14 @@
 \section{Introduction}
 % Put \label in argument of \section for cross-referencing
 %\section{\label{}}
+Janus particles are colloids with two surfaces of different properties such as hydrophobicity. For example, it is common for the surface of a Janus particle to
+be partly hydrophilic and hydrophobic (polar and non-polar). In a viscous solvent Janus particles often self-assemble into structures with tunable functions for biomedical engineering applications \cite{GheisariSahfieeAbbasiEtAl2021_DMR,LiuYangHuangEtAl2016_Angew,LiWangYaoEtAl2019_Nanoscale}. Depending on the interactions between Janus particles and the surrounding viscous solvent, JPs self-assemble into oligomers of various geometries and sizes. 
+
+{\bf The following paragraph needs to be rephrased and inserted in the introduction.
+"Dynamics offers yet another dimension of control that emerges naturally from the interactions between particles and fluid in colloidal matter. ....Such active colloidal systems show nonequilibrium self-organization with complexity rivaling that of biological systems such as living cells, bacterial baths, and animal flocks.....long-standing challenges such as the ``inverse" problem of creating a colloidal system that will self-assemble into a prescribed structure.....the framework of geometrical frustration, which has been used to explain dis-ordered systems, could be used to design new ones instead, through specific choices for the shapes or interactions of the particles....\cite{Manoharan2015_Science}"}
+
+
+
 The many-body hydrodynamics of amphiphilic Janus particles (JP) suspended in a viscous fluid (at zero Reynolds number) has been studied using
 boundary integral numerical simulations \cite{Fu2022_JFM}. Janus particles consist of both a hydrophobic and a hydrophilic surfaces. 
 Immersed in a viscous solvent, the dynamics of a JP suspension results from the combination of long-range hydrodynamic interaction and non-local
@@ -376,15 +384,16 @@ positions and orientations:
 
 \begin{figure}[h!]
 \begin{center}
-  \includegraphics[height=0.27\textheight]{Nb198a_inset.pdf}
-  \includegraphics[height=0.27\textheight]{Nb198b_eta_inset.pdf}\\
-  \hspace{1.55cm}
-  \includegraphics[height=0.27\textheight]{Nb198c_eta_inset.pdf}
-  \includegraphics[height=0.27\textheight]{Nb198d_eta_inset.pdf}
+  \hspace{-1cm}
+  \includegraphics[height=0.3\textheight]{Nb198a_inset.pdf}
+  \hspace{-0.85cm}
+  \includegraphics[height=0.3\textheight]{Nb198b_eta_inset.pdf}\\
+  \includegraphics[height=0.3\textheight]{Nb198c_eta_inset.pdf}
+  \includegraphics[height=0.3\textheight]{Nb198d_eta_inset.pdf}
 \end{center}
 \begin{caption}{\label{fig:relax}
   Panel (a) shows $N_b = 198$ particles confined to a square with random 
-  positions and orientation.
+  positions and orientation and the inset shows $N_b=60$ particles configuration.
   Depending on the boundary condition \eqref{eq:bc-type},
   the particles self-assemble into distinct configurations.
   Panel (b) is for $b=1$ and the boundary condition mimicks that
@@ -393,7 +402,7 @@ positions and orientations:
   In panel (d), the case $b = 0$ is for a water structure with
   positive/negative charge. 
   The false color maps use blue for $u < 0$, green for $u = 0$, and yellow then red for $u > 0$.
-    All figure insets are configurations using $N_b=60$ sharing with the same color map.}
+ Panel (b)--(d) insets are configurations using $N_b=60$ sharing with the same color map.}
 \end{caption}
 \end{figure}
 
@@ -461,20 +470,23 @@ the case (i) particles in the form of a ring and run the relaxation procedure on
 \begin{figure}
   \begin{center}
 %  \includegraphics[width=0.49\textwidth]{Relax_Energy_inset.pdf}
-\includegraphics[width=0.49\textwidth]{relax_E.pdf}
-\includegraphics[width=0.49\textwidth]{relax_LOP.pdf} 
+%\includegraphics[width=0.49\textwidth]{relax_E.pdf}
+%\includegraphics[width=0.49\textwidth]{relax_LOP.pdf} 
+\includegraphics[width=1.0\textwidth]{relax_E_LOP.pdf}
   \end{center}
   \vspace{-20pt}  
   \caption{\label{fig:relax_energy}
-  A:  The free energy \eqref{eq:free_energy} is decreasing
+  A:  The free energy \eqref{eq:free_energy} decreases
     in the mobility problem formulation.  The initial energies
     are for the configuration in Figure \ref{fig:relax}a
     and the final energies are for the near-equilibrium
-    configurations Figure \ref{fig:relax}b--c, respectively. 
-    The red curves are the energies for the $N_b = 198$ cases normalized
+    configurations as shown in Figure \ref{fig:relax}b--d, respectively.
+    The black curves are the energies for the $N_b=60$ cases and  
+    the red curves are the energies for the $N_b = 198$ cases normalized
     by $60/198$, showing that the energy approximately scales with the number of
-    particles. B: The local order parameter $\tilde{S}_2$ for all 6 relaxation runs. The near-equilibrium configurations depend on the initial configuration and the results show that 
-    the striated configurations have largest value of order parameter for both $N_b=60$ and $N_b=198$ cases.
+    particles. B: The local order parameter $\tilde{S}_2$ for all 6 relaxation runs. 
+    The curve styles are identical to the ones in panel A.
+    The near-equilibrium configurations depend on the initial configuration and the results show that for both $N_b=60$ and $N_b=198$ cases, bilayer and multi-lamellar configurations have similar trend in self-assembly in term of the local order parameter. The results of the striated configuration depend on the initial setup.
   }
 \end{figure}
 
@@ -563,13 +575,25 @@ the sum \eqref{eq:localS2}.
 \section{Results}
 \label{sec:results}
 
+\begin{figure}
+  \begin{center}
+      \includegraphics[width=0.22\textwidth]{VS_0.pdf}
+      \includegraphics[width=0.22\textwidth]{VS_1.pdf}
+   \includegraphics[width=0.22\textwidth]{VS_2.pdf}
+   \includegraphics[width=0.22\textwidth]{VS_3.pdf}\\
+         \includegraphics[width=0.22\textwidth]{BS_0.pdf}
+      \includegraphics[width=0.22\textwidth]{BS_1.pdf}
+   \includegraphics[width=0.22\textwidth]{BS_2.pdf}
+   \includegraphics[width=0.22\textwidth]{BS_3.pdf}
+%   Panels (e)-(f) same but for non-vesicle initial configuration
+  \end{center}
+  \caption{
+    \label{fig:BC1_shear_flow}
+    The figure shows a vesicle in shear flow (panel (a) shows the pre-relaxed initial configuration; panels (b)-(d): $\dot \gamma = \{0.05, 0.0655, 0.075\}$ at $t=160$) 
+    and the multiple component bilayers in shear flow (The insets of Fig~\ref{fig:relax}b is used for panels (e); panels (f)-(h): $\dot \gamma = \{0.05, 0.075, 0.1\}$ at $t=500$). The streamlines are plotted in the background. }
+\end{figure}
 
-%\begin{figure}
-%\caption{\label{fig:ves_shear} A vesicle in shear flow}
-%\end{figure}
-%\begin{figure}
-%\caption{\label{fig:ves_shear} A vesicle in Taylor-Green flow}
-%\end{figure}
+
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.3\textwidth]{VS_E.pdf}
@@ -586,23 +610,7 @@ the sum \eqref{eq:localS2}.
 \end{figure}
 
 
-\begin{figure}
-  \begin{center}
-      \includegraphics[width=0.22\textwidth]{VS_0.pdf}
-      \includegraphics[width=0.22\textwidth]{VS_1.pdf}
-   \includegraphics[width=0.22\textwidth]{VS_2.pdf}
-   \includegraphics[width=0.22\textwidth]{VS_3.pdf}\\
-         \includegraphics[width=0.22\textwidth]{BS_0.pdf}
-      \includegraphics[width=0.22\textwidth]{BS_1.pdf}
-   \includegraphics[width=0.22\textwidth]{BS_2.pdf}
-   \includegraphics[width=0.22\textwidth]{BS_3.pdf}
-%   Panels (e)-(f) same but for non-vesicle initial configuration
-  \end{center}
-  \caption{
-    \label{fig:BC1_shear_flow}
-    The figure shows a vesicle in shear flow (panel (a) shows the pre-relaxed initial configuration; panels (b)-(d): $\dot \gamma = \{0.05, 0.0655, 0.075\}$ at $t=160$) 
-    and the multiple component bilayers in shear flow (The insets of Fig~\ref{fig:relax}b is used for panels (e); panels (f)-(h): $\dot \gamma = \{0.05, 0.075, 0.1\}$ at $t=600$). The streamlines are plotted in the background. }
-\end{figure}
+
 
 \subsection{Boundary condition (i):   bilayer configurations}
 The vesicle in a shear flow undergoes the familiar tank-treading deformation.
@@ -663,19 +671,6 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.3\textwidth]{VTG_E.pdf}
-   \includegraphics[width=0.3\textwidth]{VTG_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{VTG_MSD.pdf}\\
-  \includegraphics[width=0.3\textwidth]{BTG_E.pdf}
-   \includegraphics[width=0.3\textwidth]{BTG_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{BTG_MSD.pdf}
-  \end{center}
-\caption{\label{fig:BC1_TG} A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1, 0.15, 0.2\}$. The result indicates that the highest flow strength ($V_0=0.2$) makes the vesicle (top row) rupture within a short period of time and the energy rapidly increases. As expected, the local order parameter drops and the MSD increases. For bilayer structure (bottom row), for $V_0=0.15$ and $V_0 = 0.2$, the energy gradually increases over the time but the other two measures do not have  a clear trend.}
-\end{figure}
-
-
-\begin{figure}
-  \begin{center}
   \includegraphics[width=0.22\textwidth]{VTG_0.pdf}
   \includegraphics[width=0.22\textwidth]{VTG_1.pdf}
   \includegraphics[width=0.22\textwidth]{VTG_2.pdf} 
@@ -695,12 +690,17 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.4\textwidth]{VTG_Len.pdf}
-  \includegraphics[width=0.4\textwidth]{VTG_Area.pdf}
+  \includegraphics[width=0.3\textwidth]{VTG_E.pdf}
+   \includegraphics[width=0.3\textwidth]{VTG_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{VTG_MSD.pdf}\\
+  \includegraphics[width=0.3\textwidth]{BTG_E.pdf}
+   \includegraphics[width=0.3\textwidth]{BTG_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{BTG_MSD.pdf}
   \end{center}
-  \vspace{-20pt}  
-  \caption{\label{fig:VTG_AreaLen} Vesicle in a Taylor-Green flow where $V_0=0.1$ and the size of rotating cell $l$ is varied. The enclosed area calculated from the bilayer midplane decreases over time and the total length measured from the midplane remains nearly constant with small magnitude of oscillations. }
+\caption{\label{fig:BC1_TG} A vesicle in Taylor-Green flows when the flow strength $V_0=\{0.1, 0.15, 0.2\}$. The result indicates that the highest flow strength ($V_0=0.2$) makes the vesicle (top row) rupture within a short period of time and the energy rapidly increases. As expected, the local order parameter drops and the MSD increases. For bilayer structure (bottom row), for $V_0=0.15$ and $V_0 = 0.2$, the energy gradually increases over the time but the other two measures do not have  a clear trend.}
 \end{figure}
+
+
 
 \begin{figure}
   \begin{center}
@@ -714,7 +714,32 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 \end{figure}
 
 
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{VTG_Len.pdf}
+  \includegraphics[width=0.4\textwidth]{VTG_Area.pdf}
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:VTG_AreaLen} Vesicle in a Taylor-Green flow where $V_0=0.1$ and the size of rotating cell $l$ is varied. The enclosed area calculated from the bilayer midplane decreases over time and the total length measured from the midplane remains nearly constant with small magnitude of oscillations. }
+\end{figure}
+
+
+
 \subsection{Boundary condition (ii):  multilamellar configurations}
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.22\textwidth]{MS_0.pdf}
+  \includegraphics[width=0.22\textwidth]{MS_1.pdf}
+  \includegraphics[width=0.22\textwidth]{MS_2.pdf} 
+    \includegraphics[width=0.22\textwidth]{MS_3.pdf} 
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:BC2_shear_flow} Multi-lamellar stracture in shear flows. The insets of Fig~\ref{fig:relax}c is used for panels (a). Panels (b)-(d) are snapshots when shear rates are $\dot\gamma=\{0.05, 0.1, 0.15\}$ at $t=600$, respecitively. The streamlines are plotted in the background.}
+\end{figure}
+
+
 
 \begin{figure}
   \begin{center}
@@ -727,30 +752,8 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 \end{figure}
 
 
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.22\textwidth]{MS_0.pdf}
-  \includegraphics[width=0.22\textwidth]{MS_1.pdf}
-  \includegraphics[width=0.22\textwidth]{MS_2.pdf} 
-    \includegraphics[width=0.22\textwidth]{MS_3.pdf} 
-  \end{center}
-  \vspace{-20pt}  
-  \caption{\label{fig:BC2_shear_flow} Multi-lamellar stracture in shear flows. The insets of Fig~\ref{fig:relax}c is used for panels (a). Panels (b)-(d) are snapshots when shear rates are $\dot\gamma=\{0.05, 0.1, 0.15\}$ at $t=500$, respecitively. The streamlines are plotted in the background.}
-\end{figure}
 
 
-
-
-
-
-\begin{figure}
-  \begin{center}
-  \includegraphics[width=0.3\textwidth]{MTG_E.pdf}
-   \includegraphics[width=0.3\textwidth]{MTG_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{MTG_MSD.pdf}
-  \end{center}
-    \caption{\label{fig:BC2_TG}  A multi-lamellar structure in a Taylor-Green flow when the flow strength $V_0=\{0.1,0.15,0.2\}$. The energy profile when $V_0=0.2$ has an increasing trend that results a large deformation after a period of time. Since the flow strengths for all cases are not strong enough, the convergent MSD represents that the rupture does not occur before $t=1000$.}
-\end{figure}
 
 \begin{figure}
   \begin{center}
@@ -765,17 +768,18 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 
 
 
-\subsection{Boundary condition (iii): striated configurations} 
-
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.3\textwidth]{CS_E.pdf}
-   \includegraphics[width=0.3\textwidth]{CS_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{CS_MSD.pdf}
+  \includegraphics[width=0.3\textwidth]{MTG_E.pdf}
+   \includegraphics[width=0.3\textwidth]{MTG_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{MTG_MSD.pdf}
   \end{center}
-\caption{\label{fig:BC3_shear} A striated configuration in shear flows with shear rates $\dot\gamma=\{0.1, 0.125, 0.15\}$. The energy profile, order parameter, and MSD for the case $\dot\gamma=0.15$ show that a rupture occurs during the simulation. For other two cases, all measures remain nearly constant. }
+    \caption{\label{fig:BC2_TG}  A multi-lamellar structure in a Taylor-Green flow when the flow strength $V_0=\{0.1,0.15,0.2\}$. The energy profile when $V_0=0.2$ has an increasing trend that results a large deformation after a period of time. Since the flow strengths for all cases are not strong enough, the convergent MSD represents that the rupture does not occur before $t=1000$.}
 \end{figure}
 
+
+
+\subsection{Boundary condition (iii): striated configurations} 
 
 \begin{figure}
   \begin{center}
@@ -792,12 +796,14 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.3\textwidth]{CTG_E.pdf}
-   \includegraphics[width=0.3\textwidth]{CTG_LOP.pdf}
-    \includegraphics[width=0.3\textwidth]{CTG_MSD.pdf}
+  \includegraphics[width=0.3\textwidth]{CS_E.pdf}
+   \includegraphics[width=0.3\textwidth]{CS_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{CS_MSD.pdf}
   \end{center}
-\caption{\label{fig:BC3_TG} A striated configuration in Taylor-Green flows with flow strengths $V_0=\{0.2, 0.25, 0.3\}$.   }
+\caption{\label{fig:BC3_shear} A striated configuration in shear flows with shear rates $\dot\gamma=\{0.1, 0.125, 0.15\}$. The energy profile, order parameter, and MSD for the case $\dot\gamma=0.15$ show that a rupture occurs during the simulation. For other two cases, all measures remain nearly constant. }
 \end{figure}
+
+
 
 \begin{figure}
   \begin{center}
@@ -809,6 +815,18 @@ where $l$ sets the size of the rotating cells and $V_0$ is the flow strength.
   \vspace{-20pt}  
   \caption{\label{fig:BC3_TG_flow}  A striated configuration in shear flows where the streamlines are plotted in the background. Panel (a) uses the insets of Fig~\ref{fig:relax}d and panels (b)-(d) are snapshots for the flow strengths $V_0=\{0.2, 0.25, 0.3\}$ at $t=400$, respectively. . }
 \end{figure}
+
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{CTG_E.pdf}
+   \includegraphics[width=0.3\textwidth]{CTG_LOP.pdf}
+    \includegraphics[width=0.3\textwidth]{CTG_MSD.pdf}
+  \end{center}
+\caption{\label{fig:BC3_TG} A striated configuration in Taylor-Green flows with flow strengths $V_0=\{0.2, 0.25, 0.3\}$.   }
+\end{figure}
+
 
 \section{Discussion}
 
