@@ -152,13 +152,15 @@ be partly hydrophilic and hydrophobic (polar and non-polar). In a viscous solven
 
 
 The many-body hydrodynamics of amphiphilic Janus particles (JP) suspended in a viscous fluid (at zero Reynolds number) has been studied using
-boundary integral numerical simulations \cite{fu-qua-ryh-you}. Janus particles consist of both a hydrophobic and a hydrophilic surfaces. 
+boundary integral numerical simulations \cite{Fu2022_JFM}. Janus particles consist of both a hydrophobic and a hydrophilic surfaces. 
 Immersed in a viscous solvent, the dynamics of a JP suspension results from the combination of long-range hydrodynamic interaction and non-local
 interactions between JPs through the distribution of a hydrophobic potential (HAP). In a quiescent flow, numerical simulations of a 
 JP suspension showed self-assembly into micelles and bilayers of JPs that provide an alternative means for computing the 
 mechanical moduli of a colloidal membrane.
 
-Under background flows, the hydrodynamics of a JP vesicle (a self-enclosed bilayer of JPs) exhibit many familiar behaviors of a vesicle \cite{fu-qua-ryh-you}: 
+Under background flows, the hydrodynamics of a JP vesicle (a
+self-enclosed bilayer of JPs) exhibit many familiar behaviors of a
+vesicle \cite{Fu2022_JFM}: 
 Elongation and alignment along the extensional direction, tank-treading, and rupture of a vesicle under shear flow.
 
 In this work we take advantage of the flexibility of the model to examine the effects of boundary condition on JP surfaces that could be controlled based on the chemicals used in the experiments, for example.
@@ -261,7 +263,7 @@ $
 = \gamma \left[ \rho^{-1} u^2 \mathbf{I}
   + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right]
 $
-is the hydrophobic stress identified in ~\cite{Fu2018_SIAM} 
+is the hydrophobic stress identified in ~\cite{Fu20} 
 and derived by variation of the domain techniques.
 
 The dimensionless repulsion profile $P$
@@ -604,7 +606,7 @@ Panel (d) plots the free energies; panel (e) shows orientational parameter $\til
 \end{figure}
 
 In Figure~\ref{fig:Ves_shear} (a)--(c), the vesicle in a shear flow undergoes the familiar tank-treading deformation. 
-Our previous paper \cite{fu-qua-ryh-you} studied the geometry,
+Our previous paper \cite{Fu2022_JFM} studied the geometry,
 intermonolayer slip, and critical shear rates $\gamma^*=0.066$
 for vesicles comprised of amphiphilic Janus particles. 
 Here $\dot\gamma=0.05, 0.066, 0.075$ and there are jumps in energies (Figure \ref{fig:Ves_shear}d, long and short dashed curves) due to the breaking of the vesicle into two
@@ -814,6 +816,20 @@ we obtain
 Letting $\zz\to\xx\in\Gamma$, and noting that both sides of the equation are continuous,
 we obtain \eqref{eq:normal_deriv}.
 
+
+% If you have acknowledgments, this puts in the proper section head.
+\begin{acknowledgments}
+We thank Dr. S\'ebastien Michelin and Dr. Cecile Cottin-Bizzonne from LadHyX - Ecole Polytechnique Institut Polytechnique de Paris for organizing the focus-session ``interfacial active matter'' in the conference APS-DFD 2021 and the invitation of submitting a special collection paper. 
+
+% put your acknowledgments here.
+\end{acknowledgments}
+
+% Create the reference section using BibTeX:
+\bibliography{reference}
+
+
+
+
 \end{document}
 
 \section{DRAFT RESULTS BELOW}
@@ -868,7 +884,7 @@ is the fixed boundary of $\Omega$. In this case, $\bd\Omega = \Gamma_0
 The mathematical formulation is a nonlinear system for the dynamics of a
 collection of rigid Janus particles. For the sake of completeness, we
 summarize the governing equations here, and a complete description is in
-our previous work~\cite{fu-qua-ryh-you2022}. The interactions satisfy a
+our previous work~\cite{Fu2022_JFM}. The interactions satisfy a
 system of partial differential equations (PDEs) that describe the
 hydrodynamic interactions and hydrophobic interactions. Assuming
 inertial terms are negligible, the solvent is goverened by the Stokes
@@ -1386,17 +1402,5 @@ Simulation results and snapshots are shown in Figures~\ref{fig:confined_vesicle}
 %\appendix
 %\section{}
 
-% If you have acknowledgments, this puts in the proper section head.
-\begin{acknowledgments}
-We thank Dr. S\'ebastien Michelin and Dr. Cecile Cottin-Bizzonne from LadHyX - Ecole Polytechnique Institut Polytechnique de Paris for organizing the focus-session ``interfacial active matter'' in the conference APS-DFD 2021 and the invitation of submitting a special collection paper. 
 
-% put your acknowledgments here.
-\end{acknowledgments}
-
-% Create the reference section using BibTeX:
-\bibliography{reference}
-
-\end{document}
-%
-% ****** End of file apstemplate.tex ******
 
