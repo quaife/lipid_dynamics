@@ -30,6 +30,7 @@
 % below if necessary.
 \bibliographystyle{apsrev4-2}
 
+\usepackage{todonotes}
 \usepackage{graphicx}
 %\usepackage{epstopdf,epsfig}
 \usepackage{newtxtext}
@@ -141,6 +142,16 @@
 
 % body of paper here - Use proper section commands
 % References should be done using the \cite, \ref, and \label commands
+
+\todo[inline]{Here are some references that Yuan sent around in the last
+few weeks}
+\cite{KolevaRehage2012_SoftMatter}
+\cite{GrandmaisonBrancherieSalasac2021_JFM}
+\cite{MusselLewisBasserHorkay2022_PRM}
+\cite{HuLongZangEHan2022_arxiv}
+\cite{BoccardoPierreLouis2022_PRL}
+
+
 \section{Introduction}
 % Put \label in argument of \section for cross-referencing
 %\section{\label{}}
@@ -167,48 +178,39 @@ Elongation and alignment along the extensional direction, tank-treading, and rup
 In this work we take advantage of the flexibility of the model to examine the effects of boundary condition on JP surfaces that could be controlled based on the chemicals used in the experiments, for example.
 
 \section{Governing Equations: Hydrophobic Attraction Potential Mobility Problem} 
-The governing equations are a nonlinear system
-for the position and orientation of a collection of
-rigid Janus particles.
-We first pose the Stokes equations
-for the mobility problem giving the hydrodynamic interactions
-for the particle suspension.  
-The hydrophobic forces come from solving a screened Laplace equation.
-Particle collisions are avoided through a near-field, pair
-potential.
+The governing equations are a nonlinear system for the position and
+orientation of a collection of rigid Janus particles. We first pose the
+Stokes equations for the mobility problem giving the hydrodynamic
+interactions for the particle suspension. The hydrophobic forces come
+from solving a screened Laplace equation. Particle collisions are
+avoided through a near-field, pair potential.
 
 \subsection{Mobility problem}
 A suspension of $N_b$ Janus particles is immersed in a viscous solvent.
-The domain $\Omega(t) \subset \mathbb{R}^2$ is the solvent phase
-and $t$ is time.
-The particles are disks of radius $c$, center $\aa_i$, and
-orientation $\theta_i$ relative to the horizontal axis.  
-The boundary of the $\Omega$ is $\bd\Omega = \Gamma_1 \cup
-\cdots \cup \Gamma_{N_b}$, where $\Gamma_i$ is the boundary of Janus
-particle $i$. Assuming inertial terms are
-negligible, we have 
+The domain $\Omega(t) \subset \mathbb{R}^2$ is the solvent phase and $t$
+is time. The particles are disks of radius $c$, center $\aa_i$, and
+orientation $\theta_i$ relative to the horizontal axis. The boundary of
+$\Omega$ is $\bd\Omega = \Gamma_1 \cup \cdots \cup \Gamma_{N_b}$, where
+$\Gamma_i$ is the boundary of Janus particle $i$. Assuming inertial
+terms are negligible, we have 
 \begin{alignat}{3}
 \label{eq:stokes}
-  -\mu \Delta \uu + \nabla p &= \mathbf{0},     && \xx \in \Omega, \\
+  -\mu \Delta \uu + \nabla p &= \mathbf{0}, && \xx \in \Omega, \\
   \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
 \end{alignat}
-where $\uu$ is the velocity of the solvent,
-$p$ is the pressure, $\uu_\infty$ is the
-background flow velocity, and $\mu$ is the constant viscosity.
-The solvent velocity satisfies a no-slip boundary
-condition for a rigid body motion
+where $\uu$ is the velocity of the solvent, $p$ is the pressure,
+$\uu_\infty$ is the background flow velocity, and $\mu$ is the constant
+viscosity. The solvent velocity satisfies the no-slip boundary condition
+for a rigid body motion
 \begin{equation}
   \label{eq:rigid-vel}
   \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, 
     \quad \xx \in \Gamma_i,
 \end{equation}
-where $\vv_i$ is the translational velocity, $\omega_i$ is the
-angular velocity, and
-$\langle x, y \rangle^{\perp} = \langle -y, x\rangle$.
-
-To close the system \eqref{eq:stokes}-\eqref{eq:rigid-vel},
-we use
+where $\vv_i$ is the translational velocity, $\omega_i$ is the angular
+velocity, and $\langle x, y \rangle^{\perp} = \langle -y, x\rangle$. To
+close the system \eqref{eq:stokes}-\eqref{eq:rigid-vel}, we use
 \begin{equation}
   \label{eq:force}
   \int_{\Gamma_i} \ssigma \cdot \nnu \, \dif s = \FF_i, \quad
@@ -222,8 +224,7 @@ Here $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
 \right)$ is the hydrodynamic stress tensor (pressure tensor), and
 $\nnu$ is the particle outward normal.
 
-To get $\FF_i$ and $T_i$,
-the particles minimize the free energy
+To determine $\FF_i$ and $T_i$, the particles minimize the free energy
 \begin{equation}
 \label{eq:free_energy}
 F = \gamma
@@ -1274,9 +1275,9 @@ The normalizations e.g., $(\pi r)^{-1/2}$, provide a uniform
 surface energy $\int_{\Gamma_i} g^2 \,ds = 1$ for circular particles
 of radius $r$. 
 The cases (ii) and (iii) are obtained by applying a vertical shift
-and scaling to case (i), see Figure \ref{fig:bcs}.
+and scaling to case (i), see Figure~\ref{fig:bcs}.
 Using this setup, we simulate the dynamics of 60 particles with one set of random
-initial positions and orientations as shown in Figure~\ref{fig:relax}(a).
+initial positions and orientations as shown in Figure~\ref{fig:relax}(a)
 
 \begin{figure}
   \begin{center}
@@ -1286,11 +1287,11 @@ initial positions and orientations as shown in Figure~\ref{fig:relax}(a).
   \end{center}
   \vspace{-20pt}  
   \caption{\label{fig:bcs} Boundary conditions characterize the water
-    structure at the particle interface: an amphiphilic particle (left),
-    a hydrophobic
-  particle with anisotropic intensity (middle), a water structure with
-  positive/negative charge (right). The dashed curve is the boundary of the
-  disk and the arrow is its director for each particle.}
+  structure at the particle interface: an amphiphilic particle (left), a
+  hydrophobic particle with anisotropic intensity (middle), a water
+  structure with positive/negative charge (right). The dashed curve is
+  the boundary of the disk and the arrow is its director for each
+  particle.}
 \end{figure}
 
 
@@ -1372,8 +1373,12 @@ where $\dot\gamma$ is the shear rate. Figure~\ref{fig:shear_1} (a)--(c) show the
 We measure the ratio of major and minor axes $\lambda$ by adopting an ellipse fitting using the singular value decomposition and track this aspect ratio for this multi-lamellar structure when the flow is on. 
 The result is shown in panel (d) and we observe that the multi-lamellar structure will be slightly stretched and the aspect ratio $\lambda=3.5$ increases over time.
 %
-Notice that for this simulation, the center of mass position of the initial configuration is not at the origin and it is slightly to the right of the origin. We also track the aspect ratio $\lambda$ for the case that the center of mass position is shifted to the origin. Panel (d) also shows that the dynamics 
-of two sets of simulations are invariant of center of mass position in a shear flow.
+Notice that for this simulation, the center of mass position of the
+initial configuration is not at the origin and it is slightly to the
+right of the origin. We also track the aspect ratio $\lambda$ for the
+case that the center of mass position is shifted to the origin. Panel
+(d) also shows that the dynamics of two sets of simulations are
+invariant of center of mass position in a shear flow.
 
 %
 \begin{figure}
