@@ -244,12 +244,10 @@ using the screened Laplace equation boundary value problem:
   u = g, \quad \xx \in \bd\Omega, \quad 
   u \rightarrow 0, \quad |\xx| \rightarrow \infty.
 \end{gather}
-The boundary condition $g$ gives the degree of hydrophobicity
-the particle-solvent interface (Figure~\ref{fig:bcs}).
+The boundary condition $g$ gives the degree of hydrophobicity the
+particle-solvent interface.
 
-Variation of the
-the free energy \eqref{eq:free_energy}
-provides
+Variation of the the free energy \eqref{eq:free_energy} provides
 \begin{equation}
   \FF_i = \int_{\Gamma_i} \mathbf{T}\nnu \, \dif s
   - \frac{M}{\rho_0}
@@ -265,22 +263,20 @@ $
 = \gamma \left[ \rho^{-1} u^2 \mathbf{I}
   + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right]
 $
-is the hydrophobic stress identified in ~\cite{Fu20} 
-and derived by variation of the domain techniques.
+is the hydrophobic stress identified in ~\cite{Fu20} and derived by
+variation of the domain techniques.
 
-The dimensionless repulsion profile $P$
-takes the form
-$P(s) = 1 - \sin(\pi s/2)$ for $0 \leq s < 1$
-and $P(s) = 0$ for $1 \leq s < \infty$.
-As such, only those particles within
-a distance $\rho_0$ of $\Gamma_i$
-contribute to repulsion.
-The parameter $M$ is the repulsion modulus.
+The dimensionless repulsion profile $P$ takes the form $P(s) = 1 -
+\sin(\pi s/2)$ for $0 \leq s < 1$ and $P(s) = 0$ for $1 \leq s <
+\infty$.  As such, only those particles within a distance $\rho_0$ of
+$\Gamma_i$ contribute to repulsion.  The parameter $M$ is the repulsion
+modulus.
 
 We use the parameters $\mu = 1$ cP, $\gamma = 4$ pN nm$^{-1}$,
 $\rho = 5$ nm, $c = 1.25$ nm, $M = 2$ pN, and $\rho_0 = 0.5$ nm.
+
 \subsection{Boundary integral represenation and time stepping}
-We recast \eqref{eq:stokes}-\eqref{eq:rigid-vel} and \eqref{eq:SL}
+We recast \eqref{eq:stokes}--\eqref{eq:rigid-vel} and \eqref{eq:SL}
 as boundary integral equations (BIEs) and discretize each BIE at
 $N$ points on each of the $N_b$ particles with a collocation method.
 To express the solution of \eqref{eq:SL},
@@ -1110,7 +1106,7 @@ $u$ satisfies the Euler-Lagrange equation
 \end{alignat}
 Equation~\eqref{eq:SL} is solved with a boundary integral equation
 method. The boundary condition $g$ is a material label that is
-transported with the particle (Figure~\ref{fig:bcs}).
+transported with the particle.
 
 The particles lower the free energy $F[u]$ of the surrounding water
 by moving. We calculate the rate of change of $F[u]$ using
@@ -1120,14 +1116,14 @@ Carrying out this variation yields the stress
   \label{eq:stress}
 \mathbf{T}
 = C \left[ \rho^{-1} f(u) \mathbf{I}
-  + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right].
+  + \rho \left(|\nabla u|^2 \mathbf{I} - 
+  2\nabla u \nabla u^T\right)\right].
 \end{align}
 The imposed forces and torques come from the integration of $\mathbf{T}$
-along the particle boundary.
-These forces and torques couple the Stokes equations \eqref{eq:stokes},
-to semilinear elliptic equation \eqref{eq:SL}.
-Solving for the translational and rotational velocities gives the
-particle evolution.
+along the particle boundary. These forces and torques couple the Stokes
+equations \eqref{eq:stokes}, to semilinear elliptic equation
+\eqref{eq:SL}. Solving for the translational and rotational velocities
+gives the particle evolution.
 
 To solve the Stokes equation with the correct boundary conditions, we
 represent the velocity as the of a layer potential with Stokeslets and
@@ -1156,7 +1152,6 @@ angular velocity $\omega_i$ satisfy
   \int_{\Gamma_i} \eeta \cdot (\xx-\aa_i)^\perp \, \dif s &= T_i,
   &&i = 1,\ldots,N_b.
 \end{alignat}
-
 
 \subsection{Normal Derivative of Double Layer Potential and HAP Energy}
 
@@ -1269,15 +1264,15 @@ on particle $\Gamma_i$:
     & $g(\mathbf{x}) = \displaystyle \frac{\cos (\theta_i(\xx))}{\sqrt{\pi r}}$
 \end{tabular}
 \end{equation}
-  The number $\theta_i(\xx)$ is the angle formed by the position $\xx$, the
-particle center $\aa_i$, and the particle director $\dd_i$.% (Figure \ref{fig:flow_map}).
-The normalizations e.g., $(\pi r)^{-1/2}$, provide a uniform
-surface energy $\int_{\Gamma_i} g^2 \,ds = 1$ for circular particles
-of radius $r$. 
-The cases (ii) and (iii) are obtained by applying a vertical shift
-and scaling to case (i), see Figure~\ref{fig:bcs}.
-Using this setup, we simulate the dynamics of 60 particles with one set of random
-initial positions and orientations as shown in Figure~\ref{fig:relax}(a)
+The number $\theta_i(\xx)$ is the angle formed by the position $\xx$,
+the particle center $\aa_i$, and the particle director $\dd_i$.% (Figure
+\ref{fig:flow_map}).
+The normalizations e.g., $(\pi r)^{-1/2}$, provide a uniform surface
+energy $\int_{\Gamma_i} g^2 \,ds = 1$ for circular particles of radius
+$r$. The cases (ii) and (iii) are obtained by applying a vertical shift
+and scaling to case (i).  Using this setup, we simulate the dynamics of
+60 particles with one set of random initial positions and orientations
+as shown in Figure~\ref{fig:relax}(a)
 
 \begin{figure}
   \begin{center}
