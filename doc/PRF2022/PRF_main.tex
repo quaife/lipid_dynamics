@@ -244,8 +244,8 @@ P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right), \quad
 \end{equation}
 where the hydrophobic attraction potential $u(\xx,t)$ can be regarded as an order parameter for the structure of water,
 $\rho$ is a decay length, and $\gamma$ is an interfacial tension. 
-$c$ is an ``effective" inter-particle distance below which the steric repulsion between a pair of JPs becomes important.
-
+$c$ is an ``effective" distance between particle centers, below which the steric repulsion between a pair of JPs becomes important.
+In the followings we use the radius of JP for $c$.
 
 The governing equation for $u(\xx,t)$ is obtained by computing the domain variation of the free energy $F$ \cite{Fu20}:
 We obtain
@@ -391,8 +391,8 @@ The present paper considers boundary conditions of the form
   \label{eq:bc-type}
 g(\xx) = a(b + \cos \alpha),\quad a = (\pi c(2b^2 + 1))^{-1/2},\quad \xx \in \Gamma_i,
 \end{equation}
-where $\alpha$ is the angle between $\xx - \aa_i$ and the particle director
-$\dd_i = (\cos \theta_i, \sin \theta_i)$.
+where $\alpha$ is the angle between $\xx$ and  $\aa_i$, and 
+$\dd_i = (\cos \theta_i, \sin \theta_i)$ isthe particle director.
 The parameter $a$ normalizes the boundary conditions 
 so that $\int_{\Gamma_i} g^2(\xx) \, \dif s = 1$.
 The motivation for this normalization is that the hydrophobic attraction
@@ -401,7 +401,9 @@ data in the zero-screening length limit.
 We refer to the side of the particle where $\alpha = 0$
 as the tail and the side where $\alpha = \pi$ as the head. 
 
-
+The boundary condition on JP can be put into three categories: min$(g) >0$, min$(g) =0$, and min$(g) <0$. Without loss of generality, 
+these three categories correspond to three characteristic values of $b$ in \eqref{eq:bc-type}: $b=2$, $b=1$ and $b=0$, respectively. 
+%
 To see the effect of the shift parameter $b$, we simulate the dynamics of
 198 particles and 60 particles in a quiescent flow as shown in Figure~\ref{fig:relax}.
 Three distinct configurations emerge:
