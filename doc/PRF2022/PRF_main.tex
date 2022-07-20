@@ -244,6 +244,7 @@ P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right), \quad
 \end{equation}
 where the hydrophobic attraction potential $u(\xx,t)$ can be regarded as an order parameter for the structure of water,
 $\rho$ is a decay length, and $\gamma$ is an interfacial tension. 
+$c$ is an ``effective" inter-particle distance below which the steric repulsion between a pair of JPs becomes important.
 
 
 The governing equation for $u(\xx,t)$ is obtained by computing the domain variation of the free energy $F$ \cite{Fu20}:
@@ -335,7 +336,7 @@ using high-order interpolation-based quadrature rules.
 Integrals that are smooth are computed with
 the spectrally-accurate trapezoid rule, and nearly-singular integrals,
 caused by close contact between two particles, are computed with a
-high-order interpolation-based quadrature rule (\cite{qua-bir2014}).
+high-order interpolation-based quadrature rule \cite{qua-bir2014}.
 
 After discretizing and applying quadrature,
 the result is an $NN_b \times NN_b$ and $2NN_b \times 2NN_b$
@@ -1102,6 +1103,7 @@ functional is
 \end{align}
 where $u$ is an order parameter for the structure of water, $\rho$ is a
 decay length, $C$ is a constant, and $f(u)$ is a potential.
+%$c$ is ``effective" inter-particle distance below which the steric repulsion becomes important.
 Hydrogen-bond persistence times are on the order of picoseconds which is
 much smaller than characteristic time for particle motion.
 %\cite{MaGa13}. 
