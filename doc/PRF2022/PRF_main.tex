@@ -256,6 +256,7 @@ a screened Laplace equation boundary value problem as a model for the hydrophobi
   u = g, \quad \xx \in \bd\Omega, \quad 
   u \rightarrow 0, \quad |\xx| \rightarrow \infty.
 \end{gather}
+With 
 The boundary condition $g$ gives the degree of hydrophobicity the
 particle-solvent interface.
 
@@ -401,7 +402,8 @@ data in the zero-screening length limit.
 We refer to the side of the particle where $\alpha = 0$
 as the tail and the side where $\alpha = \pi$ as the head. 
 
-The boundary condition on JP can be classified into three categories: min$(g) >0$, min$(g) =0$, and min$(g) <0$. Without loss of generality, 
+With max$(g)>0$ to guarantee (at least partial) hydrophobic surface on each JP,  
+the boundary condition can be classified into three categories: min$(g) >0$, min$(g) =0$, and min$(g) <0$. Without loss of generality, 
 these three categories correspond to three characteristic values of $b$ in \eqref{eq:bc-type}: $b=2$, $b=1$ and $b=0$, respectively. 
 %
 To see the effect of the shift parameter $b$, we simulate the dynamics of
@@ -411,9 +413,9 @@ Three distinct configurations emerge:
 (ii) multilamellar for $b = 2$, and 
 (iii) striated for $b = 0$.
 
-Figure~\ref{fig:relax}(a)shows the initial configurations with orientations of 198-particle and 60- particle cases,
+Figure~\ref{fig:relax}(a) shows the initial configurations with orientations of 198-particle and 60- particle cases,
 respectively. 
-Case (i) with $b = 1$, mimicks an amphiphilic particle.
+Case (i) with $b = 1$ (bc(i)) mimicks an amphiphilic particle.
 The boundary condition $g$ is everywhere nonnegative,
 takes the value $0$ on the
 hydrophilic head (green),
@@ -424,7 +426,7 @@ hydrophobic sides to form bilayers  (Figure~\ref{fig:relax}(b)). The inset shows
 state for 60-particle run.
 Both cases form bilayers with multiple components. 
 
-In case (ii) with $b = 1$, the boundary condition is everywhere positive.
+In case (ii) with $b = 1$ (bc(ii)) the boundary condition is everywhere positive.
 It takes the maximum value $3a$ on tail (red) and the
 minimum value $a$ on the head side (yellow). 
 Both sides of the Janus particle are hydrophobic but
@@ -436,7 +438,7 @@ The number of folds depends primarily on the number of particles.
 Figure~\ref{fig:relax}(c), for example, shows a
 multilamellar structure with four layers and one with two layers in the inset.
 
-In case (iii) with $b=1$,
+In case (iii) with $b=1$ (bc(iii))
 a water structure with
 positive/negative charge is possible \cite{MaRa76, Ma77}.
 Here, the head repels the tail of other particles
@@ -650,23 +652,25 @@ Panel (d) plots the free energies; panel (e) shows orientational parameter $\til
      }
 \end{figure}
 
-\subsection{Bilayer configurations in a shear flow}
-To begin, we place the bilayer structure (Figure~\ref{fig:relax}(b), inset)
-in the shear background flow
+\subsection{Bilayer configurations (bc(i)) in a linear shear flow}
+To begin, we place the bilayer structure (with bc(i)) from the inset of Figure~\ref{fig:relax}(b)
+in a linear shear flow
 \begin{equation}
 \uu_\infty(\xx) = \dot\gamma \text{ ns }^{-1} ({\bf e}_y\cdot\xx){\bf e}_x,
 \end{equation}
 %
 where $\dot\gamma$ is the dimensionless shear rate and ${\bf e}_x$ and ${\bf e}_y$
 are horizontal and vertical unit vectors, respectively.  
+The initial bilayer structure consists of a small self-enclosing bilayer (vesicle) and several pieces of bilayers.
 Figure~\ref{fig:BC1_shear}(a)--(c)
-shows snapshots of the vesicle when $\dot\gamma= 0.05,0.075,0.01$
+shows snapshots of the bilayer when $\dot\gamma= 0.05,0.075,0.01$
 at $t = 0.5$ $\upmu$s.
-The general pattern consists of a rotating body.  The various bilayer components
-detach and reattach throughout so that the boyd is continuously changing morphology.
-The supplementary movies show that these bilayers merge and form a worm-like shape in higher 
-shear flows.
-
+The dynamics of the bilayer can be found in the supplementary movies, which show that the initial pieces of bilayers merge and form a worm-like shape
+under a linear shear flow.
+At a low shear rate, the bilayer constantly goes through rotation and extensional deformation with the whole bilayer intact (figure~\ref{fig:BC1_shear}(a)).
+As the shear rate increases to a moderate value (figure~\ref{fig:BC1_shear}(b)), the bilayer is observed to shed a small piece of bilayer, similar to the asymmetric breakup of a viscous drop \cite{}.
+In figure~\ref{fig:BC1_shear}(c) the high shear rate gives rise to two nearly equal bilayers, similar to the symmetric drop breakup under a linear shear flow \cite{}.
+%
 \begin{figure}
   \begin{center}
     \includegraphics[width=1.0\textwidth]{Figures/Figure5.pdf}    
@@ -681,14 +685,17 @@ Panel (d) plots the free energies; panel (e) shows orientational parameter $\til
 In terms of deformations, 
 the free energies 
 are relatively constant (Figure~\ref{fig:BC1_shear}(d)),
-with the overall changes in the range of a few kT/nm.  Note that the free energy takes
-the form of a line tension because the simulations are two-dimensional.
+with the overall changes in the range of a few kT/nm.  
+Note that the free energy $F$ in figure~\ref{fig:BC1_shear}(d) has the unit of force because our system is two dimensional.
 
-An interesting feature of the simulations is that the $\tilde S_2$ order parameter
-is on the average increasing (Figure~\ref{fig:BC1_shear}(e)).  In the initial configuration,
-the structure has three or four components.  Under the shear flow, the detachment and reattachment
-results in an overall decrease in the number of components.  This suggests that
-the shear flow perturbs the local equilibrium obtained from a random initial condition
+An interesting feature of the simulations is that the order parameter $\tilde S_2$ in (Figure~\ref{fig:BC1_shear}(e))
+is on average increasing.  In the initial configuration,
+the structure has three or four components.  
+%
+Under the shear flow, the shedding and merging of bilayers
+result in an overall decrease in distinct bilayer structures.  
+This suggests that
+the shear flow changes the energy landscape to move the local equilibrium obtained from a random initial condition
 to an alternate local equilibrium with greater orientational order.   
 
 \begin{figure}
@@ -699,26 +706,30 @@ to an alternate local equilibrium with greater orientational order.
 Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
 }
 \end{figure}
-
-
+%
 Finally, the strain parameter diverges in the large shear flow rate cases (Figure~\ref{fig:BC1_shear}(f))
 because the components eventually completely separate and move away from one another
 under the shear flow.
 
+In \citet{Fu2022_JFM} the hydrodynamics of a JP vesicle under a linear shear flow is studied. 
+Focusing on drawing analogies to hydrodynamics of a vesicle in continuum modeling (such as tank-treading, bilayer slip and permeability),
+our previous studies also show the existence of a critical shear rate above which the JP vesicle ruptures. 
+Based on the these early results, we conduct numerical simulations with $\dot\gamma=0.05, 0.066, 0.075$.
+At these shear rates, the vesicle undergoes the familiar hydrodynamics (such as elongation along the extensional axis and tank-treading motion),
+as shown in Figure~\ref{fig:Ves_shear} (a)--(c).
+%
+Here we illustrate how the three measures of structural deformation 
+correlate to the dynamics of a JP vesicle.
 We reinitialized the case (i) configuration with particles arranged in the pattern of a single, circular vesicle.
 This shape is also a local equilibrium, with somewhat less energy than the disordered state c.f.,
 Figure~\ref{fig:BC1_shear}(d) and Figure~\ref{fig:Ves_shear} (d).
-Our previous paper \cite{Fu2022_JFM} studied
-The vesicle in a shear flow undergoes the familiar tank-treading deformation (Figure~\ref{fig:Ves_shear} (a)--(c)),
-and based on previous results (\cite{Fu2022_JFM}),
-we investigate the cases $\dot\gamma=0.05, 0.066, 0.075$.
 
-Unlike the multiples component case, 
-the energies for the vesicle case show jumps from the baseline value $30$ kT/nm to 32 kT/nm
+
+Unlike the dynamics of bilayers in figure~\ref{fig:BC1_shear}, 
+the energies of the JP vesicle in figure~\ref{fig:Ves_shear}(d) show jumps from the baseline value $30$ kT/nm to 32 kT/nm
 signaling the rupture of the vesicle into multiple components
 (Figure \ref{fig:Ves_shear}(d), long and short dashed curves).
 After this initial break, the energies are more or less constant.
-
 
 
 For the lowest shear rate case, the vesicle has nearly constant orientational order $\tilde S_2 = 1$
