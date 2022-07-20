@@ -211,22 +211,28 @@ for a rigid body motion
     \quad \xx \in \Gamma_i,
 \end{equation}
 where $\vv_i$ is the translational velocity, $\omega_i$ is the angular
-velocity, and $\langle x, y \rangle^{\perp} = \langle -y, x\rangle$. To
-close the system \eqref{eq:stokes}-\eqref{eq:rigid-vel}, we use
+velocity, and $\langle x, y \rangle^{\perp} = \langle -y, x\rangle$. 
+Without inertia, the system in \eqref{eq:stokes}-\eqref{eq:rigid-vel} also satisfies the force-free and torque-free conditions.
+This means that the total force $\FF_i,$ and torque $T_i$ from the hydrodynamic stress on each particle (with subscript `$i$')
+are in balance with the force and torque from the hydrophobic potential \cite{Fu2022_JFM}.
+The total force and torque from the fluid flow are computed as
 \begin{equation}
   \label{eq:force}
-  \int_{\Gamma_i} \ssigma \cdot \nnu \, \dif s = \FF_i, \quad
-  \int_{\Gamma_i} (\xx - \aa_i)^\perp \cdot 
-  (\ssigma \cdot \nnu) \, \dif s = T_i,
+ \FF_i \equiv \int_{\Gamma_i} \ssigma \cdot \nnu_i \, \dif s, \quad
+ T_i \equiv \int_{\Gamma_i} (\xx - \aa_i)^\perp \cdot 
+  (\ssigma \cdot \nnu_i) \, \dif s,
   \quad i=1,\ldots,N_b,
 \end{equation}
-where $\FF_i \in \mathbb{R}^2$ and $T_i \in \mathbb{R}$
-are interparticle forces and torques. 
-Here $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
+where 
+%$\FF_i \in \mathbb{R}^2$ and $T_i \in \mathbb{R}$
+%are interparticle forces and torques. 
+$\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
 \right)$ is the hydrodynamic stress tensor (pressure tensor), and
-$\nnu$ is the particle outward normal.
+$\nnu_i$ is the unit outward normal on the $i$th particle.
 
-To determine $\FF_i$ and $T_i$, the particles minimize the free energy
+$\FF_i$ and $T_i$ are to be in balance with the force and torque from the hydrophobic interactions between the
+particles and the viscous solvent. As in \citet{Fu2022_JFM} such a hydrophobic attraction potential $u(\xx,t)$ is assumed to
+the minimizer of the free energy
 \begin{equation}
 \label{eq:free_energy}
 F = \gamma
@@ -236,10 +242,13 @@ F = \gamma
 \sum_{j \neq i} 
 P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right), \quad
 \end{equation}
-Here, $u(\xx,t)$ is an order parameter for the structure of water,
+where the hydrophobic attraction potential $u(\xx,t)$ can be regarded as an order parameter for the structure of water,
 $\rho$ is a decay length, and $\gamma$ is an interfacial tension. 
-We model water structure
-using the screened Laplace equation boundary value problem:
+
+
+The governing equation for $u(\xx,t)$ is obtained by computing the domain variation of the free energy $F$ \cite{Fu2018_SIAM}:
+We obtain
+a screened Laplace equation boundary value problem as a model for the hydrophobic interaction between water and JPs:
 \begin{gather}
   \label{eq:SL}
   -\rho^2 \Delta u + u = 0,\quad \xx \in \Omega, \\
