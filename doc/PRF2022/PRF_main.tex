@@ -639,18 +639,6 @@ respond to external fluid forcing.  We can then compare the results to guage
 the effective properties of materials comprised of Janus particles as a function
 of their amphiphilic properties.  
 %%%
-%%%
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=1.0\textwidth]{Figures/Figure4.pdf}
-  \end{center}
-  \caption{
-    \label{fig:Ves_shear}
-The figure shows a single vesicle in a shear flow. Panels (a)-(c) are snapshots for $\dot \gamma = \{0.05, 0.0655, 0.075\}$ at $t=0.16\ \mu$s where the pre-relaxed initial configuration is shown in inset of panel (a).
-The streamlines are plotted in the background.
-Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
-     }
-\end{figure}
 
 \subsection{Bilayer configurations (bc(i)) in a linear shear flow}
 To begin, we place the bilayer structure (with bc(i)) from the inset of Figure~\ref{fig:relax}(b)
@@ -668,27 +656,29 @@ at $t = 0.5$ $\upmu$s.
 The dynamics of the bilayer can be found in the supplementary movies, which show that the initial pieces of bilayers merge and form a worm-like shape
 under a linear shear flow.
 At a low shear rate, the bilayer constantly goes through rotation and extensional deformation with the whole bilayer intact (figure~\ref{fig:BC1_shear}(a)).
-As the shear rate increases to a moderate value (figure~\ref{fig:BC1_shear}(b)), the bilayer is observed to shed a small piece of bilayer, similar to the asymmetric breakup of a viscous drop \cite{}.
-In figure~\ref{fig:BC1_shear}(c) the high shear rate gives rise to two nearly equal bilayers, similar to the symmetric drop breakup under a linear shear flow \cite{}.
-%
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=1.0\textwidth]{Figures/Figure5.pdf}    
-  \end{center}
-  \vspace{-20pt}  
-  \caption{\label{fig:BC1_TG} Multiple component bilayers in a Taylor-Green when $V_0 = \{0.1, 0.15, 0.2\}$ at $t=0.2\ \mu$s. The pre-relaxed initial configuration is shown in inset of panel (a). 
- The streamlines are plotted in the background. 
-Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
-  }
-\end{figure}
+As the shear rate increases to a moderate value (figure~\ref{fig:BC1_shear}(b)), the bilayer is observed to shed a small piece of bilayer, 
+similar to the asymmetric breakup of a viscous drop \cite{}.
+In figure~\ref{fig:BC1_shear}(c) the high shear rate gives rise to two separate, nearly equal bilayers, 
+similar to the symmetric drop breakup under a linear shear flow \cite{}.
+%%
+%\begin{figure}
+%  \begin{center}
+%    \includegraphics[width=1.0\textwidth]{Figures/Figure5.pdf}    
+%  \end{center}
+%  \vspace{-20pt}  
+%  \caption{\label{fig:BC1_TG} Multiple component bilayers in a Taylor-Green when $V_0 = \{0.1, 0.15, 0.2\}$ at $t=0.2\ \mu$s. The pre-relaxed initial configuration is shown in inset of panel (a). 
+% The streamlines are plotted in the background. 
+%Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
+%  }
+%\end{figure}
 
-In terms of deformations, 
+In terms of deformation measures,  
 the free energies 
 are relatively constant (Figure~\ref{fig:BC1_shear}(d)),
 with the overall changes in the range of a few kT/nm.  
 Note that the free energy $F$ in figure~\ref{fig:BC1_shear}(d) has the unit of force because our system is two dimensional.
 
-An interesting feature of the simulations is that the order parameter $\tilde S_2$ in (Figure~\ref{fig:BC1_shear}(e))
+An interesting feature of the simulations is that the order parameter $\tilde S_2$ in figure~\ref{fig:BC1_shear}(e)
 is on average increasing.  In the initial configuration,
 the structure has three or four components.  
 %
@@ -697,20 +687,33 @@ result in an overall decrease in distinct bilayer structures.
 This suggests that
 the shear flow changes the energy landscape to move the local equilibrium obtained from a random initial condition
 to an alternate local equilibrium with greater orientational order.   
-
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=1.0\textwidth]{Figures/Figure6.pdf}        
-  \end{center}
-\caption{\label{fig:ves_TG} Single vesicle in a TG flow. Panels (a)-(c) are snapshots for $V_0=\{0.1, 0.15, 0.2\}$ at $t=0.6\ \mu$s where the pre-relaxed initial configuration is shown in inset of panel (a). The streamlines are plotted in the background.
-Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
-}
-\end{figure}
+%
+%\begin{figure}
+%  \begin{center}
+%    \includegraphics[width=1.0\textwidth]{Figures/Figure6.pdf}        
+%  \end{center}
+%\caption{\label{fig:ves_TG} Single vesicle in a TG flow. Panels (a)-(c) are snapshots for $V_0=\{0.1, 0.15, 0.2\}$ at $t=0.6\ \mu$s where the pre-relaxed initial configuration is shown in inset of panel (a). The streamlines are plotted in the background.
+%Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
+%}
+%\end{figure}
 %
 Finally, the strain parameter diverges in the large shear flow rate cases (Figure~\ref{fig:BC1_shear}(f))
 because the components eventually completely separate and move away from one another
 under the shear flow.
 
+%%%
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{Figures/Figure4.pdf}
+  \end{center}
+  \caption{
+    \label{fig:Ves_shear}
+The figure shows a single vesicle in a shear flow. Panels (a)-(c) are snapshots for $\dot \gamma = \{0.05, 0.0655, 0.075\}$ at $t=0.16\ \mu$s where the pre-relaxed initial configuration is shown in inset of panel (a).
+The streamlines are plotted in the background.
+Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
+     }
+\end{figure}
+%
 In \citet{Fu2022_JFM} the hydrodynamics of a JP vesicle under a linear shear flow is studied. 
 Focusing on drawing analogies to hydrodynamics of a vesicle in continuum modeling (such as tank-treading, bilayer slip and permeability),
 our previous studies also show the existence of a critical shear rate above which the JP vesicle ruptures. 
@@ -727,25 +730,37 @@ Figure~\ref{fig:BC1_shear}(d) and Figure~\ref{fig:Ves_shear} (d).
 
 Unlike the dynamics of bilayers in figure~\ref{fig:BC1_shear}, 
 the energies of the JP vesicle in figure~\ref{fig:Ves_shear}(d) show jumps from the baseline value $30$ kT/nm to 32 kT/nm
-signaling the rupture of the vesicle into multiple components
-(Figure \ref{fig:Ves_shear}(d), long and short dashed curves).
-After this initial break, the energies are more or less constant.
-
+signaling the rupture of the vesicle into disconnected bilayers
+(see figure \ref{fig:Ves_shear}(d), long and short dashed curves).
+After the rupture, each piece circles around the vorticity at the center without reconnection while the energies fluctuate slightly around a constant.
 
 For the lowest shear rate case, the vesicle has nearly constant orientational order $\tilde S_2 = 1$
-(Figure \ref{fig:Ves_shear}(e), solid curve).
-Following rupture ($\dot\gamma= 0.066$ and $\dot \gamma= 0.075$),
-there is greater variation in the order parameter $\tilde{S}_2$
+(see figure \ref{fig:Ves_shear}(e), solid curve).
+After the JP vesicle
+ruptures with $\dot\gamma= 0.066$ and $\dot \gamma= 0.075$,
+we observe a greater variation in the order parameter $\tilde{S}_2$
 with a baseline value around $0.7$
-(Figure \ref{fig:Ves_shear}(e), dashed curves).
+(see figure \ref{fig:Ves_shear}(e), dashed curves).
 The oscillations occur due to the orbit of the two bilayer components,
 and $\tilde{S}_2$ increases to about $0.9$ when the components slide past one another and are nearly parallel.
-
-Like with multiple component bilayer case, positional order diverges when the components of the ruptured
-vesicle separate and drift off in opposite directions (Figure \ref{fig:Ves_shear}(f), dashed curves).
+%
+As in the previous case, peaks in the strain parameter $E$ correlate well with changes in structural topology in the bilayer dynamics, see
+the dashed curves in figure~\ref{fig:Ves_shear}(f).
 
 
 %%%%%%%
+%
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{Figures/Figure5.pdf}    
+  \end{center}
+  \vspace{-20pt}  
+  \caption{\label{fig:BC1_TG} Multiple component bilayers in a Taylor-Green when $V_0 = \{0.1, 0.15, 0.2\}$ at $t=0.2\ \mu$s. The pre-relaxed initial configuration is shown in inset of panel (a). 
+ The streamlines are plotted in the background. 
+Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
+  }
+\end{figure}
+%
 \subsection{Bilayer and vesicle configurations in a Taylor-Green flow}
 Next, we subject the bilayer/vesicles configurations to a 
 Taylor-Green (TG) background flow
@@ -766,6 +781,14 @@ the dimensionless flow strength $V_0$ and with the cell size $\lambda = l$ nm.
 The default parameter $l=2$ is used through this work.
 %
 
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{Figures/Figure6.pdf}        
+  \end{center}
+\caption{\label{fig:ves_TG} Single vesicle in a TG flow. Panels (a)-(c) are snapshots for $V_0=\{0.1, 0.15, 0.2\}$ at $t=0.6\ \mu$s where the pre-relaxed initial configuration is shown in inset of panel (a). The streamlines are plotted in the background.
+Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
+}
+\end{figure}
 
 
 There is no appreciable pattern in the deformation for the multicomponent bilayer case in TG flow. 
