@@ -221,7 +221,7 @@ for a rigid body motion
 \end{align}
 where $\vv_i$ is the translational velocity, $\omega_i$ is the angular
 velocity, and $\langle x, y \rangle^{\perp} = \langle -y, x\rangle$.
-Without inertia, the system in~\eqref{eq:stokes}-\eqref{eq:rigid-vel}
+Without inertia, the system in~\eqref{eq:stokes}--\eqref{eq:rigid-vel}
 also satisfies the force-free and torque-free conditions.
 %This means
 %that the total force $\FF_i,$ and torque $T_i$ from the hydrodynamic
@@ -267,9 +267,11 @@ domain variation of the free energy $F$~\cite{Fu20}. We obtain a
 screened Laplace equation boundary value problem as a model for the
 hydrophobic interaction between water and JPs:
 \begin{alignat}{3}
-  \label{eq:SL}
+  \label{eq:SLpde}
   -\rho^2 \Delta u + u &= 0,\qquad &&\xx \in \Omega, \\
+  \label{eq:SLbc}
   u &= g, &&\xx \in \bd\Omega, \\
+  \label{eq:SLfarfield}
   u &\rightarrow 0, &&|\xx| \rightarrow \infty,
 \end{alignat}
 where the boundary condition $g$ gives the degree of hydrophobicity the
@@ -316,33 +318,34 @@ pN, and $\rho_0 = 0.5$ nm.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Boundary integral represenation and time stepping}
-We recast \eqref{eq:stokes}--\eqref{eq:rigid-vel} and \eqref{eq:SL}
-as boundary integral equations (BIEs) and discretize each BIE at
-$N$ points on each of the $N_b$ particles with a collocation method.
-To express the solution of \eqref{eq:SL},
-we adopt the double layer potential
+We recast~\eqref{eq:stokes}--\eqref{eq:rigid-vel}
+and~\eqref{eq:SLpde}--\eqref{eq:SLfarfield} as boundary integral
+equations (BIEs) and discretize each BIE at $N$ points on each of the
+$N_b$ particles with a collocation method. To express the solution
+of~\eqref{eq:SLpde}--\eqref{eq:SLfarfield}, we adopt the double layer
+potential
 \begin{align}
 \label{eq:SL_BIE}
-u({\bf x}) = \DD[\sigma](\xx) = \int_\Gamma \frac{\partial G(\xx-\yy)}{\partial \nnu_\yy}\sigma(\yy)\, \dif s_\yy
-, \quad \xx \in \Omega,
+  u({\xx}) = \DD[\sigma](\xx) = \int_\Gamma 
+    \frac{\partial G(\xx-\yy)}{\partial \nnu_\yy}\sigma(\yy)\, 
+    \dif s_\yy, \quad \xx \in \Omega,
 \end{align}
-where $G(\xx) = \frac{1}{2\pi}K_0(|\xx|/\rho)$ is the fundamental solution to the screened Laplace equation \eqref{eq:SL},
-$K_0$ is the zeroth-order modified Bessel function of the first kind,
-and $\sigma$ is a scalar-valued density function.
-The subscript in $\dif s_\yy$ denotes integration with respect to $\yy \in \Gamma$. 
-For the velocity, we use the representation [REF]
+where $G(\xx) = \frac{1}{2\pi}K_0(|\xx|/\rho)$ is the fundamental
+solution to the screened Laplace equation~\eqref{eq:SLpde}, $K_0$ is the
+zeroth-order modified Bessel function of the first kind, and $\sigma$ is
+a scalar-valued density function.  The subscript in $\dif s_\yy$ denotes
+integration with respect to $\yy \in \Gamma$.  For the velocity, we use
+the representation~\cite{pow-mir1987}
 \begin{align}
   \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
     \sum_{i=1}^{N_b} \left(\SS(\xx,\aa_i) \cdot \FF_i + 
     \RR(\xx,\aa_i) T_i\right), \quad \xx \in \Omega,
 \end{align}
-with the vector-valued density function $\eeta$,
-Stokeslet 
-$\SS(\xx,\aa_i) = \frac{1}{4\pi} \left(-\log |\rr|\mathbf{I} + \frac{\rr \otimes \rr}{|\rr|^2}\right)$,
-and Rotlet
-$\RR(\xx,\aa_i) = \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2}$,
-$\rr = \xx - \aa_i$ [REF].
+with the vector-valued density function $\eeta$, Stokeslet
+$\SS(\xx,\aa_i) = \frac{1}{4\pi} \left(-\log |\rr|\mathbf{I} + \frac{\rr
+\otimes \rr}{|\rr|^2}\right)$, and Rotlet $\RR(\xx,\aa_i) =
+\frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2}$, $\rr = \xx - \aa_i$.
     
 
 Finally, together with \eqref{eq:velocity},
@@ -504,9 +507,8 @@ a strain parameter $E$,
 and two scalar order parameters $S_{2}$ and $\tilde S_2$ to measure
 the deformation of particle configurations under background flows. 
 
-First, we must simplify the
-form of the free energy \eqref{eq:free_energy}
-using integration by parts and \eqref{eq:SL}
+First, we must simplify the form of the free energy
+\eqref{eq:free_energy} using integration by parts and \eqref{eq:SLpde}
 to obtain
 \begin{equation}
 \label{eq:free_energy2}
@@ -1077,6 +1079,16 @@ We thank Dr. S\'ebastien Michelin and Dr. Cecile Cottin-Bizzonne from LadHyX - E
 
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
 
 \section{DRAFT RESULTS BELOW}
 {\bf More results:}
