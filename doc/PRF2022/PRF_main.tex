@@ -251,18 +251,7 @@ torque from the hydrophobic potential.
 %particles and the viscous solvent. 
 As in~\citet{Fu2022_JFM} such a hydrophobic attraction potential
 $u(\xx,t)$ is assumed to the minimizer of the free energy
-\begin{align}
-=======
-velocity, and $\langle x, y \rangle^{\perp} = \langle -y, x\rangle$. 
-
-Without inertia, $(\uu, p)$ also satisfy the force-free and torque-free conditions.
-This means that the force and torque from the hydrodynamic stress on each particle 
-are in balance with the total
-force and torque coming from the hydrophobic potential and repulsion \cite{Fu2022_JFM}.
-To compute this balance, we define
-the free energy\cite{Fu2022_JFM}
 \begin{equation}
->>>>>>> e6ff8abf65732bc50432a8d6cd9352c76cb936ca
 \label{eq:free_energy}
 F = \gamma
 \int_{\Omega} \rho |\nabla u|^2 + \rho^{-1} u^2
@@ -272,9 +261,10 @@ F = \gamma
 P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right), \quad
 \end{equation}
 where $u(\xx,t)$ is as an order parameter for the structure of water,
-$\rho$ is a decay length, and $\gamma$ is an interfacial tension. 
-$c$ is an ``effective" distance between particle centers, below which the steric repulsion between a pair of JPs becomes important.
-In the followings we let $c$ be the radius of each JP.
+$\rho$ is a decay length, and $\gamma$ is an interfacial tension.  The
+radius of the Janus particles $c$ also serves as an ``effective"
+distance between particle centers, below which the steric repulsion
+between a pair of JPs becomes important.
 
 The governing equation for $u(\xx,t)$ is obtained by computing the
 domain variation of the free energy $F$~\cite{Fu20}. We obtain a
@@ -288,30 +278,18 @@ hydrophobic interaction between water and JPs:
   \label{eq:SLfarfield}
   u &\rightarrow 0, &&|\xx| \rightarrow \infty,
 \end{alignat}
-where the boundary condition $g$ gives the degree of hydrophobicity the
-=======
-The parameter $\rho_0$ is an ``effective" distance between particle centers,
-below which the steric repulsion between a pair of JPs becomes important.
-
-The order parameter $u(\xx,t)$ is assumed to the minimizer of the free energy $F$ \cite{Fu20}.
-Its governing equations $u(\xx,t)$ 
-are a screened Laplace equation boundary value problem
-as a model for the hydrophobic interaction between water and JPs:
-\begin{gather}
-  \label{eq:SL}
-  -\rho^2 \Delta u + u = 0,\quad \xx \in \Omega, \\
-  \label{eq:SLbc}
-  u = g, \quad \xx \in \bd\Omega, \quad 
-  u \rightarrow 0, \quad |\xx| \rightarrow \infty.
-\end{gather}
 The boundary condition $g$ encodes hydrophobic properties of the
->>>>>>> e6ff8abf65732bc50432a8d6cd9352c76cb936ca
-particle-solvent interface.
+particle-solvent interface. The parameter $\rho_0$ is an ``effective"
+distance between particle centers, below which the steric repulsion
+between a pair of JPs becomes important.
+\todo[inline]{We are calling both $c$ and $\rho_0$ as this ``effective"
+distance (see above). Also, $\rho_0$ is not defined. Should it be
+$\rho$?}
 
-To get forces and torques from the free energy,
-we compute the variation of the domain of the free energy 
-\eqref{eq:free_energy} subject to \eqref{eq:SL}-\eqref{eq:SLbc},
-and obtain 
+
+To calculate forces and torques from the free energy, we compute the
+variation of the domain of the free energy~\eqref{eq:free_energy}
+subject to~\eqref{eq:SLpde}--\eqref{eq:SLbc}, and obtain 
 \begin{equation}
   \FF_i \equiv \int_{\Gamma_i} \mathbf{T}\nnu \, \dif s
   - \frac{M}{\rho_0}
@@ -322,14 +300,14 @@ P'\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right)
 T_i \equiv \int_{\Gamma_i} (\xx - \aa_i)^{\perp}\cdot (\mathbf{T}\nnu) \, \dif s, 
 \end{equation}
 for $i = 1,\dots,N_b$ with particle outward normal $\nu$. The term 
-$
+\begin{align}
 \mathbf{T}
 = \gamma \left[ \rho^{-1} u^2 \mathbf{I}
   + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right]
-$
-is the hydrophobic stress.
-Repulsion is rotationally symmetric and does not contribute to the torque.
-The derivation details are found in \citet{Fu20}.
+\end{align}
+is the hydrophobic stress. Repulsion is rotationally symmetric and does
+not contribute to the torque. The derivation details are found
+in~\citet{Fu20}.
 
 Since the force and torque from the hydrodynamic stress on each particle
 are in balance with the total force and torque coming from the
