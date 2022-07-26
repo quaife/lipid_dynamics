@@ -41,7 +41,8 @@
 \usepackage{hyperref}
 \usepackage{mathtools}
 \usepackage{commath}
-
+\usepackage{tabularx}
+\usepackage{tabularray}
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}
@@ -223,34 +224,14 @@ for a rigid body motion
     \quad \xx \in \Gamma_i,
 \end{equation}
 where $\vv_i$ is the translational velocity, $\omega_i$ is the angular
-velocity, and $\langle x, y \rangle^{\perp} = \langle -y, x\rangle$.
-Without inertia, the system in~\eqref{eq:stokes}--\eqref{eq:rigid-vel}
-also satisfies the force-free and torque-free conditions.
-%This means
-%that the total force $\FF_i,$ and torque $T_i$ from the hydrodynamic
-%stress on each particle (with subscript `$i$') balance the force and
-%torque from the hydrophobic potential~\cite{Fu2022_JFM}. 
-The total force
-and torque from the fluid flow are
-\begin{align}
-  \label{eq:force}
- \FF_i = \int_{\Gamma_i} \ssigma \cdot \nnu_i \, \dif s, \quad
- T_i = \int_{\Gamma_i} (\xx - \aa_i)^\perp \cdot 
-  (\ssigma \cdot \nnu_i) \, \dif s,
-  \quad i=1,\ldots,N_b,
-\end{align}
-respectively, where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu +
-\nabla \uu^T \right)$ is the hydrodynamic stress tensor (pressure
-tensor), and $\nnu_i$ is the unit outward normal on the $i$th particle.
+velocity, and $\langle x, y \rangle^{\perp} = \langle -y, x\rangle$. 
 
-
-The total force $\FF_i,$ and torque $T_i$ from the hydrodynamic
-stress on each particle (with subscript `$i$') balance the force and
-torque from the hydrophobic potential. 
-%$\FF_i$ and $T_i$ are to be in balance with the force and torque from the hydrophobic interactions between the
-%particles and the viscous solvent. 
-As in~\citet{Fu2022_JFM} such a hydrophobic attraction potential
-$u(\xx,t)$ is assumed to the minimizer of the free energy
+Without inertia, $(\uu, p)$ also satisfy the force-free and torque-free conditions.
+This means that the force and torque from the hydrodynamic stress on each particle 
+are in balance with the total
+force and torque coming from the hydrophobic potential and repulsion \cite{Fu2022_JFM}.
+To compute this balance, we define
+the free energy\cite{Fu2022_JFM}
 \begin{equation}
 \label{eq:free_energy}
 F = \gamma
@@ -261,53 +242,48 @@ F = \gamma
 P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right), \quad
 \end{equation}
 where $u(\xx,t)$ is as an order parameter for the structure of water,
-$\rho$ is a decay length, and $\gamma$ is an interfacial tension.  The
-radius of the Janus particles $c$ also serves as an ``effective"
-distance between particle centers, below which the steric repulsion
-between a pair of JPs becomes important.
+$\rho$ is a decay length, and $\gamma$ is an interfacial tension. 
 
-The governing equation for $u(\xx,t)$ is obtained by computing the
-domain variation of the free energy $F$~\cite{Fu20}. We obtain a
-screened Laplace equation boundary value problem as a model for the
-hydrophobic interaction between water and JPs:
-\begin{alignat}{3}
-  \label{eq:SLpde}
-  -\rho^2 \Delta u + u &= 0,\qquad &&\xx \in \Omega, \\
+The order parameter $u(\xx,t)$ is assumed to the minimizer of the free energy $F$ \cite{Fu20}.
+Its governing equations $u(\xx,t)$ are a screened Laplace equation boundary value problem
+\begin{gather}
+  \label{eq:SL}
+  -\rho^2 \Delta u + u = 0,\quad \xx \in \Omega, \\
   \label{eq:SLbc}
-  u &= g, &&\xx \in \bd\Omega, \\
-  \label{eq:SLfarfield}
-  u &\rightarrow 0, &&|\xx| \rightarrow \infty,
-\end{alignat}
+  u = g, \quad \xx \in \bd\Omega, \quad 
+  u \rightarrow 0, \quad |\xx| \rightarrow \infty.
+\end{gather}
 The boundary condition $g$ encodes hydrophobic properties of the
-particle-solvent interface. The parameter $\rho_0$ is an ``effective"
-distance between particle centers, below which the steric repulsion
-between a pair of JPs becomes important.
-\todo[inline]{We are calling both $c$ and $\rho_0$ as this ``effective"
-distance (see above). Also, $\rho_0$ is not defined. Should it be
-$\rho$?}
+particle-solvent interface.
 
+The dimensionless repulsion profile $P$ takes the form $P(s) = 1 -
+\sin(\pi s/2)$ for $0 \leq s < 1$ and $P(s) = 0$ for $1 \leq s <
+\infty$. The parameter $\rho_0$ is an ``effective" distance between particle surfaces,
+below which the steric repulsion between a pair of JPs becomes important.
+The parameter $M$ is the repulsion modulus.
 
-To calculate forces and torques from the free energy, we compute the
-variation of the domain of the free energy~\eqref{eq:free_energy}
-subject to~\eqref{eq:SLpde}--\eqref{eq:SLbc}, and obtain 
+To get the force $\FF_i$ and torque $T_i$ on $\Gamma_i$ from the free energy,
+we compute the variation of the domain of the free energy 
+\eqref{eq:free_energy} subject to \eqref{eq:SL}-\eqref{eq:SLbc},
+and obtain 
 \begin{equation}
-  \FF_i \equiv \int_{\Gamma_i} \mathbf{T}\nnu \, \dif s
+  \FF_i = \int_{\Gamma_i} \mathbf{T}\nnu \, \dif s
   - \frac{M}{\rho_0}
   \sum_{j \neq i}
   \frac{\aa_i - \aa_j}{|\aa_i - \aa_j|}
 P'\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right)
   ,\quad
-T_i \equiv \int_{\Gamma_i} (\xx - \aa_i)^{\perp}\cdot (\mathbf{T}\nnu) \, \dif s, 
+T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp}\cdot (\mathbf{T}\nnu) \, \dif s, 
 \end{equation}
 for $i = 1,\dots,N_b$ with particle outward normal $\nu$. The term 
-\begin{align}
+$
 \mathbf{T}
 = \gamma \left[ \rho^{-1} u^2 \mathbf{I}
   + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right]
-\end{align}
-is the hydrophobic stress. Repulsion is rotationally symmetric and does
-not contribute to the torque. The derivation details are found
-in~\citet{Fu20}.
+$
+is the hydrophobic stress.
+Repulsion is rotationally symmetric and does not contribute to the torque.
+The derivation details are found in \citet{Fu20}.
 
 Since the force and torque from the hydrodynamic stress on each particle
 are in balance with the total force and torque coming from the
@@ -319,50 +295,44 @@ hydrophobic potential and repulsion, we have
   (\ssigma \cdot \nnu) \, \dif s = T_i,
   \quad i=1,\ldots,N_b,
 \end{equation}
-where 
-%$\FF_i \in \mathbb{R}^2$ and $T_i \in \mathbb{R}$
-%are interparticle forces and torques. 
-$\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
-\right)$ is the hydrodynamic stress tensor (pressure tensor).
+where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
+\right)$ is the hydrodynamic stress tensor.
 
-The dimensionless repulsion profile $P$ takes the form $P(s) = 1 -
-\sin(\pi s/2)$ for $0 \leq s < 1$ and $P(s) = 0$ for $1 \leq s <
-\infty$.  As such, only those particles within a distance $\rho_0$ of
-$\Gamma_i$ contribute to repulsion.  The parameter $M$ is the repulsion
-modulus.
-
+Once \eqref{eq:stokes}-\eqref{eq:force} have been solved,
+the velocities $(\vv_i, \omega_i)$ from \eqref{eq:rigid-vel}
+update the particle positions and orientations.
 We use the parameters $\mu = 1$ cP, $\gamma = 4$ pN nm$^{-1}$,
 $\rho = 5$ nm, $c = 1.25$ nm, $M = 2$ pN, and $\rho_0 = 0.5$ nm.
+These values give a characteristic time $1$ ns and characteristic length $1$ nm.
 
 \subsection{Boundary integral represenation and time stepping}
-We recast~\eqref{eq:stokes}--\eqref{eq:rigid-vel}
-and~\eqref{eq:SLpde}--\eqref{eq:SLfarfield} as boundary integral
-equations (BIEs) and discretize each BIE at $N$ points on each of the
-$N_b$ particles with a collocation method. To express the solution
-of~\eqref{eq:SLpde}--\eqref{eq:SLfarfield}, we adopt the double layer
-potential
+We recast \eqref{eq:stokes}--\eqref{eq:rigid-vel} and \eqref{eq:SL}
+as boundary integral equations (BIEs) and discretize each BIE at
+$N$ points on each of the $N_b$ particles with a collocation method.
+To express the solution of \eqref{eq:SL},
+we adopt the double layer potential
 \begin{align}
 \label{eq:SL_BIE}
-  u({\xx}) = \DD[\sigma](\xx) = \int_\Gamma 
-    \frac{\partial G(\xx-\yy)}{\partial \nnu_\yy}\sigma(\yy)\, 
-    \dif s_\yy, \quad \xx \in \Omega,
+u({\bf x}) = \DD[\sigma](\xx) = \int_\Gamma \frac{\partial G(\xx-\yy)}{\partial \nnu_\yy}\sigma(\yy)\, \dif s_\yy
+, \quad \xx \in \Omega,
 \end{align}
-where $G(\xx) = \frac{1}{2\pi}K_0(|\xx|/\rho)$ is the fundamental
-solution to the screened Laplace equation~\eqref{eq:SLpde}, $K_0$ is the
-zeroth-order modified Bessel function of the first kind, and $\sigma$ is
-a scalar-valued density function.  The subscript in $\dif s_\yy$ denotes
-integration with respect to $\yy \in \Gamma$.  For the velocity, we use
-the representation~\cite{pow-mir1987}
+where $G(\xx) = \frac{1}{2\pi}K_0(|\xx|/\rho)$ is the fundamental solution to the screened Laplace equation \eqref{eq:SL},
+$K_0$ is the zeroth-order modified Bessel function of the first kind,
+and $\sigma$ is a scalar-valued density function.
+The subscript in $\dif s_\yy$ denotes integration with respect to $\yy \in \Gamma$. 
+For the velocity, we use the representation [REF]
 \begin{align}
   \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
     \sum_{i=1}^{N_b} \left(\SS(\xx,\aa_i) \cdot \FF_i + 
     \RR(\xx,\aa_i) T_i\right), \quad \xx \in \Omega,
 \end{align}
-with the vector-valued density function $\eeta$, Stokeslet
-$\SS(\xx,\aa_i) = \frac{1}{4\pi} \left(-\log |\rr|\mathbf{I} + \frac{\rr
-\otimes \rr}{|\rr|^2}\right)$, and Rotlet $\RR(\xx,\aa_i) =
-\frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2}$, $\rr = \xx - \aa_i$.
+with the vector-valued density function $\eeta$,
+Stokeslet 
+$\SS(\xx,\aa_i) = \frac{1}{4\pi} \left(-\log |\rr|\mathbf{I} + \frac{\rr \otimes \rr}{|\rr|^2}\right)$,
+and Rotlet
+$\RR(\xx,\aa_i) = \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2}$,
+$\rr = \xx - \aa_i$ [REF].
     
 
 Finally, together with \eqref{eq:velocity},
@@ -527,8 +497,9 @@ a strain parameter $E$,
 and two scalar order parameters $S_{2}$ and $\tilde S_2$ to measure
 the deformation of particle configurations under background flows. 
 
-First, we must simplify the form of the free energy
-\eqref{eq:free_energy} using integration by parts and \eqref{eq:SLpde}
+First, we must simplify the
+form of the free energy \eqref{eq:free_energy}
+using integration by parts and \eqref{eq:SL}
 to obtain
 \begin{equation}
 \label{eq:free_energy2}
@@ -1075,11 +1046,14 @@ To quantify this behavior, we form
 \]
 as an effective dynamic viscosity of the suspension.
 The numerator $\dot \gamma \mu$ gives the force per area provided by the solvent stresses. 
-The strain rate $\dot E$ of the body is obtained by fitting the curves the strain curves e.g.,
-Fig~\ref{fig:BC2_shear}(f).
+The strain rate $\dot E$ of the body is the slope of a linear fit to the strain curves e.g.,
+in Fig~\ref{fig:BC2_shear}(f).
+
 Calculated suspension viscosities are shown
 in Table \ref{tbl:bcii_visc}.
-We observe that for the multilamellar structure, $\mu_{\text{sus}}$ is decreasing
+The middle row gives the solid area fraction $\phi$. 
+We observe that for the multilamellar structure,
+$\mu_{\text{sus}}$ is decreasing
 with increasing shear rate.  The predicted suspension viscosities 
 are on the order of hundreds of times that of water, consistent with
 measurements of noninteracting particle suspensions\cite{KONIJN201461}.
@@ -1087,31 +1061,20 @@ In the case of striated structures, viscosity is effectively infinite
 for the lower two of the shear rates, and then drops to a finite value $\mu_{\text{sus}} = 60$ mPa s
 when the shear rate reaches $0.15$ ns$^{-1}$.
 \begin{table}
-  \caption{Viscosity $\mu_{\text{sus}}$ (mPa s) for the Multilamellar and Striated Suspensions    
+  \caption{Suspension viscosity $\mu_{\text{sus}}$ (mPa s) 
 \label{tbl:bcii_visc}
 }
 \centering
-\begin{tabular}{c|c|c|c}
-\multicolumn{4}{c}{multilamellar BC (ii)} \\
+\begin{tabularx}{0.7\textwidth}{c|X|X|X||X|X|X}
+&\multicolumn{3}{c||}{BC (ii)} & \multicolumn{3}{c}{BC (iii)}\\
 \hline
-  $\dot \gamma$ & 0.05 & 0.10 & 0.15\\
+  $\dot \gamma$ & 0.05 & 0.10 \quad & 0.15 & 0.100 & 0.125 & 0.15\\
   \hline
-  $\phi$ & 0.50 & 0.47 & 0.41\\
+  $\phi$ & 0.50 & 0.47 & 0.41 & 0.47 & 0.46 & 0.45 \\
   \hline
-  $\mu_{\text{sus}} $ & 401 & 66 & 42\\
+  $\mu_{\text{sus}} $ & 401 & 66 & 42 & 2.5e3 & 1.4e3 & 60\\
 \hline
-\end{tabular}
-\quad \quad \quad
-\begin{tabular}{c|c|c|c}
-\multicolumn{4}{c}{striated BC (iii)} \\
-\hline
-  $\dot \gamma$ & 0.100 & 0.125 & 0.15\\
-  \hline
-  $\phi$ & 0.47 & 0.46 & 0.45\\
-  \hline
-  $\mu_{\text{sus}} $ & 2.5e3 & 1.4e3 & 60\\
-\hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 
@@ -1215,16 +1178,6 @@ We thank Dr. S\'ebastien Michelin and Dr. Cecile Cottin-Bizzonne from LadHyX - E
 
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
 
 \section{DRAFT RESULTS BELOW}
 {\bf More results:}
