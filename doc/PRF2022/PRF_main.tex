@@ -54,6 +54,7 @@
 \newcommand{\bd}{\partial}
 \newcommand{\dd}{\mathbf{d}}
 \newcommand{\DD}{\mathcal{D}}
+\newcommand{\DDD}{\boldsymbol{\mathcal{D}}}
 \newcommand{\SSS}{\mathcal{S}}
 \newcommand{\eeta}{\boldsymbol{\eta}}
 \newcommand{\FF}{\mathbf{F}}
@@ -65,6 +66,7 @@
 \newcommand{\rr}{\mathbf{r}}
 \newcommand{\RR}{\mathbf{R}}
 \renewcommand{\SS}{\mathbf{S}}
+\newcommand{\ee}{\mathbf{e}}
 \newcommand{\ff}{\mathbf{f}}
 \newcommand{\xx}{\mathbf{x}}
 \newcommand{\zz}{\mathbf{z}}
@@ -238,7 +240,7 @@ avoided through a near-field, pair potential.
 %RJR: In the above sentence, suspection and immersed are redundant 
 The Janus particles are suspended in a viscous solvent. The particles
 are disks of radius $c$, center $\aa_i$, and orientation $\theta_i$
-relative to the horizontal axis, where $i = 1, \dots, N_b$ and $N_b$ is
+relative to the horizontal axis, where $i = 1, \ldots, N_b$ and $N_b$ is
 the number of particles. The domain $\Omega(t) \subset \mathbb{R}^2$ is
 the solvent phase and $t$ is time. The boundary of $\Omega$ is
 $\bd\Omega = \Gamma_1 \cup \cdots \cup \Gamma_{N_b}$, where $\Gamma_i$
@@ -311,7 +313,7 @@ P'\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right)
   ,\quad
 T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp}\cdot (\mathbf{T}\nnu) \, \dif s, 
 \end{align}
-for $i = 1,\dots,N_b$ with particle outward normal $\nnu$, where
+for $i = 1,\ldots,N_b$ with particle outward normal $\nnu$, where
 \begin{align}
 \mathbf{T} = \gamma \left[ \rho^{-1} u^2 \mathbf{I}
   + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right]
@@ -354,9 +356,10 @@ u({\xx}) = \DD[\sigma](\xx) = \int_\Gamma
 \end{align}
 where $G(\xx) = \frac{1}{2\pi}K_0(|\xx|/\rho)$ is the fundamental
 solution to the screened Laplace equation~\eqref{eq:SL}, $K_0$ is the
-zeroth-order modified Bessel function of the first kind, and $\sigma$ is
-a scalar-valued density function. The subscript in $\dif s_\yy$ denotes
-integration with respect to $\yy \in \Gamma$. To satisfy the boundary
+zeroth-order modified Bessel function of the first kind, $\nnu_\yy$ is
+the unit outward normal at $\yy$, and $\sigma$ is a scalar-valued
+density function. The subscript in $\dif s_\yy$ denotes integration with
+respect to $\yy \in \Gamma$. To satisfy the boundary
 condition~\eqref{eq:SLbc}, the density function must satisfy
 \begin{align}
   \label{eq:SL_BIE2}
@@ -367,14 +370,14 @@ condition~\eqref{eq:SLbc}, the density function must satisfy
 For the velocity, we use the representation
 \begin{align}
   \label{eq:velocity}
-  \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
+  \uu(\xx) = \uu_\infty(\xx) + \DDD[\eeta](\xx) + 
     \sum_{i=1}^{N_b} \left(\SS(\xx,\aa_i) \cdot \FF_i + 
     \RR(\xx,\aa_i) T_i\right), \quad \xx \in \Omega,
 \end{align}
 where $\eeta$ is a vector-valued density function and
 \begin{align}
-  \DD[\eeta](\xx) = \frac{1}{\pi} \int_{\Gamma} 
-    \frac{(\xx - \yy) \cdot \nnu}{|\xx - \yy|^2}
+  \DDD[\eeta](\xx) = \frac{1}{\pi} \int_{\Gamma} 
+    \frac{(\xx - \yy) \cdot \nnu_\yy}{|\xx - \yy|^2}
     \frac{(\xx - \yy) \otimes (\xx - \yy)}{|\xx - \yy|^2}
     \cdot \eeta(\yy)\, \dif s_\yy.
 \end{align}
@@ -393,23 +396,22 @@ $\omega_i$ satisfy
 \begin{alignat}{3}
   \label{eq:vel_BLM_rep}
   \vv_i + \omega_i (\xx - \aa_i)^\perp &= \uu_\infty(\xx)
-    -\frac{1}{2} \eeta(\xx) + \DD[\eeta](\xx) 
+    -\frac{1}{2} \eeta(\xx) + \DDD[\eeta](\xx) 
     + \sum_{j=1}^{N_b} 
     \left(\SS(\xx,\aa_j) \cdot \FF_j + \RR(\xx,\aa_j) T_j\right),\\
   \label{eq:vel_BLM_rep2}
   \int_{\Gamma_i} \eeta \, \dif s &= \mathbf{F}_i, \quad
   \int_{\Gamma_i} \eeta \cdot (\xx-\aa_i)^\perp \, \dif s = T_i,
 \end{alignat}
-for $\xx \in \Gamma_i$ and $i = 1,\dots,N_b$.
+for $\xx \in \Gamma_i$ and $i = 1,\ldots,N_b$.
 
 We discretize~\eqref{eq:SL_BIE2}
 and~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2} using high-order
-interpolation-based quadrature rules.  Integrals that are smooth are
+interpolation-based quadrature rules. Integrals that are smooth are
 computed with the spectrally-accurate trapezoid rule, and
 nearly-singular integrals, caused by close contact between two
 particles, are computed with a high-order interpolation-based quadrature
 rule~\cite{qua-bir2014}.
-
 
 After discretizing and applying quadrature, the result is an $NN_b
 \times NN_b$ and $2NN_b \times 2NN_b$ linear system
@@ -417,9 +419,10 @@ for~\eqref{eq:SL_BIE2}
 and~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2}, respectively.
 These are solved with matrix-free GMRES, and we guarantee that the
 number of GMRES iterations is mesh-independent by using second-kind
-BIEs.
+BIEs. Once the translational and rotational velocity are computed, the
+position and orientation of each JP is updated using the second-order
+Adams-Bashforth scheme.
 
-\todo[inline]{BRYAN IS HERE}
 %Once the translational and angular velocities $\vv_i, \omega_i$
 %have been determined, a second-order Adams-Bashforth scheme updates the particle
 %positions and orientations:
@@ -445,28 +448,28 @@ BIEs.
   \includegraphics[height=0.3\textheight]{Nb198d_eta_inset.pdf}
 \end{center}
 \begin{caption}{\label{fig:relax}
-  Panel (a) shows $N_b = 198$ particles confined to a square with random 
-  positions and orientations and the inset shows $N_b=60$ particles configuration.
-  The particles self-assemble into distinct configurations,
-  depending on the boundary condition \eqref{eq:bc-type}.
-  Panel (b) is for $b=1$ and the boundary condition mimics that
-  of an amphiphilic particle giving bilayer structures. 
-  Panel (c) is for $b=2$ which gives rise to a multilamellar configuration. 
-  In panel (d), the case $b = 0$ is for a water structure with
-  positive/negative charge. 
-  The false color maps use blue for $u < 0$, green for $u = 0$, and yellow then red for $u > 0$.
-  The inset in panel (b)--(d) are configurations using $N_b=60$ and share the same color map
-  as the main panels.}
+  Panel (a) shows $N_b = 198$ particles confined to a square with random
+  positions and orientations and the inset shows a $N_b=60$ particles
+  configuration. The particles self-assemble into distinct
+  configurations, depending on the boundary
+  condition~\eqref{eq:bc-type}. Panel (b) is for $b=1$ and the boundary
+  condition mimics that of an amphiphilic particle giving bilayer
+  structures. Panel (c) is for $b=2$ which gives rise to a
+  multilamellar configuration. In panel (d), the case $b = 0$ is for a
+  water structure with positive/negative charge. The false color maps
+  use blue for $u < 0$, green for $u = 0$, and yellow then red for $u >
+  0$. The inset in panels (b)--(d) are configurations using $N_b=60$ and
+  share the same color map as the main panels.}
 \end{caption}
 \end{figure}
 
 \section{Equilibrium configurations}
 \subsection{Boundary conditions and normalization}
-The present paper considers boundary conditions of the form
-\begin{equation}
+We consider boundary conditions of the form
+\begin{align}
   \label{eq:bc-type}
 g(\xx) = a(b + \cos \alpha),\quad a = (\pi c(2b^2 + 1))^{-1/2},\quad \xx \in \Gamma_i,
-\end{equation}
+\end{align}
 where $\alpha$ is the angle between the vector $\xx - \aa_i$ and 
 the particle director $\dd_i = (\cos \theta_i, \sin \theta_i)$.
 The parameter $a$ normalizes the boundary conditions 
@@ -478,87 +481,78 @@ We refer to the side of the particle where $\alpha = 0$
 as the tail and the side where $\alpha = \pi$ as the head. 
 
 
-We set $\max g>0$ to guarantee at least partial hydrophobicity of the JP surface.
-Then, the boundary condition (BC) can be classified into
-three categories: $\min g >0$, $\min g =0$, and $\min g <0$.  
-These three categories correspond to three characteristic
-values of $b$ in \eqref{eq:bc-type}: $b=2$, $b=1$ and $b=0$, respectively. 
+We set $\max g>0$ to guarantee at least partial hydrophobicity of the JP
+surface.  Then, the boundary condition (BC) can be classified into three
+categories: $\min g >0$, $\min g =0$, and $\min g <0$.  These three
+categories correspond to three characteristic values of $b$ in
+\eqref{eq:bc-type}: $b=2$, $b=1$ and $b=0$, respectively. 
 %
-To see the effect of the shift parameter $b$, we simulate the dynamics of
-198 particles and 60 particles in a quiescent flow as shown in Fig~\ref{fig:relax}.
-Three distinct configurations emerge:
-(i) bilayer for $b = 1$, 
-(ii) multilamellar for $b = 2$, and 
-(iii) striated for $b = 0$.
+To see the effect of the shift parameter $b$, we simulate the dynamics
+of 198 particles and 60 particles in a quiescent flow as shown in
+Figure~\ref{fig:relax}. Three distinct configurations emerge: (i)
+bilayer for $b = 1$, (ii) multilamellar for $b = 2$, and (iii) striated
+for $b = 0$.
 
-Fig~\ref{fig:relax}(a) shows the initial configurations with
-orientations of the 198-particle and 60-particle cases,
-respectively. 
-BC (i) with $b = 1$ mimics an amphiphilic particle.
-The boundary data $g$ is everywhere nonnegative,
-and takes
-the maximum value $a$ on the hydrophobic tail (red)
-the value $0$ on the hydrophilic head (green). 
+Figure~\ref{fig:relax}(a) shows the initial configurations with
+orientations of the 198-particle and 60-particle cases, respectively.
+BC (i) with $b = 1$ mimics an amphiphilic particle. The boundary data
+$g$ is everywhere nonnegative, and takes the maximum value $a$ on the
+hydrophobic tail (red) the value $0$ on the hydrophilic head (green).
 The interaction is attractive, and particles collectively orient their
-hydrophobic sides to form bilayers  (Fig~\ref{fig:relax}(b)). The inset shows the equilibrium 
-state for the 60-particle run.
-Both cases form bilayers with multiple components. 
+hydrophobic sides to form bilayers (Figure~\ref{fig:relax}(b)). The
+inset shows the equilibrium state for the 60-particle run. Both cases
+form bilayers with multiple components.
 
-In BC (ii) with $b = 1$, the boundary data is everywhere positive.
-It takes the maximum value $3a$ on the tail (red) and the
-minimum value $a$ on the head side (yellow). 
-Both sides of the Janus particle are hydrophobic but
-more so on the $\alpha = 0$ side.  
-Over a short time scale, these particles also self-assemble into bilayers. But unlike for  (i),
-the heads are also hydrophobic and so in the long-time dynamics
-these bilayers form multilamella structures\cite{C9NR05885K}.
-The number of folds depends primarily on the number of particles.
-Fig~\ref{fig:relax}(c), for example, shows a
-multilamellar structure with four layers and one with two layers in the inset.
+In BC (ii) with $b = 1$, the boundary data is everywhere positive. It
+takes the maximum value $3a$ on the tail (red) and the minimum value $a$
+on the head side (yellow). Both sides of the Janus particle are
+hydrophobic but more so on the $\alpha = 0$ side. Over a short time
+scale, these particles also self-assemble into bilayers. But unlike for
+BC (i), the heads are also hydrophobic and so in the long-time dynamics
+these bilayers form multilamella structures~\cite{C9NR05885K}. The
+number of folds depends primarily on the number of particles.
+Figure~\ref{fig:relax}(c), for example, shows a multilamellar structure
+with four layers and one with two layers in the inset.
 
-Finally, BC (iii) with $b=1$ 
-corresponds to a water structure with
-positive/negative charge \cite{MaRa76, Ma77}.
-Here, the head repels the tail of other particles
-and the particles initially form chains with their directors perpendicular
-to the length of the chain.  
-The chains form stria
-where the particles lie on a 
-square grid and the orientations alternate
-between layers (Fig~\ref{fig:relax}(d)).
+Finally, BC (iii) with $b=1$ corresponds to a water structure with
+positive/negative charge~\cite{MaRa76, Ma77}. Here, the head repels the
+tail of other particles and the particles initially form chains with
+their directors perpendicular to the length of the chain. The chains
+form stria where the particles lie on a square grid and the orientations
+alternate between layers (Figure~\ref{fig:relax}(d)).
 
 \begin{figure}
   \begin{center}
 \includegraphics[width=1.0\textwidth]{Figures/Figure2.pdf}
   \end{center}
-  \vspace{-20pt}  
+  \vspace{-20pt}
+  \todo[inline]{We should capitalize bc is that it reads BC like we have
+  in the text.}
   \caption{\label{fig:relax_energy}
-  Panel (a) shows that the free energy \eqref{eq:free_energy} decreases
-    in the mobility problem formulation.  The initial energies
-    are for the configuration in Fig \ref{fig:relax}(a)
-    and the final energies are for the near-equilibrium
-    configurations as shown in Fig \ref{fig:relax}(b)--(d), respectively.
-    The solid curves are the energies for the $N_b=60$ cases and  
-    the dashed curves are the energies for the $N_b = 198$ cases normalized
-    by $60/198$, showing that the energy approximately scales with the number of
-    particles. 
-    Panel (b) shows the orientational parameters $\tilde{S}_2$ for all 6 relaxation runs. 
-    The curve styles are identical to the ones in panel (a).
-    The near-equilibrium configurations depend on the initial configurations and the results show that for both $N_b=60$ and $N_b=198$ cases, bilayer and multi-lamellar configurations have similar trends in orientational parameters.
-    The results of the striated configuration, however, depend on the initial geometrical setup.
-  }
+  Panel (a) shows that the free energy~\eqref{eq:free_energy} decreases
+  in the mobility problem formulation. The initial energies are for the
+  configuration in Figure~\ref{fig:relax}(a) and the final energies are
+  for the near-equilibrium configurations shown in
+  Figures~\ref{fig:relax}(b)--(d). The solid curves are the energies for
+  the $N_b=60$ cases and the dashed curves are the energies for the $N_b
+  = 198$ cases normalized by $60/198$, showing that the energy
+  approximately scales with the number of particles.  Panel (b) shows
+  the orientational parameters $\tilde{S}_2$ for all 6 relaxation runs.
+  The curve styles are identical those in panel (a). The
+  near-equilibrium configurations depend on the initial configurations
+  and the results show that for both $N_b=60$ and $N_b=198$ cases,
+  bilayer and multi-lamellar configurations have similar trends in
+  orientational parameters. The results of the striated configuration,
+  however, depend on the initial geometrical setup.}
 \end{figure}
 
 \section{Measuring deformation}
-We use the free energy $F$,
-a strain parameter $E$, 
-and two scalar order parameters $S_{2}$ and $\tilde S_2$ to measure
-the deformation of particle configurations under background flows. 
+We use the free energy $F$, a strain parameter $E$, and two scalar order
+parameters $S_{2}$ and $\tilde S_2$ to measure the deformation of
+particle configurations under background flows. 
 
-First, we must simplify the
-form of the free energy \eqref{eq:free_energy}
-using integration by parts and \eqref{eq:SL}
-to obtain
+First we simplify the form of the free energy~\eqref{eq:free_energy}.
+Using integration by parts and~\eqref{eq:SL}, we obtain
 \begin{equation}
 \label{eq:free_energy2}
 F = -\gamma
@@ -568,11 +562,11 @@ F = -\gamma
 P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right).
 \end{equation}
 %
-Here, we have substituted $g$ for $u$ since the boundary values are given.
-However, evaluating $\nabla u \cdot \nnu$ on $\Gamma$ based on \eqref{eq:SL_BIE}
-involves calculating a quadruple layer potential which has a
-well-known obstacle in numerical implementation.
-To overcome this obstacle, we use
+Here, we have substituted $g$ for $u$ since the boundary values are
+given. However, evaluating $\nabla u \cdot \nnu$ on $\Gamma$ based
+on~\eqref{eq:SL_BIE} involves calculating a quadruple layer potential
+which has a well-known obstacle in numerical implementation.  To
+overcome this obstacle, we use
 %
 \begin{equation}
 \label{eq:normal_deriv}
@@ -582,110 +576,106 @@ To overcome this obstacle, we use
 + \frac{\dif}{\dif s}\SSS\left[\frac{\dif \sigma}{\dif s}\right](\xx), \quad \xx \in \Gamma.
 \end{equation}
 %
-Here, ${\bf t}(\xx)$ is the tangent vector and $\dif/\dif s$ is the arclength derivative.
-See Appendix in \S\ref{sec:appendix} for the proof and details.
-Substituting \eqref{eq:normal_deriv} into \eqref{eq:free_energy2} for the normal derivative
-leads to single layer integral which is more straightforward to evaluate and we compute the
-arclength derivative using spectrally accurate Fourier transform.
-We have validated the form of \eqref{eq:normal_deriv} by extrapolating 
-the primal energy \eqref{eq:free_energy} along test curves placed slightly
-outside the particles. 
+Here, $\tt(\xx)$ is the tangent vector and $\dif/\dif s$ is the
+arclength derivative. See the Appendix in \S\ref{sec:appendix} for the
+proof and details. Substituting~\eqref{eq:normal_deriv}
+into~\eqref{eq:free_energy2} for the normal derivative leads to the
+single layer, $\SS$, which is more straightforward to evaluate and we
+compute the arclength derivative using spectrally accurate Fourier
+transform. We have validated the form of~\eqref{eq:normal_deriv} by
+extrapolating the primal energy~\eqref{eq:free_energy} along test curves
+placed slightly outside the particles.
 
-Fig~\ref{fig:relax_energy}(a) tracks the free energy profiles for all relaxation runs.
-For the 198-particle cases, we normalized the energies by 60/198 and the results
-show that all energies decrease with good agreements in all boundary conditions (dashed curves).
-This can be considered as evidence that the free energy per particle with specified
+Figure~\ref{fig:relax_energy}(a) tracks the free energy profiles for all
+relaxation runs.  For the 198-particle cases, we normalized the energies
+by 60/198 and the results show that all energies decrease with good
+agreements in all boundary conditions (dashed curves).  This can be
+considered as evidence that the free energy per particle with specified
 boundary conditions is independent of the total particle number $(N_b)$.
 
-To measure positional order, we use a number,
-which we call the strain parameter, 
+To measure positional order, we use a number, which we call the strain
+parameter, 
 \begin{equation}
 \label{eq:SP}
 E = \frac{1}{N_b} \sum_{i=1}^{N_b}
-\|\tfrac{1}{2}(\mathsf{F}_i^T \mathsf{F}_i - I)\|
+\left\|\frac{1}{2}(\mathsf{F}_i^T \mathsf{F}_i - I)\right\|,
 \end{equation}
-where $\mathsf{F}_i$ is an 
-approximate deformation gradient at particle $i$.
-The argument inside the Frobenius norm $\| \cdot \|$
-is the Green-Lagrange strain tensor.
-The motivation for  \eqref{eq:SP} is as follows.
-For relatively weak background flow strengths, the near-equilibrium particle
-configurations behave as an elastic solid.  There is a map $\ff(\xx,t)$
-from the reference (equilibrium) configuration with $\ff(\aa_i(0),t) = \aa_i(t)$
-for $i = 1,\dots,N_b$.  Using linear approximation,
-\[
+where $\mathsf{F}_i$ is an approximate deformation gradient at particle
+$i$. The argument inside the Frobenius norm $\| \cdot \|$ is the
+Green-Lagrange strain tensor. The motivation for~\eqref{eq:SP} is as
+follows. For relatively weak background flow strengths, the
+near-equilibrium particle configurations behave as an elastic solid.
+There is a map $\ff(\xx,t)$ from the reference (equilibrium)
+configuration with $\ff(\aa_i(0),t) = \aa_i(t)$ for $i = 1,\ldots,N_b$.
+Using linear approximation,
+\begin{align}
 \aa_j(t) - \aa_i(t) = \ff(\aa_j(0),t) - \ff(\aa_i(0),t)
 \approx \nabla \ff(\aa_i(0),t)(\aa_j(0) - \aa_i(0)).
-\]
-To approximate
-the deformation gradient $\nabla \ff(\aa_i(0),t)$
-we solved the overdetermined system 
-\[
-\aa_j(t) - \aa_i(t) = \mathsf{F}_i(\aa_j(0) - \aa_i(0)),\quad j = 1,\dots, N_b  
-\]
-for $\mathsf{F}_i$ by weighted least squares. The weights  
-$w_i = \exp(-\|\aa_j(0) - \aa_i(0)\|/4c)$ with particle radius $c$
-ensure that the linear approximation is valid for
-particles near $\aa_i$.
+\end{align}
+To approximate the deformation gradient $\nabla \ff(\aa_i(0),t)$ we
+solve the overdetermined system 
+\begin{align}
+\aa_j(t) - \aa_i(t) = \mathsf{F}_i(\aa_j(0) - \aa_i(0)),\quad j =
+  1,\ldots, N_b,
+\end{align}
+for $\mathsf{F}_i$ by weighted least squares. The weights $w_i =
+\exp(-\|\aa_j(0) - \aa_i(0)\|/4c)$ with particle radius $c$ ensure that
+the linear approximation is valid for particles near $\aa_i$.
 
 Finally, we use the scalar order parameter for orientational order:
 \begin{equation}
   \label{eq:S2}
 S_2 = \frac{1}{N_b} \sum_{i=1}^{N_b} \frac{1}{2}(3\cos^2(\theta_i - \bar \theta) - 1).
 \end{equation}
-Here $\bar \theta$ is a circular mean defined as the
-orientation of the largest eigenvalue eigenvector of 
-$\dd_1\dd_1^\top + \dots + \dd_{N_b}\dd_{N_b}^\top$.
-A value $S_2(t) = 1$ indicates 
-that all particle directors lie on a common axis e.g.,
-two parallel vectors with possibly opposite direction are ordered. 
-A value far from 1 indicates disorder.
+Here $\bar \theta$ is a circular mean defined as the orientation of the
+largest eigenvalue of $\dd_1\dd_1^\top + \cdots +
+\dd_{N_b}\dd_{N_b}^\top$. A value $S_2(t) = 1$ indicates that all
+particle directors lie on a common axis e.g., two parallel vectors with
+possibly opposite direction are ordered. A value far from 1 indicates
+disorder.
 
-We must modify $S_2$ to account for the bilayer and
-multilamellar structures.  In these cases, the directors 
-are more or less uniformly distributed along a circle, even though
-there is orientational order between neighboring particles.
-To account for local order, we instead use
+We modify $S_2$ to account for the bilayer and multilamellar structures.
+In these cases, the directors are more or less uniformly distributed
+along a circle, even though there is orientational order between
+neighboring particles. To account for local order, we instead use
 \begin{equation}
   \label{eq:localS2}
 \tilde{S}_2(t) = \frac{1}{N_b} \sum_{i=1}^{N_b}
 \frac{1}{2}(3\cos^2(\theta_i - \bar \theta_i) - 1),
 \end{equation}
 where $\bar \theta_i$ is the circular mean restricted to particles
-indexed by $j$ for which $\|\aa_i - \aa_j\| < 4c$. In practice, if a particle is
-isolated and has no neighbors within a distance $4c$, then we exclude it from
-the sum \eqref{eq:localS2}. 
+indexed by $j$ with $\|\aa_i - \aa_j\| < 4c$. In practice, if a particle
+is isolated and has no neighbors within a distance $4c$, then we exclude
+it from the sum~\eqref{eq:localS2}. 
 
-Fig~\ref{fig:relax_energy}(b) 
-tracks the orientational order parameter $\tilde{S}_2$.
-Both bilayer and multilamellar
-structures show similar trends in the small and large particle number systems
-(Fig \ref{fig:relax_energy}(b) black curves, red curves respectively).
-The multilamellar structures are highly ordered in all cases (Fig~\ref{fig:relax}(c))
-whereas the bilayer structures
-are disordered because they consist of several 
-components forming isolated bilayers, micelles, and vesicles (Fig~\ref{fig:relax}(b)).
+Figure~\ref{fig:relax_energy}(b) tracks the orientational order
+parameter $\tilde{S}_2$. Both bilayer and multilamellar structures show
+similar trends in the small and large particle number systems
+(Figure~\ref{fig:relax_energy}(b) black curves and red curves,
+respectively). The multilamellar structures are highly ordered in all
+cases (Figure~\ref{fig:relax}(c)) whereas the bilayer structures are
+disordered because they consist of several components forming isolated
+bilayers, micelles, and vesicles (Figure~\ref{fig:relax}(b)).
 
-The aggregation for striated configurations forms more than one 
-pattern when the number of particles is varied (Fig~\ref{fig:relax}(d)).
-We observe that when the number of particles is fewer, there is only
-a single pattern in particle orientations where the directors
-are more or less parallel and alternate directions (Fig~\ref{fig:relax}(d), inset).
-Larger number of particles results in two different patterns: the alternating sign pattern
-as in the small particle number case (Fig~\ref{fig:relax}(d), 
-top right rectangle) and one where the directors reflect across the lines parallel
-to the stria and across the lines perpendicular to the stria (Fig~\ref{fig:relax}(d),
-top middle rectangle).
-As a result, there are different trends in orientational order
-(Fig~\ref{fig:relax_energy}(b), solid and dashed blue curves, respectively).
+The aggregation for striated configurations forms more than one pattern
+when the number of particles is varied (Figure~\ref{fig:relax}(d)). We
+observe that when the number of particles is fewer, there is only a
+single pattern in particle orientations where the directors are more or
+less parallel and alternate directions (Figure~\ref{fig:relax}(d),
+inset). Larger number of particles results in two different patterns:
+the alternating sign pattern as in the small particle number case
+(Figure~\ref{fig:relax}(d), top right rectangle) and one where the
+directors reflect across the lines parallel to the stria and across the
+lines perpendicular to the stria (Figure~\ref{fig:relax}(d), top middle
+rectangle). As a result, there are different trends in orientational
+order (Figure~\ref{fig:relax_energy}(b), solid and dashed blue curves,
+respectively).
 
-In the Results section,
-the equilibrium configurations for BCs (i), (ii), and (iii)
-(Fig~\ref{fig:relax}, insets) are
-used as initial data in the
-background flow simulations. 
-For the bilayer case BC (i), we include an alternate initial condition 
-consisting of a single, circular vesicle (c.f., Fig~\ref{fig:Ves_shear}).
+In the Results section, the equilibrium configurations for BCs (i),
+(ii), and (iii) (Figure~\ref{fig:relax}, insets) are used as initial
+data in the background flow simulations. For the bilayer case BC (i),
+we include an alternate initial condition consisting of a single,
+circular vesicle (c.f., Figure~\ref{fig:Ves_shear}).
 
 
 %%%%%%%
@@ -710,38 +700,38 @@ consisting of a single, circular vesicle (c.f., Fig~\ref{fig:Ves_shear}).
 
 \section{Results}
 \label{sec:results}
-In this section, we subject the Janus particle structures to various background
-flows.  The purpose is to understand how self-assembled particles
-respond to external forcing.
-We can then compare effective properties of
-materials comprised of Janus particles as a function
-of their amphiphilic properties.  
+In this section, we subject the Janus particle structures to various
+background flows. The purpose is to understand how self-assembled
+particles respond to external forcing. We then compare effective
+properties of materials comprised of Janus particles as a function of
+their amphiphilic properties.
 %%%
 
 \subsection{Bilayer configurations (BC (i)) in a linear shear flow}
-To begin, we place the bilayer structure (with BC (i)) from the inset of Fig~\ref{fig:relax}(b)
-in a linear shear flow
+To begin, we place the bilayer structure (with BC (i)) from the inset of
+Figure~\ref{fig:relax}(b) in a linear shear flow
 \begin{equation}
 \uu_\infty(\xx) = \dot\gamma \text{ ns }^{-1} ({\bf e}_y \cdot \mathbf{x}) {\bf e}_x,
 \end{equation}
 %
-where $\dot\gamma$ is the dimensionless shear rate and ${\bf e}_x$ and ${\bf e}_y$
-are horizontal and vertical unit vectors, respectively.
-The initial bilayer structure consists of a small self-enclosing bilayer (vesicle) and several pieces of bilayers.
-Fig~\ref{fig:BC1_shear}(a)--(c)
-shows a snapshot
-at $t = 0.5$ $\upmu$s
-of the bilayer for different shear rates $\dot\gamma= 0.05,0.075,0.01$.
-The dynamics of the bilayer can be found in the supplementary movies,
-which show that the initial pieces of bilayers merge and form a worm-like shape
-under a linear shear flow.
-At a low shear rate, the bilayer constantly goes through rotation and
-extensional deformation with the whole bilayer remaining intact (figure~\ref{fig:BC1_shear}(a)).
-As the shear rate increases to a moderate value (figure~\ref{fig:BC1_shear}(b)),
-the bilayer is observed to shed a small piece of bilayer, 
-similar to the asymmetric breakup of a viscous drop \cite{}.
-In figure~\ref{fig:BC1_shear}(c) the high shear rate gives rise to two separate, nearly equal bilayers, 
-similar to the symmetric drop breakup under a linear shear flow \cite{}.
+where $\dot\gamma$ is the dimensionless shear rate, and ${\ee}_x$ and
+${\ee}_y$ are horizontal and vertical unit vectors, respectively. The
+initial bilayer structure consists of a small self-enclosing bilayer
+(vesicle) and several pieces of bilayers.
+Figure~\ref{fig:BC1_shear}(a)--(c) shows a snapshot at $t = 0.5$
+$\upmu$s of the bilayer for different shear rates $\dot\gamma=
+0.05,0.075,0.01$. The dynamics of the bilayer can be found in the
+supplementary movies, which show that the initial pieces of bilayers
+merge and form a worm-like shape under a linear shear flow. At a low
+shear rate, the bilayer constantly goes through rotation and extensional
+deformation with the whole bilayer remaining intact
+(Figure~\ref{fig:BC1_shear}(a)). As the shear rate increases to a
+moderate value (Figure~\ref{fig:BC1_shear}(b)), the bilayer is observed
+to shed a small piece of bilayer, similar to the asymmetric breakup of a
+viscous drop \cite{} \todo[inline]{missing citation}. In
+Figure~\ref{fig:BC1_shear}(c) the high shear rate gives rise to two
+separate, nearly equal bilayers, similar to the symmetric drop breakup
+under a linear shear flow \cite{} \todo[inline]{missing citation}.
 %%
 %\begin{figure}
 %  \begin{center}
@@ -754,19 +744,20 @@ similar to the symmetric drop breakup under a linear shear flow \cite{}.
 %  }
 %\end{figure}
 
-We observe that the order parameter $\tilde S_2$ in figure~\ref{fig:BC1_shear}(e)
-is on average increasing.  In the initial configuration,
-the structure has three or four components.  
+We observe that the order parameter $\tilde S_2$ in
+Figure~\ref{fig:BC1_shear}(e) is on average increasing. In the initial
+configuration, the structure has three or four components.
 %
-Under the shear flow, the shedding and merging of bilayers
-results in an overall decrease in distinct bilayer structures.  
-Similarly, the free energies 
-are slightly decreasing (Fig~\ref{fig:BC1_shear}(d)),
-with the overall changes occurring in the range of a few $\mathrm{k_BT}$/nm.  
-This suggests that
-the shear flow changes the energy landscape to move the local equilibrium obtained from a random initial condition
-to an alternate local equilibrium with lesser free energy and greater orientational order.   
-Note that the free energy $F$ in figure~\ref{fig:BC1_shear}(d) has the unit of force because our system is two dimensional.
+Under the shear flow, the shedding and merging of bilayers results in an
+overall decrease in distinct bilayer structures. Similarly, the free
+energies are slightly decreasing (Figure~\ref{fig:BC1_shear}(d)), with
+the overall changes occurring in the range of a few $\mathrm{k_BT}$/nm.
+This suggests that the shear flow changes the energy landscape to move
+the local equilibrium obtained from a random initial condition to an
+alternate local equilibrium with less free energy and greater
+orientational order.  Note that the free energy $F$ in
+Figure~\ref{fig:BC1_shear}(d) has the unit of force because our system
+is two dimensional.
 %
 %\begin{figure}
 %  \begin{center}
@@ -777,7 +768,8 @@ Note that the free energy $F$ in figure~\ref{fig:BC1_shear}(d) has the unit of f
 %}
 %\end{figure}
 %
-Finally, the strain parameter diverges in the large shear rate cases (Fig~\ref{fig:BC1_shear}(f))
+Finally, the strain parameter diverges in the large shear rate cases
+(Figure~\ref{fig:BC1_shear}(f))
 because the components eventually completely separate and move away from one another
 under the shear flow.
 
@@ -788,52 +780,56 @@ under the shear flow.
   \end{center}
   \caption{
     \label{fig:Ves_shear}
-The figure shows a single vesicle in a shear flow. Panels (a)-(c) are snapshots for $\dot \gamma = \{0.05, 0.0655, 0.075\}$ at $t=0.16\ \mu$s where the pre-relaxed initial configuration is shown in inset of panel (a).
-The streamlines are plotted in the background.
-Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
+A single vesicle in a shear flow. Panels (a)--(c) are snapshots for
+  $\dot \gamma = \{0.05, 0.0655, 0.075\}$ at $t=0.16\ \mu$s where the
+  pre-relaxed initial configuration is shown in inset of panel (a).  The
+  streamlines are plotted in the background.  Panel (d) plots the free
+  energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel
+  (f) shows positional parameter E.
      }
 \end{figure}
-%
-\citet{Fu2022_JFM} studied the hydrodynamics of a JP vesicle under a linear shear flow. 
-Focusing on drawing analogies to hydrodynamics of a vesicle in continuum modeling
-(such as tank-treading \cite{keller_skalak_1982,Finken08,Shaqfeh11}, bilayer slip \cite{sch-vla-mik2010,denOtter2007,Zgorski2019}, and permeability \cite{chabanon2017,qua-gan-you2021}),
-our previous studies showed the existence of a critical shear
-rate above which the JP vesicle ruptures
-\cite{grandmaison_brancherie_salsac_2021,D2SM00179A}. 
-Based on the these early results, we
-reinitialized the BC (i) configuration
-in the form of a single, circular vesicle (rather than several bilayer components)
-and illustrate how the three measures of structural deformation 
-correlate to the dynamics of a JP vesicle.
+\citet{Fu2022_JFM} studied the hydrodynamics of a JP vesicle under a
+linear shear flow. Focusing on drawing analogies to hydrodynamics of a
+vesicle in continuum modeling (such as
+tank-treading~\cite{keller_skalak_1982,Finken08,Shaqfeh11}, bilayer
+slip~\cite{sch-vla-mik2010,denOtter2007,Zgorski2019}, and
+permeability~\cite{chabanon2017, qua-gan-you2021}), our previous studies
+showed the existence of a critical shear rate above which the JP vesicle
+ruptures~\cite{grandmaison_brancherie_salsac_2021,D2SM00179A}. Based on
+the these early results, we reinitialized the BC (i) configuration in
+the form of a single, circular vesicle (rather than several bilayer
+components) and illustrate how the three measures of structural
+deformation correlate to the dynamics of a JP vesicle.
 
-At shear rates $\dot\gamma=0.05, 0.066, 0.075$,
-the vesicle undergoes the familiar hydrodynamics
-(such as elongation along the extensional axis and tank-treading motion),
-as shown in Fig~\ref{fig:Ves_shear} (a)--(c).
+At shear rates $\dot\gamma=0.05, 0.066, 0.075$, the vesicle undergoes
+familiar hydrodynamics, such as elongation along the extensional axis
+and tank-treading motion, as shown in
+Figure~\ref{fig:Ves_shear}(a)--(c).
 %
 The circular shape is also a local equilibrium, with somewhat less
-energy than the disordered state c.f.,
-Fig~\ref{fig:BC1_shear}(d) and Fig~\ref{fig:Ves_shear} (d).
-But unlike the dynamics of bilayers in Fig~\ref{fig:BC1_shear}, 
-the energies of the JP vesicle in Fig~\ref{fig:Ves_shear}(d)
-jump from the baseline value 30 $\mathrm{k_BT}$/nm to about 32 $\mathrm{k_BT}$/nm,
-signaling the rupture of the vesicle into disconnected bilayers
-(see Fig~\ref{fig:Ves_shear}(d), long and short dashed curves).
-After the rupture, each piece circles around the vorticity at the center without reconnection while the energies fluctuate slightly around a constant.
+energy than the disordered state c.f., Figure~\ref{fig:BC1_shear}(d) and
+Figure~\ref{fig:Ves_shear}(d). But unlike the dynamics of bilayers in
+Figure~\ref{fig:BC1_shear}, the energies of the JP vesicle in
+Figure~\ref{fig:Ves_shear}(d) jump from the baseline value 30
+$\mathrm{k_BT}$/nm to about 32 $\mathrm{k_BT}$/nm, signaling the rupture
+of the vesicle into disconnected bilayers (see
+Figure~\ref{fig:Ves_shear}(d), long and short dashed curves).  After the
+rupture, each piece circles around the vorticity at the center without
+reconnection while the energies fluctuate slightly around a constant.
 
-For the lowest shear rate case, the vesicle has nearly constant orientational order $\tilde S_2 = 1$
-(see Fig~\ref{fig:Ves_shear}(e), solid curve).
-After the JP vesicle
-ruptures with $\dot\gamma= 0.066$ and $\dot \gamma= 0.075$,
-we observe a greater variation in the order parameter $\tilde{S}_2$
-with a baseline value around $0.7$
-(see Fig~\ref{fig:Ves_shear}(e), dashed curves).
-The oscillations occur due to the orbit of the two bilayer components,
-and $\tilde{S}_2$ increases to about $0.9$ when the components slide past one another and are nearly parallel.
+For the lowest shear rate case, the vesicle has nearly constant
+orientational order $\tilde S_2 = 1$ (see Figure~\ref{fig:Ves_shear}(e),
+solid curve). After the JP vesicle ruptures with $\dot\gamma= 0.066$ and
+$\dot \gamma= 0.075$, we observe a greater variation in the order
+parameter $\tilde{S}_2$ with a baseline value around $0.7$ (see
+Figure~\ref{fig:Ves_shear}(e), dashed curves). The oscillations occur
+due to the orbit of the two bilayer components, and $\tilde{S}_2$
+increases to about $0.9$ when the components slide past one another and
+are nearly parallel.
 %
-As in the previous case, peaks in the strain parameter $E$
-correlate well with changes in structural topology in the bilayer dynamics, see
-the dashed curves in Fig~\ref{fig:Ves_shear}(f).
+As in the previous case, peaks in the strain parameter $E$ correlate
+well with changes in structural topology in the bilayer dynamics (dashed
+curves in Figure~\ref{fig:Ves_shear}(f)).
 
 
 %%%%%%%
@@ -843,15 +839,17 @@ the dashed curves in Fig~\ref{fig:Ves_shear}(f).
     \includegraphics[width=1.0\textwidth]{Figures/Figure5.pdf}    
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:BC1_TG} Multiple component bilayers in a Taylor-Green when $V_0 = \{0.1, 0.15, 0.2\}$ at $t=0.2\ \mu$s. The pre-relaxed initial configuration is shown in inset of panel (a). 
- The streamlines are plotted in the background. 
-Panel (d) plots the free energies; panel (e) shows orientational parameter $\tilde{S}_2$; panel (f) shows positional parameter E.
-  }
+  \caption{\label{fig:BC1_TG} Multiple component bilayers in a
+  Taylor-Green when $V_0 = \{0.1, 0.15, 0.2\}$ at $t=0.2\ \mu$s. The
+  pre-relaxed initial configuration is shown in the inset of panel (a).
+  The streamlines are plotted in the background. Panel (d) plots the
+  free energies; panel (e) shows the orientational parameter
+  $\tilde{S}_2$; panel (f) shows the positional parameter $E$.}
 \end{figure}
 %
 \subsection{Bilayer and vesicle configurations in a Taylor-Green flow}
-Next, we subject the bilayer/vesicle configurations to a 
-Taylor-Green (TG) background flow
+Next, we subject the JP structures to the Taylor-Green (TG) background
+flow
 \begin{equation}
 \label{eq:tg_flow}
 \uu_\infty(\xx) = V_0\; \frac{\text{nm}}{\text{ns}}\;
@@ -861,15 +859,15 @@ Taylor-Green (TG) background flow
          {\bf e}_x
          +\sin\left(x/\lambda\right)
          \cos\left(y/\lambda\right)
-             {\bf e}_y\right)
+             {\bf e}_y\right),
 \end{equation}
 where $x = {\bf e}_x \cdot \xx$ and $y = {\bf e}_y \cdot \xx$
 are the horizontal and vertical coordinates, respectively. 
 The TG flow is a confining flow consisting of a checkerboard pattern
-of cells with alternating circulation.  We control the flow by 
-the dimensionless flow strength $V_0$ and the dimensionless cell size $l$
-defining $\lambda = l$ nm.
-For most of the results here the parameter $l=2$ is used in this subsection.
+of cells with alternating circulation. We control the flow by the
+dimensionless flow strength $V_0$ and the dimensionless cell size $l$
+defining $\lambda = l$ nm. For most of the results in this subsection,
+we use the parameter $l=2$.
 %
 
 \begin{figure}
@@ -883,19 +881,20 @@ Panel (d) plots the free energies; panel (e) shows orientational parameter $\til
 
 
 There is no appreciable pattern in the deformation for the multicomponent bilayer case in TG flow. 
-Fig~\ref{fig:BC1_TG}(a)--(c) are the snapshots when $V_0=0.1,0.15,0.2$ at $t = 0.2$ $\upmu$s.
+Figure~\ref{fig:BC1_TG}(a)--(c) are the snapshots when $V_0=0.1,0.15,0.2$ at $t = 0.2$ $\upmu$s.
 At all flow strengths, the bilayer components are separated and mixed by the flow in neighboring cells. 
 In the $V_0 = 0.2$ case, the flow breaks off components consisting of only a few particles,
-leading an increase in energy (Fig~\ref{fig:BC1_TG}(d), long dashed curve).
+leading an increase in energy (Figure~\ref{fig:BC1_TG}(d), long dashed curve).
 There is no significant change in the orientational order.  There is an initial increase in the
 strain parameter due to component mixing, but the strains remains bounded since the particles
 stay confined to within the neighbors of the central cell.  
 
 
 Patterns in the deformation, however, do emerge in the case of a vesicle in TG flow.
-For a vesicle in a Taylor-Green flow, Fig~\ref{fig:ves_TG}(a)--(c) are configurations at $t=0.2\  \mu$s where $V_0=0.1,0.15,0.2$.
+For a vesicle in a Taylor-Green flow, Figure~\ref{fig:ves_TG}(a)--(c) are configurations at $t=0.2\  \mu$s where $V_0=0.1,0.15,0.2$.
 Here, the circular vesicle takes on a steady square shape for moderate flow rates $V_0 = 0.1$ and $V_0 = 0.15$.
-In these cases, there is little change in the vesicle free energy and order (Fig~\ref{fig:ves_TG}(d)-(f))).
+In these cases, there is little change in the vesicle free energy and
+order (Figure~\ref{fig:ves_TG}(d)-(f))).
 The vesicle disintegrates for $V_0 = 0.2$, leading to a jump in energy, drop in order, and increase in strain,
 suggesting that the vesicle has a critical TG flow strength in the interval $[0.15, 0.2]$ separating the
 intact and ruptured end-states.
@@ -911,25 +910,26 @@ intact and ruptured end-states.
 \end{figure}
 
 The vesicle shape is also tied to cell size $l$.  
-Fig~\ref{fig:BTG_Scale}(a)--(d) show the deformation of a vesicle in a
+Figure~\ref{fig:BTG_Scale}(a)--(d) show the deformation of a vesicle in a
 TG flow for $V_0=0.1$ when $t = 1$ $\upmu$s.  
 For the smallest cell size $l = 1$ tested, the vesicle is somewhat octagonal
-and passes through multiple cells (Fig~\ref{fig:BTG_Scale}(a)).
+and passes through multiple cells (Figure~\ref{fig:BTG_Scale}(a)).
 For the largest cell size $l = 4$,
 the vesicle is rhomboid and surrounds a single cell. 
 
 In all cases, the vesicle tank-treads like in the shear flow case.
 The direction of the tank-treading, however, varies with the cell
-size (Fig~\ref{fig:BTG_Scale}(a)--(d), directed arcs).  We attribute
+size (Figure~\ref{fig:BTG_Scale}(a)--(d), directed arcs).  We attribute
 this change in rotational orientation to the total rotational moment
 of the cells that the vesicle passes through.
 
 We calculated the vesicle area $A$ and length $L$ (initial area $A_0$, initial length $L_0$)
 by averaging the area/length for the inner and outer leaflets.  
-As shown in Fig~\ref{fig:BTG_Scale}(e),
+As shown in Figure~\ref{fig:BTG_Scale}(e),
 the relative area $A/A_0$ decreases during the simulations, with a rate
 depending nonmonotonically on $l$.  
-The relative length $L/L_0$, however, is constant in $t$ for all cell sizes (Fig~\ref{fig:BTG_Scale}(e), inset).
+The relative length $L/L_0$, however, is constant in $t$ for all cell
+sizes (Figure~\ref{fig:BTG_Scale}(e), inset).
 This implies that the vesicle behaves as an inextensible, permeable membrane.
 In previous work, \cite{Fu2022_JFM} determined the permeability constant of particle-based vesicles
 in the context of shear background flow\cite{chabanon2017,qua-gan-you2021}.
@@ -957,37 +957,39 @@ Panel (d) plots the free energies; panel (e) shows orientational parameter $\til
 We have simulated particles for the multilamellar (BC (ii)) and striated (BC (iii))
 boundary conditions, in both shear and TG background flow.  The results are
 qualitatively similar and will be presented in tandem. 
-For the multilamellar case, we place a 60-particle configuration (inset of Fig~\ref{fig:BC2_shear}(a))
+For the multilamellar case, we place a 60-particle configuration (inset
+of Figure~\ref{fig:BC2_shear}(a))
 in shear flows with $\dot\gamma=0.05, 0.1, 0.15$ and in TG flow with flow rates $V_0=0.1, 0.15, 0.2$.
-For the striated case, we also place a 60-particle configuration (inset of Fig~\ref{fig:BC3_shear}(a))
+For the striated case, we also place a 60-particle configuration (inset
+of Figure~\ref{fig:BC3_shear}(a))
 in shear and TG background flows.  Here, somewhat larger rates are required to see appreciable
 deformations for this boundary condition: $\dot\gamma=0.1, 0.125, 0.15$
 and $V_0=0.2, 0.25, 0.3$ respectively.  
 
 In terms of shear flow, the free energies are steady at the lowest shear 
-rates (Fig~\ref{fig:BC2_shear}(d), Fig~\ref{fig:BC3_shear}(d)).
+rates (Figure~\ref{fig:BC2_shear}(d), Figure~\ref{fig:BC3_shear}(d)).
 The free energy of the striated configuration oscillates by $\pm 1$ $\mathrm{k_BT}$/nm
 due to square reference region deforming into a rhomboidal shape under shear
-flow (Fig~\ref{fig:BC3_shear}(d), solid curve).  No such oscillation
+flow (Figure~\ref{fig:BC3_shear}(d), solid curve).  No such oscillation
 is present in for the multilamellar configuration since this shape is circularly
-isotropic (Fig~\ref{fig:BC2_shear}(d), solid curve).
+isotropic (Figure~\ref{fig:BC2_shear}(d), solid curve).
 At the lowest shear rates, there is, however, oscillation in the strains
 of both configurations, 
 while the order parameter $\tilde S_2$ is more less constant
-(Fig~\ref{fig:BC2_shear}(e),(f), Fig~\ref{fig:BC3_shear}(e),(f), solid curves).
+(Figure~\ref{fig:BC2_shear}(e),(f), Figure~\ref{fig:BC3_shear}(e),(f), solid curves).
 In summary, both multilallar and striated configurations behave as nearly
 rigid bodies under shear flow when the shear rate $\dot \gamma$ is low.
 
 In the high shear rate cases ($\dot\gamma=0.15$), both the
 multilamellar and striated configurations become disordered.  For BC (ii),
 the lamella break apart so that individual bilayers are no longer discernible
-(Fig~\ref{fig:BC2_shear}(c)).
+(Figure~\ref{fig:BC2_shear}(c)).
 For BC (iii), the stria peal away from the main body,
-but remain individually intact (Fig~\ref{fig:BC3_shear}(c)).  
+but remain individually intact (Figure~\ref{fig:BC3_shear}(c)).  
 Overall, the particles in BC (ii) and BC (iii) remain bounded
 and do not drift away in the shear background flow like for the
-BC (i) boundary condition (Fig~\ref{fig:BC1_shear}(c),
-Fig~\ref{fig:Ves_shear}(c)).
+BC (i) boundary condition (Figure~\ref{fig:BC1_shear}(c),
+Figure~\ref{fig:Ves_shear}(c)).
 
 
 \begin{figure}
@@ -1004,23 +1006,23 @@ Panel (d) plots the free energies; panel (e) shows orientational parameter $\til
 
 Under a TG background flow, the free energy $F$ 
 is also basically constant for the lowest flow rates $V_0$
-(Fig~\ref{fig:BC2_TG}(d), Fig~\ref{fig:BC3_TG}(d), solid curves).
+(Figure~\ref{fig:BC2_TG}(d), Figure~\ref{fig:BC3_TG}(d), solid curves).
 The striated configuration is unperturbed by the flow, and is engulfed by a single,
 larger, rotating flow cell
-(Fig~\ref{fig:BC3_TG}(a)). 
+(Figure~\ref{fig:BC3_TG}(a)). 
 The multilamellar configuration is perturbed by the flow,
 as seen in the increase in
-the strain parameter $E$ (Fig~\ref{fig:BC3_TG}(f), solid curve).
+the strain parameter $E$ (Figure~\ref{fig:BC3_TG}(f), solid curve).
 The difference in response to the background flow
 suggests that the multilamellar configuration
 allows for local rearrangement of the particles while retaining the overall shape.
 
 At large flow rates $V_0$, both configurations depart significantly from their local
 equilibrium.  The lamella bilayers from BC (ii) break apart, forming several,
-unlayered bilayer components (Fig~\ref{fig:BC2_TG}(c)).
+unlayered bilayer components (Figure~\ref{fig:BC2_TG}(c)).
 In BC (iii), the stria also break apart, but neighboring particles form
-'X'-like arrangements (Fig~\ref{fig:BC3_TG}(d)), resembling the doubly alternating
-director equilibrium (Fig~\ref{fig:relax}(d), center, top white rectangle).
+'X'-like arrangements (Figure~\ref{fig:BC3_TG}(d)), resembling the doubly alternating
+director equilibrium (Figure~\ref{fig:relax}(d), center, top white rectangle).
 
 
 %%%
@@ -1067,7 +1069,7 @@ in the limit $\rho = 0$.  This gives a free energy per particle that is independ
 of the shape/intensity of the hydrophobic interface.  In practice, $\rho > 0$ is fixed
 and the JP assume different configurations.  As a result, the equilibrium energies
 per particle in our simulations are different and depend on the boundary condition
-(Fig.~\ref{fig:relax_energy}).
+(Figure~\ref{fig:relax_energy}).
 They are about 0.26 $\mathrm{k_BT}$/nm for BC (ii),
 0.55 $\mathrm{k_BT}$/nm for BC (i), and
 1.4 $\mathrm{k_BT}$/nm for BC (iii).
@@ -1088,7 +1090,7 @@ Structurally, the striated JP configuration for BC (iii) behaved the most
 like a rigid body over the flow strengths tested.  For this structure,
 the deformations measures were constant in time for shear rates $\dot \gamma$ up to
 $0.15$ and TG flow rate $V_0$ up to $0.25$
-(Fig.~\ref{fig:BC3_shear} and Fig.~\ref{fig:BC3_TG}).
+(Figure~\ref{fig:BC3_shear} and Figure~\ref{fig:BC3_TG}).
 Conversely, a $25 - 50 \%$
 smaller value for $\dot \gamma$ or $V_0$ were required to observe
 nonrigid deformations for the BC (i) and BC (ii) cases.
@@ -1097,10 +1099,10 @@ In terms of fluid behavior,
 the multilamellar (BC (ii)) structure behaves as shear thinning fluid
 while the striated structure (BC (iii)) has a finite yield stress. 
 Qualitatively, the strains for BC (ii) increases gradually 
-with shear rate (Fig~\ref{fig:BC2_shear}(f)).
+with shear rate (Figure~\ref{fig:BC2_shear}(f)).
 In contrast, the strains for BC (iii) are constant over a range of flow strengths
 and then increase when the flow strengths are large enough
-to deform the body (Fig~\ref{fig:BC3_shear}(f)).
+to deform the body (Figure~\ref{fig:BC3_shear}(f)).
 To quantify this behavior, we form 
 \[
 \mu_{\text{hyd}} = \frac{\dot \gamma}{\dot E} \mu
@@ -1111,7 +1113,7 @@ area provided by the solvent stresses where
 $\mu = 1$ mPa s is
 the solvent viscosity.
 The strain rate $\dot E$ of the body is the slope of a linear fit to the strain curves e.g.,
-in Fig~\ref{fig:BC2_shear}(f).
+in Figure~\ref{fig:BC2_shear}(f).
 
 Calculated viscosities of particle assemblies are shown
 in Table \ref{tbl:bcii_visc}.
@@ -1163,12 +1165,12 @@ pillars.
 While increased flow strengths generally injected energy into the suspension,
 the simulation results show that the unstructured bilayer 
 actually increases orientational order and has somewhat lower free energy 
-under low shear rates (Fig~\ref{fig:BC1_shear}(d,f)).
+under low shear rates (Figure~\ref{fig:BC1_shear}(d,f)).
 This effect suggests that in amphiphilic suspensions,
 it might be possible decrease the excess area of the system 
 by subjecting the suspension to a moderate shear flow.
 Not all background flows produce this ``organizing'' effect, as it was not
-observed in the TG background flow case (Fig~\ref{fig:BC1_TG}).
+observed in the TG background flow case (Figure~\ref{fig:BC1_TG}).
 \citet{PhysRevLett.128.256102} have shown how to drive particle clusters into arbitrary target shapes by solving
 a first passage problem.
 
@@ -1188,7 +1190,7 @@ In the case of bipolar electric JP, the particles
 form parallel chains that repel.  In contrast, the
 interaction between stria under BC (iii) is attractive.
 The existence of 'X'-shaped local arrangements as a local
-equilibrium (Fig.~\ref{fig:relax}(d), top, middle rectangle)
+equilibrium (Figure~\ref{fig:relax}(d), top, middle rectangle)
 further suggests there may be greater diversity in the set of
 possible equilibria in three-dimensions.
 
@@ -1426,7 +1428,8 @@ We adopt the double layer potential to express the solution of \eqref{eq:SL} whe
 u({\bf x}) = \DD[\sigma](\xx) = \int_\Gamma \frac{\partial G(\xx-\yy)}{\partial \nnu_\yy}\sigma(\yy)\, \dif s_\yy,
 \end{align}
 %
-where $G(\xx)$ is the fundamental solution to the screened Laplace equation \eqref{eq:SL} and $\nnu$ is the outward normal.
+where $G(\xx)$ is the fundamental solution to the screened Laplace
+equation \eqref{eq:SL} and $\nnu_\yy$ is the outward normal.
 Since the free energy functional can be written as 
 \begin{align}
 \label{eq:free_energy2}
@@ -1530,14 +1533,13 @@ on particle $\Gamma_i$:
 \end{tabular}
 \end{equation}
 The number $\theta_i(\xx)$ is the angle formed by the position $\xx$,
-the particle center $\aa_i$, and the particle director $\dd_i$.% (Fig
-\ref{fig:flow_map}).
-The normalizations e.g., $(\pi r)^{-1/2}$, provide a uniform surface
-energy $\int_{\Gamma_i} g^2 \,ds = 1$ for circular particles of radius
-$r$. The cases (ii) and (iii) are obtained by applying a vertical shift
-and scaling to case (i).  Using this setup, we simulate the dynamics of
-60 particles with one set of random initial positions and orientations
-as shown in Fig~\ref{fig:relax}(a)
+the particle center $\aa_i$, and the particle director $\dd_i$.
+(Figure~\ref{fig:flow_map}). The normalizations e.g., $(\pi r)^{-1/2}$,
+provide a uniform surface energy $\int_{\Gamma_i} g^2 \,ds = 1$ for
+circular particles of radius $r$. The cases (ii) and (iii) are obtained
+by applying a vertical shift and scaling to case (i). Using this setup,
+we simulate the dynamics of 60 particles with one set of random initial
+positions and orientations as shown in Figure~\ref{fig:relax}(a)
 
 \begin{figure}
   \begin{center}
@@ -1678,7 +1680,11 @@ invariant of center of mass position in a shear flow.
 
 %%%
 
-The second set of simulation is putting the equilibrium state of the boundary condition \eqref{eq:bcs} (iii), the checker board, in a shear flow. After a set of empirical numerical investigations, we obtain a critical shear rate $\dot\gamma=0.15$ where the checker board deforms into stripes and small groups of JP. Fig~\ref{fig:shear_2}(a)--(d) show configurations when $t=\{0,50,100,150\}$. %The deformation starts with stripe separations
+The second set of simulation is putting the equilibrium state of the
+boundary condition \eqref{eq:bcs} (iii), the checker board, in a shear
+flow. After a set of empirical numerical investigations, we obtain a
+critical shear rate $\dot\gamma=0.15$ where the checker board deforms
+into stripes and small groups of JP. Figure~\ref{fig:shear_2}(a)--(d) show configurations when $t=\{0,50,100,150\}$. %The deformation starts with stripe separations
 %
 %\begin{figure}
 %  \begin{center}
@@ -1699,13 +1705,22 @@ Similar to shear flow simulations, we then place equilibrium states of all bound
 \uu_\infty(\xx) = V_0 \left(-\cos(l{\bf e}_x\cdot\xx)\sin(l{\bf e}_y\cdot\xx){\bf e}_x+\sin(l{\bf e}_x\cdot\xx)\cos(l{\bf e}_y\cdot\xx){\bf e}_y\right).
 \end{equation}
 %
-The magnitude of the vortex flow is controlled by the velocity scale $V_0$.
-Similar to the setup in the shear flow cases, we shift the center of mass position to the origin then turn on the Taylor-Green flow with $V_0=0.1$ and tune the sides of zero-velocity box to $\pi$, i.e., $l=0.5$, Fig~\ref{fig:TG_1}(a)--(c) show three frames of simulation results and we 
-track the aspect ratio $\lambda$ described in the previous section which is provided in panel (d). 
-The stiffness of the multi-lamellar structure is able to compete with the flow therefore the structure
-does not deform to any states other than multi-lamellar shape. 
-We also found that the flow strength coefficient above $V_0=0.1$ will result to clear group separations during the simulations. 
-Comparing with the case when $V_0=0.2$, we provide a frame in Fig~\ref{fig:TG_2}(a) and the energy comparison is shown in panel (b). Numerical results validate the phenomenon that a higher Taylor-Green vortex flow generates large structure separations with higher total energy.
+The magnitude of the vortex flow is controlled by the velocity scale
+$V_0$.  Similar to the setup in the shear flow cases, we shift the
+center of mass position to the origin then turn on the Taylor-Green flow
+with $V_0=0.1$ and tune the sides of zero-velocity box to $\pi$, i.e.,
+$l=0.5$, Figure~\ref{fig:TG_1}(a)--(c) show three frames of simulation
+results and we track the aspect ratio $\lambda$ described in the
+previous section which is provided in panel (d).  The stiffness of the
+multi-lamellar structure is able to compete with the flow therefore the
+structure does not deform to any states other than multi-lamellar shape.
+We also found that the flow strength coefficient above $V_0=0.1$ will
+result to clear group separations during the simulations.  Comparing
+with the case when $V_0=0.2$, we provide a frame in
+Figure~\ref{fig:TG_2}(a) and the energy comparison is shown in panel
+(b). Numerical results validate the phenomenon that a higher
+Taylor-Green vortex flow generates large structure separations with
+higher total energy.
 
 
 \begin{figure}
@@ -1734,9 +1749,14 @@ Comparing with the case when $V_0=0.2$, we provide a frame in Fig~\ref{fig:TG_2}
 \subsection{Steady-State Structure Confined in Narrow Channels}
 
 
-Here are demonstrations of having JP vesicle and multi-lamellar structure in a narrow channel 
-under a shear flow.
-Simulation results and snapshots are shown in Figs~\ref{fig:confined_vesicle} and Fig~\ref{fig:confined_lamellar} where the JP vesicle has $N_b=25$ particles and JP lamellar has $N_b=40$ particles, respectively. Both starting configurations are pre-relaxed and the channel width in the narrow part is about 5 length units in the vesicle case and 4 length units in the lamellar case.
+Here are demonstrations of having JP vesicle and multi-lamellar
+structure in a narrow channel under a shear flow.  Simulation results
+and snapshots are shown in Figures~\ref{fig:confined_vesicle} and
+Figure~\ref{fig:confined_lamellar} where the JP vesicle has $N_b=25$
+particles and JP lamellar has $N_b=40$ particles, respectively. Both
+starting configurations are pre-relaxed and the channel width in the
+narrow part is about 5 length units in the vesicle case and 4 length
+units in the lamellar case.
 
 
 \begin{figure}
