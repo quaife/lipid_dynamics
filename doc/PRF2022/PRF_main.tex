@@ -137,7 +137,7 @@
   JPs suspended in a viscous background flow (JFM, 941, 2022).
   We investigate how various bilayer structures arise from tuning
   the hydrophobic properties of the JP-solvent interface.
-  Focusing on a simple tuing of the hydrophobicity distribution,
+  Focusing on a simple tuning of the hydrophobicity distribution,
   we found
   JPs assembled into uni-lamella, multi-lamella and striated
   structures.  To introduce dynamics, we include a linear shear flow and a
@@ -146,7 +146,7 @@
   (a) free energy from the hydrophobic interactions between the JPs,
   (b) order parameter for the ordering of JPs in terms of alignment of their directors, 
   and (c) strain parameter that captures the deformation in the assembly.
-  We characterized the effective material proporties of the JP structures
+  We characterized the effective material properties of the JP structures
   and found that the uni-lamellar structures increases orientation order under
   shear flow, the multilamellar structure behaves as a shear thinning fluid,
   and the striated structure possesses a finite yield stress.  
@@ -172,83 +172,78 @@
 % Put \label in argument of \section for cross-referencing
 %\section{\label{}}
 Janus particles (JPs) are colloids with two surfaces of different
-properties.
-For example, it is common for the surface of a Janus particle to
-be partly hydrophilic and hydrophobic (polar and non-polar).
+properties. For example, it is common for the surface of a Janus
+particle to be partly hydrophilic and hydrophobic (polar and non-polar).
 In a viscous solvent, Janus particles often self-assemble into
 structures with tunable functions for biomedical engineering
-applications
-\cite{
-  GheisariSahfieeAbbasiEtAl2021_DMR,
-  LiuYangHuangEtAl2016_Angew,
-  LiWangYaoEtAl2019_Nanoscale,
-  Bradley2016}.
-Depending on the interactions between Janus particles and the surrounding viscous solvent,
-JPs self-assemble into oligomers of various geometries and sizes\cite{Bradley2017}. 
+applications~\cite{GheisariSahfieeAbbasiEtAl2021_DMR,
+LiuYangHuangEtAl2016_Angew, LiWangYaoEtAl2019_Nanoscale, Bradley2016}.
+Depending on the interactions between Janus particles and the
+surrounding viscous solvent, JPs self-assemble into oligomers of various
+geometries and sizes~\cite{Bradley2017}. 
 
 Dynamics offers yet another dimension of control that emerges naturally
-from the interactions between particles and fluid in colloidal matter \cite{Brandner2019,RevModPhys.93.025008}.
-Active colloidal systems show nonequilibrium self-organization with
-complexity rivaling that of biological systems such as living cells,
-bacterial baths, and animal flocks\cite{CollardGrosjeanVandewalle2020,Vutukuri2020}.
-A long-standing challenge in fluid mechanics
-and material science is to solve the ``inverse" problem of creating a model
-colloidal system that will self-assemble into a prescribed structure
-\cite{PhysRevLett.128.256102}.
-For example, the framework of geometrical frustration, which has been
-used to explain disordered systems, could be used to design new, ordered systems
-instead, through specific choices for the shapes or interactions of the particles
-\cite{Manoharan2015_Science}.
+from the interactions between particles and fluid in colloidal
+matter~\cite{Brandner2019,RevModPhys.93.025008}. Active colloidal
+systems show nonequilibrium self-organization with complexity rivaling
+that of biological systems such as living cells, bacterial baths, and
+animal flocks~\cite{CollardGrosjeanVandewalle2020,Vutukuri2020}. A
+long-standing challenge in fluid mechanics and material science is to
+solve the ``inverse" problem of creating a model colloidal system that
+will self-assemble into a prescribed
+structure~\cite{PhysRevLett.128.256102}. For example, the framework of
+geometrical frustration, which has been used to explain disordered
+systems, could be used to design new, ordered systems instead, through
+specific choices for the shapes or interactions of the
+particles~\cite{Manoharan2015_Science}.
 
-The many-body hydrodynamics of amphiphilic Janus particles (JP)
-assembled as vesicles and suspended
-in a viscous fluid (at zero Reynolds number) has been studied using
-boundary integral numerical simulations \cite{Fu20,Fu2022_JFM}.
-The dynamics of the JP suspension results from the combination
-of long-range hydrodynamic interaction and non-local
-interactions between JPs through the distribution of
-a hydrophobic attraction potential (HAP).
+The many-body hydrodynamics of amphiphilic Janus particles assembled as
+vesicles and suspended in a viscous fluid (at zero Reynolds number) has
+been studied using boundary integral numerical
+simulations~\cite{Fu20,Fu2022_JFM}. The dynamics of the JP suspension
+results from the combination of long-range hydrodynamic interaction and
+non-local interactions between JPs through the distribution of a
+hydrophobic attraction potential (HAP).
 
-In a quiescent flow, numerical simulations of a 
-JP suspension showed self-assembly into micelles and bilayers of
-JPs that provide an alternative means for computing the 
-mechanical moduli of a colloidal membrane \cite{NaTr00,Fu20,KrFiGuKaHa13}.
-Under background flows, the hydrodynamics of a JP vesicle (a
-self-enclosed bilayer of JPs) exhibit many familiar behaviors of a
-vesicle \cite{Fu2022_JFM}: 
-elongation and alignment along the extensional direction, tank-treading,
-and rupture of a vesicle under shear flow.
+In a quiescent flow, numerical simulations of a JP suspension showed
+self-assembly into micelles and bilayers of JPs that provide an
+alternative means for computing the mechanical moduli of a colloidal
+membrane~\cite{NaTr00,Fu20,KrFiGuKaHa13}. Under background flows, the
+hydrodynamics of a JP vesicle (a self-enclosed bilayer of JPs) exhibit
+many familiar behaviors of a vesicle~\cite{Fu2022_JFM}: elongation and
+alignment along the extensional direction, tank-treading, and rupture of
+a vesicle under shear flow.
 
-In this work we take advantage of the flexibility of the model to examine the
-effects of boundary condition on JP surfaces that could be controlled
-based on the chemicals used in the experiments, for example.
-It turns out that a simple tuning of the hydrophobic distribution
-leads to multilamellar and striated structures. 
-Here less is understood about the flow-structure interactions
-and we investigate the
-deformation of these novel materials in background flows
-and map out their collective behavior away from equilibrium.
+In this work we take advantage of the flexibility of the model to
+examine the effects of boundary condition on JP surfaces that could be
+controlled based on the chemicals used in the experiments, for example.
+We show that a simple tuning of the hydrophobic distribution leads to
+multilamellar and striated structures. Here less is understood about the
+flow-structure interactions and we investigate the deformation of these
+novel materials in background flows and map out their collective
+behavior away from equilibrium.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations: Hydrophobic Attraction Potential Mobility Problem} 
 The governing equations are a nonlinear system for the position and
 orientation of a collection of rigid Janus particles. We first pose the
 Stokes equations for the mobility problem giving the hydrodynamic
 interactions for the particle suspension. The hydrophobic forces come
 from solving a screened Laplace equation. Particle collisions are
-avoided through a near-field, pair potential.  
+avoided through a near-field, pair potential.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Mobility problem}
 %A suspension of $N_b$ Janus particles is immersed in a viscous solvent.
 %RJR: In the above sentence, suspection and immersed are redundant 
-The Janus particles are suspended in a viscous solvent.
-The particles are disks of radius $c$, center $\aa_i$, and
-orientation $\theta_i$ relative to the horizontal axis, where $i = 1, \dots, N_b$
-and $N_b$ is the number of particles.
-The domain $\Omega(t) \subset \mathbb{R}^2$ is the solvent phase and $t$
-is time.  The boundary of
-$\Omega$ is $\bd\Omega = \Gamma_1 \cup \cdots \cup \Gamma_{N_b}$, where
-$\Gamma_i$ is the boundary of Janus particle $i$. Assuming inertial
-terms are negligible, we have 
+The Janus particles are suspended in a viscous solvent. The particles
+are disks of radius $c$, center $\aa_i$, and orientation $\theta_i$
+relative to the horizontal axis, where $i = 1, \dots, N_b$ and $N_b$ is
+the number of particles. The domain $\Omega(t) \subset \mathbb{R}^2$ is
+the solvent phase and $t$ is time. The boundary of $\Omega$ is
+$\bd\Omega = \Gamma_1 \cup \cdots \cup \Gamma_{N_b}$, where $\Gamma_i$
+is the boundary of Janus particle $i$. Assuming inertial terms are
+negligible, we have 
 \begin{alignat}{3}
 \label{eq:stokes}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, && \xx \in \Omega, \\
@@ -259,34 +254,34 @@ where $\uu$ is the velocity of the solvent, $p$ is the pressure,
 $\uu_\infty$ is the background flow velocity, and $\mu$ is the constant
 viscosity. The solvent velocity satisfies the no-slip boundary condition
 for a rigid body motion
-\begin{equation}
+\begin{align}
   \label{eq:rigid-vel}
   \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, 
     \quad \xx \in \Gamma_i,
-\end{equation}
+\end{align}
 where $\vv_i$ is the translational velocity, $\omega_i$ is the angular
 velocity, and $\langle x, y \rangle^{\perp} = \langle -y, x\rangle$. 
 
-Without inertia, $(\uu, p)$ also satisfy the force-free and torque-free conditions.
-This means that the force and torque from the hydrodynamic stress on each particle 
-are in balance with the total
-force and torque coming from the hydrophobic potential and repulsion.
-To compute this balance, we define
-the free energy\cite{Ma77, GoHaKo94, Fu20, Fu2022_JFM}
-\begin{equation}
+Without inertia, $(\uu, p)$ also satisfy the force-free and torque-free
+conditions. This means that the force and torque from the hydrodynamic
+stress on each particle balance the total force and torque coming from
+the hydrophobic potential and repulsion. To compute this balance, we
+define the free energy~\cite{Ma77, GoHaKo94, Fu20, Fu2022_JFM}
+\begin{align}
 \label{eq:free_energy}
 F = \gamma
-\int_{\Omega} \rho |\nabla u|^2 + \rho^{-1} u^2
+  \int_{\Omega} \left(\rho |\nabla u|^2 + \rho^{-1} u^2 \right)
 \,d\xx
 + \frac{M}{2}
 \sum_{j \neq i} 
-P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right), \quad
-\end{equation}
+P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right),
+\end{align}
 where $u(\xx,t)$ is as an order parameter for the structure of water,
 $\rho$ is a decay length, and $\gamma$ is an interfacial tension. 
 
-The order parameter $u(\xx,t)$ is assumed to the minimizer of the free energy $F$.
-Its governing equations $u(\xx,t)$ are a screened Laplace equation boundary value problem
+The order parameter $u(\xx,t)$ is assumed to minimize the free energy
+$F$. Its governing equations $u(\xx,t)$ are a screened Laplace equation
+boundary value problem
 \begin{gather}
   \label{eq:SL}
   -\rho^2 \Delta u + u = 0,\quad \xx \in \Omega, \\
@@ -299,15 +294,15 @@ particle-solvent interface.
 
 The dimensionless repulsion profile $P$ takes the form $P(s) = 1 -
 \sin(\pi s/2)$ for $0 \leq s < 1$ and $P(s) = 0$ for $1 \leq s <
-\infty$. The parameter $\rho_0$ is an ``effective" distance between particle surfaces,
-below which the steric repulsion between a pair of JPs becomes important.
-The parameter $M$ is the repulsion modulus.
+\infty$. The parameter $\rho_0$ is an ``effective" distance between
+particle surfaces, below which the steric repulsion between a pair of
+JPs becomes important. The parameter $M$ is the repulsion modulus.
 
-To get the force $\FF_i$ and torque $T_i$ on $\Gamma_i$ from the free energy\cite{Fu20},
-we compute the variation of the domain of the free energy 
-\eqref{eq:free_energy} subject to \eqref{eq:SL}-\eqref{eq:SLbc},
-and obtain 
-\begin{equation}
+To calculate the force $\FF_i$ and torque $T_i$ on $\Gamma_i$ from the
+free energy~\cite{Fu20}, we compute the variation of the domain of the
+free energy~\eqref{eq:free_energy} subject
+to~\eqref{eq:SL}--\eqref{eq:SLbc}, and obtain 
+\begin{align}
   \FF_i = \int_{\Gamma_i} \mathbf{T}\nnu \, \dif s
   - \frac{M}{\rho_0}
   \sum_{j \neq i}
@@ -315,19 +310,18 @@ and obtain
 P'\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right)
   ,\quad
 T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp}\cdot (\mathbf{T}\nnu) \, \dif s, 
-\end{equation}
-for $i = 1,\dots,N_b$ with particle outward normal $\nu$. The term 
-$
-\mathbf{T}
-= \gamma \left[ \rho^{-1} u^2 \mathbf{I}
+\end{align}
+for $i = 1,\dots,N_b$ with particle outward normal $\nnu$, where
+\begin{align}
+\mathbf{T} = \gamma \left[ \rho^{-1} u^2 \mathbf{I}
   + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right]
-$
-is the hydrophobic stress.
-Repulsion is rotationally symmetric and does not contribute to the torque.
+\end{align}
+is the hydrophobic stress. The repulsion is rotationally symmetric and
+does not contribute to the torque.
 
 Since the force and torque from the hydrodynamic stress on each particle
-are in balance with the total force and torque coming from the
-hydrophobic potential and repulsion, we have
+balance the total force and torque coming from the hydrophobic potential
+and repulsion, we have
 \begin{equation}
   \label{eq:force}
  \int_{\Gamma_i} \ssigma \cdot \nnu \, \dif s = \FF_i, \quad
@@ -338,70 +332,94 @@ hydrophobic potential and repulsion, we have
 where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
 \right)$ is the hydrodynamic stress tensor.
 
-Once \eqref{eq:stokes}-\eqref{eq:force} have been solved,
-the velocities $(\vv_i, \omega_i)$ from \eqref{eq:rigid-vel}
-update the particle positions and orientations.
-We use the parameters $\mu = 1$ mPa s, $\gamma = 4$ pN nm$^{-1}$,
-$\rho = 5$ nm, $c = 1.25$ nm, $M = 2$ pN, and $\rho_0 = 0.5$ nm.
-These values give a characteristic time $1$ ns and characteristic length $1$ nm.
+Once \eqref{eq:stokes}--\eqref{eq:force} have been solved, the
+velocities $(\vv_i, \omega_i)$ from~\eqref{eq:rigid-vel} update the
+particle positions and orientations.  We use the parameters $\mu = 1$
+mPa s, $\gamma = 4$ pN nm$^{-1}$, $\rho = 5$ nm, $c = 1.25$ nm, $M = 2$
+pN, and $\rho_0 = 0.5$ nm.  These values give a characteristic time $1$
+ns and characteristic length $1$ nm.
 
-\subsection{Boundary integral represenation and time stepping}
-We recast \eqref{eq:stokes}--\eqref{eq:rigid-vel} and \eqref{eq:SL}
-as boundary integral equations (BIEs) and discretize each BIE at
-$N$ points on each of the $N_b$ particles with a collocation method.
-To express the solution of \eqref{eq:SL},
-we adopt the double layer potential
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Boundary integral representation and time stepping}
+We recast~\eqref{eq:stokes}--\eqref{eq:rigid-vel}
+and~\eqref{eq:SL}--\eqref{eq:SLbc} as boundary integral equations (BIEs)
+and discretize each BIE at $N$ points on each of the $N_b$ particles
+with a collocation method. To express the solution of
+\eqref{eq:SL}--\eqref{eq:SLbc}, we adopt the double layer potential
 \begin{align}
 \label{eq:SL_BIE}
-u({\bf x}) = \DD[\sigma](\xx) = \int_\Gamma \frac{\partial G(\xx-\yy)}{\partial \nnu_\yy}\sigma(\yy)\, \dif s_\yy
-, \quad \xx \in \Omega,
+u({\xx}) = \DD[\sigma](\xx) = \int_\Gamma 
+  \pderiv{G(\xx-\yy)}{\nnu_\yy}\sigma(\yy)\, \dif s_\yy, 
+  \quad \xx \in \Omega,
 \end{align}
-where $G(\xx) = \frac{1}{2\pi}K_0(|\xx|/\rho)$ is the fundamental solution to the screened Laplace equation \eqref{eq:SL},
-$K_0$ is the zeroth-order modified Bessel function of the first kind,
-and $\sigma$ is a scalar-valued density function.
-The subscript in $\dif s_\yy$ denotes integration with respect to $\yy \in \Gamma$. 
-For the velocity, we use the representation [REF]
+where $G(\xx) = \frac{1}{2\pi}K_0(|\xx|/\rho)$ is the fundamental
+solution to the screened Laplace equation~\eqref{eq:SL}, $K_0$ is the
+zeroth-order modified Bessel function of the first kind, and $\sigma$ is
+a scalar-valued density function. The subscript in $\dif s_\yy$ denotes
+integration with respect to $\yy \in \Gamma$. To satisfy the boundary
+condition~\eqref{eq:SLbc}, the density function must satisfy
+\begin{align}
+  \label{eq:SL_BIE2}
+  g(\xx) = \frac{1}{2} \sigma(\xx) + \DD[\sigma](\xx), \quad
+    \xx \in \Gamma.
+\end{align}
+
+For the velocity, we use the representation
 \begin{align}
   \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DD[\eeta](\xx) + 
     \sum_{i=1}^{N_b} \left(\SS(\xx,\aa_i) \cdot \FF_i + 
     \RR(\xx,\aa_i) T_i\right), \quad \xx \in \Omega,
 \end{align}
-with the vector-valued density function $\eeta$,
-Stokeslet 
-$\SS(\xx,\aa_i) = \frac{1}{4\pi} \left(-\log |\rr|\mathbf{I} + \frac{\rr \otimes \rr}{|\rr|^2}\right)$,
-and Rotlet
-$\RR(\xx,\aa_i) = \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2}$,
-$\rr = \xx - \aa_i$ [REF].
-    
-
-Finally, together with \eqref{eq:velocity},
-\eqref{eq:stokes}-\eqref{eq:rigid-vel} become 
+where $\eeta$ is a vector-valued density function and
+\begin{align}
+  \DD[\eeta](\xx) = \frac{1}{\pi} \int_{\Gamma} 
+    \frac{(\xx - \yy) \cdot \nnu}{|\xx - \yy|^2}
+    \frac{(\xx - \yy) \otimes (\xx - \yy)}{|\xx - \yy|^2}
+    \cdot \eeta(\yy)\, \dif s_\yy.
+\end{align}
+The Stokeslets and Rotlets are
+\begin{align}
+  \SS(\xx,\aa_i) = \frac{1}{4\pi} \left(-\log |\rr|\mathbf{I} +
+    \frac{\rr \otimes \rr}{|\rr|^2}\right), \quad 
+  \RR(\xx,\aa_i) = \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2}, 
+\end{align}
+respectively, where $\rr = \xx - \aa_i$~\cite{pow-mir1987}. Letting
+$\xx$ approach $\Gamma_i$ in~\eqref{eq:velocity}, applying the jump
+condition of the double layer potential~\cite{poz1992}, and imposing the
+no-slip boundary condition~\eqref{eq:rigid-vel}, the density function
+$\eeta$, translational velocity $\vv_i$, and rotational velocity
+$\omega_i$ satisfy
 \begin{alignat}{3}
   \label{eq:vel_BLM_rep}
   \vv_i + \omega_i (\xx - \aa_i)^\perp &= \uu_\infty(\xx)
     -\frac{1}{2} \eeta(\xx) + \DD[\eeta](\xx) 
     + \sum_{j=1}^{N_b} 
     \left(\SS(\xx,\aa_j) \cdot \FF_j + \RR(\xx,\aa_j) T_j\right),\\
-  \label{eq:mobility}
+  \label{eq:vel_BLM_rep2}
   \int_{\Gamma_i} \eeta \, \dif s &= \mathbf{F}_i, \quad
   \int_{\Gamma_i} \eeta \cdot (\xx-\aa_i)^\perp \, \dif s = T_i,
 \end{alignat}
-for $\xx \in \Gamma_i$ and $i = 1,\dots,N_b$ [REF].
+for $\xx \in \Gamma_i$ and $i = 1,\dots,N_b$.
 
-We discretize \eqref{eq:SL_BIE} and \eqref{eq:vel_BLM_rep}
-using high-order interpolation-based quadrature rules.
-Integrals that are smooth are computed with
-the spectrally-accurate trapezoid rule, and nearly-singular integrals,
-caused by close contact between two particles, are computed with a
-high-order interpolation-based quadrature rule \cite{qua-bir2014}.
+We discretize~\eqref{eq:SL_BIE2}
+and~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2} using high-order
+interpolation-based quadrature rules.  Integrals that are smooth are
+computed with the spectrally-accurate trapezoid rule, and
+nearly-singular integrals, caused by close contact between two
+particles, are computed with a high-order interpolation-based quadrature
+rule~\cite{qua-bir2014}.
 
-After discretizing and applying quadrature,
-the result is an $NN_b \times NN_b$ and $2NN_b \times 2NN_b$
-linear system for \eqref{eq:SL_BIE} and \eqref{eq:vel_BLM_rep}, respectively.
-These are solved with matrix-free GMRES, and we guarantee that the number of
-GMRES iterations is mesh-independent by using second-kind BIEs.
 
+After discretizing and applying quadrature, the result is an $NN_b
+\times NN_b$ and $2NN_b \times 2NN_b$ linear system
+for~\eqref{eq:SL_BIE2}
+and~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2}, respectively.
+These are solved with matrix-free GMRES, and we guarantee that the
+number of GMRES iterations is mesh-independent by using second-kind
+BIEs.
+
+\todo[inline]{BRYAN IS HERE}
 %Once the translational and angular velocities $\vv_i, \omega_i$
 %have been determined, a second-order Adams-Bashforth scheme updates the particle
 %positions and orientations:
@@ -431,13 +449,13 @@ GMRES iterations is mesh-independent by using second-kind BIEs.
   positions and orientations and the inset shows $N_b=60$ particles configuration.
   The particles self-assemble into distinct configurations,
   depending on the boundary condition \eqref{eq:bc-type}.
-  Panel (b) is for $b=1$ and the boundary condition mimicks that
+  Panel (b) is for $b=1$ and the boundary condition mimics that
   of an amphiphilic particle giving bilayer structures. 
   Panel (c) is for $b=2$ which gives rise to a multilamellar configuration. 
   In panel (d), the case $b = 0$ is for a water structure with
   positive/negative charge. 
   The false color maps use blue for $u < 0$, green for $u = 0$, and yellow then red for $u > 0$.
-  The insest in panel (b)--(d) are configurations using $N_b=60$ and share the same color map
+  The inset in panel (b)--(d) are configurations using $N_b=60$ and share the same color map
   as the main panels.}
 \end{caption}
 \end{figure}
@@ -476,7 +494,7 @@ Three distinct configurations emerge:
 Fig~\ref{fig:relax}(a) shows the initial configurations with
 orientations of the 198-particle and 60-particle cases,
 respectively. 
-BC (i) with $b = 1$ mimicks an amphiphilic particle.
+BC (i) with $b = 1$ mimics an amphiphilic particle.
 The boundary data $g$ is everywhere nonnegative,
 and takes
 the maximum value $a$ on the hydrophobic tail (red)
@@ -577,7 +595,7 @@ Fig~\ref{fig:relax_energy}(a) tracks the free energy profiles for all relaxation
 For the 198-particle cases, we normalized the energies by 60/198 and the results
 show that all energies decrease with good agreements in all boundary conditions (dashed curves).
 This can be considered as evidence that the free energy per particle with specified
-boundary condtions is independent of the total particle number $(N_b)$.
+boundary conditions is independent of the total particle number $(N_b)$.
 
 To measure positional order, we use a number,
 which we call the strain parameter, 
@@ -744,7 +762,7 @@ Under the shear flow, the shedding and merging of bilayers
 results in an overall decrease in distinct bilayer structures.  
 Similarly, the free energies 
 are slightly decreasing (Fig~\ref{fig:BC1_shear}(d)),
-with the overall changes occuring in the range of a few $\mathrm{k_BT}$/nm.  
+with the overall changes occurring in the range of a few $\mathrm{k_BT}$/nm.  
 This suggests that
 the shear flow changes the energy landscape to move the local equilibrium obtained from a random initial condition
 to an alternate local equilibrium with lesser free energy and greater orientational order.   
@@ -847,8 +865,8 @@ Taylor-Green (TG) background flow
 \end{equation}
 where $x = {\bf e}_x \cdot \xx$ and $y = {\bf e}_y \cdot \xx$
 are the horizontal and vertical coordinates, respectively. 
-The TG flow is a confining flow consisting of a checkboard pattern
-of cells with alternating circulation.  We control the flow by the
+The TG flow is a confining flow consisting of a checkerboard pattern
+of cells with alternating circulation.  We control the flow by 
 the dimensionless flow strength $V_0$ and the dimensionless cell size $l$
 defining $\lambda = l$ nm.
 For most of the results here the parameter $l=2$ is used in this subsection.
@@ -895,7 +913,7 @@ intact and ruptured end-states.
 The vesicle shape is also tied to cell size $l$.  
 Fig~\ref{fig:BTG_Scale}(a)--(d) show the deformation of a vesicle in a
 TG flow for $V_0=0.1$ when $t = 1$ $\upmu$s.  
-For the smallest cell size $l = 1$ tested, the vesicle is somewhat octogonal
+For the smallest cell size $l = 1$ tested, the vesicle is somewhat octagonal
 and passes through multiple cells (Fig~\ref{fig:BTG_Scale}(a)).
 For the largest cell size $l = 4$,
 the vesicle is rhomboid and surrounds a single cell. 
@@ -962,7 +980,7 @@ rigid bodies under shear flow when the shear rate $\dot \gamma$ is low.
 
 In the high shear rate cases ($\dot\gamma=0.15$), both the
 multilamellar and striated configurations become disordered.  For BC (ii),
-the lamella break apart so that individual bilayers are no longer discernable
+the lamella break apart so that individual bilayers are no longer discernible
 (Fig~\ref{fig:BC2_shear}(c)).
 For BC (iii), the stria peal away from the main body,
 but remain individually intact (Fig~\ref{fig:BC3_shear}(c)).  
@@ -995,7 +1013,7 @@ as seen in the increase in
 the strain parameter $E$ (Fig~\ref{fig:BC3_TG}(f), solid curve).
 The difference in response to the background flow
 suggests that the multilamellar configuration
-allows for local rearrangment of the particles while retaining the overall shape.
+allows for local rearrangement of the particles while retaining the overall shape.
 
 At large flow rates $V_0$, both configurations depart significantly from their local
 equilibrium.  The lamella bilayers from BC (ii) break apart, forming several,
@@ -1031,11 +1049,11 @@ Panel (d) plots the free energies; panel (e) shows orientational parameter $\til
 
 \section{Discussion}
 Our results were for $N_b = 60$.  This particle number was large enough for the JP to form
-measurable structures while giving managable simulation times (days) on a single computing processor.
-The simulation time for $N_b = 198$ in Fig. \ref{fig:relax} and Fig. \ref{fig:relax_energy}
+measurable structures while giving manageable simulation times (days) on a single computing processor.
+The simulation time for $N_b = 198$ in Figure~\ref{fig:relax} and Fig. \ref{fig:relax_energy}
 was several weeks, and so we avoided simulations of this size for our results.
 We used $N = 16$ grid points per particles for all simulations.  We performed a convergence study
-and found that using $N = 16$ or $N = 24$ grid points per particle gave quantitavely indistinguishable
+and found that using $N = 16$ or $N = 24$ grid points per particle gave quantitatively indistinguishable
 results.  The time courses consisted of $O(10^3)$ time steps with $\Delta t = 0.2$ nm. 
 
 The free energy $F$ defined in \eqref{eq:free_energy}
@@ -1047,7 +1065,7 @@ This way, for a fixed configuration, the hydrophobic interaction portion of the
 free energy (the integral in \eqref{eq:free_energy}) converges to $2\pi \gamma c N_b$
 in the limit $\rho = 0$.  This gives a free energy per particle that is independent
 of the shape/intensity of the hydrophobic interface.  In practice, $\rho > 0$ is fixed
-and the JP assume different configurations.  As a result, the equilbrium energies
+and the JP assume different configurations.  As a result, the equilibrium energies
 per particle in our simulations are different and depend on the boundary condition
 (Fig.~\ref{fig:relax_energy}).
 They are about 0.26 $\mathrm{k_BT}$/nm for BC (ii),
@@ -1061,7 +1079,7 @@ conditions; BC (i), BC (ii), and BC (iii); that formed bilayer, multilamellar, a
 configurations, respectively. For BC (i), we considered both an unstructured bilayer
 and a vesicle bilayer.  The background flows were a linear shear flow and a Taylor-Green (TG) flow.
 
-We can characterize the effective material proporties of the JP structures
+We can characterize the effective material properties of the JP structures
 based on the changes in free energy, orientationl order, and strain as a function
 of flow strength.
 Generally, $F$ increases, $\tilde S_2$ decreases, and 
@@ -1139,7 +1157,8 @@ viscosity using the hydrophobic potential
 \eqref{eq:free_energy}
 by replacing the boundary condition \eqref{eq:bc-type}
 with one that is everywhere constant, in effect modeling
-lipids in a bilayer as an array of as elongated, purely hydrophobic pilars. 
+lipids in a bilayer as an array of as elongated, purely hydrophobic
+pillars. 
 
 While increased flow strengths generally injected energy into the suspension,
 the simulation results show that the unstructured bilayer 
@@ -1163,7 +1182,7 @@ formation of bilayers when the initial
 configuration was chosen sufficiently close to the final
 configuration.
 \citet{kohl-cor-che-vee22} also studied self-assembly
-of bipolar electric JP, which bare some resemblence
+of bipolar electric JP, which bare some resemblance
 to polar boundary condition we employ.
 In the case of bipolar electric JP, the particles
 form parallel chains that repel.  In contrast, the
@@ -1175,7 +1194,7 @@ possible equilibria in three-dimensions.
 
 The characteristics of the self-assembly of amphiphilic JP into onion-like
 dendrimersomes have been studied
-by molecular dynamics simulations\cite{C9NR05885K}.  
+by molecular dynamics simulations~\cite{C9NR05885K}.  
 The molecular dynamics simulations
 use an anisotropic pair potential
 is used to describe the particle interactions
@@ -1234,7 +1253,7 @@ we obtain \eqref{eq:normal_deriv}.
 
 % If you have acknowledgments, this puts in the proper section head.
 \begin{acknowledgments}
-We thank Dr. S\'ebastien Michelin and Dr. Cecile Cottin-Bizzonne from LadHyX - Ecole Polytechnique Institut Polytechnique de Paris for organizing the focus-session ``interfacial active matter'' in the conference APS-DFD 2021 and the invitation of submitting a special collection paper. 
+We thank Dr.~S\'ebastien Michelin and Dr.~Cecile Cottin-Bizzonne from LadHyX - Ecole Polytechnique Institut Polytechnique de Paris for organizing the focus-session ``interfacial active matter'' in the conference APS-DFD 2021 and the invitation of submitting a special collection paper. 
 
 % put your acknowledgments here.
 \end{acknowledgments}
@@ -1303,7 +1322,7 @@ summarize the governing equations here, and a complete description is in
 our previous work~\cite{Fu2022_JFM}. The interactions satisfy a
 system of partial differential equations (PDEs) that describe the
 hydrodynamic interactions and hydrophobic interactions. Assuming
-inertial terms are negligible, the solvent is goverened by the Stokes
+inertial terms are negligible, the solvent is governed by the Stokes
 equations
 \begin{alignat}{3}
 \label{eq:stokes}
@@ -1325,9 +1344,9 @@ angular velocity. Once these velocities are determined, we use
 second-order Adams-Bashforth to update the particle configuration. 
 
 The translational and angular velocities guarantee that the fluid forces
-balanace the imposed forces. The imposed forces include the hydrophobic
+balance the imposed forces. The imposed forces include the hydrophobic
 interactions that arise so that particles minimize the free energy of
-the structure of the surronding water molecules. The free energy
+the structure of the surrounding water molecules. The free energy
 functional is
 \begin{align}
 \label{eq:free_energy}
@@ -1544,7 +1563,10 @@ as shown in Fig~\ref{fig:relax}(a)
   \includegraphics[width=0.4\textwidth]{Fig2d.png}
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:relax} (a) Initial configuration for $N_b=60$ structures. In order to expedite the self-assembly procedure, all particles are placed in a $8\times8$ box initially. (b)--(d) Equilibruim states for all boundary conditions~\eqref{eq:bcs}(i)--(iii), respectively. Colors represent the boundary values that increases from minimum (blue) to maximum (red).  Panel (b) reaches the equilibrium at $t=1200$; Panel (c) reaches the steady-state at $t=600$; Panel (d) reaches the final state at $t=180$.}
+  \caption{\label{fig:relax} (a) Initial configuration for $N_b=60$
+  structures. In order to expedite the self-assembly procedure, all
+  particles are placed in a $8\times8$ box initially. (b)--(d)
+  Equilibrium states for all boundary conditions~\eqref{eq:bcs}(i)--(iii), respectively. Colors represent the boundary values that increases from minimum (blue) to maximum (red).  Panel (b) reaches the equilibrium at $t=1200$; Panel (c) reaches the steady-state at $t=600$; Panel (d) reaches the final state at $t=180$.}
 \end{figure}
 
 
@@ -1561,7 +1583,7 @@ Case (i) models amphiphilic particles.
 Amphiphilic particles have a hydrophobic tail and a hydrophilic head
 and these are accounted for as follows.
 The hydrophilic side takes the value $u =0$.
-This mimicks the apolar head of a lipid, for example, which does
+This mimics the apolar head of a lipid, for example, which does
 not alter the structure of adjacent waters. The hydrophobic side
 represents hydrocarbons and takes the value 
 $u > 0$. The interaction between particles is attractive,
@@ -1581,7 +1603,8 @@ Rather, the bilayers form layers
 as a consequence of the interfacial tension of exposed particle
 heads.%~\cite{Huetal19, deMeetal21}. 
 Fig~\ref{fig:relax}(c) shows the multilamellar structure with 8 layers when $N_b=60$. 
-The number of folds depends on several factors, for instances, number of particles and intial configurations.
+The number of folds depends on several factors, for instances, number of
+particles and initial configurations.
 
 
 Finally, boundary condition \eqref{eq:bcs}(iii) models 
@@ -1682,7 +1705,7 @@ track the aspect ratio $\lambda$ described in the previous section which is prov
 The stiffness of the multi-lamellar structure is able to compete with the flow therefore the structure
 does not deform to any states other than multi-lamellar shape. 
 We also found that the flow strength coefficient above $V_0=0.1$ will result to clear group separations during the simulations. 
-Comparing with the case when $V_0=0.2$, we provide a frame in Fig~\ref{fig:TG_2}(a) and the energy comparison is shown in panel (b). Numerical results validate the phenomenon that a higher taylor green vortex flow generates large structure separations with higher total energy.
+Comparing with the case when $V_0=0.2$, we provide a frame in Fig~\ref{fig:TG_2}(a) and the energy comparison is shown in panel (b). Numerical results validate the phenomenon that a higher Taylor-Green vortex flow generates large structure separations with higher total energy.
 
 
 \begin{figure}
