@@ -341,7 +341,7 @@ where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
 Once \eqref{eq:stokes}-\eqref{eq:force} have been solved,
 the velocities $(\vv_i, \omega_i)$ from \eqref{eq:rigid-vel}
 update the particle positions and orientations.
-We use the parameters $\mu = 1$ cP, $\gamma = 4$ pN nm$^{-1}$,
+We use the parameters $\mu = 1$ mPa s, $\gamma = 4$ pN nm$^{-1}$,
 $\rho = 5$ nm, $c = 1.25$ nm, $M = 2$ pN, and $\rho_0 = 0.5$ nm.
 These values give a characteristic time $1$ ns and characteristic length $1$ nm.
 
@@ -1085,31 +1085,34 @@ and then increase when the flow strengths are large enough
 to deform the body (Fig~\ref{fig:BC3_shear}(f)).
 To quantify this behavior, we form 
 \[
-\mu_{\text{sus}} = \frac{\dot \gamma}{\dot E} \mu
+\mu_{\text{hyd}} = \frac{\dot \gamma}{\dot E} \mu
 \]
-as an effective dynamic viscosity of the suspension.
-The numerator $\dot \gamma \mu$ gives the force per area provided by the solvent stresses. 
+as an effective dynamic viscosity of the particle assemblies.
+The numerator $\dot \gamma \mu$ gives the force per
+area provided by the solvent stresses where
+$\mu = 1$ mPa s is
+the solvent viscosity.
 The strain rate $\dot E$ of the body is the slope of a linear fit to the strain curves e.g.,
 in Fig~\ref{fig:BC2_shear}(f).
 
-Calculated suspension viscosities are shown
+Calculated viscosities of particle assemblies are shown
 in Table \ref{tbl:bcii_visc}.
 The middle row gives the solid area fraction $\phi$;
 the sum of the rigid particle areas divided by the
 total area of the solvent and particle region.
 We observe that for the multilamellar structure,
-$\mu_{\text{sus}}$ is decreasing
+$\mu_{\text{hyd}}$ decreases
 with increasing shear rate.
-The predicted suspension viscosities 
+The predicted viscosities of the particle assemblies
 are on the order of hundreds of times that of water,
-consistent with measurements of noninteracting
-particle suspensions\cite{KONIJN201461}.
+consistent with suspension viscosities for noninteracting
+particles \cite{KONIJN201461}.
 In the case of striated structures, viscosity is
 effectively infinite for the lower two of the shear rates,
-and then drops to a finite value $\mu_{\text{sus}} = 60$ mPa s
+and then drops to a finite value $\mu_{\text{hyd}} = 60$ mPa s
 when the shear rate reaches $0.15$ ns$^{-1}$.
 \begin{table}
-  \caption{Suspension viscosity $\mu_{\text{sus}}$ (mPa s) 
+  \caption{Dynamic viscosity of assemblies $\mu_{\text{hyd}}$ (mPa s) 
 \label{tbl:bcii_visc}
 }
 \centering
@@ -1125,12 +1128,18 @@ when the shear rate reaches $0.15$ ns$^{-1}$.
 \end{tabularx}
 \end{table}
 
-
-We have not calculated suspension viscosities for the type (i) boundary condition,
-because the viscosities of bilayer are in-plane and require fully three-dimensional
-simulations to resolve\cite{denOtter2007,Zgorski2019,doi:10.1073/pnas.2100156118}.  Our previous work 
-did calculate, however, an intermonolayer friction coefficient $b$
-which is related but conceptually different than viscosity \cite{Fu2022_JFM}.
+In the case of BC (i), our previous work\cite{Fu2022_JFM} calculated a
+friction coefficient $b$ for the intermonolayer slip between the two leaflets
+of a bilayer. \citet{denOtter2007,Zgorski2019} and
+\citet{doi:10.1073/pnas.2100156118} have
+calculated in-plane viscosities for fully three-dimensional bilayers.
+Although not part of this work,
+it is in principle possible to obtain an in-plane
+viscosity using the hydrophobic potential
+\eqref{eq:free_energy}
+by replacing the boundary condition \eqref{eq:bc-type}
+with one that is everywhere constant, in effect modeling
+lipids in a bilayer as an array of as elongated, purely hydrophobic pilars. 
 
 While increased flow strengths generally injected energy into the suspension,
 the simulation results show that the unstructured bilayer 
