@@ -361,7 +361,7 @@ pN, and $\rho_0 = 0.5$ nm.  These values give a characteristic time $1$
 ns and characteristic length $1$ nm.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Boundary integral representation and time stepping}
+\subsection{Boundary integral representations}
 We recast~\eqref{eq:stokes}--\eqref{eq:rigid-vel}
 and~\eqref{eq:SL}--\eqref{eq:SLbc} as boundary integral equations (BIEs)
 and discretize each BIE at $N$ points on each of the $N_b$ particles
@@ -502,7 +502,8 @@ as the tail and the side where $\alpha = \pi$ as the head.
 
 We set $\max g>0$ to guarantee at least partial hydrophobicity of the JP
 surface.  Then, the boundary condition (BC) can be classified into three
-categories: $\min g = 0$, $\min g >0$, and $\min g <0$.  These three
+categories: $\min g(\xx) = 0$, $\min g(\xx) >0$, and $\min g(\xx) <0$
+where the extrema are taken for $\xx \in \Gamma_i$.  These three
 categories correspond to three characteristic values of $b$ in
 \eqref{eq:bc-type}: $b=1$, $b=2$ and $b=0$, respectively. 
 %
@@ -546,8 +547,6 @@ alternate between layers (Figure~\ref{fig:relax}(d)).
 \includegraphics[width=1.0\textwidth]{Figures/Figure2.pdf}
   \end{center}
   \vspace{-20pt}
-  \todo[inline]{We should capitalize bc is that it reads BC like we have
-  in the text.}
   \caption{\label{fig:relax_energy}
   Panel (a) shows that the free energy~\eqref{eq:free_energy} decreases
   in the mobility problem formulation. The initial energies are for the
@@ -648,7 +647,7 @@ Finally, we use the scalar order parameter for orientational order:
 S_2 = \frac{1}{N_b} \sum_{i=1}^{N_b} \frac{1}{2}(3\cos^2(\theta_i - \bar \theta) - 1).
 \end{equation}
 Here $\bar \theta$ is a circular mean defined as the orientation of the
-largest eigenvalue of $\dd_1\dd_1^\top + \cdots +
+principal eigenvector of the matrix $\dd_1\dd_1^\top + \cdots +
 \dd_{N_b}\dd_{N_b}^\top$. A value $S_2(t) = 1$ indicates that all
 particle directors lie on a common axis e.g., two parallel vectors with
 possibly opposite direction are ordered. A value far from 1 indicates
@@ -933,10 +932,11 @@ end-states.
   \vspace{-20pt}  
   \caption{\label{fig:BTG_Scale} With $V_0=0.1$, panels (a)--(d) show
   the configurations with streamlines of a vesicle is in a TG flow at
-  $t=1 \upmu$s with $l= 1,2,3,4$, respectively. In panel (e), the enclosed
-  area $A_0/A$ calculated from the bilayer midplane decreases over time
-  and the total length (shown in the inset) measured from the midplane
-  remains nearly constant with small magnitude of oscillations.}
+  $t=1$ $\upmu$s with $l= 1,2,3,4$, respectively. In panel (e), the relative enclosed
+  area $A/A_0$ calculated from the bilayer midplane decreases over time.
+  The inset shows the relative length $l/l_0$ 
+  which remains nearly constant with small magnitude of oscillations
+  The inset and main panel have the same  horizontal axis.}
 \end{figure}
 
 The vesicle shape is also related to the cell size $l$.
