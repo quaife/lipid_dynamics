@@ -32,6 +32,7 @@
 % below if necessary.
 \bibliographystyle{apsrev4-2}
 
+%\usepackage{showkeys}
 \usepackage{todonotes}
 \usepackage{graphicx}
 %\usepackage{epstopdf,epsfig}
@@ -266,7 +267,9 @@ negligible, we have
 \begin{alignat}{3}
 \label{eq:stokes}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, && \xx \in \Omega, \\
+\label{eq:stokesMass}
   \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
+\label{eq:stokesFarfield}
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
 \end{alignat}
 where $\uu$ is the velocity of the solvent, $p$ is the pressure,
@@ -353,7 +356,13 @@ and repulsion, we have
 where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
 \right)$ is the hydrodynamic stress tensor.
 
-Once \eqref{eq:stokes}--\eqref{eq:force} have been solved, the
+To perform a single time step, we first solve for the HAP by
+solving~\eqref{eq:SL}--\eqref{eq:SLbc}, and then compute the force and
+torque~\eqref{eq:FandTdef}. Then the Stokes
+equations~\eqref{eq:stokes}--\eqref{eq:stokesFarfield} are solved, and
+the force-free and torque-free conditions are used to compute the rigid
+body motion~\eqref{eq:rigid-vel}.
+Once~\eqref{eq:stokes}--\eqref{eq:force} have been solved, the
 velocities $(\vv_i, \omega_i)$ from~\eqref{eq:rigid-vel} update the
 particle positions and orientations.  We use the parameters $\mu = 1$
 mPa s, $\gamma = 4$ pN nm$^{-1}$, $\rho = 5$ nm, $c = 1.25$ nm, $M = 2$
@@ -423,6 +432,10 @@ $\omega_i$ satisfy
   \int_{\Gamma_i} \eeta \cdot (\xx-\aa_i)^\perp \, \dif s = T_i,
 \end{alignat}
 for $\xx \in \Gamma_i$ and $i = 1,\ldots,N_b$.
+Equation~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2} does have a
+unique solution, but we note that alternative full-rank layer potential
+representations for rigid body motions are possible~\cite{rac-gre2016,
+cor-gre-rac-vee2017}.
 
 We discretize~\eqref{eq:SL_BIE2}
 and~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2} using high-order
@@ -745,10 +758,12 @@ deformation with the whole bilayer remaining intact
 (Figure~\ref{fig:BC1_shear}(a)). As the shear rate increases to a
 moderate value (Figure~\ref{fig:BC1_shear}(b)), the bilayer is observed
 to shed a small piece of bilayer, similar to the asymmetric breakup of a
-viscous drop \cite{} \todo[inline]{missing citation}. In
-Figure~\ref{fig:BC1_shear}(c) the high shear rate gives rise to two
+viscous drop in confinement \cite{DuFuZhuMaLi2016_AICHEJ}.
+%\todo[inline]{missing citation}. 
+In Figure~\ref{fig:BC1_shear}(c) the high shear rate gives rise to two
 separate, nearly equal bilayers, similar to the symmetric drop breakup
-under a linear shear flow \cite{} \todo[inline]{missing citation}.
+under a linear shear flow \cite{Stone1994_ARFM}. 
+%\todo[inline]{missing citation}.
 %%
 %\begin{figure}
 %  \begin{center}
@@ -932,11 +947,11 @@ end-states.
   \vspace{-20pt}  
   \caption{\label{fig:BTG_Scale} With $V_0=0.1$, panels (a)--(d) show
   the configurations with streamlines of a vesicle is in a TG flow at
-  $t=1$ $\upmu$s with $l= 1,2,3,4$, respectively. In panel (e), the relative enclosed
-  area $A/A_0$ calculated from the bilayer midplane decreases over time.
-  The inset shows the relative length $l/l_0$ 
-  which remains nearly constant with small magnitude of oscillations
-  The inset and main panel have the same  horizontal axis.}
+  $t=1$ $\upmu$s with $l= 1,2,3,4$, respectively. In panel (e), the
+  relative enclosed area $A/A_0$ calculated from the bilayer midplane
+  decreases over time. The inset shows the relative length $l/l_0$ which
+  remains nearly constant with small magnitude of oscillations. The
+  inset and main panel have the same horizontal axis.}
 \end{figure}
 
 The vesicle shape is also related to the cell size $l$.
@@ -1311,7 +1326,7 @@ Following \cite{Hsiao2008}, \S 1.2,
 \nnu_\xx^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\nnu_\yy
 =
 -\tt_{\xx}^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\tt_{\yy}
-+ \Delta_{\yy}G(\zz-\yy) \tt_{\xx}\cdot \tt_{\yy}
++ \Delta_{\yy}G(\zz-\yy) \tt_{\xx}\cdot \tt_{\yy}.
 \]
 Then, using that $\Delta_{\yy} G(\zz-\yy) = \rho^{-2} G(\zz-\yy)$,
 interchanging $\nabla_\yy$ with $-\nabla_\zz$ once more,
@@ -1341,6 +1356,7 @@ We thank Dr.~S\'ebastien Michelin and Dr.~Cecile Cottin-Bizzonne from LadHyX - E
 % Create the reference section using BibTeX:
 \bibliography{reference}
 
+\input{Supplementary}
 
 
 
