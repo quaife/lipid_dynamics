@@ -1329,46 +1329,39 @@ equilibria in three-dimensions when employing hydrophobic attraction.
 
 In this work, we employ the newly developed JP model using BIEs ~\cite{Fu20, Fu2022_JFM} 
 and tune the boundary conditions with energy normalization to study the  collective dynamics of 
-amphiphilic (BC(i)), biased hydrophobic (BC (ii)), and bipolar (BC(iii)) JPs under various flowing conditions (quiescent, linear shear flow, and Taylor-Green flow).
+amphiphilic (BC(i)), biased hydrophobic (BC (ii)), and bipolar (BC(iii)) JPs under various flowing conditions (quiescent flow, linear shear flow, and Taylor-Green flow).
 Three quantities are computed to characterize the dynamics of the collective configurations of JPs: Free energy $F$, strain parameter $E$ and 
-scalar order parameter $S_2$. 
+scalar order parameter $S_2$. In this numerical study we quantify how the collective hydrodynamics of JPs is affected by an external flow. 
+Under a given flow, we use the three measures of deformations to quantify the differences in the collective dynamics between the three types of JPs.
+These results, summarized below, may provide some general insight into the dynamic control of active particles in a viscous suspension.
 
-To overcome the well-known 
-obstacle for numerical implementations in the free energy $F$ where the gradient of 
-solution to the screened Laplace equation involves hyper-singularities, we derive the normal 
-derivative \eqref{eq:normal_deriv} in terms of single layer potential $\SSS$.
-
-Simulations include the self-assembly behaviors when the flow is absent and
-when JP are subject to shear and TG background flows with various 
-flow strengths. The free energy profiles demonstrate that the relaxation process for 
+Within the framework of boundary integral equations, we derive a convenient expression for computing the free energy using the single layer potential (see 
+equation~\eqref{eq:normal_deriv}). In a quiescent flow, the free energy profiles demonstrate that the relaxation process for 
 particles confined in a certain size of box is independent of number of particles 
-($N_b$). However, the final configurations highly depend on the initial particle 
+($N_b$). However, we did find the final configurations to depend on the initial distribution of particle 
 directors $\dd_i$. Therefore, multiple patterns or local energy minimum states may 
 appear depending on the initial setup.
 
-We track the total free energy, the orientational order parameter,
-and the strain parameter to comprehensively summarize and classify the effective properties
-of all three materials. 
-Observations have shown that multi-lamella and the striated structures under a relatively 
-weak linear shear flow behave like a rigid body with minimal deformation. The effective 
+
+Under a relatively weak linear shear flow, the amphiphilic (BC (i)) JPs behave as a unilamellar vesicle that elongates and tank-treads.
+For the multi-lamella (BC (ii)) and the striated (BC (iii)) structures  the assembly of JPs behaves like a rigid body with minimal deformation. The effective 
 viscosity of the material gives a quantitative validation to support the statement. High 
 shear-rate cases provide a range for critical shear rates where the structures break 
 apart and undergo major topological changes. As expected in all case studies,
-free energy, orientationl order, and strain combined 
+free energy, scalar order parameter, and strain combined 
 are good topological indicators.
 
-Under a TG flow, we examine the same measures and simulate all structures with 
-the same criteria as ones in shear flow cases. In addition, for JP vesicle under a 
-TG flow, we compare the results when the size of cell is varied and a nonmonotonic 
-trend in reduced area with respect to the cell size arises. One finding to be noted is 
-that the TG flow with specified parameters can effectively control the structure shapes 
-such as a square vesicle or a polygonal shape. 
+Under a Taylor-Green flow,  we find that the amphiphilic JPs to be most interesting, exhibiting different vesicle shapes depending on the ratio of the size of the
+TG flow to the vesicle size. These results show that we can control the shape of the vesicle to be a square shape or a polygonal shape by adjusting the size of
+the cell in TG flow. On the other hand, the assembly of multi-lamella JPs and the striated JPs behaves more or less as a rigid body with connected subdomains, with the number of subdomains increasing with stronger strength of the TG flow.
 
-The results reported here provide an inroad computational framework for colloidal sciences. 
-The present study also helps us to understand more rheological properties of industrially 
-produced JP.
-This study can be extended to three dimensional systems 
-and it has been included in our future goals\cite{kohl-cor-che-vee22}.
+
+The results reported here provide an inroad modeling framework for hydrodynamics of active colloids. 
+The present study also helps us understand the rheology of JP oligomers that may be realized in the experiments.
+We are now extending this study to three dimensional systems with more realistic features such as size distributions of JPs
+and thermal fluctuations.
+%
+ %it has been included in our future goals\cite{kohl-cor-che-vee22}.
 From a numerical perspective,
 it is straightforward to include
 random perturbations in the particle shape and
