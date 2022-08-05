@@ -261,7 +261,7 @@ lines of investigation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations: Hydrophobic Attraction Potential Mobility Problem} 
-Following the formulation in \citep{Fu2022_JFM}, 
+Following the formulation in \citet{Fu2022_JFM}, 
 the governing equations are expressed as a system for the position and
 orientation of a collection of rigid Janus particles. We first pose the
 Stokes equations for the mobility problem giving the hydrodynamic
@@ -736,9 +736,10 @@ S_2 = \frac{1}{N_b} \sum_{i=1}^{N_b} \frac{1}{2}(3\cos^2(\theta_i - \bar \theta)
 \end{equation}
 Here $\bar \theta$ is a circular mean defined as the orientation of the
 principal eigenvector of the matrix $\dd_1\dd_1^\top + \cdots +
-\dd_{N_b}\dd_{N_b}^\top$. A value $S_2(t) = 1$ indicates that all
+\dd_{N_b}\dd_{N_b}^\top$. Defined as such, $S_2$ is always in the range $0 \le S_2 \le 1$.
+A value $S_2 = 1$ indicates that all
 particle directors lie on a common axis e.g., two parallel vectors with
-possibly opposite direction are ordered. A value below 1 indicates imperfect order, and zero indicates
+possibly opposite direction are ordered. A value below 1 indicates imperfect order, and $S_2=0$ indicates
 complete disorder.
 
 We modify $S_2$ to account for the bilayer and multilamellar structures.
@@ -842,8 +843,8 @@ viscous drop in confinement \cite{DuFuZhuMaLi2016_AICHEJ}.
 %\todo[inline]{missing citation}. 
 In Figure~\ref{fig:BC1_shear}(c) the high shear rate gives rise to two
 separate, nearly equal bilayers, similar to the symmetric drop breakup
-under a linear shear flow \cite{Stone1994_ARFM}. 
-Refer to Supplementary Movie S4.
+under a linear shear flow \cite{Stone1994_ARFM}. For the dynamic evolution, see
+Supplementary Movie S4.
 
 %\todo[inline]{missing citation}.
 %%
@@ -860,7 +861,7 @@ Refer to Supplementary Movie S4.
 
 We observe that the order parameter $\tilde S_2$ in
 Figure~\ref{fig:BC1_shear}(e) is on average increasing. In the initial
-configuration, the structure has three or four components.
+configuration, the structure has three or four pieces of bilayer.
 %
 Under the shear flow, the shedding and merging of bilayers results in an
 overall decrease in distinct bilayer structures. Similarly, the free
@@ -885,7 +886,7 @@ is two dimensional.
 %
 Finally, the strain parameter diverges in the large shear rate cases
 (Figure~\ref{fig:BC1_shear}(f))
-because the components eventually completely separate and move away from one another
+because the various pieces of bilayer eventually completely separate and move away from one another
 under the shear flow.
 
 %%%
@@ -963,7 +964,7 @@ curves in Figure~\ref{fig:Ves_shear}(f)).
 \end{figure}
 %
 \subsection{Bilayer and vesicle configurations in a Taylor-Green flow}
-Next, we subject the JP structures to the Taylor-Green (TG) background
+Next, we subject the JP structures to a steady Taylor-Green (TG) background
 flow
 \begin{equation}
 \label{eq:tg_flow}
@@ -999,16 +1000,16 @@ we use the parameter $l=2$.
 
 
 There is no appreciable pattern in the deformation for the
-case of bilayers with multiple domains in TG flow
+case of bilayers with multiple pieces of bilayer in TG flow
 (Supplementary Movie S3, right panel).
 Figure~\ref{fig:BC1_TG}(a)--(c)
 are the snapshots when $V_0=0.1,0.15,0.2$ at $t = 0.2$ $\upmu$s. At all
-flow strengths, the bilayer components are separated and mixed by the
+flow strengths, the bilayer pieces are separated and mixed by the
 flow in neighboring cells. In the $V_0 = 0.2$ case, the flow breaks off
-components consisting of only a few particles, leading an increase in
+bilayers consisting of only a few particles, leading an increase in
 energy (Figure~\ref{fig:BC1_TG}(d), long dashed curve). There is no
-apparente structure to the change in the orientational order. There is an initial
-increase in the strain parameter due to component mixing, but the
+apparent structure to the change in the orientational order. There is an initial
+increase in the strain parameter due to merging and rupture of bilayers, but the
 strains remains bounded since the particles stay confined to the
 neighbors of the central cell.
 
@@ -1046,7 +1047,8 @@ size $l = 1$ tested, the vesicle is somewhat octagonal and passes
 through multiple cells (Figure~\ref{fig:BTG_Scale}(a)). For the largest
 cell size $l = 4$, the vesicle is rhomboid and surrounds a single cell. 
 
-In all cases, the vesicle tank-treads like in the shear flow case. The
+In all cases, the JP vesicle tank-treads in TG flow as it does
+in the shear flow. The
 direction of the tank-treading, however, varies with the cell size
 (Figure~\ref{fig:BTG_Scale}(a)--(d), directed arcs). We attribute this
 change in rotational orientation to the total rotational moment of the
@@ -1086,10 +1088,10 @@ background flow~\cite{chabanon2017, qua-gan-you2021}.
 We have simulated particles for the multilamellar (BC (ii)) and striated
 (BC (iii)) boundary conditions, in both shear and TG background flow.
 The results are qualitatively similar and will be presented in tandem.
-For the multilamellar case, we place a 60-particle configuration (inset
-of Figure~\ref{fig:BC2_shear}(a)) in shear flows with $\dot\gamma=0.05,
-0.1, 0.15$ and in TG flow with flow rates $V_0=0.1, 0.15, 0.2$. For the
-striated case, we also place a 60-particle configuration (inset of
+For the multilamellar (BC (ii)) case, we place a 60-particle configuration (inset
+of Figure~\ref{fig:BC2_shear}(a)) in shear flow with $\dot\gamma=0.05,
+0.1, 0.15$ and in TG flow with $V_0=0.1, 0.15, 0.2$. For the
+striated  (BC (iii)) case, we also place a 60-particle configuration (inset of
 Figure~\ref{fig:BC3_shear}(a)) in shear and TG background flows. Here,
 somewhat larger rates are required to see appreciable deformations for
 this boundary condition: $\dot\gamma=0.1, 0.125, 0.15$ and $V_0=0.2,
@@ -1119,8 +1121,8 @@ solid curves). In summary, both multilamellar and striated
 configurations behave as nearly rigid bodies under shear flow when the
 shear rate $\dot \gamma$ is low.
 
-In the high shear rate cases ($\dot\gamma=0.15$), both the multilamellar
-and striated configurations become disordered. For BC (ii), the lamella
+In the high shear rate cases ($\dot\gamma=0.15$), both the multilamellar (BC (ii))
+and striated (BC (iii)) configurations become disordered. For BC (ii), the lamella
 break apart so that individual bilayers are no longer discernible
 (Figure~\ref{fig:BC2_shear}(c)). For BC (iii), the stria peel away from
 the main body, but remain individually intact
@@ -1160,7 +1162,7 @@ At large flow rates $V_0$, both configurations depart significantly from
 their local equilibrium. The lamella bilayers from BC (ii) break apart,
 forming several unlayered bilayer components
 (Figure~\ref{fig:BC2_TG}(c)). In BC (iii), the stria also break apart,
-but neighboring particles form 'X'-like arrangements
+but neighboring particles form `X'-like arrangements
 (Figure~\ref{fig:BC3_TG}(d)), resembling the doubly alternating director
 equilibrium (Figure~\ref{fig:relax}(d), center, top white rectangle).
 
@@ -1196,8 +1198,10 @@ equilibrium (Figure~\ref{fig:relax}(d), center, top white rectangle).
 
 
 
-\section{Discussion}
-Our results were for $N_b = 60$ particles. This particle number was
+\section{Discussion\label{sec:discussion}}
+Results in \S~\ref{sec:results} are from simulations with $N_b = 60$ particles.
+%Our results were for $N_b = 60$ particles. 
+This particle number was
 large enough for the JP to form measurable structures while giving
 manageable simulation times (days) on a single computing processor. The
 simulation time for $N_b = 198$ in Figure~\ref{fig:relax} and
@@ -1206,11 +1210,12 @@ simulations of this size for our results. We used $N = 16$ grid points
 per particle for all simulations. We performed a convergence study and
 found that using $N = 16$ or $N = 24$ grid points per particle gave
 quantitatively indistinguishable results. The time courses consisted of
-$O(10^3)$ time steps with $\Delta t = 0.2$ nm.
+$O(10^3)$ time steps with $\Delta t = 0.2$ ns.
 
 The free energy $F$ defined in~\eqref{eq:free_energy} scales with the
-boundary data $g$ and repulsion modulus $M$. To remove the degree of
-freedom in the boundary data, we scaled all boundary data so that the
+boundary data $g$ and repulsion modulus $M$. 
+%To remove the degree of freedom in the boundary data, 
+We thus scale all boundary data so that the
 square integral of $g$ is independent of the type of boundary condition; BC
 (i), (ii), or (iii). This way, for a fixed configuration, the
 hydrophobic interaction portion of the free energy (the integral
@@ -1223,23 +1228,23 @@ and depend on the boundary condition (Figure~\ref{fig:relax_energy}).
 They are about 0.26 $\mathrm{k_BT}$/nm for BC (ii), 0.55
 $\mathrm{k_BT}$/nm for BC (i), and 1.4 $\mathrm{k_BT}$/nm for BC (iii).
 
-Next, we suspended JPs in viscous background flows and observed
-deformations as a function of flow strength. There were three categories
-of boundary conditions---BC (i), BC (ii), and BC (iii)---that formed
+Next, we impose a flow on the JP suspension to study
+deformations of JP assemblies as a function of flow strength. There are three categories
+of boundary conditions---BC (i), BC (ii), and BC (iii)---that form
 bilayer, multilamellar, and striated configurations, respectively. For
-BC (i), we considered both an unstructured bilayer and a vesicle
-bilayer. The background flows were a linear shear flow and a TG flow.
+BC (i), we consider both an unstructured bilayer and a vesicle
+bilayer. The background flows are a linear shear flow and a steady TG flow.
 
-We can characterize the effective material properties of the JP
+We characterize the effective material properties of the JP
 structures based on the changes in free energy, orientational order, and
 strain as a function of flow strength. Generally, $F$ increases, $\tilde
 S_2$ decreases, and $E$ increases with increases in both $\dot \gamma$
 and $V_0$, as expected. Structurally, the striated JP configuration for
-BC (iii) behaved the most like a rigid body over the flow strengths
-tested. For this structure, the deformation measures were constant in
+BC (iii) behaves the most like a rigid body over the flow strengths
+tested. For this structure, the deformation measures are constant in
 time for shear rates $\dot \gamma$ up to $0.15$ and TG flow rate $V_0$
 up to $0.25$ (Figure~\ref{fig:BC3_shear} and Figure~\ref{fig:BC3_TG}).
-In contrast, a $25\%$--$50 \%$ smaller value for $\dot \gamma$ or $V_0$ was
+In contrast, a $25\%$--$50 \%$ smaller value for $\dot \gamma$ or $V_0$ is
 required to observe nonrigid deformations for the BC (i) and BC (ii)
 cases.
 
@@ -1252,6 +1257,7 @@ strengths and then increase when the flow strengths are large enough to
 deform the body (Figure~\ref{fig:BC3_shear}(f)). To quantify this
 behavior, we form 
 \begin{align}
+\label{eq:mu_asm}
 \mu_{\text{asm}} = \frac{\dot \gamma}{\dot E} \mu 
 \end{align}
 as an effective dynamic viscosity of the particle assemblies. The
@@ -1260,7 +1266,7 @@ solvent stresses where $\mu = 1$ mPa s is the solvent viscosity. The
 strain rate $\dot E$ of the body is the slope of a linear fit to the
 strain curves e.g., in Figure~\ref{fig:BC2_shear}(f).
 
-Calculated viscosities of particle assemblies are shown in
+The viscosities of particle assemblies calculated from \eqref{eq:mu_asm} are shown in
 Table~\ref{tbl:bcii_visc}. The middle row gives the solid area fraction
 $\phi$; the sum of the rigid particle areas divided by the total area of
 the solvent and particle region. We observe that for the multilamellar
@@ -1428,7 +1434,7 @@ Then
   &=-\int_\Gamma \nnu_\xx^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\nnu_\yy\sigma(\yy)\ \dif s_\yy,
 \end{align*}
 since we can interchange $\nabla_\zz$ with $-\nabla_\yy$.
-Following~\cite{Hsiao2008}, \S 1.2,
+Following~\citet{Hsiao2008}, \S 1.2,
 \begin{align}
 \nnu_\xx^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\nnu_\yy
 =
