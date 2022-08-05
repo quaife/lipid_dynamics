@@ -136,26 +136,15 @@ $^4$Department of Mathematical Sciences, New Jersey Institute of Technology, New
 \date{\today}
 
 \begin{abstract}
-%<<<<<<< HEAD
-%Active colloidal systems with non-equilibrium self-organization is a long-standing challenge in biology. To understand how hydrodynamic flow may be used
-%to actively control self-assembly of Janus particles (JPs),  we use a model recently developed for the many-body hydrodynamics of amphiphilic JPs suspended 
-%in a viscous background flow (JFM, 941, 2022) to investigate how various bilayer structures arise from tuning the hydrophobicity/hydrophilicity of the JPs. 
-%Focusing on three distributions of hydrophobicity we found JPs may assemble into uni-lamella, multi-lamella, and striated structures in a viscous fluid. 
-%Under a linear flow and a Taylor-Green mixing flow,  we use three measures to quantify the collective dynamics of JP particles under a background flow: 
-%(a) Free energy from the hydrophobic interactions between the JPs, (b) an order parameter for the ordering of JPs in terms of alignment of their directors, 
-%and (c) a strain parameter that captures the deformation in the assembly. We found the dynamics of these three measures correlate well with the hydrodynamics 
-%of JPs. These numerical provide insights into dynamic control of non-equilibrium active biological systems with similar self-organization.
-% insert abstract here
-%=======
   Active colloidal systems with non-equilibrium self-organization is a
   long-standing, challenging area in biology. To understand how
   hydrodynamic flow may be used to actively control self-assembly of
   Janus particles (JPs), we use a model recently developed for the
   many-body hydrodynamics of amphiphilic JPs suspended in a viscous
-  background flow (JFM, 941, 2022). We investigate how various bilayer
-  structures arise from tuning the hydrophobic properties of the
-  JP-solvent interface. Focusing on a simple tuning of the
-  hydrophobicity distribution, we found JPs assembled into uni-lamella,
+  background flow (JFM, 941, 2022). We investigate how various 
+  morphologies arise from tuning the hydrophobic distribution of the
+  JP-solvent interface.  
+  We found JPs assembled into uni-lamella,
   multi-lamella and striated structures. To introduce dynamics, we
   include a linear shear flow and a Taylor-Green mixing flow, and
   measure the collective dynamics of JP particles in terms of their (a)
@@ -166,10 +155,9 @@ $^4$Department of Mathematical Sciences, New Jersey Institute of Technology, New
   the JP structures and found that the uni-lamellar structures increases
   orientation order under shear flow, the multilamellar structure
   behaves as a shear thinning fluid, and the striated structure
-  possesses a finite yield stress. These numerical result provide
+  possesses a yield stress. These numerical result provide
   insights into dynamic control of non-equilibrium active biological
   systems with similar self-organization.
-%>>>>>>> 4f49b2ee420baba836cbb337c263b33981e1b096
 \end{abstract}
 
 
@@ -188,23 +176,23 @@ $^4$Department of Mathematical Sciences, New Jersey Institute of Technology, New
 \section{Introduction}
 % Put \label in argument of \section for cross-referencing
 %\section{\label{}}
-Janus particles are colloids whose surfaces 
-%have different properties. For example, it is common for the surface of a Janus
-%particle to be 
-are partly hydrophilic and hydrophobic (polar and non-polar).
-More generally the surface of a Janus particle may have a spatial distribution of hydrophobicity/hydrophilicity.
-In the absence of any imposed flow, Janus particles often self-assemble into
+Janus particles are colloids combining two dissimilar chemical or
+physical functionalies at their opposite sides\cite{KirillovaMarschelkeSynytska2019}.
+Self-propelling Janus particles, for example, with a permanent biphasic asymmetry,
+have emerged as a rich chemical platform for the exploration of active matter\cite{Meredithetal2022}.
+In the absence of mobility and any imposed flow, Janus particles often self-assemble into
 structures in a viscous solvent with tunable functions for biomedical engineering
 applications~\cite{GheisariSahfieeAbbasiEtAl2021_DMR,
-LiuYangHuangEtAl2016_Angew, LiWangYaoEtAl2019_Nanoscale, Bradley2016}.
+LiuYangHuangEtAl2016_Angew, LiWangYaoEtAl2019_Nanoscale, Bradley2016,Zarzaretal2015,KirillovaMarschelkeSynytska2019}.
 Depending on the interactions between Janus particles (JPs) and the
 surrounding viscous solvent, JPs self-assemble into oligomers of various
-geometries and sizes~\cite{Bradley2017}. 
+geometries and sizes~\cite{Bradley2017,KangHonciuc2018,HongCacciutoLuijtenGranick2008}. 
 
 
 When driven by an external flow, 
 dynamic rearrangement of JPs emerges naturally from the interactions between particles and fluid in colloidal
-matter~\cite{Brandner2019,RevModPhys.93.025008}. Such colloidal hydrodynamics belongs to a wide class of
+matter~\cite{RevModPhys.93.025008}.
+Such colloidal hydrodynamics belongs to a wide class of
 nonequilibrium self-organization in physics, often with complexity and features similar to that of 
 biological systems such as living cells, bacterial baths, and
 animal flocks~\cite{CollardGrosjeanVandewalle2020,Vutukuri2020}. A
@@ -217,6 +205,8 @@ systems, could instead be used to design new, ordered systems, through
 specific choices for the shapes or interactions of the
 particles~\cite{Manoharan2015_Science}.
 
+The surface of a Janus particle may have
+a dissimilar spatial distribution of hydrophobicity\cite{doi:10.1021/la503455h}.
 The many-body hydrodynamics of amphiphilic Janus particles assembled as
 vesicles suspended in a viscous fluid in the inertialess regime (zero Reynolds number) has
 been studied using boundary integral numerical
@@ -232,18 +222,39 @@ membrane~\cite{NaTr00,Fu20,KrFiGuKaHa13}. Under background flows, the
 hydrodynamics of a JP vesicle (a self-enclosed bilayer of JPs) exhibit
 many familiar behaviors of a vesicle: elongation and
 alignment along the extensional direction, tank-treading, and rupture of
-a vesicle under shear flow~\cite{Fu2022_JFM}.
+a vesicle under shear
+flow~\cite{Fu2022_JFM,grandmaison_brancherie_salsac_2021,D2SM00179A,keller_skalak_1982,Finken08,Shaqfeh11}.
+
+Molecular dynamics (MD) and Monte Carlo provide another avenue for
+simulating the interaction between JPs, solvents, and
+substrates\cite{Brandner2019,Baniketal2021,HongCacciutoLuijtenGranick2008,C9NR05885K}.
+These methods often use pair-potentials to describe the
+interaction between JPs, for example by prescribing angle
+dependent forces and torques that bring the
+hydrophobic sides of two amphiphilic JPs into opposition.
+The HAP formulation of the present work also has attractive, long-range forces and torques,
+but they are instead derived from a boundary value problem for the molecular
+structure of water\cite{Ma77, GoHaKo94,ErLjCl89,Lietal05,Israelachvili80}.
+Unlike in MD or Monte Carlo-based simulations,
+the HAP interactions are nonadditive\cite{Fu20}, so that
+the interactions between a pair of JP is affected by the presence of other particles. 
 
 In this work, we take advantage of the flexibility of the HAP model to
-examine the effects of varying hydrophobicity/hydrophilicity on JP surfaces.
-Such variation of the boundary condition on JP surfaces may be realized in the experiments by using
-chemicals to adjust the polarity of the viscous solvent, for example ({\bf references needed here}).
+examine the effects of varying the distribution of hydrophobicity on JP surfaces.
+Such variation of the boundary condition on JP surfaces have been realized experimentally
+by using chemicals to adjust the polarity of the viscous solvent, for example
+\cite{Zarzaretal2015,KirillovaMarschelkeSynytska2019,doi:10.1021/la503455h}.
 We show that a simple tuning of the hydrophobic distribution leads to transitions from unilamellar to
-multilamellar or striated bilayer assembly (structures) of JPs. 
+multilamellar or striated superstructures of JPs. 
 Focusing on the fluid-structure interactions that correspond to such transitions, 
 we investigate the deformation of these
 novel structures in background flows and map out their collective
 behavior away from equilibrium.
+Looking forward, including other fields like
+electric potential for JPs synthesized with
+charged polymers\cite{HongCacciutoLuijtenGranick2008,doi:10.1021/la503455h,KangHonciuc2018},
+is straightforward within the context of the boundary integral representations\cite{kohl-cor-che-vee22},
+opening further lines of investigation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations: Hydrophobic Attraction Potential Mobility Problem} 
@@ -563,6 +574,8 @@ of 198 particles and 60 particles in a quiescent flow as shown in
 Figure~\ref{fig:relax}. Three distinct configurations emerge: (i)
 bilayer for $b = 1$, (ii) multilamellar for $b = 2$, and (iii) striated
 for $b = 0$.
+Supplementary Movie S1 shows the self-assembly process for the three cases. 
+
 
 
 \begin{figure}[h!]
@@ -607,7 +620,7 @@ hydrophobic but more so on the $\alpha = 0$ side. Over a short time
 scale, these particles also self-assemble into bilayers. But unlike for
 BC (i), the heads are also hydrophobic and so in the long-time dynamics
 these bilayers form multilamella structures~\cite{C9NR05885K}. The
-number of folds depends primarily on the number of particles.
+number of layers depends primarily on the number of particles.
 Figure~\ref{fig:relax}(c), for example, shows a multilamellar structure
 with four layers and one with two layers in the inset.
 
@@ -717,7 +730,7 @@ for $\mathsf{F}_i$ by weighted least squares. The weights $w_i =
 \exp(-\|\aa_j(0) - \aa_i(0)\|/4c)$ with particle radius $c$ ensure that
 the linear approximation is valid for particles near $\aa_i$.
 
-Finally, we use the scalar order parameter for orientational order:
+Finally, we use the scalar order parameter for orientational order\cite{Selinger2016}:
 \begin{equation}
   \label{eq:S2}
 S_2 = \frac{1}{N_b} \sum_{i=1}^{N_b} \frac{1}{2}(3\cos^2(\theta_i - \bar \theta) - 1).
@@ -1227,7 +1240,7 @@ BC (iii) behaved the most like a rigid body over the flow strengths
 tested. For this structure, the deformation measures were constant in
 time for shear rates $\dot \gamma$ up to $0.15$ and TG flow rate $V_0$
 up to $0.25$ (Figure~\ref{fig:BC3_shear} and Figure~\ref{fig:BC3_TG}).
-Conversely, a $25\%$--$50 \%$ smaller value for $\dot \gamma$ or $V_0$ was
+In contrast, a $25\%$--$50 \%$ smaller value for $\dot \gamma$ or $V_0$ was
 required to observe nonrigid deformations for the BC (i) and BC (ii)
 cases.
 
@@ -1305,7 +1318,12 @@ onion-like dendrimersomes like for BC (ii) were previously studied by molecular 
 simulations~\cite{C9NR05885K}. The molecular dynamics simulations use an
 anisotropic pair potential to describe the particle interactions
 where a harmonic form describes the repulsive part and an anisotropic
-attractive part describes the hydrophobic interactions.
+attractive part describes the hydrophobic interactions~\cite{HongCacciutoLuijtenGranick2008}.
+We also use a pair potential $P$ in the free energy \eqref{eq:free_energy} for repulsion,
+whereas the long-range, hydrophobic attraction \eqref{eq:FandTdef}
+is nonadditive and comes from domain-dependent variation of
+the water order parameter $u(\xx)$ in the bulk.
+
 
 \citet{kohl-cor-che-vee22} have simulated JP suspensions in three
 dimensions using the same free energy formulation of hydrophobic
@@ -1357,17 +1375,18 @@ TG flow to the vesicle size. These results show that we can control the shape of
 the cell in TG flow. On the other hand, the assembly of multi-lamella JPs and the striated JPs behaves more or less as a rigid body with connected subdomains, with the number of subdomains increasing with stronger strength of the TG flow. Overall, we found that the multilamellar (BC (ii)) JPs oligomers behave as a shear-thinning fluid, while the striated (BC (iii)) JPs oligomers possess a yield stress.
 
 
-The results reported here provide an inroad modeling framework for hydrodynamics of active colloids. 
+The results reported here provide an inroad modeling framework for hydrodynamics of active colloids
+\cite{Meredithetal2022,McGlassonBradley2021,Vutukuri2020,Mallory2017}. 
 The present study also helps us understand the rheology of JP oligomers that may be realized in the experiments.
 We are now extending this study to three dimensional systems with more realistic features such as size distributions of JPs
-and thermal fluctuations.
+and thermal fluctuations\cite{kohl-cor-che-vee22}.
 %
  %it has been included in our future goals\cite{kohl-cor-che-vee22}.
 From a numerical perspective,
 it is straightforward to include
 random perturbations in the particle shape and
 boundary condition that mimick interfacial properties
-found in lab conditions\cite{Bradley2016,Bradley2017}.
+found in lab conditions\cite{Bradley2016,Bradley2017,Zarzaretal2015,doi:10.1021/la503455h}.
 
 \section{Appendix}
 \label{sec:appendix}
