@@ -90,7 +90,7 @@
 %\preprint{}
 
 %Title of paper
-\title{Collective behavior of Janus Particles Suspended in a Viscous Fluid}
+\title{Effects of Tunable Hydrophobicity on the Collective Hydrodynamics of Janus Particles under Flows}
 
 % repeat the \author .. \affiliation  etc. as needed
 % \email \thanks, \homepage, \altaffiliation all apply to the current
@@ -145,7 +145,7 @@ $^4$Department of Mathematical Sciences, New Jersey Institute of Technology, New
   morphologies arise from tuning the hydrophobic distribution of the
   JP-solvent interface. We find JPs assembled into uni-lamella,
   multi-lamella and striated structures. To introduce dynamics, we
-  include a linear shear flow and a Taylor-Green mixing flow, and
+  include a linear shear flow and a steady Taylor-Green mixing flow, and
   measure the collective dynamics of JP particles in terms of their (a)
   free energy from the hydrophobic interactions between the JPs, (b)
   order parameter for the ordering of JPs in terms of alignment of their
@@ -261,7 +261,8 @@ lines of investigation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations: Hydrophobic Attraction Potential Mobility Problem} 
-The governing equations are a nonlinear system for the position and
+Following the formulation in \citep{Fu2022_JFM}, 
+the governing equations are expressed as a system for the position and
 orientation of a collection of rigid Janus particles. We first pose the
 Stokes equations for the mobility problem giving the hydrodynamic
 interactions for the particle suspension. The hydrophobic forces come
@@ -379,7 +380,7 @@ equations~\eqref{eq:stokes}--\eqref{eq:stokesFarfield} are solved, and
 the force-free and torque-free conditions are used to compute the rigid
 body motion~\eqref{eq:rigid-vel}.
 Once~\eqref{eq:stokes}--\eqref{eq:force} have been solved, the
-velocities $(\vv_i, \omega_i)$ from~\eqref{eq:rigid-vel} update the
+velocities $(\vv_i, \omega_i)$ from~\eqref{eq:rigid-vel} are used to update the
 particle positions and orientations.
 
 
@@ -497,7 +498,7 @@ $\rho_0$ decrease the distance where attraction and repulsion are in
 balance and lead to more compact particle assemblies. The rate of
 self-assembly is proportional to the interfacial tension $\gamma$, and
 inversely proportional to solvent viscosity $\mu$; it is roughly
-inversely proportional to screening length $\rho.$
+inversely proportional to screening length $\rho$ \cite{Fu20}.
 
 To give our system physical units, we set the model parameters using
 phospholipids as a characteristic amphiphile in water~\cite{Boal}. For
@@ -568,9 +569,10 @@ categories correspond to three characteristic values of $b$ in
 To see the effect of the shift parameter $b$, we simulate the dynamics
 of 198 particles and 60 particles in a quiescent flow as shown in
 Figure~\ref{fig:relax}. Three distinct configurations emerge: (i)
-bilayer for $b = 1$, (ii) multilamellar for $b = 2$, and (iii) striated
+bilayer (amphiphilic) for $b = 1$, (ii) multilamellar (biased hydrophobic) for $b = 2$, and (iii) striated (bipolar)
 for $b = 0$. Supplementary Movie S1 shows the self-assembly process for
-the three cases. 
+the three cases. In the followings the terms ``multilamellar" and ``biased hydrophobic" are used  interchangeably to refer to BC (ii), while
+``striated" and ``bipolar" are used interchangeably to refer to BC (iii).
 
 
 
@@ -607,7 +609,7 @@ The interaction is attractive, and particles collectively orient their
 hydrophobic sides to form bilayers (Figure~\ref{fig:relax}(b)). The
 inset shows the equilibrium state for the 60-particle run. Both
 $N_b = 60$ and $N_b = 198$ cases
-form bilayers with multiple components.
+form bilayers with multiple domains.
 
 In BC (ii) with $b = 2$, the boundary data is everywhere positive. It
 takes the maximum value $3a$ on the tail (red) and the minimum value $a$
@@ -651,7 +653,8 @@ alternate between layers (Figure~\ref{fig:relax}(d)).
 \end{figure}
 
 \section{Measuring deformation}
-We use the free energy $F$, a strain parameter $E$, and two scalar order
+To quantify the collective hydrodynamics of JPs,
+we use the free energy $F$, a strain parameter $E$, and two scalar order
 parameters $S_{2}$ and $\tilde S_2$ to measure the deformation of
 particle configurations under background flows. 
 
@@ -726,7 +729,7 @@ for $\mathsf{F}_i$ by weighted least squares. The weights $w_i =
 \exp(-\|\aa_j(0) - \aa_i(0)\|/4c)$ with particle radius $c$ ensure that
 the linear approximation is valid for particles near $\aa_i$.
 
-Finally, we use the scalar order parameter for orientational order\cite{Selinger2016}:
+Finally, we use the scalar order parameter $S_2$ to quantify the orientational order\cite{Selinger2016}:
 \begin{equation}
   \label{eq:S2}
 S_2 = \frac{1}{N_b} \sum_{i=1}^{N_b} \frac{1}{2}(3\cos^2(\theta_i - \bar \theta) - 1).
@@ -735,8 +738,8 @@ Here $\bar \theta$ is a circular mean defined as the orientation of the
 principal eigenvector of the matrix $\dd_1\dd_1^\top + \cdots +
 \dd_{N_b}\dd_{N_b}^\top$. A value $S_2(t) = 1$ indicates that all
 particle directors lie on a common axis e.g., two parallel vectors with
-possibly opposite direction are ordered. A value far from 1 indicates
-disorder.
+possibly opposite direction are ordered. A value below 1 indicates imperfect order, and zero indicates
+complete disorder.
 
 We modify $S_2$ to account for the bilayer and multilamellar structures.
 In these cases, the directors are more or less uniformly distributed
@@ -951,7 +954,7 @@ curves in Figure~\ref{fig:Ves_shear}(f)).
     \includegraphics[width=1.0\textwidth]{Figures/Figure5.pdf}    
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:BC1_TG} Multiple component bilayers in a
+  \caption{\label{fig:BC1_TG} Bilayers with multiple domains in a
   Taylor-Green when $V_0 = \{0.1, 0.15, 0.2\}$ at $t=0.2\ \upmu$s. The
   pre-relaxed initial configuration is shown in the inset of panel (a).
   The streamlines are plotted in the background. Panel (d) shows the
@@ -996,7 +999,7 @@ we use the parameter $l=2$.
 
 
 There is no appreciable pattern in the deformation for the
-multicomponent bilayer case in TG flow
+case of bilayers with multiple domains in TG flow
 (Supplementary Movie S3, right panel).
 Figure~\ref{fig:BC1_TG}(a)--(c)
 are the snapshots when $V_0=0.1,0.15,0.2$ at $t = 0.2$ $\upmu$s. At all
@@ -1327,7 +1330,7 @@ attraction used in the present work. They observed spontaneous
 aggregation into micelles generically and formation of bilayers when the
 initial configuration was chosen sufficiently close to the final
 configuration. They also studied self-assembly of bipolar electric JP,
-which use BC (ii) but electric potential, instead of a water order parameter,
+which corresponds to our BC (iii) JP (but electric potential, instead of a water order parameter),
 to define the interaction.  Due to the differing interaction,
 bipolar electric particles form parallel chains that
 repel. In contrast, the hydrophobic interaction between stria is
@@ -1373,8 +1376,8 @@ deformation. The effective viscosity of the material quantitatively
 validates this result. High shear-rate cases provide a range of critical
 shear rates where the structures break apart and undergo topological
 changes. We further show that free energy, scalar order parameter, and
-strain are effective measures to quantitatively capture the dynamics of
-the JP oligomers under a linear shear flow.
+strain are effective measures to quantitatively capture the collective hydrodynamics of
+JPs under a linear shear flow.
 
 Under a Taylor-Green flow, the amphiphilic JPs are the most interesting,
 exhibiting different vesicle shapes depending on the ratio of the size
@@ -1384,8 +1387,8 @@ the size of the cell in the TG flow. On the other hand, the assembly of
 multi-lamella JPs and the striated JPs behave more like a rigid body
 with connected subdomains, and the number of subdomains increases with
 increasing strength of the TG flow. Overall, the multilamellar (BC (ii))
-JPs oligomers behave as a shear-thinning fluid, while the striated (BC
-(iii)) JPs oligomers possess a yield stress.
+JP assembly behaves as a shear-thinning fluid, while the striated (BC
+(iii)) JP assembly  possesses a yield stress.
 
 The results reported here provide an inroad modeling framework for
 hydrodynamics of active colloids~\cite{Meredithetal2022,
@@ -1545,7 +1548,7 @@ equations
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
 \end{alignat}
 where $\uu$ is the velocity, $p$ is the pressure, $\uu_\infty$ is the
-background flow, and $\mu$ is the constant viscosity. The domain $\Omega
+background flow, and $\mu$ is the (constant) solvent viscosity. The domain $\Omega
 = \Omega(t)$ is the fluid region surrounding the particles and changes
 shape as the particles move. Since the particles are rigid, the solvent
 velocity satisfies the no-slip rigid body motion boundary condition
