@@ -11,14 +11,9 @@ three-dimensional microstructures~\cite{Dasgupta2017, Leong2007,
 Reynolds2019, Cho2010}. Hydrodynamic effects cannot be ignored since
 they, like for the rates of biological functions like pore
 dynamics~\cite{RYHAM20112929}, set the rate of dissipation. In Specific
-Aim 2, we propose novel and efficient high-order numerical methods to
+Aim 3, we propose novel and efficient high-order numerical methods to
 simulate dynamic assembly of particles under the HAP in a viscous
-solvent. As described in~\eqref{eq:stokes} and illustrated in
-Figure~\ref{fig:flow_map}, the solvent phase is modeled by the Stokes
-equations for an incompressible, viscous fluid, and these equations are
-coupled to the screened-Laplace equation~\eqref{eq:SL} through viscous
-and hydrophobic stress balance. 
- 
+solvent.
 
 The hydrophobic interactions come from the tendency of particles to
 minimize the free energy of the structure of the surrounding water
@@ -36,15 +31,20 @@ Minimizing $F[u]$ requires that $u$ satisfies
   \text{ on } \Omega.
 \end{align}
 where the boundary condition $g$ is a material label that is transported
-with the particle motions.
+with the particle motions. The motion of the solvent phase is modeled by
+the Stokes equations for an incompressible, viscous fluid, 
+\begin{align}
+  -\mu \Delta \uu + \nabla p = 0, \quad \nabla \cdot \uu = 0,
+  \label{eq:stokes}
+\end{align}
+with vanishing conditions at infinity. The hydrodynamic and
+hydrophobicity are copuled through viscous and hydrophobic stress
+balance.
 
-
-
-The HAP model requires solving exterior problems for the order
-parameter~\eqref{eq:SL} and the Stokes equations~\eqref{eq:stokes}. We
-will develop methods based on combinations of volume and layer
-potentials, and inexact Newton's method. Numerical methods to solve
-these integral equations (IEs) have several advantages over their
+We will develop methods based on combinations of integral equation-based
+volume and layer potentials, and inexact Newton's method to solve the
+elliptic PDEs~\eqref{eq:SL} and~\eqref{eq:stokes}. Numerical methods to
+solve these integral equations (IEs) have several advantages over their
 PDE-based counterpart: by construction, they satisfy far-field and mass
 conservation conditions; only $\partial\Omega$ needs to be discretized
 for layer potentials; carefully chosen IEs result in a well-conditioned
@@ -52,13 +52,14 @@ linear system that is solved with a mesh-independent number of GMRES
 iterations; and high-order or spectral accuracy is attainable with
 appropriate quadrature methods. The PIs have demonstrated that IEs are a
 powerful tool to simulate two-dimensional suspensions of amphiphilic
-particles~\cite{Fu2018_SIAM, FuQuRyYo20}. Moreover, elements of these
-formulations have been described in three dimensions~\cite{ying_2006,
-manasthesis, rac-gre2016}. This proposal will extend the two-dimensional
+particles~\cite{Fu2018_SIAM, FuQuRyYo22, fu-ryh-qua-you2022}. Moreover,
+elements of these formulations have been described in three
+dimensions~\cite{ying_2006, manasthesis, rac-gre2016,
+koh-cor-che-vee2021}. This proposal will extend the two-dimensional
 methods to more general amphiphilic particle models that
 satisfy~\eqref{eq:SL}, and all the methods can naturally be extended to
 three dimensions. These methods will be motivated by models and analysis
-developed in Specific Aims 1 and 3. \S\ref{subsec:AC} describes how the
+developed in Specific Aims 1 and 2.  \S\ref{subsec:AC} describes how the
 non-linear Allen-Cahn equation~\eqref{eq:SL} will be iteratively solved
 using an IE formulation. Then, \S\ref{subsec:NumericalIssues} describes
 how we will combine preconditioning strategies with fast summation
