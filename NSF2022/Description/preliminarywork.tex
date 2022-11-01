@@ -70,7 +70,7 @@
 %  diameter.} 
 %\end{wraptable}
 \begin{wrapfigure}[11]{r}{0.5\textwidth}
-\includegraphics[width=0.5\textwidth]{figures/TankTreading.jpg}
+\includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/TankTreading.jpg}
 \caption{\label{fig:JPv_linearshear}The JP vesicles undergo tank-treading in background shear flow.}
 \end{wrapfigure}
 PIs RR and YNY started work on HAP modeling with Szu-Pei Fu (then PI
@@ -86,7 +86,7 @@ a colloidal membrane~\cite{Balchunas2019_SM}.
 
 \begin{wrapfigure}[14]{l}{0.475\textwidth}
 %\vspace{-10pt}
-\includegraphics[width=0.475\textwidth]{figures/Rupture.jpg}
+\includegraphics[width=0.475\textwidth]{figures/PreliminaryWork/Rupture.jpg}
 \caption{\label{fig:JPv_rupture}The JP vesicles rupture under large shear rates.}
 \end{wrapfigure}
 %
@@ -186,16 +186,35 @@ in~\cite{Fu2018_SIAM} and an improved numerical algorithm to simulate
 the hydrodynamics of JP vesicles in background flows. Under a linear
 shear flow (Figure~\ref{fig:JPv_linearshear}), JP vesicles exhibited
 elongation and tank-treading dynamics observed for a lipid bilayer GUV.
+%%
+%%With the use of suitable parameters, the
+%%numerical results yield qualitative phenomena such as a tank-treading JP
+%%vesicle. 
+%%
+%%
+%The results showed that the reduced area decreases with shear rate
+%\begin{wrapfigure}[15]{l}{0.5\textwidth}
+%\includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/Rupture.jpg}
+%\caption{The JP vesicles rupture under large shear rates.}
+%\end{wrapfigure}
 The total length of a JP vesicle was conserved and the decay rate of the
-reduced area was independent of the shear rate.  Moreover, the model
-described membrane rupture in high shear rates
+reduced area was independent of the shear rate.  Moreover, the
+model described membrane rupture in high shear rates
 (Figure~\ref{fig:JPv_rupture}). Therefore, the method can be applied to
 vesicles undergoing topological changes which is difficult to simulate
 when using a continuum model that represents vesicles as closed and
 continuous curves.
+%
+%Our coarse-grained model is also able to calculate inter-monolayer
+%friction. 
+%
 
+%
+%Our method requires
+%calculations of the hydrodynamic stress tensor, and these are used to
+%
 \begin{wrapfigure}[11]{l}{0.6\textwidth}
-\includegraphics[width=0.6\textwidth]{figures/Slipper.jpg}
+\includegraphics[width=0.6\textwidth]{figures/PreliminaryWork/Slipper.jpg}
 \caption{\label{fig:JP_poiseuille}The JP vesicle takes on the asymmetric
   slipper shape in parabolic flow.}
 \end{wrapfigure}
@@ -235,7 +254,7 @@ slightly above the centre of the Poiseuille flow.
 
 
 \begin{wrapfigure}[15]{l}{0.5\textwidth}
-\includegraphics[width=0.5\textwidth]{figures/ShearDoublet.jpg}
+\includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/ShearDoublet.jpg}
 \caption{\label{fig:JPv_interactions} Vesicle-vesicle interaction for JP
   vesicles in shear flow.}
 \end{wrapfigure}
@@ -250,7 +269,7 @@ observed a rotating behaviour that is observed for models involving
 vesicle adhesion~\cite{qua-vee-you2019, abb-far-ezz-ben-mis2021}. The
 hydrophobic attraction led to this adhesive effect when two JP bilayers
 are sufficiently close. We also performed simulations of a pair
-of JP vesicles suspended in an extensional flow (see \cite{FuQuRyYo22}).
+of JP vesicles suspended in an extensional flow (see \cite{FuQuRyYo20}).
 %By varying the initial
 %vertical displacement of the vesicles' centroids, we can control for
 %divergent trajectories and obtain similar results to the continuum
@@ -264,6 +283,217 @@ having to rely on computationally expensive quadratures. Future goals
 include extending the current framework to a three-dimensional JP
 vesicle system. This will require additional algorithmic implementation
 including a fast summation method such as the fast multipole method \cite{Yan2019}.
+
+%
+%\begin{wrapfigure}[22]{l}{0.5\textwidth}
+%\vspace{-5pt}
+%  \centering{\includegraphics[width=0.49\textwidth]{Figures/TankTreading.pdf}}
+%  \vspace{-10pt}
+%  \caption{\label{fig:tank_treading} \footnotesize
+%    Panel A: A two-dimensional, particle-based vesicle in a shear flow
+%    (arrows); $\mu = 1$ mPa s and $\dot{\gamma} = 0.5$ $\mu$s$^{-1}$
+%    (compare with~\cite{Brandner2019}).  Panel B: Angular velocities for
+%    the outer and the inner leaflets.  Panel C: The trajectory of the
+%    particle centers forms two ellipses with well-defined inclination
+%    angle $\Theta$. Panel D: The evolution of the inclination angle.
+%    Panels B and D share the same time axis.}
+%\end{wrapfigure}
+%We have simulated two-dimensional vesicles in shear flow
+%$\mathbf{u}_{\infty} = \dot{\gamma} x_2 \mathbf{i}_1$ with shear rate
+%$\dot{\gamma}$,
+%%(The symbol shear rate is unrelated to interfacial tension.)
+%and the particle-based system mimics the behavior observed in continuous
+%vesicles~\cite{torres-sanchez_millan_arroyo_2019,
+%mahapatra_saintillan_rangamani_2020, Steigmann99, C6SM02452A}. The basic
+%pattern is that of a vesicle bilayer approaching a steady, tank-treading
+%ellipse (Figure~\ref{fig:tank_treading}C). We analyzed the simulation
+%data in the context of theoretical work on
+%tank-treading~\cite{Finken2008, PhysRevLett.106.158103}.
+%Jeffrey's equation predicts a tank-treading frequency $-\dot{\gamma}/2$ (dashed line in
+%Figure~\ref{fig:tank_treading}B). In the particle simulation, we measured
+%a tank-treading frequency as the mean of the particle angular
+%velocities. The measured steady-state frequencies were within 7\% of the predicted 
+%frequency (dotted and solid curves in Figure~\ref{fig:tank_treading}B).
+%The inclincation angle of the particle-based simulation also
+%follows the inclination angle $\Theta(t)$ predicted by Jeffrey's
+%equation (Figure~\ref{fig:tank_treading}D), albeit with higher frequency oscillation
+%coming from particle reorganization.
+%
+%Analyzing for any underlying constitutive laws, the particles reorganize
+%so that there is an initial increase and then plateau in vesicle
+%circumference. As is the case with real lipid bilayer membranes, the
+%particle collection permits a small amount of stretching. The
+%theoretical calculations give an increase of length by 3.6\%, in
+%agreement with our measured length increase. The simulations also
+%suggest that the particle system behaves as a semipermeable
+%vesicle~\cite{323e9a2f0c58487ea82518d7a1f96485, YAO2017728}.
+%
+%
+%\begin{wrapfigure}[10]{r}{0.22\textwidth}
+% \vspace{-3pt}
+%  \centering{\includegraphics[width=0.21\textwidth]{Figures/PW_fig5.pdf}}
+% \vspace{-7pt}
+%  \caption{\label{fig:flow_rupture} \footnotesize Rupture of a
+%  two-dimensional vesicle at large shear rates.}
+%\end{wrapfigure}
+%The above considerations further justify using the particle-based model
+%to study material properties as outlined in
+%\S\ref{subsec:specific_aim_1}. Furthermore, the particle system allows
+%for intermonolayer slip~\cite{SHKULIPA2005823, ShkulipaThesis}. In
+%Figure \ref{fig:tank_treading}B, the inner angular velocity is slightly
+%less than the outer angular velocity. Intermonolayer slip enters
+%zero-thickness membrane models as a velocity jump boundary condition
+%\cite{schwalbe_vlahovska_miksis_2010}, for example, but in the present
+%model, it is a consequence of monolayer independence. For large shear
+%rates, viscous forces exceed the hydrophobic attraction leading to
+% vesicle rupture~\cite{C8SM01501E}, at which point the flow carries away
+% segmented membrane patches (Figure \ref{fig:flow_rupture}). 
+%
+%In conclusion, the HAP model accurately mimics the behavior of continuous
+%membranes while at the same time capturing the
+%reconnection during the topological change of 
+%lipid molecules on the scales of membrane thickness,
+%overcoming one of the long-standing challenges of continuum modeling.
+%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%For Specific Aim 3
+%The background flow enters by replacing the third equation in \eqref{eq:stokes} 
+%with the condition $(\mathbf{u} -\mathbf{u}_{\infty})(\mathbf{x}) 
+%\to \mathbf{0}$ as $|\mathbf{x}| \to \infty$. To incorporate the far-field flow, 
+%and using the representation 
+%\begin{align}
+%\label{PowerMiranda}
+%  {\bf u} = {\bf u}_{\infty} + K\boldsymbol{\eta} + 
+%    \sum_{i=1}^N S(\cdot, {\bf a}_i) {\bf F}_i + 
+%                 R(\cdot, {\bf a}_i) {\bf G}_i.
+%\end{align}
+%The symbols $S$ and $R$ are Stokeslets and rotlets supported at the respective
+%particle centers \cite{leal_2007} and $K\boldsymbol{eta}$ is a layer potential for the
+%unknown density function $\boldsymbol{\eta}.$ The
+%representation~\eqref{PowerMiranda} automatically satisfies all
+%equations, with the exception of the rigid motion conditions. The rigid
+%motion conditions follow by requiring the viscous stress vanishes across
+%the particle boundaries.
+
+%\begin{wrapfigure}[13]{l}{0.30\textwidth}
+%\centerline{\includegraphics[width=0.30\textwidth]{figures/BIError.pdf}}
+%  \vspace{-8pt}
+%\caption{
+%\label{fig:bierror}  
+%\footnotesize The false color map shows how numerical quadrature of
+%  layer potentials loses accuracy near the particle boundaries.  The
+%  color bar is for $\log_{10}.$}
+%\end{wrapfigure}
+%\textbf{Novel reciprocal identities.} 
+%The force and torque formulas~\eqref{forceandtorque} require the
+%hydrophobic stress along the particle boundaries. Unfortunately,
+%standard quadrature formulas to estimate $\nabla u$ on the particle
+%boundaries introduces large amounts of quadrature error
+%(Figure~\ref{fig:bierror}). Therefore, it is useful to devise reciprocal
+%identities for the force and torque on body $i$ that does not
+%require integration along body $i$. One identity, that we have proved,
+%is
+%\begin{align}
+%    \label{eq:reciprocal}
+%{\bf F}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i}
+%[\boldsymbol{\sigma}_{ij} + \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S,\quad
+%{\bf G}_{\text{hydro},i} = \sum_{j \neq i} \int_{\partial P_i} ({\bf
+%  x}-\mathbf{a}_i) \times [\boldsymbol{\sigma}_{ij} +
+%  \boldsymbol{\sigma}_{ji}]\boldsymbol{\nu}\,\dif S, 
+%\end{align}
+%for $i=1,\ldots,N$. Here, $u_i$ is the solution of the screened Laplace
+%equation when only the contribution from particle $i$ is considered and
+%$\boldsymbol{\sigma}_{ij} = \rho^{-1} u_iu_j {\bf I} + \rho(\nabla u_i
+%\cdot \nabla u_j {\bf I} - 2 \nabla u_i \otimes \nabla u_j)$.
+%Because of the double layer potential jump relations, \eqref{eq:reciprocal} 
+%does not require knowledge of $\nabla u$ on the particle boundary, and this
+%is enormously beneficial for calculating force and torque.
+
+
+
+%\subsection{Two-dimensional vesicle hydrodynamics in shear flow} 
+%The motion of vesicles in shear flow is an important problem in the
+%applied mathematics because simulations can reveal mechanical
+%properties of membranes and lead to an enhanced understanding of
+%deformable particle laden flows \cite{Sinha15}. 
+%
+%
+%\begin{wrapfigure}[10]{r}{0.2\textwidth}
+%\centerline{\includegraphics[width=0.2\textwidth]{figures/PW_fig5.pdf}}
+%\vspace{-8pt}
+%\caption{\label{fig:rupture} \footnotesize Rupture of tank-treading vesicle under strong shear flow.}
+%\end{wrapfigure}
+%
+%To implement a vesicle in shear flow in the context of hydrophobic
+%potentials and mobility problem, we consider a shear flow in the
+%far-field $\mathbf{u}_{\infty} = Uy\mathbf{i}_x$ in the direction of the
+%$x$-axis (Figure \ref{fig:tanktreading}A). As illustrated in Figure
+%\ref{fig:tanktreading}, the particle based approach supports
+%inter-leaflet slip, and this can be used to determine inter-leaflet and
+%in-plane shear viscosities. 
+%
+%This field satisfies the linear Stokes system but does not give rise to a rigid motion at the particle interfaces. 
+%To have a rigid motion, we change variables $\mathbf{u} = \tilde{\mathbf{u}}+ \mathbf{u}_{\infty}$ and 
+%for the new field $\tilde{\mathbf{u}}$ vanishing at infinity we let 
+%$\tilde{\mathbf{u}}|_{\partial P_i} = \mathbf{v}_i + \boldsymbol{\omega}_i \times (\mathbf{x} - \mathbf{a}_i)$ 
+%where $(\mathbf{v}_i,\boldsymbol{\omega}_i)$ are the unknown translation and angular velocities of the 
+%$i$th particle $P_i.$  
+%
+%\begin{wrapfigure}[17]{l}{0.4\textwidth}
+%\centerline{\includegraphics[width=0.4\textwidth]{figures/PW_fig2.pdf}}
+%\caption{\label{fig:demixing} An initial assembly of small and 
+%large particles spontaneous segregates into two smaller bodies. }
+%\end{wrapfigure}
+%The HAP simulations show vesicle tank-treading. Under the external shear flow, the initially circular 
+%vesicle rotates in the clockwise direction. As the rate of rotation increases, the vesicle approaches
+%a steadily tank-treading ellipse. In Figure \ref{fig:tanktreading}B-D, the solid curves are ellipses fit to the particle centers
+%and midplane respectively. In the non-dimensionalized system, the particles have diameter 2, on the order of $\rho,$ 
+%and the vesicle diameter is about 14. 
+%\todo[inline]{missing units. nm?}
+%Figure~\ref{fig:tanktreading}E shows the aspect ratio of the major to minor axes reaching an equilibrium value in the 
+%red and blue curves, yet oscillating in the high-shear rate (yellow) curve.
+%The tank-treading vesicle elongates and becomes more horizontal 
+%with an increase in flow rate or 
+%with a decrease in stiffness (effected by decreasing $\rho = 4$ to $\rho = 2$). 
+
+
+%For large shear flow rates, there is an increase in arc length. Here arc
+%length refers to the the mid-plane circumference. Thus, some of the
+%external force is going into stretching the vesicle---the other part is
+%going into bending and viscous dissipation. From our experiments, we
+%find that the vesicle ruptures once stretching exceeds about 5 \% (see
+%Figure \ref{fig:rupture}). Finally, movies of the tank-treading motion
+%show a slip velocity between the outer and inner leaflets Figure
+%\ref{fig:tanktreading}G. We have illustrated this by tracking the
+%distance between two reference particles in the inner and outer leaflet
+%(Figure \ref{fig:tanktreading}B \& D, green and blue particles). With
+%moderate shear rates or greater adhesion, the particle pair moves in
+%tandem (in Figure \ref{fig:tanktreading}H, blue and red curves, their
+%distance is more or less constant). For a large shear rate, the
+%particle separates as the two leaflets slide against one another. 
+
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=1\textwidth]{figures/PW_fig1A-D.pdf}
+%\includegraphics[width=1\textwidth]{figures/PW_fig1E-H.pdf}
+%\end{center}
+%\vspace{-0.3in}
+%\caption{\label{fig:tanktreading}\footnotesize (A) A vesicle formed by
+%  amphiphilic particles in shear flow, and the tank-treading motion
+%  (B)--(D). The separation of particle pairs in (B) and (C) illustrate
+%  inter-leaflet slip.  (E)--(G) Tank-treading reaches a steady state in
+%  elliptical aspect ratio, major-axis angle, and circumference.}
+%\end{figure}
+
+
+%\begin{wrapfigure}[12]{r}{0.2\textwidth}
+%\centerline{\includegraphics[width=0.2\textwidth]{figures/PW_fig5.pdf}}
+%\caption{\label{fig:rupture} Rupture of tank-treading vesicle under strong shear flow.}
+%\end{wrapfigure}
+%
+
 
 
 
