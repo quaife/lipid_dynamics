@@ -1,8 +1,8 @@
 \noindent
 {\bf Collaborative Research: Mathematical modeling and simulation of
 self-assembling amphiphilic particles in solvent {\bf MAKE MORE MATHEMATICAL}} \\
-{\em Rolf Ryham (lead PI, Fordham University),
-Bryan Quaife (PI, Florida State University), and
+{\em Rolf Ryham (PI, Fordham University),
+Bryan Quaife (lead PI, Florida State University), and
 Yuan-Nan Young (PI, New Jersey Institute of Technology)}
 
 \section{Background}
@@ -77,7 +77,7 @@ when periodic domains are not under consideration.
 \end{figure}
 
 
-
+\subsection{Problem formulation}
 Recently, we have developed a new mathematical model of self-organization.
 The model takes ideas from the phase field method 
 and leverages boundary integral equations to speed up computations.
@@ -90,19 +90,21 @@ properties of the suspended media.
 Unlike particles, the bodies, which we will call grains (``using `grains' as an easy find-replace for
 when we settle on vocabulary), have finite size.
 
-The first key idea is
-to define the grain interactions using a boundary value problem
-\begin{align}
-  -\mu\Delta \uu + \nabla p &= \mathbf{0},\\
-  \nabla \cdot \uu &= 0,\\
--\rho^2 \Delta \eta + f'(\eta) &= 0, \quad \text{ in } \Omega_t,
-\end{align}
+The first key idea is to define the grain interactions using a boundary
+value problem
+\begin{alignat}{3}
+  -\mu\Delta \uu + \nabla p &= \mathbf{0}, \:
+  \nabla \cdot \uu = 0, \quad &&\xx \in \Omega, \label {eqn:stokes} \\
+  -\rho^2 \Delta \eta + f'(\eta) &= 0, &&\xx \in \Omega,
+  \label{eqn:phase}
+\end{alignat}
 with boundary conditions
-\begin{align}
-  \frac{d\xx}{dt} &= \uu,\\
-  \uu &= \vv_i + \omega_i \times (\xx - \aa_i)\\
-  \eta &= h_i(\xx,t),\quad \text{ for } \xx \in \Gamma_i
-\end{align}
+\begin{alignat}{3}
+  \frac{d\xx}{dt} &= \uu, &&\xx \in \bd\Omega \\
+  \uu &= \vv_i + \omega_i \times (\xx - \aa_i), \quad &&\xx \in
+  \Gamma_i,\, i=1,\ldots,N_b, \\
+  \eta &= h_i(\xx,t),  &&\xx \in \Gamma_i,\, i=1,\ldots,N_b,
+\end{alignat}
 and
 \begin{equation}
 \int_{\Gamma_i} \mu(\nabla \uu + \nabla \uu^T + pI)\nu \,\dif s = 
@@ -223,47 +225,87 @@ As is the case for nematics, it is natural to understand what is the effect of t
 such a context, but a first step is to obtain some solid well-posedness results.
 The proposal discusses some mathematical generalizations in section ().  
 
-The boundary integral equation (BIE) method is
-the idea numerical method for the present study
-in terms of computational cost and accuracy.
-Boundary integral equations
-require linear PDE and so we take $f(\eta) = \tfrac{1}{2}\eta^2$,
-yielding in () the so called screened Laplace equation
-$-\rho^2 \Delta \eta + \eta$.  This is a Helmholtz equation with purely imaginary
-wave number, enabling us to represent the solution
-in terms of layer potentials:
-\begin{equation}
-  \eta(\xx) = \int_{\partial \Omega} \frac{\partial G}{\partial \nu}
-  \left(\frac{\xx-\yy}{\rho}\right) \sigma(\yy) \,ds_{\yy}
-\end{equation}
-where $\frac{\partial G}{\partial \nu}$ is the normal derivative of the
-fundamental solution of the screened Laplace equation
-(a Bessel function in two space dimensions and
-an exponential times the standard fundamental solution of the Laplace equation
-in three space dimensions).
-This representation allows us to transfer the boundary value problem ()-()
-to an equation only involving in terms of domain boundary.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Boundary Integral formulation}
+Boundary integral equations (BIEs) are a reformulation of elliptic PDEs.
+For example, solutions of the Stokes equations~\eqref{eqn:stokes} can be
+written as the convolution 
+\begin{align*}
+  \uu(\xx) = \int_{\partial\Omega} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
+\end{align*}
+where $G(\xx - \yy)$ is a carefully chosen derivative of the PDE's
+fundamental solution and $\ssigma: \partial \Omega \rightarrow \RR^2$ is
+an unknown density function. The BIE reformulation has several immediate
+advantages including a dimension reduction since the unknown density
+function is defined only on $\partial \Omega$, and the far field
+boundary condition of the PDE is automatically satisfied. The density
+function $\ssigma$ is chosen to satisfy the boundary condition, and this
+results in a BIE 
+\begin{align*}
+  \gg(\xx) = \lambda \ssigma(\xx) + 
+    \int_{\partial\Omega} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
+    \quad \xx \in \bd\Omega,
+\end{align*}
+where $\gg$ is the Dirichlet boundary condition, and $\lambda$ is a
+constant that depends on the choice of $G$. Note that if the
+well-potential is $f(u) = \tfrac{1}{2}u^2$, then
+equation~\eqref{eqn:phase} becomes the so-called linear screened Laplace
+equation and can be written as a BIE with an unknown scalar-valued
+density function.
 
-The numerical advantages of doing so are as follows.  If $h = N^{-1}$
-is the characeristic grid spacing of the grain boundaries, then a
-finite element or finite difference discretization of ()-()
-requires on the order of $N_b N^n$ grid points
-for dense suspensions.  In contrast BIE require onely 
-With finite elements, mesh regeneration
-would be needed at each time step since the domain is moving.  
-In the boundary integral approach, collocation points can be selected
-for the initial grain configuration and then used throughout the
-time-course.
-As a downside, integral equations require specialized quadrature
-routines to resolve self interactions and nearly touching
-grain boundaries.  
-Finally, the far field boundary conditions which are important for
-imposed flow problems automatically hold, whereas with 
-finite element and finite difference methods
-artificial boundary conditions must be imposed.
-\begin{figure}
-A figure comparing FE versus BIE meshes
-\end{figure}
+In addition to the dimension reduction and far field conditions being
+automatically solved, additional advantages of a BIE formulation are
+that they are high-order, or even spectrally, accurate; their
+discretization results in a well-conditioned linear system that can be
+solved iteratively with a mesh-independent number of iterations of a
+Krylov method such as the generalized minimal residual method (GMRES);
+and complex geometries are easier to address than mesh based methods
+such as the finite element method Figure~\ref{fig:fem_vs_bie}. However,
+BIEs do have several challenges: nearly touching grains requires a
+quadrature rule for nearly-singular integrals; their discretization
+results in dense matrices; and they are not immediately suitable to
+non-linear PDEs. The BIE community, including PI Quaife, has developed a
+variety of tools to address these numerical challenges, and we discuss
+our planned approach in Section~\ref{sec:specificaim2}.
+
+%The boundary integral equation (BIE) method is the ideal numerical
+%method for the present study in terms of computational cost and
+%accuracy. Boundary integral equations require linear PDE and so we take
+%$f(\eta) = \tfrac{1}{2}\eta^2$, yielding in () the so called screened
+%Laplace equation $-\rho^2 \Delta \eta + \eta$.  This is a Helmholtz
+%equation with purely imaginary wave number, enabling us to represent the
+%solution in terms of layer potentials:
+%\begin{equation}
+%  \eta(\xx) = \int_{\partial \Omega} \frac{\partial G}{\partial \nu}
+%  \left(\frac{\xx-\yy}{\rho}\right) \sigma(\yy) \,ds_{\yy}
+%\end{equation}
+%where $\frac{\partial G}{\partial \nu}$ is the normal derivative of the
+%fundamental solution of the screened Laplace equation
+%(a Bessel function in two space dimensions and
+%an exponential times the standard fundamental solution of the Laplace equation
+%in three space dimensions).
+%This representation allows us to transfer the boundary value problem ()-()
+%to an equation only involving in terms of domain boundary.  
+%
+%The numerical advantages of doing so are as follows.  If $h = N^{-1}$ is
+%the characeristic grid spacing of the grain boundaries, then a finite
+%element or finite difference discretization of ()-() requires on the
+%order of $N_b N^n$ grid points for dense suspensions.  In contrast BIE
+%require onely With finite elements, mesh regeneration would be needed at
+%each time step since the domain is moving.  In the boundary integral
+%approach, collocation points can be selected for the initial grain
+%configuration and then used throughout the time-course.  As a downside,
+%integral equations require specialized quadrature routines to resolve
+%self interactions and nearly touching grain boundaries.  Finally, the
+%far field boundary conditions which are important for imposed flow
+%problems automatically hold, whereas with finite element and finite
+%difference methods artificial boundary conditions must be imposed.
+\begin{wrapfigure}[10]{r}{2in}
+  \todo[inline]{A figure comparing FEM versus BIE meshes}
+  \caption{\label{fig:fem_vs_bie} A finite element method requires
+  meshing the entire domain (typically into triangles), while a BIE
+  only requires meshing the boundary of the domain.}
+\end{wrapfigure}
 
 \subsubsection{Problem formulation}
 %\begin{wrapfigure}[h!]
@@ -405,9 +447,6 @@ efficiently.
 %$\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T \right)$
 %is the hydrodynamic stress tensor (pressure tensor) and $\nnu$ is the
 %particle outward normal.
-
-\subsection{Boundary Integral formulation}
-\textbf{Take from prior years proposal}
 
 
 \subsection{Outline of the proposal}
