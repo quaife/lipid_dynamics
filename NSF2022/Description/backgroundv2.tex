@@ -1,8 +1,8 @@
 \noindent
 {\bf Collaborative Research: Mathematical modeling and simulation of
 self-assembling amphiphilic particles in solvent {\bf MAKE MORE MATHEMATICAL}} \\
-{\em Rolf Ryham (lead PI, Fordham University),
-Bryan Quaife (PI, Florida State University), and
+{\em Rolf Ryham (PI, Fordham University),
+Bryan Quaife (lead PI, Florida State University), and
 Yuan-Nan Young (PI, New Jersey Institute of Technology)}
 
 \section{Background}
@@ -61,85 +61,96 @@ when periodic domains are not under consideration.
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.45\textwidth]{figures/SpecificAim1/Domain.jpg}
-% \includegraphics[width=0.55\textwidth]{figures/SpecificAim1/Domain.jpg}    
- \includegraphics[width=0.45\textwidth]{figures/SpecificAim1/3Particles.jpg}
+%    \includegraphics[width=0.45\textwidth]{figures/SpecificAim1/Domain.jpg}
+%    \includegraphics[width=0.45\textwidth]{figures/SpecificAim1/3Particles.jpg}
+    \includegraphics[keepaspectratio,height=2.7cm]{figures/SpecificAim1/Domain.jpg}
+    \includegraphics[keepaspectratio,height=2.7cm]{figures/SpecificAim1/3Particles.jpg}
   \end{center}
-  \caption{\label{fig:flow_map}
-   Left: In the HAP formulation,
-   a system of exterior problems 
-   defines the hydronamic and hydrophobic interactions.
-  Right:
-     Particles translate and rotate to lower the free energy $F[u]$
-   subject to \eqref{eq:SL}, $f(u) = u^2$, and reach a minimal configuration in
-   panel C. The colormap is blue for $u = 0$ and red for $u = 1$.
-   The arrows are the velocity field $\mathbf{u}$.}
+  \caption{\label{fig:flow_map} \footnotesize {\em Left:} In the HAP
+  formulation, a system of exterior problems defines the hydrodynamic
+  and hydrophobic interactions. {\em Right:} Particles translate and
+  rotate to lower the free energy $F[u]$ subject to \eqref{eq:SL}, $f(u)
+  = u^2$, and reach a minimal configuration in panel C. The colormap is
+  blue for $u = 0$ and red for $u = 1$. The arrows are the velocity
+  field $\mathbf{u}$.}
 \end{figure}
 
 
+\subsection{Problem formulation}
+Recently, we have developed a new mathematical model of
+self-organization~\cite{FuQuRyYo22,ru-ryh-qua-you2022,Fu2018_SIAM}. The
+model takes ideas from the phase field method and leverages boundary
+integral equations to speed up computations. To formulate the problem,
+consider a collection of $N_b$-many rigid bodies $U_i$, with boundary
+$\Gamma_i$, immersed in an incompressible, zero-Reynolds number fluid
+$\Omega_t = \RR^n \setminus \cup_{i=1}^{N_b} U_i$. The subscript $t$
+reinforces that $\Omega_t$ is time-varying. We use the grain shape and
+boundary conditions to capture the local properties of the suspended
+media. Unlike particles, the bodies, which we will call grains, have
+finite size.  \todo[inline]{using `grains' as an easy find-replace for
+when we settle on vocabulary}
 
-Recently, we have developed a new mathematical model of self-organization.
-The model takes ideas from the phase field method 
-and leverages boundary integral equations to speed up computations.
-To formulate the problem, consider a collection of $N_b$-many rigid bodies
-$U_i$ immersed in an incompressible, zero-Reynolds number fluid
-$\Omega_t \mathbb{R}^n \setminus \cup_{i=1}^{N_b} U_i$.
-The subscript $t$ reinforces that $\Omega_t$ is time-varying. 
-We use the grain shape and boundary conditions to capture the local 
-properties of the suspended media.
-Unlike particles, the bodies, which we will call grains (``using `grains' as an easy find-replace for
-when we settle on vocabulary), have finite size.
-
-The first key idea is
-to define the grain interactions using a boundary value problem
-\begin{align}
-  -\mu\Delta \uu + \nabla p &= \mathbf{0},\\
-  \nabla \cdot \uu &= 0,\\
--\rho^2 \Delta \eta + f'(\eta) &= 0, \quad \text{ in } \Omega_t,
-\end{align}
+The first key idea is to define the grain interactions using a boundary
+value problem
+\begin{alignat}{3}
+  -\mu\Delta \uu + \nabla p &= \mathbf{0}, \:
+  \nabla \cdot \uu = 0, \quad &&\xx \in \Omega_t, \label {eqn:stokes} \\
+  -\rho^2 \Delta \eta + f'(\eta) &= 0, &&\xx \in \Omega_t,
+  \label{eqn:phase}
+\end{alignat}
 with boundary conditions
-\begin{align}
-  \frac{d\xx}{dt} &= \uu,\\
-  \uu &= \vv_i + \omega_i \times (\xx - \aa_i)\\
-  \eta &= h_i(\xx,t),\quad \text{ for } \xx \in \Gamma_i
-\end{align}
+\begin{alignat}{3}
+  \frac{d\xx}{dt} &= \uu, &&\xx \in \bd\Omega_t \label{eqn:noslip} \\
+  \uu &= \vv_i + \omega_i \times (\xx - \aa_i), \quad &&\xx \in
+  \Gamma_i,\, i=1,\ldots,N_b, \label{eqn:rbm} \\
+  \eta &= h_i(\xx,t),  &&\xx \in \Gamma_i,\, i=1,\ldots,N_b,
+  \label{eqn:material}
+\end{alignat}
 and
-\begin{equation}
-\int_{\Gamma_i} \mu(\nabla \uu + \nabla \uu^T + pI)\nu \,\dif s = 
+\begin{align}
+\int_{\Gamma_i} \mu(\nabla \uu + \nabla \uu^T + pI)\nnu \,\dif s = 
 \int_{\Gamma_i}
-\underbrace{(-\rho^{-1} f'(\eta)
-  + \rho(\tfrac{1}{2}|\nabla \eta|^2 - \nabla \eta \nabla \eta^T)}_{T_i} \nu \, \dif s
-\end{equation}
-This is a semi-linear system for evolution of the grains.  At the top,
-the Stokes equations describe the velocity $\uu$ and pressure $p$ of the
-aqueous phase. In third equation describes the phase transitions of the
-scalar order parameter $\eta$ with a decay length $\rho.$
-Mathematically, this order parameter is responsible for the attraction
-and adhesion between grains that want to align boundaries of like phase.  
-Physically, water molecules are polar and $\eta$ describes the orientational
-order of water e.g. $\eta = 1$ when water molecules share alignment
-and $\eta = 0$ when the water orientations are disordered.
-The well-potential $f$ accounts for possibly distinct equilibrium phases,
-as occurs with 3-bond and 4-bond hydrogen bonding.
+\underbrace{\left(-\rho^{-1} f'(\eta)
+  + \rho\left(\tfrac{1}{2}|\nabla \eta|^2 - \nabla \eta \nabla
+  \eta^T\right)\right)}_{T_i}
+  \nnu \, \dif s,
+  \label{eqn:stressbalance}
+\end{align}
+where $\nnu$ is the unit outward normal vector. This is a semi-linear
+system for evolution of the grains.  Equation~\eqref{eqn:stokes} is the
+Stokes equations that describes the velocity $\uu$ and pressure $p$ of
+the viscous aqueous phase.  Equation~\eqref{eqn:phase} describes the
+phase transitions of the scalar order parameter $\eta$ with a decay
+length $\rho$. Mathematically, this order parameter is responsible for
+the attraction and adhesion between grains that want to align boundaries
+of like phase. Physically, water molecules are polar and $\eta$
+describes the orientational order of water e.g.~$\eta = 1$ when water
+molecules share alignment and $\eta = 0$ when the water orientations are
+disordered. The well-potential $f$ accounts for possibly distinct
+equilibrium phases, as occurs with 3-bond and 4-bond hydrogen bonding.
 
 The next three equations are the moving domain boundary conditions.
-The first two specify a non-slip boundary condition for a rigid body
-with translation velocity $\vv_i$ and angular velocity $\omega_i$.
-In the third boundary condition, the function $h_i$ is a material label
-speficying the water phase at the water-grain interface.  This material
-label is transported by the fluid and therefore satisfies $h_i(\xx,t)
-= h^0_i(\xx(\XX,t),t)$ where $h_i^0$ and $\XX$ are reference labels, coordinates
-given by the initial conditions, and $\xx(\XX,t)$ is the flow map for the
-rigid bodies.  Finally, the last boundary condition closes the system
-and says that the hydrodynamic stress is balanced by the water-order stress.
+Equations~\eqref{eqn:noslip} and~\eqref{eqn:rbm} specify a no-slip
+boundary condition for a rigid body with translation velocity $\vv_i$
+and angular velocity $\omega_i$ about the point $\aa_i \in \Omega_i$. In
+equation~\eqref{eqn:material}, the function $h_i$ is a material label
+specifying the water phase at the water-grain interface. This material
+label is transported by the fluid and therefore satisfies $h_i(\xx,t) =
+h^0_i(\xx(\XX,t),t)$ where $h_i^0$ and $\XX$ are reference labels,
+coordinates given by the initial conditions, and $\xx(\XX,t)$ is the
+flow map for the rigid bodies. Finally,
+equation~\eqref{eqn:stressbalance} closes the system by requiring that
+the hydrodynamic stress is balanced by the water-order stress.
 
-Intriguingly, the formulation ()-() captures exactly the right behavior
-expected from amphiphilic self-assembly.  Three bodies with amphiphilic
-label spontaneously translate and change orientations to sequester the
-disordered fluid phase.  In our simulations (see section ()), we include
-a finite length repulsion to avoid particle collisions.
-Moreover, a simple change of boundary conditions from amphiphilic,
-to biased hydrophobic, to polar results in distinct equilibrium morphologies.
+Intriguingly, the
+formulation~\eqref{eqn:stokes}--\eqref{eqn:stressbalance} captures
+exactly the right behavior expected from amphiphilic self-assembly.
+Three bodies with amphiphilic label spontaneously translate and change
+orientations to sequester the disordered fluid phase. In our simulations
+(see section ()), we include a finite length repulsion to avoid particle
+collisions. Moreover, a simple change of boundary conditions from
+amphiphilic, to biased hydrophobic, to polar results in distinct
+equilibrium morphologies (Figure~\ref{fig:self-assembly2}).
 
 \begin{figure}[h]
   \begin{center}
@@ -162,108 +173,148 @@ to biased hydrophobic, to polar results in distinct equilibrium morphologies.
   \end{tabular}
   \end{center}
   \vspace{-20pt}
-  \caption{\footnotesize
-    \label{fig:self-assembly}
-    Rows (a)-(c) have the same initial configuration
-    but have different boundary conditions $g.$ 
-    In row (a), self-assembly with an amphiphilic boundary
-    condition \eqref{eq:bcs}(a) results in a bilayer pattern shielding
-    the hydrophobic core (yellow, $u > 0$) from the aqueous phase (blue, $u = 0$).
-    Row (b) shows particles with a hydrophobic intensity that is
-    greater on one side of the particle (magenta) than the other (yellow).
-    In row (c), green is for $u < 0$, yellow is for $u > 0$, and blue is for $u = 0$.
-    Particles orient like sides to form a checkerboard pattern.\\
-  }
+  \caption{\footnotesize \label{fig:self-assembly2} Rows (a)-(c) have
+  the same initial configuration but different boundary conditions $g$.
+  In row (a), self-assembly with an amphiphilic boundary condition
+  results in a bilayer pattern shielding the hydrophobic core (yellow,
+  $u > 0$) from the aqueous phase (blue, $u = 0$). Row (b) shows
+  particles with a hydrophobic intensity that is greater on one side of
+  the particle (magenta) than the other (yellow). In row (c), green is
+  for $u < 0$, yellow is for $u > 0$, and blue is for $u = 0$. Particles
+  orient like sides to form a checkerboard pattern.}
 \end{figure}
 
-
-The system ()-() has an elegant mathematical structure.
-In terms of locally in time well-posedness, given disjoint grains with
-sufficiently smooth boundaries
-and data, the system ()-() always has a solution and that these solutions
-have a locally Lipschitz dependence on the particle centers and orientations. 
-Solutions of ()-() obey the energy law
-\begin{equation}
-  \frac{d}{dt}F
-  = - \int_{\Omega_t} \tfrac{1}{2}\mu|\nabla \uu + \nabla \uu^T|^2 \,dx,
-  \quad
+The system~\eqref{eqn:stokes}--\eqref{eqn:stressbalance} has an elegant
+mathematical structure. In terms of locally in time well-posedness,
+given disjoint grains with sufficiently smooth boundaries and data, the
+system always has a solution and these solutions have a locally
+Lipschitz dependence on the particle centers and orientations.
+Solutions of~\eqref{eqn:stokes}--\eqref{eqn:stressbalance} obey the
+energy law
+\begin{align}
   F = \int_{\Omega_t}
-  \rho |\nabla \eta|^2 + \rho^{-1} f(\eta) \,dx.
-\end{equation}
-Mathematically, this energy law states that the free energy $F$ of the water order
-phase transitions, which depends on the grain configurations, is lost due to
-hydrodynamic dissipation.  It is evident that minimizers of the functional $F$
-are unique and satisfy the Euler-Lagrange equation ().
-There is a subtlety in the energy law, though.  Namely, the
-time derivative of the free energy $F$ also involves the moving
-boundary, accounted for by the Rayleigh Transport Theorem, and the
-fact that the boundary data for $\eta$ are transported by the rigid body motion.
-In fact, the water order surface stress $T_i$ is the variational derivative that
-shows up in this calculation.
+  \left(\rho |\nabla \eta|^2 + \rho^{-1} f(\eta)\right) \,d\xx,
+  \quad
+  \frac{d}{dt}F
+  = - \int_{\Omega_t} \left(\tfrac{1}{2}\mu|\nabla \uu + \nabla
+  \uu^T|^2\right) \,d\xx.
+\end{align}
+Mathematically, this energy law states that the free energy $F$ of the
+water order phase transitions, which depends on the grain
+configurations, is lost due to hydrodynamic dissipation. It is evident
+that minimizers of the functional $F$ are unique and satisfy the
+Euler-Lagrange equation~\eqref{eqn:phase}. There is a subtlety in the
+energy law, though. Namely, the time derivative of the free energy $F$
+also involves the moving boundary, accounted for by the Rayleigh
+Transport Theorem, and the fact that the boundary data for $\eta$ are
+transported by the rigid body motion. In fact, the water order surface
+stress $T_i$ is the variational derivative that shows up in this
+calculation.
 
-The model has a broad range of applicability to self-organization phenomena
-in chemistry and biological physics. Since the formulation is
-scale independent, it can represent a suspension of amphiphiles,
-where the grains represent
-the mean properties of a small collection of lipids, at the nanoscopic scale.
-For larger scales, the representation is literal and the grains Janus spheres.  
-The proposal deals with the physical origins in section (). 
+The model has a broad range of applicability to self-organization
+phenomena in chemistry and biological physics. Since the formulation is
+scale independent, it can represent a suspension of amphiphiles, where
+the grains represent the mean properties of a small collection of
+lipids, at the nanoscopic scale. For larger scales, the representation
+is literal and the grains Janus spheres. The proposal deals with the
+physical origins in section (). 
 
-To summarize, the formulation ()-() shares a lot of the features in phase field modeling,
-with the big exception that the free energy depends on the grain configurations,
-rather than phase field
-function.
-To make an explicit connection though, we can consider a phase field model 
-where one ``fluid'' phase instantaneously reaches minimality while the other ``solid''
-phase moves to further decrease free energy. 
-The model is also closely related to
-a recent and strongly developing direction studying 
-colloids immersed in nematic liquid crystals.
-As is the case for nematics, it is natural to understand what is the effect of the flow in
-such a context, but a first step is to obtain some solid well-posedness results.
-The proposal discusses some mathematical generalizations in section ().  
+To summarize, the
+formulation~\eqref{eqn:stokes}--\eqref{eqn:stressbalance} shares a lot
+of the features in phase field modeling, with the big exception that the
+free energy depends on the grain configurations, rather than phase field
+function. To make an explicit connection though, we can consider a phase
+field model where one ``fluid'' phase instantaneously reaches minimality
+while the other ``solid'' phase moves to further decrease free energy.
+The model is also closely related to a recent and strongly developing
+direction studying colloids immersed in nematic liquid crystals. As is
+the case for nematics, it is natural to understand what is the effect of
+the flow in such a context, but a first step is to obtain some solid
+well-posedness results. The proposal discusses some mathematical
+generalizations in section ().
 
-The boundary integral equation (BIE) method is
-the idea numerical method for the present study
-in terms of computational cost and accuracy.
-Boundary integral equations
-require linear PDE and so we take $f(\eta) = \tfrac{1}{2}\eta^2$,
-yielding in () the so called screened Laplace equation
-$-\rho^2 \Delta \eta + \eta$.  This is a Helmholtz equation with purely imaginary
-wave number, enabling us to represent the solution
-in terms of layer potentials:
-\begin{equation}
-  \eta(\xx) = \int_{\partial \Omega} \frac{\partial G}{\partial \nu}
-  \left(\frac{\xx-\yy}{\rho}\right) \sigma(\yy) \,ds_{\yy}
-\end{equation}
-where $\frac{\partial G}{\partial \nu}$ is the normal derivative of the
-fundamental solution of the screened Laplace equation
-(a Bessel function in two space dimensions and
-an exponential times the standard fundamental solution of the Laplace equation
-in three space dimensions).
-This representation allows us to transfer the boundary value problem ()-()
-to an equation only involving in terms of domain boundary.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Boundary integral formulation}
 
-The numerical advantages of doing so are as follows.  If $h = N^{-1}$
-is the characeristic grid spacing of the grain boundaries, then a
-finite element or finite difference discretization of ()-()
-requires on the order of $N_b N^n$ grid points
-for dense suspensions.  In contrast BIE require onely 
-With finite elements, mesh regeneration
-would be needed at each time step since the domain is moving.  
-In the boundary integral approach, collocation points can be selected
-for the initial grain configuration and then used throughout the
-time-course.
-As a downside, integral equations require specialized quadrature
-routines to resolve self interactions and nearly touching
-grain boundaries.  
-Finally, the far field boundary conditions which are important for
-imposed flow problems automatically hold, whereas with 
-finite element and finite difference methods
-artificial boundary conditions must be imposed.
-\begin{figure}
-A figure comparing FE versus BIE meshes
-\end{figure}
+\begin{wrapfigure}[10]{r}{2in}
+  \todo[inline]{A figure comparing FEM versus BIE meshes}
+  \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
+  requires meshing the entire domain (typically into triangles), while a
+  BIE only requires meshing the boundary of the domain.}
+\end{wrapfigure}
+Boundary integral equations (BIEs) are a reformulation of elliptic PDEs
+including the Stokes equation~\eqref{eqn:stokes} and the phase
+equation~\eqref{eqn:phase} in the special case of $f(u) =
+\tfrac{1}{2}u^2$. Using the Stokes equation as an example, its solution
+can be written as a convolution 
+\begin{align*}
+  \uu(\xx) = \int_{\partial\Omega_t} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
+\end{align*}
+where $G(\xx - \yy)$ is a carefully chosen derivative of the PDE's
+fundamental solution and $\ssigma: \partial \Omega_t \rightarrow \RR^2$
+is an unknown density function. The BIE reformulation has several
+immediate advantages including a dimension reduction since $\ssigma$ is
+defined only on $\partial \Omega_t$, and the far field boundary
+condition of the PDE is automatically satisfied. The density
+function $\ssigma$ is chosen to satisfy the boundary condition, and this
+results in a BIE 
+\begin{align*}
+  \gg(\xx) = \lambda \ssigma(\xx) + 
+    \int_{\partial\Omega_t} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
+    \quad \xx \in \partial\Omega_t,
+\end{align*}
+where $\gg$ is the Dirichlet boundary condition, and $\lambda$ is a
+constant that depends on the choice of $G$. For numerical stability,
+choices of $G$ that result in second-kind Fredholm integral equations,
+meaning $\lambda \neq 0$, are preferred.
+
+A consequence of the dimension reduction in a BIE formulation is that
+complex geometries are much easier to resolve than a mesh-based method
+since only $\partial \Omega_t$ needs to be discretized
+(Figure~\ref{fig:fem_vs_bie}). Additional advantages of a BIE
+formulation includes a discretization that is high-order, or even
+spectrally, accurate; results in a well-conditioned linear system that
+can be solved iteratively with a mesh-independent number of iterations
+of a Krylov method such as the generalized minimal residual method
+(GMRES). However, BIEs do have several challenges: nearly touching
+grains requires a quadrature rule for nearly-singular integrals; their
+discretization results in dense matrices; and they cannot immediately be
+applied to non-linear PDEs. The BIE community, including PI Quaife, has
+developed a variety of tools to address these numerical challenges, and
+we discuss our planned approach in Section~\ref{sec:specificaim2}.
+
+%The boundary integral equation (BIE) method is the ideal numerical
+%method for the present study in terms of computational cost and
+%accuracy. Boundary integral equations require linear PDE and so we take
+%$f(\eta) = \tfrac{1}{2}\eta^2$, yielding in () the so called screened
+%Laplace equation $-\rho^2 \Delta \eta + \eta$. This is a Helmholtz
+%equation with purely imaginary wave number, enabling us to represent the
+%solution in terms of layer potentials:
+%\begin{equation}
+%  \eta(\xx) = \int_{\partial \Omega} \frac{\partial G}{\partial \nu}
+%  \left(\frac{\xx-\yy}{\rho}\right) \sigma(\yy) \,ds_{\yy}
+%\end{equation}
+%where $\frac{\partial G}{\partial \nu}$ is the normal derivative of the
+%fundamental solution of the screened Laplace equation
+%(a Bessel function in two space dimensions and
+%an exponential times the standard fundamental solution of the Laplace equation
+%in three space dimensions).
+%This representation allows us to transfer the boundary value problem ()-()
+%to an equation only involving in terms of domain boundary.  
+%
+%The numerical advantages of doing so are as follows.  If $h = N^{-1}$ is
+%the characeristic grid spacing of the grain boundaries, then a finite
+%element or finite difference discretization of ()-() requires on the
+%order of $N_b N^n$ grid points for dense suspensions.  In contrast BIE
+%require onely With finite elements, mesh regeneration would be needed at
+%each time step since the domain is moving.  In the boundary integral
+%approach, collocation points can be selected for the initial grain
+%configuration and then used throughout the time-course.  As a downside,
+%integral equations require specialized quadrature routines to resolve
+%self interactions and nearly touching grain boundaries.  Finally, the
+%far field boundary conditions which are important for imposed flow
+%problems automatically hold, whereas with finite element and finite
+%difference methods artificial boundary conditions must be imposed.
 
 \subsubsection{Problem formulation}
 %\begin{wrapfigure}[h!]
@@ -405,9 +456,6 @@ efficiently.
 %$\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T \right)$
 %is the hydrodynamic stress tensor (pressure tensor) and $\nnu$ is the
 %particle outward normal.
-
-\subsection{Boundary Integral formulation}
-\textbf{Take from prior years proposal}
 
 
 \subsection{Outline of the proposal}
