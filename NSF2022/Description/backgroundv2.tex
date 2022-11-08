@@ -1,6 +1,6 @@
 \noindent
-{\bf Collaborative Research: Mathematical modeling and simulation of
-self-assembling amphiphilic particles in solvent {\bf MAKE MORE MATHEMATICAL}} \\
+{\bf Collaborative Research:
+Collaborative research: self-orgzanization by moving domain elliptic PDE}\\
 {\em Rolf Ryham (PI, Fordham University),
 Bryan Quaife (lead PI, Florida State University), and
 Yuan-Nan Young (PI, New Jersey Institute of Technology)}
@@ -81,78 +81,104 @@ Recently, we have developed a new mathematical model of
 self-organization~\cite{FuQuRyYo22,ru-ryh-qua-you2022,Fu2018_SIAM}. The
 model takes ideas from the phase field method and leverages boundary
 integral equations to speed up computations. To formulate the problem,
-consider a collection of $N_b$-many rigid bodies $U_i$, with boundary
-$\Gamma_i$, immersed in an incompressible, zero-Reynolds number fluid
-$\Omega_t = \RR^n \setminus \cup_{i=1}^{N_b} U_i$. The subscript $t$
-reinforces that $\Omega_t$ is time-varying. We use the grain shape and
-boundary conditions to capture the local properties of the suspended
-media. Unlike particles, the bodies, which we will call grains, have
-finite size.  \todo[inline]{using `grains' as an easy find-replace for
-when we settle on vocabulary}
+consider a collection of $N_b$-many rigid bodies $U_i(t) \subset \mathbb{R}^n$
+with boundary $\Gamma_i(t)$.
+We call these bodies ``granules''.
+The granules are immersed 
+in an incompressible, zero-Reynolds number fluid
+$\Omega(t) = \RR^n \setminus \cup_{i=1}^{N_b} U_i(t)$
+(Figure \ref{fig:flow_map}).
 
-The first key idea is to define the grain interactions using a boundary
-value problem
-\begin{alignat}{3}
-  -\mu\Delta \uu + \nabla p &= \mathbf{0}, \:
-  \nabla \cdot \uu = 0, \quad &&\xx \in \Omega_t, \label {eqn:stokes} \\
-  -\rho^2 \Delta \eta + f'(\eta) &= 0, &&\xx \in \Omega_t,
+We look for $N_b$-many rigid body transformations
+\begin{equation}
+\label{eq:RBT}
+F_i(\XX,t) = R_i(t)(\XX - \aa_i(0)) + \aa_i(t),\quad \XX \in U_i(0),
+\end{equation}
+where $i = 1,\ldots,N_b,$
+$R_i(t)$ is a rotation (proper orthogonal) $n \times n$ matrix,
+$\aa_i(t)$ are the granule centers, and $\XX$ is a reference coordinate.
+The transformations \eqref{eq:RBT} tell us how the granules move through space
+and we use the shape and
+boundary conditions for $U_i$ to capture the local
+properties of the suspended media e.g., lipids, peptides, Janus spheres.
+Throughout, $\nu$ refers to unit normal pointing into $\Omega(t)$ (Figure \ref{fig:flow_map}).
+
+The key idea is to define the dynamics using the following
+boundary value problem system:
+\begin{alignat}{4}
+  -\mu\Delta \uu + \nabla p &= \mathbf{0}, 
+  && \nabla \cdot \uu = 0, && \quad \xx \in \Omega(t), \label {eqn:stokes} \\
   \label{eqn:phase}
+  -\rho^2 \Delta \eta + f'(\eta) &= 0, && &&\quad \xx \in \Omega(t),\\
+\label{eqn:noslip}        
+\uu(\xx) &= \frac{dF_i}{dt}(\XX,t)
+&&=\vv_i + \omega_i \times (\xx - \aa_i), 
+&&\quad \xx \in \Gamma_i(t),\\
+\label{eqn:material}
+\eta(\xx) &= h_i(\XX), &&  &&\quad \xx \in \Gamma_i(t),
 \end{alignat}
-with boundary conditions
-\begin{alignat}{3}
-  \frac{d\xx}{dt} &= \uu, &&\xx \in \bd\Omega_t \label{eqn:noslip} \\
-  \uu &= \vv_i + \omega_i \times (\xx - \aa_i), \quad &&\xx \in
-  \Gamma_i,\, i=1,\ldots,N_b, \label{eqn:rbm} \\
-  \eta &= h_i(\xx,t),  &&\xx \in \Gamma_i,\, i=1,\ldots,N_b,
-  \label{eqn:material}
-\end{alignat}
-and
-\begin{align}
-\int_{\Gamma_i} \mu(\nabla \uu + \nabla \uu^T + pI)\nnu \,\dif s = 
-\int_{\Gamma_i}
-\underbrace{\left(-\rho^{-1} f'(\eta)
-  + \rho\left(\tfrac{1}{2}|\nabla \eta|^2 - \nabla \eta \nabla
-  \eta^T\right)\right)}_{T_i}
-  \nnu \, \dif s,
-  \label{eqn:stressbalance}
-\end{align}
-where $\nnu$ is the unit outward normal vector. This is a semi-linear
-system for evolution of the grains.  Equation~\eqref{eqn:stokes} is the
+for $i=1,\ldots,N_b$
+and where $\xx = F_i(\XX,t)$.
+Finally,
+\begin{equation}
+\label{eqn:stressbalance}
+\int_{\Gamma_i} \left[\mu(\nabla \uu + \nabla \uu^T + pI) + T_i\right]\nnu \,\dif s = \mathbf{0},\quad
+\end{equation}
+where
+\begin{equation}
+\label{eqn:hydro_stress}
+T_i = -\rho^{-1} f'(\eta)I
+  + \rho\left(\tfrac{1}{2}|\nabla \eta|^2I - \nabla \eta \nabla
+  \eta^T\right)
+\end{equation}
+for the identity matrix $I$.
+
+The above form a semi-linear elliptic 
+system for evolution of the granules.  Equation~\eqref{eqn:stokes} is the
 Stokes equations that describes the velocity $\uu$ and pressure $p$ of
 the viscous aqueous phase.  Equation~\eqref{eqn:phase} describes the
 phase transitions of the scalar order parameter $\eta$ with a decay
 length $\rho$. Mathematically, this order parameter is responsible for
-the attraction and adhesion between grains that want to align boundaries
-of like phase. Physically, water molecules are polar and $\eta$
-describes the orientational order of water e.g.~$\eta = 1$ when water
-molecules share alignment and $\eta = 0$ when the water orientations are
-disordered. The well-potential $f$ accounts for possibly distinct
-equilibrium phases, as occurs with 3-bond and 4-bond hydrogen bonding.
+the attraction and adhesion between granules that want to align boundaries
+of like phase.
 
 The next three equations are the moving domain boundary conditions.
-Equations~\eqref{eqn:noslip} and~\eqref{eqn:rbm} specify a no-slip
-boundary condition for a rigid body with translation velocity $\vv_i$
-and angular velocity $\omega_i$ about the point $\aa_i \in \Omega_i$. In
+Equations~\eqref{eqn:noslip} specify a no-slip
+boundary condition for a rigid body with translation velocity $\aa'_i(t) = \vv_i$
+and angular velocity $\omega_i$
+about the point $\aa_i(t) \in U_i(t)$.
+($\omega_i$ is the axial vector of the
+skew symmetric matrix $R'_i(t)$.)
+In
 equation~\eqref{eqn:material}, the function $h_i$ is a material label
-specifying the water phase at the water-grain interface. This material
-label is transported by the fluid and therefore satisfies $h_i(\xx,t) =
-h^0_i(\xx(\XX,t),t)$ where $h_i^0$ and $\XX$ are reference labels,
-coordinates given by the initial conditions, and $\xx(\XX,t)$ is the
-flow map for the rigid bodies. Finally,
+specifying the phases at water-granule interface.
+In other words, the boundary condition for $\eta$ is transported by the flow.
+Finally,
 equation~\eqref{eqn:stressbalance} closes the system by requiring that
-the hydrodynamic stress is balanced by the water-order stress.
+the hydrodynamic stress is balanced by the phase stress $T_i$ in
+\eqref{eqn:hydro_stress}.
+
+We call the rigid bodies $U_i(t)$ granules since they are small, compact
+parcels of a suspended medium, e.g. lipids, Janus spheres.
+We have departed from the terminology ``particles'' here
+to emphasize the role played by their finite size. 
+In our simulations
+(see section \ref{sec:specific_aim1}),
+we include a finite length repulsion to avoid particle
+collisions.
 
 Intriguingly, the
 formulation~\eqref{eqn:stokes}--\eqref{eqn:stressbalance} captures
 exactly the right behavior expected from amphiphilic self-assembly.
-Three bodies with amphiphilic label spontaneously translate and change
-orientations to sequester the disordered fluid phase. In our simulations
-(see section ()), we include a finite length repulsion to avoid particle
-collisions. Moreover, a simple change of boundary conditions from
+For example, three bodies with amphiphilic label
+(see section \ref{sec:specific_aim1}) spontaneously
+self-organize to sequester the hydrophobic fluid phase
+(the red phase in Figure \ref{fig:flow_map}).
+Moreover, a simple change of boundary conditions from
 amphiphilic, to biased hydrophobic, to polar results in distinct
 equilibrium morphologies (Figure~\ref{fig:self-assembly2}).
 
-\begin{figure}[h]
+\begin{figure}[t!]
   \begin{center}
     \begin{tabular}{m{0.1cm}m{1.8in}m{1.8in}m{1.8in}}            
       (a)
@@ -186,7 +212,7 @@ equilibrium morphologies (Figure~\ref{fig:self-assembly2}).
 
 The system~\eqref{eqn:stokes}--\eqref{eqn:stressbalance} has an elegant
 mathematical structure. In terms of locally in time well-posedness,
-given disjoint grains with sufficiently smooth boundaries and data, the
+given disjoint granules with sufficiently smooth boundaries and data, the
 system always has a solution and these solutions have a locally
 Lipschitz dependence on the particle centers and orientations.
 Solutions of~\eqref{eqn:stokes}--\eqref{eqn:stressbalance} obey the
@@ -200,7 +226,7 @@ energy law
   \uu^T|^2\right) \,d\xx.
 \end{align}
 Mathematically, this energy law states that the free energy $F$ of the
-water order phase transitions, which depends on the grain
+water order phase transitions, which depends on the granule
 configurations, is lost due to hydrodynamic dissipation. It is evident
 that minimizers of the functional $F$ are unique and satisfy the
 Euler-Lagrange equation~\eqref{eqn:phase}. There is a subtlety in the
@@ -211,18 +237,24 @@ transported by the rigid body motion. In fact, the water order surface
 stress $T_i$ is the variational derivative that shows up in this
 calculation.
 
+\begin{figure}[t!]
+\begin{center}
+\includegraphics[width=\textwidth]{figures/Background/coarsening.pdf}
+\end{center}
+\caption{\label{fig:coarsening}}
+\end{figure}
 The model has a broad range of applicability to self-organization
 phenomena in chemistry and biological physics. Since the formulation is
 scale independent, it can represent a suspension of amphiphiles, where
-the grains represent the mean properties of a small collection of
+the granules represent the mean properties of a small collection of
 lipids, at the nanoscopic scale. For larger scales, the representation
-is literal and the grains Janus spheres. The proposal deals with the
+is literal and the granules Janus spheres. The proposal deals with the
 physical origins in section (). 
 
 To summarize, the
 formulation~\eqref{eqn:stokes}--\eqref{eqn:stressbalance} shares a lot
 of the features in phase field modeling, with the big exception that the
-free energy depends on the grain configurations, rather than phase field
+free energy depends on the granule configurations, rather than phase field
 function. To make an explicit connection though, we can consider a phase
 field model where one ``fluid'' phase instantaneously reaches minimality
 while the other ``solid'' phase moves to further decrease free energy.
@@ -278,185 +310,13 @@ spectrally, accurate; results in a well-conditioned linear system that
 can be solved iteratively with a mesh-independent number of iterations
 of a Krylov method such as the generalized minimal residual method
 (GMRES). However, BIEs do have several challenges: nearly touching
-grains requires a quadrature rule for nearly-singular integrals; their
+granules requires a quadrature rule for nearly-singular integrals; their
 discretization results in dense matrices; and they cannot immediately be
 applied to non-linear PDEs. The BIE community, including PI Quaife, has
 developed a variety of tools to address these numerical challenges, and
 we discuss our planned approach in Section~\ref{sec:specificaim2}.
 
-%The boundary integral equation (BIE) method is the ideal numerical
-%method for the present study in terms of computational cost and
-%accuracy. Boundary integral equations require linear PDE and so we take
-%$f(\eta) = \tfrac{1}{2}\eta^2$, yielding in () the so called screened
-%Laplace equation $-\rho^2 \Delta \eta + \eta$. This is a Helmholtz
-%equation with purely imaginary wave number, enabling us to represent the
-%solution in terms of layer potentials:
-%\begin{equation}
-%  \eta(\xx) = \int_{\partial \Omega} \frac{\partial G}{\partial \nu}
-%  \left(\frac{\xx-\yy}{\rho}\right) \sigma(\yy) \,ds_{\yy}
-%\end{equation}
-%where $\frac{\partial G}{\partial \nu}$ is the normal derivative of the
-%fundamental solution of the screened Laplace equation
-%(a Bessel function in two space dimensions and
-%an exponential times the standard fundamental solution of the Laplace equation
-%in three space dimensions).
-%This representation allows us to transfer the boundary value problem ()-()
-%to an equation only involving in terms of domain boundary.  
-%
-%The numerical advantages of doing so are as follows.  If $h = N^{-1}$ is
-%the characeristic grid spacing of the grain boundaries, then a finite
-%element or finite difference discretization of ()-() requires on the
-%order of $N_b N^n$ grid points for dense suspensions.  In contrast BIE
-%require onely With finite elements, mesh regeneration would be needed at
-%each time step since the domain is moving.  In the boundary integral
-%approach, collocation points can be selected for the initial grain
-%configuration and then used throughout the time-course.  As a downside,
-%integral equations require specialized quadrature routines to resolve
-%self interactions and nearly touching grain boundaries.  Finally, the
-%far field boundary conditions which are important for imposed flow
-%problems automatically hold, whereas with finite element and finite
-%difference methods artificial boundary conditions must be imposed.
 
-\subsubsection{Problem formulation}
-%\begin{wrapfigure}[h!]
-
-
-The mathematical formulation is a nonlinear system for the dynamics of a
-collection of particles. The interactions come from a system of 
-partial differential equations (PDEs) that comprise hydrodynamic
-interactions and hydrophobic interactions.
-%The formulation prevents particle collisions through excluded volume
-%potentials. 
-The hydrodynamic interactions come from the mobility problem for rigid
-particles immersed in a viscous solvent. We then use a
-second-order Adams-Bashforth method to update the particle configuration.
-Assuming inertial terms are
-negligible, the particle motion is goverened by the Stokes equations
-\begin{subequations}
-  \label{eq:stokes}
-  \begin{alignat}{3}
-  \label{eq:stokes1}
-  -\mu \Delta \uu + \nabla p &= \mathbf{0}, && \xx \in \Omega, \\
-    \label{eq:stokes2}
-  \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
-\label{eq:stokes3}
-  \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
-  \end{alignat}
-\end{subequations}
-%\begin{alignat}{3}
-%\label{eq:stokes1}
-%  -\mu \Delta \uu + \nabla p &= \mathbf{0}, 
-%    && \xx \in \Omega, \\
-%\label{eq:stokes2}
-%  \nabla\cdot \uu &= 0, \qquad && \xx \in \Omega, \\
-%\label{eq:stokes3}
-%  \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
-%\end{alignat}
-%
-where $\uu$ is the velocity and $p$ is the pressure of the solvent,
-$\uu_\infty$ is the background flow, and $\mu$ is the constant solvent
-viscosity. The domain $\Omega = \Omega(t)$ is the fluid region surrounding the
-particles and changes shape as the particles move.
-Since the particles are rigid, the solvent velocity satisfies
-a no-slip boundary condition for a rigid body motion 
-%\begin{align}
-%\label{eq:rigid_bc}
-%  \uu(\xx) = \vv_i + \omega_i  (\xx - \aa_i)^\perp, \quad
-%    \xx \in \Gamma_i,\qquad  i=1,\ldots,N_p,
-%\end{align}
-on the particle boundary $\Gamma_i$ with translational velocity $\vv_i$
-and angular velocity $\omega_i$ (Figure \ref{fig:flow_map}).
-Given imposed forces acting on each
-particle, the \emph{mobility problem} consists of finding
-translational and angular velocities so that viscous fluid forces
-balance the imposed forces.
-
-The hydrophobic interactions come from the tendency of particles to
-minimize the free energy of the structure of the surrounding water
-molecules. The free energy functional takes the form 
-\begin{equation}
-\label{eq:free_energy}
-  F[u] = C \int_{\Omega} \left(\rho |\nabla u|^2 + \rho^{-1} f(u)\right)
-  \,d\xx,
-\end{equation}
-where $u$ is an order parameter for the structure of water, $\rho$ is a
-decay length, $C$ is a constant, and $f(u)$ is a potential.
-Hydrogen-bond persistence times are on the order of picoseconds
-which is much smaller than characteristic time for 
-particle motion \cite{MaGa13}.
-Thus we assume $u$ minimizes $F[u]$ for all times.
-Assuming appropriate conditions on $f(u)$ (\cite{evans10}, \S 8.2),
-$u$ is bounded and satisfies the Euler-Lagrange equation
-\begin{equation}
-\label{eq:SL}
--\rho^2 \Delta u + \tfrac{1}{2}f'(u) = 0  \text{ in } \Omega,\quad u = g,
-\text{ on } \bd\Omega.
-\end{equation}
-The boundary condition $g$ is a material label that is transported with
-the particle (Figure~\ref{fig:bcs}).
-
-The particles lower the free energy $F[u]$ of the surrounding water
-by moving. We calculate the rate of change of $F[u]$ using
-\emph{variation of the domain} ~\cite{Fu2018_SIAM,Bandle2015, Schiffer1954, Grinfeld2010}.
-Carrying out
-this variation yields a 
-%The hydrophobic forces are torques are
-%\begin{equation}
-%  \label{eq:hydrophobicAttraction}
-%  \FF_i^{\text{hydro}} = \int_{\Gamma_i} {\bf T}\cdot \nnu \, \dif s, 
-%    \quad 
-%    T_i^{\text{hydro}} = \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot
-%    ({\bf T} \cdot \nnu) \dif s.
-%\end{equation}
-stress  
-\begin{align}
-  \label{eq:stress}
-\mathbf{T}
-= C \left[ \rho^{-1} f(u) \mathbf{I}
-  + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right].
-\end{align}
-The imposed forces and torques come from the integration of $\mathbf{T}$
-along the particle boundary.
-These forces and torques couple the Stokes equations \eqref{eq:stokes},
-to semilinear elliptic equation \eqref{eq:SL}.
-Solving for the translational and rotational velocities gives the
-particle evolution.
-
-
-
-The stress~\eqref{eq:stress} was first
-introduced by~\cite{Fu2018_SIAM} and is the higher-dimensional
-generalization of disjoining pressure \cite{MaRa76, ErLjCl89, KoNa15,
-Nagle17, KUZMIN2005}. It is the mathematical ingredient responsible for
-forming particle aggregates that sequester their hydrophobic surface
-regions (Figure \ref{fig:3particles}).
-
-%By solving the above system, we obtain translational and angular
-%velocities of the many-body system. A second-order Adams-Bashforth
-%scheme updates the particle positions and orientations.
-
-The formulation presents a number of mathematical and numerical
-challenges. For one, the domain is constantly changing so that a new
-boundary value problem must be solved at each time step. The particle
-boundaries are nearly touching and high-order numerical
-schemes and adaptively chosen time-step sizes
-are required to calculate trajectories accurately.
-Furthermore, the domain is unbounded and care must be taken 
-in capturing the far-field boundary conditions correctly. 
-Finally, the numerical routine must handle large system sizes
-efficiently.
-
-%and
-%\begin{equation}
-%  \label{eq:force}
-%  \int_{\Gamma_i} \ssigma \cdot \nnu \, \dif s = \FF_i,\quad 
-%  \int_{\Gamma_i} (\xx - \aa_i)^{\perp} \cdot (\ssigma \cdot \nnu) \,
-%  \dif s = T_i, \qquad i=1,\ldots,N_b,
-%\end{equation}
-%where
-%$\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T \right)$
-%is the hydrodynamic stress tensor (pressure tensor) and $\nnu$ is the
-%particle outward normal.
 
 
 \subsection{Outline of the proposal}
