@@ -47,8 +47,8 @@ Section~\ref{sec:bie}, numerical methods to solve these integral
 equations (IEs) have several advantages over their PDE-based
 counterpart. The PIs have demonstrated that IEs are a powerful tool to
 simulate two-dimensional suspensions of amphiphilic
-particles~\cite{Fu2018_SIAM, FuQuRyYo22, fu-ryh-qua-you2022}. Moreover,
-elements of these formulations have been described in three
+particles~\cite{Fu2018_SIAM, FuQuRyYo22, fu-ryh-qua-you2022}, and
+elements of these formulations have been developed in three
 dimensions~\cite{ying_2006, manasthesis, rac-gre2016}. This proposal
 will extend the two-dimensional methods to more general amphiphilic
 particle models and also to three dimensions. In addition, the methods
@@ -62,7 +62,7 @@ describes how we will combine accurate quadrature and fast summation
 methods to accelerate the time to accurate solutions. A natural
 extension to create simulations that are realizable by experimentalists
 is to include confinement, and this is discussed in
-\S\ref{subsec:Confinement}. This extension will also allow us to study
+\S\ref{subsec:Confinement}. This extension will also allow us to develop
 new rheological properties of the suspensions.  Finally,
 \S\ref{subsec:timeStepping} proposes collision-aware adaptive time
 stepping methods.
@@ -71,26 +71,36 @@ stepping methods.
 \subsubsection{Iterative methods for the Allen-Cahn HAP model}
 \label{subsec:AC}
 
+\begin{wrapfigure}[28]{l}{1.8in}
+  \vspace{-8pt}
+  \centering
+  \input{figures/doublewell.tikz} 
+  \caption{\label{fig:CA} \footnotesize (a) A double well potential. (b)
+  The solution of the one-dimensional phase
+  transition~\eqref{eqn:phase}. (c) The convergence of exact and inexact
+  Newton's methods.}
+\end{wrapfigure}
 The PIs have developed numerical methods to solve~\eqref{eqn:phase} when
-$f(u) = u^2$---this choice results in the linear screened Laplace
-equation. For a more general double well potential $f$, with local
-minimums at $u_0$ and $u_1$, we will interpret the solution
+$W(\phi) = \phi^2$---this choice results in the linear screened Laplace
+equation. For a general double well potential $W$, with local minima at
+$\phi_0$ and $\phi_1$, we will interpret the solution
 of~\eqref{eqn:phase} as the root finding problem for
 \begin{align}
   \label{eqn:phaseRoot}
-  J[u] = -\rho^2 \Delta u + \tfrac{1}{2}f'(u).
+  J[\phi] = -\epsilon^2 \Delta \phi + \tfrac{1}{2}W'(\phi).
 \end{align}
-This non-linear PDE will be solved with Newton's method, $u^{N+1} =
-u^{N} - \alpha (dJ^N)^{-1} J(u^N)$, where $dJ^N = -\rho^2 \Delta +
-\tfrac{1}{2}f''(u^N)$ is the Fr\'{e}chet derivative of $F$, and $\alpha$
-is the step size which will be determined using backtracking. As
-expected, the biggest computational challenge is solving $-\rho^2 \Delta
-v + \tfrac{1}{2}f''(u^{N}) v = J[u^N]$. Solving this variable
-coefficient PDE with an integral equation is challenging since a
-fundamental solution is not readily available. However, by choosing a
-double well potential with $f''(u_0) = f''(u_1) = \beta$, we propose to
-instead use an inexact Newton's method where $dJ^{-1}$ is approximated
-by solving $-\rho^2 \Delta v + \tfrac{beta}{2} v = J[u^N]$. We test the
+Equation~\eqref{eqn:phaseRoot} will be solved with Newton's method,
+$\phi^{N+1} = \phi^{N} - \alpha (dJ^N)^{-1} J(\phi^N)$, where $dJ^N =
+-\epsilon^2 \Delta + \tfrac{1}{2}W''(\phi^N)$ is the Fr\'{e}chet
+derivative of $F$, and $\alpha$ is the step size that will be determined
+using backtracking. As expected, the biggest computational challenge is
+solving $-\epsilon^2 \Delta v + \tfrac{1}{2}W''(\phi^{N}) v =
+J[\phi^N]$. Solving this variable coefficient PDE with an integral
+equation is challenging since a fundamental solution is not readily
+available. However, by choosing a double well potential with
+$W''(\phi_0) = W''(\phi_1) = \beta$, we propose to instead use an
+inexact Newton's method where $dJ^{-1}$ is approximated by solving
+$-\epsilon^2 \Delta v + \tfrac{\beta}{2} v = J[\phi^N]$. We test the
 efficacy of exact and inexact Newton's method applied
 to~\eqref{eqn:phaseRoot} in $(0,1)$ by discretizing $dJ$ with a
 second-order finite difference method. The double well potential is
@@ -101,52 +111,26 @@ iterate when using the exact second derivative (red curve) and the
 approximate second derivative (blue curve). While the inexact Newton's
 method requires roughly twice as many iterations to reach of a tolerance
 of $10^{-4}$, each iteration is significantly cheaper to apply.
-\todo[inline]{put pics here}
 
-%\begin{wrapfigure}[27]{l}{1.8in}
-%  \vspace{-4pt}
-%  \centering
-%  \input{figures/doublewell.tikz} 
-%  \caption{\label{fig:CA} (a) The double well potential $u_0 =
-%  0.5$, $u_1 = 2$, $a = 1$, $b = 0.4$. (b) The solution of the
-%  Allen-Cahn equation~\eqref{eq:SL}. (c) The convergence of the exact
-%  and inexact Newton's methods.}
-%\end{wrapfigure}
 Having demonstrated that the inexact Newton method converges in one
-dimension, it will be coupled with IE formulations to 
-solve~\eqref{eq:SL} in two and three dimensions. We first partition
-$\Omega$ into $\Omega_0 = \{\xx \in \Omega \:|\: u(\xx) < (u_0 +
-u_1)/2\}$ and $\Omega_1 = \{\xx \in \Omega \:|\: u(\xx) > (u_0 +
-u_1)/2\}$, and we let $\Lambda = \{\xx \in \Omega \:|\: u(\xx) = (u_0 +
-u_1)/2 \}$ be their common boundary, and we let $G_0$ be the fundamental
-solution of $(-\rho^2 \Delta + a)$ and $G_1$ be the fundamental
-solution of $(-\rho^2 \Delta + 1)$. Then, the solution
-of~\eqref{eq:screenedPoisson} can be written as $u = u^P + u^H$ where
-$u^P$ is a volume potential and $u^H$ is a layer potential. The volume
-potential is
+dimension, it will be coupled with IE formulations to
+solve~\eqref{eqn:phase} in two and three dimensions. The solution of
+$-\epsilon^2 \Delta v + \tfrac{\beta}{2} v = J[\phi^N]$ can be written
+as $v = \phi^P + \phi^H$ where $\phi^P$ is a volume potential and
+$\phi^H$ is a layer potential. The volume potential is
 \begin{align*}
-  u^{P}(\xx) = \int_{\Omega_i} G_i(\xx,\yy) J[u^N](\yy)\, d\yy, 
-    \quad i = 1,2,
+  \phi^{P}(\xx) = \int_{\Omega(t)} G(\xx,\yy) J[\phi^N](\yy)\, d\yy, 
+    \quad \xx \in \Omega(t),
 \end{align*}
-but it is discontinuous across $\Lambda$ and does not satisfy the
-prescribed hydrophobic boundary conditions on the particles $\Gamma_i$.
-Assuming the particles are entirely contained in the hydrophobic region,
-the boundary conditions will be enforced with the layer potentials
-\begin{align*}
-  u^{H}(\xx) = \begin{cases}
-    \displaystyle\int_{\Lambda} G_0(\xx,\yy) \eta_0(\yy) \, ds_\yy + 
-    \displaystyle\int_{\Gamma} \pderiv{}{\nn_\yy} G_0(\xx,\yy)
-      \sigma(\yy) \,ds_\yy, \quad & \xx \in \Omega_0, \\
-    \displaystyle\int_{\Lambda} G_1(\xx,\yy) \eta_1(\yy) \, ds_\yy,
-     & \xx \in \Omega_1.
-  \end{cases}
-\end{align*}
-The density functions $\sigma$, $\eta_0$, and $\eta_1$ are determined so
-that $u = u^P + u^H$ satisfies the hydrophobic boundary condition on
-$\Gamma = \cup_i \Gamma_i$, and that it is continuous and differentiable
-across $\Lambda$. This approach of using IEs to solve elliptic PDEs with
-piecewise constant coefficients has successfully been used in other
-application such as scattering~\cite{hyu-bar2014, che-cho-cai2018}.
+where $G$ is the fundamental solution of $-\epsilon^2 \Delta +
+\tfrac{\beta}{2}$. Volume potentials are more challenging to compute
+numerically than layer potentials. However, very recently, a suite of
+new methods have been developed to accurately and efficiently compute
+volume potentials~\cite{fry-leh-tor2018, and-zhu-vee2022}. The boundary
+condition will be enforced using $\phi^H(\xx)$ which will be represented
+as a double-layer potential. This approach of combining volume and layer
+potentials has successfully been used by PI BQ~\cite{kro-qua2010} and
+others~\cite{fry-kro-tor2019, kli-ask-kro2020, che-hua-lei2005}.
 
 % ----------------------------------------------------------------------
 \subsubsection{Increased accuracy and reduced CPU time}

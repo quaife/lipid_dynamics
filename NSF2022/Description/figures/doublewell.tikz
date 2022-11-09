@@ -6,13 +6,13 @@
   axis lines=middle,
   enlargelimits = true,
   x label style={at={(axis description cs:0.98,0.04)},anchor=north},
-  xlabel = {\Huge $u$},
+  xlabel = {\huge $\phi$},
   y label style={at={(axis description
   cs:-0.10,0.86)},anchor=north,rotate=90},
-  ylabel = {\Huge $f(u)$},
+  ylabel = {\huge $W(\phi)$},
   every major tick/.append style={very thick, major tick length=10pt, black},
   xtick = {4.2292e-01,1.8869e+00},
-  xticklabels = {\huge $u_0$,\huge $u_1$},
+  xticklabels = {\huge $\phi_0$,\huge $\phi_1$},
   ytick = \empty,
   xmin = 0,
   xmax = 2.5,
@@ -1028,14 +1028,14 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(0cm,-7cm)},
+  at = {(0cm,-7.5cm)},
   axis line style = {line width=3pt},
   axis lines=middle,
   enlargelimits = true,
   x label style={at={(axis description cs:0.5,-0.02)},anchor=north},
-  xlabel = {\Huge $x$},
+  xlabel = {\huge $x$},
   y label style={at={(axis description cs:-0.09,0.6)},anchor=north},
-  ylabel = {\Huge $u$},
+  ylabel = {\huge $\phi$},
 %  every major tick/.append style={very thick, major tick length=10pt, black},
   xtick = {0,0.2,0.4,0.6,0.8,1},
   xticklabels = {\Large $0$,\Large $0.2$,\Large $0.4$,\Large $0.6$,\Large
@@ -1047,7 +1047,7 @@
   xmax = 1,
   ymin = 0,
   ymax = 2,
-  title = {\Large Solution of Allen-Cahn}
+  title = {\Large Solution of Equation~\eqref{eqn:phase}.}
 ]
 
 \addplot[blue,line width=2.0pt] coordinates{
@@ -3104,7 +3104,7 @@
 \end{axis}
 
 \begin{axis}[
-at = {(0cm,-14.5cm)},
+at = {(0cm,-14.8cm)},
 axis line style = {line width=2pt},
 %axis lines=middle,
 %enlargelimits = true,
@@ -3175,11 +3175,9 @@ title = {\Large Convergence of Newton},
 \end{axis}
 
 
-
-
 \node at (0,6.2) {\scriptsize (a)};
-\node at (0,-0.8) {\scriptsize (b)};
-\node at (0,-8.2) {\scriptsize (c)};
+\node at (0,-1.3) {\scriptsize (b)};
+\node at (0,-8.5) {\scriptsize (c)};
 
 
 \end{tikzpicture}
