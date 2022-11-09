@@ -93,14 +93,14 @@ Equation~\eqref{eqn:phaseRoot} will be solved with Newton's method,
 $\phi^{N+1} = \phi^{N} - \alpha (dJ^N)^{-1} J(\phi^N)$, where $dJ^N =
 -\epsilon^2 \Delta + \tfrac{1}{2}W''(\phi^N)$ is the Fr\'{e}chet
 derivative of $F$, and $\alpha$ is the step size that will be determined
-using backtracking. This requires Solving the variable coefficient PDE
-$-\epsilon^2 \Delta v + \tfrac{1}{2}W''(\phi^{N}) v = J[\phi^N]$ with an
-integral equation, but this is challenging since a fundamental solution
-is not readily available. However, by choosing a double well potential
-with $W''(\phi_0) = W''(\phi_1) = \beta$, we propose to instead use an
-inexact Newton's method where $dJ^{-1}$ is approximated by solving
-$-\epsilon^2 \Delta v + \tfrac{\beta}{2} v = J[\phi^N]$. We test the
-efficacy of the exact and inexact Newton's method applied
+using backtracking. This requires solving the variable coefficient PDE
+$-\epsilon^2 \Delta v + \tfrac{1}{2}W''(\phi^{N}) v = J[\phi^N]$, which
+is challenging with an integral equation since a fundamental solution is
+not readily available. However, by choosing a double well potential with
+$W''(\phi_0) = W''(\phi_1) = \beta$, we propose to instead use an
+inexact Newton's method where $dJ^{-1}$ is approximated with the
+solution of $-\epsilon^2 \Delta v + \tfrac{\beta}{2} v = J[\phi^N]$. We
+test the efficacy of the exact and inexact Newton's method applied
 to~\eqref{eqn:phaseRoot} in $(0,1) \subset \RR$ by discretizing $dJ$
 with a second-order finite difference stencil. The double well potential
 is illustrated in Figure~\ref{fig:CA}(a), and both the exact and inexact
@@ -115,21 +115,22 @@ Having demonstrated that the inexact Newton method converges in one
 dimension, it will be coupled with IE formulations to
 solve~\eqref{eqn:phase} in two and three dimensions. The solution of
 $-\epsilon^2 \Delta v + \tfrac{\beta}{2} v = J[\phi^N]$ can be written
-as $v = v^P + v^H$ where $v^P$ is a volume potential and
-$v^H$ is the double layer potential. The volume potential is
+as $v = v^P + v^H$ where $v^P$ is a volume potential and $v^H$ is a
+homogeneous solution of the PDE, which is represented as a layer
+potential, and is used to satisfy the boundary condition. The volume
+potential is
 \begin{align*}
   v^{P}(\xx) = \int_{\Omega(t)} G(\xx,\yy) J[\phi^N](\yy)\, d\yy, 
     \quad \xx \in \Omega(t),
 \end{align*}
 where $G$ is the fundamental solution of $-\epsilon^2 \Delta +
-\tfrac{\beta}{2}$. Volume potentials are more challenging to numerically
-compute than layer potentials, but methods have recently been developed
-to accurately and efficiently compute volume
-potentials~\cite{fry-leh-tor2018, and-zhu-vee2022}. The boundary
-condition will be enforced using $\phi^H(\xx)$ which will be represented
-as a double-layer potential. This approach of combining volume and layer
-potentials has successfully been used by PI BQ~\cite{kro-qua2010} and
-others~\cite{fry-kro-tor2019, kli-ask-kro2020, che-hua-lei2005}.
+\tfrac{\beta}{2}$. Traditionally, volume potentials are more challenging
+to compute than layer potentials, but new methods have recently been
+developed that allows them to be computed accurately and
+efficiently~\cite{fry-leh-tor2018, and-zhu-vee2022}. This approach of
+combining volume and layer potentials has successfully been used by PI
+BQ~\cite{kro-qua2010} and others~\cite{fry-kro-tor2019, kli-ask-kro2020,
+che-hua-lei2005}.
 
 % ----------------------------------------------------------------------
 \subsubsection{Increased accuracy and reduced CPU time}
