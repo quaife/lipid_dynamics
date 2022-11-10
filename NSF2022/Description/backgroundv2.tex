@@ -57,8 +57,6 @@ simulations of phase field models typically discretize the entire fluid
 domain under consideration, and apply cutoff boundary conditions
 when periodic domains are not under consideration. 
 
-(Surface-director models.)
-
 \begin{figure}
   \begin{center}
 %    \includegraphics[width=0.45\textwidth]{figures/SpecificAim1/Domain.jpg}
@@ -348,7 +346,7 @@ The goal in vesicle hydrodynamics is to study the flow patterns e.g.,
 tank-treading, tumbling, that arrise due to the interaction
 between membrane elasticity and surrounding fluid.
 Traditional models represent a vesicle as a
-continuous surface or curve $\Sigma$.
+continuous surface (or curve in $\mathbb{R}^2$) $\Sigma$.
 The elastic energy takes the form
 \begin{equation}
 \label{eq:Canham-Helfrich}
@@ -356,19 +354,20 @@ The elastic energy takes the form
 \end{equation}
 where $H$ is the mean curvature, $k_0$ is a spontaneous curvature,
 and $k_B$ is a bending modulus. 
-The variation of \eqref{eq:Canham-Helfrich} gives rise to a surface force
+The variation of \eqref{eq:Canham-Helfrich} with respect to position
+gives rise to a surface force
 that pointwise balances the jump in hydrodynamic stress across the interace.
-A vesicle is closed surface, and so while energy does involve
-the Gaussian curvature, it does not enter \eqref{eq:Canham-Helfrich}
+While energy density does depend on Gaussian curvature,
+it does not appear in \eqref{eq:Canham-Helfrich}
 since Gauss-Bonnet Theorem guarantees that
-the integral of Gaussian curvature is independent of the shape of $\Sigma$.
+the integral of Gaussian curvature over a closed surface is independent of the shape of $\Sigma$.
 
 Depending on the situation,
 one can further enforce constant volume constraints or permeability relationships.
 If the interface is area incompressible, then the surface divergence
 of velocity is zero.  On the other hand, if the surface is area compressible,
 then \eqref{eq:Canham-Helfrich} contains an additional stretching term of the
-form $k_A(\alpha - \alpha_0)^2/\alpha_0$ where $\alpha$ and $\alpha_0$ are the
+form $k_A(\alpha - \alpha_0)^2/\alpha_0^2$ where $\alpha$ and $\alpha_0$ are the
 deformed and equilibrium area densitities respectively. 
 
 \begin{wrapfigure}[12]{r}{0.5\textwidth}
@@ -387,7 +386,7 @@ There are downsides to traditional models in terms of generality and physical re
 (i) Motivated by drug delivery applications, experimenters use electric
 fields, for example, to controllably open and close pores in membranes
 \cite{}.
-These kinds of topological changes are clumsy to incorporate into 
+These kinds of topological changes are clumsy to incorporate in
 sharp interface formulations that assume a continuous surface \cite{}.
 (ii) Sharp-interface models assume a membrane of neglible thickness. 
 However, in biological processes
@@ -404,25 +403,27 @@ Recent work \cite{} has incorporated lipid mixtures in \eqref{eq:Canham-Helfrich
 but these models are formidably complicated 
 due to the additional constraints and transport equations involved.
 
-Diffusive interface models and surface-director models partially make up for some of
+Diffusive interface models and surface-director models partially address 
 these shortcomings. 
 Topological changes are permitted in phase field and level set formulations,
 but these methods smear out the details of lipid orientations.
-The question lipid orientations is closely related to the vast and well-studied
-field of nematic liquid crystals.  Here there has been recent development
-in the simulation and theory of nematic liquid crystals on surfaces.
+The detailed energies of lipid orientation that include tilt are
+closely related to the celebraated and well-studied
+field of nematic liquid crystals.  Here, there have been recent development
+in simulation and theory of nematic liquid crystals on surfaces.
 These models consider the interplay between defects and surface geometry \cite{},
 finite element formulations \cite{}, and existence of minimizers \cite{}.
 
 \subsubsection{Main modeling innovations}
 We developed the model \eqref{eq:RBT}-\eqref{eqn:hydro_stress} 
 as a robust and flexible approach
-that cuts across many of the aforementioned challenging aspects to vesicle modeling.
+that cuts across many of the aforementioned challenges.
 (i) The granules are not fixed to a stencil, 
 affording flexibility in terms of vesicle morphology and topology--sufficiently
-large forces will pull the granules apart as physically required.
+large forces will even pull the granules apart as physically required.
 (ii) The model formulation is built around important details like lipid orientations,
-and exhibits and inter-monolayer slip not present in diffusive interface models.
+and exhibits inter-monolayer slip that must be added into diffusive interface models
+post hoc. 
 (iii) It is straightforward to consider mixtures of granules with different
 types of shapes and boundary conditions of the granules.
 With the help of boundary integral equations
@@ -468,65 +469,78 @@ elastic energy enters a formulation
 coming from surface interactions like \eqref{eqn:math_motivation}.
 Conceptually, random suspensions of amphiphilic
 granules undergo a rapid coarsening to form bilayers.
-For small granule numbers, the bilayers form a single stable, ring-shaped vesicle
+For tens of granule, the bilayers form a single stable, ring-shaped vesicle
 with energy $E_{\text{stable}}$ (Figure \ref{fig:coarsening}, (c)).
 This vesicle configuration, however, is only a local minimizer,
 whereas the planar configuration (Figure \ref{fig:coarsening}, (e))
 is the global minimizer.  The difference between
-$E(t)$ and $E_{\min}$ is the elastic energy stored by granules.
+$E(t)$ and $E_{\min}$ is the vesicle elastic energy.
 Indeed, if a background flow overcomes the energy barrier to force granules apart,
-then bilayer unfolds from its circular shape into a flat shape.  
+then the bilayer unfolds from its circular shape into a flat shape.  
 
-When many granules are involved, the granules reach an intermediate
+When hundreds granules are involved,
+the two-dimensional granules reach an intermediate
 state consisting of several bilayer segments (see Figure \ref{fig:self-assembly2}, top right).
 Placing this metastable state into a mild background flow
 causes the segments to join up into isolated vesicles \cite{fu-ryh-qua-you2022}.
 
-
-and we analyze its energy as follows:
-\begin{enumerate}
-\item[Bending]
-  The vesicle has bending energy because the directors are not
-  parallel.  In the outer layer, the directors have negative
-  splay $\nabla \cdot \dd < 0$ and in the inner layer
-  the directors have positive splay $\nabla \cdot \dd > 0$.
-  Due to minimality, the energy depends locally quadratically
-  on the splay and has a bending modulus $k_B$.
-  When $\dd$ is everywhere parallel to the unit normal $\NN,$ then
-  \[
-  \nabla \dd = -2H
-  \]
-  where $H$ is the mean curvature. 
-\item[Stretch]
-  If the vesicle is stretched, then the distance between
-  neighboring granules is increased from rest.  The energy
-  for this increase is Hookean and for small deformations
-  equals
-  \begin{equation}
-    \label{eq:stretch}
-    \tfrac{1}{2}k_A(L - L_0)^2/L_0
-  \end{equation}
-  where $k_A$ is a stretching modulus, $L$ and $L_0$ are stretched
-  vesicle length and length at rest, respectively
-  ($\tfrac{1}{2}k_A(A - A_0)^2/A_0$ in three dimensions).
-  If the stretching is too great, the vesicle ruptures
-  and the free eneds either rejoin, repairing the vesicle,
-  of move apart forming a flat bilayer.
-\item[Tilt]
-  The directors in Figure \ref{} are normal to the vesicle surface.
-  However, there are situations where the directors are not normal
-  to the surface and this introduces the tilt angle $\theta$
-  given by $\cos \theta = \dd \cdot \NN$.
-  The energy for tilt is also Hooken and behaves like
-  $k_{\theta}|\dd \times \NN|^2$ for the tilt modulus $k_{\theta}$.
-\end{enumerate}
-
-
+Having a non-specific model that replicates detailed
+physics and biology is the crown jewel of applied mathematics
+and we believe that ours is such a model. 
 
 \begin{wrapfigure}[11]{r}{0.5\textwidth}
 \includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/TankTreading.jpg}
 \caption{\label{fig:JPv_linearshear}The JP vesicles undergo tank-treading in background shear flow.}
 \end{wrapfigure}
+\textit{Summary of results from the paper \cite{Fu2018_SIAM}.}
+A striking aspect of the
+model is its fidelity to physics.
+The model contains a few
+parameters; granule radius $c$,
+screening length $\epsilon$,
+surface tension $\gamma$.
+When set to realistic values,
+\cite{Fu2018_SIAM, ErLjCl89, Lin2005, Parsegian, Israelachvili80, GarciaSaez, KUZMIN2005, Petelska2012,Jackson2016},
+we recover many of the well-known
+elastic moduli for single-component lipid bilayers
+\cite{Nagle17, Nagle17-2, LeVeWa14,NAGLE2000159}.
+\emph{Bending:}
+The bending deformation enters through the splay of the
+granule directors.  In Figure \ref{fig:JPv_linearshear},
+for example, the directors have negative, respectively positive,
+splay $\nabla_{\Sigma} \cdot \dd$
+in the outer, respectively inner monolayers.
+Here $\nabla_{\Sigma}\cdot{} = \nabla \cdot {} - \mathbf{N}\mathbf{N}^T \nabla$
+is the surface divergence for the unit normal $\NN$
+and the splay energy density
+for the granule configuration is Hookean with bending modulus $k_B$.
+It is a fact from differential geometry that
+when $\dd$ is everywhere parallel to $\NN,$
+then $\nabla\cdot \dd = \pm 2H$ and this is how the
+curvature term arises for \eqref{eq:Canham-Helfrich}
+($2H = \kappa$ in the two-dimensional setting).
+In the case of mixtures of granules of different sizes,
+spontaneous curvature $k_0$ arises
+from asymmetry in the monolayer leaflets.
+\emph{Stretching.}
+When stretched, the distance between
+neighboring granules is increased from rest
+and the energy for stretching behaves as 
+$\tfrac{1}{2}k_A(L - L_0)^2/L_0$
+for a stretching modulus $k_A$,
+length $L$, and
+length at rest $L_0$ of the two-dimensional vesicle. 
+\emph{Tilt.}
+Finally, the granules possess a 
+tilt decay length scale $\lambda = \sqrt{k_B/k_{\theta}}$
+well-known from the biophysical literature
+for the case when the directors $\mathbf{d}$ are no longer normal
+to the surface
+\cite{KUZMIN2005}.
+
+\textit{Summary of results from the paper \cite{FuQuRyYo22}.}
+
+
 
 
 \begin{wrapfigure}[14]{l}{0.475\textwidth}
@@ -534,14 +548,6 @@ and we analyze its energy as follows:
 \includegraphics[width=0.475\textwidth]{figures/PreliminaryWork/Rupture.jpg}
 \caption{\label{fig:JPv_rupture}The JP vesicles rupture under large shear rates.}
 \end{wrapfigure}
-
-This is our first step to showing the energy of the granule-based
-vesicles have the same elastic energy as bilayers in the limit $N_b \to \infty$.
-Once we have simulations for large systems sizes, we can provide
-evidence that the two formulations are the same.
-So and so has made simulations with thousands of granules in three-D
-and this is now a technical/not theoretical limitation. 
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Boundary integral formulation}
