@@ -84,7 +84,7 @@ with boundary $\Gamma_i(t)$.
 We call these bodies ``granules''.
 The granules are immersed 
 in an incompressible, zero-Reynolds number fluid
-$\Omega(t) = \RR^n \setminus \cup_{i=1}^{N_b} U_i(t)$
+$\Omega_t = \RR^n \setminus \cup_{i=1}^{N_b} U_i(t)$
 (Figure \ref{fig:flow_map}).
 
 We look for $N_b$-many rigid body transformations
@@ -102,9 +102,9 @@ The key idea is to define the dynamics using the following
 boundary value problem system:
 \begin{alignat}{4}
   -\mu\Delta \uu + \nabla p &= \mathbf{0}, 
-  &&\quad \nabla \cdot \uu = 0, && \quad \xx \in \Omega(t), \label {eqn:stokes} \\
+  &&\quad \nabla \cdot \uu = 0, && \quad \xx \in \Omega_t, \label {eqn:stokes} \\
   \label{eqn:phase}
-  -\epsilon^2 \Delta \phi + W'(\phi) &= 0, && &&\quad \xx \in \Omega(t),\\
+  -\epsilon^2 \Delta \phi + W'(\phi) &= 0, && &&\quad \xx \in \Omega_t,\\
 \label{eqn:noslip}        
 \frac{dF_i}{dt}(\XX,t) & = \uu(\xx) 
 &&=\vv_i + \omega_i \times (\xx - \aa_i), 
@@ -188,7 +188,7 @@ has the energy law
   \frac{d}{dt}E
   = - \int_{\Omega_t}\tfrac{1}{2}\mu|\nabla \uu + \nabla
   \uu^T|^2 \,d\xx,\quad
-    E = \gamma \int_{\Omega(t)}
+    E = \gamma \int_{\Omega_t}
   \frac{\epsilon}{2} |\nabla \phi|^2 + \frac{1}{\epsilon} W(\phi) \,d\xx.
 \end{equation}
 Here $E$ is the energy stored in the phase transitions.
@@ -199,7 +199,7 @@ is lost due to hydrodynamic dissipation.
 Further details and generalizations are provided in
 the Specific Aim 1 section \ref{sec:specific_aim1}.
 
-Because $E$ depends both on $\phi$ and $\Omega(t)$,
+Because $E$ depends both on $\phi$ and $\Omega_t$,
 the derivation of \eqref{eq:energy_law}
 is somewhat subtle and has been worked out in detail in \cite{Fu2018_SIAM}.
 It goes as follows.
@@ -252,14 +252,14 @@ Finally, in terms of mathematical justifications, we mention
 that in the single-well case
 $W(\phi) = \tfrac{1}{2}\phi^2,$ \eqref{eqn:phase} takes the form
 of a screened Laplace (SL) equation $-\epsilon^2 \Delta \phi + \phi =0$.
-If the material label $h_i = 1$ everywhere, then $\phi$
+For a fixed domain $\Omega$ with class $\mathbf{C}^2$ boundary \cite{},
+if the material label $h_i = 1$ everywhere, then $\phi$
 has a boundary layer going from $1$ at the boundary to $0$ in the bulk
 and one can prove that 
 \begin{equation}
 \label{eqn:math_motivation}
-\lim_{\epsilon \to 0} E = \frac{\gamma}{2} \int_{\partial \Omega} 1 \,dS
+\lim_{\epsilon \to 0} E = \frac{\gamma}{2} \int_{\partial \Omega} 1 \,dS.
 \end{equation}
-under the assumption that $\Omega$ has a class $\mathbf{C}^2$ boundary \cite{}.
 In other words, the phase energy can be viewed as an
 approximation of surface energy that ``extends'' into the bulk.
 In the general case, $h_i^2$ replaces $1$ in \eqref{eqn:math_motivation}.
@@ -323,13 +323,16 @@ is literal and the granules Janus spheres.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Boundary integral formulation}
 \label{sec:bie}
-
 \begin{wrapfigure}[10]{r}{2in}
   \todo[inline]{A figure comparing FEM versus BIE meshes}
   \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
   requires meshing the entire domain (typically into triangles), while a
   BIE only requires meshing the boundary of the domain.}
 \end{wrapfigure}
+The solution of PDEs in a domain surrounding a mobile, dense suspension
+of bodies is highly nontrivial and requires accurate,
+dimension-reducting discretization
+that do not require continual remeshing.  
 Boundary integral equations (BIEs) are a reformulation of elliptic PDEs
 including the Stokes equation~\eqref{eqn:stokes} and the phase
 equation~\eqref{eqn:phase} in the special case of $f(u) =
