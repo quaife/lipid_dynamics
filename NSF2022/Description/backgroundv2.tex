@@ -1,6 +1,5 @@
 \noindent
-{\bf Collaborative Research:
-Collaborative research: Self-organization modeled by moving domain
+{\bf Collaborative research: Self-organization modeled by moving domain
 elliptic PDEs} \\
 {\em Rolf Ryham (PI, Fordham University),
 Bryan Quaife (lead PI, Florida State University), and
@@ -145,8 +144,11 @@ Stokes equations that describes the velocity $\uu$ and pressure $p$ of
 the aqueous region with viscosity $\mu$.  Equation~\eqref{eqn:phase} describes the
 phase transitions of the scalar order parameter $\phi$ with a decay
 length $\epsilon$.
-The scalar function $W(\phi)$ is a well potential where the local 
-minimima representing low energy states of the water phase.
+The scalar function $W(\phi)$ is a nonnegative
+well potential where the local 
+minimima represent metastable states $\phi_0,$ $\phi_1$ etc. of the water phase.
+To have finite bulk energy, the minimum potential phase
+$\phi_0$ has $W(\phi_0) = 0.$
 Mathematically, this order parameter is responsible for
 the attraction and adhesion between granules that want to align boundaries
 of like phase.
@@ -180,10 +182,8 @@ In our simulations (see section \ref{sec:specific_aim1}),
 we include a finite length repulsion to avoid particle
 collisions.
 
-
-
-
-The system~\eqref{eq:RBT}--\eqref{eqn:stressbalance}
+In the absence of external flow,
+the system~\eqref{eq:RBT}--\eqref{eqn:stressbalance}
 has the energy law
 \begin{equation}
 \label{eq:energy_law}
@@ -214,13 +214,32 @@ The Euler-Lagrange derivative vanishes due to~\eqref{eqn:phase}
 and the boundary flux transforms into viscous dissipation due to 
 \eqref{eqn:hydro_stress} and the Stokes equations. 
 
+In the far field, $\lim_{\xx \to \infty} \phi(\xx) = \phi_0$
+and for the background flow, we require that
+$\lim_{\xx \to \infty} \uu(\xx) - \uu_{\infty}(\xx) = \mathbf{0}.$ 
+In the case of shear background flow, for example,
+\begin{equation}
+\label{eqn:shear_BG_flow}
+\uu_{\infty}(\xx) = \dot{\gamma} \xx \cdot \mathbf{e}_y \mathbf{e}_x,
+\end{equation}
+where $\dot \gamma$ is the shear rate and
+$\mathbf{e}_x$, $\mathbf{e}_y$ are horizontal and vertical
+basis vectors, respectively.  Other background flows include
+extensional, parabolic Poiseuille, and Taylor-Green flow.
+For numerical stability and physical realism,
+we introduce pairwise repulsive forces and torques in \eqref{eqn:stressbalance}
+to prevent the collosion between neighboring granules.
+We include the repulsive potential in the energy law \eqref{eq:energy_law} 
+and refer to \cite{FuQuRyYo22,fu-ryh-qua-you2022,Fu2018_SIAM} for details.
+A background flow adds elastic energy to the granule configurations
+and is quantified by simulation.
 
 In terms of physical justification, the
 derivation of the one-dimensional version of our model
 was carried out by \cite{MaRa76} and \cite{ErLjCl89}
 using a Landau expansion of the
 free energy density for a single-well potential.
-The double-well potential case was derived by
+The double-well potential case was dealt with by
 Gompper in \cite{GoHaKo94} to describe metastable coordination of water.
 In the field of surface chemistry \cite{Israelachvili1954},
 there is a large empirical literature on properties of
@@ -231,7 +250,8 @@ identified by PIs Ryham and Young in~\cite{Fu2018_SIAM}
 and generalizes one-dimensional hydrophobic interaction to
 the $n$-dimensional setting. 
 
-Finally, we mention that in the single-well case
+Finally, in terms of mathematical justifications, we mention
+that in the single-well case
 $W(\phi) = \tfrac{1}{2}\phi^2,$ \eqref{eqn:phase} takes the form
 of a screened Laplace (SL) equation $-\epsilon^2 \Delta \phi + \phi =0$.
 If the material label $h_i = 1$ everywhere, then $\phi$
@@ -246,49 +266,25 @@ In other words, the phase energy can be viewed as an
 approximation of surface energy that ``extends'' into the bulk.
 In the general case, $h_i^2$ replaces $1$ in \eqref{eqn:math_motivation}.
 We are confident that \eqref{eq:RBT}--\eqref{eqn:stressbalance}
-is a correct description of long-range surface interactions.
+is a correct description of long-range interactions between granule
+surfaces.
 
-The model has a broad range of applicability to self-organization
-phenomena in chemistry and biological physics. For one,
-the formulation~\eqref{eq:RBT}--\eqref{eqn:stressbalance} captures
-exactly the right behavior expected from amphiphilic self-assembly.
-For example, three bodies with amphiphilic label
-(see section \ref{sec:specific_aim1}) spontaneously
-self-organize to sequester the hydrophobic fluid phase
-(the red phase in Figure \ref{fig:flow_map}).
-Moreover, a simple change of boundary conditions from
-amphiphilic, to biased hydrophobic, to polar results in distinct
-equilibrium morphologies (Figure~\ref{fig:self-assembly2}).
-Since the formulation is
-scale independent, it can represent a suspension of amphiphiles, where
-the granules represent the mean properties of a small collection of
-lipids, at the nanoscopic scale. For larger scales, the representation
-is literal and the granules Janus spheres. The proposal deals with the
-physical origins in section ().
-\todo[inline]{
-List applications; don't forget Bertozzi.}
-
-\begin{figure}[t!]
+\begin{wrapfigure}[23]{r}{3.2in}
+  \vspace{-15pt}
   \begin{center}
-    \begin{tabular}{m{0.1cm}m{1.8in}m{1.8in}m{1.8in}}            
-      (a)
-    &\includegraphics[width=1.8in]{figures/SpecificAim1/N100B1.jpg}
-    &\includegraphics[width=1.8in]{figures/SpecificAim1/N100B2.jpg}
-     &\includegraphics[width=1.8in]{figures/SpecificAim1/N100B3.jpg}    \\
-     (b)
-    &\includegraphics[width=1.8in]{figures/SpecificAim1/N100C1.jpg}
-    &\includegraphics[width=1.8in]{figures/SpecificAim1/N100C2.jpg}
-      &\includegraphics[width=1.8in]{figures/SpecificAim1/N100C3.jpg}    \\
-    (c)
-      &\includegraphics[width=1.8in]{figures/SpecificAim1/N100A1.jpg}
-      &\includegraphics[width=1.8in]{figures/SpecificAim1/N100A2.jpg}
-      &\includegraphics[width=1.8in]{figures/SpecificAim1/N100A3.jpg}    \\
-      &\multicolumn{1}{c}{$t = 0$}
-      &\multicolumn{1}{c}{intermediate time}
-      &\multicolumn{1}{c}{long time}
+    \begin{tabular}{m{0.9in}m{0.9in}m{0.9in}}                 
+    \includegraphics[width=0.85in]{figures/SpecificAim1/N100B1.jpg}
+    &\includegraphics[width=0.85in]{figures/SpecificAim1/N100B2.jpg}
+     &\includegraphics[width=0.85in]{figures/SpecificAim1/N100B3.jpg}    \\
+    \includegraphics[width=0.85in]{figures/SpecificAim1/N100C1.jpg}
+    &\includegraphics[width=0.85in]{figures/SpecificAim1/N100C2.jpg}
+      &\includegraphics[width=0.85in]{figures/SpecificAim1/N100C3.jpg}    \\
+      \includegraphics[width=0.85in]{figures/SpecificAim1/N100A1.jpg}
+      &\includegraphics[width=0.85in]{figures/SpecificAim1/N100A2.jpg}
+      &\includegraphics[width=0.85in]{figures/SpecificAim1/N100A3.jpg} 
   \end{tabular}
   \end{center}
-  \vspace{-20pt}
+  \vspace{-5pt}
   \caption{\footnotesize \label{fig:self-assembly2} Rows (a)-(c) have
   the same initial configuration but different boundary conditions $g$.
   In row (a), self-assembly with an amphiphilic boundary condition
@@ -298,14 +294,255 @@ List applications; don't forget Bertozzi.}
   the particle (magenta) than the other (yellow). In row (c), green is
   for $u < 0$, yellow is for $u > 0$, and blue is for $u = 0$. Particles
   orient like sides to form a checkerboard pattern.}
-\end{figure}
+\end{wrapfigure}
+\subsection{Applications}
+Since the formulation is scale independent,
+it can be applied broad range of
+nonspecific self-organization
+phenomena in surface chemistry, biology and engineering.
+For one,
+the formulation~\eqref{eq:RBT}--\eqref{eqn:stressbalance} captures
+exactly the right behavior expected from amphiphilic self-assembly.
+For example, three bodies with amphiphilic label
+(see section \ref{sec:specific_aim1}) spontaneously
+self-organize to sequester the hydrophobic fluid phase
+(the red phase in Figure \ref{fig:flow_map}).
+Moreover, a simple change of boundary conditions from
+amphiphilic, to biased hydrophobic, to polar results in distinct
+equilibrium morphologies (Figure~\ref{fig:self-assembly2}).
+(i)
+Chemistry: Janus spheres
+Since the formulation is
+scale independent, it can represent a suspension of amphiphiles, where
+the granules represent the mean properties of a small collection of
+lipids, at the nanoscopic scale. For larger scales, the representation
+is literal and the granules Janus spheres.
+(ii) Pickering emulsion 
+(iii) Bertozzi's problem
+(iv) Tension driven microprinting
+(v) Vesicle hydrodynamics.
+
+
+\subsection{Vesicles as self-organized granules}
+\label{sec:vesicles_as_granules}
+Interface problems coming from biology are a challenging
+area of applied mathematics.  Broadly speaking, these problems
+involve a fluid structure interaction where the modeler must
+solve for the velocity in the aqueous phase, track the interface,
+and couple the velocity boundary condition to the interface through
+stress balance boundary conditions.  The aqueous phase can
+be a low Reynolds-number fluid, a porous medium, or viscoelastic fluid,
+and the interfacial forces can come from surface tension, elasticity,
+or electrostatics.
+Incorporating all these details can lead to models with substantial
+complexity and there is a need for robust, general models that
+cut across these issues. 
+
+This section shows the principles of PDE-driven
+self-organization apply to the concrete
+problem of \emph{vesicle hydrodynamics}.
+A vesicle is a small, fluid filled membrane sack.
+Microscopically, the membrane of a vesicle is comprised
+elongated amphiphilic lipids that form inner and outer monolayers.  
+The goal in vesicle hydrodynamics is to study the flow patterns e.g.,
+tank-treading, tumbling, that arrise due to the interaction
+between membrane elasticity and surrounding fluid.
+Traditional models represent a vesicle as a
+continuous surface or curve $\Sigma$.
+The elastic energy takes the form
+\begin{equation}
+\label{eq:Canham-Helfrich}
+  \int_{\Sigma} k_B(H - k_0)^2\, dS 
+\end{equation}
+where $H$ is the mean curvature, $k_0$ is a spontaneous curvature,
+and $k_B$ is a bending modulus. 
+The variation of \eqref{eq:Canham-Helfrich} gives rise to a surface force
+that pointwise balances the jump in hydrodynamic stress across the interace.
+A vesicle is closed surface, and so while energy does involve
+the Gaussian curvature, it does not enter \eqref{eq:Canham-Helfrich}
+since Gauss-Bonnet Theorem guarantees that
+the integral of Gaussian curvature is independent of the shape of $\Sigma$.
+
+Depending on the situation,
+one can further enforce constant volume constraints or permeability relationships.
+If the interface is area incompressible, then the surface divergence
+of velocity is zero.  On the other hand, if the surface is area compressible,
+then \eqref{eq:Canham-Helfrich} contains an additional stretching term of the
+form $k_A(\alpha - \alpha_0)^2/\alpha_0$ where $\alpha$ and $\alpha_0$ are the
+deformed and equilibrium area densitities respectively. 
+
+\begin{wrapfigure}[12]{r}{0.5\textwidth}
+  \vspace{-5pt}
+\centerline{\includegraphics[width=0.5\textwidth]{figures/SA1Figures/AmphiphilicAssembly.pdf}}
+  \vspace{-5pt}
+\caption{\label{fig:amphiphilic_assembly}
+Self-organization under amphiphilic boundary condition.
+(a) Granules first match hydrophobic tails (red),
+(b) then align length-wise.
+The principle of self-organization holds in three dimensions 
+as simulated by Kohl, Corona, and Veerapaneni
+\cite{koh-cor-che-vee2021}.}
+\end{wrapfigure}
+There are downsides to traditional models in terms of generality and physical realism.
+(i) Motivated by drug delivery applications, experimenters use electric
+fields, for example, to controllably open and close pores in membranes
+\cite{}.
+These kinds of topological changes are clumsy to incorporate into 
+sharp interface formulations that assume a continuous surface \cite{}.
+(ii) Sharp-interface models assume a membrane of neglible thickness. 
+However, in biological processes
+like fusion, fission, or insertion and penetration by proteins and peptides, 
+the length scales of the
+deformation (tens of nanometers) are comparable to membrane thickness (about 5 nm).
+Moreover, these processes crucially rely on variable lipid
+orientation relative to the surface normal (the so-called \emph{tilt}
+deformation),
+whereas \eqref{eq:Canham-Helfrich} implicitly assumes that the lipids
+are everywhere normal to the surface.  
+(iii) Finally, realistic membranes are comprised of a mixtures of lipids and proteins.
+Recent work \cite{} has incorporated lipid mixtures in \eqref{eq:Canham-Helfrich},
+but these models are formidably complicated 
+due to the additional constraints and transport equations involved.
+
+Diffusive interface models and surface-director models partially make up for some of
+these shortcomings. 
+Topological changes are permitted in phase field and level set formulations,
+but these methods smear out the details of lipid orientations.
+The question lipid orientations is closely related to the vast and well-studied
+field of nematic liquid crystals.  Here there has been recent development
+in the simulation and theory of nematic liquid crystals on surfaces.
+These models consider the interplay between defects and surface geometry \cite{},
+finite element formulations \cite{}, and existence of minimizers \cite{}.
+
+\subsubsection{Main modeling innovations}
+We developed the model \eqref{eq:RBT}-\eqref{eqn:hydro_stress} 
+as a robust and flexible approach
+that cuts across many of the aforementioned challenging aspects to vesicle modeling.
+(i) The granules are not fixed to a stencil, 
+affording flexibility in terms of vesicle morphology and topology--sufficiently
+large forces will pull the granules apart as physically required.
+(ii) The model formulation is built around important details like lipid orientations,
+and exhibits and inter-monolayer slip not present in diffusive interface models.
+(iii) It is straightforward to consider mixtures of granules with different
+types of shapes and boundary conditions of the granules.
+With the help of boundary integral equations
+and fast summation methods, the dynamics can be solved in 
+near-linear complexity in $N_b$, which is equal to or better than 
+the computational complexity of related sharp interface methods. 
+
+Inspired
+by the amphiphilic structure of lipids,
+we formulated a so-called ``amphiphilic'' boundary condition
+that leads a collection of granules to form bilayers.
+Referring to Figure \ref{fig:amphiphilic_assembly}, 
+\begin{equation}
+\label{eq:amphiphilic_BC}
+\phi(\mathbf{x}) = h_i(\mathbf{x}) = \tfrac{1}{2}\left(\dd_i \cdot (\xx - \aa_i)/c_i + 1\right), \quad
+\mathbf{x} \in \Gamma_i,
+\end{equation}
+where $\dd_i$ is the director, $\aa_i$ is the center, and $c_i$ the
+``radius'' of the $i$th granule.  
+The phase $\phi$ takes values close to $1$ on in the direction $\dd_i$,
+representing a hydrophobic tail, and values close to $0$ 
+in the direction $\dd_i$ representing the hydrophilic head.
 
 \begin{figure}[t!]
 \begin{center}
-\includegraphics[width=\textwidth]{figures/Background/coarsening.pdf}
+\includegraphics[width=0.9\textwidth]{figures/Background/coarsening.pdf}
 \end{center}
-\caption{\label{fig:coarsening}}
+\vspace{-20pt}
+\caption{\label{fig:coarsening}
+Modeling procedure.
+We initilize a suspension of granules.
+Under the moving domain problem
+\eqref{eq:RBT}-\eqref{eqn:hydro_stress}
+with amphiphilic boundary condition, the granules
+self-organize into vesicle bilayers.
+We then introduce external hydrodynamic effects to study elastic properties.
+}
+\vspace{5pt}
 \end{figure}
+\subsubsection{How do granule-based vesicles have an elastic energy?}
+A natural question to ask is how 
+elastic energy enters a formulation
+coming from surface interactions like \eqref{eqn:math_motivation}.
+Conceptually, random suspensions of amphiphilic
+granules undergo a rapid coarsening to form bilayers.
+For small granule numbers, the bilayers form a single stable, ring-shaped vesicle
+with energy $E_{\text{stable}}$ (Figure \ref{fig:coarsening}, (c)).
+This vesicle configuration, however, is only a local minimizer,
+whereas the planar configuration (Figure \ref{fig:coarsening}, (e))
+is the global minimizer.  The difference between
+$E(t)$ and $E_{\min}$ is the elastic energy stored by granules.
+Indeed, if a background flow overcomes the energy barrier to force granules apart,
+then bilayer unfolds from its circular shape into a flat shape.  
+
+When many granules are involved, the granules reach an intermediate
+state consisting of several bilayer segments (see Figure \ref{fig:self-assembly2}, top right).
+Placing this metastable state into a mild background flow
+causes the segments to join up into isolated vesicles \cite{fu-ryh-qua-you2022}.
+
+
+and we analyze its energy as follows:
+\begin{enumerate}
+\item[Bending]
+  The vesicle has bending energy because the directors are not
+  parallel.  In the outer layer, the directors have negative
+  splay $\nabla \cdot \dd < 0$ and in the inner layer
+  the directors have positive splay $\nabla \cdot \dd > 0$.
+  Due to minimality, the energy depends locally quadratically
+  on the splay and has a bending modulus $k_B$.
+  When $\dd$ is everywhere parallel to the unit normal $\NN,$ then
+  \[
+  \nabla \dd = -2H
+  \]
+  where $H$ is the mean curvature. 
+\item[Stretch]
+  If the vesicle is stretched, then the distance between
+  neighboring granules is increased from rest.  The energy
+  for this increase is Hookean and for small deformations
+  equals
+  \begin{equation}
+    \label{eq:stretch}
+    \tfrac{1}{2}k_A(L - L_0)^2/L_0
+  \end{equation}
+  where $k_A$ is a stretching modulus, $L$ and $L_0$ are stretched
+  vesicle length and length at rest, respectively
+  ($\tfrac{1}{2}k_A(A - A_0)^2/A_0$ in three dimensions).
+  If the stretching is too great, the vesicle ruptures
+  and the free eneds either rejoin, repairing the vesicle,
+  of move apart forming a flat bilayer.
+\item[Tilt]
+  The directors in Figure \ref{} are normal to the vesicle surface.
+  However, there are situations where the directors are not normal
+  to the surface and this introduces the tilt angle $\theta$
+  given by $\cos \theta = \dd \cdot \NN$.
+  The energy for tilt is also Hooken and behaves like
+  $k_{\theta}|\dd \times \NN|^2$ for the tilt modulus $k_{\theta}$.
+\end{enumerate}
+
+
+
+\begin{wrapfigure}[11]{r}{0.5\textwidth}
+\includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/TankTreading.jpg}
+\caption{\label{fig:JPv_linearshear}The JP vesicles undergo tank-treading in background shear flow.}
+\end{wrapfigure}
+
+
+\begin{wrapfigure}[14]{l}{0.475\textwidth}
+%\vspace{-10pt}
+\includegraphics[width=0.475\textwidth]{figures/PreliminaryWork/Rupture.jpg}
+\caption{\label{fig:JPv_rupture}The JP vesicles rupture under large shear rates.}
+\end{wrapfigure}
+
+This is our first step to showing the energy of the granule-based
+vesicles have the same elastic energy as bilayers in the limit $N_b \to \infty$.
+Once we have simulations for large systems sizes, we can provide
+evidence that the two formulations are the same.
+So and so has made simulations with thousands of granules in three-D
+and this is now a technical/not theoretical limitation. 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Boundary integral formulation}
 \label{sec:bie}
@@ -357,7 +594,13 @@ applied to non-linear PDEs. The BIE community, including PI Quaife, has
 developed a variety of tools to address these numerical challenges, and
 we discuss our planned approach in Section~\ref{sec:specificaim2}.
 
-
-
-
 \subsection{Outline of the proposal}
+The outline of the proposal goes as follows.
+Section \ref{sec:resume} describes the
+PIs's expertise and prior works
+in (1) membrane-fluid mechanics (2) boundary integral equations
+and (3) complex fluid dynamics
+that are critical to the success of this proposal. 
+Section \ref{sec:proposed-work}
+goes over the three specific aims of the proposal.
+
