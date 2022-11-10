@@ -483,12 +483,84 @@ These disordered collections typically represent a local energy minimum
 because under a slight perturbation, the small vesicles and segments
 further combine to form larger, stable vesicles.  
 
+A natural questions concerns the well-posedness
+\eqref{eq:RBT}--\eqref{eqn:stressbalance}
+and its generalizations. A recent and strongly developing direction in
+the area of nematics liquid crystals concerns the interaction of
+Landau de Gennes functionals like \eqref{eq:energy_law} with colloids
+\cite{doi:10.1098/rsta.2020.0432}.
+In this spirit, a first step to understand the effect of the flow
+in our model is to obtain some solid well-posedness results.
 
-\subsubsection{Problem 1}
+\begin{quotation}
+  \textbf{Problem 1.} Consider a collection the closed,
+  disjoint granules $U_i$ with smooth boundary,
+with no-slip, rigid body motion boundary conditions.
+Assume a either a single or double well potential
+and a smooth phase field boundary condition.  
+Study the well-posedness of the coupled system
+\eqref{eq:RBT}--\eqref{eqn:stressbalance}
+for short times.  For global in time solutions, determine
+whether lubrication forces ensure positive distance
+between granules.  Describe the behaviour in the limit
+zero screening length limit.  
+\end{quotation}
 
-\subsubsection{Problem 2}
+This problem is attractive because combines the diffusive interface
+effects involving a free boundary in aqueous part of the region \cite{}
+with interfacial effects coming from the long range inter-granual
+attraction. Generalizations of Problem 1 include modifying the 
+system to account for various time scales.
+We may consider, for example, modifying \eqref{eqn:phase}
+to include transport of the phase field by the background fluid;
+\begin{equation*}
+\phi_t + \uu \cdot \nabla = -\lambda \frac{\delta E}{\delta \phi} = \lambda(\epsilon^2 \Delta \phi - W'(\phi))
+\end{equation*}
+The modified systems enjoys the same energy law as \eqref{eq:energy_law} 
+except that there will be an addtional dissipation term coming from the
+Euler-Lagrange derivative $\frac{\delta E}{\delta \phi}$.
 
-\subsubsection{Problem 3}
+The second problem we consider concerns the approximation
+of equilibrium elastic energy of curves and surfaces.
+We have compared two-dimensional configurations of amphiphilic granules
+to membrane configurations found in continuum mechanics.
+The simulations results in~\cite{Fu2018_SIAM,FuQuRyYo22}
+showed that the granular bilayers 
+basically replicated the elastic energies for bending, tilt, and
+stretching
+but we do not yet have any analytical evidence to support this conclusion.
+To understand the approximation mathematically, we take the following:
+\begin{quotation}
+  \textbf{Problem 2.} Place a collection of
+  amphiphilic granules
+with equally spaced centers along a curve $\mathcal{C}$.
+For simplicity, assume that the directors are normal to the curve
+and that the granules are all disks with radius proportional to $\epsilon$. 
+Study the sharp interface limit of the energy $E$ 
+relative to that of an array of granules placed along a flat curve. 
+In this limit, the number of granules $N_b$ goes to infinity
+to ensure equal spacing.
+Study how the bending the bending $k_B$ and stretching $k_A$ coefficients
+depend on the granual size relative to their spacing.
+Generalize the problem to account for aspect ratio of elliptical granules
+and nonzero tilt. 
+\end{quotation}
+Given the relatively complicated geometry consising
+of a plane with a number of disjoint disks removed, 
+we can start by approaching the problem in a simplified
+setting such as when the reference curve is a circle.
+There is a large body work in this direction for nematics
+studying either the case of a single coloidal particle and
+the qualitative structure of defects around it
+\cite{Alama2015MinimizersOT, Alama2021SaturnRD, PhysRevE.96.042702}
+many particles and the homogenization effects
+\cite{Canevari2019DesignOE,doi:10.1137/18M1163919,doi:10.1137/18M1163919,BERLYAND200597,doi:10.1137/130910348}.
+A closely related area that consider similar analysis
+dimension reduction for
+Landau-de Gennes models on curved nematic confined to thin films
+\cite{Golovaty2017DimensionRF, Golovaty2015DimensionRF,doi:10.1142/S0218202516500470, FoFrLe07}.
+
+
 
 
 %\setcounter{page}{1}
