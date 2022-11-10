@@ -127,7 +127,7 @@ where each particle coordinates
 its head with the head of three other particles and its tail with the
 tail of three other particles Figure~\ref{fig:self-assembly2}(c).
 
-
+PIs' recent results in \cite{FuEtAl2022_arXiv} show that these patterns may be understood by a mixture of polar and nematic characteristics of the individual Janus particle, tuned by the boundary condition $g({\bf x})$. Based on this hypothesis, a natural question is to see if the collective dynamics of Janus particles with different boundary conditions can be predicted by a coarse-grained model based on the kinetic theory?
 
 %\begin{figure}[h!]
 %  \begin{center}
@@ -174,7 +174,7 @@ Smoluchowski equation
 \label{eq:dpdt}
 \dot{\bf p} &= \left({\bf I}-{\bf p}{\bf p}\right)\cdot\nabla {\bf u}\cdot {\bf p} + {\bf G}\left(\eta,{\bf p}\right) - D_p \nabla_{\bf p}\ln \psi + \frac{{\bf H}}{\gamma},\\
 {\bf H} &\equiv -\frac{\delta {\cal F}}{\delta {\bf p}} = -\frac{\delta}{\delta {\bf p}} 
-\int d{\bf x} \left\{\frac{K_p}{2} \left(\nabla{\bf p}\right)^2 + \frac{K}{2}\left(\nabla\left({\bf p}{\bf p}^T- \frac{\bf I}{2}\right)\right)^2\right\},
+\int d{\bf x} \left\{\frac{K_p}{2} \left(\vec\nabla{\bf p}\right)^2 + \frac{K}{2}\left(\nabla\left({\bf p}{\bf p}^T- \frac{\bf I}{2}\right)\right)^2\right\},
 \end{align}
 where the subscripts denote the variables the gradient operator is taken with respect to, 
 $D_x$ is the translational diffusion and $D_p$ is the rotational diffusion. 
@@ -183,15 +183,15 @@ $D_x$ is the translational diffusion and $D_p$ is the rotational diffusion.
 the phoretic Janus particle suspension \cite{TraversoMichellin2020_PRF,TraversoMichellin2022_JFM}.
 The last term in equation~(\ref{eq:dpdt}) characterizes the relaxation of the director alignment to the minimum of the
 free energy ${\cal F}$, where the parameter $K_p$ controls the alignment of directions, and $K$ characterizes the alignment of orientations:
-$K=0$ when the suspension is purely polar, and $K_p=0$ when the suspension is purely nematic \cite{Amiri2022_JPhysA}. 
+$K=0$ and $K_p > 0$ when the suspension is purely polar, and $K_p=0$  and $K>0$ when the suspension is purely nematic \cite{Amiri2022_JPhysA}. 
 %
 Case (a) (boundary condition (\ref{eq:bcs})(a)) corresponds to a balanced mixture of polar and nematic characteristics of the nematic particles.
 Case (b) corresponds to a polar suspension, while case (c) corresponds to a nematic suspension. 
 
 PI Young has used the kinetic theory to investigate the many behaviors of droplets of
 nematic fluids \cite{YoungShelleyStein2021_MBE}. Within this framework, the stress on the viscous solvent from the active particles can be computed
-by integrating over the whole domain the stress from the single particle weighted by the density distribution $\psi$ \cite{TraversoMichellin2020_PRF,TraversoMichellin2022_JFM}.
-In particular, PI Young proposes to use the Bingham closure approximation \cite{YoungShelleyStein2021_MBE} to approximate these calculations to study the
+by integrating the stress from the single particle weighted by the density distribution $\psi$ over the whole domain \cite{TraversoMichellin2020_PRF,TraversoMichellin2022_JFM}.
+In particular, PI Young proposes to use the Bingham closure \cite{YoungShelleyStein2021_MBE} to approximate these calculations to study the
 dynamics and rheology of suspension of Janus particles controlled by tuning the boundary conditions on the microscopic Janus particles, which the PIs recently investigated using direct numerical simulations and the results are summarized in \cite{Fu2022_arXiv}. Working together with PIs Quaife and Ryham, the team proposes to extract the coefficients
 $K$ and $K_P$ for a single Janus particle first from the direct numerical simulation results. Using these values, the dynamics, pattern formation and rheology
 predicted from analyzing the proposed coarse-grained model will be compared quantitatively against numerical simulations.
