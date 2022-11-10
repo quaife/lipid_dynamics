@@ -31,7 +31,7 @@
 
 The PIs investigated how 
 distinct morphologies can be obtained from 
-the HAP model by shifting the boundary condition $g$ \cite{FuEtAl2022_arXiv}.
+the HAP model by shifting the boundary condition $g$ \cite{fu-ryh-qua-you2022}.
 Consider the linear case where $f(\eta) = \eta^2$.
 This choice makes \eqref{eq:SL} a boundary value
 problem for the screened-Laplace equation
@@ -127,7 +127,9 @@ where each particle coordinates
 its head with the head of three other particles and its tail with the
 tail of three other particles Figure~\ref{fig:self-assembly2}(c).
 
-PIs' recent results in \cite{FuEtAl2022_arXiv} show that these patterns may be understood by a mixture of polar and nematic characteristics of the individual Janus particle, tuned by the boundary condition $g({\bf x})$. Based on this hypothesis, a natural question is to see if the collective dynamics of Janus particles with different boundary conditions can be predicted by a coarse-grained model based on the kinetic theory?
+PIs' recent analyses in \cite{fu-ryh-qua-you2022} show that these patterns may be understood by a mixture of polar and nematic characteristics of the individual Janus particle, 
+tuned by the boundary condition $g({\bf x})$, and lead to the following {\bf Problem:} Can the collective dynamics of Janus particles with different boundary conditions 
+be predicted by a coarse-grained model based on the kinetic theory?
 
 %\begin{figure}[h!]
 %  \begin{center}
@@ -176,7 +178,7 @@ Smoluchowski equation
 {\bf H} &\equiv -\frac{\delta {\cal F}}{\delta {\bf p}} = -\frac{\delta}{\delta {\bf p}} 
 \int d{\bf x} \left\{\frac{K_p}{2} \left(\vec\nabla{\bf p}\right)^2 + \frac{K}{2}\left(\nabla\left({\bf p}{\bf p}^T- \frac{\bf I}{2}\right)\right)^2\right\},
 \end{align}
-where the subscripts denote the variables the gradient operator is taken with respect to, 
+where the subscripts denote the variables the derivative is taken with respect to, 
 $D_x$ is the translational diffusion and $D_p$ is the rotational diffusion. 
  ${\bf F}\left(\eta,{\bf p}\right)$ and ${\bf G}\left(\eta,{\bf p}\right)$ are the drift and rotation induced by the potential $\eta$ and alignment, respectively.
  They can be derived using the reciprocal theorem as in the case of 
@@ -189,12 +191,19 @@ Case (a) (boundary condition (\ref{eq:bcs})(a)) corresponds to a balanced mixtur
 Case (b) corresponds to a polar suspension, while case (c) corresponds to a nematic suspension. 
 
 PI Young has used the kinetic theory to investigate the many behaviors of droplets of
-nematic fluids \cite{YoungShelleyStein2021_MBE}. Within this framework, the stress on the viscous solvent from the active particles can be computed
+nematic fluids \cite{YoungShelleyStein2021_MBE}. 
+The kinetic-theory based coarse-grained model for active suspension has been shown to work reasonably well beyond the dilute limit \cite{Saintillan2018_ARFM}.
+Within this framework, the stress on the viscous solvent from the Janus particles can be computed
 by integrating the stress from the single particle weighted by the density distribution $\psi$ over the whole domain \cite{TraversoMichellin2020_PRF,TraversoMichellin2022_JFM}.
 In particular, PI Young proposes to use the Bingham closure \cite{YoungShelleyStein2021_MBE} to approximate these calculations to study the
-dynamics and rheology of suspension of Janus particles controlled by tuning the boundary conditions on the microscopic Janus particles, which the PIs recently investigated using direct numerical simulations and the results are summarized in \cite{Fu2022_arXiv}. Working together with PIs Quaife and Ryham, the team proposes to extract the coefficients
+dynamics and rheology of suspension of Janus particles controlled by tuning the boundary conditions on the microscopic Janus particles, which the PIs recently investigated using direct numerical simulations and the results are summarized in \cite{fu-ryh-qua-you2022}. Working together with PIs Quaife and Ryham, the team proposes to extract the coefficients
 $K$ and $K_P$ for a single Janus particle first from the direct numerical simulation results. Using these values, the dynamics, pattern formation and rheology
-predicted from analyzing the proposed coarse-grained model will be compared quantitatively against numerical simulations.
+predicted from analyzing the proposed coarse-grained model will be compared quantitatively against numerical simulations. 
+
+It is possible that the outcome of such quantitative comparison may depend on how collisions between Janus particles are treated in the simulations (see \S~\ref{sec:specificaim2}), 
+and how the steric interactions are 
+incorporated in the kinetic theory. If this turns out to be an important effect, PI Young will incorporate the formulation of constraint forces as part of the active stress in the Stokes equations for the suspension.  Such constraint forces arise from the geometric 
+constraint that the Janus particles cannot overlap with each other \cite{Weady2022_PRF}. 
 
  
 %The ultimate goal is to use numerical simulations to aid
