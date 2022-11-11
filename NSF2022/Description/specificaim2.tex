@@ -15,18 +15,8 @@ of Specific Aims 1 and 3 depends on the ability to accurately and
 efficiently simulate dense suspensions of granules governed by
 equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance}. Because of their
 ability to resolve complex unbounded domains and achieve high-order
-accuracy, integral equation methods will be a central theme of the
-computational tools. As discussed in Section~\ref{sec:bie}, numerical
-methods to solve IEs have several advantages over their PDE-based
-counterpart. The PIs have demonstrated that IEs are a powerful tool to
-simulate two-dimensional suspensions of amphiphilic
-particles~\cite{Fu2018_SIAM, FuQuRyYo22, fu-ryh-qua-you2022}, and
-elements of these formulations have been developed in three
-dimensions~\cite{ying_2006, manasthesis, rac-gre2016}. In our current
-implementation, we can simulate $\mathcal{O}(100)$ two-dimensional
-granules, and the proposed research will allow for the suspensions with
-100X--1000X more two-dimensional granules and $\mathcal{O}(1000)$
-three-dimensional granules. 
+accuracy, integral equations (IEs) will be a central theme of the
+computational tools. 
 
 \begin{wrapfigure}[27]{l}{1.8in}
   \vspace{-8pt}
@@ -40,24 +30,21 @@ three-dimensional granules.
 
 The order parameter is governed by the PDE~\eqref{eqn:phase} in the
 solvent phase $\Omega(t)$. For the single-well $W(\phi) = \phi^2$,
-equation~\eqref{eqn:phase} is linear, and the PIs have demonstrated that
-IEs are a powerful tool to solve for the order
-parameter~\cite{Fu2018_SIAM, FuQuRyYo22, fu-ryh-qua-you2022}. However,
-for a general double-well potential $W(\phi)$, the resulting PDE is
-nonlinear, motivating the following problem:
+equation~\eqref{eqn:phase} is linear, and the PIs have used IEs to solve
+for the order parameter~\cite{Fu2018_SIAM, FuQuRyYo22,
+fu-ryh-qua-you2022}. However, for a double-well potential $W(\phi)$, the
+resulting PDE is nonlinear, motivating the following problem:
 
 % ----------------------------------------------------------------------
 \begin{quotation}
   \noindent
-  \textbf{Problem 3.} How can IEs be coupled with a Newton solver to
+  \textbf{Problem 4.} How can IEs be coupled with a Newton solver to
   solve the non-linear PDE~\eqref{eqn:phase}?
 \end{quotation}
 
-The PIs have developed numerical methods to solve~\eqref{eqn:phase} when
-$W(\phi) = \phi^2$---this choice results in the linear screened Laplace
-equation. For a general double well potential $W$ with local minima at
-$\phi_0$ and $\phi_1$, we propose to interpret the solution as the root
-finding problem for
+For a general double-well potential $W(\phi)$ with local minima at
+$\phi_0$ and $\phi_1$, we propose to interpret the solution
+of~\eqref{eqn:phase} as a root finding problem for
 \begin{align}
   \label{eqn:phaseRoot}
   F[\phi] = -\epsilon^2 \Delta \phi + \tfrac{1}{2}W'(\phi).
@@ -69,7 +56,7 @@ derivative of $F$, and $\alpha$ is the step size that will be determined
 using backtracking. This requires solving the variable coefficient PDE
 $-\epsilon^2 \Delta v + \tfrac{1}{2}W''(\phi^{N}) v = F[\phi^N]$, which
 is challenging with an integral equation since a fundamental solution is
-not readily available. However, by choosing a double well potential with
+not readily available. However, by choosing a double-well potential with
 $W''(\phi_0) = W''(\phi_1) = \beta$, we propose to instead use an
 inexact Newton's method where $dF^{-1}$ is approximated with the
 solution of $-\epsilon^2 \Delta v + \tfrac{\beta}{2} v = F[\phi^N]$. We
@@ -86,7 +73,7 @@ of $10^{-4}$, each iteration is significantly cheaper to apply.
 
 Having demonstrated that the inexact Newton method converges in one
 dimension, it will be coupled with IE formulations to
-solve~\eqref{eqn:phase} in two and three dimensions. The solution of
+solve~\eqref{eqn:phaseRoot} in two and three dimensions. The solution of
 $-\epsilon^2 \Delta v + \tfrac{\beta}{2} v = F[\phi^N]$ can be written
 as $v = v^P + v^H$ where $v^P$ is a volume potential and $v^H$ is a
 homogeneous solution of the PDE, which is represented as a layer
@@ -99,15 +86,29 @@ potential is
 where $G$ is the fundamental solution of $-\epsilon^2 \Delta +
 \tfrac{\beta}{2}$. Traditionally, volume potentials are more challenging
 to compute than layer potentials, but new methods have recently been
-developed that allows them to be computed accurately and
+developed that allow them to be computed accurately and
 efficiently~\cite{fry-leh-tor2018, and-zhu-vee2022}. This approach of
 combining volume and layer potentials has successfully been used by PI
-BQ~\cite{kro-qua2010} and others~\cite{fry-kro-tor2019, kli-ask-kro2020,
-che-hua-lei2005}.
+Quaife~\cite{kro-qua2010} and others~\cite{fry-kro-tor2019,
+kli-ask-kro2020, che-hua-lei2005} in other contexts, such as time
+stepping.
+
+As discussed in Section~\ref{sec:bie},
+numerical methods to solve IEs have several advantages over their
+PDE-based counterpart. The PIs have demonstrated that IEs are a powerful
+tool to simulate two-dimensional suspensions of amphiphilic
+particles~\cite{Fu2018_SIAM, FuQuRyYo22, fu-ryh-qua-you2022}, and
+elements of these formulations have been developed in three
+dimensions~\cite{ying_2006, manasthesis, rac-gre2016}. In our current
+implementation, we simulate $\mathcal{O}(100)$ two-dimensional granules,
+and the proposed research will allow for the suspensions with
+100X--1000X more two-dimensional granules and $\mathcal{O}(1000)$
+three-dimensional granules. 
+
 % ----------------------------------------------------------------------
 \begin{quotation}
   \noindent
-  \textbf{Problem 4.} How can novel quadrature, time adaptivity, fast
+  \textbf{Problem 5.} How can novel quadrature, time adaptivity, fast
   summation, and collision-detection be combined to accurately and
   efficiently solve the governing
   equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance} in bounded and
@@ -117,8 +118,8 @@ che-hua-lei2005}.
 \begin{wrapfigure}[]{l}{2.1in}
   \centering
   \includegraphics[width=2in]{figures/SA2Figures/confinement.pdf}
-  \caption{\label{fig:stenosis} A granule-based vesicle passing through
-  a constricted geometry.}
+  \caption{\label{fig:stenosis} \footnotesize A granule vesicle passing
+  through a constricted geometry.}
 \end{wrapfigure}
 
 In experiments, it is known that interactions between bounding walls and
@@ -134,10 +135,12 @@ domain requires additional modifications. PI Quaife has considered
 suspensions with confinement for several projects including dynamic
 suspensions~\cite{qua-bir2014, bys-sha-qua2020} and porous
 media~\cite{chi-moo-qua2020, dea-qua-bir-jua2018, moo-che-chi-qua2022,
-qua-gan-you2021}. The strong confinement introduces an aditional
-computational challenge---acuartely computing integrals between
-nearly-touching bodies. This issue is well-known in the IE community and
-several algorithms have been developed in the last 30 years, including
+qua-gan-you2021}. 
+
+The confinement introduces an additional computational
+challenge---accurately computing integrals between nearly-touching
+bodies. This issue is well-known in the IE community and several
+algorithms have been developed in the last 30 years, including
 panel-based methods~\cite{helsing_2008a, helsing_tutorial_2012},
 Quadrature by Expansions (QBX)~\cite{din-hua-mar-tan2021,
 klo-bar-gre-one2013, ste-bar2022, af2018sisc}, Barycentric-type formulae
@@ -151,11 +154,12 @@ spherical basis representations.
 \begin{wrapfigure}[]{r}{2.1in}
   \centering
   \input{figures/near_sing.tikz}
-  \caption{\label{fig:interpquad} An interpolation-based quadrature
-  method that works in two and three dimensions. The spectrally-accurate
-  trapezoid rule is used in points in $\mathtt{Far}(\Gamma_i)$, while
-  one dimensional interpolant is used for points in
-  $\mathtt{Near}(\Gamma_i)$. $h$ is the arclength spacing.}
+  \caption{\label{fig:interpquad} \footnotesize An interpolation-based
+  quadrature method that works in two and three dimensions. The
+  spectrally-accurate trapezoid rule is used in points in
+  $\mathtt{Far}(\Gamma_i)$, while one dimensional interpolant is used
+  for points in $\mathtt{Near}(\Gamma_i)$. $h$ is the arclength
+  spacing.}
 \end{wrapfigure}
 
 Since we are interested in round (2D) and spherical (3D) granules, we
@@ -217,7 +221,7 @@ projected gradient descent method~\cite{Yan2019}. High-order time
 adaptivity will be based on PI Quaife's previous work on
 suspensions~\cite{qua-bir2016}, and this method has proven to be a
 robust method to simulate dense suspensions~\cite{qua-vee-you2019,
-kab-qua-bir2017, qua-gan-you2022}. Following this previous work, the
+kab-qua-bir2017, qua-gan-you2021}. Following this previous work, the
 proposed work will use a spectral deferred correction method since it
 iteratively applies a low-order, single-step method to achieve
 high-order accuracy. At each time step, we will compute the total force
