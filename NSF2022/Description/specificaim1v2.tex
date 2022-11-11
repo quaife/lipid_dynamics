@@ -3,145 +3,195 @@
 
 \subsection{Specific Aim 1: Membrane vesicles as self-organized granules}
 \label{sec:specific_aim1}
+We introduced \eqref{eq:RBT}--\eqref{eqn:stressbalance} to complement
+existing methods for studing vesicles and bilayers. 
+The simulations results in \S \ref{sec:vesicles_as_granules}
+show that two-dimensional, granule-based vesicles replicate the 
+equilibria and hydrodynamics for continuous curves.
+Having shown that the model is effective in terms of simulation,
+our next goal is to study the model using rigorous analysis
+and consider three-dimensionsional effects. 
 
-We introduced \eqref{eq:RBT}--\eqref{eqn:stressbalance} to overcome the challenges faced by
-traditional Helfrich-type models of elastic membranes.
-We have compared two-dimensional configurations of amphiphilic granules
-to membrane configurations found in continuum mechanics.
-The simulations results in~\cite{Fu2018_SIAM,FuQuRyYo22}
-showed that the granular bilayers 
-basically replicated the elastic energies for bending, tilt, and
-stretching.
-The hydrodynamics of the Janus particle vesicle is similar to the behaviour of an inextensible,
-elastic vesicle membrane with permeability.
-The model has reached sufficient maturity to warrant 
-rigorous studies in analysis.
+The first step is to obtain some solid well-posedness results
+for \eqref{eq:RBT}--\eqref{eqn:stressbalance}.
+This system is an autonomous ordinary differential equation for
+rigid body transformations $F_i$.  The right-hand side of this
+equation is defined by a system of PDE.  In the single-well case,
+\eqref{eqn:phase} is a linear equation
+and for fixed $t$ there is a unique solution
+($\phi, \uu$) for the interactions under appropriate
+assumptions for the boundaries and boundary data
+\cite{manasthesis,rac-gre2016,LAX}.
+This leads to 
+\begin{quotation}
+  \textbf{Problem 1.} 
+  Consider a collection the closed, disjoint granules
+  $U_i$ with smooth boundary, with no-slip, rigid body
+  motion boundary conditions, and a linear background flow.
+  Assume a single-well potential and a smooth phase field
+  boundary condition.  Study the well-posedness in
+  time of the coupled system \eqref{eq:RBT}--\eqref{eqn:stressbalance}.
+\end{quotation}
+Problem 1 involves mathematically interesting techniques.
+First, we must establish that the system has a local-in-time solution.
+This involves domain perturbations and estimates for the
+solutions of second order elliptic equations
+\cite{Savar2002DomainPA, DANERS20081, Lamboley2015EstimatesOF},
+which also find extensive application in extremal domain problems
+\cite{Schiffer1954VariationOD, Henrot2006ExtremumPF,
+  bogosel:hal-03607776,Bogosel2022OnTP}, for example.
+For global-in-time solutions,
+we can ensure positivity in time for the distance between granules
+using the fluid mechanical principle of
+lubrication forces \cite{cawthorn_balmforth_2010, leal_2007}.
+Finally, we can describe the granule-flow
+behavior in the limit zero screening length limit.
 
-A natural questions concerns the well-posedness
-\eqref{eq:RBT}--\eqref{eqn:stressbalance}
-and its generalizations. A recent and strongly developing direction in
+In the double-well potential case, \eqref{eqn:phase}
+is a nonlinear Allen-Cahn
+equation.
+This situation models granules immersed in a two-phase fluid
+(e.g. granules in an emulsion) 
+where there is an interesting interplay
+(1) the long-range alignment of granules with (2) 
+the diffusive interface energy of the free boundary
+between fluid phases.
+On unbounded domains like $\Omega(t)$,
+Allen-Cahn equations can have multiple of solutions
+\cite{Alama1997StationaryLS,Alikakos2008OnAE,Bronsard1993OnTB,
+  Byeon2014SolutionsOH, Byeon2013OnAP, Alessio2005ENTIRESI,
+  Trumper2007ExistenceOA} and so we must reformulate
+\eqref{eqn:phase} so that $\phi$ is well-defined.
+A natural modification changes
+\eqref{eqn:phase} to an initial value problem with
+transport by the background fluid;
+\begin{equation}
+  \label{eqn:phase_transport}
+  \phi_t + \uu \cdot \nabla
+  = -\lambda \frac{\delta E}{\delta \phi}
+  =  \lambda(\epsilon^2 \Delta \phi - W'(\phi)),
+  \quad \phi(\xx,0) = \phi_0(\xx),
+\end{equation}
+for initial data $\phi_0$.
+The modified systems enjoys energy law similar to \eqref{eq:energy_law} 
+with an addtional dissipation term involving the square 
+the Euler-Lagrange derivative $\frac{\delta E}{\delta \phi}$ and dampening factor $\lambda > 0$.
+There are several works dealing with the
+geometric characterization of the geometric evolution
+of interfaces under the Allen-Cahn and Cahn-Hilliard equations
+\cite{Christlieb2019CompetitionAC, Gavish2011CurvatureDF, Dai2019WeakSF,
+  Promislow2017ExistenceBA, Dai2015CompetitiveGE, Promislow2012CriticalPO,
+  Dai2022GeometricEO, Dai2020MinimizersFT,Dai2013GeometricEO,Promislow2022UndulatedBI} and
+well-posedness when coupled to flow in static domains
+\cite{Jiang2017TwophaseIF, Liu2012StrongSF, Giorgini2019WellPosednessOA,
+Wu2022WellposednessOA, Gal2010AsymptoticBO,
+Giorgini2020DiffuseIM,Giorgini2019UniquenessAR}.
+The proposed research extends these results to
+problems with moving domains.
+
+A closely related and strongly developing direction in
 the area of nematics liquid crystals concerns the interaction of
-Landau de Gennes functionals like \eqref{eq:energy_law} with colloids
-\cite{doi:10.1098/rsta.2020.0432}.
-In this spirit, a first step to understand the effect of the flow
-in our model is to obtain some solid well-posedness results.
+Landau de Gennes functionals with colloids, and studies
+the qualitative structure of defects around single or multiple
+coloidal particles
+\cite{doi:10.1098/rsta.2020.0432, Alama2015MinimizersOT, Alama2021SaturnRD, PhysRevE.96.042702}.
 
+The second problem considers the approximation
+of equilibrium elastic energy of curves and surfaces,
+and seeks to make rigorous the simulation results of
+\S \ref{sec:vesicles_as_granules}.
 \begin{quotation}
-  \textbf{Problem 1.} Consider a collection the closed,
-  disjoint granules $U_i$ with smooth boundary,
-with no-slip, rigid body motion boundary conditions.
-Assume a either a single or double well potential
-and a smooth phase field boundary condition.  
-Study the well-posedness of the coupled system
-\eqref{eq:RBT}--\eqref{eqn:stressbalance}
-for short times.  For global in time solutions, determine
-whether lubrication forces ensure positive distance
-between granules.  Describe the behaviour in the limit
-zero screening length limit.  
-\end{quotation}
-
-This problem is attractive because combines the diffusive interface
-effects involving a free boundary in aqueous part of the region \cite{}.
-The well-posedness of Allen-Cahn-type equations is well-established in the
-literature.  What makes this challening, though, is that
-the moving domain means the function space for the solution,
-a Sobolov space, is also changing with time.
-On ther other hand, the problem \eqref{eq:RBT}--\eqref{eqn:stressbalance}
-is an autonmous ordinary differential equation for rigid body transformations.
-The right-hand side of this equation is defined by a system of elliptic
-PDE.  On the other hand, several methods have been developed for
-analysing the smooth domain dependence of solutions to elliptic PDE,
-especially in the study of eigenvalue problems, for example.
-It is conceivable that moving domain estimates can be applied to the
-present problem to exhibit locally Lipschitz dependence on
-the rigid deformations. 
-
-Generalizations of Problem 1 include modifying the 
-system to account for various time scales.
-We may consider, for example, modifying \eqref{eqn:phase}
-to include transport of the phase field by the background fluid;
-\begin{equation*}
-\phi_t + \uu \cdot \nabla = -\lambda \frac{\delta E}{\delta \phi} = \lambda(\epsilon^2 \Delta \phi - W'(\phi))
-\end{equation*}
-The modified systems enjoys the same energy law as \eqref{eq:energy_law} 
-except that there will be an addtional dissipation term coming from the
-Euler-Lagrange derivative $\frac{\delta E}{\delta \phi}$.
-(DEFINE $\lambda$)
-
-The second problem we consider concerns the approximation
-of equilibrium elastic energy of curves and surfaces.
-To understand the approximation mathematically, we take the following:
-\begin{quotation}
-  \textbf{Problem 2.} Place a collection of
-  amphiphilic granules
-with equally spaced centers along a curve $\mathcal{C}$.
-For simplicity, assume that the directors are normal to the curve
-and that the granules are all disks with radius proportional to $\epsilon$. 
+\textbf{Problem 2.} Place a collection of
+two-dimensional amphiphilic granules along a curve $\mathcal{C}$.
 Study the sharp interface limit of the energy $E$ 
-relative to that of an array of granules placed along a flat curve. 
-In this limit, the number of granules $N_b$ goes to infinity
-to ensure equal spacing.
-Study how the bending the bending $k_B$ and stretching $k_A$ coefficients
-depend on the granual size relative to their spacing.
-Generalize the problem to account for aspect ratio of elliptical granules
-and nonzero tilt. 
+as the number of granules goes to infinity and their size to zero.
 \end{quotation}
+Problems like these have been addressed for bulk nematic liquid
+crystal potentials in the area of colloidal homogenization
+\cite{Canevari2019DesignOE,doi:10.1137/18M1163919,doi:10.1137/18M1163919,
+  BERLYAND200597,doi:10.1137/130910348},
+and is closely related to 
+dimension reduction for curved nematics confined to thin films
+\cite{Golovaty2017DimensionRF, Golovaty2015DimensionRF,
+doi:10.1142/S0218202516500470, FoFrLe07}.
 Given the relatively complicated geometry consising
 of a plane with a number of disjoint disks removed, 
-we can start by approaching the problem in a simplified
-setting such as when the reference curve is a circle.
-There is a large body work in this direction for nematics
-studying either the case of a single coloidal particle and
-the qualitative structure of defects around it
-\cite{Alama2015MinimizersOT, Alama2021SaturnRD, PhysRevE.96.042702}
-many particles and the homogenization effects
-\cite{Canevari2019DesignOE,doi:10.1137/18M1163919,doi:10.1137/18M1163919,BERLYAND200597,doi:10.1137/130910348}.
-A closely related area that consider similar analysis
-dimension reduction for
-Landau-de Gennes models on curved nematic confined to thin films
-\cite{Golovaty2017DimensionRF, Golovaty2015DimensionRF,doi:10.1142/S0218202516500470, FoFrLe07}.
+we start by assuming that the directors are normal to the curve
+and that the granules are all disks with radius proportional to $\epsilon$. 
+The bending $k_B$ and stretching $k_A$ coefficients
+depend on the granual size relative to their spacing.
+We can then generalize the problem to account for aspect ratio of
+elliptical granules and nonzero tilt. 
 
-We conclude this section by highlighting another well-developed
-area connected to our approach.  Surface-director models 
-considers the energy of a nematic liquid crystal on a surface to study how the
-surface geometry effects the director field and vice versa. Researchers
-have formulated finite element methods for [][] and studied the existence
-of minimizers []-[].
-Liquid crystals are an extremely well-studied are in mathematics [].
+Finally, to consider three-dimensionsional effects, we
+will generalize Problem 2 to \emph{numerically}
+study the energies of amphiphilic granules confined to surfaces.
+Recent work on nematics on a surface has studied
+the interplay between 
+surface geometry and a director field
+\cite{Nestler2020PropertiesOS, Nitschke2018NematicLC,
+  Nestler2018OrientationalOO, Nitschke2019HydrodynamicII,
+  Nitschke2020LiquidCO}.
+Researchers have formulated finite element methods for
+\cite{Bartels2012FiniteEM, Nochetto2015NumericsFL,
+  Nestler2019AFE}
+  and studied minimizers
+\cite{Segatti2014EquilibriumCO,Segatti2014AnalysisOA}.
+On the other hand, in biophysics,
+\cite{Hamm2000ElasticEO,Terzi2019CurvatureTiltTO,Terzi2019ACQ,Terzi2017NovelTC}
+and most recently \cite{Pinigin2020NewCT}
+derived an elastic energy for lipid bilayers,
+the generalized Helfrich energy.
+This energy involves the lipid director $\dd$,
+tilt vector $\mathbf{T}$, and area per lipid $\alpha$,
+and coupling terms and contains
+the Helfrich elastic energy \eqref{eq:Canham-Helfrich}
+as a special case.
+\begin{quotation}
+\textbf{Problem 3.}
+Simulate surfaces made up of three-dimensional, amphilic granules.
+Do you recover the generalized Helfrich elastic energy
+or related Landau deGennes energies for large $N_b$ simulations?
+\end{quotation}
+
+The completion of Problems 1, 2, and especially 3 
+requires additional algorithmic implementation including a
+fast summation method such as the fast multipole method.
+The implementation details, especially how we deal with large
+granule numbers and three-dimensional systems, are
+described in \S \ref{sec:specificaim2} Specific Aim 2.
+
+PI Ryham has made fundamental contributions to interface modeling in
+membrane biology.  His first works include
+phase field formulations for the elastic bending energy \cite{0951-7715-18-3-016,Du05} and topological indicators \cite{DuEuler} of vesicle membranes
+and fluid-vesicle interactions \cite{QiangDu09}.
+In his much noticed Biophysical Journal
+and Nature papers~\cite{RyKlYaCo16,Chetal16}, Ryham and collaborators 
+calculated, for the first time, a least energy path for membrane fusion.  
+
+%\begin{equation}
+%\label{eq:Helfrich}
+%  \begin{aligned}
+% &\int_{\Sigma}
+%  %\label{eq:Pinigan}
+%\tfrac{1}{2}k_{b}[(\nabla_{\Sigma} \cdot \mathbf{d} + k_{0})^{2} -  k^{2}_{0}]  
+%+ \tfrac{1}{2}k_{\theta}\mathbf{T}^{2} + \tfrac{1}{2}k_a[(\alpha - \alpha_0)^2 - \alpha_0^2] \\
+%&+ k_{c}\textbf{T} \cdot \nabla_{\Sigma} \nabla_{\Sigma} \cdot \mathbf{d}  + \tfrac{1}{2}k_{g}(\nabla_{\Sigma} \nabla_{\Sigma} \cdot \mathbf{d})^{2}
+% + A\alpha \nabla_{\Sigma} \cdot \mathbf{d}
+%+ B \mathbf{T} \cdot \nabla_{\Sigma} \alpha \\
+%&- \tfrac{1}{2}k_c |\nabla_{\Sigma} \alpha|^2 + C \nabla_{\Sigma} \alpha \cdot \nabla_{\Sigma} \nabla_{\Sigma} \cdot \mathbf{d}\,dS
+%\end{aligned}
+%\end{equation}
+%in the lipid director $\dd$,
+%tilt vector $\mathbf{T}$
+%the difference between the lipid director $\mathbf{d}$ and the surface normal
+%$\mathbf{N}$; area per lipid $\alpha$,
+%and where $\nabla$ and $\nabla \cdot$ are the surface gradient and surface divergence, respectively. 
+%The two models \eqref{eq:Canham-Helfrich} and \eqref{eq:Helfrich} agree
+%when $\mathbf{T} = 0$ and $\alpha = \alpha_0$ everywhere.
+%The remaining term $k_B$, $k_{\theta}$, $k_a$, $k_c$, $k_g$, $A$, $B$, $C$ are
+%appropriate elastic moduli.
 
 
-On the other hand, in biophysics, tilt is defined by the tilt vector
-  $\TT = \dd/\dd\cdot \NN - \NN$ so that the tilt energy density
-  behaves like $\tan^2 \theta$ rather than $\sin^2 \theta$.
-  These two energies densities are, however, asymptotically equal
-  for small deformations.
-Hamm and Kozlov [] and later Terzi and Deserno [], Pinigen et al. []
-showed that the full Helfrich elastic energy of a \emph{monolayer} takes the form
-\begin{equation}
-\label{eq:Helfrich}
-  \begin{aligned}
- &\int_{\Sigma}
-  %\label{eq:Pinigan}
-\tfrac{1}{2}k_{b}[(\nabla \cdot \mathbf{d} + k_{0})^{2} -  k^{2}_{0}]  
-+ \tfrac{1}{2}k_{\theta}\mathbf{T}^{2} + \tfrac{1}{2}k_a[(\alpha - \alpha_0)^2 - \alpha_0^2] \\
-&+ k_{c}\textbf{T} \cdot \nabla \nabla \cdot \mathbf{d}  + \tfrac{1}{2}k_{g}(\nabla \nabla \cdot \mathbf{d})^{2}
- + A\alpha \nabla \cdot \mathbf{d}
-+ B \mathbf{T} \cdot \nabla \alpha \\
-&- \tfrac{1}{2}k_c |\nabla \alpha|^2 + C \nabla \alpha \cdot \nabla \nabla \cdot \mathbf{d}\,dS
-\end{aligned}
-\end{equation}
-where $\nabla$ and $\nabla \cdot$ are the surface gradient and surface divergence,
-respectively, and $k_B$, $k_{\theta}$, $k_a$, $k_c$, $k_g$, $A$, $B$, $C$ are
-appropriate elastic moduli.  An important and consequential distinction between
-\eqref{eq:Canham-Helfrich} is the presence of the terms $\mathbf{T}$ and $\alpha$.
-These are, respectively, the \emph{tilt} vector $\mathbf{T}$ measuring
-the difference between the lipid director $\mathbf{d}$ and the surface normal
-$\mathbf{N}$; the \emph{area per lipid} $\alpha$ area density at rest $\alpha_0$.
-The two models \eqref{eq:Canham-Helfrich} and \eqref{eq:Helfrich} agree
-when $\mathbf{T} = 0$ and $\alpha = \alpha_0$ everywhere.
 
-(MAKE CONNECTION WITH SPECIFIC AIM 2)
-(PLAN B)
-(SHORTER PROBLEM STATEMENT; ADDRESS IN PARAGRAPH)
 
-Our future goals include extending the current framework to a three-dimensional JP vesicle system. This will require additional algorithmic implementation including a fast summation method such as the fast multipole method. Other research directions include fluctuating hydrodynamics for Brownian suspensions (Bao et al. 2018), critical to understanding membrane diffusion, and an analysis of the relationship between particle shape on effective properties. Finally, physically more accurate boundary conditions for the HAP model will allow us to draw comparisons between computational and laboratory experiments.
