@@ -18,6 +18,31 @@ ability to resolve complex unbounded domains and achieve high-order
 accuracy, integral equations (IEs) will be a central theme of the
 computational tools. 
 
+To briefly describe IE formulations of PDEs, we consider the Stokes
+equation~\eqref{eqn:stokes} as an example. Its solution can be written
+as a convolution 
+\begin{align*}
+  \uu(\xx) = \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
+\end{align*}
+where $G(\xx - \yy)$ is a carefully chosen derivative of the PDE's
+fundamental solution and $\ssigma: \partial \Omega(t) \rightarrow \RR^2$
+is an unknown density function. The IE reformulation has several
+immediate advantages including a dimension reduction since $\ssigma$ is
+defined only on $\partial \Omega(t)$, and the far field boundary
+condition of the PDE is automatically satisfied. The density
+function $\ssigma$ is chosen to satisfy the boundary condition, and this
+results in a IE 
+\begin{align*}
+  \gg(\xx) = \lambda \ssigma(\xx) + 
+    \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
+    \quad \xx \in \partial\Omega(t),
+\end{align*}
+where $\gg$ is the Dirichlet boundary condition, and $\lambda$ is a
+constant that depends on the choice of $G$. For numerical stability,
+choices of $G$ that result in second-kind Fredholm integral equations,
+meaning $\lambda \neq 0$, are preferred.
+
+
 \begin{wrapfigure}[27]{l}{1.8in}
   \vspace{-8pt}
   \centering
