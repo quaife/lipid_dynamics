@@ -78,7 +78,7 @@ self-organization~\cite{FuQuRyYo22,fu-ryh-qua-you2022,Fu2018_SIAM}. The
 model takes ideas from the phase field method and leverages boundary
 integral equations to resolve complex domains and speed up computations.
 To formulate the problem, consider a collection of $N_b$-many rigid
-bodies $U_i(t) \subset RR^n$ with boundary $\Gamma_i(t)$. We call these
+bodies $U_i(t) \subset \RR^n$ with boundary $\Gamma_i(t)$. We call these
 bodies ``granules''. The granules are immersed in an incompressible,
 zero-Reynolds number fluid $\Omega(t) = \RR^n \setminus \cup_{i=1}^{N_b}
 U_i(t)$ (Figure~\ref{fig:flow_map}).
@@ -86,7 +86,7 @@ U_i(t)$ (Figure~\ref{fig:flow_map}).
 We look for $N_b$-many rigid body transformations
 \begin{align}
 \label{eq:RBT}
-F_i(\XX,t) = R_i(t)(\XX - \aa_i(0)) + \aa_i(t),\quad \XX \in U_i(0),
+  F_i(\XX,t) = R_i(t)(\XX - \aa_i(0)) + \aa_i(t),\quad \XX \in U_i(0),
 \end{align}
 where $i = 1,\ldots,N_b,$ $R_i(t)$ is a rotation (proper orthogonal) $n
 \times n$ matrix, $\aa_i(t)$ are the granule centers, and $\XX$ is a
