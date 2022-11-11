@@ -101,13 +101,13 @@ value problem system:
   -\mu\Delta \uu + \nabla p &= \mathbf{0}, 
   \quad \nabla \cdot \uu = 0, &&\xx \in \Omega(t), \\
   \label{eqn:phase}
-  -\epsilon^2 \Delta \phi + W'(\phi) &= 0, && \xx \in \Omega(t),\\
+  -\epsilon^2 \Delta \phi + W'(\phi) &= 0, &&\xx \in \Omega(t),\\
   \label{eqn:noslip}        
   \frac{dF_i}{dt}(\XX,t) & = \uu(\xx) = 
     \vv_i + \omega_i \times (\xx - \aa_i), 
-  &&\quad \xx \in \Gamma_i(t),\\
+  \quad &&\xx \in \Gamma_i(t),\\
   \label{eqn:material}
-  \phi(\xx) &= h_i(\XX), &&  &&\quad \xx \in \Gamma_i(t),
+  \phi(\xx) &= h_i(\XX),  &&\xx \in \Gamma_i(t),
 \end{alignat}
 for $i=1,\ldots,N_b$ and where $\xx = F_i(\XX,t)$.  Finally,
 \begin{align}
@@ -163,23 +163,6 @@ of the suspended media. We have departed from the terminology
 simulations (see \S\ref{sec:specific_aim1}), we include a finite length
 repulsion to avoid particle collisions.
 
-The solution of the PDEs~\eqref{eqn:stokes} and~\eqref{eqn:phse} is
-challenging because of the complex and unbounded domain. Even more
-troubling is when dense suspensions are considered. Integral equation
-methods offer an alternative formulation of the PDEs that only require
-meshing the boundary of the granules rather than all of $\Omega(t)$
-(Figure~\ref{fig:fem_vs_bie}). Additional advantages of a IE formulation
-includes a discretization that is high-order, or even spectrally,
-accurate; results in a well-conditioned linear system that can be solved
-iteratively with a mesh-independent number of iterations of a Krylov
-method such as the generalized minimal residual method (GMRES). However,
-IEs do have several challenges: nearly touching granules requires a
-quadrature rule for nearly-singular integrals; their discretization
-results in dense matrices; and they cannot immediately be applied to
-non-linear PDEs. The IE community, including PI Quaife, has developed a
-variety of tools to address these numerical challenges, and we discuss
-our planned approach in Section~\ref{sec:specificaim2}.
-
 \begin{wrapfigure}[]{l}{2.1in}
   \centering
   \includegraphics[width=1in]{figures/Background/Peanut/PeanutFEM.pdf}
@@ -189,6 +172,25 @@ our planned approach in Section~\ref{sec:specificaim2}.
   triangles), while a BIE ({\em right}) requires meshing only the
   boundary of the domain.}
 \end{wrapfigure}
+
+Computational methods to solve the PDEs~\eqref{eqn:stokes}
+and~\eqref{eqn:phase} are challenging to develop because of the complex
+and unbounded domain. This challenge is compounded when dense
+suspensions are considered. Integral equations (IEs) offer an
+alternative formulation of the PDEs that only require meshing the
+boundary of the granules rather than all of $\Omega(t)$
+(Figure~\ref{fig:fem_vs_bie}), and the automatically satisfy far field
+conditions. Additional advantages of an discretizations of IE
+formulations include high-order, or even spectral, accuracy and
+well-conditioned linear system that can be solved iteratively with a
+mesh-independent number of Krylov iterations such as the generalized
+minimal residual method (GMRES). However, IEs have challenges: nearly
+touching granules requires a quadrature rule for nearly-singular
+integrals; their discretization results in dense matrices; and they
+cannot immediately be applied to non-linear PDEs. The IE community,
+including PI Quaife, has developed a variety of tools to address these
+numerical challenges, and we discuss our planned approach in
+Section~\ref{sec:specificaim2}.
 
 In the absence of external flow, the
 system~\eqref{eq:RBT}--\eqref{eqn:stressbalance} has the energy law
@@ -205,9 +207,9 @@ the energy law states that changes in granule configuration
 instantaneously change the phase energy $E$. The dynamics are such that
 the change energy is lost due to hydrodynamic dissipation. Further
 details and generalizations are provided in \S\ref{sec:specific_aim1}
-and \S\ref{sec:specific_aim_3}. Because $E$ depends both on $\phi$ and
-$\Omega(t)$, the derivation of~\eqref{eq:energy_law} is somewhat subtle
-and has been worked out in detail in~\cite{Fu2018_SIAM}. The
+and \S\ref{subsec:specific_aim_3}. Because $E$ depends both on $\phi$
+and $\Omega(t)$, the derivation of~\eqref{eq:energy_law} is somewhat
+subtle and has been worked out in detail in~\cite{Fu2018_SIAM}. The
 calculation uses the Rayleigh Transport Theorem to write the time
 derivative of $E$ as an energy density flux involving the phase stress
 $T_i$ on the boundary, and a bulk term involving the Euler-Lagrange
