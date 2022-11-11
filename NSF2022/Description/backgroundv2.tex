@@ -163,6 +163,33 @@ of the suspended media. We have departed from the terminology
 simulations (see \S\ref{sec:specific_aim1}), we include a finite length
 repulsion to avoid particle collisions.
 
+The solution of the PDEs~\eqref{eqn:stokes} and~\eqref{eqn:phse} is
+challenging because of the complex and unbounded domain. Even more
+troubling is when dense suspensions are considered. Integral equation
+methods offer an alternative formulation of the PDEs that only require
+meshing the boundary of the granules rather than all of $\Omega(t)$
+(Figure~\ref{fig:fem_vs_bie}). Additional advantages of a IE formulation
+includes a discretization that is high-order, or even spectrally,
+accurate; results in a well-conditioned linear system that can be solved
+iteratively with a mesh-independent number of iterations of a Krylov
+method such as the generalized minimal residual method (GMRES). However,
+IEs do have several challenges: nearly touching granules requires a
+quadrature rule for nearly-singular integrals; their discretization
+results in dense matrices; and they cannot immediately be applied to
+non-linear PDEs. The IE community, including PI Quaife, has developed a
+variety of tools to address these numerical challenges, and we discuss
+our planned approach in Section~\ref{sec:specificaim2}.
+
+\begin{wrapfigure}[]{l}{2.1in}
+  \centering
+  \includegraphics[width=1in]{figures/Background/Peanut/PeanutFEM.pdf}
+  \includegraphics[width=1in]{figures/Background/Peanut/PeanutIE.pdf}
+  \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
+  ({\em left}) requires meshing the entire domain (typically into
+  triangles), while a BIE ({\em right}) requires meshing only the
+  boundary of the domain.}
+\end{wrapfigure}
+
 In the absence of external flow, the
 system~\eqref{eq:RBT}--\eqref{eqn:stressbalance} has the energy law
 \begin{align}
@@ -289,65 +316,6 @@ collection of lipids, at the nanoscopic scale. For larger scales, the
 representation is literal and the granules Janus spheres. (ii) Pickering
 emulsion (iii) \todo[inline]{Bertozzi's problem} (iv) Tension driven
 microprinting (v) Vesicle hydrodynamics.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Boundary integral formulation}
-\todo[inline]{Bryan left off here}
-\label{sec:bie}
-The solution of PDEs in a domain surrounding a mobile, dense suspension
-of bodies is highly nontrivial and requires accurate,
-dimension-reducting discretization
-that do not require continual remeshing.  
-Boundary integral equations (BIEs) are a reformulation of elliptic PDEs
-including the Stokes equation~\eqref{eqn:stokes} and the phase
-equation~\eqref{eqn:phase} in the special case of $f(u) =
-\tfrac{1}{2}u^2$. Using the Stokes equation as an example, its solution
-can be written as a convolution 
-\begin{align*}
-  \uu(\xx) = \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
-\end{align*}
-where $G(\xx - \yy)$ is a carefully chosen derivative of the PDE's
-fundamental solution and $\ssigma: \partial \Omega(t) \rightarrow \RR^2$
-is an unknown density function. The BIE reformulation has several
-immediate advantages including a dimension reduction since $\ssigma$ is
-defined only on $\partial \Omega(t)$, and the far field boundary
-condition of the PDE is automatically satisfied. The density
-function $\ssigma$ is chosen to satisfy the boundary condition, and this
-results in a BIE 
-\begin{align*}
-  \gg(\xx) = \lambda \ssigma(\xx) + 
-    \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
-    \quad \xx \in \partial\Omega(t),
-\end{align*}
-where $\gg$ is the Dirichlet boundary condition, and $\lambda$ is a
-constant that depends on the choice of $G$. For numerical stability,
-choices of $G$ that result in second-kind Fredholm integral equations,
-meaning $\lambda \neq 0$, are preferred.
-
-\begin{wrapfigure}[]{l}{2.1in}
-  \centering
-  \includegraphics[width=1in]{figures/Background/Peanut/PeanutFEM.pdf}
-  \includegraphics[width=1in]{figures/Background/Peanut/PeanutIE.pdf}
-  \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
-  ({\em left}) requires meshing the entire domain (typically into
-  triangles), while a BIE ({\em right}) requires meshing only the
-  boundary of the domain.}
-\end{wrapfigure}
-
-A consequence of the dimension reduction in a BIE formulation is that
-complex geometries are much easier to resolve than a mesh-based method
-since only $\partial \Omega(t)$ needs to be discretized
-(Figure~\ref{fig:fem_vs_bie}). Additional advantages of a BIE
-formulation includes a discretization that is high-order, or even
-spectrally, accurate; results in a well-conditioned linear system that
-can be solved iteratively with a mesh-independent number of iterations
-of a Krylov method such as the generalized minimal residual method
-(GMRES). However, BIEs do have several challenges: nearly touching
-granules requires a quadrature rule for nearly-singular integrals; their
-discretization results in dense matrices; and they cannot immediately be
-applied to non-linear PDEs. The BIE community, including PI Quaife, has
-developed a variety of tools to address these numerical challenges, and
-we discuss our planned approach in Section~\ref{sec:specificaim2}.
 
 
 \subsection{Vesicles as self-organized granules}
