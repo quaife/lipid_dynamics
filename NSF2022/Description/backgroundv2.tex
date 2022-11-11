@@ -294,12 +294,6 @@ microprinting (v) Vesicle hydrodynamics.
 \subsection{Boundary integral formulation}
 \todo[inline]{Bryan left off here}
 \label{sec:bie}
-\begin{wrapfigure}[10]{r}{2in}
-  \todo[inline]{A figure comparing FEM versus BIE meshes}
-  \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
-  requires meshing the entire domain (typically into triangles), while a
-  BIE only requires meshing the boundary of the domain.}
-\end{wrapfigure}
 The solution of PDEs in a domain surrounding a mobile, dense suspension
 of bodies is highly nontrivial and requires accurate,
 dimension-reducting discretization
@@ -310,29 +304,39 @@ equation~\eqref{eqn:phase} in the special case of $f(u) =
 \tfrac{1}{2}u^2$. Using the Stokes equation as an example, its solution
 can be written as a convolution 
 \begin{align*}
-  \uu(\xx) = \int_{\partial\Omega_t} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
+  \uu(\xx) = \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
 \end{align*}
 where $G(\xx - \yy)$ is a carefully chosen derivative of the PDE's
-fundamental solution and $\ssigma: \partial \Omega_t \rightarrow \RR^2$
+fundamental solution and $\ssigma: \partial \Omega(t) \rightarrow \RR^2$
 is an unknown density function. The BIE reformulation has several
 immediate advantages including a dimension reduction since $\ssigma$ is
-defined only on $\partial \Omega_t$, and the far field boundary
+defined only on $\partial \Omega(t)$, and the far field boundary
 condition of the PDE is automatically satisfied. The density
 function $\ssigma$ is chosen to satisfy the boundary condition, and this
 results in a BIE 
 \begin{align*}
   \gg(\xx) = \lambda \ssigma(\xx) + 
-    \int_{\partial\Omega_t} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
-    \quad \xx \in \partial\Omega_t,
+    \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
+    \quad \xx \in \partial\Omega(t),
 \end{align*}
 where $\gg$ is the Dirichlet boundary condition, and $\lambda$ is a
 constant that depends on the choice of $G$. For numerical stability,
 choices of $G$ that result in second-kind Fredholm integral equations,
 meaning $\lambda \neq 0$, are preferred.
 
+\begin{wrapfigure}[]{l}{2.1in}
+  \centering
+  \includegraphics[width=1in]{figures/Background/Peanut/PeanutFEM.pdf}
+  \includegraphics[width=1in]{figures/Background/Peanut/PeanutIE.pdf}
+  \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
+  ({\em left}) requires meshing the entire domain (typically into
+  triangles), while a BIE ({\em right}) requires meshing only the
+  boundary of the domain.}
+\end{wrapfigure}
+
 A consequence of the dimension reduction in a BIE formulation is that
 complex geometries are much easier to resolve than a mesh-based method
-since only $\partial \Omega_t$ needs to be discretized
+since only $\partial \Omega(t)$ needs to be discretized
 (Figure~\ref{fig:fem_vs_bie}). Additional advantages of a BIE
 formulation includes a discretization that is high-order, or even
 spectrally, accurate; results in a well-conditioned linear system that
