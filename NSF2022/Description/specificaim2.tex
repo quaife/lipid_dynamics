@@ -16,7 +16,7 @@ efficiently simulate dense suspensions of granules governed by
 equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance}. Because of their
 ability to resolve complex unbounded domains and achieve high-order
 accuracy, integral equations (IEs) will be a central theme of the
-computational tools. 
+computational framework. 
 
 To briefly describe IE formulations of PDEs, we consider the Stokes
 equation~\eqref{eqn:stokes} as an example. Its solution can be written
@@ -31,39 +31,177 @@ immediate advantages including a dimension reduction since $\ssigma$ is
 defined only on $\partial \Omega(t)$, and the far field boundary
 condition of the PDE is automatically satisfied. The density
 function $\ssigma$ is chosen to satisfy the boundary condition, and this
-results in a IE 
+results in an IE 
 \begin{align*}
   \gg(\xx) = \lambda \ssigma(\xx) + 
     \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
     \quad \xx \in \partial\Omega(t),
 \end{align*}
-where $\gg$ is the Dirichlet boundary condition, and $\lambda$ is a
-constant that depends on the choice of $G$. For numerical stability,
-choices of $G$ that result in second-kind Fredholm integral equations,
-meaning $\lambda \neq 0$, are preferred.
+where $\gg$ is the boundary condition, and $\lambda$ is a constant that
+depends on the choice of $G$. For numerical stability, choices of $G$
+that result in second-kind Fredholm integral equations, meaning $\lambda
+\neq 0$, are preferred.
 
+The PIs have demonstrated that IEs are a powerful tool to simulate
+two-dimensional suspensions of amphiphilic particles~\cite{Fu2018_SIAM,
+FuQuRyYo22, fu-ryh-qua-you2022}, and elements of these formulations have
+been developed in three dimensions~\cite{ying_2006, manasthesis,
+rac-gre2016}. In our current implementation, we simulate
+$\mathcal{O}(100)$ two-dimensional granules, and the proposed research
+will allow for the suspensions with 100X--1000X more two-dimensional
+granules and $\mathcal{O}(1000)$ three-dimensional granules. 
+
+% ----------------------------------------------------------------------
+\begin{quotation}
+  \noindent
+  \textbf{Problem 4.} How can novel quadrature, time adaptivity, fast
+  summation, and collision-detection be combined to accurately and
+  efficiently solve the governing
+  equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance} with dense
+  suspensions of two- and three-dimensional granules in bounded and
+  unbounded domains?
+\end{quotation}
+
+\begin{wrapfigure}[]{l}{2.1in}
+  \centering
+  \includegraphics[width=2in]{figures/SA2Figures/confinement.pdf}
+  \caption{\label{fig:stenosis} \footnotesize A granule vesicle passing
+  through a constricted geometry.}
+\end{wrapfigure}
+
+In experiments, it is known that interactions between bounding walls and
+granules cannot be ignored~\cite{qua-gan-you2021,
+KaouiHartingMisbah2011_PRE, her-sto-gra2005}. Therefore, the necessary
+modification to the code will be implemented so that confinement can be
+considered. This modification requires introducing an additional layer
+potential on the bounding walls, and elements of this modification have
+already been incorporated (Figure~\ref{fig:stenosis}). However, to
+consider rheological properties of the suspensions, a periodic domain,
+such as a Couette device, will be considered. Such multiply-connected
+domains require additional modifications to the IE formulation. PI
+Quaife has considered suspensions with confinement for several projects
+including dynamic suspensions~\cite{qua-bir2014, bys-sha-qua2020} and
+porous media~\cite{chi-moo-qua2020, dea-qua-bir-jua2018,
+moo-che-chi-qua2022, qua-gan-you2021}.
+
+The confinement introduces an additional computational
+challenge---accurately computing integrals between nearly-touching
+bodies. This issue is well-known in the IE community and several
+algorithms have been developed in the last 30 years, including
+panel-based methods~\cite{helsing_2008a, helsing_tutorial_2012},
+Quadrature by Expansions (QBX)~\cite{din-hua-mar-tan2021,
+klo-bar-gre-one2013, ste-bar2022, af2018sisc}, Barycentric-type formulae
+for Cauchy integrals~\cite{bar2014, bar-wu-vee2015, ioa-pap-per1991},
+and interpolation-based methods~\cite{ying_2006, qua-bir2014,
+rah-vee-zor-bir2015} (Figure~\ref{fig:interpquad}). The proposed
+research, which is described next, will combine several methods
+including singularity subtraction, analytic function theory, and
+analytic methods.
+
+\begin{wrapfigure}[]{r}{2.1in}
+  \centering
+  \input{figures/near_sing.tikz}
+  \caption{\label{fig:interpquad} \footnotesize An interpolation-based
+  quadrature method that works in two and three dimensions. The
+  spectrally-accurate trapezoid rule is used in points in
+  $\mathtt{Far}(\Gamma_i)$, while one dimensional interpolant is used
+  for points in $\mathtt{Near}(\Gamma_i)$. $h$ is the arclength
+  spacing.}
+\end{wrapfigure}
+
+Since we are interested in round (2D) and spherical (3D) granules, we
+will exploit the fact that integrals can be computed with spectral
+accuracy by transforming the integrals to to a Fourier (2D) or spherical
+harmonic (3D) basis. This technique can be used to evaluate layer
+potentials for both Stokes~\cite{cor-vee2018} and the screened Laplace
+equation~\cite{koh-cor-che-vee2021}. However, this quadrature is not
+appropriate or other shapes, and an alternative approach is necessary.
+The Barycentric-type formulae for Cauchy integrals results in a
+uniformly bounded quadrature error, but the method is described only for
+the two-dimensional Laplace and Stokes equations. PI Quaife recently
+showed that these quadrature methods can be extended to other
+two-dimensional PDEs~\cite{che-lin-her-qua2022}. The method uses
+singularity subtraction write the fundamental solution of the PDE as a
+sum of two terms: a logarithmic function and a continuously
+differentiable function. Then the Barycentric-type formulae can be
+applied to the logarithmic function, and the standard trapezoid
+rule~\cite{tre-wei2014} can be applied to the other function. These
+singularity subtraction methods can also accurately compute derivatives
+of layer potentials~\cite{car2021, car2020, car-kha-kim2018} which is
+required, for example, when computing the water-order
+stress~\eqref{eqn:stressbalance}. Singularity subtraction methods can
+also be applied in three dimensions, but not combined with
+Barycentric-type formulae. Alternatively, smoothed variations of the
+fundamental solution can be used to address nearly-singular
+integrals~\cite{beale1, cor2001, tlu-bea2019}. Alternatively, efficient
+quadrature methods can be applied directly to accurately compute
+singular and near-singular integrals~\cite{khayat_2005,
+gimbutas2013sisc}.
+
+Another facet to consider when choosing the quadrature rule is its
+ability to be applied efficiently. Since carefully chosen IE
+formulations require a mesh-independent number of GMRES
+iterations~\cite{cam-ips-kel-mey-xue1996}, the required CPU time is
+proportional to the cost of a matrix-vector multiplication that can be
+performed in optimal or near-optimal time with the fast multipole method
+(FMM)~\cite{fmm5} and its extensions~\cite{fmm1, fmm2, fmm3, fmm4, fmm6,
+fmm7, ros-ols2016}. PI Quaife is experienced with applying FMMs for the
+Stokes equation~\cite{qua-bir2014, bys-sha-qua2020} and the screened
+Laplace equation~\cite{kro-qua2011, qua2011}. Many of these methods rely
+on analytic expansions of the PDE's fundamental solution, but recent
+work has demonstrated that a kernel-independent method applied to
+suspensions of 80,000 spheres can be simulated with only $\sim$10
+seconds per time step on 1792 compute cores~\cite{Yan2019}.
+
+While the inclusion of high-order quadrature and fast methods is
+necessary to simulate dense suspensions, an additional required
+computational tool is a collision-aware adaptive time stepping method.
+The order parameter results in the granules attracting one another and
+this leads to physical contact in finite time. Our current
+implementation uses a repulsive Lennard-Jones force, but this introduces
+stiffness, thereby requiring small time steps, and this can be a
+bottleneck when simulating dense suspensions. Therefore, we will develop
+a high-order collision-avoiding adaptive time stepping method. This
+method will avoid collisions with by using the minimal separation
+distance to impose a non-overlapping constraint. This results in a
+linear complementarity problem that can be solve efficiently with a
+projected gradient descent method~\cite{Yan2019}. High-order time
+adaptivity will be based on PI Quaife's previous work on
+suspensions~\cite{qua-bir2016}, and this method has proven to be a
+robust method to simulate dense suspensions~\cite{qua-vee-you2019,
+kab-qua-bir2017, qua-gan-you2021}. Following this previous work, the
+proposed work will use a spectral deferred correction method since it
+iteratively applies a low-order, single-step method to achieve
+high-order accuracy. At each time step, we will compute the total force
+and torque of the system which is computationally cheap and physically
+zero, and therefore provides an estimate of the local truncation error.
+PI Quaife's experience is that error estimates based on physical
+constraints, such as force- and torque-free conditions, appropriately
+determine adaptive time step sizes so that the dynamics are resolved
+without the computational expense of techniques such as embedded
+Runge-Kutta, step-doubling, and Richardson extrapolation.
 
 \begin{wrapfigure}[27]{l}{1.8in}
   \vspace{-8pt}
   \centering
   \input{figures/doublewell.tikz} 
-  \caption{\label{fig:CA} \footnotesize (a) A double well potential. (b)
+  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
   The solution of the one-dimensional phase
   transition~\eqref{eqn:phase}. (c) The convergence of exact and inexact
   Newton's methods.}
 \end{wrapfigure}
 
 The order parameter is governed by the PDE~\eqref{eqn:phase} in the
-solvent phase $\Omega(t)$. For the single-well $W(\phi) = \phi^2$,
+solvent phase $\Omega(t)$. If $W(\phi) = \phi^2$,
 equation~\eqref{eqn:phase} is linear, and the PIs have used IEs to solve
 for the order parameter~\cite{Fu2018_SIAM, FuQuRyYo22,
-fu-ryh-qua-you2022}. However, for a double-well potential $W(\phi)$, the
+fu-ryh-qua-you2022}, but for a double-well potential $W(\phi)$, the
 resulting PDE is nonlinear, motivating the following problem:
 
 % ----------------------------------------------------------------------
 \begin{quotation}
   \noindent
-  \textbf{Problem 4.} How can IEs be coupled with a Newton solver to
+  \textbf{Problem 5.} How can IEs be coupled with a Newton solver to
   solve the non-linear PDE~\eqref{eqn:phase}?
 \end{quotation}
 
@@ -75,21 +213,22 @@ of~\eqref{eqn:phase} as a root finding problem for
   F[\phi] = -\epsilon^2 \Delta \phi + \tfrac{1}{2}W'(\phi).
 \end{align}
 Equation~\eqref{eqn:phaseRoot} will be solved with Newton's method,
-$\phi^{N+1} = \phi^{N} - \alpha (dF^N)^{-1} F(\phi^N)$, where $dF^N =
--\epsilon^2 \Delta + \tfrac{1}{2}W''(\phi^N)$ is the Fr\'{e}chet
-derivative of $F$, and $\alpha$ is the step size that will be determined
-using backtracking. This requires solving the variable coefficient PDE
-$-\epsilon^2 \Delta v + \tfrac{1}{2}W''(\phi^{N}) v = F[\phi^N]$, which
-is challenging with an integral equation since a fundamental solution is
-not readily available. However, by choosing a double-well potential with
-$W''(\phi_0) = W''(\phi_1) = \beta$, we propose to instead use an
-inexact Newton's method where $dF^{-1}$ is approximated with the
-solution of $-\epsilon^2 \Delta v + \tfrac{\beta}{2} v = F[\phi^N]$. We
-test the efficacy of the exact and inexact Newton's method applied
-to~\eqref{eqn:phaseRoot} in $(0,1) \subset \RR$ by discretizing $dF$
-with a second-order finite difference stencil. The double well potential
-is illustrated in Figure~\ref{fig:CA}(a), and both the exact and inexact
-Newton's methods converge to the solution in Figure~\ref{fig:CA}(b).
+$\phi^{N+1} = \phi^{N} - \alpha (F'(\phi^N))^{-1} F(\phi^N)$, where
+$F'(\phi^N) = -\epsilon^2 \Delta + \tfrac{1}{2}W''(\phi^N)$ is the
+Fr\'{e}chet derivative of $F$, and $\alpha$ is the step size that will
+be determined using backtracking. This requires solving the variable
+coefficient PDE $-\epsilon^2 \Delta v + \tfrac{1}{2}W''(\phi^{N}) v =
+F[\phi^N]$, which is challenging with an integral equation since a
+fundamental solution is not readily available. However, by choosing a
+double-well potential with $W''(\phi_0) = W''(\phi_1) = \beta$, we
+propose to instead use an inexact Newton's method where $F^{-1}$ is
+approximated with the solution of $-\epsilon^2 \Delta v +
+\tfrac{\beta}{2} v = F[\phi^N]$. We test the efficacy of the exact and
+inexact Newton's method applied to~\eqref{eqn:phaseRoot} in $(0,1)
+\subset \RR$ by discretizing $F'$ with a second-order finite difference
+stencil. The double-well potential is illustrated in
+Figure~\ref{fig:CA}(a), and both the exact and inexact Newton's methods
+converge to the solution in Figure~\ref{fig:CA}(b).
 Figure~\ref{fig:CA}(c) shows the norm of the residual at each Newton
 iterate when using the exact second derivative (red curve) and the
 approximate second derivative (blue curve). While the inexact Newton's
@@ -118,142 +257,4 @@ Quaife~\cite{kro-qua2010} and others~\cite{fry-kro-tor2019,
 kli-ask-kro2020, che-hua-lei2005} in other contexts, such as time
 stepping.
 
-As discussed in Section~\ref{sec:bie},
-numerical methods to solve IEs have several advantages over their
-PDE-based counterpart. The PIs have demonstrated that IEs are a powerful
-tool to simulate two-dimensional suspensions of amphiphilic
-particles~\cite{Fu2018_SIAM, FuQuRyYo22, fu-ryh-qua-you2022}, and
-elements of these formulations have been developed in three
-dimensions~\cite{ying_2006, manasthesis, rac-gre2016}. In our current
-implementation, we simulate $\mathcal{O}(100)$ two-dimensional granules,
-and the proposed research will allow for the suspensions with
-100X--1000X more two-dimensional granules and $\mathcal{O}(1000)$
-three-dimensional granules. 
 
-% ----------------------------------------------------------------------
-\begin{quotation}
-  \noindent
-  \textbf{Problem 5.} How can novel quadrature, time adaptivity, fast
-  summation, and collision-detection be combined to accurately and
-  efficiently solve the governing
-  equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance} in bounded and
-  unbounded domains in two and three dimensions?
-\end{quotation}
-
-\begin{wrapfigure}[]{l}{2.1in}
-  \centering
-  \includegraphics[width=2in]{figures/SA2Figures/confinement.pdf}
-  \caption{\label{fig:stenosis} \footnotesize A granule vesicle passing
-  through a constricted geometry.}
-\end{wrapfigure}
-
-In experiments, it is known that interactions between bounding walls and
-granules cannot be ignored~\cite{qua-gan-you2021,
-KaouiHartingMisbah2011_PRE, her-sto-gra2005}. Therefore, the necessary
-modification to the code will be performed so that confinement can be
-considered. This modification requires introducing an additional layer
-potential on the bounding walls, and elements of this modification have
-already been incorporated (Figure~\ref{fig:stenosis}). However, to
-consider rheological properties of the suspensions, a periodic domain,
-such as a Couette device, will be considered. This multiply-connected
-domain requires additional modifications. PI Quaife has considered
-suspensions with confinement for several projects including dynamic
-suspensions~\cite{qua-bir2014, bys-sha-qua2020} and porous
-media~\cite{chi-moo-qua2020, dea-qua-bir-jua2018, moo-che-chi-qua2022,
-qua-gan-you2021}. 
-
-The confinement introduces an additional computational
-challenge---accurately computing integrals between nearly-touching
-bodies. This issue is well-known in the IE community and several
-algorithms have been developed in the last 30 years, including
-panel-based methods~\cite{helsing_2008a, helsing_tutorial_2012},
-Quadrature by Expansions (QBX)~\cite{din-hua-mar-tan2021,
-klo-bar-gre-one2013, ste-bar2022, af2018sisc}, Barycentric-type formulae
-for Cauchy integrals~\cite{bar2014, bar-wu-vee2015, ioa-pap-per1991},
-and interpolation-based methods~\cite{ying_2006, qua-bir2014,
-rah-vee-zor-bir2015} (Figure~\ref{fig:interpquad}). The proposed
-research, which is described next, will combine several methods
-including singularity subtraction, analytic function theory, and
-spherical basis representations.
-
-\begin{wrapfigure}[]{r}{2.1in}
-  \centering
-  \input{figures/near_sing.tikz}
-  \caption{\label{fig:interpquad} \footnotesize An interpolation-based
-  quadrature method that works in two and three dimensions. The
-  spectrally-accurate trapezoid rule is used in points in
-  $\mathtt{Far}(\Gamma_i)$, while one dimensional interpolant is used
-  for points in $\mathtt{Near}(\Gamma_i)$. $h$ is the arclength
-  spacing.}
-\end{wrapfigure}
-
-Since we are interested in round (2D) and spherical (3D) granules, we
-will exploit the fact that integrals can be computed with spectral
-accuracy by transforming the integrals to to a Fourier (2D) or spherical
-harmonic (3D) basis. This technique can be used to evaluate layer
-potentials for both Stokes~\cite{cor-vee2018} and the screened Laplace
-equation~\cite{koh-cor-che-vee2021}. However, for other elliptical and
-other shapes, an alternative approach is necessary. The Barycentric-type
-formulae for Cauchy integrals results in a uniformly bounded quadrature
-error, but the method is described only for the two-dimensional Laplace
-and Stokes equations. PI Quaife recently showed that these quadrature
-methods can be extended to other two-dimensional
-PDEs~\cite{che-lin-her-qua2022}. The method uses singularity subtraction
-write the fundamental solution of the PDE as a sum of two terms: a
-logarithmic function and a continuously differentiable function. Then
-the Barycentric-type formulae can be applied to the logarithmic
-function, and the standard trapezoid rule~\cite{tre-wei2014} can be
-applied to the other function. These singularity subtraction methods can
-also accurately compute derivatives of layer potentials~\cite{car2021,
-car2020, car-kha-kim2018} which is required, for example, when computing
-the water-order stress~\eqref{eqn:stressbalance}. Quadrature is much
-more challenging in three dimensions. Singularity subtraction methods
-can be applied, but not combined with Barycentric-type formulae.
-Alternatively, smoothed variations of the fundamental solution can be
-used to address nearly-singular integrals~\cite{beale1, cor2001,
-tlu-bea2019}.  Alternatively, efficient quadrature methods can be
-applied directly to accurately compute singular and near-singular
-integrals~\cite{khayat_2005, gimbutas2013sisc}.
-
-Another facet to consider when choosing the quadrature rule is its
-ability to be applied efficiently. Since carefully chosen IE
-formulations require a mesh-independent number of GMRES
-iterations~\cite{cam-ips-kel-mey-xue1996}, the required CPU time is
-proportional to the cost of a matrix-vector multiplication that can be
-performed in optimal or near-optimal time with the fast multipole method
-(FMM)~\cite{fmm5} and its extensions~\cite{fmm1, fmm2, fmm3, fmm4, fmm6,
-fmm7, ros-ols2016}. PI Quaife is experienced with applying FMMs for the
-Stokes equation~\cite{qua-bir2014, bys-sha-qua2020} and the screened
-Laplace equation~\cite{kro-qua2011, qua2011}. Many of these methods rely
-on analytic expansions of the PDE's fundamental solution, but recent
-work has demonstrated that a kernel-independent method applied to
-suspensions of 80,000 spheres can be simulated with only $\sim$10
-seconds per time step on 1792 compute cores~\cite{Yan2019}.
-
-While the inclusion of high-order quadrature and fast methods is
-necessary to simulate dense suspensions, an additional reqired
-computational tool is a collision-aware adaptive time stepping method.
-The order parameter results in the granules attracting one another and
-this leads to physical contact in finite time. Our current
-implementation uses a repulsive Lennard-Jones force, but this introduces
-stiffness, thereby requiring small time steps, and this can be a
-bottleneck when simulating dense suspensions. Therefore, we will develop
-a high-order collision-avoiding adaptive time stepping method. This
-method will avoid collisions with by using the minimal separation
-distance to impose a non-overlapping constraint. This results in a
-linear complementarity problem that can be solve efficiently with a
-projected gradient descent method~\cite{Yan2019}. High-order time
-adaptivity will be based on PI Quaife's previous work on
-suspensions~\cite{qua-bir2016}, and this method has proven to be a
-robust method to simulate dense suspensions~\cite{qua-vee-you2019,
-kab-qua-bir2017, qua-gan-you2021}. Following this previous work, the
-proposed work will use a spectral deferred correction method since it
-iteratively applies a low-order, single-step method to achieve
-high-order accuracy. At each time step, we will compute the total force
-and torque of the system which is computationally cheap and physically
-zero, and therefore provides an estimate of the local truncation error.
-PI Quaife's experience is that error estimates based on physical
-constraints, such as force- and torque-free conditions, appropriately
-determine adaptive time step sizes so that the dynamics are resolved
-without the computational expense of techniques such as embedded
-Runge-Kutta, step-doubling, and Richardson extrapolation.
