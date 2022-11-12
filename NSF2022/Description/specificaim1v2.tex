@@ -5,21 +5,23 @@
 \label{sec:specificaim1}
 We introduced \eqref{eq:RBT}--\eqref{eqn:stressbalance} to complement
 existing methods for studing vesicles and bilayers. 
-The simulations results in \S \ref{sec:vesicles_as_granules}
-show that two-dimensional, granule-based vesicles replicate the 
-equilibria and hydrodynamics for continuous curves.
-Having shown that the model is effective in terms of simulation,
-our next goal is to study the model using rigorous analysis
+The simulation results in 
+(Figures \ref{fig:JPv_linearshear} and \ref{fig:JPv_rupture})
+showed that two-dimensional, granule-based vesicles replicate the 
+equilibria and hydrodynamics for continuous curves
+\cite{FuQuRyYo22, Fu2018_SIAM}.
+Our next goal is to study the model using rigorous analysis
 and consider three-dimensionsional effects. 
 
 The first step is to obtain some solid well-posedness results
 for \eqref{eq:RBT}--\eqref{eqn:stressbalance}.
 This system is an autonomous ordinary differential equation for
-rigid body transformations $F_i$.  The right-hand side of this
-equation is defined by a system of PDE.  In the single-well case,
+the body transformations $F_i$
+with the rate of change is defined by a system of PDEs.
+Regarding this system, in the single-well case,
 \eqref{eqn:phase} is a linear equation
 and for fixed $t$ there is a unique solution
-($\phi, \uu$) for the interactions under appropriate
+($\phi, \uu$) under appropriate
 assumptions for the boundaries and boundary data
 \cite{manasthesis,rac-gre2016,LAX}.
 This leads to 
@@ -46,6 +48,8 @@ using the fluid mechanical principle of
 lubrication forces \cite{cawthorn_balmforth_2010, leal_2007}.
 Finally, we can describe the granule-flow
 behavior in the limit zero screening length limit.
+In this limit, we should recover the hydrodynamics of
+a (noninteracting) rigid body suspension. 
 
 In the double-well potential case, \eqref{eqn:phase}
 is a nonlinear Allen-Cahn
@@ -69,16 +73,16 @@ transport by the background fluid;
 \begin{equation}
   \label{eqn:phase_transport}
   \phi_t + \uu \cdot \nabla
-  = -\lambda \frac{\delta E}{\delta \phi}
-  =  \lambda(\epsilon^2 \Delta \phi - W'(\phi)),
+  = -\beta \frac{\delta E}{\delta \phi}
+  =  \beta(\epsilon^2 \Delta \phi - W'(\phi)),
   \quad \phi(\xx,0) = \phi_0(\xx),
 \end{equation}
 for initial data $\phi_0$.
 The modified systems enjoys energy law similar to \eqref{eq:energy_law} 
 with an addtional dissipation term involving the square 
-the Euler-Lagrange derivative $\frac{\delta E}{\delta \phi}$ and dampening factor $\lambda > 0$.
+the Euler-Lagrange derivative $\frac{\delta E}{\delta \phi}$ and dampening factor $\beta > 0$.
 There are several works dealing with the
-geometric characterization of the geometric evolution
+characterization of the geometric evolution
 of interfaces under the Allen-Cahn and Cahn-Hilliard equations
 \cite{Christlieb2019CompetitionAC, Gavish2011CurvatureDF, Dai2019WeakSF,
   Promislow2017ExistenceBA, Dai2015CompetitiveGE, Promislow2012CriticalPO,
@@ -89,7 +93,6 @@ Wu2022WellposednessOA, Gal2010AsymptoticBO,
 Giorgini2020DiffuseIM,Giorgini2019UniquenessAR}.
 The proposed research extends these results to
 problems with moving domains.
-
 A closely related and strongly developing direction in
 the area of nematics liquid crystals concerns the interaction of
 Landau de Gennes functionals with colloids, and studies
@@ -98,15 +101,65 @@ coloidal particles
 \cite{doi:10.1098/rsta.2020.0432, Alama2015MinimizersOT, Alama2021SaturnRD, PhysRevE.96.042702}.
 
 The second problem considers the approximation
-of equilibrium elastic energy of curves and surfaces,
+of elastic energy of curves and surfaces,
 and seeks to make rigorous the simulation results of
-\S \ref{sec:vesicles_as_granules}.
+\cite{FuQuRyYo22, Fu2018_SIAM}.
 \begin{quotation}
-\textbf{Problem 2.} Place a collection of
-two-dimensional amphiphilic granules along a curve $\mathcal{C}$.
-Study the sharp interface limit of the energy $E$ 
-as the number of granules goes to infinity and their size to zero.
+  \textbf{Problem 2.}
+  Consider a collection of two-dimensional
+  granules along a closed curve. 
+  Study the sharp interface limit of the energy $E$ 
+  as the number of granules goes to infinity and their size to zero.
 \end{quotation}
+Sharp interface models
+traditionally represent a vesicle as an
+inextensible continuous surface $\Sigma$ with elastic energy
+\begin{equation}
+\label{eq:Canham-Helfrich}
+  \int_{\Sigma} k_B(H - k_0)^2\, dS,
+\end{equation}
+where $H$ is the mean curvature, $k_0$ is a spontaneous curvature,
+and $k_B$ is a bending modulus.
+Real membranes, however, are somewhat extensible and
+have a large stretching modulus $k_A$.
+When the surface is area compressible,
+\eqref{eq:Canham-Helfrich} contains an additional stretching term of the
+form $k_A(\alpha - \alpha_0)^2/\alpha_0^2$ where $\alpha$ and $\alpha_0$ are the
+deformed and equilibrium area densitities respectively. 
+
+The bending deformation enters through the splay of the
+granule directors.  In Figure \ref{fig:JPv_linearshear},
+for example, the directors have negative, respectively positive,
+splay $\nabla_{\Sigma} \cdot \dd$
+in the outer, respectively inner monolayers.
+Here $\nabla_{\Sigma}\cdot{} = \nabla \cdot {} - \mathbf{N}\mathbf{N}^T \nabla$
+is the surface divergence for the unit normal $\NN$
+and the splay energy density
+for the granule configuration is Hookean with bending modulus $k_B$.
+It is a fact from differential geometry that
+when $\dd$ is everywhere parallel to $\NN,$
+then $\nabla\cdot \dd = \pm 2H$ and this is how the
+curvature term arises for \eqref{eq:Canham-Helfrich}
+($2H = \kappa$ in the two-dimensional setting).
+In the case of mixtures of granules of different sizes,
+spontaneous curvature $k_0$ arises
+from asymmetry in the monolayer leaflets.
+\emph{Stretching.}
+When stretched, the distance between
+neighboring granules is increased from rest
+and the energy for stretching behaves as 
+$\tfrac{1}{2}k_A(L - L_0)^2/L_0$
+for a stretching modulus $k_A$,
+length $L$, and
+length at rest $L_0$ of the two-dimensional vesicle. 
+\emph{Tilt.}
+Finally, the granules possess a 
+tilt decay length scale $\lambda = \sqrt{k_B/k_{\theta}}$
+well-known from the biophysical literature
+for the case when the directors $\mathbf{d}$ are no longer normal
+to the surface
+\cite{KUZMIN2005}.
+
 Problems like these have been addressed for bulk nematic liquid
 crystal potentials in the area of colloidal homogenization
 \cite{Canevari2019DesignOE,doi:10.1137/18M1163919,doi:10.1137/18M1163919,
@@ -123,6 +176,8 @@ The bending $k_B$ and stretching $k_A$ coefficients
 depend on the granual size relative to their spacing.
 We can then generalize the problem to account for aspect ratio of
 elliptical granules and nonzero tilt. 
+
+
 
 Finally, to consider three-dimensionsional effects, we
 will generalize Problem 2 to \emph{numerically}
