@@ -113,18 +113,20 @@ the computational complexity of related sharp interface methods.
 
 \begin{figure}
   \begin{center}
+    \includegraphics[width=\textwidth]{figures/Background/Domain.pdf}
 %    \includegraphics[width=0.45\textwidth]{figures/SpecificAim1/Domain.jpg}
 %    \includegraphics[width=0.45\textwidth]{figures/SpecificAim1/3Particles.jpg}
-    \includegraphics[keepaspectratio,height=2.7cm]{figures/SpecificAim1/Domain.jpg}
-    \includegraphics[keepaspectratio,height=2.7cm]{figures/SpecificAim1/3Particles.jpg}
+%    \includegraphics[keepaspectratio,height=2.7cm]{figures/SpecificAim1/Domain.jpg}
+%    \includegraphics[keepaspectratio,height=2.7cm]{figures/SpecificAim1/3Particles.jpg}
   \end{center}
-  \caption{\label{fig:flow_map} \footnotesize {\em Left:} In the HAP
-  formulation~\cite{Fu2018_SIAM}, a system of exterior problems defines
-  the hydrodynamic and hydrophobic interactions. {\em Right:} Particles
-  translate and rotate to lower the free energy $E[u]$ subject
-  to~\eqref{eqn:phase}, $W(\phi) = \phi^2$, and reach a minimal
-  configuration in panel C. The colormap is blue for $\eta = 0$ and red
-  for $eta = 1$. The arrows are the velocity field $\uu$.}
+  \caption{\label{fig:flow_map} \footnotesize
+  (a) Granules make a superstructure e.g., a vesicle. The panel shows
+  the moving domain $\Omega(t)$, granules with centers $\aa_i$ and directors $\dd_i$,
+  and the unit inward normal $\nu.$ Panels b, c, d show the
+  interplay between the phase field $\phi$ (colormap) and granule configuration.
+  Red is for $\phi = 1$ and blue for $\phi = 0$; $W(\phi) = \tfrac{1}{2}\phi^2$.
+  The white arrows are the fluid velocity field.  
+  }
 \end{figure}
 
 \subsection{Problem formulation}
@@ -192,7 +194,7 @@ Section \ref{sec:specificaim1} discusses certain
 modifications needed for \eqref{eqn:phase} in the nonlinear case.
 
 \begin{wrapfigure}[21]{r}{3.2in}
-  \vspace{-10pt}
+  \vspace{-15pt}
   \begin{center}
     \begin{tabular}{m{0.9in}m{0.9in}m{0.9in}}                 
     \includegraphics[width=0.85in]{figures/SpecificAim1/N100B1.jpg}
@@ -249,32 +251,39 @@ SIAM Multiscale Modeling and Simulation and Journal of Fluid Mechanics works
 \cite{Fu2018_SIAM, FuQuRyYo22}
 is the problem of \emph{vesicle hydrodynamics}.
 A vesicle is a small, fluid filled membrane sack.
-The goal in vesicle hydrodynamics is to study the flow patterns 
-that arrise due to the interaction
+The goal in vesicle hydrodynamics is to study flow patterns 
+arrising from the interaction
 between membrane elasticity and the fluid.
 
-A striking aspect of our hydrodynamic
-simulation is its fidelity to physics.
+\begin{wrapfigure}[11]{l}{0.48\textwidth}
+\vspace{-5pt}
+\includegraphics[width=0.48\textwidth]{figures/PreliminaryWork/TankTreading.jpg}
+\vspace{-20pt}
+\caption{\label{fig:JPv_linearshear} \footnotesize Granular vesicles
+  undergo tank-treading in background shear flow.}
+\end{wrapfigure}
+%
+A striking feature of our hydrodynamic
+simulations is their fidelity to physics.
 The model contains a few
 parameters; granule radius $c$,
 screening length $\epsilon$,
 surface tension $\gamma$.
-When set to realistic values in the literature
+When set to their realistic values 
 \cite{Fu2018_SIAM, ErLjCl89, Lin2005, Parsegian, Israelachvili80, GarciaSaez, KUZMIN2005, Petelska2012,Jackson2016},
 we quantitatively recover many of the well-known
 elastic moduli for single-component lipid bilayers
 \cite{Nagle17, Nagle17-2, LeVeWa14,NAGLE2000159}. 
 Such agreement is a validation that equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance} 
 correctly capture the long-range interactions between amphiphilic granules (such as lipid macromolecules) surfaces.
+\newpage
 
-\begin{wrapfigure}[9]{l}{0.46\textwidth}
+\begin{wrapfigure}[13]{l}{0.475\textwidth}
 \vspace{-10pt}
-\includegraphics[width=0.46\textwidth]{figures/PreliminaryWork/TankTreading.jpg}
-\vspace{-20pt}
-\caption{\label{fig:JPv_linearshear} \footnotesize Granular vesicles
-  undergo tank-treading in background shear flow.}
+\includegraphics[width=0.475\textwidth]{figures/PreliminaryWork/Rupture.jpg}
+\caption{\label{fig:JPv_rupture} \footnotesize Rupture of a granular
+  vesicle under large shear rates.}
 \end{wrapfigure}
-%
 In terms of hydrodynamics, the granule vesicles in background flows
 replicate the behaviour of an continous, inextensible, elastic vesicle
 with permeability. The simulations showed, for the first time, a
@@ -290,17 +299,11 @@ rates and yields a dimensional scaling for critical rupture shear rate
 granule-based vesicles and the sharp interface representation yielded
 shapes and trajectories that overlapped.
 
-\begin{wrapfigure}[14]{r}{0.475\textwidth}
-%\vspace{-10pt}
-\includegraphics[width=0.475\textwidth]{figures/PreliminaryWork/Rupture.jpg}
-\caption{\label{fig:JPv_rupture} \footnotesize Rupture of a granular
-  vesicle under large shear rates.}
-\end{wrapfigure}
 
 %Having a non-specific model that replicates physical details
 %is the crown jewel of applied mathematics.
 The mathematical framework in equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance}
-are highly desirable from the applied math point of view as there are many
+is highly desirable from the applied math point of view as there are many
 \emph{Further Applications}, such as
 (i) amphiphilic Janus spheres that form diverse suprastructures
 \cite{HaBr20,McBr21,Bradley2017},
@@ -310,18 +313,20 @@ two-phase fluids and dense suspensions \cite{Bradley2016},
 using amphiphilic microparticles \cite{Ha2022SurfaceEM,Ha2020MinimalSC},
 and (iv) tension drivent fabrication of microstructures
 ~\cite{Dasgupta2017, Leong2007, Reynolds2019, Cho2010,Zeng20223DprintedMT,Russell2016EnergyLF}.
-\begin{wrapfigure}[9]{l}{2.1in}
-  \vspace{-5pt}
-  \centering
-  \includegraphics[width=1in]{figures/Background/Peanut/PeanutFEM.pdf}
-  \includegraphics[width=1in]{figures/Background/Peanut/PeanutIE.pdf}
-  \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
-  ({\em left}) requires meshing the entire domain (typically into
-  triangles), while a BIE ({\em right}) requires meshing only the
-  boundary of the domain.}
-\end{wrapfigure}
 
 \subsection{Computational method and mathematical properties}
+\begin{wrapfigure}[15]{r}{2.1in}
+  \vspace{-0pt}
+  \centering
+  \includegraphics[width=1in]{figures/Background/Peanut/PeanutFEM.pdf}
+  \includegraphics[width=1in]{figures/Background/Peanut/PeanutIE.pdf}\\
+  \includegraphics[width=2in]{figures/Background/NSF.pdf}\\
+\caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
+  ({\em top left}) requires meshing the entire domain (typically into
+  triangles), while a BIE ({\em top right}) requires meshing only the
+  boundary of the domain.
+  ({\em bottom}) BIE can handle intricately shaped domains as well.}
+\end{wrapfigure}
 Computational methods to solve the PDEs~\eqref{eqn:stokes}
 and~\eqref{eqn:phase} are challenging to develop because of
 the complicated and unbounded domain.
@@ -337,30 +342,32 @@ mesh-independent number of Krylov iterations such as the generalized
 minimal residual method (GMRES). However, IEs have challenges: nearly
 touching granules requires a quadrature rule for nearly-singular
 integrals; their discretization results in dense matrices; and they
-cannot immediately be applied to non-linear PDEs. The IE community,
-including PI Quaife, has developed a variety of tools to address these
-numerical challenges, and we discuss in \S~\ref{sec:specificaim2}.
+cannot immediately be applied to non-linear PDEs.
+\S~\ref{sec:specificaim2} discusses
+a variety of tools the IE community,
+including PI Quaife, has developed
+to address these numerical challenges.
 
 In the absence of external flow, the
 system~\eqref{eq:RBT}--\eqref{eqn:stressbalance} has the energy law
-\begin{align}
-\label{eq:energy_law}
-  \begin{split}
-  \frac{d}{dt}E
-    &= - \int_{\Omega(t)}\tfrac{1}{2}\mu|\nabla \uu + \nabla
-  \uu^T|^2 \,d\xx, \\
-    E &= \gamma \int_{\Omega(t)}
-  \frac{\epsilon}{2} |\nabla \phi|^2 + \frac{1}{\epsilon} W(\phi) \,d\xx.
-  \end{split}
-\end{align}
 %\begin{align}
 %\label{eq:energy_law}
+%  \begin{split}
 %  \frac{d}{dt}E
-%  = - \int_{\Omega(t)}\tfrac{1}{2}\mu|\nabla \uu + \nabla
-%  \uu^T|^2 \,d\xx,\quad
-%    E = \gamma \int_{\Omega(t)}
+%    &= - \int_{\Omega(t)}\tfrac{1}{2}\mu|\nabla \uu + \nabla
+%  \uu^T|^2 \,d\xx, \\
+%    E &= \gamma \int_{\Omega(t)}
 %  \frac{\epsilon}{2} |\nabla \phi|^2 + \frac{1}{\epsilon} W(\phi) \,d\xx.
+%  \end{split}
 %\end{align}
+\begin{align}
+\label{eq:energy_law}
+  \frac{d}{dt}E
+  = - \int_{\Omega(t)}\tfrac{1}{2}\mu|\nabla \uu + \nabla
+  \uu^T|^2 \,d\xx,\quad
+    E = \gamma \int_{\Omega(t)}
+  \frac{\epsilon}{2} |\nabla \phi|^2 + \frac{1}{\epsilon} W(\phi) \,d\xx.
+\end{align}
 Here $E$ is the energy stored in the phase transitions
 and the energy law states that
 the granules move to decrease energy,
