@@ -28,21 +28,31 @@ as a convolution
 \end{align*}
 where $G(\xx - \yy)$ is a carefully chosen derivative of the PDE's
 fundamental solution and $\ssigma: \partial \Omega(t) \rightarrow \RR^2$
-is an unknown density function. The IE reformulation has several
-immediate advantages including a dimension reduction since $\ssigma$ is
-defined only on $\partial \Omega(t)$, and the far field boundary
-condition of the PDE is automatically satisfied. The density
-function $\ssigma$ is chosen to satisfy the boundary condition, and this
-results in an IE 
+is an unknown density function. This is analogous to the problem of
+finding the global electrostatic potential $u$ with surface charge
+density $\sigma$
 \begin{align*}
+  u(x) = -\frac{1}{4\pi}\int_{\partial \Omega(t)} 
+    \frac{1}{|\xx - \yy|}\sigma(y) \, ds_\yy.
+\end{align*}
+
+The IE reformulation has several immediate advantages including a
+dimension reduction since $\ssigma$ is defined only on $\partial
+\Omega(t)$, and the far field boundary condition of the PDE is
+automatically satisfied. The density function $\ssigma$ is chosen to
+satisfy the boundary condition, and this results in an IE 
+\begin{align}
   \gg(\xx) = \lambda \ssigma(\xx) + 
     \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
     \quad \xx \in \partial\Omega(t),
-\end{align*}
-where $\gg$ is the boundary condition, and $\lambda$ is a constant that
-depends on the choice of $G$. For numerical stability, choices of $G$
-that result in second-kind Fredholm integral equations, meaning $\lambda
-\neq 0$, are preferred.
+  \label{eqn:bie}
+\end{align} where $\gg$ is the boundary condition, and $\lambda$ is a
+constant that depends on the choice of $G$. For numerical stability,
+choices of $G$ that result in second-kind Fredholm integral equations,
+meaning $\lambda \neq 0$, are preferred. Returning to electrostatics,
+equation~\eqref{eqn:bie} is analogous to Gauss's Law that relates the
+electrostatic potential on $\bd \Omega(t)$ to the surface charge
+density.
 
 The PIs have demonstrated that IEs are a powerful tool to simulate
 two-dimensional suspensions of amphiphilic particles~\cite{Fu2018_SIAM,
