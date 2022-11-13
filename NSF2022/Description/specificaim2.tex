@@ -95,6 +95,18 @@ Quaife has considered suspensions with confinement for several projects
 including dynamic suspensions~\cite{qua-bir2014, bys-sha-qua2020} and
 porous media~\cite{chi-moo-qua2020, dea-qua-bir-jua2018,
 moo-che-chi-qua2022, qua-gan-you2021}.
+\begin{wrapfigure}[16]{r}{2.1in}
+  \vspace{-8pt}
+  \centering
+  \input{figures/near_sing.tikz}
+  \vspace{-15pt}
+  \caption{\label{fig:interpquad} \footnotesize An interpolation-based
+  quadrature method that works in two and three dimensions. The
+  spectrally-accurate trapezoid rule is used in points in
+  $\mathtt{Far}(\Gamma_i)$, while one dimensional interpolant is used
+  for points in $\mathtt{Near}(\Gamma_i)$. $h$ is the arclength
+  spacing.}
+\end{wrapfigure}
 
 The confinement introduces an additional computational
 challenge---accurately computing integrals between nearly-touching
@@ -109,17 +121,6 @@ rah-vee-zor-bir2015} (Figure~\ref{fig:interpquad}). The proposed
 research, which is described next, will combine several methods
 including singularity subtraction, analytic function theory, and
 analytic methods.
-
-\begin{wrapfigure}[]{r}{2.1in}
-  \centering
-  \input{figures/near_sing.tikz}
-  \caption{\label{fig:interpquad} \footnotesize An interpolation-based
-  quadrature method that works in two and three dimensions. The
-  spectrally-accurate trapezoid rule is used in points in
-  $\mathtt{Far}(\Gamma_i)$, while one dimensional interpolant is used
-  for points in $\mathtt{Near}(\Gamma_i)$. $h$ is the arclength
-  spacing.}
-\end{wrapfigure}
 
 Since we are interested in round (2D) and spherical (3D) granules, we
 will exploit the fact that integrals can be computed with spectral
@@ -149,6 +150,16 @@ integrals~\cite{beale1, cor2001, tlu-bea2019}. Alternatively, efficient
 quadrature methods can be applied directly to accurately compute
 singular and near-singular integrals~\cite{khayat_2005,
 gimbutas2013sisc}.
+\begin{wrapfigure}[27]{l}{1.8in}
+  \vspace{-8pt}
+  \centering
+  \input{figures/doublewell.tikz} 
+  \vspace{-10pt}
+  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
+  The solution of the one-dimensional phase
+  transition~\eqref{eqn:phase}. (c) The convergence of exact and inexact
+  Newton's methods.}
+\end{wrapfigure}
 
 Another facet to consider when choosing the quadrature rule is its
 ability to be applied efficiently. Since carefully chosen IE
@@ -165,15 +176,6 @@ work has demonstrated that a kernel-independent method applied to
 suspensions of 80,000 spheres can be simulated with only $\sim$10
 seconds per time step on 1792 compute cores~\cite{Yan2019}.
 
-\begin{wrapfigure}[27]{l}{1.8in}
-  \vspace{-8pt}
-  \centering
-  \input{figures/doublewell.tikz} 
-  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
-  The solution of the one-dimensional phase
-  transition~\eqref{eqn:phase}. (c) The convergence of exact and inexact
-  Newton's methods.}
-\end{wrapfigure}
 While the inclusion of high-order quadrature and fast methods is
 necessary to simulate dense suspensions, an additional required
 computational tool is a collision-aware adaptive time stepping method.
