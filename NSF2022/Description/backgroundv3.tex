@@ -78,10 +78,10 @@ phase field models typically discretize the entire fluid domain under
 consideration, and apply cutoff boundary conditions when periodic
 domains are not under consideration. 
 
-We recently developed a new mathematical model of
+The PIs recently developed a new mathematical model of
 self-organization in fluid systems~\cite{FuQuRyYo22,fu-ryh-qua-you2022,Fu2018_SIAM}.
 The framework uses small, rigid bodies called ``granules''
-to represent parcels of a suspended media.
+to represent parcels of suspended media.
 The granule shapes and boundary conditions
 capture the local properties of the suspension,
 and instead of volume fraction, a phase field function represents
@@ -106,7 +106,7 @@ and exhibits inter-molecular slip that must be added into diffusive interface mo
 post hoc. 
 (iii) It is straightforward to consider mixtures of granules with different
 types of shapes and boundary conditions.
-Leveraging boundary and fast summation methods, the dynamics can be solved in 
+Leveraging boundary integral and fast summation methods, the dynamics can be solved in 
 near-linear complexity in the number of granules,
 which is equal to or better than 
 the computational complexity of related sharp interface methods. 
@@ -243,8 +243,8 @@ spontaneously self-organize to sequester the hydrophobic fluid phase
 (Figure~\ref{fig:flow_map}). Changes in the boundary conditions result
 in distint morphologies (Figure~\ref{fig:self-assembly2}) whose rheology
 can be further investigate (\S\ref{sec:specificaim3}).
-
-A concrete application we have considered in our
+%
+A concrete application the PIs have considered in our
 SIAM Multiscale Modeling and Simulation and Journal of Fluid Mechanics works
 \cite{Fu2018_SIAM, FuQuRyYo22}
 is the problem of \emph{vesicle hydrodynamics}.
@@ -261,16 +261,20 @@ screening length $\epsilon$,
 surface tension $\gamma$.
 When set to realistic values in the literature
 \cite{Fu2018_SIAM, ErLjCl89, Lin2005, Parsegian, Israelachvili80, GarciaSaez, KUZMIN2005, Petelska2012,Jackson2016},
-we recover many of the well-known
+we quantitatively recover many of the well-known
 elastic moduli for single-component lipid bilayers
-\cite{Nagle17, Nagle17-2, LeVeWa14,NAGLE2000159}.
+\cite{Nagle17, Nagle17-2, LeVeWa14,NAGLE2000159}. 
+Such agreement is a validation that equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance} 
+correctly capture the long-range interactions between amphiphilic granules (such as lipid macromolecules) surfaces.
 
-\begin{wrapfigure}[10]{l}{0.46\textwidth}
+\begin{wrapfigure}[9]{l}{0.46\textwidth}
+\vspace{-10pt}
 \includegraphics[width=0.46\textwidth]{figures/PreliminaryWork/TankTreading.jpg}
+\vspace{-20pt}
 \caption{\label{fig:JPv_linearshear} \footnotesize Granular vesicles
   undergo tank-treading in background shear flow.}
 \end{wrapfigure}
-
+%
 In terms of hydrodynamics, the granule vesicles in background flows
 replicate the behaviour of an continous, inextensible, elastic vesicle
 with permeability. The simulations showed, for the first time, a
@@ -304,7 +308,7 @@ two-phase fluids and dense suspensions \cite{Bradley2016},
 using amphiphilic microparticles \cite{Ha2022SurfaceEM,Ha2020MinimalSC},
 and (iv) tension drivent fabrication of microstructures
 ~\cite{Dasgupta2017, Leong2007, Reynolds2019, Cho2010,Zeng20223DprintedMT,Russell2016EnergyLF}.
-\begin{wrapfigure}[8]{l}{2.1in}
+\begin{wrapfigure}[9]{l}{2.1in}
   \vspace{-5pt}
   \centering
   \includegraphics[width=1in]{figures/Background/Peanut/PeanutFEM.pdf}
@@ -376,7 +380,7 @@ the collective dynamics of the assembly under external forcing.
   versus time $t$. Under the moving domain problem
   \eqref{eq:RBT}--\eqref{eqn:hydro_stress} with amphiphilic boundary
   condition, the granules self-organize into vesicle bilayers. External
-  hydrodynamic effects are introduced to study elastic properties the
+  hydrodynamic effects are introduced to study elastic properties of
   the granules assembly~\cite{Fu2018_SIAM,FuQuRyYo22}.}
   \vspace{5pt}
 \end{wrapfigure}
