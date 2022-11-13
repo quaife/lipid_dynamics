@@ -99,7 +99,7 @@ represents hydrocarbons and takes the value
 $\eta > 0$. The interaction between amphiphilic particles is attractive,
 and they will collectively orient their tails toward
 one another. 
-The PIs previous work shows that this   
+The PIs' previous work shows that this   
 boundary condition produces two-dimensional micelles and
 bilayers~\cite{Fu2018_SIAM}, as illustrated in 
 Figure~\ref{fig:self-assembly2}(a).
@@ -177,7 +177,7 @@ amphiphilic granules at time $t$ with position ${\bf x}$ and director vector ${\
 Smoluchowski equation 
 \begin{align}
 \frac{\partial \psi}{\partial t} &= -\nabla_{\bf x} \cdot\left(\psi\dot{\bf x}\right) - \nabla_{\bf d}\cdot\left(\dot{\bf d}\psi\right),\\
-\dot{\bf x} &= {\bf u} + {\bf F}\left(\phi,{\bf p}\right) - D_x\nabla_{\bf x}\ln\psi,\\
+\dot{\bf x} &= {\bf u} + {\bf F}\left(\phi,{\bf d}\right) - D_x\nabla_{\bf x}\ln\psi,\\
 \label{eq:dpdt}
 \dot{\bf d} &= \left({\bf I}-{\bf d}{\bf d}\right)\cdot\nabla {\bf u}\cdot {\bf d} + {\bf G}\left(\phi,{\bf d}\right) - D_d \nabla_{\bf d}\ln \psi + \frac{{\bf H}}{\gamma},\\
 {\bf H} &\equiv -\frac{\delta {\cal F}}{\delta {\bf d}} = -\frac{\delta}{\delta {\bf d}} 
@@ -185,7 +185,7 @@ Smoluchowski equation
 \end{align}
 where the subscripts denote the variables the derivative is taken with respect to, 
 $D_x$ is the translational diffusion and $D_p$ is the rotational diffusion. 
- ${\bf F}\left(\phi,{\bf p}\right)$ and ${\bf G}\left(\phi,{\bf p}\right)$ are the drift and rotation induced by the potential $\eta$ and alignment, respectively.
+ ${\bf F}\left(\phi,{\bf d}\right)$ and ${\bf G}\left(\phi,{\bf d}\right)$ are the drift and rotation induced by the potential $\eta$ and alignment, respectively.
  They can be derived using the reciprocal theorem as in the case of 
 the phoretic Janus particle suspension \cite{TraversoMichellin2020_PRF,TraversoMichellin2022_JFM}.
 The last term in equation~(\ref{eq:dpdt}) characterizes the relaxation of the director alignment to the minimum of the
