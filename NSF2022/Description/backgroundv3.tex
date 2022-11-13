@@ -47,7 +47,8 @@ patterns in agent-based systems like swarms and flocking
 When fluids are involved,
 tracking self-organization
 becomes difficult due to the deformability of
-suspended media.  A dominant approach in this area,
+suspended media in the presence of non-local hydrodynamic interactions.  
+A dominant approach in this area,
 the phase field method
 introduce a scalar-valued phase
 field function for the volume fraction of
@@ -264,7 +265,7 @@ The model contains a few
 parameters; granule radius $c$,
 screening length $\epsilon$,
 surface tension $\gamma$.
-When set to realistic values,
+When set to realistic values in the literature
 \cite{Fu2018_SIAM, ErLjCl89, Lin2005, Parsegian, Israelachvili80, GarciaSaez, KUZMIN2005, Petelska2012,Jackson2016},
 we recover many of the well-known
 elastic moduli for single-component lipid bilayers
@@ -357,19 +358,19 @@ derivative of $E$ as an energy density flux through the boundary
 involving the phase stress $T_i$, and a bulk term involving the Euler-Lagrange
 derivative of $E$~\cite{Fu2018_SIAM}. The Euler-Lagrange derivative vanishes due
 to~\eqref{eqn:phase} and the boundary flux transforms into viscous
-dissipation due to~\eqref{eqn:hydro_stress} and the Stokes equations. 
+dissipation due to~\eqref{eqn:hydro_stress} and the Stokes equations. Figure~\ref{fig:coarsening} summarizes the general evolution of $E$ from the self-assembly process to
+the collective dynamics of the assembly under external forcing.
 
-\begin{wrapfigure}[16]{l}{4in} 
+\begin{wrapfigure}[17]{l}{4in} 
 \includegraphics[width=4in]{figures/Background/coarsening.pdf}
 \vspace{-20pt}
 \caption{\label{fig:coarsening}
-Modeling procedure.
-We initilize a suspension of granules.
+Energy $E$ in equation~(\ref{eq:energy_law}) of a suspension of amphiphilic granules versus time $t$.
 Under the moving domain problem
 \eqref{eq:RBT}-\eqref{eqn:hydro_stress}
 with amphiphilic boundary condition, the granules
 self-organize into vesicle bilayers.
-We then introduce external hydrodynamic effects to study elastic properties.
+External hydrodynamic effects are introduced to study elastic properties the the granules assembly \cite{Fu2018_SIAM,FuQuRyYo22}.
 }
 \vspace{5pt}
 \end{wrapfigure}
@@ -441,7 +442,7 @@ The aim of this proposal is to advance the simulation
 and theory for soft-matter systems
 and foster training in mathematical sciences.
 Section \ref{sec:BroaderImpacts} summarizes the broader
-impacts and intellectual merit of our research activity.
+impacts and section \ref{sec:IntellectualMerit} summarizes the intellectual merit of our research activity.
 Section \ref{sec:proposed-work} contains our
 three specific aims.  They are
 mathematical analysis of the system
