@@ -159,7 +159,7 @@ has the minimum $\phi_0 = 0$ and the phase field equation
 For the double well case e.g, $W(\phi) = \frac{1}{4}(\phi^2-1)^2+cx$, $c > 0$,
 the phase field equation \eqref{eqn:phase} takes the form of an
 Allen-Cahn equation with local minima $\phi_0 < 0 < \phi_1$.
-Section \ref{sec:specific_aim1} discusses certain
+Section \ref{sec:specificaim1} discusses certain
 modifications needed for \eqref{eqn:phase} in the nonlinear case.
 
 For the moving domain boundary conditions,
@@ -435,7 +435,8 @@ the computational complexity of related sharp interface methods.
 
 Inspired
 by the amphiphilic structure of lipids,
-we formulated a so-called ``amphiphilic'' boundary condition
+we formulated a so-called
+``amphiphilic'' boundary condition
 that leads a collection of granules to form bilayers.
 Referring to Figure \ref{fig:amphiphilic_assembly}, 
 \begin{equation}
@@ -508,38 +509,7 @@ we recover many of the well-known
 elastic moduli for single-component lipid bilayers
 \cite{Nagle17, Nagle17-2, LeVeWa14,NAGLE2000159}.
 \emph{Bending:}
-The bending deformation enters through the splay of the
-granule directors.  In Figure \ref{fig:JPv_linearshear},
-for example, the directors have negative, respectively positive,
-splay $\nabla_{\Sigma} \cdot \dd$
-in the outer, respectively inner monolayers.
-Here $\nabla_{\Sigma}\cdot{} = \nabla \cdot {} - \mathbf{N}\mathbf{N}^T \nabla$
-is the surface divergence for the unit normal $\NN$
-and the splay energy density
-for the granule configuration is Hookean with bending modulus $k_B$.
-It is a fact from differential geometry that
-when $\dd$ is everywhere parallel to $\NN,$
-then $\nabla\cdot \dd = \pm 2H$ and this is how the
-curvature term arises for \eqref{eq:Canham-Helfrich}
-($2H = \kappa$ in the two-dimensional setting).
-In the case of mixtures of granules of different sizes,
-spontaneous curvature $k_0$ arises
-from asymmetry in the monolayer leaflets.
-\emph{Stretching.}
-When stretched, the distance between
-neighboring granules is increased from rest
-and the energy for stretching behaves as 
-$\tfrac{1}{2}k_A(L - L_0)^2/L_0$
-for a stretching modulus $k_A$,
-length $L$, and
-length at rest $L_0$ of the two-dimensional vesicle. 
-\emph{Tilt.}
-Finally, the granules possess a 
-tilt decay length scale $\lambda = \sqrt{k_B/k_{\theta}}$
-well-known from the biophysical literature
-for the case when the directors $\mathbf{d}$ are no longer normal
-to the surface
-\cite{KUZMIN2005}.
+
 
 \begin{wrapfigure}[14]{l}{0.475\textwidth}
 %\vspace{-10pt}
