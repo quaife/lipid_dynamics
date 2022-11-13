@@ -359,14 +359,19 @@ derivative of $E$~\cite{Fu2018_SIAM}. The Euler-Lagrange derivative vanishes due
 to~\eqref{eqn:phase} and the boundary flux transforms into viscous
 dissipation due to~\eqref{eqn:hydro_stress} and the Stokes equations. 
 
-\begin{wrapfigure}[10]{l}{2.1in}
-  \centering
-  \includegraphics[width=1in]{figures/Background/Peanut/PeanutFEM.pdf}
-  \includegraphics[width=1in]{figures/Background/Peanut/PeanutIE.pdf}
-  \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
-  ({\em left}) requires meshing the entire domain (typically into
-  triangles), while a BIE ({\em right}) requires meshing only the
-  boundary of the domain.}
+\begin{wrapfigure}[16]{l}{4in} 
+\includegraphics[width=4in]{figures/Background/coarsening.pdf}
+\vspace{-20pt}
+\caption{\label{fig:coarsening}
+Modeling procedure.
+We initilize a suspension of granules.
+Under the moving domain problem
+\eqref{eq:RBT}-\eqref{eqn:hydro_stress}
+with amphiphilic boundary condition, the granules
+self-organize into vesicle bilayers.
+We then introduce external hydrodynamic effects to study elastic properties.
+}
+\vspace{5pt}
 \end{wrapfigure}
 In the far field, $\lim_{\xx \to \infty} \phi(\xx) = \phi_0$ and for the
 background flow, we require that $\lim_{\xx \to \infty} \uu(\xx) -
@@ -407,6 +412,15 @@ stress~\eqref{eqn:stressbalance} was first identified by PIs Ryham and
 Young in~\cite{Fu2018_SIAM} and generalizes one-dimensional hydrophobic
 interaction to the $n$-dimensional setting. 
 
+\begin{wrapfigure}[10]{r}{2.1in}
+  \centering
+  \includegraphics[width=1in]{figures/Background/Peanut/PeanutFEM.pdf}
+  \includegraphics[width=1in]{figures/Background/Peanut/PeanutIE.pdf}
+  \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
+  ({\em left}) requires meshing the entire domain (typically into
+  triangles), while a BIE ({\em right}) requires meshing only the
+  boundary of the domain.}
+\end{wrapfigure}
 Regarding mathematical motivation for~\eqref{eq:RBT}--\eqref{eqn:stressbalance},
 when equation \eqref{eqn:phase} takes the form of a screened Laplace equation
 $-\epsilon^2 \Delta \phi + \phi =0$, for a fixed domain $\Omega$ with
