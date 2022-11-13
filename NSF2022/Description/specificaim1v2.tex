@@ -17,13 +17,13 @@ The first step is to obtain some solid well-posedness results
 for \eqref{eq:RBT}--\eqref{eqn:stressbalance}.
 This system is an autonomous ordinary differential equation for
 the body transformations $F_i$
-with the rate of change is defined by a system of PDEs.
-Regarding this system, in the single-well case,
-\eqref{eqn:phase} is a linear equation
-and for fixed $t$ there is a unique solution
-($\phi, \uu$) under appropriate
-assumptions for the boundaries and boundary data
+with the rate of change defined by a system of PDEs.
+Regarding this system, in the single-well case and
+for fixed $t$, the linear system has a unique solution
+($\phi, \uu$) 
+under appropriate assumptions for the boundaries and boundary data
 \cite{manasthesis,rac-gre2016,LAX}.
+These define the instantaneous rigid body translational velocity and rotation.
 This leads to 
 \begin{quotation}
   \textbf{Problem 1.} 
@@ -44,10 +44,9 @@ which also find extensive application in extremal domain problems
   bogosel:hal-03607776,Bogosel2022OnTP}, for example.
 For global-in-time solutions,
 we can ensure positivity in time for the distance between granules
-using the fluid mechanical principle of
-lubrication forces \cite{cawthorn_balmforth_2010, leal_2007}.
+using lubrication forces \cite{cawthorn_balmforth_2010, leal_2007}.
 Finally, we can describe the granule-flow
-behavior in the limit zero screening length limit.
+behavior in the zero-screening length limit.
 In this limit, we should recover the hydrodynamics of
 a (noninteracting) rigid body suspension. 
 
@@ -99,20 +98,38 @@ Landau de Gennes functionals with colloids, and studies
 the qualitative structure of defects around single or multiple
 coloidal particles
 \cite{doi:10.1098/rsta.2020.0432, Alama2015MinimizersOT, Alama2021SaturnRD, PhysRevE.96.042702}.
+PI Ryham has several works on membrane vesicles
+dealing both with Allen-Cahn formulations
+and fluid-vesicle interactions 
+\cite{QiangDu09, RYHAM20112929, RyCoEi12,Ryham2017OnTV}.
 
 The second problem considers the approximation
 of elastic energy of curves and surfaces,
 and seeks to make rigorous the simulation results of
 \cite{FuQuRyYo22, Fu2018_SIAM}.
+We employ the so-called ``amphiphilic'' boundary condition
+that leads a collection of granules to form bilayers.
+Referring to Figure \ref{fig:amphiphilic_assembly}, 
+\begin{equation}
+\label{eq:amphiphilic_BC}
+\phi(\mathbf{x}) = h_i(\mathbf{x}) = \tfrac{1}{2}\left(\dd_i \cdot (\xx - \aa_i)/c_i + 1\right), \quad
+\mathbf{x} \in \Gamma_i,
+\end{equation}
+where $\dd_i$ is the director, $\aa_i$ is the center, and $c_i$ the
+``radius'' of the $i$th granule.  
+The phase $\phi$ takes values close to $1$ on in the direction $\dd_i$,
+representing a hydrophobic tail, and values close to $0$ 
+in the direction $\dd_i$ representing the hydrophilic head.
+
 \begin{quotation}
   \textbf{Problem 2.}
   Consider a collection of two-dimensional
-  granules along a closed curve. 
+  amphiphilic granules along a closed curve $\mathbf{C}$. 
   Study the sharp interface limit of the energy $E$ 
   as the number of granules goes to infinity and their size to zero.
 \end{quotation}
-Sharp interface models
-traditionally represent a vesicle as an
+The sharp interface model
+represent a membrane vesicle as an
 inextensible continuous surface $\Sigma$ with elastic energy
 \begin{equation}
 \label{eq:Canham-Helfrich}
@@ -120,64 +137,56 @@ inextensible continuous surface $\Sigma$ with elastic energy
 \end{equation}
 where $H$ is the mean curvature, $k_0$ is a spontaneous curvature,
 and $k_B$ is a bending modulus.
-Real membranes, however, are somewhat extensible and
-have a large stretching modulus $k_A$.
-When the surface is area compressible,
-\eqref{eq:Canham-Helfrich} contains an additional stretching term of the
-form $k_A(\alpha - \alpha_0)^2/\alpha_0^2$ where $\alpha$ and $\alpha_0$ are the
-deformed and equilibrium area densitities respectively. 
+One can also account for extensibility
+by including in 
+\eqref{eq:Canham-Helfrich} an additional stretching term
+$k_A(\alpha - \alpha_0)^2/\alpha_0^2$ where $\alpha$ and $\alpha_0$ are the deformed and equilibrium area densitities respectively. 
 
-The bending deformation enters through the splay of the
-granule directors.  In Figure \ref{fig:JPv_linearshear},
+\begin{wrapfigure}[12]{r}{0.5\textwidth}
+  \vspace{-5pt}
+\centerline{\includegraphics[width=0.5\textwidth]{figures/SA1Figures/AmphiphilicAssembly.pdf}}
+  \vspace{-5pt}
+\caption{\label{fig:amphiphilic_assembly}
+Self-organization under amphiphilic boundary condition.
+(a) Granules first match hydrophobic tails (red),
+(b) then align length-wise.
+The principle of self-organization holds in three dimensions 
+as simulated by Kohl, Corona, and Veerapaneni
+\cite{koh-cor-che-vee2021}.}
+\end{wrapfigure}
+Bending enters through the splay of the
+granule directors.
+In Figure \ref{fig:JPv_linearshear},
 for example, the directors have negative, respectively positive,
 splay $\nabla_{\Sigma} \cdot \dd$
 in the outer, respectively inner monolayers.
 Here $\nabla_{\Sigma}\cdot{} = \nabla \cdot {} - \mathbf{N}\mathbf{N}^T \nabla$
-is the surface divergence for the unit normal $\NN$
-and the splay energy density
-for the granule configuration is Hookean with bending modulus $k_B$.
-It is a fact from differential geometry that
-when $\dd$ is everywhere parallel to $\NN,$
-then $\nabla\cdot \dd = \pm 2H$ and this is how the
-curvature term arises for \eqref{eq:Canham-Helfrich}
-($2H = \kappa$ in the two-dimensional setting).
-In the case of mixtures of granules of different sizes,
-spontaneous curvature $k_0$ arises
-from asymmetry in the monolayer leaflets.
-\emph{Stretching.}
-When stretched, the distance between
-neighboring granules is increased from rest
-and the energy for stretching behaves as 
-$\tfrac{1}{2}k_A(L - L_0)^2/L_0$
-for a stretching modulus $k_A$,
-length $L$, and
-length at rest $L_0$ of the two-dimensional vesicle. 
-\emph{Tilt.}
-Finally, the granules possess a 
-tilt decay length scale $\lambda = \sqrt{k_B/k_{\theta}}$
-well-known from the biophysical literature
-for the case when the directors $\mathbf{d}$ are no longer normal
-to the surface
-\cite{KUZMIN2005}.
+is the surface divergence for the outward unit surface normal $\NN$.
+From differential geometry, we have that 
+$\nabla\cdot \dd = \pm 2H$ whenever
+$\dd$ is everywhere parallel to $\NN,$
+and this is how the
+curvature term arises for \eqref{eq:Canham-Helfrich}.
+(For two-dimensional vesicles, the curvature $\kappa$ of the curve $\mathbf{C}$).
+Granules are at rest when attraction balances repulsion, 
+and will have stretching when the distance between
+neighboring granules is increased from rest.
 
-Problems like these have been addressed for bulk nematic liquid
+PI Ryham has experience in the sharp interface analysis
+for phase field formulations of elastic
+bending energy \cite{0951-7715-18-3-016,Du05}, and
+topological indicators \cite{DuEuler},
+as well as for Poisson-Boltzman equations \cite{Lee2018,1531-3492_2006_2_357}.  Tools for addressing Problem 2 have
+been developed for bulk nematic liquid
 crystal potentials in the area of colloidal homogenization
-\cite{Canevari2019DesignOE,doi:10.1137/18M1163919,doi:10.1137/18M1163919,
-  BERLYAND200597,doi:10.1137/130910348},
-and is closely related to 
+\cite{Canevari2019DesignOE,doi:10.1137/18M1163919,doi:10.1137/18M1163919, BERLYAND200597,doi:10.1137/130910348},
+and is related to 
 dimension reduction for curved nematics confined to thin films
 \cite{Golovaty2017DimensionRF, Golovaty2015DimensionRF,
 doi:10.1142/S0218202516500470, FoFrLe07}.
-Given the relatively complicated geometry consising
-of a plane with a number of disjoint disks removed, 
-we start by assuming that the directors are normal to the curve
-and that the granules are all disks with radius proportional to $\epsilon$. 
-The bending $k_B$ and stretching $k_A$ coefficients
-depend on the granual size relative to their spacing.
-We can then generalize the problem to account for aspect ratio of
+We start by assume circular granules aligned normally to the curve,
+and then generalize the problem to account for aspect ratio of
 elliptical granules and nonzero tilt. 
-
-
 
 Finally, to consider three-dimensionsional effects, we
 will generalize Problem 2 to \emph{numerically}
@@ -194,37 +203,30 @@ Researchers have formulated finite element methods for
   and studied minimizers
 \cite{Segatti2014EquilibriumCO,Segatti2014AnalysisOA}.
 On the other hand, in biophysics,
-\cite{Hamm2000ElasticEO,Terzi2019CurvatureTiltTO,Terzi2019ACQ,Terzi2017NovelTC}
-and most recently \cite{Pinigin2020NewCT}
-derived an elastic energy for lipid bilayers,
-the generalized Helfrich energy.
-This energy involves the lipid director $\dd$,
-tilt vector $\mathbf{T}$, and area per lipid $\alpha$,
-and coupling terms and contains
-the Helfrich elastic energy \eqref{eq:Canham-Helfrich}
+\cite{Hamm2000ElasticEO,Terzi2019CurvatureTiltTO,Terzi2019ACQ,Terzi2017NovelTC,Pinigin2020NewCT} have
+derived the general Helfrich energy for lipid bilayers
+that involves effects coupling lipid tilt to 
+director splay.  This energy contains \eqref{eq:Canham-Helfrich}
 as a special case.
 \begin{quotation}
 \textbf{Problem 3.}
 Simulate surfaces made up of three-dimensional, amphilic granules.
-Do you recover the generalized Helfrich elastic energy
-or related Landau deGennes energies for large $N_b$ simulations?
+Numerically investigate the limiting energy for large $N_b$ simulations.
 \end{quotation}
+In his much noticed Biophysical Journal
+and Nature papers~\cite{RyKlYaCo16,Chetal16}, PI Ryham
+calculated the least energy path for \emph{membrane fusion}
+using a surface-director model based on the general Helfrich energy. 
+The energy barriers calculated in~\cite{RyKlYaCo16} 
+proved consistent with later molecular dynamics
+and experimental results \cite{SmRiMu19,2017PNAS..114.1238F}.
 
 The completion of Problems 1, 2, and especially 3 
 requires additional algorithmic implementation including a
 fast summation method such as the fast multipole method.
-The implementation details, especially how we deal with large
-granule numbers and three-dimensional systems, are
+The implementation details, in particular how we deal with large
+granule numbers and three-dimensional systems are
 described in \S \ref{sec:specificaim2} Specific Aim 2.
-
-PI Ryham has made fundamental contributions to interface modeling in
-membrane biology.  His first works include
-phase field formulations for the elastic bending energy \cite{0951-7715-18-3-016,Du05} and topological indicators \cite{DuEuler} of vesicle membranes
-and fluid-vesicle interactions \cite{QiangDu09}.
-In his much noticed Biophysical Journal
-and Nature papers~\cite{RyKlYaCo16,Chetal16}, Ryham and collaborators 
-calculated, for the first time, a least energy path for membrane fusion.  
-
 %\begin{equation}
 %\label{eq:Helfrich}
 %  \begin{aligned}
