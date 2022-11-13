@@ -155,6 +155,15 @@ work has demonstrated that a kernel-independent method applied to
 suspensions of 80,000 spheres can be simulated with only $\sim$10
 seconds per time step on 1792 compute cores~\cite{Yan2019}.
 
+\begin{wrapfigure}[27]{l}{1.8in}
+  \vspace{-8pt}
+  \centering
+  \input{figures/doublewell.tikz} 
+  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
+  The solution of the one-dimensional phase
+  transition~\eqref{eqn:phase}. (c) The convergence of exact and inexact
+  Newton's methods.}
+\end{wrapfigure}
 While the inclusion of high-order quadrature and fast methods is
 necessary to simulate dense suspensions, an additional required
 computational tool is a collision-aware adaptive time stepping method.
@@ -182,16 +191,6 @@ constraints, such as force- and torque-free conditions, appropriately
 determine adaptive time step sizes so that the dynamics are resolved
 without the computational expense of techniques such as embedded
 Runge-Kutta, step-doubling, and Richardson extrapolation.
-
-\begin{wrapfigure}[27]{l}{1.8in}
-  \vspace{-8pt}
-  \centering
-  \input{figures/doublewell.tikz} 
-  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
-  The solution of the one-dimensional phase
-  transition~\eqref{eqn:phase}. (c) The convergence of exact and inexact
-  Newton's methods.}
-\end{wrapfigure}
 
 The order parameter is governed by the PDE~\eqref{eqn:phase} in the
 solvent phase $\Omega(t)$. If $W(\phi) = \phi^2$,
