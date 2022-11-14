@@ -24,19 +24,20 @@ computational framework.
 To briefly describe IE formulations of PDEs, we consider the Stokes
 equation~\eqref{eqn:stokes} as an example. Its solution can be written
 as a convolution 
-\begin{align*}
+\begin{align}
   \uu(\xx) = \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
-\end{align*}
+  \label{eqn:conv}
+\end{align}
 where $G(\xx - \yy)$ is a carefully chosen derivative of the PDE's
 fundamental solution and $\ssigma: \partial \Omega(t) \rightarrow \RR^2$
-is an unknown density function. This is analogous to the problem of
-finding the global electrostatic potential $u$ with surface charge
-density $\sigma$
-\begin{align*}
-  u(x) = -\frac{1}{4\pi}\int_{\partial \Omega(t)} 
-    \frac{1}{|\xx - \yy|}\sigma(y) \, ds_\yy.
-\end{align*}
-
+is an unknown density function.
+%This is analogous to the problem of
+%finding the global electrostatic potential $u$ with surface charge
+%density $\sigma$
+%\begin{align*}
+%  u(x) = -\frac{1}{4\pi}\int_{\partial \Omega(t)} 
+%    \frac{1}{|\xx - \yy|}\sigma(y) \, ds_\yy.
+%\end{align*}
 The IE reformulation has several immediate advantages including a
 dimension reduction since $\ssigma$ is defined only on $\partial
 \Omega(t)$, and the far field boundary condition of the PDE is
@@ -50,10 +51,16 @@ satisfy the boundary condition, and this results in an IE
 \end{align} where $\gg$ is the boundary condition, and $\lambda$ is a
 constant that depends on the choice of $G$. For numerical stability,
 choices of $G$ that result in second-kind Fredholm integral equations,
-meaning $\lambda \neq 0$, are preferred. Returning to electrostatics,
-equation~\eqref{eqn:bie} is analogous to Gauss's Law that relates the
-electrostatic potential on $\bd \Omega(t)$ to the surface charge
-density.
+meaning $\lambda \neq 0$, are preferred.  
+
+As an illustration, the problem of finding the global
+electrostatic potential $u$ with surface
+charge density $\sigma$ is a special case of \eqref{eqn:conv}, where
+$G(\xx - \yy) = (4\pi \epsilon_0)^{-1}|\xx - \yy|^{-1}$
+in three dimensions
+($-(2\pi \epsilon_0)^{-1}\log|\xx - \yy|$ in two dimensions)
+with $\epsilon_0$ the permittivity of vacuum.  In this context, 
+~\eqref{eqn:bie} is analogous to Gauss's Law.
 
 The PIs have demonstrated that IEs are a powerful tool to simulate
 two-dimensional suspensions of amphiphilic particles~\cite{Fu2018_SIAM,
@@ -75,9 +82,9 @@ granules and $\mathcal{O}(1000)$ three-dimensional granules.
   unbounded domains?
 \end{quotation}
 
-\begin{wrapfigure}[]{l}{2.1in}
+\begin{wrapfigure}[]{l}{2.6in}
   \centering
-  \includegraphics[width=2in]{figures/SA2Figures/confinement.pdf}
+  \includegraphics[width=2.5in]{figures/SA2Figures/confinement.pdf}
   \caption{\label{fig:stenosis} \footnotesize A granule vesicle passing
   through a constricted geometry.}
 \end{wrapfigure}
@@ -135,14 +142,14 @@ uniformly bounded quadrature error, but the method is described only for
 the two-dimensional Laplace and Stokes equations. PI Quaife recently
 showed that these quadrature methods can be extended to other
 two-dimensional PDEs~\cite{che-lin-her-qua2022}. The method uses
-singularity subtraction write the fundamental solution of the PDE as a
+singularity subtraction to write the fundamental solution of the PDE as a
 sum of two terms: a logarithmic function and a continuously
 differentiable function. Then the Barycentric-type formulae can be
 applied to the logarithmic function, and the standard trapezoid
 rule~\cite{tre-wei2014} can be applied to the other function. These
 singularity subtraction methods can also accurately compute derivatives
 of layer potentials~\cite{car2021, car2020, car-kha-kim2018} which is
-required, for example, when computing the water-order
+required, for example, when computing the phase
 stress~\eqref{eqn:stressbalance}. Singularity subtraction methods can
 also be applied in three dimensions, but not combined with
 Barycentric-type formulae. Alternatively, smoothed variations of the
@@ -151,16 +158,6 @@ integrals~\cite{beale1, cor2001, tlu-bea2019}. Alternatively, efficient
 quadrature methods can be applied directly to accurately compute
 singular and near-singular integrals~\cite{khayat_2005,
 gimbutas2013sisc}.
-\begin{wrapfigure}[27]{l}{1.8in}
-  \vspace{-8pt}
-  \centering
-  \input{figures/doublewell.tikz} 
-  \vspace{-10pt}
-  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
-  The solution of the one-dimensional phase
-  transition~\eqref{eqn:phase}. (c) The convergence of exact and inexact
-  Newton's methods.}
-\end{wrapfigure}
 
 Another facet to consider when choosing the quadrature rule is its
 ability to be applied efficiently. Since carefully chosen IE
@@ -180,13 +177,24 @@ seconds per time step on 1792 compute cores~\cite{Yan2019}.
 While the inclusion of high-order quadrature and fast methods is
 necessary to simulate dense suspensions, an additional required
 computational tool is a collision-aware adaptive time stepping method.
-The order parameter results in the granules attracting one another and
-this leads to physical contact in finite time. Our current
+The phase field results in the granules attracting one another and
+this leads to nearly contacting boundaries. Our current
 implementation uses a repulsive Lennard-Jones force, but this introduces
 stiffness, thereby requiring small time steps, and this can be a
-bottleneck when simulating dense suspensions. Therefore, we will develop
+bottleneck when 
+\begin{wrapfigure}[26]{l}{1.8in}
+  \vspace{-0pt}
+  \centering
+  \input{figures/doublewell.tikz} 
+  \vspace{-10pt}
+  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
+  The solution of the one-dimensional phase
+  transition~\eqref{eqn:phase}. (c) The convergence of exact and inexact
+  Newton's methods.}
+\end{wrapfigure}
+simulating dense suspensions. Therefore, we will develop
 a high-order collision-avoiding adaptive time stepping method. This
-method will avoid collisions with by using the minimal separation
+method will avoid collisions by using the minimal separation
 distance to impose a non-overlapping constraint. This results in a
 linear complementarity problem that can be solve efficiently with a
 projected gradient descent method~\cite{Yan2019}. High-order time
@@ -205,10 +213,10 @@ determine adaptive time step sizes so that the dynamics are resolved
 without the computational expense of techniques such as embedded
 Runge-Kutta, step-doubling, and Richardson extrapolation.
 
-The order parameter is governed by the PDE~\eqref{eqn:phase} in the
-solvent phase $\Omega(t)$. If $W(\phi) = \phi^2$,
+The phase field is governed by the PDE~\eqref{eqn:phase} in the
+solvent region $\Omega(t)$. If $W(\phi) = \tfrac{1}{2}\phi^2$,
 equation~\eqref{eqn:phase} is linear, and the PIs have used IEs to solve
-for the order parameter~\cite{Fu2018_SIAM, FuQuRyYo22,
+address this problem~\cite{Fu2018_SIAM, FuQuRyYo22,
 fu-ryh-qua-you2022}, but for a double-well potential $W(\phi)$, the
 resulting PDE is nonlinear, motivating the following problem:
 
@@ -224,20 +232,20 @@ $\phi_0$ and $\phi_1$, we propose to interpret the solution
 of~\eqref{eqn:phase} as a root finding problem for
 \begin{align}
   \label{eqn:phaseRoot}
-  F[\phi] = -\epsilon^2 \Delta \phi + \tfrac{1}{2}W'(\phi).
+  F[\phi] = -\epsilon^2 \Delta \phi + W'(\phi).
 \end{align}
 Equation~\eqref{eqn:phaseRoot} will be solved with Newton's method,
 $\phi^{N+1} = \phi^{N} - \alpha (F'(\phi^N))^{-1} F(\phi^N)$, where
-$F'(\phi^N) = -\epsilon^2 \Delta + \tfrac{1}{2}W''(\phi^N)$ is the
+$F'(\phi^N) = -\epsilon^2 \Delta + W''(\phi^N)$ is the
 Fr\'{e}chet derivative of $F$, and $\alpha$ is the step size that will
 be determined using backtracking. This requires solving the variable
-coefficient PDE $-\epsilon^2 \Delta v + \tfrac{1}{2}W''(\phi^{N}) v =
+coefficient PDE $-\epsilon^2 \Delta v + W''(\phi^{N}) v =
 F[\phi^N]$, which is challenging with an integral equation since a
 fundamental solution is not readily available. However, by choosing a
 double-well potential with $W''(\phi_0) = W''(\phi_1) = \beta$, we
 propose to instead use an inexact Newton's method where $F^{-1}$ is
 approximated with the solution of $-\epsilon^2 \Delta v +
-\tfrac{\beta}{2} v = F[\phi^N]$. We test the efficacy of the exact and
+\beta v = F[\phi^N]$. We test the efficacy of the exact and
 inexact Newton's method applied to~\eqref{eqn:phaseRoot} in $(0,1)
 \subset \RR$ by discretizing $F'$ with a second-order finite difference
 stencil. The double-well potential is illustrated in
@@ -252,7 +260,7 @@ of $10^{-4}$, each iteration is significantly cheaper to apply.
 Having demonstrated that the inexact Newton method converges in one
 dimension, it will be coupled with IE formulations to
 solve~\eqref{eqn:phaseRoot} in two and three dimensions. The solution of
-$-\epsilon^2 \Delta v + \tfrac{\beta}{2} v = F[\phi^N]$ can be written
+$-\epsilon^2 \Delta v + \beta v = F[\phi^N]$ can be written
 as $v = v^P + v^H$ where $v^P$ is a volume potential and $v^H$ is a
 homogeneous solution of the PDE, which is represented as a layer
 potential, and is used to satisfy the boundary condition. The volume
@@ -262,11 +270,11 @@ potential is
     \quad \xx \in \Omega(t),
 \end{align*}
 where $G$ is the fundamental solution of $-\epsilon^2 \Delta +
-\tfrac{\beta}{2}$. Traditionally, volume potentials are more challenging
+\beta$. Traditionally, volume potentials are more challenging
 to compute than layer potentials, but new methods have recently been
 developed that allow them to be computed accurately and
 efficiently~\cite{fry-leh-tor2018, and-zhu-vee2022}. This approach of
-combining volume and layer potentials has successfully been used by PI
+combining volume and layer potentials has been successfully used by PI
 Quaife~\cite{kro-qua2010} and others~\cite{fry-kro-tor2019,
 kli-ask-kro2020, che-hua-lei2005} in other contexts, such as time
 stepping.
