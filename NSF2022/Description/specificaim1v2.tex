@@ -1,36 +1,32 @@
 \section{Proposed Research}
 \label{sec:proposed-work}
-This proposal is an outgrowth of the 
-PIs' ongoing successful collaboration.
-Building off complementary expertises,
-the specific aims of this proposal are:
-mathematical analysis and three-dimensional
-membrane energies
-(\S \ref{sec:specificaim1}: PI Ryham),
-BIE implementation for large granule-number
-and three-dimensional suspensions
-(\S \ref{sec:specificaim2}: PI Quaife),
-and kinetic theory
-(\S \ref{sec:specificaim3}: PI Young).
+This proposal is an outgrowth of the PIs' ongoing successful
+collaboration. Building off complementary expertises, the specific aims
+of this proposal are: mathematical analysis and three-dimensional
+membrane energies (\S\ref{sec:specificaim1}: PI Ryham), BIE
+implementation for large granule-number and three-dimensional
+suspensions (\S\ref{sec:specificaim2}: PI Quaife), and kinetic theory
+(\S\ref{sec:specificaim3}: PI Young).
+
 \subsection{Specific Aim 1: Membrane vesicles as self-organized granules}
 \label{sec:specificaim1}
-We introduced \eqref{eq:RBT}--\eqref{eqn:stressbalance} to complement
+We introduced~\eqref{eq:RBT}--\eqref{eqn:stressbalance} to complement
 existing methods for studing vesicles and bilayers. The simulation
-results in (Figures~\ref{fig:JPv_linearshear} and~\ref{fig:JPv_rupture})
+results in Figures~\ref{fig:JPv_linearshear} and~\ref{fig:JPv_rupture}
 show that two-dimensional, granule-based vesicles replicate the
 equilibria and hydrodynamics for continuous curves~\cite{FuQuRyYo22,
 Fu2018_SIAM}. Our next goal is to study the model using rigorous
 analysis and consider three-dimensionsional effects. 
 
-The first step is to obtain some solid well-posedness results for
-\eqref{eq:RBT}--\eqref{eqn:stressbalance}. This system is an autonomous
-ordinary differential equation for the body transformations $F_i$ with
-the rate of change defined by a system of PDEs. Regarding the PDE system,
-in the linear case and for fixed $t$, there is a
-unique solution ($\phi, \uu$) under appropriate assumptions for the
-boundaries and boundary data~\cite{manasthesis, rac-gre2016, LAX}. These
-define instantaneous rigid body velocities and rotations,
-leading to 
+The first step is to obtain some solid well-posedness results
+for~\eqref{eq:RBT}--\eqref{eqn:stressbalance}. This system is an
+autonomous ordinary differential equation for the body transformations
+$\FF_i$ with the rate of change defined by a system of PDEs. Regarding
+the PDE system, in the linear case and for fixed $t$, there is a unique
+solution ($\phi, \uu$) under appropriate assumptions for the boundaries
+and boundary data~\cite{manasthesis, rac-gre2016, LAX}. These define
+instantaneous rigid body velocities and rotations, leading to the
+following problem.
 \begin{quotation}
   \noindent
   \textbf{Problem 1.} 
@@ -40,23 +36,21 @@ leading to
   phase field boundary conditions. What is the well-posedness in time of
   the coupled system \eqref{eq:RBT}--\eqref{eqn:stressbalance}?
 \end{quotation}
-Problem 1 involves mathematically interesting techniques. First, we
-must establish that the system has a local-in-time solution. This
-involves domain perturbations and estimates for the solutions of second
-order elliptic equations~\cite{Savar2002DomainPA, DANERS20081,
+Problem 1 involves mathematically interesting techniques. First, we must
+establish that the system has a local-in-time solution. This involves
+domain perturbations and estimates for the solutions of second order
+elliptic equations~\cite{Savar2002DomainPA, DANERS20081,
 Lamboley2015EstimatesOF}, which also find extensive application in
 extremal domain problems~\cite{Schiffer1954VariationOD,
 Henrot2006ExtremumPF, bogosel:hal-03607776,Bogosel2022OnTP}, for
-example. For global-in-time solutions, we can 
-use lubrication forces~\cite{cawthorn_balmforth_2010, leal_2007}.
-Here, the lubrication force required to bring granules into contact
-blows up with distance, 
-and we must analyze whether the attraction \eqref{eqn:stressbalance}
-stays finite in order to  
-guarantee positivity in the distance between granules.
-Finally, we can study the granule-flow behavior in the zero-decay length
-limit. This limit should recover the hydrodynamics of a (noninteracting)
-rigid-body suspension. 
+example. For global-in-time solutions, we can use lubrication
+forces~\cite{cawthorn_balmforth_2010, leal_2007}. Here, the lubrication
+force required to bring granules into contact blows up with distance,
+and we must analyze whether the attraction~\eqref{eqn:stressbalance}
+stays finite in order to guarantee positivity in the distance between
+granules. Finally, we can study the granule-flow behavior in the
+zero-decay length limit. This limit should recover the hydrodynamics of
+a (noninteracting) rigid-body suspension. 
 
 
 \begin{wrapfigure}[11]{r}{0.5\textwidth}
@@ -72,7 +66,7 @@ rigid-body suspension.
 \end{wrapfigure}
 In the double-well potential case, equation~\eqref{eqn:phase} is a
 nonlinear Allen-Cahn equation. This situation models granules immersed
-in a two-phase fluid (e.g.~granules in an emulsion) where there is an
+in a two-phase fluid (e.g., granules in an emulsion) where there is an
 interesting interplay between the long-range alignment of granules and
 the diffusive interface energy of the free boundary between fluid
 phases. On unbounded domains like $\Omega(t)$, Allen-Cahn equations can
@@ -165,18 +159,18 @@ Granules are at rest when attraction balances repulsion, and will have
 stretching energy when the distance between neighboring granules is increased
 from rest.
 
-Tools for addressing Problem 2 have been developed for bulk nematic liquid
-crystal potentials in the area of colloidal
+Tools for addressing Problem 2 have been developed for bulk nematic
+liquid crystal potentials in the area of colloidal
 homogenization~\cite{Canevari2019DesignOE, doi:10.1137/18M1163919,
-  doi:10.1137/18M1163919, BERLYAND200597, doi:10.1137/130910348}, and
-the problem is closely related to dimension reduction for curved nematics
-confined to thin films~\cite{Golovaty2017DimensionRF, Golovaty2015DimensionRF,
-  doi:10.1142/S0218202516500470, FoFrLe07}.
-PI Ryham has carried out sharp interface-limit analyses for phase field
-formulations of elastic bending energy~\cite{0951-7715-18-3-016, Du05},
-approximations of Gaussian curvature and the Euler characteristic in
-phase field~\cite{DuEuler}, and vanishing Debye-length in 
-Poisson-Boltzman equations~\cite{Lee2018, 1531-3492_2006_2_357}.
+BERLYAND200597, doi:10.1137/130910348}, and the problem is closely
+related to dimension reduction for curved nematics confined to thin
+films~\cite{Golovaty2017DimensionRF, Golovaty2015DimensionRF,
+doi:10.1142/S0218202516500470, FoFrLe07}.  PI Ryham has carried out
+sharp interface-limit analyses for phase field formulations of elastic
+bending energy~\cite{0951-7715-18-3-016, Du05}, approximations of
+Gaussian curvature and the Euler characteristic in phase
+field~\cite{DuEuler}, and vanishing Debye-length in Poisson-Boltzman
+equations~\cite{Lee2018, 1531-3492_2006_2_357}.
 
 Finally, to consider three-dimensionsional effects, we will generalize
 Problem 2 to \emph{numerically} study the energies of amphiphilic
