@@ -79,15 +79,6 @@ granules and $\mathcal{O}(1000)$ three-dimensional granules.
   unbounded domains?
 \end{quotation}
 
-\begin{wrapfigure}[6]{l}{2.6in}
-  \centering
-%  \vspace{-10pt}
-  \includegraphics[width=2.5in]{figures/SA2Figures/confinement.pdf}
-  \vspace{-10pt}
-  \caption{\label{fig:stenosis} \footnotesize A granule vesicle passing
-  through a constricted geometry.}
-\end{wrapfigure}
-
 In experiments, it is known that interactions between bounding walls and
 granules cannot be ignored~\cite{qua-gan-you2021,
 KaouiHartingMisbah2011_PRE, her-sto-gra2005}. Therefore, the necessary
@@ -103,19 +94,15 @@ suspensions with confinement for several projects including dynamic
 suspensions~\cite{qua-bir2014, bys-sha-qua2020} and porous
 media~\cite{chi-moo-qua2020, dea-qua-bir-jua2018, moo-che-chi-qua2022,
 qua-gan-you2021}.
-\begin{wrapfigure}[16]{r}{2.1in}
-  \vspace{-4pt}
-  \centering
-  \input{figures/near_sing.tikz}
-  \vspace{-15pt}
-  \caption{\label{fig:interpquad} \footnotesize An interpolation-based
-  quadrature method that works in two and three dimensions. The
-  spectrally-accurate trapezoid rule is used in points in
-  $\mathtt{Far}(\Gamma_i)$, while one dimensional interpolant is used
-  for points in $\mathtt{Near}(\Gamma_i)$. $h$ is the arclength
-  spacing.}
-\end{wrapfigure}
 
+\begin{wrapfigure}[6]{l}{2.6in}
+  \centering
+%  \vspace{-10pt}
+  \includegraphics[width=2.5in]{figures/SA2Figures/confinement.pdf}
+  \vspace{-10pt}
+  \caption{\label{fig:stenosis} \footnotesize A granule vesicle passing
+  through a constricted geometry.}
+\end{wrapfigure}
 The confinement introduces an additional computational
 challenge---accurately computing integrals between nearly-touching
 bodies. This issue is well-known in the IE community and several
@@ -130,6 +117,18 @@ research, which is described next, will combine several methods
 including singularity subtraction, analytic function theory, and
 analytic methods.
 
+\begin{wrapfigure}[16]{r}{2.1in}
+  \vspace{-4pt}
+  \centering
+  \input{figures/near_sing.tikz}
+  \vspace{-15pt}
+  \caption{\label{fig:interpquad} \footnotesize An interpolation-based
+  quadrature method that works in two and three dimensions. The
+  spectrally-accurate trapezoid rule is used in points in
+  $\mathtt{Far}(\Gamma_i)$, while one dimensional interpolant is used
+  for points in $\mathtt{Near}(\Gamma_i)$. $h$ is the arclength
+  spacing.}
+\end{wrapfigure}
 Since we are interested in round (2D) and spherical (3D) granules, we
 will exploit the fact that integrals can be computed with spectral
 accuracy by transforming the integrals to to a Fourier (2D) or spherical

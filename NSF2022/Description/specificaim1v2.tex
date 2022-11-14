@@ -19,10 +19,15 @@ Fu2018_SIAM}. Our next goal is to study the model using rigorous
 analysis and consider three-dimensionsional effects. 
 
 The first step is to obtain some solid well-posedness results
-for~\eqref{eq:RBT}--\eqref{eqn:stressbalance}. This system is an
-autonomous ordinary differential equation for the body transformations
-$\FF_i$ with the rate of change defined by a system of PDEs. Regarding
-the PDE system, in the linear case and for fixed $t$, there is a unique
+for~\eqref{eq:RBT}--\eqref{eqn:stressbalance}.
+This system is an
+autonomous ordinary differential equations (ODEs) for the body transformations
+$\FF_i$ with the rate of change defined by a system of PDEs.
+Strategies have been proposed for the solution of
+coupled PDE/ODE systems 
+\cite{Carichino2018EnergybasedOS,Quarteroni2016GeometricMM}.
+Regarding \eqref{eq:RBT}--\eqref{eqn:stressbalance},
+in the linear case and for fixed $t$, there is a unique
 solution ($\phi, \uu$) under appropriate assumptions for the boundaries
 and boundary data~\cite{manasthesis, rac-gre2016, LAX}. These define
 instantaneous rigid body velocities and rotations, leading to the
@@ -43,15 +48,16 @@ elliptic equations~\cite{Savar2002DomainPA, DANERS20081,
 Lamboley2015EstimatesOF}, which also find extensive application in
 extremal domain problems~\cite{Schiffer1954VariationOD,
 Henrot2006ExtremumPF, bogosel:hal-03607776,Bogosel2022OnTP}, for
-example. For global-in-time solutions, we can use lubrication
+example.
+For global-in-time solutions, we can use lubrication
 forces~\cite{cawthorn_balmforth_2010, leal_2007}. Here, the lubrication
 force required to bring granules into contact blows up with distance,
 and we must analyze whether the attraction~\eqref{eqn:stressbalance}
 stays finite in order to guarantee positivity in the distance between
-granules. Finally, we can study the granule-flow behavior in the
+granules.
+Finally, we can study the granule-flow behavior in the
 zero-decay length limit. This limit should recover the hydrodynamics of
-a (noninteracting) rigid-body suspension. 
-
+a (noninteracting) rigid-body suspension.
 
 \begin{wrapfigure}[11]{r}{0.5\textwidth}
   \vspace{-8pt}
@@ -91,7 +97,8 @@ interfaces under the Allen-Cahn and Cahn-Hilliard
 equations~\cite{Christlieb2019CompetitionAC, Gavish2011CurvatureDF,
 Dai2019WeakSF, Promislow2017ExistenceBA, Dai2015CompetitiveGE,
 Promislow2012CriticalPO, Dai2022GeometricEO, Dai2020MinimizersFT,
-Dai2013GeometricEO, Promislow2022UndulatedBI} and well-posedness
+Dai2013GeometricEO, Promislow2022UndulatedBI, Gera2017CahnHilliardOS}
+and well-posedness
 results when coupled to flow in static domains~\cite{Jiang2017TwophaseIF,
 Liu2012StrongSF, Giorgini2019WellPosednessOA, Wu2022WellposednessOA,
 Gal2010AsymptoticBO, Giorgini2020DiffuseIM, Giorgini2019UniquenessAR}.
@@ -101,7 +108,9 @@ of nematics liquid crystals concerns the interaction of Landau de Gennes
 functionals with colloids, and studies the qualitative structure of
 defects around single or multiple coloidal
 particles~\cite{doi:10.1098/rsta.2020.0432, Alama2015MinimizersOT,
-Alama2021SaturnRD, PhysRevE.96.042702}. PI Ryham has several works on
+  Alama2021SaturnRD, PhysRevE.96.042702}.
+
+PI Ryham has several works on
 membrane vesicles dealing both with Allen-Cahn formulations and
 fluid-vesicle interactions~\cite{QiangDu09, RYHAM20112929, RyCoEi12,
 Ryham2017OnTV}.
@@ -139,10 +148,14 @@ inextensible, continuous, closed surface $\Sigma$ with elastic energy
   \int_{\Sigma} k_B(H - k_0)^2\, dS,
 \end{align}
 where $H$ is the mean curvature, $k_0$ is a spontaneous curvature, and
-$k_B$ is a bending modulus. One can also account for extensibility by
+$k_B$ is a bending modulus. One can also account
+for spatially dependent spontaneous curvature
+\cite{PhysRevE.79.031926,Lowengrub13,mahapatra_saintillan_rangamani_2020}
+and for extensibility by
 including in~\eqref{eq:Canham-Helfrich} an additional stretching term
 $k_A(\alpha - \alpha_0)^2/\alpha_0^2$ where $\alpha$ and $\alpha_0$ are
-the deformed and equilibrium area densitities respectively.
+the deformed and equilibrium area densitities respectively
+\cite{chabanon2017}.
 
 In the case of granules, bending enters through the
 splay of the granule directors. In
@@ -185,7 +198,7 @@ Segatti2014AnalysisOA}. In biophysics, researchers
 have derived the generalized Helfrich energy for lipid bilayers that
 involves coupling effects between lipid tilt to director
 splay~\cite{Hamm2000ElasticEO, Terzi2019CurvatureTiltTO, Terzi2019ACQ,
-  Terzi2017NovelTC, Pinigin2020NewCT}. It contains~\eqref{eq:Canham-Helfrich}
+  Terzi2017NovelTC, Pinigin2020NewCT,Rangamani20140463}. It contains~\eqref{eq:Canham-Helfrich}
 as a special case.
 \begin{quotation}
   \noindent

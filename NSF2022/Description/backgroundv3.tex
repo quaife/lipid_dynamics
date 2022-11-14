@@ -73,10 +73,11 @@ fraction, a phase field function represents the properties of the
 solvent. Our approach falls into the category of work that considers
 particles as a discretization of a continuous problem; in this case one
 is dealing with a particle method, as an alternative to other
-discretization methods such as finite-difference, finite-element, and
-spectral methods~\cite{Wilson2021ComparisonOT}. We have departed from
-the terminology ``particles'', though, to emphasize the role played the
-granules' finite size.
+stencil-based discretization methods~\cite{Wilson2021ComparisonOT,Gross2020MeshfreeMO,
+Sigurdsson2016HydrodynamicCO}.
+We have departed from the terminology ``particles'', though,
+to emphasize the role played elliptic equations and the granules'
+finite size.
 
 The framework is robust, flexible, and cuts across many of the
 aforementioned challenges. (i) The granules are not fixed to a stencil,
@@ -84,7 +85,7 @@ affording flexibility in terms of morphology and topology---sufficiently
 large forces will even pull groups of granules apart as physically
 required. (ii) The model formulation is built around important details
 like molecular orientations, and exhibits inter-molecular slip that must
-be added into diffusive interface models post hoc. (iii) It is
+be added into continuum models post hoc. (iii) It is
 straightforward to consider mixtures of granules with different shapes
 and boundary conditions. Leveraging boundary integral and fast summation
 methods, the dynamics can be solved in near-linear complexity in the
@@ -230,13 +231,17 @@ investigated (\S\ref{sec:specificaim3}).
 A concrete application the PIs have considered in their SIAM Multiscale
 Modeling and Simulation and Journal of Fluid Mechanics
 works~\cite{Fu2018_SIAM, FuQuRyYo22} is the problem of \emph{vesicle
-hydrodynamics}. A vesicle is a small, fluid filled membrane sack. The
+hydrodynamics}.
+%A vesicle is a small, fluid filled membrane sack.
+The
 goal in vesicle hydrodynamics is to study flow patterns arising from the
-interaction between membrane elasticity and the fluid.
+interaction between membrane elasticity/viscoelasticity and the fluid
+\cite{Gera2022SwingingAT,Cox2015TheEO,wangthesis,C6SM02452A,Strychalski2012ViscoelasticIB}.
 
-\begin{wrapfigure}[10]{l}{0.48\textwidth}
+
+\begin{wrapfigure}[10]{l}{0.5\textwidth}
 \vspace{-5pt}
-\includegraphics[width=0.48\textwidth]{figures/PreliminaryWork/TankTreading.jpg}
+\includegraphics[width=0.5\textwidth]{figures/PreliminaryWork/TankTreading.jpg}
 \vspace{-20pt}
 \caption{\label{fig:JPv_linearshear} \footnotesize Granular vesicles
   undergo tank-treading in background shear flow.}
@@ -247,14 +252,14 @@ physics. The model contains a few parameters; granule radius $c$, decay
 length $\epsilon$, surface tension $\gamma$. When these are set to
 realistic values \cite{Fu2018_SIAM, ErLjCl89, Lin2005, Parsegian,
 Israelachvili80, GarciaSaez, KUZMIN2005, Petelska2012,Jackson2016}, we
-quantitatively recover many of the well-known elastic moduli for
+quantitatively recover well-known elastic moduli for
 single-component lipid bilayers \cite{Nagle17, Nagle17-2,
 LeVeWa14,NAGLE2000159}. Such agreement is a validation that
 equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance} correctly capture
 the long-range interactions between amphiphilic granules (such as lipid
 macromolecules) surfaces.
 \begin{wrapfigure}[13]{l}{0.475\textwidth}
-\vspace{-10pt}
+\vspace{-0pt}
 \includegraphics[width=0.475\textwidth]{figures/PreliminaryWork/Rupture.jpg}
 \caption{\label{fig:JPv_rupture} \footnotesize Rupture of a granular
   vesicle under large shear rates.}
@@ -306,7 +311,8 @@ Zeng20223DprintedMT, Russell2016EnergyLF}.
 Computational methods to solve the partial differential equations
 (PDEs)~\eqref{eqn:stokes} and~\eqref{eqn:phase} are challenging to
 develop because of the complicated and unbounded domain. This challenge
-is compounded when dense suspensions are considered. Integral equations
+is compounded when dense suspensions are considered.
+Integral equations
 (IEs) offer an alternative formulation of the PDEs that only require
 meshing the boundary of the granules rather than all of $\Omega(t)$
 (Figure~\ref{fig:fem_vs_bie}), and they automatically satisfy far-field
