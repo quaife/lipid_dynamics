@@ -29,36 +29,34 @@
 %wormlike structures whose lifetimes allow fusion of
 %helices~\cite{Chen2011_Science}. 
 
-The PIs investigated how 
-distinct morphologies can be obtained from 
-the hydrophobic potential model by shifting the boundary condition $g$ \cite{fu-ryh-qua-you2022}.
-Focusing on  $W(\phi) = \phi^2$,
-equation~\eqref{eqn:phase} is the screened-Laplace equation
-and the solutions have a boundary layer structure that decays to $0$ in the
-bulk with the decay length $\epsilon$.
-Three boundary conditions
-on granule $\Gamma_i$ are considered:
+The PIs investigated how distinct morphologies can be obtained from the
+hydrophobic potential model by shifting the boundary condition
+$h$~\cite{fu-ryh-qua-you2022} in equation~\eqref{eqn:material}. Focusing
+on $W(\phi) = \phi^2$, equation~\eqref{eqn:phase} is the
+screened-Laplace equation and the solutions have a boundary layer
+structure that decays to $0$ in the bulk with the decay length
+$\epsilon$. Three boundary conditions on granule $\Gamma_i$ are
+considered:
 \begin{equation}
   \label{eq:bcs}
   \begin{tabular}{c|c|c}
      \text{(a)} & \text{(b)} & \text{(c)} \\
     \hline
     \rule{0pt}{4ex} 
-      $g(\mathbf{x}) = \displaystyle \frac{1+\cos (\theta_i(\xx))}{\sqrt{3\pi r}}$
-    & $g(\mathbf{x}) = \displaystyle \frac{2+\cos (\theta_i(\xx))}{\sqrt{9\pi r}}$
-    & $g(\mathbf{x}) = \displaystyle \frac{\cos (\theta_i(\xx))}{\sqrt{\pi r}}$
+      $h(\mathbf{x}) = \displaystyle \frac{1+\cos (\theta_i(\xx))}{\sqrt{3\pi r}}$
+    & $h(\mathbf{x}) = \displaystyle \frac{2+\cos (\theta_i(\xx))}{\sqrt{9\pi r}}$
+    & $h(\mathbf{x}) = \displaystyle \frac{\cos (\theta_i(\xx))}{\sqrt{\pi r}}$
 \end{tabular}
 \end{equation}
-The number $\theta_i(\xx)$ is the angle formed by the position $\xx$, the
-particle center $\aa_i$, and the particle director $\dd_i$ (Figure \ref{fig:flow_map}).
-The normalizations e.g., $(\pi r)^{-1/2}$, provide a uniform
-surface energy $\int_{\Gamma_i} g^2 \,ds = 1$ for circular particles
-of radius $r$. 
-The cases (b) and (c) are obtained by applying a vertical shift
-and scaling to case (a).
+The number $\theta_i(\xx)$ is the angle formed by the position $\xx$,
+the particle center $\aa_i$, and the particle director $\dd_i$ (Figure
+\ref{fig:flow_map}). The normalizations (e.g., $(\pi r)^{-1/2}$) provide
+a uniform surface energy $\int_{\Gamma_i} h^2 \,ds = 1$ for circular
+particles of radius $r$. The cases (b) and (c) are obtained by applying
+a vertical shift and scaling to case (a). Using this setup, the PIs
+simulate the dynamics of 100 granules with random initial position and
+orientation (Figure~\ref{fig:self-assembly2}).
 %, see Figure \ref{fig:bcs}.
-Using this setup, the PIs simulate the dynamics of 100 granules with random
-initial position and orientation, see Figure~\ref{fig:self-assembly2}.
 
 %%\begin{wrapfigure}[9]{r}{0.65\textwidth}
 %%  \vspace{-20pt}
@@ -95,41 +93,34 @@ Case (a) models amphiphilic granules with
 a hydrophobic tail and a hydrophilic head: The hydrophilic side takes the value $\phi =0$,
 which mimics the apolar head of a lipid.
 %, for example, which does not alter the structure of adjacent waters. 
-The hydrophobic side
-represents hydrocarbons and takes the value 
-$\phi > 0$. The interaction between amphiphilic granules is attractive,
-and they collectively orient their tails toward
-one another. 
-The PIs' previous work shows that this   
-boundary condition produces micelles and
-bilayers~\cite{Fu2018_SIAM}, see
-Figure~\ref{fig:self-assembly2}(a).
+The hydrophobic side represents hydrocarbons and takes the value $\phi >
+0$. The interaction between amphiphilic granules is attractive, and they
+collectively orient their tails toward one another.  The PIs' previous
+work shows that this   boundary condition produces micelles and
+bilayers~\cite{Fu2018_SIAM} (Figure~\ref{fig:self-assembly2}(a)).
 
 
-Multilamelar bilayers arise when both sides of the granule
-are hydrophobic (Figure~\ref{fig:self-assembly2}(b)).
-The boundary condition \eqref{eq:bcs}(b) 
-gives a granule that is more hydrophobic 
-on one side than on the other side.
-The initial self-assembly is similar to that in case (a).
-The difference arises in the long-time dynamics where the bilayers
-no longer remain well-separated. 
-Rather, the bilayers form layers 
-as a consequence of the interfacial tension of exposed particle
-heads~\cite{Huetal19, deMeetal21}. 
+Multilamelar bilayers arise when both sides of the granule are
+hydrophobic (Figure~\ref{fig:self-assembly2}(b)). The boundary
+condition~\eqref{eq:bcs}(b) gives a granule that is more hydrophobic on
+one side than on the other side. The initial self-assembly is similar to
+that in case~\eqref{eq:bcs}(a). The difference arises in the long-time
+dynamics where the bilayers no longer remain well-separated. Rather, the
+bilayers form layers as a consequence of the interfacial tension of
+exposed particle heads~\cite{Huetal19, deMeetal21}. 
 %
-Finally, boundary condition \eqref{eq:bcs}(c) models 
-a granule whose head surface repels the tail surface as proposed in
-\cite{MaRa76, Ma77}.
-The granules initially form chains with their directors perpendicular to the
-length of the chain. The equilibrium structure
-resembles a checkerboard pattern
-where each granule coordinates
-its head with the head of three other granules and its tail with the
-tail of three other granules Figure~\ref{fig:self-assembly2}(c).
+Finally, boundary condition~\eqref{eq:bcs}(c) models a granule whose
+head surface repels the tail surface as proposed in~\cite{MaRa76, Ma77}.
+The granules initially form chains with their directors perpendicular to
+the length of the chain. The equilibrium structure resembles a
+checkerboard pattern where each granule coordinates its head with the
+head of three other granules and its tail with the tail of three other
+granules Figure~\ref{fig:self-assembly2}(c).
 %
-PIs' recent analyses in \cite{fu-ryh-qua-you2022} show that these patterns may be understood by a mixture of polar and nematic characteristics of the individual amphiphilic granules, 
-tuned by the boundary condition $g({\bf x})$, and lead to the following problem:
+The PIs' recent analyses~\cite{fu-ryh-qua-you2022} show that these
+patterns may be understood by a mixture of polar and nematic
+characteristics of the individual amphiphilic granules, tuned by the
+boundary condition $h({\xx})$, and lead to the following problem:
 %
 \begin{quotation}
   \noindent
@@ -184,33 +175,56 @@ Smoluchowski equation
 {\bf H} &\equiv -\frac{\delta {\cal F}}{\delta {\bf d}} = -\frac{\delta}{\delta {\bf d}} 
 \int d{\bf x} \left\{\frac{K_d}{2} \left(\vec\nabla{\bf d}\right)^2 + \frac{K}{2}\left(\nabla\left({\bf d}{\bf d}^T- \frac{\bf I}{2}\right)\right)^2\right\},
 \end{align}
-where the subscripts denote the variables the derivative is taken with respect to, 
-$D_x$ is the translational diffusion and $D_d$ is the rotational diffusion. 
- ${\bf F}\left(\phi,{\bf d}\right)$ and ${\bf G}\left(\phi,{\bf d}\right)$ are the drift and rotation induced by the potential $\phi$ and alignment, respectively.
- They can be derived using the reciprocal theorem as in the case of 
-the phoretic Janus particle suspension \cite{TraversoMichellin2020_PRF,TraversoMichellin2022_JFM}.
-The last term in equation~(\ref{eq:dpdt}) characterizes the relaxation of the director alignment to the minimum of the
-free energy ${\cal F}$, where the parameter $K_d$ controls the alignment of directions, and $K$ characterizes the alignment of orientations:
-$K=0$ and $K_d > 0$ when the suspension is purely polar, and $K_d=0$  and $K>0$ when the suspension is purely nematic \cite{Amiri2022_JPhysA}. 
+where the subscripts denote the variables the derivative is taken with
+respect to, $D_x$ is the translational diffusion and $D_d$ is the
+rotational diffusion. ${\bf F}\left(\phi,{\bf d}\right)$ and ${\bf
+G}\left(\phi,{\bf d}\right)$ are the drift and rotation induced by the
+potential $\phi$ and alignment, respectively. They can be derived using
+the reciprocal theorem as in the case of the phoretic Janus particle
+suspension \cite{TraversoMichellin2020_PRF,TraversoMichellin2022_JFM}.
+The last term in equation~(\ref{eq:dpdt}) characterizes the relaxation
+of the director alignment to the minimum of the free energy ${\cal F}$,
+where the parameter $K_d$ controls the alignment of directions, and $K$
+characterizes the alignment of orientations: $K=0$ and $K_d > 0$ when
+the suspension is purely polar, and $K_d=0$ and $K>0$ when the
+suspension is purely nematic~\cite{Amiri2022_JPhysA}. 
 %
-Case (a) (boundary condition (\ref{eq:bcs})(a)) corresponds to a balanced mixture of polar and nematic characteristics of the nematic particles.
-Case (b) corresponds to a polar suspension, while case (c) corresponds to a nematic suspension. 
+In equation~\eqref{eq:bcs}, boundary condition (a) corresponds to a
+balanced mixture of polar and nematic characteristics of the nematic
+particles. Boundary condition (b) corresponds to a polar suspension,
+while boundary condition (c) corresponds to a nematic suspension. 
 
-PI Young has used the kinetic theory to investigate the many behaviors of droplets of
-nematic fluids \cite{YoungShelleyStein2021_MBE}. 
-The kinetic-theory based coarse-grained model for active suspension has been shown to work reasonably well beyond the dilute limit \cite{Saintillan2018_ARFM}.
-Within this framework, the stress on the viscous solvent from the granules can be constructed from ${\bf F}$ and ${\bf G}$ \cite{TraversoMichellin2020_PRF,TraversoMichellin2022_JFM}.
-In particular, PI Young proposes to use the thermodynamically consistent Bingham closure \cite{YoungShelleyStein2021_MBE} for these calculations to study the
-dynamics and rheology of suspension of amphiphilic granule controlled by tuning the boundary conditions on the microscopic amphiphilic granules, 
-which the PIs recently investigated using direct numerical simulations and the results are summarized in \cite{fu-ryh-qua-you2022}. Working together with PIs Quaife and Ryham, the team proposes to extract the coefficients
-$K$ and $K_d$ for a single granule first from the analysis (\S~\ref{sec:specificaim1}) and the direct numerical simulation results (\S~\ref{sec:specificaim2}). 
+PI Young has used the kinetic theory to investigate the many behaviors
+of droplets of nematic fluids~\cite{YoungShelleyStein2021_MBE}. The
+kinetic-theory based coarse-grained model for active suspension has been
+shown to work reasonably well beyond the dilute
+limit~\cite{Saintillan2018_ARFM}. Within this framework, the stress on
+the viscous solvent from the granules can be constructed from ${\bf F}$
+and ${\bf G}$~\cite{TraversoMichellin2020_PRF,
+TraversoMichellin2022_JFM}. In particular, PI Young proposes to use the
+thermodynamically consistent Bingham
+closure~\cite{YoungShelleyStein2021_MBE} for these calculations to study
+the dynamics and rheology of a suspension of amphiphilic granules
+controlled by tuning the boundary conditions on the microscopic
+amphiphilic granules, which the PIs recently investigated using direct
+numerical simulations and the results are summarized
+in~\cite{fu-ryh-qua-you2022}. Working together with PIs Quaife and
+Ryham, the team proposes to extract the coefficients $K$ and $K_d$ for a
+single granule first from the analysis (\S\ref{sec:specificaim1}) and
+the direct numerical simulation results (\S\ref{sec:specificaim2}).
 Using these values, the dynamics, pattern formation and rheology
-predicted from analyzing the proposed coarse-grained model will be compared quantitatively against numerical simulations. 
+predicted from analyzing the proposed coarse-grained model will be
+compared quantitatively against numerical simulations. 
 
-It is possible that the outcome of the proposed quantitative comparison depends on the treatment of collisions between amphiphilic granules 
-in the simulations (see \S~\ref{sec:specificaim2}), 
-and the modeling of the steric interactions in the kinetic theory. If this turns out to be an important effect, PI Young will incorporate the formulation of constraint forces as part of the active stress in the Stokes equations for the suspension.  Such constraint forces arise from the geometric 
-constraint that the amphiphilic granules cannot overlap with each other \cite{Weady2022_PRF}. 
+It is possible that the outcome of the proposed quantitative comparison
+depends on the treatment of collisions between amphiphilic granules in
+the simulations (see \S\ref{sec:specificaim2}), and the modeling of the
+steric interactions in the kinetic theory. If this turns out to be an
+important effect, PI Young will incorporate the formulation of
+constraint forces as part of the active stress in the Stokes equations
+for the suspension. Such constraint forces arise from the geometric
+constraint that the amphiphilic granules cannot overlap with each
+other~\cite{Weady2022_PRF}. 
 
  
 %The ultimate goal is to use numerical simulations to aid

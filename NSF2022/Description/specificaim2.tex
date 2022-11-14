@@ -6,20 +6,18 @@ Over the past decade, there has been an explosion of interest in
 small-scale processes that utilize capillary forces and van der Waals
 interactions to coordinate movement and bind microscopic components in
 solvent~\cite{Pandey2011, Zhang2017, Siontorou2017}. Additionally,
-hydrodynamic interactions are central to
-fabricate complex,
+hydrodynamic interactions are central to fabricate complex,
 three-dimensional microstructures~\cite{Dasgupta2017, Leong2007,
-  Reynolds2019, Cho2010}.
+Reynolds2019, Cho2010}.
 %Hydrodynamic effects cannot be ignored since
 %they, like for the rates of biological functions like pore
 %dynamics~\cite{RYHAM20112929}, set the rate of dissipation.
-The success
-of Specific Aims 1 and 3 depends on the ability to accurately and
-efficiently simulate dense suspensions of granules governed by
-equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance}. Because of their
-ability to resolve complex unbounded domains and achieve high-order
-accuracy, integral equations (IEs) will be a central theme of the
-computational framework. 
+The success of Specific Aims 1 and 3 depends on the ability to
+accurately and efficiently simulate dense suspensions of granules
+governed by equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance}. Because
+of their ability to resolve complex unbounded domains and achieve
+high-order accuracy, integral equations (IEs) will be a central theme of
+the computational framework. 
 
 To briefly describe IE formulations of PDEs, we consider the Stokes
 equation~\eqref{eqn:stokes} as an example. Its solution can be written
@@ -30,7 +28,8 @@ as a convolution
 \end{align}
 where $G(\xx - \yy)$ is a carefully chosen derivative of the PDE's
 fundamental solution and $\ssigma: \partial \Omega(t) \rightarrow \RR^2$
-is an unknown density function.
+is an unknown density function. The integral
+representation~\eqref{eqn:conv} is known as a layer potential.
 %This is analogous to the problem of
 %finding the global electrostatic potential $u$ with surface charge
 %density $\sigma$
@@ -53,14 +52,12 @@ constant that depends on the choice of $G$. For numerical stability,
 choices of $G$ that result in second-kind Fredholm integral equations,
 meaning $\lambda \neq 0$, are preferred.  
 
-As an illustration, the problem of finding the global
-electrostatic potential $u$ with surface
-charge density $\sigma$ is a special case of \eqref{eqn:conv}, where
-$G(\xx - \yy) = (4\pi \epsilon_0)^{-1}|\xx - \yy|^{-1}$
-in three dimensions
-($-(2\pi \epsilon_0)^{-1}\log|\xx - \yy|$ in two dimensions)
-with $\epsilon_0$ the permittivity of vacuum.  In this context, 
-~\eqref{eqn:bie} is analogous to Gauss's Law.
+As an illustration, the problem of finding the global electrostatic
+potential $u$ with surface charge density $\sigma$ is a special case of
+\eqref{eqn:conv}, where $G(\xx - \yy) = (4\pi \epsilon_0)^{-1}|\xx -
+\yy|^{-1}$ in three dimensions ($-(2\pi \epsilon_0)^{-1}\log|\xx - \yy|$
+in two dimensions) with $\epsilon_0$ the permittivity of vacuum.  In
+this context, equation~\eqref{eqn:bie} is analogous to Gauss's Law.
 
 The PIs have demonstrated that IEs are a powerful tool to simulate
 two-dimensional suspensions of amphiphilic particles~\cite{Fu2018_SIAM,
@@ -82,9 +79,11 @@ granules and $\mathcal{O}(1000)$ three-dimensional granules.
   unbounded domains?
 \end{quotation}
 
-\begin{wrapfigure}[]{l}{2.6in}
+\begin{wrapfigure}[6]{l}{2.6in}
   \centering
+%  \vspace{-10pt}
   \includegraphics[width=2.5in]{figures/SA2Figures/confinement.pdf}
+  \vspace{-10pt}
   \caption{\label{fig:stenosis} \footnotesize A granule vesicle passing
   through a constricted geometry.}
 \end{wrapfigure}
@@ -99,12 +98,13 @@ already been incorporated (Figure~\ref{fig:stenosis}). However, to
 consider rheological properties of the suspensions, a periodic domain,
 such as a Couette device, will be considered. Such multiply-connected
 domains require additional modifications to the IE formulation. PI
-Quaife has considered suspensions with confinement for several projects
-including dynamic suspensions~\cite{qua-bir2014, bys-sha-qua2020} and
-porous media~\cite{chi-moo-qua2020, dea-qua-bir-jua2018,
-moo-che-chi-qua2022, qua-gan-you2021}.
+Quaife is qualified to perform this task since he has simulated
+suspensions with confinement for several projects including dynamic
+suspensions~\cite{qua-bir2014, bys-sha-qua2020} and porous
+media~\cite{chi-moo-qua2020, dea-qua-bir-jua2018, moo-che-chi-qua2022,
+qua-gan-you2021}.
 \begin{wrapfigure}[16]{r}{2.1in}
-  \vspace{-8pt}
+  \vspace{-4pt}
   \centering
   \input{figures/near_sing.tikz}
   \vspace{-15pt}
@@ -154,7 +154,7 @@ stress~\eqref{eqn:stressbalance}. Singularity subtraction methods can
 also be applied in three dimensions, but not combined with
 Barycentric-type formulae. Alternatively, smoothed variations of the
 fundamental solution can be used to address nearly-singular
-integrals~\cite{beale1, cor2001, tlu-bea2019}. Alternatively, efficient
+integrals~\cite{beale1, cor2001, tlu-bea2019}. Finally, efficient
 quadrature methods can be applied directly to accurately compute
 singular and near-singular integrals~\cite{khayat_2005,
 gimbutas2013sisc}.
@@ -243,7 +243,7 @@ coefficient PDE $-\epsilon^2 \Delta v + W''(\phi^{N}) v =
 F[\phi^N]$, which is challenging with an integral equation since a
 fundamental solution is not readily available. However, by choosing a
 double-well potential with $W''(\phi_0) = W''(\phi_1) = \beta$, we
-propose to instead use an inexact Newton's method where $F^{-1}$ is
+propose to instead use an inexact Newton's method where $(F')^{-1}$ is
 approximated with the solution of $-\epsilon^2 \Delta v +
 \beta v = F[\phi^N]$. We test the efficacy of the exact and
 inexact Newton's method applied to~\eqref{eqn:phaseRoot} in $(0,1)
