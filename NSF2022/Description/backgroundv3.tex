@@ -8,17 +8,17 @@ Technology)}
 \section{Background}
 \label{sec:background}
 
-Self-organization encompasses a broad range of
+The field of self-organization encompasses a broad range of
 interesting and challenging phenomena in engineering and science.
 For example, understanding the
-organization of lipids and proteins in vesicles is crucial to design
-effective drug carriers
-and functional mimics of cell membranes
+organization of lipids and proteins in vesicles is crucial to
+designing effective drug carriers
+and functional mimics of cells
 \cite{Marui2022IncreasedEO,https://doi.org/10.1002/adma.202206288}.
 The COVID-19 pandemic has led to a
-concerted, worldwide efforts to understand
-the mechanisms of RNA condensation by structural proteins protein
-oligomerization that control virus structure
+concerted effort to understand
+the mechanisms of RNA condensation by structural proteins
+that control virus structure
 \cite{Kim2021SelfassembledMV}.
 Engineers have developed superior techniques
 that rely on nanoscale  
@@ -26,8 +26,8 @@ capillary and van der Waals forces
 to print high-resolution
 features on devices \cite{Zeng20223DprintedMT}.
 Finally, researchers design efficient algorithms for
-constructing for the interaction kernels to study complex
-patterns in agent-based systems like swarms and flocking
+constructing interaction kernels in the to study 
+of agent-based systems like swarms and flocking
 \cite{Lu2019NonparametricIO,Tadmor2021OnTM}.
 
 %A number of mathematical techniques have been developed to handle
@@ -48,34 +48,36 @@ When fluids are involved,
 tracking self-organization
 becomes difficult due to the deformability of
 suspended media in the presence of non-local hydrodynamic interactions.  
-A dominant approach in this area,
-the phase field method
+The phase field method,
+a prominent approach in this area,
 introduce a scalar-valued phase
 field function for the volume fraction of
 amphiphilic lipids or polymers in solvent, for example.
-Sometimes called diffuse interface
-methods, one devises energy functionals involving the gradient and
-well-potentials of the phase field, and possibly long range interaction
-kernels, 
+Sometimes called the diffuse interface
+method, one devises energy functionals involving the gradient and
+well-potentials of the phase field, and possibly convolution
+kernels, to characterize the self- and solvent-interaction of the
+suspended media 
 \cite{Promislow2022UndulatedBI,C9SM01983A,doi:10.1063/5.0009734,
 LiAn-Chang16,Choksi2003OnTD}.
-Because the fluid interfaces are given by the
-level-set of a smooth function,
+Because the fluid interfaces are given by 
+level-sets of a smooth function,
 they can have almost arbitrary topology
 e.g., free ends, junctions
 \cite{Promislow2017ExistenceBA,Promislow2022UndulatedBI},
 the evolution equations can be studied
-by well-established tools variational and analytical means,
+by well-established variational and analytical tools,
 \cite{Gavish2011CurvatureDF,Dai2019WeakSF,Dai2015CompetitiveGE,
 Dai2022GeometricEO,Dai2020MinimizersFT,Dai2013GeometricEO},
 and the governing equations are amenable to numerical approximation
 \cite{Christlieb2020BenchmarkCO,Christlieb2019CompetitionAC}.
 One of the downsides, though, 
-is that granular details like molecular orientations and
-shape changes induced by proteins that may be crucial to the physics, are
-clumsy to incorporate in the model. Moreover, numerical simulations of
-phase field models typically discretize the entire fluid domain under
-consideration, and apply cutoff boundary conditions when periodic
+is that granular details like molecular heterogeneity
+and orientations that may be crucial to the physics at mesoscopic scales, are
+clumsy to incorporate in the model. Moreover,
+numerical simulations of
+phase field models typically discretize the entire fluid domain, a
+nd apply cutoff boundary conditions when periodic
 domains are not under consideration. 
 
 The PIs recently developed a new mathematical model of
@@ -100,12 +102,12 @@ The framework is robust, flexible, and
 cuts across many of the aforementioned challenges.
 (i) The granules are not fixed to a stencil, 
 affording flexibility in terms of morphology and topology---sufficiently
-large forces will even pull granules apart as physically required.
+large forces will even pull groups of granules apart as physically required.
 (ii) The model formulation is built around important details like molecular orientations,
 and exhibits inter-molecular slip that must be added into diffusive interface models
 post hoc. 
 (iii) It is straightforward to consider mixtures of granules with different
-types of shapes and boundary conditions.
+shapes and boundary conditions.
 Leveraging boundary integral and fast summation methods, the dynamics can be solved in 
 near-linear complexity in the number of granules,
 which is equal to or better than 
@@ -125,7 +127,8 @@ the computational complexity of related sharp interface methods.
   and the unit inward normal $\nu.$ Panels b, c, d show the
   interplay between the phase field $\phi$ (colormap) and granule configuration.
   Red is for $\phi = 1$ and blue for $\phi = 0$; $W(\phi) = \tfrac{1}{2}\phi^2$.
-  The white arrows are the fluid velocity field.  
+  The white arrows are the fluid velocity field.
+  The panels reach an equilibrium state in panel d.
   }
 \end{figure}
 
@@ -134,8 +137,8 @@ To formulate the problem, consider a collection of $N_b$-many rigid
 bodies $U_i(t) \subset \RR^n$ with boundary $\Gamma_i(t)$. We call these
 bodies ``granules''. The granules are immersed in an incompressible,
 zero-Reynolds number fluid $\Omega(t) = \RR^n \setminus \cup_{i=1}^{N_b}
-U_i(t)$ (Figure~\ref{fig:flow_map}). Throughout, $\nnu$ refers to unit
-normal pointing into $\Omega(t)$.
+U_i(t)$ (Figure~\ref{fig:flow_map}). Throughout, $\nnu$ refers to
+the unit normal pointing into $\Omega(t)$.
 
 To determine how the granules move through space,
 we look for rigid body transformations
@@ -170,7 +173,7 @@ where
 \begin{align}
 \label{eqn:hydro_stress}
 \sigma = \mu(\nabla \uu + \nabla \uu^T) - pI,\quad 
-T_i = \gamma\left[\epsilon^{-1} W'(\phi)I
+T_i = \gamma\left[\epsilon^{-1} W(\phi)I
   + \epsilon\left(\tfrac{1}{2}|\nabla \phi|^2I - \nabla \phi \nabla
   \phi^T\right)\right]
 \end{align}
@@ -182,12 +185,12 @@ Equation~\eqref{eqn:phase} describes the
 transitions of the scalar order parameter $\phi$ with a decay length
 $\epsilon$.
 The scalar function $W(\phi) : \mathbb{R} \to \mathbb{R}$ is a nonnegative
-well-potential with local minima $\phi_0, \phi_1$  etc.
+well-potential with local minima $\phi_0, \phi_1$,  etc.,
 representing metastable states of the solvent.
-For the single well case, $W(\phi) = \frac{1}{2}\phi^2$
+In the single-well case, $W(\phi) = \frac{1}{2}\phi^2$
 has the minimum $\phi_0 = 0$ and the phase field equation
 \eqref{eqn:phase} becomes the \emph{linear} screened Laplace equation.
-For the double well case e.g, $W(\phi) = \frac{1}{4}(\phi^2-1)^2+cx$, $c > 0$,
+In the double-well case e.g, $W(\phi) = \frac{1}{4}(\phi^2-1)^2+cx$, $c > 0$,
 the phase field equation \eqref{eqn:phase} takes the form of an
 Allen-Cahn equation with local minima $\phi_0 < 0 < \phi_1$.
 Section \ref{sec:specificaim1} discusses certain
@@ -211,26 +214,27 @@ modifications needed for \eqref{eqn:phase} in the nonlinear case.
   \vspace{-20pt}
   \caption{\footnotesize \label{fig:self-assembly2} Changes in the
   boundary condition \eqref{eqn:material} yield distinct morphologies.
-  Each row has the same initial configuration, $W(\phi) =
+  Each row has the same initial configuration; $W(\phi) =
   \tfrac{1}{2}\phi^2$. (\emph{Top}) Granules with an amphiphilic
-  boundary condition results in a bilayer pattern (yellow, $\phi = 1$,
+  boundary condition form bilayer configurations (yellow, $\phi = 1$,
   blue, $\phi = 0$). (\emph{Middle}) Granules with $\phi = 2$ (magenta)
   on one side and $\phi = 1$ on the other form multilamellar bilayers.
   (\emph{Bottom}) Bipolar granules with $\phi = 1$ (yellow) on one side
   and $\phi=-1$ (green) on the other side form a checkerboard pattern.}
 \end{wrapfigure}
 
-For the moving domain boundary conditions, equations~\eqref{eqn:noslip}
+For the moving domain, equations~\eqref{eqn:noslip}
 specify a no-slip boundary condition for a rigid body with translation
 velocity $\aa'_i(t) = \vv_i$ and angular velocity $\omega_i$ (the axial
 vector for $R'_i(t)R_i(t)^T$) about the point $\aa_i(t) \in U_i(t)$. In
 equation~\eqref{eqn:material}, the function $h_i$ is a material label
-specifying the phase at water-granule interface. Finally,
+specifying the phase at the solvent-granule interface. Finally,
 equation~\eqref{eqn:stressbalance} closes the system by requiring that
-the force and torque generated by hydrodynamic stress balances that
+the force and torque generated by hydrodynamic stress balances
+the force and torque 
 generated by phase stress $T_i$ in~\eqref{eqn:hydro_stress}. The
 parameter $\gamma > 0$ is surface tension, $I$ is the identity matrix,
-and we define the ``cross product'' $\aa \times \bb = (\aa^{\perp} \cdot
+and we interpret the ``cross product'' as $\aa \times \bb = (\aa^{\perp} \cdot
 \bb) \kk$ where $\kk = (0,0,1) \in \RR^3$ and $(a_1,a_2)^{\perp} =
 (-a_2,a_1)$ whenever $\aa, \bb \in \mathbb{R}^2$.
 
@@ -240,7 +244,8 @@ of nonspecific self-organization phenomena in surface chemistry, biology
 and engineering. For one, the
 formulation~\eqref{eq:RBT}--\eqref{eqn:stressbalance} captures exactly
 the right behavior expected from amphiphilic self-assembly. For example,
-three bodies with amphiphilic label (\S\ref{sec:specificaim1})
+three bodies with amphiphilic label
+(\S\ref{sec:specificaim1}, equation \eqref{eq:amphiphilic_BC})
 spontaneously self-organize to sequester the hydrophobic fluid phase
 (Figure~\ref{fig:flow_map}). Changes in the boundary conditions result
 in distint morphologies (Figure~\ref{fig:self-assembly2}) whose rheology
@@ -255,7 +260,7 @@ The goal in vesicle hydrodynamics is to study flow patterns
 arrising from the interaction
 between membrane elasticity and the fluid.
 
-\begin{wrapfigure}[11]{l}{0.48\textwidth}
+\begin{wrapfigure}[10]{l}{0.48\textwidth}
 \vspace{-5pt}
 \includegraphics[width=0.48\textwidth]{figures/PreliminaryWork/TankTreading.jpg}
 \vspace{-20pt}
@@ -269,14 +274,13 @@ The model contains a few
 parameters; granule radius $c$,
 screening length $\epsilon$,
 surface tension $\gamma$.
-When set to their realistic values 
+When these are set to realistic values 
 \cite{Fu2018_SIAM, ErLjCl89, Lin2005, Parsegian, Israelachvili80, GarciaSaez, KUZMIN2005, Petelska2012,Jackson2016},
 we quantitatively recover many of the well-known
 elastic moduli for single-component lipid bilayers
 \cite{Nagle17, Nagle17-2, LeVeWa14,NAGLE2000159}. 
 Such agreement is a validation that equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance} 
-correctly capture the long-range interactions between amphiphilic granules (such as lipid macromolecules) surfaces.
-\newpage
+correctly capture the 
 
 \begin{wrapfigure}[13]{l}{0.475\textwidth}
 \vspace{-10pt}
@@ -284,21 +288,24 @@ correctly capture the long-range interactions between amphiphilic granules (such
 \caption{\label{fig:JPv_rupture} \footnotesize Rupture of a granular
   vesicle under large shear rates.}
 \end{wrapfigure}
+\noindent long-range interactions between amphiphilic
+granules (such as lipid macromolecules) surfaces.
+
 In terms of hydrodynamics, the granule vesicles in background flows
-replicate the behaviour of an continous, inextensible, elastic vesicle
-with permeability. The simulations showed, for the first time, a
+replicate the behaviour of a continous, permeable, inextensible,
+elastic vesicle.
+The simulations showed, for the first time, a
 granule-vesicle suspension behaving as a tank-treading vesicle
 \cite{Finken2008, Shaqfeh11} (see Figure \ref{fig:JPv_linearshear}).
 Movies of Figure \ref{fig:JPv_linearshear} reveal intermonolayer slip
-and derived values for intermonolayer friction were in good quantitative
+and derived values for intermonolayer friction are in good quantitative
 agreement those derived by atomistic and Martini force field simulation
 studies \cite{WuoEd06, denOtter2007, SHKULIPA2005823, Zgorski2019}. In
 Figure \ref{fig:JPv_rupture}, membrane rupture occurs at large shear
 rates and yields a dimensional scaling for critical rupture shear rate
 \cite{VLAHOVSKA2009775,keller_skalak_1982}. A side-by-side comparison of
 granule-based vesicles and the sharp interface representation yielded
-shapes and trajectories that overlapped.
-
+shapes and trajectories that basically overlapped.
 
 %Having a non-specific model that replicates physical details
 %is the crown jewel of applied mathematics.
@@ -311,31 +318,32 @@ is highly desirable from the applied math point of view as there are many
 two-phase fluids and dense suspensions \cite{Bradley2016},
 (iii) creation and manipulation of small droplets
 using amphiphilic microparticles \cite{Ha2022SurfaceEM,Ha2020MinimalSC},
-and (iv) tension drivent fabrication of microstructures
+and (iv) tension driven fabrication of microstructures
 ~\cite{Dasgupta2017, Leong2007, Reynolds2019, Cho2010,Zeng20223DprintedMT,Russell2016EnergyLF}.
 
 \subsection{Computational method and mathematical properties}
-\begin{wrapfigure}[15]{r}{2.1in}
+\begin{wrapfigure}[18]{r}{3.1in}
   \vspace{-0pt}
   \centering
-  \includegraphics[width=1in]{figures/Background/Peanut/PeanutFEM.pdf}
-  \includegraphics[width=1in]{figures/Background/Peanut/PeanutIE.pdf}\\
-  \includegraphics[width=2in]{figures/Background/NSF.pdf}\\
+  \includegraphics[width=1.5in]{figures/Background/Peanut/PeanutFEM.pdf}
+  \includegraphics[width=1.5in]{figures/Background/Peanut/PeanutIE.pdf}\\
+  \includegraphics[width=3in]{figures/Background/NSF.pdf}\\
 \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
   ({\em top left}) requires meshing the entire domain (typically into
   triangles), while a BIE ({\em top right}) requires meshing only the
   boundary of the domain.
   ({\em bottom}) BIE can handle intricately shaped domains as well.}
 \end{wrapfigure}
-Computational methods to solve the PDEs~\eqref{eqn:stokes}
+Computational methods to solve the partial differential equations
+(PDEs)~\eqref{eqn:stokes}
 and~\eqref{eqn:phase} are challenging to develop because of
 the complicated and unbounded domain.
 This challenge is compounded when dense
 suspensions are considered. Integral equations (IEs) offer an
 alternative formulation of the PDEs that only require meshing the
 boundary of the granules rather than all of $\Omega(t)$
-(Figure~\ref{fig:fem_vs_bie}), and the automatically satisfy far field
-conditions. Additional advantages of an discretizations of IE
+(Figure~\ref{fig:fem_vs_bie}), and the automatically satisfy far-field
+conditions. Additional advantages of discretizations of IE
 formulations include high-order, or even spectral, accuracy and
 well-conditioned linear system that can be solved iteratively with a
 mesh-independent number of Krylov iterations such as the generalized
@@ -368,8 +376,8 @@ system~\eqref{eq:RBT}--\eqref{eqn:stressbalance} has the energy law
     E = \gamma \int_{\Omega(t)}
   \frac{\epsilon}{2} |\nabla \phi|^2 + \frac{1}{\epsilon} W(\phi) \,d\xx.
 \end{align}
-Here $E$ is the energy stored in the phase transitions
-and the energy law states that
+Here $E$ is the energy stored by the phase transitions
+between the granule boundaries and the solvent and the energy law states that
 the granules move to decrease energy,
 which is lost due to viscous dissipation.
 The derivation of \eqref{eq:energy_law} is interesting
@@ -379,11 +387,18 @@ derivative of $E$ as an energy density flux through the boundary
 involving the phase stress $T_i$, and a bulk term involving the Euler-Lagrange
 derivative of $E$~\cite{Fu2018_SIAM}. The Euler-Lagrange derivative vanishes due
 to~\eqref{eqn:phase} and the boundary flux transforms into viscous
-dissipation due to~\eqref{eqn:hydro_stress} and the Stokes equations. Figure~\ref{fig:coarsening} summarizes the general evolution of $E$ from the self-assembly process to
+dissipation due to~\eqref{eqn:hydro_stress} and the Stokes equations.
+In terms of self-consistency, the sum of the forces given by the
+integral of the phase stress vectors $T_i\nu$ over the granule boundaries
+is zero. 
+Figure~\ref{fig:coarsening} summarizes the general evolution of $E$ from the
+self-assembly process to
 the collective dynamics of the assembly under external forcing.
+
+
 \begin{wrapfigure}[16]{r}{4in} 
   \includegraphics[width=4in]{figures/Background/coarsening.pdf}
-  \vspace{-20pt}
+  \vspace{-30pt}
   \caption{\label{fig:coarsening} \footnotesize Energy $E$ in
   equation~(\ref{eq:energy_law}) of a suspension of amphiphilic granules
   versus time $t$. Under the moving domain problem
@@ -391,13 +406,13 @@ the collective dynamics of the assembly under external forcing.
   condition, the granules self-organize into vesicle bilayers. External
   hydrodynamic effects are introduced to study elastic properties of
   the granules assembly~\cite{Fu2018_SIAM,FuQuRyYo22}.}
-  \vspace{5pt}
 \end{wrapfigure}
 
-In the far field, $\lim_{\xx \to \infty} \phi(\xx) = \phi_0$ and for the
-background flow, we require that $\lim_{\xx \to \infty} \uu(\xx) -
+We have $\lim_{\xx \to \infty} \phi(\xx) = \phi_0$ in the far field
+and when
+background flows are involved, we require that $\lim_{\xx \to \infty} \uu(\xx) -
 \uu_{\infty}(\xx) = \mathbf{0}$, where
-the background flow takes the form
+$\uu_{\infty}$ can take the form
 %In the case of shear background flow,
 %for example,
 %\begin{align}
@@ -408,21 +423,22 @@ the background flow takes the form
 %are horizontal and vertical basis vectors, respectively.
 %Other
 %background flows include
-shear, extensional, parabolic Poiseuille, and
+of a shear, extensional, parabolic Poiseuille, or
 Taylor-Green flow, for example.
-For numerical stability and physical realism, we
+For numerical stability, we
 include pairwise repulsive forces and torques
-in~\eqref{eqn:stressbalance} to prevent the collision between
-neighboring granules which introduces a repulsive potential in the energy
-law~\eqref{eq:energy_law}. Background flow adds elastic energy to the
-granule configurations.
+in~\eqref{eqn:stressbalance} to prevent the near-collision between
+neighboring granules.  This introduces a repulsive potential in the energy
+law~\eqref{eq:energy_law}.
+Background flow adds elastic energy to the granule configurations,
+as illustrated in Figure \ref{fig:coarsening}.
 %and is quantified by simulation. We refer to the
 %PIs work~\cite{FuQuRyYo22, fu-ryh-qua-you2022, Fu2018_SIAM} for details. 
 
 In terms of physical justification, the derivation of the
 one-dimensional version of our model was carried out using a Landau
-expansion of the free energy density for a single-well
-potential~\cite{MaRa76, ErLjCl89}. The double-well potential case was
+expansion for a single-well potential~\cite{MaRa76, ErLjCl89}.
+The double-well potential case was
 considered by Gompper~\cite{GoHaKo94} to describe metastable
 coordination of water. In the field of surface
 chemistry~\cite{Israelachvili1954}, there is a large empirical
@@ -438,7 +454,7 @@ when equation \eqref{eqn:phase} takes the form of a screened Laplace equation
 $-\epsilon^2 \Delta \phi + \phi =0$, for a fixed domain $\Omega$ with
 smooth boundary, if the material label $h_i = 1$
 everywhere, then $\phi$ has a boundary layer going from $1$ at the
-boundary to $0$ in the bulk and one can prove that 
+boundary to $0$ so that 
 $\lim_{\epsilon \to 0} E = \frac{1}{2}\gamma |\partial \Omega|$.
 In other words, 
 interfacial energy enters the problem even in the linear case,
@@ -455,13 +471,8 @@ and foster training in mathematical sciences.
 Section \ref{sec:BroaderImpacts} summarizes the broader
 impacts and section \ref{sec:IntellectualMerit} summarizes the intellectual merit of our research activity.
 Section \ref{sec:proposed-work} contains our
-three specific aims.  They are
-mathematical analysis of the system
-(\S \ref{sec:specificaim1}: PI Ryham),
-numerical implementation
-(\S \ref{sec:specificaim2}: PI Quaife),
-and  kinetic theory
-(\S \ref{sec:specificaim3}: PI Young).
+specific aims.
+
 
 
 
