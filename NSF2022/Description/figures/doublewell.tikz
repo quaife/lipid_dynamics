@@ -1,4 +1,4 @@
-\begin{tikzpicture}[scale=0.5]
+\begin{tikzpicture}[scale=0.53]
 
 \begin{axis}[
   at = {(0cm,0cm)},

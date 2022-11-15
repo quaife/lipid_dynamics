@@ -215,6 +215,15 @@ motivating the following problem:
   \textbf{Problem 5.} How can IEs be coupled with a Newton method to
   solve the non-linear PDE~\eqref{eqn:phase}?
 \end{quotation}
+\begin{wrapfigure}[18]{l}{2.3in}
+  \vspace{-7pt}
+  \centering
+  \input{figures/doublewell.tikz} 
+  \vspace{-10pt}
+  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
+  The convergence of exact and inexact Newton's methods applied
+  to~\eqref{eqn:phaseRoot}.}
+\end{wrapfigure}
 For a general double-well potential $W(\phi)$ with local minima at
 $\phi_0$ and $\phi_1$, we propose to interpret the solution
 of~\eqref{eqn:phase} as a root finding problem for
@@ -239,15 +248,6 @@ with a second-order finite difference stencil. The double-well potential
 is illustrated in Figure~\ref{fig:CA}(a), and both the exact and inexact
 Newton's methods converge to the same solution. Figure~\ref{fig:CA}(b)
 shows the norm of the residual at each Newton
-\begin{wrapfigure}[18]{l}{1.8in}
-  \vspace{-7pt}
-  \centering
-  \input{figures/doublewell.tikz} 
-  \vspace{-10pt}
-  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
-  The convergence of exact and inexact Newton's methods applied
-  to~\eqref{eqn:phaseRoot}.}
-\end{wrapfigure}
 iterate when using the exact second derivative (red curve) and the
 approximate second derivative (blue curve). While the inexact Newton's
 method requires roughly twice as many iterations to reach a tolerance
