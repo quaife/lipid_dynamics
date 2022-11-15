@@ -39,7 +39,7 @@ representation~\eqref{eqn:conv} is known as a layer potential.
 %\end{align*}
 The IE reformulation has several immediate advantages including a
 dimension reduction since $\ssigma$ is defined only on $\partial
-\Omega(t)$, and the far field boundary condition of the PDE is
+\Omega(t)$, and the far-field boundary condition of the PDE is
 automatically satisfied. The density function $\ssigma$ is chosen to
 satisfy the boundary condition, and this results is an IE 
 \begin{align}
@@ -79,7 +79,6 @@ granules and $\mathcal{O}(1000)$ three-dimensional granules.
   suspensions of two- and three-dimensional granules in bounded and
   unbounded domains?
 \end{quotation}
-
 In experiments, it is known that interactions between bounding walls and
 granules cannot be ignored~\cite{qua-gan-you2021,
 KaouiHartingMisbah2011_PRE, her-sto-gra2005}. Therefore, the necessary
@@ -216,7 +215,6 @@ motivating the following problem:
   \textbf{Problem 5.} How can IEs be coupled with a Newton method to
   solve the non-linear PDE~\eqref{eqn:phase}?
 \end{quotation}
-
 For a general double-well potential $W(\phi)$ with local minima at
 $\phi_0$ and $\phi_1$, we propose to interpret the solution
 of~\eqref{eqn:phase} as a root finding problem for
@@ -232,7 +230,7 @@ using backtracking. This requires solving the variable coefficient PDE
 $-\epsilon^2 \Delta v + W''(\phi^{N}) v = F[\phi^N]$, which is
 challenging with an integral equation since a fundamental solution is
 not readily available. However, by choosing a double-well potential with
-$W''(\phi_0) = W''(\phi_1) = \beta$, we propose to instead use an
+$W''(\phi_0) = W''(\phi_1) = \beta > 0$, we propose to instead use an
 inexact Newton's method where $(F')^{-1}$ is approximated with the
 solution of $-\epsilon^2 \Delta v + \beta v = F[\phi^N]$. We test the
 efficacy of the exact and inexact Newton's method applied
