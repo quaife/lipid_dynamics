@@ -51,6 +51,7 @@ single function $h$, and considered three scenarios:
    \text{(b)  } \phi(\xx) = \tfrac{1}{2}(\cos \theta + 3),\quad
    \text{(c) }  \phi(\xx) = \cos \theta, \quad \xx \in \partial \Gamma_i.
 \end{equation}
+<<<<<<< HEAD
 The number $\theta$ is the angle formed by $\xx-\aa_i$
 and the particle director $\dd_i$ (Figure
 \ref{fig:flow_map}). 
@@ -113,6 +114,14 @@ head of three other granules (Figure~\ref{fig:self-assembly2}, bottom row).
 %a vertical shift and scaling to case (a). Using this setup, the PIs
 %simulate the dynamics of 100 granules with random initial position and
 %orientation (Figure~\ref{fig:self-assembly2}).
+%$\theta_i(\xx)$ is the angle formed by the position $\xx$,
+%the particle center $\aa_i$, and the particle director $\dd_i$ (Figure
+%\ref{fig:flow_map}). The normalizations (e.g., $(\pi c)^{-1/2}$) provide
+%a uniform surface energy $\int_{\Gamma_i} h^2 \,ds = 1$ for circular
+%granules of radius $c$. Cases (b) and (c) are obtained by applying
+%a vertical shift and scaling to case (a). Using this setup, the PIs
+%simulate the dynamics of 100 granules with random initial positions and
+%orientations (Figure~\ref{fig:self-assembly2}).
 %, see Figure \ref{fig:bcs}.
 
 %%\begin{wrapfigure}[9]{r}{0.65\textwidth}
@@ -235,7 +244,7 @@ Smoluchowski equation
 {\bf H} &\equiv -\frac{\delta {\cal F}}{\delta {\bf d}} = -\frac{\delta}{\delta {\bf d}} 
 \int d{\bf x} \left\{\frac{K_d}{2} \left(\vec\nabla{\bf d}\right)^2 + \frac{K}{2}\left(\nabla\left({\bf d}{\bf d}^T- \frac{\bf I}{2}\right)\right)^2\right\},
 \end{align}
-where the subscripts denote the variables the derivative is taken with
+where the subscripts of the gradient operator denote the variables the derivative is taken with
 respect to, $D_x$ is the translational diffusion and $D_d$ is the
 rotational diffusion. ${\bf F}\left(\phi,{\bf d}\right)$ and ${\bf
 G}\left(\phi,{\bf d}\right)$ are the drift and rotation induced by the
@@ -244,7 +253,7 @@ the reciprocal theorem as in the case of the phoretic Janus particle
 suspension \cite{TraversoMichellin2020_PRF,TraversoMichellin2022_JFM}.
 The last term in equation~(\ref{eq:dpdt}) characterizes the relaxation
 of the director alignment to the minimum of the free energy ${\cal F}$,
-where the parameter $K_d$ controls the alignment of directions, and $K$
+where the parameter $K_d$ controls the alignment of direction, and $K$
 characterizes the alignment of orientations: $K=0$ and $K_d > 0$ when
 the suspension is purely polar, and $K_d=0$ and $K>0$ when the
 suspension is purely nematic~\cite{Amiri2022_JPhysA}. 
@@ -264,12 +273,10 @@ and ${\bf G}$~\cite{TraversoMichellin2020_PRF,
 TraversoMichellin2022_JFM}. In particular, PI Young proposes to use the
 thermodynamically consistent Bingham
 closure~\cite{YoungShelleyStein2021_MBE} for these calculations to study
-the dynamics and rheology of a suspension of amphiphilic granules
-controlled by tuning the boundary conditions on the microscopic
-amphiphilic granules, which the PIs recently investigated using direct
-numerical simulations and the results are summarized
-in~\cite{fu-ryh-qua-you2022}. Working together with PIs Quaife and
-Ryham, the team proposes to extract the coefficients $K$ and $K_d$ for a
+the collective dynamics and rheology of a suspension of amphiphilic granules
+controlled by tuning their hydrophobicity, which the PIs recently investigated using direct
+numerical simulations \cite{fu-ryh-qua-you2022}. 
+Working together, the team proposes to extract the coefficients $K$ and $K_d$ for a
 single granule first from the analysis (\S\ref{sec:specificaim1}) and
 the direct numerical simulation results (\S\ref{sec:specificaim2}).
 Using these values, the dynamics, pattern formation and rheology
@@ -282,8 +289,7 @@ the simulations (see \S\ref{sec:specificaim2}), and the modeling of the
 steric interactions in the kinetic theory. If this turns out to be an
 important effect, PI Young will incorporate the formulation of
 constraint forces as part of the active stress in the Stokes equations
-for the suspension. Such constraint forces arise from the geometric
-constraint that the amphiphilic granules cannot overlap with each
+for the suspension. Such constraint forces arise from the condition that amphiphilic granules cannot overlap with each
 other~\cite{Weady2022_PRF}. 
 
  
