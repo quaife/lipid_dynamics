@@ -232,9 +232,9 @@ of~\eqref{eqn:phase} as a root finding problem for
   F[\phi] = -\epsilon^2 \Delta \phi + W'(\phi).
 \end{align}
 Equation~\eqref{eqn:phaseRoot} will be solved with Newton's method,
-$\phi^{N+1} = \phi^{N} - \alpha (F'(\phi^N))^{-1} F(\phi^N)$, where
+$\phi^{N+1} = \phi^{N} - \xi (F'(\phi^N))^{-1} F(\phi^N)$, where
 $F'(\phi^N) = -\epsilon^2 \Delta + W''(\phi^N)$ is the Fr\'{e}chet
-derivative of $F$, and $\alpha$ is the step size that will be determined
+derivative of $F$, and $\xi$ is the step size that will be determined
 using backtracking. This requires solving the variable coefficient PDE
 $-\epsilon^2 \Delta v + W''(\phi^{N}) v = F[\phi^N]$, which is
 challenging with an integral equation since a fundamental solution is
