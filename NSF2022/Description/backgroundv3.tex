@@ -99,9 +99,8 @@ complexity of related sharp interface methods.
 %    \includegraphics[keepaspectratio,height=2.7cm]{figures/SpecificAim1/Domain.jpg}
 %    \includegraphics[keepaspectratio,height=2.7cm]{figures/SpecificAim1/3Particles.jpg}
   \end{center}
-  \caption{\label{fig:flow_map} \footnotesize (a) Granules make a
-  superstructure e.g., a vesicle. The panel shows the moving domain
-  $\Omega(t)$, granules with centers $\aa_i$ and directors $\dd_i$ with
+  \caption{\label{fig:flow_map} \footnotesize (a) The moving domain,
+  $\Omega(t)$, of granules with centers $\aa_i$, directors $\dd_i$ with
   $|\dd_i| = 1$, and the unit inward normal $\nnu$. Panels (b), (c), (d)
   show the interplay between the phase field $\phi$ (colormap) and
   granule configuration. Red is for $\phi = 1$ and blue for $\phi = 0$;
@@ -150,8 +149,14 @@ for $i=1,\ldots,N_b$ and where $\xx = \FF_i(\XX,t)$. Finally,
 where
 \begin{align}
 \label{eqn:hydro_stress}
+<<<<<<< HEAD
 \sigma = -pI + \mu(\nabla \uu + \nabla \uu^T),\quad 
 T_i = \gamma\left(\frac{1}{\epsilon}W(\phi)I + \frac{\epsilon}{2}|\nabla \phi|^2I - \epsilon \nabla \phi \nabla \phi^T\right)
+=======
+\sigma = \mu(\nabla \uu + \nabla \uu^T) - pI,\quad 
+T_i = \gamma\left(\frac{1}{\epsilon}W(\phi)I + \frac{\epsilon}{2}|\nabla
+  \phi|^2 - \epsilon \nabla \phi \nabla \phi^T\right),
+>>>>>>> 7cdf8a8628044a92aa0d2c22c95e439e001392fc
 %T_i = \gamma\left[\epsilon^{-1} W(\phi)I
 %  + \epsilon\left(\tfrac{1}{2}|\nabla \phi|^2I - \nabla \phi \nabla
 %  \phi^T\right)\right]
@@ -195,9 +200,16 @@ nonlinear case.
   \tfrac{1}{2}\phi^2$. (\emph{Top}) Granules with an amphiphilic
   boundary condition form bilayer configurations (yellow, $\phi = 1$,
   blue, $\phi = 0$). (\emph{Middle}) Granules with $\phi = 2$ (magenta)
+<<<<<<< HEAD
   on one side and $\phi = 2$ on the other form multilamellar bilayers.
   (\emph{Bottom}) Bipolar granules with $\phi = 1$ (yellow) on one side
   and $\phi=-1$ (green) on the other side form a checkerboard pattern.}
+=======
+  on one side and $\phi = 1$ (yellow) on the other form multilamellar
+  bilayers.  (\emph{Bottom}) Bipolar granules with $\phi = 1$ (yellow)
+  on one side and $\phi=-1$ (green) on the other side form a
+  checkerboard pattern.}
+>>>>>>> 7cdf8a8628044a92aa0d2c22c95e439e001392fc
 \end{wrapfigure}
 
 For the moving domain, equations~\eqref{eqn:noslip}
@@ -270,26 +282,25 @@ In terms of hydrodynamics, the granule vesicles in background flows
 replicate the behaviour of a continuous, permeable, inextensible,
 elastic vesicle. The simulations showed, for the first time, a
 granule-vesicle suspension behaving as a tank-treading
-vesicle~\cite{Finken2008, Shaqfeh11} (see
-Figure~\ref{fig:JPv_linearshear}). Movies of
-Figure~\ref{fig:JPv_linearshear} reveal intermonolayer slip and derived
-values for intermonolayer friction are in good quantitative agreement
-those derived by atomistic and Martini force field simulation
+vesicle~\cite{Finken2008, Shaqfeh11} (Figure~\ref{fig:JPv_linearshear}).
+Movies of Figure~\ref{fig:JPv_linearshear} reveal intermonolayer slip
+and derived values for intermonolayer friction are in good quantitative
+agreement those derived by atomistic and Martini force field simulation
 studies~\cite{WuoEd06, denOtter2007, SHKULIPA2005823, Zgorski2019}. In
 Figure~\ref{fig:JPv_rupture}, membrane rupture occurs at large shear
 rates and yields a dimensional scaling for critical rupture shear
 rate~\cite{VLAHOVSKA2009775, keller_skalak_1982}. A side-by-side
 comparison of granule-based vesicles and the sharp interface
-representation yields shapes and trajectories that basically overlapped.
+representation yields shapes and trajectories that basically overlap.
 
 %Having a non-specific model that replicates physical details
 %is the crown jewel of applied mathematics.
 The mathematical framework in
 equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance} is highly desirable
-from the Applied Math point of view as there are many \emph{Further
-Applications}, such as (i) amphiphilic Janus spheres that form diverse
-suprastructures~\cite{HaBr20, McBr21, Bradley2017}, (ii) pickering
-emulsions involving two-phase fluids and dense suspensions
+from the Applied Mathematics point of view as there are many
+\emph{Further Applications}, such as (i) amphiphilic Janus spheres that
+form diverse suprastructures~\cite{HaBr20, McBr21, Bradley2017}, (ii)
+pickering emulsions involving two-phase fluids and dense suspensions
 \cite{Bradley2016}, (iii) creation and manipulation of small droplets
 using amphiphilic microparticles~\cite{Ha2022SurfaceEM,
 Ha2020MinimalSC}, and (iv) tension driven fabrication of
@@ -319,11 +330,11 @@ meshing the boundary of the granules rather than all of $\Omega(t)$
 (Figure~\ref{fig:fem_vs_bie}), and they automatically satisfy far-field
 conditions. Additional advantages of discretizations of IE formulations
 include high-order, or even spectral, accuracy and well-conditioned
-linear system that can be solved iteratively with a mesh-independent
+linear systems that can be solved iteratively with a mesh-independent
 number of Krylov iterations such as the generalized minimal residual
 method (GMRES). However, IEs have challenges: nearly touching granules
-requires a quadrature rule for nearly-singular integrals; their
-discretization results in dense matrices; and they cannot immediately be
+requires a quadrature rule for nearly-singular integrals, their
+discretization results in dense matrices, and they cannot immediately be
 applied to non-linear PDEs. \S\ref{sec:specificaim2} discusses a variety
 of tools the IE community, including PI Quaife, has developed to address
 these numerical challenges.
@@ -421,12 +432,12 @@ of long-range interactions between granule surfaces.
 
 
 \subsection{Outline of the proposal}
-The aim of this proposal is to advance the simulation and theory for
-soft-matter systems and foster training in Mathematical Sciences.
-Section~\ref{sec:BroaderImpacts} summarizes the broader impacts and
-section~\ref{sec:IntellectualMerit} summarizes the intellectual merit of
-our research activity. Section~\ref{sec:proposed-work} contains our
-specific aims.
+The aim of this proposal is to advance the theory, simulation and
+modeling for soft-matter systems and foster training in Mathematical
+Sciences.  Section~\ref{sec:BroaderImpacts} summarizes the broader
+impacts and section~\ref{sec:IntellectualMerit} summarizes the
+intellectual merit of our research activity.
+Section~\ref{sec:proposed-work} contains our specific aims.
 
 
 
