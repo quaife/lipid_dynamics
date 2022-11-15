@@ -51,7 +51,7 @@ forces~\cite{cawthorn_balmforth_2010, leal_2007}. Here, the lubrication
 force required to bring granules into contact blows up with distance,
 and we must analyze whether the attraction~\eqref{eqn:stressbalance}
 stays finite in order to guarantee positivity in the distance between
-granules.
+granules with respect to time.
 Finally, we can study the granule-flow behavior in the
 zero-decay length limit. This limit should recover the hydrodynamics of
 a (noninteracting) rigid-body suspension.
@@ -81,15 +81,15 @@ we must reformulate~\eqref{eqn:phase} as
 the following initial value problem with transport:
 \begin{align}
   \label{eqn:phase_transport}
-  \phi_t + \uu \cdot \nabla
-  = -\beta \frac{\delta E}{\delta \phi}
-  = \beta(\epsilon^2 \Delta \phi - W'(\phi)),
+  \phi_t + \uu \cdot \nabla \phi
+  = -\zeta \frac{\delta E}{\delta \phi}
+  = \zeta(\epsilon^2 \Delta \phi - W'(\phi)),
   \quad \phi(\xx,0) = \phi_0(\xx),
 \end{align}
 for initial data $\phi_0$. The modified system enjoys an energy law
 similar to~\eqref{eq:energy_law} with an additional dissipation term
 involving the square the Euler-Lagrange derivative $\frac{\delta
-E}{\delta \phi}$ and dampening factor $\beta > 0$. There are several
+E}{\delta \phi}$ and dampening factor $\zeta > 0$. There are several
 works dealing with the characterization of the geometric evolution of
 interfaces under the Allen-Cahn and Cahn-Hilliard
 equations~\cite{Christlieb2019CompetitionAC, Gavish2011CurvatureDF,
@@ -150,7 +150,7 @@ for spatially dependent spontaneous curvature
 and for extensibility by
 including in~\eqref{eq:Canham-Helfrich} an additional stretching term
 $k_A(\alpha - \alpha_0)^2/\alpha_0^2$ where $\alpha$ and $\alpha_0$ are
-the deformed and equilibrium area densities respectively
+the deformed and equilibrium area densities, respectively
 \cite{chabanon2017}, and $k_A$ is a stretching modulus.
 
 In the case of granules, bending enters through the splay of the granule
