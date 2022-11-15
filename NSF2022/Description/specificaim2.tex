@@ -23,7 +23,7 @@ To briefly describe IE formulations of PDEs, we consider the Stokes
 equation~\eqref{eqn:stokes} as an example. Its solution can be written
 as a convolution 
 \begin{align}
-  \uu(\xx) = \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
+  \uu(\xx) = \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, dS_\yy,
   \label{eqn:conv}
 \end{align}
 where $G(\xx - \yy)$ is a carefully chosen derivative of the PDE's
@@ -41,25 +41,24 @@ The IE reformulation has several immediate advantages including a
 dimension reduction since $\ssigma$ is defined only on $\partial
 \Omega(t)$, and the far field boundary condition of the PDE is
 automatically satisfied. The density function $\ssigma$ is chosen to
-satisfy the boundary condition, and this results in an IE 
+satisfy the boundary condition, and this results is an IE 
 \begin{align}
   \gg(\xx) = \lambda \ssigma(\xx) + 
-    \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, ds_\yy,
+    \int_{\partial\Omega(t)} G(\xx - \yy) \ssigma(\yy) \, dS_\yy,
     \quad \xx \in \partial\Omega(t),
   \label{eqn:bie}
 \end{align} where $\gg$ is the boundary condition, and $\lambda$ is a
 constant that depends on the choice of $G$. For numerical stability,
 choices of $G$ that result in second-kind Fredholm integral equations,
-meaning $\lambda \neq 0$, are preferred.  
+meaning $\lambda \neq 0$, are preferred.
 
 As an illustration, the problem of finding the global electrostatic
-potential $u$ with surface charge density $\sigma$ is a special case of
-\eqref{eqn:conv}, where $G(\xx - \yy)$  takes the form
-$-(2\pi \epsilon_0)^{-1}\log|\xx - \yy|$
-in two dimensions and 
-$(4\pi \epsilon_0)^{-1}|\xx -\yy|^{-1}$ in three dimensions
-with $\epsilon_0$ the permittivity of vacuum.  In
-this context, equation~\eqref{eqn:bie} is analogous to Gauss's Law.
+potential $u$ with surface charge density $\sigma$ is a special case
+of~\eqref{eqn:conv}, where $G(\xx - \yy)$ takes the form $-(2\pi
+\epsilon_0)^{-1}\log|\xx - \yy|$ in two dimensions and $(4\pi
+\epsilon_0)^{-1}|\xx -\yy|^{-1}$ in three dimensions with $\epsilon_0$
+the permittivity in a vacuum. In this context, equation~\eqref{eqn:bie}
+is analogous to Gauss's Law.
 
 The PIs have demonstrated that IEs are a powerful tool to simulate
 two-dimensional suspensions of amphiphilic particles~\cite{Fu2018_SIAM,
@@ -119,21 +118,20 @@ research, which is described next, will combine several methods
 including singularity subtraction, analytic function theory, and
 analytic methods.
 
-\begin{wrapfigure}[18]{r}{1.9in}
+\begin{wrapfigure}[17]{r}{1.9in}
   \vspace{-4pt}
   \centering
   \input{figures/near_sing.tikz}
   \vspace{-15pt}
   \caption{\label{fig:interpquad} \footnotesize An interpolation-based
-  quadrature method that works in two and three dimensions. The
-  spectrally-accurate trapezoid rule is used in points in
-  $\mathtt{Far}(\Gamma_i)$, while one dimensional interpolant is used
-  for points in $\mathtt{Near}(\Gamma_i)$. $h$ is the arclength
-  spacing.}
+  quadrature method that works in two and three dimensions. The accurate
+  trapezoid rule is used in points in $\mathtt{Far}(\Gamma_i)$, while
+  one dimensional interpolant is used for points in
+  $\mathtt{Near}(\Gamma_i)$. $h$ is the arclength spacing.}
 \end{wrapfigure}
 Since we are interested in round (2D) and spherical (3D) granules, we
 will exploit the fact that integrals can be computed with spectral
-accuracy by transforming the integrals to to a Fourier (2D) or spherical
+accuracy by transforming the integrals to a Fourier (2D) or spherical
 harmonic (3D) basis. This technique can be used to evaluate layer
 potentials for both Stokes~\cite{cor-vee2018} and the screened Laplace
 equation~\cite{koh-cor-che-vee2021}. However, this quadrature is not
@@ -143,11 +141,11 @@ uniformly bounded quadrature error, but the method is described only for
 the two-dimensional Laplace and Stokes equations. PI Quaife recently
 showed that these quadrature methods can be extended to other
 two-dimensional PDEs~\cite{che-lin-her-qua2022}. The method uses
-singularity subtraction to write the fundamental solution of the PDE as a
-sum of two terms: a logarithmic function and a continuously
-differentiable function. Then the Barycentric-type formulae can be
+singularity subtraction to write the fundamental solution of the PDE as
+a sum of two terms: a logarithmic function and a continuously
+differentiable remainder. Then the Barycentric-type formulae can be
 applied to the logarithmic function, and the standard trapezoid
-rule~\cite{tre-wei2014} can be applied to the other function. These
+rule~\cite{tre-wei2014} can be applied to the remainder. These
 singularity subtraction methods can also accurately compute derivatives
 of layer potentials~\cite{car2021, car2020, car-kha-kim2018} which is
 required, for example, when computing the phase
@@ -178,11 +176,12 @@ seconds per time step on 1792 compute cores~\cite{Yan2019}.
 While the inclusion of high-order quadrature and fast methods is
 necessary to simulate dense suspensions, an additional required
 computational tool is a collision-aware adaptive time stepping method.
-The phase field results in the granules attracting one another and
-this leads to nearly contacting boundaries. Our current
+The phase field results in the granules attracting one another and this
+leads to nearly contacting boundaries that, even with high-order spatial
+accuracy, can collide due to time stepping error. Our current
 implementation uses a repulsive Lennard-Jones force, but this introduces
 stiffness, thereby requiring small time steps, and this can be a
-bottleneck when 
+bottleneck when simulating
 \begin{wrapfigure}[26]{l}{1.8in}
   \vspace{-0pt}
   \centering
@@ -193,38 +192,38 @@ bottleneck when
   transition~\eqref{eqn:phase}. (c) The convergence of exact and inexact
   Newton's methods.}
 \end{wrapfigure}
-simulating dense suspensions. Therefore, we will develop
-a high-order collision-avoiding adaptive time stepping method. This
-method will avoid collisions by using the minimal separation
-distance to impose a non-overlapping constraint. This results in a
-linear complementarity problem that can be solve efficiently with a
-projected gradient descent method~\cite{Yan2019}. High-order time
-adaptivity will be based on PI Quaife's previous work on
-suspensions~\cite{qua-bir2016}, and this method has proven to be a
-robust method to simulate dense suspensions~\cite{qua-vee-you2019,
-kab-qua-bir2017, qua-gan-you2021}. Following this previous work, the
-proposed work will use a spectral deferred correction method since it
-iteratively applies a low-order, single-step method to achieve
-high-order accuracy. At each time step, we will compute the total force
-and torque of the system which is computationally cheap and physically
-zero, and therefore provides an estimate of the local truncation error.
-PI Quaife's experience is that error estimates based on physical
-constraints, such as force- and torque-free conditions, appropriately
-determine adaptive time step sizes so that the dynamics are resolved
-without the computational expense of techniques such as embedded
-Runge-Kutta, step-doubling, and Richardson extrapolation.
+dense suspensions. Therefore, we will develop a high-order
+collision-avoiding adaptive time stepping method. This method will avoid
+collisions by using the minimal separation distance to impose a
+non-overlapping constraint. This results in a linear complementarity
+problem that can be solve efficiently with a projected gradient descent
+method~\cite{Yan2019}. High-order time adaptivity will be based on PI
+Quaife's previous work on suspensions~\cite{qua-bir2016}, and this
+method has proven to be a robust method to simulate dense
+suspensions~\cite{qua-vee-you2019, kab-qua-bir2017, qua-gan-you2021}.
+Following this previous work, the proposed work will use a spectral
+deferred correction method that iteratively applies a low-order,
+single-step method to achieve high-order accuracy. At each time step, we
+will compute the total force and torque of the system which is
+computationally cheap and physically zero, and therefore provides an
+estimate of the time stepping error. PI Quaife's experience is that
+error estimates based on physical constraints, such as force- and
+torque-free conditions, appropriately determine adaptive time step sizes
+so that the dynamics are resolved without the computational expense of
+techniques such as embedded Runge-Kutta, step-doubling, and Richardson
+extrapolation.
 
-The phase field is governed by the PDE~\eqref{eqn:phase} in the
-solvent region $\Omega(t)$. If $W(\phi) = \tfrac{1}{2}\phi^2$,
+The phase field is governed by the PDE~\eqref{eqn:phase} in the solvent
+region $\Omega(t)$. If $W(\phi) = \tfrac{1}{2}\phi^2$,
 equation~\eqref{eqn:phase} is linear, and the PIs have used IEs to solve
-address this problem~\cite{Fu2018_SIAM, FuQuRyYo22,
-fu-ryh-qua-you2022}, but for a double-well potential $W(\phi)$, the
-resulting PDE is nonlinear, motivating the following problem:
+address this problem~\cite{Fu2018_SIAM, FuQuRyYo22, fu-ryh-qua-you2022},
+but for a double-well potential $W(\phi)$, the resulting PDE is
+nonlinear, motivating the following problem:
 
 % ----------------------------------------------------------------------
 \begin{quotation}
   \noindent
-  \textbf{Problem 5.} How can IEs be coupled with a Newton solver to
+  \textbf{Problem 5.} How can IEs be coupled with a Newton method to
   solve the non-linear PDE~\eqref{eqn:phase}?
 \end{quotation}
 
@@ -255,7 +254,7 @@ converge to the solution in Figure~\ref{fig:CA}(b).
 Figure~\ref{fig:CA}(c) shows the norm of the residual at each Newton
 iterate when using the exact second derivative (red curve) and the
 approximate second derivative (blue curve). While the inexact Newton's
-method requires roughly twice as many iterations to reach of a tolerance
+method requires roughly twice as many iterations to reach a tolerance
 of $10^{-4}$, each iteration is significantly cheaper to apply.
 
 Having demonstrated that the inexact Newton method converges in one
