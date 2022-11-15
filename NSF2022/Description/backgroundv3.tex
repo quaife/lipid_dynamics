@@ -112,11 +112,11 @@ complexity of related sharp interface methods.
 To formulate the problem, consider a collection of $N_b$-many rigid
 bodies $U_i(t) \subset \RR^n$ with boundary $\Gamma_i(t)$. We call these
 bodies ``granules''. The granules are immersed in an incompressible,
-zero-Reynolds number fluid $\Omega(t) = \RR^n \setminus \cup_{i=1}^{N_b}
+zero-Reynolds number fluid occupying the region $\Omega(t) = \RR^n \setminus \cup_{i=1}^{N_b}
 U_i(t)$ (Figure~\ref{fig:flow_map}). Throughout, $\nnu$ refers to
 the unit normal pointing into $\Omega(t)$.
 
-To determine how the granules move through space, we look for rigid body
+To determine how the granules move through space, we seek rigid body
 transformations
 \begin{align}
 \label{eq:RBT}
@@ -125,7 +125,7 @@ transformations
 where $i = 1,\ldots,N_b,$ $R_i(t)$ is an $n
 \times n$ rotation matrix, $\aa_i(t)$ are the granule centers, and $\XX$ is a
 reference coordinate.
-The dynamics come from the following system of semi-linear, elliptic boundary value problems:
+The dynamics comes from the following system of semi-linear, elliptic boundary value problems:
 \begin{alignat}{4}
   \label{eqn:stokes} 
   -\mu\Delta \uu + \nabla p &= \mathbf{0}, 
@@ -142,9 +142,9 @@ The dynamics come from the following system of semi-linear, elliptic boundary va
 for $i=1,\ldots,N_b$ and where $\xx = \FF_i(\XX,t)$. Finally,
 \begin{align}
 \label{eqn:stressbalance}
-\int_{\Gamma_i} \left(\sigma  + T_i\right)\nnu \,\dif s = \mathbf{0},\quad
+\int_{\Gamma_i} \left(\sigma  + T_i\right)\nnu \,\dif S = \mathbf{0},\quad
 \int_{\Gamma_i} (\xx - \aa_i)\times \left(\sigma + T_i\right) \nnu
-  \,\dif s = \mathbf{0},
+  \,\dif S = \mathbf{0},
 \end{align}
 where
 \begin{align}
@@ -165,12 +165,13 @@ well-potential with local minima $\phi_0, \phi_1$, etc., representing
 metastable states of the solvent. In the single-well case, $W(\phi) =
 \frac{1}{2}\phi^2$ has the minimum $\phi_0 = 0$ and the phase field
 equation~\eqref{eqn:phase} becomes the \emph{linear} screened Laplace
-equation. In the double-well case e.g, $W(\phi) =
-\frac{1}{4}(\phi^2-1)^2+cx$, $c > 0$, the phase field
-equation~\eqref{eqn:phase} takes the form of an Allen-Cahn equation with
-local minima $\phi_0 < 0 < \phi_1$. Section \ref{sec:specificaim1}
-discusses certain modifications needed for~\eqref{eqn:phase} in the
-nonlinear case.
+equation. In the double-well case such as $W(\phi) =
+\frac{1}{4}(\phi^2-1)^2+b_1 x + b_2$, the phase field
+equation~\eqref{eqn:phase} takes the form of an Allen-Cahn equation,
+where $b_1$ and $b_2$ are chosen so that the local minima satisfy
+$\phi_0 < 0 < \phi_1$ and $W(\phi_0) = 0$. Section
+\ref{sec:specificaim1} discusses certain modifications needed
+for~\eqref{eqn:phase} in the nonlinear case.
 
 \begin{wrapfigure}[21]{r}{3.2in}
   \vspace{-15pt}
@@ -194,7 +195,7 @@ nonlinear case.
   \tfrac{1}{2}\phi^2$. (\emph{Top}) Granules with an amphiphilic
   boundary condition form bilayer configurations (yellow, $\phi = 1$,
   blue, $\phi = 0$). (\emph{Middle}) Granules with $\phi = 2$ (magenta)
-  on one side and $\phi = 2$ on the other form multilamellar bilayers.
+  on one side and $\phi = 1$ on the other form multilamellar bilayers.
   (\emph{Bottom}) Bipolar granules with $\phi = 1$ (yellow) on one side
   and $\phi=-1$ (green) on the other side form a checkerboard pattern.}
 \end{wrapfigure}
@@ -248,7 +249,7 @@ interaction between membrane elasticity/viscoelasticity and the fluid
 %
 A striking feature of our hydrodynamic simulations is their fidelity to
 physics. The model contains a few parameters; granule radius $c$, decay
-length $\epsilon$, surface tension $\gamma$. When these are set to
+length $\epsilon$, and surface tension $\gamma$. When these are set to
 realistic values \cite{Fu2018_SIAM, ErLjCl89, Lin2005, Parsegian,
 Israelachvili80, GarciaSaez, KUZMIN2005, Petelska2012,Jackson2016}, we
 quantitatively recover well-known elastic moduli for
@@ -256,7 +257,7 @@ single-component lipid bilayers \cite{Nagle17, Nagle17-2,
 LeVeWa14,NAGLE2000159}. Such agreement is a validation that
 equations~\eqref{eq:RBT}--\eqref{eqn:stressbalance} correctly capture
 the long-range interactions between amphiphilic granules (such as lipid
-macromolecules) surfaces.
+macromolecules) on surfaces.
 \begin{wrapfigure}[13]{l}{0.475\textwidth}
 \vspace{-0pt}
 \includegraphics[width=0.475\textwidth]{figures/PreliminaryWork/Rupture.jpg}
@@ -303,13 +304,13 @@ Zeng20223DprintedMT, Russell2016EnergyLF}.
   \includegraphics[width=3in]{figures/Background/NSF.pdf}\\
 \caption{\label{fig:fem_vs_bie} \footnotesize A finite element method
   ({\em top left}) requires meshing the entire domain (typically into
-  triangles), while a BIE ({\em top right}) requires meshing only the
-  boundary of the domain.
-  ({\em bottom}) BIE can handle intricately shaped domains as well.}
+  triangles), while an IE method ({\em top right}) requires meshing only
+  the boundary of the domain.  ({\em bottom}) An IE method can handle
+  intricately shaped domains as well.}
 \end{wrapfigure}
 Computational methods to solve the partial differential equations
 (PDEs)~\eqref{eqn:stokes} and~\eqref{eqn:phase} are challenging to
-develop because of the complicated and unbounded domain. This challenge
+develop because of the complex and unbounded domain. This challenge
 is compounded when dense suspensions are considered.
 Integral equations
 (IEs) offer an alternative formulation of the PDEs that only require
@@ -345,7 +346,8 @@ density flux through the boundary involving the phase stress $T_i$, and
 a bulk term involving the Euler-Lagrange derivative of
 $E$~\cite{Fu2018_SIAM}. The Euler-Lagrange derivative vanishes due
 to~\eqref{eqn:phase} and the boundary flux transforms into viscous
-dissipation due to~\eqref{eqn:hydro_stress} and the Stokes equations.
+dissipation due to~\eqref{eqn:hydro_stress} and the Stokes
+equations~\eqref{eqn:stokes}.
 Furthermore, while the integral of the phase stress vector
 field $T_i\nnu$ over $\Gamma_i$ yields the force on
 each granule, the sum of these forces is zero. 
@@ -361,7 +363,7 @@ collective dynamics of the assembly under external forcing.
   \caption{\label{fig:coarsening} \footnotesize Energy $E$ in
   equation~(\ref{eq:energy_law}) of a suspension of amphiphilic granules
   versus time $t$. Under the moving domain problem
-  \eqref{eq:RBT}--\eqref{eqn:hydro_stress} with amphiphilic boundary
+  \eqref{eq:RBT}--\eqref{eqn:stressbalance} with amphiphilic boundary
   condition, the granules self-organize into vesicle bilayers. External
   hydrodynamic effects are introduced to study elastic properties of
   the granules assembly~\cite{Fu2018_SIAM,FuQuRyYo22}.}
@@ -421,7 +423,7 @@ of long-range interactions between granule surfaces.
 
 
 \subsection{Outline of the proposal}
-The aim of this proposal is to advance the theory, simulation and
+The aim of this proposal is to advance the theory, simulation, and
 modeling for soft-matter systems and foster training in Mathematical
 Sciences.
 The success of the proposed research requires complementary expertise
@@ -433,6 +435,8 @@ Section~\ref{sec:BroaderImpacts} summarizes the broader
 impacts and section~\ref{sec:IntellectualMerit} summarizes the
 intellectual merit of our research activity.
 Section~\ref{sec:proposed-work} contains our specific aims.
+Sections~\ref{sec:prior} and~\ref{sec:manage} summarize prior support
+and project management.
 
 
 

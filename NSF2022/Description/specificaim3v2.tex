@@ -51,12 +51,13 @@ and considered three scenarios:
 \end{equation}
 The variable $\theta$ is the angle formed by $\xx-\aa_i$ and the
 particle director $\dd_i$ (Figure~\ref{fig:flow_map}). That is, the
-material label $h$ is the scalar projection from the center of the
-granule onto the director, scaled and shifted by constants. In the
-linear setting, $W(\phi) = \tfrac{1}{2}\phi^2$, the PIs simulated the
-dynamics of several hundred granules with random initial position and
-orientation. In Figure~\ref{fig:self-assembly2}, the top, middle, and
-bottom rows are for boundary conditions (a), (b), and (c), respectively. 
+material label $h$ (the right hand side of~\eqref{eq:bcs}) is the scalar
+projection from the center of the granule onto the director, scaled and
+shifted by constants. In the linear setting, $W(\phi) =
+\tfrac{1}{2}\phi^2$, the PIs simulated the dynamics of several hundred
+granules with random initial position and orientation. In
+Figure~\ref{fig:self-assembly2}, the top, middle, and bottom rows are
+for boundary conditions (a), (b), and (c), respectively. 
 
 Case (a) is the amphiphilic boundary condition introduced in
 \S\ref{sec:specificaim1}. The granule has a hydrophilic side where $\phi
@@ -189,7 +190,7 @@ material label $h({\xx})$. This leads to the following problem:
   \noindent
   \textbf{Problem 6.} Can the collective dynamics of amphiphilic
   granules with different boundary conditions be predicted by a
-  coarse-grained model based on the kinetic theory?
+  coarse-grained model based on kinetic theory?
 \end{quotation}
 %
 %\begin{figure}[h!]
@@ -271,9 +272,9 @@ balanced mixture of polar and nematic characteristics of the nematic
 particles. Boundary condition (b) corresponds to a polar suspension,
 while boundary condition (c) corresponds to a nematic suspension. 
 
-PI Young has used the kinetic theory to investigate the many behaviors
+PI Young has used kinetic theory to investigate the many behaviors
 of droplets of nematic fluids~\cite{YoungShelleyStein2021_MBE}. The
-kinetic-theory based coarse-grained model for active suspension has been
+kinetic-theory-based, coarse-grained model for active suspension has been
 shown to work reasonably well beyond the dilute
 limit~\cite{Saintillan2018_ARFM}. Within this framework, the stress on
 the viscous solvent from the granules can be constructed from ${\bf F}$
@@ -288,14 +289,14 @@ simulations~\cite{fu-ryh-qua-you2022}. Working together, the team
 proposes to extract the coefficients $K$ and $K_d$ for a single granule
 first from the analysis (\S\ref{sec:specificaim1}) and the direct
 numerical simulation results (\S\ref{sec:specificaim2}). Using these
-values, the dynamics, pattern formation and rheology predicted from
+values, the dynamics, pattern formation, and rheology predicted from
 analyzing the proposed coarse-grained model will be compared
 quantitatively against numerical simulations. 
 
 It is possible that the outcome of the proposed quantitative comparison
 depends on the treatment of collisions between amphiphilic granules in
 the simulations (see \S\ref{sec:specificaim2}), and the modeling of the
-steric interactions in the kinetic theory. If this turns out to be an
+steric interactions in kinetic theory. If this turns out to be an
 important effect, PI Young will incorporate the
 constraint forces (amphiphilic granules cannot overlap with each other,
 see~\cite{Weady2022_PRF}) as part of the active stress in the Stokes
