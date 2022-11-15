@@ -1,4 +1,4 @@
-\subsection{Specific Aim 3: Coarse-grain modeling of Janus particles assembly}
+\subsection{Specific Aim 3: Coarse-grain modeling of self-assembled granules}
 \label{sec:specificaim3}
 
 %\begin{wrapfigure}[7]{r}{0.45\textwidth}
@@ -28,34 +28,99 @@
 %moderate. At high volume fraction, helices of Janus particles form
 %wormlike structures whose lifetimes allow fusion of
 %helices~\cite{Chen2011_Science}. 
+Granules migrate and reorient
+as a result of gradients in the phase field,
+exhibiting spontaneous aggregation on length
+scales much larger than granule size.
+The collective reorganizations arise from
+the competition of (i) the attractive/repulsive phase field mediated
+interactions between particles and (ii) the flow disturbance they
+introduce in the solvent. Owing to this link, we adapt a recent
+and popular kinetic model for dilute suspensions
+to the present framework where the
+granules' interfacial properties are tuned for design purposes.
 
-The PIs investigated how distinct morphologies can be obtained from the
-hydrophobic potential model by shifting the boundary condition
-$h$~\cite{fu-ryh-qua-you2022} in equation~\eqref{eqn:material}. Focusing
-on $W(\phi) = \phi^2/2$, equation~\eqref{eqn:phase} is the
-screened-Laplace equation and the solutions have a boundary layer
-structure that decays to $0$ in the bulk with the decay length
-$\epsilon$. Three boundary conditions on granule $\Gamma_i$ are
-considered:
+In~\cite{fu-ryh-qua-you2022},  the PIs investigated how changes
+in the material label $h_i$ (equation \eqref{eqn:material})
+produce distinct morphologies.  We started with a collection 
+of identical, circular granules, with each material label $h_i$ given be a 
+single function $h$, and considered three scenarios:
 \begin{equation}
   \label{eq:bcs}
-  \begin{tabular}{c|c|c}
-     \text{(a)} & \text{(b)} & \text{(c)} \\
-    \hline
-    \rule{0pt}{4ex} 
-      $h(\mathbf{x}) = \displaystyle \frac{1+\cos (\theta_i(\xx))}{\sqrt{3\pi c}}$
-    & $h(\mathbf{x}) = \displaystyle \frac{2+\cos (\theta_i(\xx))}{\sqrt{9\pi c}}$
-    & $h(\mathbf{x}) = \displaystyle \frac{\cos (\theta_i(\xx))}{\sqrt{\pi c}}$
-\end{tabular}
+   \text{(a) }  \phi(\xx) = \tfrac{1}{2}(\cos \theta + 1),\quad
+   \text{(b)  } \phi(\xx) = \tfrac{1}{2}(\cos \theta + 3),\quad
+   \text{(c) }  \phi(\xx) = \cos \theta, \quad \xx \in \partial \Gamma_i.
 \end{equation}
-$\theta_i(\xx)$ is the angle formed by the position $\xx$,
-the particle center $\aa_i$, and the particle director $\dd_i$ (Figure
-\ref{fig:flow_map}). The normalizations (e.g., $(\pi c)^{-1/2}$) provide
-a uniform surface energy $\int_{\Gamma_i} h^2 \,ds = 1$ for circular
-granules of radius $c$. Cases (b) and (c) are obtained by applying
-a vertical shift and scaling to case (a). Using this setup, the PIs
-simulate the dynamics of 100 granules with random initial positions and
-orientations (Figure~\ref{fig:self-assembly2}).
+The number $\theta$ is the angle formed by $\xx-\aa_i$
+and the particle director $\dd_i$ (Figure
+\ref{fig:flow_map}). 
+That is, the material label $h$ is the scalar projection from the 
+center of the granule onto the director, scaled and shifted by constants. 
+In the linear setting, $W(\phi) = \tfrac{1}{2}\phi^2$, the PIs
+simulated the dynamics of around 100 granules with random initial position and
+orientation.  In Figure~\ref{fig:self-assembly2}, the top, middle, and bottom 
+rows are for boundary conditions (a), (b), and (c), respectively. 
+
+Case (a) is the amphiphilic boundary condition introduced in 
+\S \ref{sec:specificaim1}.  The granule has a hydrophilic side where 
+$\phi =0$ mimics the apolar head of a lipid.
+The hydrophobic side represents hydrocarbons and takes the value $\phi  = 1$. 
+The interaction is attractive and granules
+collectively orient their tails toward one another.  The PIs' previous
+work shows that this boundary condition produces micelles and
+bilayers~\cite{Fu2018_SIAM} (Figure~\ref{fig:self-assembly2}, top row).
+%, for example, which does not alter the structure of adjacent waters. 
+
+Boundary conditions (b) and (c) were motivated by wanting to understand
+what interactions result when more than one side of the granule is attractive/repulsive. 
+In (b), both sides of the granule are hydrophobic, but one side more so.
+Over intermediate times, bilayers form like in case (a), but over long times
+the exposed sides of the bilayers no longer remain well-separated. 
+Rather, the bilayers squeeze fluid out to form multiple lamellae~\cite{Huetal19, deMeetal21} 
+(Figure~\ref{fig:self-assembly2}, middle row).
+In boundary condition~\eqref{eq:bcs}(c), the interaction between like 
+granule sides is attractive, while the interaction between opposite sides is 
+repulsive~\cite{MaRa76, Ma77}. This is because  the jump in the phase field 
+from $1$ to $-1$ produces large gradients.
+The polar equilibrium structure resembles a
+checkerboard pattern where each granule coordinates its head with the
+head of three other granules (Figure~\ref{fig:self-assembly2}, bottom row).
+
+%The PIs investigated how distinct morphologies can be obtained from the
+%hydrophobic potential model by shifting the boundary condition
+%$h$~\cite{fu-ryh-qua-you2022} in equation~\eqref{eqn:material}. Focusing
+%on $W(\phi) = \phi^2/2$, equation~\eqref{eqn:phase} is the
+%screened-Laplace equation and the solutions have a boundary layer
+%structure that decays to $0$ in the bulk with the decay length
+%$\epsilon$. Three boundary conditions on granule $\Gamma_i$ are
+%considered:
+%\begin{equation}
+%  \label{eq:bcs}
+%  \begin{tabular}{c|c|c}
+%     \text{(a)} & \text{(b)} & \text{(c)} \\
+%    \hline
+%    \rule{0pt}{4ex} 
+%      $h(\mathbf{x}) = \displaystyle \frac{1+\cos (\theta_i(\xx))}{\sqrt{3\pi c}}$
+%    & $h(\mathbf{x}) = \displaystyle \frac{2+\cos (\theta_i(\xx))}{\sqrt{9\pi c}}$
+%    & $h(\mathbf{x}) = \displaystyle \frac{\cos (\theta_i(\xx))}{\sqrt{\pi c}}$
+%\end{tabular}
+%\end{equation}
+%The number $\theta_i(\xx)$ is the angle formed by the position $\xx$,
+%the particle center $\aa_i$, and the particle director $\dd_i$ (Figure
+%\ref{fig:flow_map}). The normalizations (e.g., $(\pi c)^{-1/2}$) provide
+%a uniform surface energy $\int_{\Gamma_i} h^2 \,ds = 1$ for circular
+%particles of radius $c$. The cases (b) and (c) are obtained by applying
+%a vertical shift and scaling to case (a). Using this setup, the PIs
+%simulate the dynamics of 100 granules with random initial position and
+%orientation (Figure~\ref{fig:self-assembly2}).
+%$\theta_i(\xx)$ is the angle formed by the position $\xx$,
+%the particle center $\aa_i$, and the particle director $\dd_i$ (Figure
+%\ref{fig:flow_map}). The normalizations (e.g., $(\pi c)^{-1/2}$) provide
+%a uniform surface energy $\int_{\Gamma_i} h^2 \,ds = 1$ for circular
+%granules of radius $c$. Cases (b) and (c) are obtained by applying
+%a vertical shift and scaling to case (a). Using this setup, the PIs
+%simulate the dynamics of 100 granules with random initial positions and
+%orientations (Figure~\ref{fig:self-assembly2}).
 %, see Figure \ref{fig:bcs}.
 
 %%\begin{wrapfigure}[9]{r}{0.65\textwidth}
@@ -88,40 +153,39 @@ orientations (Figure~\ref{fig:self-assembly2}).
 %  }
 %\end{wrapfigure}
 %%
-Case (a) models amphiphilic granules with
-%Amphiphilic particles have 
-a hydrophobic tail and a hydrophilic head: $\phi =0$ on the hydrophilic side,
-which mimics the apolar head of a lipid.
-%, for example, which does not alter the structure of adjacent waters. 
-$\phi >0$ on the hydrophobic side. 
-The interaction between amphiphilic granules is attractive, and they
-collectively orient their tails toward one another.  The PIs' previous
-work shows that this   boundary condition produces micelles and
-bilayers~\cite{Fu2018_SIAM} (Figure~\ref{fig:self-assembly2}(a)).
-
-
-Multilamelar bilayers arise when both sides of the granule are
-hydrophobic (Figure~\ref{fig:self-assembly2}(b)). The boundary
-condition~\eqref{eq:bcs}(b) gives a granule that is more hydrophobic on
-one side than on the other side. The initial self-assembly is similar to
-that in case~\eqref{eq:bcs}(a). The difference arises in the long-time
-dynamics where the bilayers no longer remain well-separated. Rather, the
-bilayers form layers as a consequence of the interfacial tension of
-exposed particle heads~\cite{Huetal19, deMeetal21}. 
+%Case (a) models amphiphilic granules with
+%%Amphiphilic particles have 
+%a hydrophobic tail and a hydrophilic head: The hydrophilic side takes the value $\phi =0$,
+%which mimics the apolar head of a lipid.
+%%, for example, which does not alter the structure of adjacent waters. 
+%The hydrophobic side represents hydrocarbons and takes the value $\phi >
+%0$. The interaction between amphiphilic granules is attractive, and they
+%collectively orient their tails toward one another.  The PIs' previous
+%work shows that this   boundary condition produces micelles and
+%bilayers~\cite{Fu2018_SIAM} (Figure~\ref{fig:self-assembly2}(a)).
 %
-Finally, boundary condition~\eqref{eq:bcs}(c) models a granule whose
-head surface repels the tail surface as proposed in~\cite{MaRa76, Ma77}.
-The granules initially form chains with their directors perpendicular to
-the length of the chain. The equilibrium structure resembles a
-checkerboard pattern (Figure~\ref{fig:self-assembly2}(c)).
-%where each granule coordinates its head with the
+%
+%Multilamelar bilayers arise when both sides of the granule are
+%hydrophobic (Figure~\ref{fig:self-assembly2}(b)). The boundary
+%condition~\eqref{eq:bcs}(b) gives a granule that is more hydrophobic on
+%one side than on the other side. The initial self-assembly is similar to
+%that in case~\eqref{eq:bcs}(a). The difference arises in the long-time
+%dynamics where the bilayers no longer remain well-separated. Rather, the
+%bilayers form layers as a consequence of the interfacial tension of
+%exposed particle heads~\cite{Huetal19, deMeetal21}. 
+%%
+%Finally, boundary condition~\eqref{eq:bcs}(c) models a granule whose
+%head surface repels the tail surface as proposed in~\cite{MaRa76, Ma77}.
+%The granules initially form chains with their directors perpendicular to
+%the length of the chain. The equilibrium structure resembles a
+%checkerboard pattern where each granule coordinates its head with the
 %head of three other granules and its tail with the tail of three other
 %granules Figure~\ref{fig:self-assembly2}(c).
-%%
+%
 The PIs' recent analyses~\cite{fu-ryh-qua-you2022} show that these
 patterns may be understood by a mixture of polar and nematic
 characteristics of the individual amphiphilic granules, tuned by the
-boundary condition $h({\xx})$, and lead to the following problem:
+material label $h({\xx})$. This leads to the following problem:
 %
 \begin{quotation}
   \noindent
@@ -164,25 +228,37 @@ be predicted by a coarse-grained model based on the kinetic theory?
 %  }
 %\end{figure}
 %
-PI Young proposes to construct a kinetic theory to quantify the underlying mechanisms that lead to distinct morphologies of granules described above.
-Consider the suspension dynamics on a length scale much longer than the granule size, and denote the number density of 
-amphiphilic granules at time $t$ with position ${\bf x}$ and director vector ${\bf d}$ ($|\bf d|=1$) as $\psi({\bf x}, {\bf d},t)$, which satisfies the 
-Smoluchowski equation 
+PI Young proposes to construct a kinetic theory to quantify the underlying 
+mechanisms that lead to distinct morphologies of granules described above.
+Consider the suspension on a length scale much longer than the granule size, 
+and let $\Psi({\bf x}, {\bf d},t)$ be the number density
+function of amphiphilic granules with position ${\bf x}$
+and director vector ${\bf d}$ ($|\dd|=1$) at time $t$.
+It satisfies the Smoluchowski equation 
 \begin{align}
-\frac{\partial \psi}{\partial t} &= -\nabla_{\bf x} \cdot\left(\psi\dot{\bf x}\right) - \nabla_{\bf d}\cdot\left(\dot{\bf d}\psi\right),\\
-\dot{\bf x} &= {\bf u} + {\bf F}\left(\phi,{\bf d}\right) - D_x\nabla_{\bf x}\ln\psi,\\
+  \frac{\partial \Psi}{\partial t} &= -\nabla_{\bf x} \cdot\left(\Psi\dot{\bf x}\right)
+  - \nabla_{\bf d}\cdot\left(\Psi \dot{\bf d}\right),\\
+\dot{\bf x} &= {\bf u} + {\bf F}\left(\phi,{\bf d}\right) - D_x\nabla_{\bf x}\ln\Psi,\\
 \label{eq:dpdt}
-\dot{\bf d} &= \left({\bf I}-{\bf d}{\bf d}\right)\cdot\nabla {\bf u}\cdot {\bf d} + {\bf G}\left(\phi,{\bf d}\right) - D_d \nabla_{\bf d}\ln \psi + \frac{{\bf H}}{\gamma},\\
-{\bf H} &\equiv -\frac{\delta {\cal F}}{\delta {\bf d}} = -\frac{\delta}{\delta {\bf d}} 
-\int d{\bf x} \left\{\frac{K_d}{2} \left(\vec\nabla{\bf d}\right)^2 + \frac{K}{2}\left(\nabla\left({\bf d}{\bf d}^T- \frac{\bf I}{2}\right)\right)^2\right\},
+\dot{\bf d} &= (I-{\bf d}{\bf d}^2)\cdot\nabla {\bf u}\cdot {\bf d} + {\bf G}\left(\phi,{\bf d}\right) - D_d \nabla_{\bf d}\ln \Psi + \tau^{-1}{\bf H},\\
+    {\bf H} &\equiv -\frac{\delta {\cal F}}{\delta {\bf d}}
+    = -\frac{\delta}{\delta {\bf d}} 
+    \int 
+    \tfrac{1}{2}K_d |\nabla{\bf d}|^2 + \tfrac{1}{2}K|\nabla({\bf d}{\bf d}^T- \tfrac{1}{2}I)|^2 d{\bf x},
 \end{align}
-where the subscripts of the gradient operator denote the variables the derivative is taken with
-respect to, $D_x$ is the translational diffusion and $D_d$ is the
-rotational diffusion. ${\bf F}\left(\phi,{\bf d}\right)$ and ${\bf
-G}\left(\phi,{\bf d}\right)$ are the drift and rotation induced by the
-potential $\phi$ and alignment, respectively. They can be derived using
+where $\dot\xx$ and $\dot\dd$ are probability fluxes,
+the subscripts of the gradient operators denote
+the respective variables $\xx$ and $\dd$,
+$D_x$ is the translational diffusion,
+and $D_d$ is the rotational diffusion.
+The terms ${\bf F}\left(\phi,{\bf d}\right)$ and
+${\bf G}\left(\phi,{\bf d}\right)$ are the drift and rotation
+induced by the local phase field gradients, respectively,
+set up by the presence of nearby granules---these
+are be derived using
 the reciprocal theorem as in the case of the phoretic Janus particle
 suspension \cite{TraversoMichellin2020_PRF,TraversoMichellin2022_JFM}.
+
 The last term in equation~(\ref{eq:dpdt}) characterizes the relaxation
 of the director alignment to the minimum of the free energy ${\cal F}$,
 where the parameter $K_d$ controls the alignment of direction, and $K$
@@ -221,7 +297,8 @@ the simulations (see \S\ref{sec:specificaim2}), and the modeling of the
 steric interactions in the kinetic theory. If this turns out to be an
 important effect, PI Young will incorporate the formulation of
 constraint forces as part of the active stress in the Stokes equations
-for the suspension. Such constraint forces arise from the condition that amphiphilic granules cannot overlap with each
+for the suspension. Such constraint forces arise from the condition
+that amphiphilic granules cannot overlap with each
 other~\cite{Weady2022_PRF}. 
 
  
