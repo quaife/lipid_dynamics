@@ -78,9 +78,10 @@ the diffusive interface energy of the free boundary between fluid
 phases. On unbounded domains like $\Omega(t)$, Allen-Cahn equations can
 have multiple solutions~\cite{Alama1997StationaryLS,
 Alikakos2008OnAE, Bronsard1993OnTB, Byeon2014SolutionsOH, Byeon2013OnAP,
-Alessio2005ENTIRESI, Trumper2007ExistenceOA, Benci2019MultipleSF} and so
-we must reformulate~\eqref{eqn:phase}. An appropriate reformulation
-is the following initial value problem with transport:
+Alessio2005ENTIRESI, Trumper2007ExistenceOA, Benci2019MultipleSF}.
+To have one solution $\phi$ for each $t$, 
+we must reformulate~\eqref{eqn:phase} as
+the following initial value problem with transport:
 \begin{align}
   \label{eqn:phase_transport}
   \phi_t + \uu \cdot \nabla
@@ -104,7 +105,7 @@ Liu2012StrongSF, Giorgini2019WellPosednessOA, Wu2022WellposednessOA,
 Gal2010AsymptoticBO, Giorgini2020DiffuseIM, Giorgini2019UniquenessAR}.
 The proposed research extends these results to problems with moving
 domains. A closely related and strongly developing direction in the area
-of nematics liquid crystals concerns the interaction of Landau de Gennes
+of nematics liquid crystals concerns the interaction of Landau-de Gennes
 functionals with colloids, and studies the qualitative structure of
 defects around single or multiple coloidal
 particles~\cite{doi:10.1098/rsta.2020.0432, Alama2015MinimizersOT,
@@ -123,10 +124,11 @@ granules to form bilayers. Referring to
 Figure~\ref{fig:amphiphilic_assembly}, 
 \begin{align}
 \label{eq:amphiphilic_BC}
-  \phi(\xx) = h_i(\xx) = \tfrac{1}{2}\left(\dd_i \cdot 
+  \phi(\xx) = \tfrac{1}{2}\left(\dd_i \cdot 
     (\xx - \aa_i)/c_i + 1\right), \quad \xx \in \Gamma_i,
 \end{align}
-where $\dd_i$ is the director, $\aa_i$ is the center, and $c_i$ the
+where $\dd_i$ is the director, $\|\dd_i\| = 1$,
+$\aa_i$ is the center, and $c_i$ the
 ``radius'' of the $i$th granule. The phase $\phi$ takes values close to
 $1$ in the direction $\dd_i$, representing a hydrophobic tail, and
 values close to $0$ in the direction $\dd_i$ representing the
