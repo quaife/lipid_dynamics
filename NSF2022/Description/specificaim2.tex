@@ -182,16 +182,6 @@ accuracy, can collide due to time stepping error. Our current
 implementation uses a repulsive Lennard-Jones force, but this introduces
 stiffness, thereby requiring small time steps, and this can be a
 bottleneck when simulating
-\begin{wrapfigure}[26]{l}{1.8in}
-  \vspace{-0pt}
-  \centering
-  \input{figures/doublewell.tikz} 
-  \vspace{-10pt}
-  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
-  The solution of the one-dimensional phase
-  transition~\eqref{eqn:phase}. (c) The convergence of exact and inexact
-  Newton's methods.}
-\end{wrapfigure}
 dense suspensions. Therefore, we will develop a high-order
 collision-avoiding adaptive time stepping method. This method will avoid
 collisions by using the minimal separation distance to impose a
@@ -216,9 +206,9 @@ extrapolation.
 The phase field is governed by the PDE~\eqref{eqn:phase} in the solvent
 region $\Omega(t)$. If $W(\phi) = \tfrac{1}{2}\phi^2$,
 equation~\eqref{eqn:phase} is linear, and the PIs have used IEs to solve
-address this problem~\cite{Fu2018_SIAM, FuQuRyYo22, fu-ryh-qua-you2022},
-but for a double-well potential $W(\phi)$, the resulting PDE is
-nonlinear, motivating the following problem:
+this problem~\cite{Fu2018_SIAM, FuQuRyYo22, fu-ryh-qua-you2022}, but for
+a double-well potential $W(\phi)$, the resulting PDE is nonlinear,
+motivating the following problem:
 
 % ----------------------------------------------------------------------
 \begin{quotation}
@@ -236,22 +226,30 @@ of~\eqref{eqn:phase} as a root finding problem for
 \end{align}
 Equation~\eqref{eqn:phaseRoot} will be solved with Newton's method,
 $\phi^{N+1} = \phi^{N} - \alpha (F'(\phi^N))^{-1} F(\phi^N)$, where
-$F'(\phi^N) = -\epsilon^2 \Delta + W''(\phi^N)$ is the
-Fr\'{e}chet derivative of $F$, and $\alpha$ is the step size that will
-be determined using backtracking. This requires solving the variable
-coefficient PDE $-\epsilon^2 \Delta v + W''(\phi^{N}) v =
-F[\phi^N]$, which is challenging with an integral equation since a
-fundamental solution is not readily available. However, by choosing a
-double-well potential with $W''(\phi_0) = W''(\phi_1) = \beta$, we
-propose to instead use an inexact Newton's method where $(F')^{-1}$ is
-approximated with the solution of $-\epsilon^2 \Delta v +
-\beta v = F[\phi^N]$. We test the efficacy of the exact and
-inexact Newton's method applied to~\eqref{eqn:phaseRoot} in $(0,1)
-\subset \RR$ by discretizing $F'$ with a second-order finite difference
-stencil. The double-well potential is illustrated in
-Figure~\ref{fig:CA}(a), and both the exact and inexact Newton's methods
-converge to the solution in Figure~\ref{fig:CA}(b).
-Figure~\ref{fig:CA}(c) shows the norm of the residual at each Newton
+$F'(\phi^N) = -\epsilon^2 \Delta + W''(\phi^N)$ is the Fr\'{e}chet
+derivative of $F$, and $\alpha$ is the step size that will be determined
+using backtracking. This requires solving the variable coefficient PDE
+$-\epsilon^2 \Delta v + W''(\phi^{N}) v = F[\phi^N]$, which is
+challenging with an integral equation since a fundamental solution is
+not readily available. However, by choosing a double-well potential with
+$W''(\phi_0) = W''(\phi_1) = \beta$, we propose to instead use an
+inexact Newton's method where $(F')^{-1}$ is approximated with the
+solution of $-\epsilon^2 \Delta v + \beta v = F[\phi^N]$. We test the
+efficacy of the exact and inexact Newton's method applied
+to~\eqref{eqn:phaseRoot} in $(0,1) \subset \RR$ by discretizing $F'$
+with a second-order finite difference stencil. The double-well potential
+is illustrated in Figure~\ref{fig:CA}(a), and both the exact and inexact
+Newton's methods converge to the same solution. Figure~\ref{fig:CA}(b)
+shows the norm of the residual at each Newton
+\begin{wrapfigure}[18]{l}{1.8in}
+  \vspace{-7pt}
+  \centering
+  \input{figures/doublewell.tikz} 
+  \vspace{-10pt}
+  \caption{\label{fig:CA} \footnotesize (a) A double-well potential. (b)
+  The convergence of exact and inexact Newton's methods applied
+  to~\eqref{eqn:phaseRoot}.}
+\end{wrapfigure}
 iterate when using the exact second derivative (red curve) and the
 approximate second derivative (blue curve). While the inexact Newton's
 method requires roughly twice as many iterations to reach a tolerance
