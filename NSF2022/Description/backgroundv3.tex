@@ -150,8 +150,8 @@ for $i=1,\ldots,N_b$ and where $\xx = \FF_i(\XX,t)$. Finally,
 where
 \begin{align}
 \label{eqn:hydro_stress}
-\sigma = \mu(\nabla \uu + \nabla \uu^T) - pI,\quad 
-T_i = \gamma\left(\frac{1}{\epsilon}W(\phi)I + \frac{\epsilon}{2}|\nabla \phi|^2 - \epsilon \nabla \phi \nabla \phi^T\right)
+\sigma = -pI + \mu(\nabla \uu + \nabla \uu^T),\quad 
+T_i = \gamma\left(\frac{1}{\epsilon}W(\phi)I + \frac{\epsilon}{2}|\nabla \phi|^2I - \epsilon \nabla \phi \nabla \phi^T\right)
 %T_i = \gamma\left[\epsilon^{-1} W(\phi)I
 %  + \epsilon\left(\tfrac{1}{2}|\nabla \phi|^2I - \nabla \phi \nabla
 %  \phi^T\right)\right]
@@ -195,7 +195,7 @@ nonlinear case.
   \tfrac{1}{2}\phi^2$. (\emph{Top}) Granules with an amphiphilic
   boundary condition form bilayer configurations (yellow, $\phi = 1$,
   blue, $\phi = 0$). (\emph{Middle}) Granules with $\phi = 2$ (magenta)
-  on one side and $\phi = 1$ on the other form multilamellar bilayers.
+  on one side and $\phi = 2$ on the other form multilamellar bilayers.
   (\emph{Bottom}) Bipolar granules with $\phi = 1$ (yellow) on one side
   and $\phi=-1$ (green) on the other side form a checkerboard pattern.}
 \end{wrapfigure}
