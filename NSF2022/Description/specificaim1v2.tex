@@ -19,31 +19,28 @@ Fu2018_SIAM}. Our next goal is to study the model using rigorous
 analysis and consider three-dimensional effects. 
 
 The first step is to obtain some solid well-posedness results
-for~\eqref{eq:RBT}--\eqref{eqn:stressbalance}.
-This system is an
-autonomous ordinary differential equations (ODEs) for the body transformations
-$\FF_i$ with the rate of change defined by a system of PDEs.
-Strategies have been proposed for the solution of
-coupled PDE/ODE systems 
-\cite{Carichino2018EnergybasedOS,Quarteroni2016GeometricMM}.
-Regarding \eqref{eq:RBT}--\eqref{eqn:stressbalance},
-in the linear case and for fixed $t$, there is a unique
-solution ($\phi, \uu$) under appropriate assumptions for the boundaries
-and boundary data~\cite{manasthesis, rac-gre2016, LAX}. These define
-instantaneous rigid body velocities and rotations, leading to the
-following problem.
+for~\eqref{eq:RBT}--\eqref{eqn:stressbalance}. This system is an
+autonomous system of ordinary differential equations (ODEs) for the body
+transformations $\FF_i$ with the rate of change defined by a system of
+PDEs. Strategies have been proposed for the solution of coupled PDE/ODE
+systems \cite{Carichino2018EnergybasedOS,Quarteroni2016GeometricMM}.
+Regarding \eqref{eq:RBT}--\eqref{eqn:stressbalance}, in the linear case
+and for fixed $t$, there is a unique solution ($\phi, \uu$) under
+appropriate assumptions for the boundaries and boundary
+data~\cite{manasthesis, rac-gre2016, LAX}. These define instantaneous
+rigid body velocities and rotations, leading to the following problem.
 \begin{quotation}
   \noindent
   \textbf{Problem 1.} 
   Consider a collection of closed, disjoint granules $U_i$ with smooth
   boundary, with no-slip, rigid body motion boundary conditions, and a
-  linear background flow. Assume a single-well potential and a smooth
+  linear background flow. Assume a single-well potential and smooth
   phase field boundary conditions. What is the well-posedness in time of
   the coupled system \eqref{eq:RBT}--\eqref{eqn:stressbalance}?
 \end{quotation}
 Problem 1 involves mathematically interesting techniques. First, we must
 establish that the system has a local-in-time solution. This involves
-domain perturbations and estimates for the solutions of second order
+domain perturbations and estimates for the solutions of second-order
 elliptic equations~\cite{Savar2002DomainPA, DANERS20081,
 Lamboley2015EstimatesOF}, which also find extensive application in
 extremal domain problems~\cite{Schiffer1954VariationOD,
@@ -64,10 +61,10 @@ a (noninteracting) rigid-body suspension.
   \centerline{\includegraphics[width=0.5\textwidth]{figures/SA1Figures/AmphiphilicAssembly.pdf}}
   \vspace{-8pt}
   \caption{\label{fig:amphiphilic_assembly} \footnotesize
-  Self-organization under amphiphilic boundary condition. (a) Granules
-  first match hydrophobic tails (red), (b) then align length-wise. (c)
-  The same pattern of self-organization holds in three dimensions, as
-  simulated by Kohl, Corona, and
+  Self-organization under an amphiphilic boundary condition. (a)
+  Granules first match hydrophobic tails (red), (b) then align
+  length-wise. (c) The same pattern of self-organization holds in three
+  dimensions, as simulated by Kohl, Corona, and
   Veerapaneni~\cite{koh-cor-che-vee2021}.}
 \end{wrapfigure}
 In the double-well potential case, equation~\eqref{eqn:phase} is a
@@ -110,7 +107,6 @@ functionals with colloids, and studies the qualitative structure of
 defects around single or multiple colloidal
 particles~\cite{doi:10.1098/rsta.2020.0432, Alama2015MinimizersOT,
 Alama2021SaturnRD, PhysRevE.96.042702}.
-
 PI Ryham has several works on
 membrane vesicles dealing both with Allen-Cahn formulations and
 fluid-vesicle interactions~\cite{QiangDu09, RYHAM20112929, RyCoEi12,
@@ -158,19 +154,17 @@ $k_A(\alpha - \alpha_0)^2/\alpha_0^2$ where $\alpha$ and $\alpha_0$ are
 the deformed and equilibrium area densities respectively
 \cite{chabanon2017}.
 
-In the case of granules, bending enters through the
-splay of the granule directors. In
-Figure~\ref{fig:JPv_linearshear}, for example, the directors have
-negative, respectively positive, splay $\nabla_{\Sigma} \cdot \dd$ in
-the outer, respectively inner monolayers. Here $\nabla_{\Sigma}\cdot{}$
-the surface divergence. From differential
+In the case of granules, bending enters through the splay of the granule
+directors. In Figure~\ref{fig:JPv_linearshear}, for example, the
+directors have negative, respectively positive, splay $\nabla_{\Sigma}
+\cdot \dd$ in the outer, respectively inner monolayers. Here
+$\nabla_{\Sigma}\cdot{}$ is the surface divergence. From differential
 geometry, we have that $\nabla\cdot \dd = \pm 2H$ whenever $\dd$ is
-everywhere normal to $\Sigma$, and this is how curvature enters
-the granule-based description.  For two-dimensional vesicles,
-$H$ is replaced with the curvature $\kappa$ of the curve $\mathcal{C}$.
-Granules are at rest when attraction balances repulsion, and will have
-stretching energy when the distance between neighboring granules is increased
-from rest.
+everywhere normal to $\Sigma$, and this is how curvature enters the
+granule-based description. For two-dimensional vesicles, $H$ is replaced
+with the curvature $\kappa$ of the curve $\mathcal{C}$. Granules are at
+rest when attraction balances repulsion, and will have stretching energy
+when the distance between neighboring granules is increased from rest.
 
 Tools for addressing Problem 2 have been developed for bulk nematic
 liquid crystal potentials in the area of colloidal
@@ -178,12 +172,12 @@ homogenization~\cite{Canevari2019DesignOE, doi:10.1137/18M1163919,
 BERLYAND200597, doi:10.1137/130910348}, and the problem is closely
 related to dimension reduction for curved nematics confined to thin
 films~\cite{Golovaty2017DimensionRF, Golovaty2015DimensionRF,
-doi:10.1142/S0218202516500470, FoFrLe07}.  PI Ryham has carried out
-sharp interface-limit analyses for phase field formulations of elastic
-bending energy~\cite{0951-7715-18-3-016, Du05}, approximations of
-Gaussian curvature and the Euler characteristic in phase
-field~\cite{DuEuler}, and vanishing Debye-length in Poisson-Boltzman
-equations~\cite{Lee2018, 1531-3492_2006_2_357}.
+doi:10.1142/S0218202516500470, FoFrLe07}. PI Ryham has carried out sharp
+interface-limit analyses for phase field formulations of elastic bending
+energy~\cite{0951-7715-18-3-016, Du05}, approximations of Gaussian
+curvature and the Euler characteristic in phase field~\cite{DuEuler},
+and vanishing Debye-length in Poisson-Boltzman equations~\cite{Lee2018,
+1531-3492_2006_2_357}.
 
 Finally, to consider three-dimensional effects, we will generalize
 Problem 2 to \emph{numerically} study the energies of amphiphilic
@@ -209,7 +203,7 @@ as a special case.
 We will study Problem 3 by simulating large granule-number membranes.
 If, after thoroughly sampling shapes and boundary conditions,
 it turns out that the granule energies are not described by
-a nematic or  Helfrich-type energy, then we will change
+a nematic or Helfrich-type energy, then we will change
 hypotheses and look for alternative sharp interface elastic energies.
 PI Ryham is well-qualified to lead this investigation.
 In his much noticed Biophysical Journal and Nature
