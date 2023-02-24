@@ -264,9 +264,9 @@ lines of investigation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations: Hydrophobic Attraction Potential Mobility Problem} 
-Following the formulation in \citet{Fu2022_JFM}, 
-the governing equations are expressed as a system for the position and
-orientation of a collection of rigid Janus particles. We first pose the
+The governing equations are a system for the position and
+orientation of a collection of rigid JPs~\cite{Fu2022_JFM}.
+We first pose the
 Stokes equations for the mobility problem giving the hydrodynamic
 interactions for the particle suspension. The hydrophobic forces come
 from solving a screened Laplace equation. Particle collisions are
@@ -276,14 +276,15 @@ avoided through a near-field, pair potential.
 \subsection{Mobility problem}
 %A suspension of $N_b$ Janus particles is immersed in a viscous solvent.
 %RJR: In the above sentence, suspection and immersed are redundant 
-The Janus particles are suspended in a viscous solvent. The particles
-are disks of radius $c$, center $\aa_i$, and orientation $\theta_i$
+The JPs are disks of radius $c$ suspended in a viscous solvent
+with center $\aa_i$, and orientation $\theta_i$
 relative to the horizontal axis, where $i = 1, \ldots, N_b$ and $N_b$ is
-the number of particles. The domain $\Omega(t) \subset \mathbb{R}^2$ is
+the number of particles. The domain $\Omega \subset \mathbb{R}^2$ is
 the solvent phase and $t$ is time. The boundary of $\Omega$ is
 $\bd\Omega = \Gamma_1 \cup \cdots \cup \Gamma_{N_b}$, where $\Gamma_i$
-is the boundary of Janus particle $i$. Assuming inertial terms are
-negligible, we have 
+is the boundary of Janus particle $i$.
+The sets $\Omega$, $\Gamma_1$, \dots, and $\Gamma_{N_b}$ depend on $t$.
+Assuming inertial terms are negligible, we have the Stokes equations
 \begin{alignat}{3}
 \label{eq:stokes}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, && \xx \in \Omega, \\
@@ -294,8 +295,8 @@ negligible, we have
 \end{alignat}
 where $\uu$ is the velocity of the solvent, $p$ is the pressure,
 $\uu_\infty$ is the background flow velocity, and $\mu$ is the constant
-viscosity. The solvent velocity satisfies the no-slip boundary condition
-for a rigid body motion
+solvent viscosity. The solvent velocity satisfies the no-slip boundary
+condition for a rigid body motion
 \begin{align}
   \label{eq:rigid-vel}
   \uu(\xx) = \vv_i + \omega_i (\xx - \aa_i)^\perp, 
@@ -304,11 +305,8 @@ for a rigid body motion
 where $\vv_i$ is the translational velocity, $\omega_i$ is the angular
 velocity, and $\langle x, y \rangle^{\perp} = \langle -y, x\rangle$. 
 
-Without inertia, $(\uu, p)$ also satisfy the force-free and torque-free
-conditions. This means that the force and torque from the hydrodynamic
-stress on each particle balance the total force and torque coming from
-the hydrophobic potential and repulsion. To compute this balance, we
-define the free energy~\cite{Ma77, GoHaKo94, Fu20, Fu2022_JFM}
+To obtain forces, define the free
+energy~\cite{Fu20, Fu2022_JFM}
 \begin{align}
 \label{eq:free_energy}
 F = \gamma
@@ -318,11 +316,10 @@ F = \gamma
 \sum_{j \neq i} 
 P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right),
 \end{align}
-where $u(\xx,t)$ is as an order parameter for the structure of water,
+where $u(\xx,t)$ is as the order parameter for water\cite{Ma77, GoHaKo94},
 $\rho$ is a decay length, and $\gamma$ is an interfacial tension. 
-
 The order parameter $u(\xx,t)$ is assumed to minimize the free energy
-$F$. Its governing equations $u(\xx,t)$ are a screened Laplace equation
+$F$ and therefore satisfies the screened Laplace equation
 boundary value problem
 \begin{gather}
   \label{eq:SL}
@@ -333,17 +330,20 @@ boundary value problem
 \end{gather}
 The boundary condition $g$ encodes hydrophobic properties of the
 particle-solvent interface.
-
 The dimensionless repulsion profile $P$ takes the form $P(s) = 1 -
 \sin(\pi s/2)$ for $0 \leq s < 1$ and $P(s) = 0$ for $1 \leq s <
-\infty$. The parameter $\rho_0$ is an ``effective" repulsion distance between
-particle surfaces, below which the steric repulsion between a pair of
-JPs becomes important. The parameter $M$ is the repulsion modulus.
+\infty$. The parameter $\rho_0$ is the distance 
+below which steric repulsion becomes important and 
+$M$ is the repulsion modulus.
 
-To calculate the force $\FF_i$ and torque $T_i$ on $\Gamma_i$ from the
-free energy~\cite{Fu20}, we compute the variation of the domain of the
-free energy~\eqref{eq:free_energy} subject
-to~\eqref{eq:SL}--\eqref{eq:SLbc}, and obtain 
+Letting $\nnu$ be the particle outward normal,
+the force $\FF_i$ and torque $T_i$ coming from the free energy
+acting on $\Gamma_i$ are~\cite{Fu20}
+%from the
+%free energy~\cite{Fu20}, we compute the variation of the domain of the
+%free energy~\eqref{eq:free_energy} subject
+%to~\eqref{eq:SL}--\eqref{eq:SLbc},
+%and obtain 
 \begin{align}
   \label{eq:FandTdef}
   \FF_i = \int_{\Gamma_i} \mathbf{T}\nnu \, \dif s
@@ -354,18 +354,19 @@ P'\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right)
   ,\quad
 T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp}\cdot (\mathbf{T}\nnu) \, \dif s, 
 \end{align}
-for $i = 1,\ldots,N_b$ with particle outward normal $\nnu$.  The formulas
-in \eqref{eq:FandTdef} involve the second-order hydrophobic stress tensor
+Here,
 \begin{align}
 \mathbf{T} = \gamma \left[ \rho^{-1} u^2 \mathbf{I}
   + \rho \left(|\nabla u|^2 \mathbf{I} - 2\nabla u \nabla u^T\right)\right].
 \end{align}
-The repulsion is rotationally symmetric and
-does not contribute to the torque $T_i$.
+is the second-order hydrophobic stress tensor.
+Repulsion is rotationally symmetric and
+does not enter $T_i$.
 
-Since the force and torque from the hydrodynamic stress on each particle
-balance the total force and torque coming from the hydrophobic potential
-and repulsion, we have
+Without inertia, $(\uu, p)$ satisfy the force-free and torque-free
+conditions, meaning that the force and torque from the hydrodynamic
+stress on each particle balance the total force and torque coming from
+the hydrophobic potential and repulsion. We have
 \begin{equation}
   \label{eq:force}
  \int_{\Gamma_i} \ssigma \cdot \nnu \, \dif s = \FF_i, \quad
@@ -376,19 +377,31 @@ and repulsion, we have
 where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
 \right)$ is the hydrodynamic stress tensor.
 
-To perform a single time step, we first solve for the HAP by
-solving~\eqref{eq:SL}--\eqref{eq:SLbc}, and then compute the force and
-torque~\eqref{eq:FandTdef}. Then the Stokes
-equations~\eqref{eq:stokes}--\eqref{eq:stokesFarfield} are solved, and
-the force-free and torque-free conditions are used to compute the rigid
-body motion~\eqref{eq:rigid-vel}.
-Once~\eqref{eq:stokes}--\eqref{eq:force} have been solved, the
-velocities $(\vv_i, \omega_i)$ from~\eqref{eq:rigid-vel} are used to update the
-particle positions and orientations.
+To perform a single time step, we
+(i) solve~\eqref{eq:SL}--\eqref{eq:SLbc} for $u$,
+(ii) compute the force and torque~\eqref{eq:FandTdef},
+and finally (iii) solve the Stokes equations~\eqref{eq:stokes}--\eqref{eq:stokesFarfield}
+subject to~\eqref{eq:rigid-vel} and \eqref{eq:force}. 
+The velocities $(\vv_i, \omega_i)$ obtained
+from~\eqref{eq:rigid-vel} are used to update the
+particle positions and orientations
+using the second-order Adams-Bashforth scheme.
+
+The interactions
+generated by the HAP-mobility problem formulation
+\eqref{eq:stokes}--\eqref{eq:force} lead to particle self-assembly.
+In terms of scaling, $\rho$ sets the effective distance of the hydrophobic
+interactions; $\rho_0$ determines the distance where attraction and repulsion are in
+balance i.e. smaller values of $\rho_0$ lead to more compact particle assemblies.
+The rate of self-assembly are proportional to tension $\gamma$,
+inversely proportional to viscosity $\mu$, and
+approximately inversely proportional to $\rho$~\cite{Fu20}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Boundary integral representations}
+It is challenging to solve the Stokes and screened Laplace equations
+and far-field boundary conditions accurately. 
 We recast~\eqref{eq:stokes}--\eqref{eq:rigid-vel}
 and~\eqref{eq:SL}--\eqref{eq:SLbc} as boundary integral equations (BIEs)
 and discretize each BIE at $N$ points on each of the $N_b$ particles
@@ -396,7 +409,7 @@ with a collocation method. To express the solution of
 \eqref{eq:SL}--\eqref{eq:SLbc}, we adopt the double layer potential
 \begin{align}
 \label{eq:SL_BIE}
-u({\xx}) = \DD[\sigma](\xx) = \int_\Gamma 
+u({\xx}) = \DD[\sigma](\xx) = \int_{\partial \Omega} 
   \pderiv{G(\xx-\yy)}{\nnu_\yy}\sigma(\yy)\, \dif s_\yy, 
   \quad \xx \in \Omega,
 \end{align}
@@ -405,7 +418,7 @@ solution to the screened Laplace equation~\eqref{eq:SL}, $K_0$ is the
 zeroth-order modified Bessel function of the second kind, $\nnu_\yy$ is
 the unit outward normal at $\yy$, and $\sigma$ is a scalar-valued
 density function. The subscript in $\dif s_\yy$ denotes integration with
-respect to $\yy \in \Gamma$. To satisfy the boundary
+respect to $\yy \in \partial \Omega$. To satisfy the boundary
 condition~\eqref{eq:SLbc}, the density function must satisfy\cite{Hsiao2008}
 \begin{align}
   \label{eq:SL_BIE2}
@@ -450,8 +463,9 @@ $\omega_i$ satisfy
   \int_{\Gamma_i} \eeta \cdot (\xx-\aa_i)^\perp \, \dif s = T_i,
 \end{alignat}
 for $\xx \in \Gamma_i$ and $i = 1,\ldots,N_b$.
-Equation~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2} does have a
-unique solution, but we note that alternative full-rank layer potential
+%Equation~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2} does have a
+%unique solution, but we note that
+Alternative full-rank layer potential
 representations for rigid body motions are possible~\cite{rac-gre2016,
 cor-gre-rac-vee2017}.
 
@@ -469,9 +483,8 @@ for~\eqref{eq:SL_BIE2}
 and~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2}, respectively.
 These are solved with matrix-free GMRES, and we guarantee that the
 number of GMRES iterations is mesh-independent by using second-kind
-BIEs. Once the translational and rotational velocity are computed, the
-position and orientation of each JP is updated using the second-order
-Adams-Bashforth scheme.
+BIEs.
+
 
 %Once the translational and angular velocities $\vv_i, \omega_i$
 %have been determined, a second-order Adams-Bashforth scheme updates the particle
@@ -491,308 +504,226 @@ Adams-Bashforth scheme.
 %\end{equation}
 
 
-\section{Model parameters and boundary conditions} The interactions
-generated by the HAP-mobility problem formulation
-\eqref{eq:stokes}--\eqref{eq:force} lead to particle self-assembly for a
-broad range of parameters and boundary conditions. Generally speaking,
-the effective distance of the hydrophobic interaction is set by the
-screening length $\rho$. Smaller values of the repulsion distance
-$\rho_0$ decrease the distance where attraction and repulsion are in
-balance and lead to more compact particle assemblies. The rate of
-self-assembly is proportional to the interfacial tension $\gamma$, and
-inversely proportional to solvent viscosity $\mu$; it is roughly
-inversely proportional to screening length $\rho$ \cite{Fu20}.
-
-To give our system physical units, we set the model parameters using
-phospholipids as a characteristic amphiphile in water~\cite{Boal}. For
-the solvent viscosity, we use $\mu = 1$~mPa~s for the viscosity of water
+\section{Tunable hydrophobicity}
+The parameters are modeled after those for
+phospholipid in water~\cite{Boal}.
+We use $\mu = 1$~mPa~s for the viscosity of water
 at room temperature. Pure lipid components give a range of interfacial
 tensions $0.7$--$5.3$~pN~nm$^{-1}$~\cite{KUZMIN2005, Petelska2012,
-Jackson2016, GarciaSaez}. As in our previous
-works~\cite{Fu20,Fu2022_JFM}, we use $\gamma=4.1$~pN~nm$^{-1}$ since
-this value gave good agreement with elastic moduli of lipid bilayers.
-The particle radius $c = 1.25$~nm gives a diameter representative of
-phospholipid length~\cite{Boal}, and the screening length $\rho = 5$~nm
+  Jackson2016, GarciaSaez}.
+we use $\gamma=4.1$~pN~nm$^{-1}$ since
+this value gave good agreement with elastic moduli of lipid bilayers~\cite{Fu20,Fu2022_JFM}.
+The particle radius $c = 1.25$~nm represents one half 
+of phospholipid length~\cite{Boal}, and the screening length $\rho = 5$~nm
 derives from experimental force-distance measurements of hydrophobic
-attraction~\cite{ErLjCl89,Lietal05,Israelachvili80,Jackson2016}. Based
-on empirical studies, the repulsion modulus $M = 2$~pN and repulsion
-distance $\rho_0 = 0.5$~nm give an interparticle distance around one
-particle radius. This ensures the accuracy of the boundary integral
-representations~\eqref{eq:SL_BIE} and~\eqref{eq:velocity} without having
-to employ overly aggressive mesh refinement. Altogether, the above
-parameter set gives a characteristic time $1$~ns and characteristic
-length $1$~nm.
+attraction~\cite{ErLjCl89,Lietal05,Israelachvili80,Jackson2016}. 
+A repulsion modulus $M = 2$~pN and 
+distance $\rho_0 = 0.5$~nm gives an interparticle distance around one
+particle radius, ensuring the accuracy of the boundary integral
+representations~\eqref{eq:SL_BIE} and~\eqref{eq:velocity} without 
+overly aggressive mesh refinement. The characteristic time
+and length are $1$~ns and  $1$~nm respectively.
 
-\subsection{Boundary conditions and equilibrium configurations}
-The boundary condition $g(\xx)$ in
-\eqref{eq:SLbc} defines the spatial distribution of
-hydrophobicity and hydrophilicity.  On a hydrophobic region of the
-particle surface, representing a hydrocarbon-water interface,
-for example, $g(\xx)$ takes relatively large values.
-On an apolar, hydrophilic region, $g(\xx)$ is close to zero.
-
-In the present work, we consider boundary conditions of the form
-\begin{align}
-  \label{eq:bc-type}
-g(\xx) = a(b + \cos \alpha),\quad a = (\pi c(2b^2 + 1))^{-1/2},\quad \xx \in \Gamma_i,
-\end{align}
-where $\alpha$ is the angle between the vector $\xx - \aa_i$ and the
-particle director $\dd_i = (\cos \theta_i, \sin \theta_i)$.  The
-parameter $a$ normalizes the boundary conditions so that
-$\int_{\Gamma_i} g^2(\xx) \, \dif s = 1$.  The motivation for this
-normalization is that the hydrophobic attraction part of the free energy
-converges to the integral of the square of the boundary data in the
-zero-screening length limit. We refer to the side of the particle where
-$\alpha = 0$ as the tail and the side where $\alpha = \pi$ as the head. 
-
-
-\begin{figure}[h!]
+\begin{figure}[t!]
 \begin{center}
   \includegraphics[width=\textwidth]{Figures/Figure0.pdf}
 \end{center}
 \begin{caption}{\label{fig:boundary_conditions} The leftmost diagram
   illustrates the particle $\Gamma_i$ with center $\aa_i$, radius $c$,
-  and director $\dd$, along with the angle $\alpha$ used to define
-  $g(\xx)$ in~\eqref{eq:bc-type}. The three right plots show $g(\xx)$
-  (black curve) for BC (i), (ii), and (iii) when $\dd = (1,0)$. The
-  surfaces are the respective solutions $u(\xx)$ of~\eqref{eq:SL} for a
-  single, isolated particle.}
+  and director $\dd$, along with the angle $\alpha$.
+  The three rightmost panels plots show $g(\xx)$ and
+  the respective solutions $u(\xx)$ of~\eqref{eq:SL} 
+  for an isolated particle.}
 \end{caption}
 \end{figure}
+\subsection{Boundary conditions and equilibrium configurations}
+The boundary condition $g(\xx)$ in
+\eqref{eq:SLbc} defines the spatial distribution of
+hydrophobicity and hydrophilicity.
+Referring to Figure \ref{fig:boundary_conditions},
+\begin{align}
+  \label{eq:bc-type}
+g(\xx) = a(b + \cos \alpha),\quad a = (\pi c(2b^2 + 1))^{-1/2},\quad \xx \in \Gamma_i,
+\end{align}
+where $\alpha$ is the angle between the vector $\xx - \aa_i$ and the
+particle director $\dd_i = (\cos \theta_i, \sin \theta_i)$
+The scalar $a$ normalizes $g$ so that $\int_{\Gamma_i} g^2(\xx) \, \dif s = 1$.
+The side of the particle where
+$\alpha = 0$ is called the tail and the side where $\alpha = \pi$ is the head. 
 
+Based on the choice of $b$,
+the boundary condition (BC) \eqref{eq:bc-type}
+can be classified into one of three categories:
+(Type I, amphiphile, $b = 1$) $g$ is positive on 
+one side representing a hydrocarbon-water interface, and
+is zero on the other representing an apolar, hydrophilic region;
+(Type II, asymmetric hydrophobe, $b = 2$) $g$ is positive
+on both sides but greater on one side;
+(Type III, poler, $b = -1/2$) $g$ is positive on one
+side and negative on the other, representing a
+water structure with positive/negative charge~\cite{MaRa76, Ma77}.
 
+Figure~\ref{fig:relax} shows the steady state in a quiescent flow.
+Three distinct phases emerge. For Type I, amphiphiles,
+the tail interactions are attractive, and particles collectively
+form multiple domains of bilayers (Figure~\ref{fig:relax}(b)).
+We refer to this as the ``bilayer'' phase.
 
-We set $\max g>0$ to guarantee at least partial hydrophobicity of the JP
-surface. Then, the boundary condition (BC) can be classified into three
-categories: $\min g(\xx) = 0$, $\min g(\xx) >0$, and $\min g(\xx) <0$
-where the extrema are taken for $\xx \in \Gamma_i$. These three
-categories correspond to three characteristic values of $b$ in
-\eqref{eq:bc-type}: $b=1$, $b=2$ and $b=0$, respectively. 
-%
-To see the effect of the shift parameter $b$, we simulate the dynamics
-of 198 particles and 60 particles in a quiescent flow as shown in
-Figure~\ref{fig:relax}. Three distinct configurations emerge: (i)
-bilayer (amphiphilic) for $b = 1$, (ii) multilamellar (biased hydrophobic) for $b = 2$, and (iii) striated (bipolar)
-for $b = 0$. Supplementary Movie S1 shows the self-assembly process for
-the three cases. In the following,
-the terms ``multilamellar" and ``biased hydrophobic"
-are used  interchangeably to refer to BC (ii), while
-``striated" and ``bipolar" are used interchangeably to refer to BC (iii).
-
-
-\begin{figure}[h!]
+\begin{figure}[t!]
 \begin{center}
-  \includegraphics[height=0.3\textheight]{Nb198a_inset.pdf}
-  \includegraphics[height=0.3\textheight]{Nb198b_eta_inset.pdf}\\
-  \includegraphics[height=0.3\textheight]{Nb198c_eta_inset.pdf}
-  \includegraphics[height=0.3\textheight]{Nb198d_eta_inset.pdf}
+  \includegraphics[width=\textwidth]{Figures/Figure1and2.pdf}
+%  \includegraphics[height=0.3\textheight]{Nb198a_inset.pdf}
+%  \includegraphics[height=0.3\textheight]{Nb198b_eta_inset.pdf}\\
+%  \includegraphics[height=0.3\textheight]{Nb198c_eta_inset.pdf}
+%  \includegraphics[height=0.3\textheight]{Nb198d_eta_inset.pdf}
 \end{center}
 \begin{caption}{\label{fig:relax}
-  Panel (a) shows $N_b = 198$ particles confined to a square with random
-  positions and orientations and the inset shows a $N_b=60$ particles
-  configuration. The particles self-assemble into distinct
-  configurations, depending on the boundary
-  condition~\eqref{eq:bc-type}. Panel (b) is for $b=1$ and the boundary
-  condition mimics that of an amphiphilic particle giving bilayer
-  structures. Panel (c) is for $b=2$ which gives rise to a
-  multilamellar configuration. In panel (d), the case $b = 0$ is for a
-  water structure with positive/negative charge. The false color maps
-  use blue for $u < 0$, green for $u = 0$, and yellow then red for $u >
-  0$. The inset in panels (b)--(d) are configurations using $N_b=60$ and
-  share the same color map as the main panels.}
+  Panel (a) shows the initial $N_b = 198$ particle configuration with random
+  position and orientation.
+  Panels (b), (d), (e) show bilayer, multilamellar, and striated phases
+  composed of amphiphilic (Type I), asymmetric hydrophobic (Type II),
+  and poler (Type 3) JP, respectively. 
+  Panels (c) and (f) plot the free energies~\eqref{eq:free_energy}
+  and alignment order parameter~\eqref{eq:S2} with respect
+  to $t$. The solid markers in panel (c) are 
+  normalized by $60/198$, showing that the energy
+  approximately scales with the number of particles.
+  Alignment in the striated phase is particle-number dependent; 
+  triangle markers, panel (f).}  
 \end{caption}
 \end{figure}
 
-
-Figure~\ref{fig:relax}(a) shows the initial configurations with
-orientations of the 198-particle and 60-particle cases, respectively.
-BC (i) with $b = 1$ mimics an amphiphilic particle. The boundary data
-$g$ is everywhere nonnegative, and takes the maximum value $a$ on the
-hydrophobic tail (red) the value $0$ on the hydrophilic head (green).
-The interaction is attractive, and particles collectively orient their
-hydrophobic sides to form bilayers (Figure~\ref{fig:relax}(b)). The
-inset shows the equilibrium state for the 60-particle run. Both
-$N_b = 60$ and $N_b = 198$ cases
-form bilayers with multiple domains.
-
-In BC (ii) with $b = 2$, the boundary data is everywhere positive. It
-takes the maximum value $3a$ on the tail (red) and the minimum value $a$
-on the head side (yellow). Both sides of the Janus particle are
-hydrophobic but more so on the $\alpha = 0$ side. Over a short time
-scale, these particles also self-assemble into bilayers. But unlike for
-BC (i), the heads are also hydrophobic and so in the long-time dynamics
-these bilayers form multilamella structures~\cite{C9NR05885K}. The
-number of layers depends primarily on the number of particles.
+For Type II, asymmetric hydrophobes,
+both sides of the JP are hydrophobic but more so on the tail.
+Over short times, these particles self-assemble into bilayers. But unlike for
+Type I JP, the heads are also hydrophobic and so over long times, 
+the bilayers sort into a ``multilamellar'' phase.
+The number of layers depends primarily on the number of particles.
 Figure~\ref{fig:relax}(c), for example, shows a multilamellar structure
 with four layers and one with two layers in the inset.
+Onion-like dendrimersomes have previously been studied by molecular dynamics
+simulations using an 
+anisotropic pair potential~\cite{C9NR05885K,HongCacciutoLuijtenGranick2008}.
 
-Finally, BC (iii) with $b=0$ corresponds to a water structure with
-positive/negative charge~\cite{MaRa76, Ma77}. Here, the head repels the
-tail of other particles and the particles initially form chains with
+Finally, Type III, bipolar JPs possess a
+head that repels the tail of neighboring particles.
+These JP initially form chains with
 their directors perpendicular to the length of the chain. The chains
 form stria where the particles lie on a square grid and the orientations
 alternate between layers (Figure~\ref{fig:relax}(d)).
+We refer to this as the ``striated'' phase. 
 
-\begin{figure}
-  \begin{center}
-\includegraphics[width=1.0\textwidth]{Figures/Figure2.pdf}
-  \end{center}
-  \vspace{-20pt}
-  \caption{\label{fig:relax_energy}
-  Panel (a) shows that the free energy~\eqref{eq:free_energy} decreases
-  in the mobility problem formulation. The initial energies are for the
-  configuration in Figure~\ref{fig:relax}(a) and the final energies are
-  for the near-equilibrium configurations shown in
-  Figures~\ref{fig:relax}(b)--(d). The solid curves are the energies for
-  the $N_b=60$ cases and the dashed curves are the energies for the $N_b
-  = 198$ cases normalized by $60/198$, showing that the energy
-  approximately scales with the number of particles.  Panel (b) shows
-  the orientational parameters $\tilde{S}_2$ for all 6 relaxation runs.
-  The curve styles are identical those in panel (a). The
-  near-equilibrium configurations depend on the initial configurations
-  and the results show that for both $N_b=60$ and $N_b=198$ cases,
-  bilayer and multi-lamellar configurations have similar trends in
-  orientational parameters. The results of the striated configuration,
-  however, depend on the initial geometrical setup.}
-\end{figure}
+
+%\begin{figure}
+%  \begin{center}
+%\includegraphics[width=1.0\textwidth]{Figures/Figure2.pdf}
+%  \end{center}
+%  \vspace{-20pt}
+%  \caption{\label{fig:relax_energy}
+%  Panel (a) shows that the free energy~\eqref{eq:free_energy} decreases
+%  in the mobility problem formulation. The initial energies are for the
+%  configuration in Figure~\ref{fig:relax}(a) and the final energies are
+%  for the near-equilibrium configurations shown in
+%  Figures~\ref{fig:relax}(b)--(d). The solid curves are the energies for
+%  the $N_b=60$ cases and the dashed curves are the energies for the $N_b
+%  = 198$ cases normalized by $60/198$, showing that the energy
+%  approximately scales with the number of particles.  Panel (b) shows
+%  the orientational parameters $\tilde{S}_2$ for all 6 relaxation runs.
+%  The curve styles are identical those in panel (a). The
+%  near-equilibrium configurations depend on the initial configurations
+%  and the results show that for both $N_b=60$ and $N_b=198$ cases,
+%  bilayer and multi-lamellar configurations have similar trends in
+%  orientational parameters. The results of the striated configuration,
+%  however, depend on the initial geometrical setup.}
+%\end{figure}
 
 \section{Measuring deformation}
-To quantify the collective hydrodynamics of JPs,
-we use the free energy $F$, a strain parameter $E$, and two scalar order
-parameters $S_{2}$ and $\tilde S_2$ to measure the deformation of
-particle configurations under background flows. 
-
+To quantify the hydrodynamics of JP phases,
+we use the free energy $F$, a strain parameter $E$, and
+a scalar order parameters $S_{2}$ for alignment.
 First we simplify the form of the free energy~\eqref{eq:free_energy}.
 Using integration by parts and~\eqref{eq:SL}, we obtain
 \begin{equation}
 \label{eq:free_energy2}
 F = -\gamma
-\int_{\Gamma} \rho g \nabla u \cdot \nnu \,\dif s
+\int_{\partial \Omega} \rho g \nabla u \cdot \nnu \,\dif s
 + \frac{M}{2}
 \sum_{j \neq i} 
 P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right).
 \end{equation}
 %
 Here, we have substituted $g$ for $u$ since the boundary values are
-given. However, evaluating $\nabla u \cdot \nnu$ on $\Gamma$ based
+given. However, evaluating $\nabla u \cdot \nnu$ on $\partial \Omega$ based
 on~\eqref{eq:SL_BIE} involves calculating a quadruple layer potential
-which has a well-known obstacle in numerical implementation.  To
-overcome this obstacle, we use
-%
-\begin{equation}
-\label{eq:normal_deriv}
-\nabla u(\xx) \cdot \nnu(\xx)=
-%\frac{\partial}{\partial \nnu_\xx} \DD[\sigma](\xx) =
--\frac{1}{\rho^2} {\bf t}_\xx\cdot \SSS[\sigma{\bf t}](\xx)
-+ \frac{\dif}{\dif s}\SSS\left[\frac{\dif \sigma}{\dif s}\right](\xx), \quad \xx \in \Gamma.
-\end{equation}
-%
-Here, $\tt(\xx)$ is the tangent vector and $\dif/\dif s$ is the
-arclength derivative. See the Appendix in \S\ref{sec:appendix} for the
-proof and details. Substituting~\eqref{eq:normal_deriv}
-into~\eqref{eq:free_energy2} for the normal derivative leads to the
-single layer, $\SS$, which is more straightforward to evaluate and we
-compute the arclength derivative using spectrally accurate Fourier
-transform. We have validated the form of~\eqref{eq:normal_deriv} by
-extrapolating the primal energy~\eqref{eq:free_energy} along test curves
-placed slightly outside the particles.
+which has a well-known obstacle in numerical implementation.
+Appendix \S\ref{sec:appendix} describes
+how we overcome this obstacle.
 
-Figure~\ref{fig:relax_energy}(a) tracks the free energy profiles for all
-relaxation runs.  For the 198-particle cases, we normalized the energies
-by 60/198 and the results show that all energies decrease with good
-agreements in all boundary conditions (dashed curves).  This can be
-considered as evidence that the free energy per particle with specified
-boundary conditions is independent of the total particle number $(N_b)$.
+Figure~\ref{fig:relax}(c) tracks the free energy profiles for all
+relaxation runs.  In quiescent background flow, the energies are
+decreasing with respect to $t$ showing time stepping correctly
+accounts for viscous dissipation.  Furthermore, the normalized energy
+plots provide evidence that the free energy per particle with specified
+boundary condition is independent of the total particle number $(N_b)$.
 
-To measure positional order, we use a number, which we call the strain
+To measure positional order, we introduce the strain
 parameter, 
 \begin{equation}
 \label{eq:SP}
 E = \frac{1}{N_b} \sum_{i=1}^{N_b}
-\left\|\frac{1}{2}(\mathsf{F}_i^T \mathsf{F}_i - I)\right\|,
+\left\|\tfrac{1}{2}(\mathsf{F}_i^T \mathsf{F}_i - I)\right\|,
 \end{equation}
-where $\mathsf{F}_i$ is an approximate deformation gradient at particle
-$i$. The argument inside the Frobenius norm $\| \cdot \|$ is the
-Green-Lagrange strain tensor. The motivation for~\eqref{eq:SP} is as
-follows. For relatively weak background flow strengths, the
-near-equilibrium particle configurations behave as an elastic solid.
-There is a map $\ff(\xx,t)$ from the reference (equilibrium)
-configuration with $\ff(\aa_i(0),t) = \aa_i(t)$ for $i = 1,\ldots,N_b$.
-Using linear approximation,
-\begin{align}
-\aa_j(t) - \aa_i(t) = \ff(\aa_j(0),t) - \ff(\aa_i(0),t)
-\approx \nabla \ff(\aa_i(0),t)(\aa_j(0) - \aa_i(0)).
-\end{align}
-To approximate the deformation gradient $\nabla \ff(\aa_i(0),t)$ we
+where $\mathsf{F}_i$ is an approximate deformation gradient
+and $\| \cdot \|$ is the Frobenius norm. 
+The Green-Lagrange strain tensor
+$\tfrac{1}{2}(\mathsf{F}_i^T \mathsf{F}_i - I)$
+measures departure of fluid deformations from a rigid
+body motion.  To define $\mathsf{F}_i$,
+we
 solve the overdetermined system 
 \begin{align}
 \aa_j(t) - \aa_i(t) = \mathsf{F}_i(\aa_j(0) - \aa_i(0)),\quad j =
   1,\ldots, N_b,
 \end{align}
-for $\mathsf{F}_i$ by weighted least squares. The weights $w_i =
+for $\mathsf{F}_i$ by weighted least squares.
+That way, if the particle positions are given by
+a map $\ff(\aa_i(0),t) = \aa_i(t)$, then
+$\mathsf{F}_i \approx \nabla \ff(\aa_i(0),t)$.
+The weights $w_i =
 \exp(-\|\aa_j(0) - \aa_i(0)\|/4c)$ with particle radius $c$ ensure that
-the linear approximation is valid for particles near $\aa_i$.
+the linear approximation holds for particles near $\aa_i$.
 
-Finally, we use the scalar order parameter $S_2$ to quantify the orientational order\cite{Selinger2016}:
+Finally, we use the scalar order parameter $S_2$
+to quantify the orientational order\cite{Selinger2016}:
 \begin{equation}
   \label{eq:S2}
 S_2 = \frac{1}{N_b} \sum_{i=1}^{N_b} \frac{1}{2}(3\cos^2(\theta_i - \bar \theta) - 1).
 \end{equation}
-Here $\bar \theta$ is a circular mean defined as the orientation of the
-principal eigenvector of the matrix $\dd_1\dd_1^\top + \cdots +
-\dd_{N_b}\dd_{N_b}^\top$. Defined as such, $S_2$ is always in the range $0 \le S_2 \le 1$.
-A value $S_2 = 1$ indicates that all
-particle directors lie on a common axis e.g., two parallel vectors with
-possibly opposite direction are ordered. A value below 1 indicates imperfect order, and $S_2=0$ indicates
-complete disorder.
-
-We modify $S_2$ to account for the bilayer and multilamellar structures.
-In these cases, the directors are more or less uniformly distributed
-along a circle, even though there is orientational order between
-neighboring particles. To account for local order, we instead use
-\begin{equation}
-  \label{eq:localS2}
-\tilde{S}_2(t) = \frac{1}{N_b} \sum_{i=1}^{N_b}
-\frac{1}{2}(3\cos^2(\theta_i - \bar \theta_i) - 1),
-\end{equation}
-where $\bar \theta_i$ is the circular mean restricted to particles
-indexed by $j$ with $\|\aa_i - \aa_j\| < 4c$.
+Here $\bar \theta_i$ is a circular mean defined as the orientation of the
+principal eigenvector of the matrix
+$\sum_{j} \dd_j\dd_j^\top$ where $j$ runs over the particles
+whose centers lie with $4c$ of that of particle $i$. 
+Defined as such, $S_2$ lies in the range $-1/2 \le S_2 \le 1$.
+with a value $S_2 = 1$ indicates perfect alignment between particles
+while $S_2=-1/2$ indicates isotropic alignment locally.
 This cutoff distance was chosen empirically
 so that the average includes nearest neighbors
 but excludes next nearest neighbors.
-In practice, if a particle
-is isolated and has no neighbors within a distance $4c$, then we exclude
-it from the sum~\eqref{eq:localS2}. 
 
-Figure~\ref{fig:relax_energy}(b) tracks the orientational order
-parameter $\tilde{S}_2$. Both bilayer and multilamellar structures show
-similar trends in the small and large particle number systems
-(Figure~\ref{fig:relax_energy}(b) black curves and red curves,
-respectively). The multilamellar structures are highly ordered in all
-cases (Figure~\ref{fig:relax}(c)) whereas the bilayer structures are
-disordered because they consist of several components forming isolated
+In Figure~\ref{fig:relax}(f), the multilamellar phase is highly ordered 
+whereas the bilayer phase is somewhat
+disordered because it consists of several components forming isolated
 bilayers, micelles, and vesicles (Figure~\ref{fig:relax}(b)).
 
-The aggregation for striated configurations forms more than one pattern
-when the number of particles is varied (Figure~\ref{fig:relax}(d)). We
-observe that when the number of particles is fewer, there is only a
+The striated phase order admits more than one pattern
+depending on the number of particles (Figure~\ref{fig:relax}(f), bottom and top curves).
+When the number of particles is fewer, there is only a
 single pattern in particle orientations where the directors are more or
-less parallel and alternate directions (Figure~\ref{fig:relax}(d),
-inset). Larger number of particles results in two different patterns:
+less parallel and alternate directions (Figure~\ref{fig:relax}(e),
+inset). Larger number of particles results in multiple alignment patterns:
 the alternating sign pattern as in the small particle number case
-(Figure~\ref{fig:relax}(d), top right rectangle) and one where the
-directors reflect across the lines parallel to the stria and across the
-lines perpendicular to the stria (Figure~\ref{fig:relax}(d), top middle
-rectangle). As a result, there are different trends in orientational
-order (Figure~\ref{fig:relax_energy}(b), solid and dashed blue curves,
-respectively).
-
-In the Results section, the equilibrium configurations for BCs (i),
-(ii), and (iii) (Figure~\ref{fig:relax}, insets) are used as initial
-data in the background flow simulations. For the bilayer case BC (i),
-we include an alternate initial condition consisting of a single,
-circular vesicle (c.f., Figure~\ref{fig:Ves_shear}).
-
+(Figure~\ref{fig:relax}(e), top right rectangle) and an 'X'-shaped
+alignment (Figure~\ref{fig:relax}(e), top left rectangle).
 
 %%%%%%%
 
@@ -1438,11 +1369,27 @@ Zarzaretal2015, doi:10.1021/la503455h}.
 
 \section{Appendix}
 \label{sec:appendix}
-Our calculation of the free energy $F$ relied on converting the body
-integral in~\eqref{eq:free_energy} into the surface integral
-in~\eqref{eq:free_energy2} involving only single layer potentials and
-tangential derivatives. This section supplies a proof of
-identity~\eqref{eq:normal_deriv} used in this conversion.  Let 
+The boundary integral calculation
+of \ref{eq:free_energy2} relies
+on the following identiy 
+%
+\begin{equation}
+\label{eq:normal_deriv}
+\nabla u(\xx) \cdot \nnu(\xx)=
+%\frac{\partial}{\partial \nnu_\xx} \DD[\sigma](\xx) =
+-\frac{1}{\rho^2} {\bf t}_\xx\cdot \SSS[\sigma{\bf t}](\xx)
++ \frac{\dif}{\dif s}\SSS\left[\frac{\dif \sigma}{\dif s}\right](\xx), \quad \xx \in \partial \Omega.
+\end{equation}
+%
+Here, $\tt(\xx)$ is the tangent vector and $\dif/\dif s$ is the
+arclength derivative.
+Substituting~\eqref{eq:normal_deriv}
+into~\eqref{eq:free_energy2} for the normal derivative leads to the
+single layer, $\SS$, which is more straightforward to evaluate.
+The arclength derivative is computed using
+the spectrally accurate Fourier transform.
+
+To prove ~\eqref{eq:normal_deriv}, let
 \begin{equation}
   \label{eq:SLP}
   \mathcal{S}[\sigma](\xx) = \int_\Gamma G(\xx-\yy) \sigma(\yy)\, \dif s_\yy
