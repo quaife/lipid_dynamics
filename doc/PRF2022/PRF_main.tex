@@ -21,7 +21,7 @@
 %  Add 'draft' option to mark overfull boxes with black boxes
 %  Add 'showkeys' option to make keywords appear
 %\documentclass[aps,prl,preprint,groupedaddress]{revtex4-2}
-\documentclass[prb,preprint,showpacs,preprintnumbers,amsmath,amssymb,longbibliography]{revtex4-2}
+\documentclass[prb,preprint,showpacs,preprintnumbers,amsmath,amssymb,longbibliography]{revtex4-1}
 
 %\documentclass[aps,prl,preprint,superscriptaddress]{revtex4-2}
 %\documentclass[aps,prl,reprint,groupedaddress]{revtex4-2}
@@ -742,8 +742,12 @@ alignment (Figure~\ref{fig:relax}(e), top left rectangle).
 \begin{center}
 \includegraphics[width=\textwidth]{S2ESummary.pdf}
 \end{center}
-\caption{\label{fig:s2esummary}asdf}
+\caption{\label{fig:s2esummary}
+Panel (a)-(b) show the average strain increase in percentage of vesicle, bilayer, multilamellar, and striated JP structures under a shear flow and a TG flow, respectively.
+Panel (c)-(d) show the average alignment of four JP structures under a shear flow and a TG flow, respectively. 
+Each snapshot of panels (e)-(l) contains the configurations of the JP structure using a specific type of boundary bondition without ruptures and the backgroud curves indicate the streamlines.}
 \end{figure}
+%
 We subjected the Type I, II, and III JP phases to background flows and measured 
 their material response.  The background flows were a shear flow
 \begin{equation}
@@ -883,7 +887,8 @@ not rupture for any of the shear rates considered.
 \begin{center}
 \includegraphics[width=\textwidth]{FSummary.pdf}
 \end{center}
-\caption{\label{fig:fsummary}}
+\caption{\label{fig:fsummary}
+The change of average free energy versus shear rates for shear flow and TG flow simulation results are plotted in panels (a)-(b). Panel (c) shows the relationships between the changes of the free energy as mean displacements of JP increases and the types of boundary conditions. All data points are fitted by quadratic functions and represented in dashed curves.}
 \end{figure}
 
 \subsection{Free energy}
@@ -924,7 +929,8 @@ which are tuned by \ref{eq:bc-type} in our model.
 \begin{center}
 \includegraphics[width=\textwidth]{RheologySummary.pdf}
 \end{center}
-\caption{\label{fig:rheologysummary}}
+\caption{\label{fig:rheologysummary}
+Rheology in Type I, II, and III. Panel (a) shows that unilamellar JP bilayer and vesicle both behave close to a Newtonian fluid. Panel (b) provides that the multilamellar phase shows a near shear thinning behaviour. A pseudoplastic behaviour of deformation in striated JP structure is shown in panel (c). }
 \end{figure}
 \subsection{Rheology}
 So far, we have considered static material properties, namely
