@@ -21,7 +21,7 @@
 %  Add 'draft' option to mark overfull boxes with black boxes
 %  Add 'showkeys' option to make keywords appear
 %\documentclass[aps,prl,preprint,groupedaddress]{revtex4-2}
-\documentclass[prb,preprint,showpacs,preprintnumbers,amsmath,amssymb,longbibliography]{revtex4-1}
+\documentclass[prb,preprint,showpacs,preprintnumbers,amsmath,amssymb,longbibliography]{revtex4-2}
 
 %\documentclass[aps,prl,preprint,superscriptaddress]{revtex4-2}
 %\documentclass[aps,prl,reprint,groupedaddress]{revtex4-2}
@@ -30,7 +30,7 @@
 % Choosing a journal automatically selects the correct APS
 % BibTeX style file (bst file), so only uncomment the line
 % below if necessary.
-\bibliographystyle{apsrev4-2}
+%\bibliographystyle{apsrev4-2}
 
 %\usepackage{showkeys}
 \usepackage{todonotes}
@@ -780,9 +780,9 @@ Thus our values for $\dot \gamma$ range between
 $0$ ns$^{-1}$ corresponding to quiescent flow
 up to $0.2$ ns$^{-1}$ capable of rupturing the sample. 
 Such shear rates are compatible with molecular dynamics 
-simulation \cite{Bradner}, those for large unilamellar vesicles (LUV),
+simulation \cite{Brandner2019}, those for large unilamellar vesicles (LUV),
 \cite{Bernard2005ShearinducedPA} and shearing in blood capillary vessels 
- where shear rates range over 100--1000 s$^{-1}$ \cite{NEEDED}.
+ where shear rates range over 100--2000 s$^{-1}$ \cite{Cho2011}.
 
 
 The shear flow replicates the motion of a fluid between two parallel, moving plates
@@ -1056,7 +1056,7 @@ $m, n = 0, \pm 1, \pm 2, \dots$ not both zero, and $\kappa$ is the membrane bend
 
 To estimate $h(\kk)$, 
 the $N_b = 60$ JP
-vesicle in Figure \ref{fig:ES2_summary}(e) 
+vesicle in Figure \ref{fig:s2esummary}(e) 
 has arc length $L_x \approx 50$ nm. 
 Our prior work\cite{Fu20,Fu2022_JFM} gave $\kappa  \approx 20$ $\kbt$.
 Since our simulations are two-dimensional, we restrict our attention
@@ -1072,8 +1072,7 @@ dropping off to zero precipitously.  The expected amplitudes coming from thermal
 fluctuation are therefore negligible compared to particle size.
 The elastic
 moduli for the Type (II) and Type (III) phases are by greater by a factor of two
-and five, respectively, than for Type (I) (Figure \ref{fig:F_summary}(c)), making thermal fluctuation
-even more negligible in these cases.
+and five, respectively, than for Type (I) (Figure \ref{fig:fsummary}(c)), making thermal fluctuation even more negligible in these cases.
 
 The fact that the fluctuation amplitudes are small 
 is not a consequence of stiffness. Quite the opposite, the value $\kappa = 20$ $\kbt$
