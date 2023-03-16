@@ -142,15 +142,18 @@ $^4$Department of Mathematical Sciences, New Jersey Institute of Technology, New
 
 \begin{abstract}
   Active colloidal systems with non-equilibrium self-organization is a
-  long-standing, challenging area in biology. To understand how
+  long-standing, challenging area in material sciences and biology. To understand how
   hydrodynamic flow may be used to actively control self-assembly of
-  Janus particles (JPs), we use a model recently developed for the
+  Janus particles (JPs), we developed  a model for the
   many-body hydrodynamics of amphiphilic JPs suspended in a viscous
-  background flow (JFM, 941, 2022). We investigate how various
-  morphologies arise from tuning the hydrophobic distribution of the
-  JP-solvent interface. We find JPs assembled into uni-lamella,
-  multi-lamella and striated structures. To introduce dynamics, we
-  include a linear shear flow and a steady Taylor-Green mixing flow, and
+  fluid with imposed far-field background flows (Journal of Fluid Mech., 941, 2022). 
+  In this work we alter the hydrophobic distribution on the JP-solvent
+  interface to investigate the hydrodynamics that underlies the various
+  morphologies and rheological properties of the JP assembly in the
+  suspension.
+  We find JPs assemble into uni-lamella,
+  multi-lamella, and striated structures. To introduce dynamics, we
+  include a planar linear shear flow and a steady Taylor-Green mixing flow, and
   measure the collective dynamics of JP particles in terms of their (a)
   free energy from the hydrophobic interactions between the JPs, (b)
   order parameter for the ordering of JPs in terms of alignment of their
@@ -180,12 +183,12 @@ $^4$Department of Mathematical Sciences, New Jersey Institute of Technology, New
 \section{Introduction}
 % Put \label in argument of \section for cross-referencing
 %\section{\label{}}
-Janus particles are colloids combining two dissimilar chemical or
-physical functionalities at their opposite
-sides~\cite{KirillovaMarschelkeSynytska2019}. Self-propelling Janus
+Janus particles are colloids with dissimilar chemical or
+physical functionalities between the two sides of their surfaces
+~\cite{deGennes1992,KirillovaMarschelkeSynytska2019}. Self-propelling Janus
 particles, for example, with a permanent biphasic asymmetry, have
 emerged as a rich chemical platform for the exploration of active
-matter~\cite{Meredithetal2022}.
+matter~\cite{Meredithetal2022} and mobility induced phase separation.
 In the absence of mobility and any
 imposed flow, Janus particles (JPs) self-assemble
 into oligomers of various geometries
@@ -208,51 +211,59 @@ such as living cells, bacterial baths, and animal
 flocks~\cite{CollardGrosjeanVandewalle2020, Vutukuri2020}. A
 long-standing challenge in fluid mechanics and material science is to
 solve the ``inverse" problem of creating a model colloidal system that
-will self-assemble into a prescribed
-structure~\cite{PhysRevLett.128.256102}. For example, the framework of
+will self-assemble into prescribed
+structures~\cite{PhysRevLett.128.256102}. For example, the framework of
 geometrical frustration, which has been used to explain disordered
 systems, could instead be used to design new, ordered systems, through
 specific choices for the shapes or interactions of the
 particles~\cite{Manoharan2015_Science}.
 
-The surface of a Janus particle may have a dissimilar spatial
-distribution of hydrophobicity~\cite{doi:10.1021/la503455h}. The
-many-body hydrodynamics of amphiphilic Janus particles assembled as
-vesicles suspended in a viscous fluid in the inertialess regime (zero
+In this work we focus on collective hydrodynamics of immobile
+amphiphilic JPs in a
+viscous fluid under an imposed far-field flow. The amphiphilic JP has a
+hydrophobic surface on one side and a hydrophilic surface on the other
+side \cite{doi:10.1021/la503455h}.
+The many-body hydrodynamics of amphiphilic Janus particles assembled as
+vesicles (self-enclosed bilayers of JPs) suspended in a viscous fluid in the inertialess regime (zero
 Reynolds number) has been studied using boundary integral numerical
 simulations~\cite{Fu20,Fu2022_JFM}. The dynamics of the JP suspension
 results from the combination of long-range hydrodynamic interaction and
 non-local interactions between JPs through the distribution of a
 hydrophobic attraction potential (HAP).
 %
-In a quiescent flow, numerical simulations of a JP suspension showed
-self-assembly into micelles and bilayers of JPs that provide an
+In a quiescent flow, a JP suspension 
+self-assemble into micelles and bilayers of JPs that provide an
 alternative means for computing the mechanical moduli of a colloidal
-membrane~\cite{NaTr00, Fu20, KrFiGuKaHa13}. Under background flows, the
+membrane in numerical simulations~\cite{NaTr00, Fu20, KrFiGuKaHa13}. Under background flows, the
 hydrodynamics of a JP vesicle (a self-enclosed bilayer of JPs) exhibit
 many familiar behaviors of a vesicle: elongation and alignment along the
 extensional direction, tank-treading, and rupture of a vesicle under
 shear flow~\cite{Fu2022_JFM, grandmaison_brancherie_salsac_2021,
 D2SM00179A,keller_skalak_1982, Finken08, Shaqfeh11}.
 
-Molecular dynamics (MD) and Monte Carlo provide another avenue for
+Molecular dynamics (MD) and Monte Carlo simulations provide another avenue for
 simulating the interaction between JPs, solvents, and
 substrates~\cite{Brandner2019, Baniketal2021,
-HongCacciutoLuijtenGranick2008, C9NR05885K}. These methods often use
-pair-potentials to describe the interaction between JPs, for example by
+HongCacciutoLuijtenGranick2008, C9NR05885K}. In these methods 
+pair-potentials are used to describe the interaction between JPs, for example by
 prescribing angle dependent forces and torques that bring the
-hydrophobic sides of two amphiphilic JPs into opposition. The HAP
-formulation of the present work also has attractive, long-range forces
-and torques, but they are instead derived from a boundary value problem
+hydrophobic sides of two amphiphilic JPs into opposition. On the other
+hand, the HAP
+formulation of the present work has attractive, long-range forces
+and torques, and they are instead derived from a boundary value problem
 for the molecular structure of water~\cite{Ma77, GoHaKo94, ErLjCl89,
 Lietal05, Israelachvili80}. Unlike in MD or Monte Carlo simulations, the
 HAP interactions are nonadditive~\cite{Fu20}, so that the interactions
 between a pair of JPs is affected by the presence of other particles. 
+As such, the HAP is a phase-field function that represents the
+properties of the solvent in the presence of JPs. Such approach falls
+into the category of work that considers particles as a discretization
+of a continuum problem~\cite{HongWang2021_arXiv}.
 
-\hl{Qi Wang has a preprint "A hybrid phase field method for fluid-structure interactions in viscous fluids"}.
+%\hl{Qi Wang has a preprint "A hybrid phase field method for fluid-structure interactions in viscous fluids"}.
 
-In this work, we take advantage of the flexibility of the HAP model to
-examine the effects of varying the distribution of hydrophobicity on JP
+Here we take advantage of the flexibility of the HAP model to
+examine the effects of tuning the distribution of hydrophobicity on JP
 surfaces. Such variation of the boundary condition on JP surfaces has
 been realized experimentally by using chemicals to adjust the polarity
 of the viscous solvent~\cite{Zarzaretal2015,
@@ -268,6 +279,13 @@ polymers~\cite{HongCacciutoLuijtenGranick2008, doi:10.1021/la503455h,
 KangHonciuc2018}, is straightforward within the context of the boundary
 integral representations~\cite{kohl-cor-che-vee22}, opening further
 lines of investigation.
+
+This paper is organized as follows. \S~II summarizes the general
+mathematical formulation. \S~III describes the three types of
+hydrophobicity distribution that we use in the numerical simulations.
+\S~IV outlines the quantitative measures used to describe the collective
+hydrodynamics of JPs summarized and discussed in \S~V. \S~VI provides a
+conclusion and discussion for future directions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations: Hydrophobic Attraction Potential Mobility Problem} 
