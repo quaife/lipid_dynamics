@@ -838,6 +838,7 @@ particle trajectories in time.  A total of $500$ steps were solved
 for with $\Delta t = 2$ ns, yielding time courses for various 
 $\dot \gamma$ up to $T = 1$ $\upmu$s.  We then post-processed the trajectories
 to infer free energy $F$, alignment order $S_2$, and strain $E$.     
+\todo[inline]{Reference the supplementary material here.}
 
 
 
@@ -988,17 +989,28 @@ Figure \ref{fig:s2esummary}(a), (b) (triangles).
   \includegraphics[width=\textwidth]{critical_shear_and_cell_size.pdf}
 \end{center}
 \caption{\label{fig:PramChange}
-In panel (a), relative change in $\dot \gamma_*$ is linear 
-in the relative change of tension with slope $1$.
-Conversely, relative change in $\dot \gamma_*$ 
-has slope $-2$ with respect to relative change in tension.
-Panels (b)--(e) show the tank-treading configuration 
-of a vesicle bilayer the configurations with streamlines of a vesicle is in a TG flow at
-$t=1$ $\upmu$s with $l= 1,2,3,4$, respectively. In panel (e), the
-  relative enclosed area $A/A_0$ calculated from the bilayer midplane
-  decreases over time. The inset shows the relative length $L/L_0$ which
-  remains nearly constant with small magnitude of oscillations. The
-  inset and main panel have the same horizontal axis.}
+In panel (a), the relative change in $\dot \gamma_*$ is linear in the
+  relative change of the tension parameters $\gamma$ and $M$ with slope
+  $1$.  Additionally, the relative change in $\dot \gamma_*$ has slope
+  $-2$ with respect to the relative change in the length parameters $c$,
+  $\rho$, and $\rho_0$.  Panels (b)--(e) show the tank-treading
+  configuration of a vesicle bilayer the configurations with streamlines
+  of a vesicle is in a TG flow at $t=1$ $\upmu$s with $l= 1,2,3,4$,
+  respectively. In panel (f), the relative enclosed area $A/A_0$
+  calculated from the bilayer midplane decreases over time. The inset
+  shows the relative length $L/L_0$ which remains nearly constant with a
+  small oscillation. The inset and main panel have the same horizontal
+  axis.} 
+  \todo[inline]{We propose to relate panel (f) to the pressure drops
+  across the JP vesicles. Also, panel (a) should be its own figure, and
+  (b)--(e) can be their own figure, but with darker stream lines. Also,
+  should not be talking about tank treading, but rather about sliding
+  between layers, and how they are affected by the correlation between
+  the bilayer location and the TG cell boundary.  This correlation also
+  somehow determines the shape.  Can count the number of partial TG
+  cells inside each of the JP bilayer vesicles. (b) has 9 cells, (c) has
+  2 + 4*0.5 cells, (d) has 1 + 4$\epsilon$ cells where $\epsilon < 1/4$,
+  and (e) has 1 cell.}
 \end{figure}
 
 \subsection{Discussion}
@@ -1008,71 +1020,66 @@ there was a critical shear rate $\dot \gamma_*$ for the vesicle BL
 and striated phases where shear stresses exceeded elastic stresses,
 leading to rupture.  The multilamellar phase did not rupture.
 By varying model parameters, we can perform a dimensional analysis 
-on $\dot \gamma_*$.  Focusing on Type III JPs in shear flow, 
+on $\dot \gamma_*$. Focusing on Type III JPs in shear flow, 
 $\dot \gamma_* = 0.14$ ns$^{-1}$ for the basic model parameters
 (see Section \ref{sec:tunable_hydrophobicity}).  Increasing
-and decreasing the 
-the tension parameters $\gamma$ and $M$ by up to 10\% (collectively denoted
+and decreasing the tension parameters $\gamma$ and $M$ by up to 10\% (collectively denoted
 $\Delta \gamma/\gamma$) led to basically the same relative
 increase/decrease in critical shear
 rate (denoted $\Delta \dot \gamma_*/\dot \gamma_*$).  This suggests
 that the critical shear rate scales linearly with the tension parameters.
-Conversely, increasing (resp. decreasing) the length parameters $c$, $\rho$, and $\rho_0$
+Conversely, increasing (resp.~decreasing) the length parameters $c$, $\rho$, and $\rho_0$
 by up to 10\% (collectively denoted $\Delta c/c$) leads to roughly twice the
-relative \emph{decrease} (resp. increasing) in the critical shear rate.  This points to an inverse-quadratic
+relative \emph{decrease} (resp.~increasing) in the critical shear rate.  This points to an inverse-quadratic
 scaling in length. Figure \ref{fig:PramChange}(a) summarizes the 
 findings and suggest the scaling
 \begin{equation}
 \label{eq:CSR}
 \mu \dot\gamma_* = K_{\text{III}} \frac{\gamma L}{c^2}.
 \end{equation}
-The scalar $K_{\text{III}}$ is specific to the striated phase under shear flow.
-Here $L$ is the diameter of the phase sample, which is proportional
-to $\gamma^*$ since the striated phase tends to cleave during
-rupture (see Supplementary Movie S4).
-Our previous work\cite{Fu2022_JFM}
-found the scaling $\mu \dot\gamma_* = K_{\text{I}} \gamma c^2/(\rho L^2)$
-for vesicle BL in shear flow.
+The scalar $K_{\text{III}}$ is specific to the striated phase under
+shear flow.  Here $L$ is the diameter of the phase sample, which is
+proportional to $\gamma^*$ since the striated phase tends to cleave
+during rupture (see Supplementary Movie S4).  Our previous
+work\cite{Fu2022_JFM} found the scaling $\mu \dot\gamma_* = K_{\text{I}}
+\gamma c^2/(\rho L^2)$ for vesicle BL in shear flow.
 
-The Results section showed that 
-variations in free energy and strain 
-generally depend the distribution
-of fluid stresses i.e., shear versus TG flow.   
-To further illustrate how fluid stresses interact with the geometry of the JP
-phases, we considered the initially circular vesicle bilayer
-for various TG-flow cell sizes (Figure \ref{fig:PramChange}(b)--(e)). 
-In all cases, the vesicle and TG flow reach a steady-state tank-treading motion,
-but the geometry and motion varies nonmonotonically. 
-For $\lambda$ ranging from $1$ nm to $4$ nm,
-the steady-state vesicle shape goes from an octagon, to a dimpled square,
-to a rounded diamond. Surprisingly, the direction of rotation switches,
-so that for $\lambda = 2$ nm, the rotation is clockwise while
-for $\lambda = 4$ nm, the rotation is counterclockwise, for example. 
-Finally, we calculated the vesicle area $A$ and length $L$ (initial area $A_0$,
-initial length $L_0$). 
-As shown in Figure~\ref{fig:PramChange}(f), the relative
-area $A/A_0$ achieves a steady-state that is greatest for $\lambda = 4$ nm
-yet least for $\lambda = 2$ nm. 
-(The relative length $L/L_0$, however, is
-constant in $t$ for all cell sizes (Figure~\ref{fig:PramChange}(e),
-inset)).
-  
-We have excluded thermal fluctuations because they are unresolved in the JP phases we consider. 
-For a tensionless, planar membrane, the spectrum of the Fourier coefficients for the 
-profile height 
+The Results section showed that variations in free energy and strain
+generally depend on the distribution of fluid stresses i.e., shear
+versus TG flow. To further illustrate how fluid stresses interact with
+the geometry of the JP phases, we initialize a circular vesicle bilayer
+in various TG-flow cell sizes (Figure \ref{fig:PramChange}(b)--(e)). In
+all cases, the vesicle and TG flow reach a steady-state tank-treading
+motion, but the geometry and motion varies non-monotonically. For
+$\lambda$ ranging from $1$ nm to $4$ nm, the steady-state vesicle shape
+goes from an octagon, to a dimpled square, to a rounded diamond, to a
+rounded square. Surprisingly, the direction of rotation switches: for
+$\lambda = 2$ nm the rotation is clockwise, while for $\lambda = 4$ nm
+the rotation is counterclockwise. Finally, we calculate the vesicle area
+$A$ and length $L$. As shown in Figure~\ref{fig:PramChange}(f), the
+relative area $A/A_0$ achieves a steady-state that is greatest for
+$\lambda = 4$ nm yet least for $\lambda = 2$ nm. The relative length
+$L/L_0$, however, is constant in $t$ for all cell sizes
+(Figure~\ref{fig:PramChange}(e), inset). In other words, the flow
+pattern is non-monotonic in the cell size $\lambda$.
+
+We have excluded thermal fluctuations because they are unresolved in the
+JP phases we consider.  For a tensionless, planar membrane, the spectrum
+of the Fourier coefficients for the profile height 
 $h(\xx) = \sum_{\kk} h(\kk)e^{i \kk \cdot \xx}$ satisfy\cite{Merath2006FluctuationSO}  
 \begin{equation}
 \label{eq:fourier_spectrum}
-\langle |h(\kk)|^2 \rangle = \frac{\kbt}{L_xL_y}\frac{1}{\kappa k^4}
+\langle |h(\kk)|^2 \rangle = \frac{\kbt}{L_xL_y}\frac{1}{\kappa k^4},
 \end{equation}
-where $\xx$ is a point in an $L_x$ by $L_y$ rectangular membrane patch,
-$\kk = \left(2\pi m/L_x, 2\pi n/L_y\right)$ with
-$m, n = 0, \pm 1, \pm 2, \dots$ not both zero, and $\kappa$ is the membrane bending modulus.
+where $\xx$ is a point in an $L_x \times L_y$ rectangular membrane
+patch, $\kk = \left(2\pi m/L_x, 2\pi n/L_y\right)$ with $m,n \in
+\mathbb{Z}$, not both zero, and $\kappa$ is the membrane bending
+modulus.
 
 To estimate $h(\kk)$, 
 the $N_b = 60$ JP
 vesicle in Figure \ref{fig:s2esummary}(e) 
-has arc length $L_x \approx 50$ nm. 
+has arclength $L_x \approx 50$ nm. 
 Our prior work\cite{Fu20,Fu2022_JFM} gave $\kappa  \approx 20$ $\kbt$.
 Since our simulations are two-dimensional, we restrict our attention
 to transversely invariant fluctuations where $n = 0$.
@@ -1081,54 +1088,48 @@ Substituting these values gives
 \label{eq:fourier_spectrum_upper}
 \langle |h(\kk)|^2 \rangle \approx \frac{4 \text{ nm}^3}{L_y}\frac{1}{m^4}, \quad m = \pm 1, \pm 2, \dots
 \end{equation}
-For any moderate width, say $L_y > 4$ nm, the leading Fourier coefficient
-has an expected magnitude less than $1$ nm with the remaining coefficients
-dropping off to zero precipitously.  The expected amplitudes coming from thermal
-fluctuation are therefore negligible compared to particle size.
-The elastic
-moduli for the Type (II) and Type (III) phases are by greater by a factor of two
-and five, respectively, than for Type (I) (Figure \ref{fig:fsummary}(c)), making thermal fluctuation even more negligible in these cases.
+For any moderate transverse depth, say $L_y > 4$ nm, the leading Fourier
+coefficient has a magnitude less than $1$ nm with the remaining
+coefficients dropping off to zero precipitously.  The expected
+amplitudes coming from thermal fluctuations are therefore negligible
+compared to particle size.  The elastic moduli for the Type II and
+Type III phases are greater by a factor of two and five, respectively,
+than for Type I (Figure~\ref{fig:fsummary}(c)), making thermal
+fluctuation even more negligible in these cases.
 
-The fact that the fluctuation amplitudes are small 
-is not a consequence of stiffness. Quite the opposite, the value $\kappa = 20$ $\kbt$
-is in  agreement with the experimental literature where 
-micron sized vesicles observably fluctuate. 
-Rather, larger energies are required to fluctuate membranes 
-over smaller wavelengths and these energies exceed available 
-thermal energy when the wavelengths approach tens of nanometers
-as demonstrated above.
+The fact that the fluctuation amplitudes are small is not a consequence
+of stiffness. Quite the opposite, the value $\kappa = 20$ $\kbt$ agrees
+with the experimental literature where micron sized vesicles observably
+fluctuate.  Rather, larger energies are required to fluctuate membranes
+over smaller wavelengths and these energies exceed available thermal
+energy when the wavelengths approach tens of nanometers as demonstrated
+above.
 
-
-The calculated viscosities---14 mPa s for Type I 
-and 21 mPa s for Type II JP phases---are physically reasonable.
-In two-dimensions, the Einstein viscosity correction 
-takes the form $1 + 2.0 \phi + 4.0\phi^2 + O(\phi^3)$
-in the volume fraction $\phi$
-\cite{PhysRevFluids.1.043301,Haines2011APO,Khair2006TheC,Brady1983TheEV}.
-For the JPs in Figure \ref{fig:s2esummary}(e)--(h), this volume fractions
-is about $0.5$ and would give a small viscosity $3$ mPa s.
-On the other hand, the Einstein correction is only valid for dilute
-suspensions, and for large volume fractions like $\phi = 0.5$, 
-one expects viscosities ten or more times that of water  
+The calculated viscosities---14 mPa s for Type I and 21 mPa s for Type
+II JP phases---are physically reasonable.  In two-dimensional dilute
+suspensions, the Einstein viscosity correction is $1 + 2 \phi + 4\phi^2 +
+O(\phi^3)$, where $\phi \ll 1$ is the volume
+fraction~\cite{PhysRevFluids.1.043301, Haines2011APO, Khair2006TheC,
+Brady1983TheEV}. In Figures \ref{fig:s2esummary}(e)--(h), the volume
+fraction is $\phi \approx 0.5$, which would correspond to a effective
+shear viscosity of $4$ mPa s according to Einstein's viscosity
+correction. Note, however, that since $\phi = 0.5$ is outside of the
+dilute limit, one expects viscosities ten or more times that of water
 \cite{Konijn2014ExperimentalSO}.
 
-Nevertheless, further simulations results are required to 
-differentiate between purely suspension effects
-and particles' preferred alignments
-in analyzing viscosities from Figure \ref{fig:rheologysummary}. 
-For example, the difference between the values 14 mPa s for Type I and 
-21 mPa s for Type II JPs can be explained by the fact that 
-the multilamellar phase is more tightly packed than the bilayer phase
-(Figure \ref{fig:s2esummary}(e)--(h)).
-Furthermore, it seems that the viscosity, and the tendency toward
-shear thinning in the case of Type III JPs where viscosity is 
-effectively infinite for low strain rates 
-(Figure \ref{fig:rheologysummary}(c)), is related 
-to particle coordination.  
-To leading order, a single particle coordinates with: 
-one neighbor in the apposing bilayer for Type I, two neighbors
-at the tail and head interfaces for Type II, and four
-neighbors (front, back, left, and right) for Type III.
+Nevertheless, further simulations are required to differentiate between
+purely suspension effects and particles' preferred alignments. For
+example, the difference between the values 14 mPa s for Type I and 21
+mPa s for Type II JPs can be explained by the fact that the
+multilamellar phase is more tightly packed than the bilayer phase
+(Figure \ref{fig:s2esummary}(e)--(h)).  Furthermore, it seems that the
+viscosity, and the tendency toward shear thinning in the case of Type
+III JPs where viscosity is effectively infinite for low strain rates
+(Figure \ref{fig:rheologysummary}(c)), is related to particle
+coordination.  To leading order, a single particle coordinates with: one
+neighbor in the apposing bilayer for Type I, two neighbors at the tail
+and head interfaces for Type II, and four neighbors (front, back, left,
+and right) for Type III.
 
 
 
@@ -1197,24 +1198,24 @@ Zarzaretal2015, doi:10.1021/la503455h}.
 \section{Appendix}
 \label{sec:appendix}
 The boundary integral calculation
-of \ref{eq:free_energy2} relies
-on the following identiy 
+of \eqref{eq:free_energy2} relies
+on the following identity 
 %
 \begin{equation}
 \label{eq:normal_deriv}
-\nabla u(\xx) \cdot \nnu(\xx)=
+\nabla u(\xx) \cdot \nnu_\xx=
 %\frac{\partial}{\partial \nnu_\xx} \DD[\sigma](\xx) =
 -\frac{1}{\rho^2} {\bf t}_\xx\cdot \SSS[\sigma{\bf t}](\xx)
 + \frac{\dif}{\dif s}\SSS\left[\frac{\dif \sigma}{\dif s}\right](\xx), \quad \xx \in \partial \Omega.
 \end{equation}
 %
-Here, $\tt(\xx)$ is the tangent vector and $\dif/\dif s$ is the
+Here, $\tt_\xx$ is the tangent vector and $\dif/\dif s$ is the
 arclength derivative.
 Substituting~\eqref{eq:normal_deriv}
 into~\eqref{eq:free_energy2} for the normal derivative leads to the
-single layer, $\SS$, which is more straightforward to evaluate.
+single layer, $\SSS$, which is more straightforward to evaluate.
 The arclength derivative is computed using
-the spectrally accurate Fourier transform.
+the spectrally accurate Fourier differentiation.
 
 To prove ~\eqref{eq:normal_deriv}, let
 \begin{equation}
@@ -1222,7 +1223,7 @@ To prove ~\eqref{eq:normal_deriv}, let
   \mathcal{S}[\sigma](\xx) = \int_{\partial \Omega} G(\xx-\yy) \sigma(\yy)\, \dif s_\yy
 \end{equation}
 be the single layer potential for a density function $\sigma.$ Fix $\xx
-\in {\partial \Omega}$, let $\nnu_{\xx} = \nnu(\xx)$ and $\nnu_{\yy}$ be the unit
+\in {\partial \Omega}$, let $\nnu_{\xx}$ and $\nnu_{\yy}$ be the unit
 normal at $\xx$, respectively $\yy$, in ${\partial \Omega}$, and let $\zz \in
 \Omega$. The subscripts in $\nabla_{\zz}$ and $\nabla_{\yy}$ denote
 differentiation with respect to $\zz$, respectively $\yy$.
@@ -1236,7 +1237,7 @@ Then
   &=-\int_{\partial \Omega} \nnu_\xx^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\nnu_\yy\sigma(\yy)\ \dif s_\yy,
 \end{align*}
 since we can interchange $\nabla_\zz$ with $-\nabla_\yy$.
-Following~\citet{Hsiao2008}, \S 1.2,
+Following~\citet{Hsiao2008} (see \S 1.2),
 \begin{align}
 \nnu_\xx^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\nnu_\yy
 =
@@ -1263,9 +1264,12 @@ are continuous, we obtain~\eqref{eq:normal_deriv}.
 % If you have acknowledgments, this puts in the proper section head.
 \begin{acknowledgments}
 %We thank Dr.~S\'ebastien Michelin and Dr.~Cecile Cottin-Bizzonne from LadHyX - Ecole Polytechnique Institut Polytechnique de Paris for organizing the focus-session ``interfacial active matter'' in the conference APS-DFD 2021 and the invitation of submitting a special collection paper. 
-We thank useful conversations with E. Corona, M. Rachh, S. Jiang, and Thomas Beck.
-B.Q.~acknowledges support from the Simons Foundation, Mathematics and Physical Sciences-Collaboration Grants for Mathematicians, Award No. 527139.
-Y.-N.Y.~acknowledges support from NSF (Grants No. DMS 1614863 and No. DMS 195160) and Flatiron Institute, part of Simons Foundation.
+We thank useful conversations with E.~Corona, M.~Rachh, S.~Jiang, and
+  T.~Beck.  B.Q.~acknowledges support from the Simons Foundation,
+  Mathematics and Physical Sciences-Collaboration Grants for
+  Mathematicians, Award No.~527139.  Y.-N.Y.~acknowledges support from
+  NSF (Grants No.~DMS 1614863 and No.~DMS 195160) and Flatiron
+  Institute, part of Simons Foundation.
 
 % put your acknowledgments here.
 \end{acknowledgments}
