@@ -1,4 +1,4 @@
-%% ***A*** Start of file apstemplate.tex ****** %
+%% ***** Start of file apstemplate.tex ****** %
 %%
 %%
 %%   This file is part of the APS files in the REVTeX 4.2 distribution.
@@ -291,7 +291,7 @@ the solvent phase and $t$ is time. The boundary of $\Omega$ is
 $\bd\Omega = \Gamma_1 \cup \cdots \cup \Gamma_{N_b}$, where $\Gamma_i$
 is the boundary of Janus particle $i$.
 The sets $\Omega$, $\Gamma_1$, \dots, and $\Gamma_{N_b}$ depend on $t$.
-Assuming inertial terms are negligible, we have the Stokes equations
+Assuming inertial terms are negligible, the solvent satisfies the Stokes equations
 \begin{alignat}{3}
 \label{eq:stokes}
   -\mu \Delta \uu + \nabla p &= \mathbf{0}, && \xx \in \Omega, \\
@@ -300,7 +300,7 @@ Assuming inertial terms are negligible, we have the Stokes equations
 \label{eq:stokesFarfield}
   \uu - \uu_\infty &\to \mathbf{0}, && |\xx| \to \infty,
 \end{alignat}
-where $\uu$ is the velocity of the solvent, $p$ is the pressure,
+where $\uu$ is the velocity, $p$ is the pressure,
 $\uu_\infty$ is the background flow velocity, and $\mu$ is the constant
 solvent viscosity. The solvent velocity satisfies the no-slip boundary
 condition for a rigid body motion
@@ -326,8 +326,7 @@ P\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right),
 where $u(\xx,t)$ is as the order parameter for water\cite{Ma77, GoHaKo94},
 $\rho$ is a decay length, and $\gamma$ is an interfacial tension. 
 The order parameter $u(\xx,t)$ is assumed to minimize the free energy
-$F$ and therefore satisfies the screened Laplace equation
-boundary value problem
+$F$ and therefore satisfies the screened Laplace boundary value problem
 \begin{gather}
   \label{eq:SL}
   -\rho^2 \Delta u + u = 0,\quad \xx \in \Omega, \\
@@ -338,8 +337,8 @@ boundary value problem
 The boundary condition $g$ encodes hydrophobic properties of the
 particle-solvent interface.
 The dimensionless repulsion profile $P$ takes the form $P(s) = 1 -
-\sin(\pi s/2)$ for $0 \leq s < 1$ and $P(s) = 0$ for $1 \leq s <
-\infty$. The parameter $\rho_0$ is the distance 
+\sin(\pi s/2)$ for $0 \leq s < 1$ and $P(s) = 0$ for
+$s \geq 1$. The parameter $\rho_0$ is the distance 
 below which steric repulsion becomes important and 
 $M$ is the repulsion modulus.
 
@@ -359,7 +358,7 @@ acting on $\Gamma_i$ are~\cite{Fu20}
   \frac{\aa_i - \aa_j}{|\aa_i - \aa_j|}
 P'\left(\frac{|\aa_i - \aa_j|-2c}{\rho_0}\right)
   ,\quad
-T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp}\cdot (\mathbf{T}\nnu) \, \dif s, 
+T_i = \int_{\Gamma_i} (\xx - \aa_i)^{\perp}\cdot (\mathbf{T}\nnu) \, \dif s.
 \end{align}
 Here,
 \begin{align}
@@ -387,7 +386,7 @@ where $\ssigma = -p \mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T
 To perform a single time step, we
 (i) solve~\eqref{eq:SL}--\eqref{eq:SLbc} for $u$,
 (ii) compute the force and torque~\eqref{eq:FandTdef},
-and finally (iii) solve the Stokes equations~\eqref{eq:stokes}--\eqref{eq:stokesFarfield}
+and (iii) solve the Stokes equations~\eqref{eq:stokes}--\eqref{eq:stokesFarfield}
 subject to~\eqref{eq:rigid-vel} and \eqref{eq:force}. 
 The velocities $(\vv_i, \omega_i)$ obtained
 from~\eqref{eq:rigid-vel} are used to update the
@@ -408,33 +407,35 @@ approximately inversely proportional to $\rho$~\cite{Fu20}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Boundary integral representations}
-It is challenging to solve the Stokes and screened Laplace equations
-and far-field boundary conditions accurately. 
+We require a method to accurately solve the Stokes and
+screened Laplace equations in intricate, unbounded geometries.
 We recast~\eqref{eq:stokes}--\eqref{eq:rigid-vel}
 and~\eqref{eq:SL}--\eqref{eq:SLbc} as boundary integral equations (BIEs)
 and discretize each BIE at $N$ points on each of the $N_b$ particles
 with a collocation method. To express the solution of
-\eqref{eq:SL}--\eqref{eq:SLbc}, we adopt the double layer potential
+\eqref{eq:SL}--\eqref{eq:SLbc},
+we adopt the double layer potential
 \begin{align}
 \label{eq:SL_BIE}
 u({\xx}) = \DD[\sigma](\xx) = \int_{\partial \Omega} 
-  \pderiv{G(\xx-\yy)}{\nnu_\yy}\sigma(\yy)\, \dif s_\yy, 
+  \pderiv{G(\xx-\yy)}{\nnu_\yy}\eta(\yy)\, \dif s_\yy, 
   \quad \xx \in \Omega,
 \end{align}
 where $G(\xx) = \frac{1}{2\pi}K_0(|\xx|/\rho)$ is the fundamental
 solution to the screened Laplace equation~\eqref{eq:SL}, $K_0$ is the
 zeroth-order modified Bessel function of the second kind, $\nnu_\yy$ is
-the unit outward normal at $\yy$, and $\sigma$ is a scalar-valued
+the unit outward normal at $\yy$, and $\eta$ is a scalar-valued
 density function. The subscript in $\dif s_\yy$ denotes integration with
 respect to $\yy \in \partial \Omega$. To satisfy the boundary
 condition~\eqref{eq:SLbc}, the density function must satisfy\cite{Hsiao2008}
 \begin{align}
   \label{eq:SL_BIE2}
-  g(\xx) = \frac{1}{2} \sigma(\xx) + \DD[\sigma](\xx), \quad
-    \xx \in \Gamma.
+  g(\xx) = \frac{1}{2} \eta(\xx) + \DD[\eta](\xx), \quad
+    \xx \in \partial \Omega.
 \end{align}
 
-For the velocity, we use the representation
+For the velocity, we use the completed double-layer potential
+representation~\cite{pow-mir1987}
 \begin{align}
   \label{eq:velocity}
   \uu(\xx) = \uu_\infty(\xx) + \DDD[\eeta](\xx) + 
@@ -454,7 +455,7 @@ The Stokeslets and Rotlets are
     \frac{\rr \otimes \rr}{|\rr|^2}\right), \quad 
   \RR(\xx,\aa_i) = \frac{1}{4\pi} \frac{\rr^\perp}{|\rr|^2}, 
 \end{align}
-respectively, where $\rr = \xx - \aa_i$~\cite{pow-mir1987}. Letting
+respectively, where $\rr = \xx - \aa_i$. Letting
 $\xx$ approach $\Gamma_i$ in~\eqref{eq:velocity}, applying the jump
 condition of the double layer potential~\cite{poz1992}, and imposing the
 no-slip boundary condition~\eqref{eq:rigid-vel}, the density function
@@ -489,10 +490,10 @@ After discretizing and applying quadrature, the result is an $NN_b
 \times NN_b$ and $2NN_b \times 2NN_b$ linear system
 for~\eqref{eq:SL_BIE2}
 and~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2}, respectively.
-These are solved with matrix-free GMRES, and we guarantee that the
-number of GMRES iterations is mesh-independent by using second-kind
-BIEs.
-
+These are solved with matrix-free GMRES
+and the second-kind BIEs
+guarantee that the number of GMRES iterations is
+mesh-independent.
 
 %Once the translational and angular velocities $\vv_i, \omega_i$
 %have been determined, a second-order Adams-Bashforth scheme updates the particle
@@ -511,17 +512,15 @@ BIEs.
 % \end{aligned}
 %\end{equation}
 
-
 \section{Tunable hydrophobicity}
 \label{sec:tunable_hydrophobicity}
 The parameters are modeled after those for
 phospholipid in water~\cite{Boal}.
 We use $\mu = 1$~mPa~s for the viscosity of water
 at room temperature. Pure lipid components give a range of interfacial
-tensions $0.7$--$5.3$~pN~nm$^{-1}$~\cite{KUZMIN2005, Petelska2012,
-  Jackson2016, GarciaSaez}.
-we use $\gamma=4.1$~pN~nm$^{-1}$ since
-this value gave good agreement with elastic moduli of lipid bilayers~\cite{Fu20,Fu2022_JFM}.
+tensions~\cite{KUZMIN2005, Petelska2012,Jackson2016, GarciaSaez}; $0.7$--$5.3$~pN~nm$^{-1}$.
+We use $\gamma=4.1$~pN~nm$^{-1}$ which gives a physically reasonable 
+elastic modulus $\kappa$ of lipid bilayers~\cite{Fu20,Fu2022_JFM}.
 The particle radius $c = 1.25$~nm represents one half 
 of phospholipid length~\cite{Boal}, and the screening length $\rho = 5$~nm
 derives from experimental force-distance measurements of hydrophobic
@@ -531,7 +530,7 @@ distance $\rho_0 = 0.5$~nm gives an interparticle distance around one
 particle radius, ensuring the accuracy of the boundary integral
 representations~\eqref{eq:SL_BIE} and~\eqref{eq:velocity} without 
 overly aggressive mesh refinement. The characteristic time
-and length are $1$~ns and  $1$~nm respectively.
+and length are $1$~ns and  $1$~nm, respectively.
 
 \begin{figure}[t!]
 \begin{center}
@@ -556,19 +555,20 @@ g(\xx) = a(b + \cos \alpha),\quad a = (\pi c(2b^2 + 1))^{-1/2},\quad \xx \in \Ga
 \end{align}
 where $\alpha$ is the angle between the vector $\xx - \aa_i$ and the
 particle director $\dd_i = (\cos \theta_i, \sin \theta_i)$
-The scalar $a$ normalizes $g$ so that $\int_{\Gamma_i} g^2(\xx) \, \dif s = 1$.
+The scalar $b$ shifts the periodic date up and down and the scalar
+$a$ normalizes $g$ so that $\int_{\Gamma_i} g^2(\xx) \, \dif s = 1$.
 The side of the particle where
 $\alpha = 0$ is called the tail and the side where $\alpha = \pi$ is the head. 
 
 Based on the choice of $b$,
 the boundary condition (BC) \eqref{eq:bc-type}
 can be classified into one of three categories:
-(Type I, amphiphile, $b = 1$) $g$ is positive on 
+Type I, amphiphile, $b = 1$, $g$ is positive on 
 one side representing a hydrocarbon-water interface, and
 is zero on the other representing an apolar, hydrophilic region;
-(Type II, asymmetric hydrophobe, $b = 2$) $g$ is positive
-on both sides but greater on one side;
-(Type III, poler, $b = -1/2$) $g$ is positive on one
+Type II, asymmetric hydrophobe, $b = 2$, $g$ is positive
+on both sides but more so on one side;
+Type III, polar, $b = 0$, $g$ is positive on one
 side and negative on the other, representing a
 water structure with positive/negative charge~\cite{MaRa76, Ma77}.
 
@@ -587,14 +587,16 @@ We refer to this as the ``bilayer'' phase.
 %  \includegraphics[height=0.3\textheight]{Nb198d_eta_inset.pdf}
 \end{center}
 \begin{caption}{\label{fig:relax}
-  Panel (a) shows the initial $N_b = 198$ particle configuration with random
-  position and orientation.
+    Panel (a) shows the $t = 0$, $N_b = 198$ particle configuration
+    with random orientation and initially confined to a box. 
   Panels (b), (d), (e) show bilayer, multilamellar, and striated phases
-  composed of amphiphilic (Type I), asymmetric hydrophobic (Type II),
-  and poler (Type 3) JP, respectively. 
+  composed of amphiphilic (Type I), asymmetric hydrophobe (Type II),
+  and polar (Type III) JP, respectively. 
   Panels (c) and (f) plot the free energies~\eqref{eq:free_energy}
   and alignment order parameter~\eqref{eq:S2} with respect
-  to $t$. The solid markers in panel (c) are 
+  to $t$. The open markers in panel (c)
+  are for $N_b = 60$ and the
+  solid markers are for $N_b = 198$ but 
   normalized by $60/198$, showing that the energy
   approximately scales with the number of particles.
   Alignment in the striated phase is particle-number dependent; 
@@ -605,9 +607,9 @@ We refer to this as the ``bilayer'' phase.
 For Type II, asymmetric hydrophobes,
 both sides of the JP are hydrophobic but more so on the tail.
 Over short times, these particles self-assemble into bilayers. But unlike for
-Type I JP, the heads are also hydrophobic and so over long times, 
+Type I JPs, the heads are also hydrophobic and so over long times, 
 the bilayers sort into a ``multilamellar'' phase.
-The number of layers depends primarily on the number of particles.
+The number of layers depends on the number of particles.
 Figure~\ref{fig:relax}(c), for example, shows a multilamellar structure
 with four layers and one with two layers in the inset.
 Onion-like dendrimersomes have previously been studied by molecular dynamics
@@ -712,10 +714,10 @@ Here $\bar \theta_i$ is a circular mean defined as the orientation of the
 principal eigenvector of the matrix
 $\sum_{j} \dd_j\dd_j^\top$ where $j$ runs over the particles
 whose centers lie with $4c$ of that of particle $i$. 
-Defined as such, $S_2$ lies in the range $-1/2 \le S_2 \le 1$.
-with a value $S_2 = 1$ indicates perfect alignment between particles
-while $S_2=-1/2$ indicates isotropic alignment locally.
-This cutoff distance was chosen empirically
+Defined as such, $S_2$ lies in the range $-1/2 \le S_2 \le 1$
+with a value $S_2 = 1$ indicating perfect alignment between particles
+while $S_2=-1/2$ indicating isotropic alignment locally.
+The cutoff distance $4c$ was chosen empirically
 so that the average includes nearest neighbors
 but excludes next nearest neighbors.
 
@@ -725,9 +727,9 @@ disordered because it consists of several components forming isolated
 bilayers, micelles, and vesicles (Figure~\ref{fig:relax}(b)).
 
 The striated phase order admits more than one pattern
-depending on the number of particles (Figure~\ref{fig:relax}(f), bottom and top curves).
+depending on the number of particles (Figure~\ref{fig:relax}(f), triangles).
 When the number of particles is fewer, there is only a
-single pattern in particle orientations where the directors are more or
+single pattern where the directors are more or
 less parallel and alternate directions (Figure~\ref{fig:relax}(e),
 inset). Larger number of particles results in multiple alignment patterns:
 the alternating sign pattern as in the small particle number case
@@ -743,9 +745,10 @@ alignment (Figure~\ref{fig:relax}(e), top left rectangle).
 \includegraphics[width=\textwidth]{S2ESummary.pdf}
 \end{center}
 \caption{\label{fig:s2esummary}
-Panel (a)-(b) show the average strain increase in percentage of vesicle, bilayer, multilamellar, and striated JP structures under a shear flow and a TG flow, respectively.
+  Panel (a)-(b) show the average strain increase for bilayer, vesicle BL,
+  multilamellar, and striated JP structures under a shear flow and a TG flow, respectively.
 Panel (c)-(d) show the average alignment of four JP structures under a shear flow and a TG flow, respectively. 
-Each snapshot of panels (e)-(l) contains the configurations of the JP structure using a specific type of boundary bondition without ruptures and the backgroud curves indicate the streamlines.}
+Each snapshot of panels (e)-(l) contains the configurations of the JP structure using a specific type of boundary bondition without ruptures and the backgroud curves indicate the velocity streamlines.}
 \end{figure}
 %
 We subjected the Type I, II, and III JP phases to background flows and measured 
@@ -764,8 +767,10 @@ and a Taylor-Green (TG) flow
 +\sin(\ee_x\cdot\xx/\lambda)\cos(\ee_y\cdot\xx/\lambda)\ee_y\right),
 \end{equation}
 where the orthonormal vectors $\ee_x$ and $\ee_y$ are the horizontal
-and vertical directions, respectively. 
+and vertical directions, respectively.
 In both cases, $\dot \gamma$ is the shear rate.
+In \eqref{eq:tg_flow}, $\lambda$ is the cell-size parameter.
+
 To obtain a range for $\dot \gamma$, 
 consider the capillary number 
 \begin{equation}
@@ -785,8 +790,9 @@ $0$ ns$^{-1}$ corresponding to quiescent flow
 up to $0.2$ ns$^{-1}$ capable of rupturing the sample. 
 Such shear rates are compatible with molecular dynamics 
 simulation \cite{Brandner2019}, those for large unilamellar vesicles (LUV),
-\cite{Bernard2005ShearinducedPA} and shearing in blood capillary vessels 
- where shear rates range over 100--2000 s$^{-1}$ \cite{Cho2011}.
+\cite{Bernard2005ShearinducedPA} and shearing in blood capillary vessels
+\cite{Cho2011} where shear rates range over 100--2000 s$^{-1}$.
+
 
 
 The shear flow replicates the motion of a fluid between two parallel, moving plates
@@ -795,24 +801,24 @@ consists of an array of counter rotating cells each with size
 $2\pi \lambda \times 2\pi \lambda$.  Throughout, we use $\lambda = 2$ nm
 so that the JP phases occupy about nine cells.  To compare shear
 on equal terms, the flow rate $\lambda \dot \gamma$  
-was chosen for \eqref{eq:tg_flow} so that it has has the same
-rate viscous dissipation per area as for \eqref{eq:sh_flow}.
+was chosen for \eqref{eq:tg_flow} so that it has the same
+rate of viscous dissipation per area as for \eqref{eq:sh_flow}.
 In other words, 
 $\int_{A} \frac{1}{2}\mu |\nabla \uu + \nabla \uu^T|^2 \,\dif A$ 
 is the same for 
 $\uu = \uu_{\infty}^{\text{sh}}$ as for 
 $\uu = \uu_{\infty}^{\text{TG}}$
-when integrated over a common cell $A$. 
-
+when integrated over a $TG$ cell $A$. 
 
 For initial data, the steady-state Type I amphiphiles phase
 consisted of a number of disjoint bilayer components
 (Figure \ref{fig:relax}(b)). To also have a single-component Type I phase, 
 we reinitialized the data to have a ring-shaped vesicle bilayer.
-This phase is distinguished from "bilayer" by "vesicle BL" in the figures.
+This phase is distinguished from ``bilayer'' by ``vesicle BL'' in the figures.
 For the same number of JP, the vesicle bilayer
-has lower free  steady-state energy ($F = 24.6 \;\kbt$ nm$^{-1}$) than the 
-disordered bilayer phase ($F = 24.6 \;\kbt$ nm$^{-1}$). 
+has lower free  steady-state energy
+($F = 24.6 \;\kbt$ nm$^{-1}$) than the 
+disordered bilayer phase ($F = 27.2 \;\kbt$ nm$^{-1}$). 
 Since the simulations are for two dimensions,
 multiplying $F$ by a length gives the energy 
 of a transversely invariant, three-dimensional 
@@ -823,7 +829,7 @@ for JP phases in background flow.  Although the plots only show
 the region near the JP phases, the fluid velocity $\uu$ and 
 order parameter $u$ are solved for in all of $\mathbb{R}^2$.
 Moreover, $\uu$ satisfies the rigid boundary condition at 
-every JP-fluid interface i.e., the particles interact with local
+every JP-fluid interface i.e., the particles interact with the local
 flow field and are not merely carried by background flow.
 
 The simulation setup consisted of placing each of the three JP phases
@@ -843,9 +849,10 @@ range of shear rates.  Strain $E$
 measures the non-rigid-body deformation relative to the initial state
 and expectedly increases with shear rate.
 The greatest increase occurs with the Type I amphiphiles, 
-suggesting that this phase has the lowest elastic modulus. In comparison, 
+suggesting that this phase has the lowest elastic modulus
+(squares). In comparison, 
 the  striated phase consisting of  Type III polar JP is
-basically rigid.  
+basically rigid (triangles).  
 
 Figure \ref{fig:s2esummary} (c) and (d) plot the time-averaged
 alignment order $S_2$. The vesicle and striated phases possess
@@ -867,14 +874,14 @@ and commensurate drops in panels (c) and (d) indicate
 the existence of a critical shear rate $\gamma_*$.  This means that 
 for $\gamma < \gamma_*$, the JP phase remains intact while
 for $\gamma > \gamma_*$, the phase ruptures. 
-For example, the vesicles phase has 
-$\gamma_* = 0.05$ ns$^{-1}$ 
+For example, the vesicle BL phase has 
+$\gamma_*$ approximately $0.05$ ns$^{-1}$ 
 under shear flow and TG flow. However, the critical shear rate
 is flow-pattern dependent because 
 the striated phase has $\gamma_* = 0.14$ ns$^{-1}$ under shear flow
 while $\gamma_* = 0.05$ ns$^{-1}$ under  TG flow.
 Due to variable stress distribution, 
-the critical shear rate in TG likely 
+the critical shear rate in TG flow likely 
 depends on the cell size parameter $\lambda$.
 The disordered bilayer phase does not really possess a critical
 shear rate because it already consists of several, disjoint components.
@@ -888,7 +895,9 @@ not rupture for any of the shear rates considered.
 \includegraphics[width=\textwidth]{FSummary.pdf}
 \end{center}
 \caption{\label{fig:fsummary}
-The change of average free energy versus shear rates for shear flow and TG flow simulation results are plotted in panels (a)-(b). Panel (c) shows the relationships between the changes of the free energy as mean displacements of JP increases and the types of boundary conditions. All data points are fitted by quadratic functions and represented in dashed curves.}
+  The change of average free energy versus shear rates for shear flow and TG flow simulation results are plotted in panels (a)-(b). Panel (c) contains quadratic fits
+  to the change in free energy as a function of displacement in interparticle distance
+  from equilbrium.}
 \end{figure}
 
 \subsection{Free energy}
@@ -897,15 +906,11 @@ relative free energy $\frac{1}{T}\int_0^T F - F_0 \,\dif t$ where $F_0$ is
 \eqref{eq:free_energy2} at $t = 0$.  The 
 greatest increase occurs with the Type II 
 multilamellar phase, with the other phases 
-showing a moderate change in a few \KBT\;per 
-nm.    
+showing a moderate change in a few \KBT\,nm$^{-1}$.    
 
 Figure \ref{fig:fsummary} (c) plots free energy 
-against $x = c E$ representing the mean  
-inter-particle displacement;    
-zero displacement corresponds
-to an inter-particle distance where 
-repulsion and attraction are in balance;
+against the displacement $x = c E$ representing the
+change in mean  interparticle displacement from equilibrium;
 $c = 1.25$ nm is particle radius.
 The energies in Figure \ref{fig:fsummary} (c) are essentially  
 quadratic in $x$ suggesting that the interactions 
@@ -923,14 +928,17 @@ The data point to the fact that the binding properties
 do not merely scale with free energy, 
 but also involve the details of the interface's
 hydrophobicity 
-which are tuned by \ref{eq:bc-type} in our model.
+which are tuned by \eqref{eq:bc-type} in our model.
 
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\textwidth]{RheologySummary.pdf}
 \end{center}
 \caption{\label{fig:rheologysummary}
-Rheology in Type I, II, and III. Panel (a) shows that unilamellar JP bilayer and vesicle both behave close to a Newtonian fluid. Panel (b) provides that the multilamellar phase shows a near shear thinning behaviour. A pseudoplastic behaviour of deformation in striated JP structure is shown in panel (c). }
+  Rheology of Type I, II, and III phases.
+  Panel (a) shows that bilayer phases  behave as a Newtonian fluid.
+  Panel (b) provides that the multilamellar phase shows a near shear thinning behaviour.
+  A pseudoplastic behaviour of deformation in striated phases is shown in panel (c). }
 \end{figure}
 \subsection{Rheology}
 So far, we have considered static material properties, namely
@@ -941,7 +949,7 @@ Specifically, we look at the strain rate
 \label{eq:strainrate}
 \dot E = \left(\frac{1}{T} \int_0^T \left|\frac{dE}{dt}\right|^2 \, \dif t \right)^{1/2}.
 \end{equation}
-The reason for defining $\dot E$ in this was is that 
+The reason for defining $\dot E$ in this way is that 
 the shear flow $\uu_{\infty}^{\text{sh}}$
 simulations correspond to a complex fluid within a drag plate
 rheometer where the shear stress is set by $\mu \dot\gamma$  
@@ -961,7 +969,7 @@ Figures \ref{fig:rheologysummary} (a), (b), and (c)
 show the data for Type I, Type II and Type III JPs, respectively,
 under both shear flow (squares) and TG flow (triangles).
 The bilayer phases consisting of Type I JPs are basically Newtonian
-with viscosity $0.014$ MPa\;ns $= 14$ mPa\;s,
+with viscosity $0.014$ MPa\;$\upmu$s $= 14$ mPa\;s,
 about 14 times the the viscosity of water at room temperature
 (Figures \ref{fig:rheologysummary}(a), dashed curve). 
 The vesicle bilayer phase is slightly shear thickening
@@ -973,7 +981,7 @@ phase is strongly shear-thinning.  This
 further explains the rigid-like behavior of the 
 striated phase found in the strain, shear-rate relationships from 
 Figure \ref{fig:s2esummary}(a), (b) (triangles).
- 
+\todo[inline]{RBC flow refereces}
 
 \begin{figure}[t]
 \begin{center}
@@ -994,22 +1002,24 @@ $t=1$ $\upmu$s with $l= 1,2,3,4$, respectively. In panel (e), the
 \end{figure}
 
 \subsection{Discussion}
-We chose the range of shear rates $\dot \gamma \in [0, 0.02]$ ns$^{-1}$
-by analyzing the capillary number of the JP phases.  Within this range, 
-there was a critical shear rate $\dot \gamma_*$ for the vesicle bilayer
+We choose the range of shear rates $\dot \gamma \in [0, 0.02]$ ns$^{-1}$
+by analyzing the capillary number of the JP phases.  With this range, 
+there was a critical shear rate $\dot \gamma_*$ for the vesicle BL
 and striated phases where shear stresses exceeded elastic stresses,
-leading to rupture.  (The multilamellar phase did not rupture.)
+leading to rupture.  The multilamellar phase did not rupture.
 By varying model parameters, we can perform a dimensional analysis 
-on $\dot \gamma_*$.  Focusing on Type III JP in shear flow, 
+on $\dot \gamma_*$.  Focusing on Type III JPs in shear flow, 
 $\dot \gamma_* = 0.14$ ns$^{-1}$ for the basic model parameters
-(see Section \ref{sec:tunable_hydrophobicity}).  Increasing 
-the tension parameters $\gamma$ and $M$ by 5\% (collectively denoted
-$\Delta \gamma/\gamma$) led to a 4.29\% increase in critical shear
+(see Section \ref{sec:tunable_hydrophobicity}).  Increasing
+and decreasing the 
+the tension parameters $\gamma$ and $M$ by up to 10\% (collectively denoted
+$\Delta \gamma/\gamma$) led to basically the same relative
+increase/decrease in critical shear
 rate (denoted $\Delta \dot \gamma_*/\dot \gamma_*$).  This suggests
-that critical shear rate scales linearly with the tension parameters.
-Conversely, increasing the length parameters $c$, $\rho$, and $\rho_0$
-by 5 \% (collectively denoted $\Delta c/c$) led to a -11.43 \% 
-decrease in critical shear rate.  This points to an inverse-quadratic
+that the critical shear rate scales linearly with the tension parameters.
+Conversely, increasing (resp. decreasing) the length parameters $c$, $\rho$, and $\rho_0$
+by up to 10\% (collectively denoted $\Delta c/c$) leads to roughly twice the
+relative \emph{decrease} (resp. increasing) in the critical shear rate.  This points to an inverse-quadratic
 scaling in length. Figure \ref{fig:PramChange}(a) summarizes the 
 findings and suggest the scaling
 \begin{equation}
@@ -1017,18 +1027,17 @@ findings and suggest the scaling
 \mu \dot\gamma_* = K_{\text{III}} \frac{\gamma L}{c^2}.
 \end{equation}
 The scalar $K_{\text{III}}$ is specific to the striated phase under shear flow.
-Here $L$ is the diameter of the phase sample, which scales proportionally 
-with $\gamma^*$ since the striated phase tends to cleave during
+Here $L$ is the diameter of the phase sample, which is proportional
+to $\gamma^*$ since the striated phase tends to cleave during
 rupture (see Supplementary Movie S4).
-The scaling for vesicle bilayers in shear flow is different
-and takes the form $\mu \dot\gamma_* = K_{\text{I}} \gamma c^2/(\rho L^2)$
-and is proportional to particle size \cite{Fu2022_JFM}, versus inverse quadratic
-like for Type III JPs. 
+Our previous work\cite{Fu2022_JFM}
+found the scaling $\mu \dot\gamma_* = K_{\text{I}} \gamma c^2/(\rho L^2)$
+for vesicle BL in shear flow.
 
 The Results section showed that 
 variations in free energy and strain 
 generally depend the distribution
-of fluid stresses i.e. shear versus TG flow.   
+of fluid stresses i.e., shear versus TG flow.   
 To further illustrate how fluid stresses interact with the geometry of the JP
 phases, we considered the initially circular vesicle bilayer
 for various TG-flow cell sizes (Figure \ref{fig:PramChange}(b)--(e)). 
@@ -1210,11 +1219,11 @@ the spectrally accurate Fourier transform.
 To prove ~\eqref{eq:normal_deriv}, let
 \begin{equation}
   \label{eq:SLP}
-  \mathcal{S}[\sigma](\xx) = \int_\Gamma G(\xx-\yy) \sigma(\yy)\, \dif s_\yy
+  \mathcal{S}[\sigma](\xx) = \int_{\partial \Omega} G(\xx-\yy) \sigma(\yy)\, \dif s_\yy
 \end{equation}
 be the single layer potential for a density function $\sigma.$ Fix $\xx
-\in \Gamma$, let $\nnu_{\xx} = \nnu(\xx)$ and $\nnu_{\yy}$ be the unit
-normal at $\xx$, respectively $\yy$, in $\Gamma$, and let $\zz \in
+\in {\partial \Omega}$, let $\nnu_{\xx} = \nnu(\xx)$ and $\nnu_{\yy}$ be the unit
+normal at $\xx$, respectively $\yy$, in ${\partial \Omega}$, and let $\zz \in
 \Omega$. The subscripts in $\nabla_{\zz}$ and $\nabla_{\yy}$ denote
 differentiation with respect to $\zz$, respectively $\yy$.
 
@@ -1222,9 +1231,9 @@ Recall from~\eqref{eq:SL_BIE} that $u = \mathcal{D}[\sigma]$.
 Then  
 \begin{align*}
 \nabla_{\zz} u(\zz) \cdot \nnu_{\xx}
-&=\nnu_\xx \cdot \nabla_\zz \int_\Gamma \frac{\partial G(\zz-\yy)}{\partial \nnu_\yy}\sigma(\yy) \,\dif s_\yy\\
-&=\int_\Gamma \nnu_\xx^\top \left(\nabla_\zz\nabla_\yy^\top  G(\zz-\yy)\right) \nnu_\yy\sigma(\yy)  \,\dif s_\yy\\
-  &=-\int_\Gamma \nnu_\xx^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\nnu_\yy\sigma(\yy)\ \dif s_\yy,
+&=\nnu_\xx \cdot \nabla_\zz \int_{\partial \Omega} \frac{\partial G(\zz-\yy)}{\partial \nnu_\yy}\sigma(\yy) \,\dif s_\yy\\
+&=\int_{\partial \Omega} \nnu_\xx^\top \left(\nabla_\zz\nabla_\yy^\top  G(\zz-\yy)\right) \nnu_\yy\sigma(\yy)  \,\dif s_\yy\\
+  &=-\int_{\partial \Omega} \nnu_\xx^\top \left(\nabla_\yy\nabla_\yy^\top G(\zz-\yy)\right)\nnu_\yy\sigma(\yy)\ \dif s_\yy,
 \end{align*}
 since we can interchange $\nabla_\zz$ with $-\nabla_\yy$.
 Following~\citet{Hsiao2008}, \S 1.2,
@@ -1239,15 +1248,15 @@ interchanging $\nabla_\yy$ with $-\nabla_\zz$ once more, and integrating
 by parts in arclength $s$, we obtain 
 \begin{align*}
 \nabla_{\zz} u(\zz) \cdot \nnu_{\xx}
-&=-\int_\Gamma  \Delta_\yy G(\zz-\yy) {\bf t}_\xx \cdot   {\bf t}_\yy \sigma(\yy)\ \dif s_\yy
-+\int_\Gamma({\bf t}_\xx\cdot\nabla_\yy)({\bf t}_\yy\cdot\nabla_\yy G(\zz-\yy))\sigma(\yy)\ \dif s_\yy\\
-&= -\int_\Gamma \frac{1}{\rho^{2}} G(\zz-\yy) {\bf t}_\xx \cdot {\bf t}_\yy \sigma(\yy)\ \dif s_\yy  
--({\bf t}_\xx\cdot\nabla_\zz)\int_\Gamma \frac{\dif}{\dif s_\yy}G(\zz-\yy) \sigma(\yy)\ \dif s_\yy\\
-&= -\frac{1}{\rho^2} {\bf t}_\xx\cdot \int_\Gamma G(\zz-\yy){\bf t}_\yy \sigma(\yy)\ \dif s_\yy + 
-({\bf t}_\xx \cdot \nabla_\zz)\int_\Gamma G(\zz-\yy)\frac{\dif }{\dif s} \sigma(\yy)  \dif s_\yy.
+&=-\int_{\partial \Omega}  \Delta_\yy G(\zz-\yy) {\bf t}_\xx \cdot   {\bf t}_\yy \sigma(\yy)\ \dif s_\yy
++\int_{\partial \Omega}({\bf t}_\xx\cdot\nabla_\yy)({\bf t}_\yy\cdot\nabla_\yy G(\zz-\yy))\sigma(\yy)\ \dif s_\yy\\
+&= -\int_{\partial \Omega} \frac{1}{\rho^{2}} G(\zz-\yy) {\bf t}_\xx \cdot {\bf t}_\yy \sigma(\yy)\ \dif s_\yy  
+-({\bf t}_\xx\cdot\nabla_\zz)\int_{\partial \Omega} \frac{\dif}{\dif s_\yy}G(\zz-\yy) \sigma(\yy)\ \dif s_\yy\\
+&= -\frac{1}{\rho^2} {\bf t}_\xx\cdot \int_{\partial \Omega} G(\zz-\yy){\bf t}_\yy \sigma(\yy)\ \dif s_\yy + 
+({\bf t}_\xx \cdot \nabla_\zz)\int_{\partial \Omega} G(\zz-\yy)\frac{\dif }{\dif s} \sigma(\yy)  \dif s_\yy.
 \end{align*}
 %
-Letting $\zz\to\xx\in\Gamma$, and noting that both sides of the equation
+Letting $\zz\to\xx\in{\partial \Omega}$, and noting that both sides of the equation
 are continuous, we obtain~\eqref{eq:normal_deriv}.
 
 
@@ -1437,7 +1446,8 @@ angular velocity $\omega_i$ satisfy
 
 \subsection{Normal Derivative of Double Layer Potential and HAP Energy}
 
-We adopt the double layer potential to express the solution of \eqref{eq:SL} where the condition is $f(u)=u^2$. Then it is given by 
+We adopt the double layer potential to express the solution of \eqref{eq:SL} where the
+condition is $f(u)=u^2$. Then it is given by 
 \begin{align}
 \label{eq:energy_BIE}
 u({\bf x}) = \DD[\sigma](\xx) = \int_\Gamma \frac{\partial G(\xx-\yy)}{\partial \nnu_\yy}\sigma(\yy)\, \dif s_\yy,
