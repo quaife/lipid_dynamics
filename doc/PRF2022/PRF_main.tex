@@ -786,8 +786,23 @@ and a Taylor-Green (TG) flow
 \end{equation}
 where the orthonormal vectors $\ee_x$ and $\ee_y$ are the horizontal
 and vertical directions, respectively.
+The shear flow replicates the motion of a fluid between two parallel,
+moving plates excluding wall effects.
+In TG flow, $\lambda$ controls the size of the
+$2\pi \lambda \times 2\pi \lambda$ TG cells.
+Throughout, we use $\lambda = 2$ nm
+so that the JP phases occupy about nine cells.
+
 In both cases, $\dot \gamma$ is the shear rate.
-In \eqref{eq:tg_flow}, $\lambda$ is the cell-size parameter.
+The flow rate $\lambda \dot \gamma$  
+was chosen so that \eqref{eq:tg_flow} has the same
+rate of viscous dissipation per area as for \eqref{eq:sh_flow}.
+In other words, 
+$\int_{A} \frac{1}{2}\mu |\nabla \uu + \nabla \uu^T|^2 \,\dif A$ 
+is the same for 
+$\uu = \uu_{\infty}^{\text{sh}}$ as for 
+$\uu = \uu_{\infty}^{\text{TG}}$
+when integrated over a $TG$ cell $A$. 
 
 To obtain a range for $\dot \gamma$, 
 consider the capillary number 
@@ -813,21 +828,6 @@ simulation \cite{Brandner2019}, those for large unilamellar vesicles (LUV),
 
 
 
-The shear flow replicates the motion of a fluid between two parallel, moving plates
-excluding wall effects.  In TG flow, the flow pattern
-consists of an array of counter rotating cells each with size 
-$2\pi \lambda \times 2\pi \lambda$.  Throughout, we use $\lambda = 2$ nm
-so that the JP phases occupy about nine cells.  To compare shear
-on equal terms, the flow rate $\lambda \dot \gamma$  
-was chosen for \eqref{eq:tg_flow} so that it has the same
-rate of viscous dissipation per area as for \eqref{eq:sh_flow}.
-In other words, 
-$\int_{A} \frac{1}{2}\mu |\nabla \uu + \nabla \uu^T|^2 \,\dif A$ 
-is the same for 
-$\uu = \uu_{\infty}^{\text{sh}}$ as for 
-$\uu = \uu_{\infty}^{\text{TG}}$
-when integrated over a $TG$ cell $A$. 
-
 For initial data, the steady-state Type I amphiphiles phase
 consisted of a number of disjoint bilayer components
 (Figure \ref{fig:relax}(b)). To also have a single-component Type I phase, 
@@ -845,22 +845,35 @@ phase.
 Figure \ref{fig:s2esummary} (e)--(l) show the typical streamlines
 for JP phases in background flow.  Although the plots only show
 the region near the JP phases, the fluid velocity $\uu$ and 
-order parameter $u$ are solved for in all of $\mathbb{R}^2$.
+order parameter $u$ are accounted for in all of $\mathbb{R}^2$.
 Moreover, $\uu$ satisfies the rigid boundary condition at 
 every JP-fluid interface i.e., the particles interact with the local
 flow field and are not merely carried by background flow.
 
-The simulation setup consisted of placing each of the three JP phases
-in either a shear or TG background flow and then solving for the 
-particle trajectories in time.  A total of $500$ steps were solved
-for with $\Delta t = 2$ ns, yielding time courses for various 
-$\dot \gamma$ up to $T = 1$ $\upmu$s.  We then post-processed the trajectories
-to infer free energy $F$, alignment order $S_2$, and strain $E$.     
-\todo[inline]{Reference the supplementary material here.}
+The simulation setup consisted of placing each of the 
+phases in either a shear or TG background flow and then solving for the 
+particle trajectories in time. In each setup, we solved for $500$ time steps 
+with $\Delta t = 2$ ns, yielding time courses for $t \in [0, T]$, $T = 1$ $\upmu$s.
+We then post-processed the trajectories.
 
+Supplementary Figures~\ref{fig:veshraw}--\ref{fig:sttgraw}
+contain the fully-resolved time courses for free energy $F$,
+alignment order $S_2$, and strain $E$. The eight setups
+correspond to the four JP phases---bilayer, vesicle BL, multilamellar,
+and striated---and two background flows---shear and TG,
+and the data are plotted with the same ordinate to facilitate
+comparisons between simulation setups.  Each setup considers
+a range of shear rates $\dot \gamma$ in the interval $[0, 0.2]$ ns$^{-1}$.
 
+The fully-resolved time courses
+in Supplementary Figures~\ref{fig:veshraw}--\ref{fig:sttgraw}
+contain significant oscillations due to the particle-based formulation
+and tumbling inherent to the background flows.  To extract meaningful
+data, we further postprocessed the $F$, $S_2$, $E$ curves by taking
+their time averate over the interval $t \in [0, T]$. 
 
 \subsection{Strain and alignment}
+\label{sec:strain-alignment}
 The plots reveal highly distinct material responses from each phase.
 Figure \ref{fig:s2esummary} (a) and (b) show the time-averaged
 strain $\frac{1}{T}\int_0^T E \,\dif t$ over a broad
@@ -920,6 +933,7 @@ not rupture for any of the shear rates considered.
 \end{figure}
 
 \subsection{Free energy}
+\label{sec:free-energy}
 Figure \ref{fig:fsummary} plots the time-averaged
 relative free energy $\frac{1}{T}\int_0^T F - F_0 \,\dif t$ where $F_0$ is 
 \eqref{eq:free_energy2} at $t = 0$.  The 
@@ -959,7 +973,9 @@ which are tuned by \eqref{eq:bc-type} in our model.
   Panel (b) provides that the multilamellar phase shows a near shear thinning behaviour.
   A pseudoplastic behaviour of deformation in striated phases is shown in panel (c). }
 \end{figure}
+
 \subsection{Rheology}
+\label{sec:rheology}
 So far, we have considered static material properties, namely
 constant strains maintained by an external force provided by   
 background flow. Now we consider dynamic material properties.
