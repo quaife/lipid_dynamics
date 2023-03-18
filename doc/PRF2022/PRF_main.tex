@@ -435,12 +435,13 @@ u({\xx}) = \DD[\sigma](\xx) = \int_{\partial \Omega}
   \quad \xx \in \Omega,
 \end{align}
 where $G(\xx) = \frac{1}{2\pi}K_0(|\xx|/\rho)$ is the fundamental
-solution to the screened Laplace equation~\eqref{eq:SL}, $K_0$ is the
+solution of the screened Laplace equation~\eqref{eq:SL}, $K_0$ is the
 zeroth-order modified Bessel function of the second kind, $\nnu_\yy$ is
-the unit outward normal at $\yy$, and $\eta$ is a scalar-valued
-density function. The subscript in $\dif s_\yy$ denotes integration with
-respect to $\yy \in \partial \Omega$. To satisfy the boundary
-condition~\eqref{eq:SLbc}, the density function must satisfy\cite{Hsiao2008}
+the unit outward normal at $\yy$, and $\eta$ is a scalar-valued density
+function. The subscript in $\dif s_\yy$ denotes integration with respect
+to $\yy \in \partial \Omega$. To satisfy the boundary
+condition~\eqref{eq:SLbc}, the density function must
+satisfy~\cite{Hsiao2008}
 \begin{align}
   \label{eq:SL_BIE2}
   g(\xx) = \frac{1}{2} \eta(\xx) + \DD[\eta](\xx), \quad
@@ -500,13 +501,11 @@ particles, are computed with a high-order interpolation-based quadrature
 rule~\cite{qua-bir2014}.
 
 After discretizing and applying quadrature, the result is an $NN_b
-\times NN_b$ and $2NN_b \times 2NN_b$ linear system
+\times NN_b$ and $(2N+3)N_b \times (2N+3)N_b$ linear system
 for~\eqref{eq:SL_BIE2}
 and~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2}, respectively.
-These are solved with matrix-free GMRES
-and the second-kind BIEs
-guarantee that the number of GMRES iterations is
-mesh-independent.
+These are solved with matrix-free GMRES and the second-kind BIEs
+guarantee that the number of GMRES iterations is mesh-independent.
 
 %Once the translational and angular velocities $\vv_i, \omega_i$
 %have been determined, a second-order Adams-Bashforth scheme updates the particle
