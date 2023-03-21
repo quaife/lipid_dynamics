@@ -706,10 +706,10 @@ S_2 = \frac{1}{N_b} \sum_{i=1}^{N_b} \frac{1}{2}(3\cos^2(\theta_i - \bar \theta)
 Here $\bar \theta_i$ is a circular mean defined as the orientation of
 the principal eigenvector of the matrix $\sum_{j} \dd_j\dd_j^\top$ where
 $j$ runs over the particles whose centers lie with $4c$ of that of
-particle $i$.  Defined as such, $S_2$ lies in the range $-1/2 \le S_2
-\le 1$ with a value $S_2 = 1$ indicating perfect alignment between
-particles while $S_2=-1/2$ indicating isotropic alignment locally.  The
-cutoff distance $4c$ was chosen empirically so that the average includes
+particle $i$. Defined as such, $S_2$ lies in the range $-1/2 \le S_2 \le
+1$ with a value $S_2 = 1$ indicating perfect alignment between particles
+while $S_2=-1/2$ indicating isotropic alignment locally. The cutoff
+distance $4c$ was chosen empirically so that the average includes
 nearest neighbors but excludes next nearest neighbors.
 
 In Figure~\ref{fig:relax}(f), the multilamellar phase is highly ordered
@@ -718,7 +718,7 @@ several components forming isolated bilayers, micelles, and vesicles
 (Figure~\ref{fig:relax}(b)).
 
 The striated phase order admits more than one pattern depending on the
-number of particles (Figure~\ref{fig:relax}(f), triangles).  When the
+number of particles (Figure~\ref{fig:relax}(f), triangles). When the
 number of particles is fewer, there is only a single pattern where the
 directors are more or less parallel and alternate directions
 (Figure~\ref{fig:relax}(e), inset). Larger number of particles results
@@ -736,14 +736,17 @@ left rectangle).
 \includegraphics[width=\textwidth]{S2ESummary.pdf}
 \end{center}
 \caption{\label{fig:s2esummary}
-  Panel (a)-(b) show the average strain increase for bilayer, vesicle BL,
-  multilamellar, and striated JP structures under a shear flow and a TG flow, respectively.
-Panel (c)-(d) show the average alignment of four JP structures under a shear flow and a TG flow, respectively. 
-Each snapshot of panels (e)-(l) contains the configurations of the JP structure using a specific type of boundary bondition without ruptures and the backgroud curves indicate the velocity streamlines.}
+  Panel (a)--(b) show the average strain increase for bilayer, vesicle
+  BL, multilamellar, and striated JP structures under a shear flow and a
+  TG flow, respectively. Panel (c)--(d) show the average alignment of
+  four JP structures under a shear flow and a TG flow, respectively.
+  Each snapshot of panels (e)--(l) contains the configurations of the JP
+  structure without ruptures using a specific type of boundary condition
+  and the background curves indicate the velocity streamlines.}
 \end{figure}
 %
-We subjected the Type I, II, and III JP phases to background flows and measured 
-their material response.  The background flows were a shear flow
+We subject the Type I, II, and III JP phases to background flows and
+measure their material response. The background flows are a shear flow
 \begin{equation}
 \label{eq:sh_flow}
 \uu_\infty^{\text{sh}}(\xx) = 
@@ -757,238 +760,203 @@ and a Taylor-Green (TG) flow
 -\cos(\ee_x\cdot\xx/\lambda)\sin(\ee_y\cdot\xx/\lambda)\ee_x
 +\sin(\ee_x\cdot\xx/\lambda)\cos(\ee_y\cdot\xx/\lambda)\ee_y\right),
 \end{equation}
-where the orthonormal vectors $\ee_x$ and $\ee_y$ are the horizontal
-and vertical directions, respectively.
-The shear flow replicates the motion of a fluid between two parallel,
-moving plates excluding wall effects.
-In TG flow, $\lambda$ controls the size of the
-$2\pi \lambda \times 2\pi \lambda$ TG cells.
-Throughout, we use $\lambda = 2$ nm
-so that the JP phases occupy about nine cells.
+where the orthonormal vectors $\ee_x$ and $\ee_y$ are the horizontal and
+vertical directions, respectively. The shear flow replicates the motion
+of a fluid between two parallel, moving plates excluding wall effects.
+In TG flow, $\lambda$ controls the size of the $2\pi \lambda \times 2\pi
+\lambda$ TG cells. Throughout, we use $\lambda = 2$ nm so that the JP
+phases occupy about nine cells.
 
-In both cases, $\dot \gamma$ is the shear rate.
-The flow rate $\lambda \dot \gamma$  
-was chosen so that \eqref{eq:tg_flow} has the same
-rate of viscous dissipation per area as for \eqref{eq:sh_flow}.
-In other words, 
-$\int_{A} \frac{1}{2}\mu |\nabla \uu + \nabla \uu^T|^2 \,\dif A$ 
-is the same for 
-$\uu = \uu_{\infty}^{\text{sh}}$ as for 
-$\uu = \uu_{\infty}^{\text{TG}}$
-when integrated over a TG cell $A$. 
+In both cases, $\dot \gamma$ is the shear rate. The flow rate $\lambda
+\dot \gamma$ is chosen so that~\eqref{eq:tg_flow} has the same rate of
+viscous dissipation per area as for~\eqref{eq:sh_flow}. In other words,
+$\int_{A} \frac{1}{2}\mu |\nabla \uu + \nabla \uu^T|^2 \,\dif A$ is the
+same for $\uu = \uu_{\infty}^{\text{sh}}$ as for $\uu =
+\uu_{\infty}^{\text{TG}}$ when integrated over a TG cell $A$. 
 
-To obtain a range for $\dot \gamma$, 
-consider the capillary number 
+To obtain a range for $\dot \gamma$, consider the capillary number 
 \begin{equation}
 \label{eq:capillary}
 C_a = \frac{\mu \dot \gamma R^3}{\kappa}
 \end{equation}
-where $R = 10$ nm and $\kappa = 20\;\kbt$ are 
-the characteristic phase sample radius 
-and bending rigidity, respectively. 
-That is, $\kappa$ gives the elastic stress 
-for restoring the phase-sample shape.
-Shear stress overcomes elastic stress   
-when $C_a > 1$ and this yields 
-$\dot \gamma > 2 \cdot 10^{-2}$ ns$^{-1} = 2 \cdot 10^6$ s.
-Thus our values for $\dot \gamma$ range between 
-$0$ ns$^{-1}$ corresponding to quiescent flow
-up to $0.2$ ns$^{-1}$ capable of rupturing the sample. 
-Such shear rates are compatible with molecular dynamics 
-simulation \cite{Brandner2019}, those for large unilamellar vesicles (LUV),
-\cite{Bernard2005ShearinducedPA} and shearing in blood capillary vessels
-\cite{Cho2011} where shear rates range over 100--2000 s$^{-1}$.
+where $R = 10$~nm and $\kappa = 20\;\kbt$ are the characteristic phase
+sample radius and bending rigidity, respectively. That is, $\kappa$
+gives the elastic stress for restoring the phase-sample shape. Shear
+stress overcomes elastic stress when $C_a > 1$ and this yields $\dot
+\gamma > 2 \cdot 10^{-2}$ ns$^{-1} = 2 \cdot 10^6$~s. Thus our values
+for $\dot \gamma$ range between $0$ ns$^{-1}$ corresponding to quiescent
+flow up to $0.2$~ns$^{-1}$ capable of rupturing the sample. Such shear
+rates are compatible with molecular dynamics simulation
+\cite{Brandner2019}, those for large unilamellar vesicles (LUV),
+\cite{Bernard2005ShearinducedPA}, and shearing in blood capillary
+vessels \cite{Cho2011} where shear rates range over 100--2000 s$^{-1}$.
 
+For initial data, note that the steady-state Type I amphiphiles phase
+consists of a number of disjoint bilayer components
+(Figure~\ref{fig:relax}(b)). To also have a single-component Type I
+phase, we reinitialize the data to have a ring-shaped vesicle bilayer.
+This phase is distinguished from ``bilayer'' by ``vesicle BL'' in the
+figures. For the same number of JP, the vesicle bilayer has lower free
+steady-state energy ($F = 24.6 \;\kbt$ nm$^{-1}$) than the disordered
+bilayer phase ($F = 27.2 \;\kbt$ nm$^{-1}$). Since the simulations are
+for two dimensions, multiplying $F$ by a length gives the energy of a
+transversely invariant, three-dimensional phase.
 
+The simulation setup consists of placing each of the phases in either a
+shear or TG background flow and then solving for the particle
+trajectories in time. In each setup, we solved for $500$ time steps with
+$\Delta t = 2$~ns, yielding time courses for $t \in [0, T]$, $T =
+1$~$\upmu$s. We then post-process the trajectories.
 
-For initial data, the steady-state Type I amphiphiles phase
-consisted of a number of disjoint bilayer components
-(Figure \ref{fig:relax}(b)). To also have a single-component Type I phase, 
-we reinitialized the data to have a ring-shaped vesicle bilayer.
-This phase is distinguished from ``bilayer'' by ``vesicle BL'' in the figures.
-For the same number of JP, the vesicle bilayer
-has lower free  steady-state energy
-($F = 24.6 \;\kbt$ nm$^{-1}$) than the 
-disordered bilayer phase ($F = 27.2 \;\kbt$ nm$^{-1}$). 
-Since the simulations are for two dimensions,
-multiplying $F$ by a length gives the energy 
-of a transversely invariant, three-dimensional 
-phase.
+Figure~\ref{fig:s2esummary}(e)--(l) show the typical streamlines for JP
+phases in background flow. Although the plots only show the region near
+the JP phases, the fluid velocity $\uu$ and order parameter $u$ are
+accounted for in all of $\mathbb{R}^2$. Moreover, $\uu$ satisfies the
+rigid boundary condition at every JP-fluid interface i.e., the particles
+interact with the local flow field and are not merely carried by
+background flow.
 
-Figure \ref{fig:s2esummary} (e)--(l) show the typical streamlines
-for JP phases in background flow.  Although the plots only show
-the region near the JP phases, the fluid velocity $\uu$ and 
-order parameter $u$ are accounted for in all of $\mathbb{R}^2$.
-Moreover, $\uu$ satisfies the rigid boundary condition at 
-every JP-fluid interface i.e., the particles interact with the local
-flow field and are not merely carried by background flow.
+Supplementary Figures~\ref{fig:ulshraw}--\ref{fig:sttgraw} contain the
+fully-resolved time courses for the free energy $F$, alignment order
+$S_2$, and strain $E$. The eight setups correspond to the four JP
+phases---bilayer, vesicle BL, multilamellar, and striated---and two
+background flows---shear and TG, and the data are plotted with the same
+ordinate to facilitate comparisons between simulation setups. Each setup
+considers a range of shear rates $\dot \gamma$ in the interval $[0,
+0.2]$ ns$^{-1}$.
 
-The simulation setup consisted of placing each of the 
-phases in either a shear or TG background flow and then solving for the 
-particle trajectories in time. In each setup, we solved for $500$ time steps 
-with $\Delta t = 2$ ns, yielding time courses for $t \in [0, T]$, $T = 1$ $\upmu$s.
-We then post-processed the trajectories.
-
-Supplementary Figures~\ref{fig:ulshraw}--\ref{fig:sttgraw}
-contain the fully-resolved time courses for free energy $F$,
-alignment order $S_2$, and strain $E$. The eight setups
-correspond to the four JP phases---bilayer, vesicle BL, multilamellar,
-and striated---and two background flows---shear and TG,
-and the data are plotted with the same ordinate to facilitate
-comparisons between simulation setups.  Each setup considers
-a range of shear rates $\dot \gamma$ in the interval $[0, 0.2]$ ns$^{-1}$.
-
-The fully-resolved time courses
-in Supplementary Figures~\ref{fig:ulshraw}--\ref{fig:sttgraw}
-contain significant oscillations due to the particle-based formulation
-and tumbling inherent to the background flows.  To extract meaningful
-data, we further postprocessed the $F$, $S_2$, $E$ curves by taking
-their time average over the interval $t \in [0, T]$. 
+The fully-resolved time courses in Supplementary
+Figures~\ref{fig:ulshraw}--\ref{fig:sttgraw} contain significant
+oscillations due to the particle-based formulation and tumbling inherent
+to the background flows. To extract meaningful data, we further
+post-process the $F$, $S_2$, $E$ curves by taking their time average
+over the interval $t \in [0, T]$. 
 
 \subsection{Strain and alignment}
 \label{sec:strain-alignment}
 The plots reveal highly distinct material responses from each phase.
-Figure \ref{fig:s2esummary} (a) and (b) show the time-averaged
-strain $\frac{1}{T}\int_0^T E \,\dif t$ over a broad
-range of shear rates.  Strain $E$
-measures the non-rigid-body deformation relative to the initial state
-and expectedly increases with shear rate.
-The greatest increase occurs with the Type I amphiphiles, 
-suggesting that this phase has the lowest elastic modulus
-(squares). In comparison, 
-the  striated phase consisting of  Type III polar JP is
-basically rigid (triangles).  
+Figures~\ref{fig:s2esummary}(a) and (b) show the time-averaged strain
+$\frac{1}{T}\int_0^T E \,\dif t$ over a broad range of shear rates.
+Strain $E$ measures the non-rigid-body deformation relative to the
+initial state and expectedly increases with shear rate. The greatest
+increase occurs with the Type I amphiphiles, suggesting that this phase
+has the lowest elastic modulus (squares). In comparison, the striated
+phase consisting of Type III polar JP is basically rigid (triangles).
 
-Figure \ref{fig:s2esummary} (c) and (d) plot the time-averaged
-alignment order $S_2$. The vesicle and striated phases possess
-the greatest alignment order and, 
-for the most part, $S_2$ decreases with increases in shear rate.
-But there is an exception.  The Type I bilayer phase alignment
-order actually increases under both shear and TG flows (solid squares).  
-This suggests that 
-the mixing action of background flow has the effect of moving the
-disordered bilayer phase out of a local equilibrium and into a state
-with greater order.
-This surprising increase, 
-brought about by combining previously broken bilayer 
-end caps, is accompanied
-by a slight decrease in free energy (Figure \ref{fig:fsummary}a, solid squares).
+Figures~\ref{fig:s2esummary}(c) and (d) plot the time-averaged alignment
+order $S_2$. The vesicle and striated phases possess the greatest
+alignment order and, for the most part, $S_2$ decreases with increases
+in shear rate. But there is an exception. The Type I bilayer phase
+alignment order actually increases under both shear and TG flows (solid
+squares). This suggests that the mixing action of background flow has
+the effect of moving the disordered bilayer phase out of a local
+equilibrium and into a state with greater order. This surprising
+increase, brought about by combining previously broken bilayer end caps,
+is accompanied by a slight decrease in free energy
+(Figure~\ref{fig:fsummary}(a), solid squares).
 
-The sudden jumps in  Figure \ref{fig:s2esummary} (a) and (b)
-and commensurate drops in panels (c) and (d) indicate
-the existence of a critical shear rate $\gamma_*$.  This means that 
-for $\gamma < \gamma_*$, the JP phase remains intact while
-for $\gamma > \gamma_*$, the phase ruptures. 
-For example, the vesicle BL phase has 
-$\gamma_*$ approximately $0.05$ ns$^{-1}$ 
-under shear flow and TG flow. However, the critical shear rate
-is flow-pattern dependent because 
-the striated phase has $\gamma_* = 0.14$ ns$^{-1}$ under shear flow
-while $\gamma_* = 0.05$ ns$^{-1}$ under  TG flow.
-Due to variable stress distribution, 
-the critical shear rate in TG flow likely 
-depends on the cell size parameter $\lambda$.
-The disordered bilayer phase does not really possess a critical
-shear rate because it already consists of several, disjoint components.
-The jump in Figure \ref{fig:s2esummary} (a) (solid squares)
+The sudden jumps in Figures~\ref{fig:s2esummary}(a) and (b) and
+commensurate drops in panels (c) and (d) indicate the existence of a
+critical shear rate $\gamma_*$. This means that for $\gamma < \gamma_*$,
+the JP phase remains intact while for $\gamma > \gamma_*$, the phase
+ruptures. For example, the vesicle BL phase has $\gamma_*$ approximately
+$0.05$ ns$^{-1}$ under shear flow and TG flow. However, the critical
+shear rate is flow-pattern dependent because the striated phase has
+$\gamma_* = 0.14$ ns$^{-1}$ under shear flow while $\gamma_* = 0.05$
+ns$^{-1}$ under TG flow. Due to variable stress distribution, the
+critical shear rate in TG flow likely depends on the cell size parameter
+$\lambda$. The disordered bilayer phase does not really possess a
+critical shear rate because it already consists of several, disjoint
+components. The jump in Figure~\ref{fig:s2esummary}(a) (solid squares)
 simply corresponds to disjoint components drifting apart in the shear
-flow.  The Type II multilamellar phase did
-not rupture for any of the shear rates considered.   
+flow. The Type II multilamellar phase did not rupture for any of the
+shear rates considered.
 
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\textwidth]{FSummary.pdf}
 \end{center}
 \caption{\label{fig:fsummary}
-  The change of average free energy versus shear rates for shear flow and TG flow simulation results are plotted in panels (a)-(b). Panel (c) contains quadratic fits
-  to the change in free energy as a function of displacement in interparticle distance
-  from equilbrium.}
+  The change of average free energy versus shear rates for shear flow
+  and TG flow simulation results are plotted in panels (a)-(b). Panel
+  (c) contains quadratic fits to the change in free energy as a function
+  of displacement in interparticle distance from equilibrium.}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Free energy}
 \label{sec:free-energy}
-Figure \ref{fig:fsummary} plots the time-averaged
-relative free energy $\frac{1}{T}\int_0^T F - F_0 \,\dif t$ where $F_0$ is 
-\eqref{eq:free_energy2} at $t = 0$.  The 
-greatest increase occurs with the Type II 
-multilamellar phase, with the other phases 
-showing a moderate change in a few \KBT\,nm$^{-1}$.    
+Figure~\ref{fig:fsummary} plots the time-averaged relative free energy
+$\frac{1}{T}\int_0^T F - F_0 \,\dif t$ where $F_0$
+is~\eqref{eq:free_energy2} at $t = 0$. The greatest increase occurs with
+the Type II multilamellar phase, with the other phases showing a
+moderate change in a few \KBT\,nm$^{-1}$.
 
-Figure \ref{fig:fsummary} (c) plots free energy 
-against the displacement $x = c E$ representing the
-change in mean  interparticle displacement from equilibrium;
-$c = 1.25$ nm is particle radius.
-The energies in Figure \ref{fig:fsummary} (c) are essentially  
-quadratic in $x$ suggesting that the interactions 
-are harmonic locally around equilibrium.
-The harmonic bond strength is strongest between 
-polar JP, and greater by a factor of two and five than
-that for asymmetric hydrophobes and amphiphiles,
-respectively.  This makes sense when considering 
-that the free energy of the steady-state striated
-phase is also greatest (Figure \ref{fig:relax} (c), around 85 \KBT\;nm$^{-1}$).
-However, the bond strength in the multilamellar 
-phase comes in second, despite having least steady-state free energy
-(around 15 \KBT\;nm$^{-1}$).
-The data point to the fact that the binding properties 
-do not merely scale with free energy, 
-but also involve the details of the interface's
-hydrophobicity 
-which are tuned by \eqref{eq:bc-type} in our model.
+Figure~\ref{fig:fsummary}(c) plots the free energy against the
+displacement $x = c E$ representing the change in mean interparticle
+displacement from equilibrium; $c = 1.25$~nm is the particle radius.
+The energies in Figure~\ref{fig:fsummary}(c) are essentially quadratic
+in $x$ suggesting that the interactions are harmonic locally around
+equilibrium. The harmonic bond strength is strongest between polar JP,
+and greater by a factor of two and five than that for asymmetric
+hydrophobes and amphiphiles, respectively. This makes sense when
+considering that the free energy of the steady-state striated phase is
+also greatest (Figure~\ref{fig:relax}(c), around 85 \KBT\;nm$^{-1}$).
+However, the bond strength in the multilamellar phase comes in second,
+despite having least steady-state free energy (around
+15~\KBT\;nm$^{-1}$). The data point to the fact that the binding
+properties do not merely scale with free energy, but also involve the
+details of the interface's hydrophobicity which are tuned
+by~\eqref{eq:bc-type} in our model.
 
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=\textwidth]{RheologySummary.pdf}
 \end{center}
-\caption{\label{fig:rheologysummary}
-  Rheology of Type I, II, and III phases.
-  Panel (a) shows that bilayer phases  behave as a Newtonian fluid.
-  Panel (b) provides that the multilamellar phase shows a near shear thinning behaviour.
-  A pseudoplastic behaviour of deformation in striated phases is shown in panel (c). }
+\caption{\label{fig:rheologysummary} Rheology of Type I, II, and III
+  phases. Panel (a) shows that bilayer phases behave as a Newtonian
+  fluid. Panel (b) provides that the multilamellar phase shows a near
+  shear thinning behaviour. A pseudoplastic behaviour of deformation in
+  striated phases is shown in panel (c).}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Rheology}
 \label{sec:rheology}
-So far, we have considered static material properties, namely
-constant strains maintained by an external force provided by   
-background flow. Now we consider dynamic material properties.
-Specifically, we look at the strain rate 
+So far, we have considered static material properties, namely constant
+strains maintained by an external force provided by background flow.
+Now we consider dynamic material properties. Specifically, we look at
+the strain rate 
 \begin{equation}
 \label{eq:strainrate}
 \dot E = \left(\frac{1}{T} \int_0^T \left|\frac{dE}{dt}\right|^2 \, \dif t \right)^{1/2}.
 \end{equation}
-The reason for defining $\dot E$ in this way is that 
-the shear flow $\uu_{\infty}^{\text{sh}}$
-simulations correspond to a complex fluid within a drag plate
-rheometer where the shear stress is set by $\mu \dot\gamma$  
-and the observed, sample shear rate is $\dot E$. 
-The definitions carry over to the TG flow case directly. 
-Also, as a practical consideration,
-the rotation of non-isotropic JP phases in the background 
-flow leads to oscillation in the strain time courses 
-making systematic fitting challenging (see 
-Supplementary Material Figures \ref{fig:ulshraw}--\ref{fig:sttgraw}). 
-The integral in \eqref{eq:strainrate} averages out these oscillations
-and gives physically meaningful values.
+The reason for defining $\dot E$ in this way is that the shear flow
+$\uu_{\infty}^{\text{sh}}$ simulations correspond to a complex fluid
+within a drag plate rheometer where the shear stress is set by $\mu
+\dot\gamma$ and the observed, sample shear rate is $\dot E$. The
+definitions carry over to the TG flow case directly. Also, as a
+practical consideration, the rotation of non-isotropic JP phases in the
+background flow leads to oscillation in the strain time courses making
+systematic fitting challenging (see Supplementary Material
+Figures~\ref{fig:ulshraw}--\ref{fig:sttgraw}). The integral
+in~\eqref{eq:strainrate} averages out these oscillations and gives
+physically meaningful values.
 
-The shear stress--strain rate data are 
-excellently fit by power laws.  
-Figures \ref{fig:rheologysummary} (a), (b), and (c)
-show the data for Type I, Type II and Type III JPs, respectively,
-under both shear flow (squares) and TG flow (triangles).
-The bilayer phases consisting of Type I JPs are basically Newtonian
-with viscosity $0.014$ MPa\;$\upmu$s $= 14$ mPa\;s,
-about 14 times the the viscosity of water at room temperature
-(Figures \ref{fig:rheologysummary}(a), dashed curve). 
-The vesicle bilayer phase is slightly shear thickening
-(Figures \ref{fig:rheologysummary}(a), solid curve).
-The multilamellar phase consisting of Type II JPs
-is somewhat shear thinning,  but its viscosity 
-is larger than for Type I.  Finally, the striated
-phase is strongly shear-thinning.  This 
-further explains the rigid-like behavior of the 
-striated phase found in the strain, shear-rate relationships from 
-Figure \ref{fig:s2esummary}(a), (b) (triangles).
+The shear stress-strain rate data are excellently fit by power laws.
+Figures~\ref{fig:rheologysummary}(a)--(c) show the data for Type I, Type
+II and Type III JPs, respectively, under both shear flow (squares) and
+TG flow (triangles). The bilayer phases consisting of Type I JPs are
+basically Newtonian with viscosity $0.014$ MPa\;$\upmu$s $= 14$ mPa\;s,
+about 14 times the viscosity of water at room temperature
+(Figures~\ref{fig:rheologysummary}(a), dashed curve). The vesicle
+bilayer phase is slightly shear thickening
+(Figure~\ref{fig:rheologysummary}(a), solid curve). The multilamellar
+phase consisting of Type II JPs is somewhat shear thinning, but its
+viscosity is larger than for Type I. Finally, the striated phase is
+strongly shear-thinning. This further explains the rigid-like behavior
+of the striated phase found in the strain, shear-rate relationships from
+Figures~\ref{fig:s2esummary}(a) and (b) (triangles).
 \todo[inline]{RBC flow refereces}
 
 \begin{figure}[t]
@@ -998,9 +966,9 @@ Figure \ref{fig:s2esummary}(a), (b) (triangles).
 \caption{\label{fig:PramChange}
 In panel (a), the relative change in $\dot \gamma_*$ is linear in the
   relative change of the tension parameters $\gamma$ and $M$ with slope
-  $1$.  Additionally, the relative change in $\dot \gamma_*$ has slope
+  $1$. Additionally, the relative change in $\dot \gamma_*$ has slope
   $-2$ with respect to the relative change in the length parameters $c$,
-  $\rho$, and $\rho_0$.  Panels (b)--(e) show the tank-treading
+  $\rho$, and $\rho_0$. Panels (b)--(e) show the tank-treading
   configuration of a vesicle bilayer the configurations with streamlines
   of a vesicle is in a TG flow at $t=1$ $\upmu$s with $l= 1,2,3,4$,
   respectively. In panel (f), the relative enclosed area $A/A_0$
@@ -1013,43 +981,44 @@ In panel (a), the relative change in $\dot \gamma_*$ is linear in the
   (b)--(e) can be their own figure, but with darker stream lines. Also,
   should not be talking about tank treading, but rather about sliding
   between layers, and how they are affected by the correlation between
-  the bilayer location and the TG cell boundary.  This correlation also
-  somehow determines the shape.  Can count the number of partial TG
-  cells inside each of the JP bilayer vesicles. (b) has 9 cells, (c) has
-  2 + 4*0.5 cells, (d) has 1 + 4$\epsilon$ cells where $\epsilon < 1/4$,
-  and (e) has 1 cell.}
+  the bilayer location and the TG cell boundary. This correlation also
+  somehow determines the shape. Can count the number of partial TG cells
+  inside each of the JP bilayer vesicles. (b) has 9 cells, (c) has 2 +
+  4*0.5 cells, (d) has 1 + 4$\epsilon$ cells where $\epsilon < 1/4$, and
+  (e) has 1 cell.}
 \end{figure}
 
 \subsection{Discussion}
-We choose the range of shear rates $\dot \gamma \in [0, 0.02]$ ns$^{-1}$
-by analyzing the capillary number of the JP phases.  With this range, 
-there was a critical shear rate $\dot \gamma_*$ for the vesicle BL
-and striated phases where shear stresses exceeded elastic stresses,
-leading to rupture.  The multilamellar phase did not rupture.
-By varying model parameters, we can perform a dimensional analysis 
-on $\dot \gamma_*$. Focusing on Type III JPs in shear flow, 
-$\dot \gamma_* = 0.14$ ns$^{-1}$ for the basic model parameters
-(see Section \ref{sec:tunable_hydrophobicity}).  Increasing
-and decreasing the tension parameters $\gamma$ and $M$ by up to 10\% (collectively denoted
+We choose the range of shear rates $\dot \gamma \in [0, 0.02]$~ns$^{-1}$
+by analyzing the capillary number of the JP phases. With this range,
+there is a critical shear rate $\dot \gamma_*$ for the vesicle BL and
+striated phases where shear stresses exceeded elastic stresses, leading
+to rupture. The multilamellar phase did not rupture. By varying model
+parameters, we perform a dimensional analysis on $\dot \gamma_*$.
+Focusing on Type III JPs in shear flow, $\dot \gamma_* = 0.14$ ns$^{-1}$
+for the basic model parameters (see
+Section~\ref{sec:tunable_hydrophobicity}). Increasing and decreasing the
+tension parameters $\gamma$ and $M$ by up to 10\% (collectively denoted
 $\Delta \gamma/\gamma$) led to basically the same relative
-increase/decrease in critical shear
-rate (denoted $\Delta \dot \gamma_*/\dot \gamma_*$).  This suggests
-that the critical shear rate scales linearly with the tension parameters.
-Conversely, increasing (resp.~decreasing) the length parameters $c$, $\rho$, and $\rho_0$
-by up to 10\% (collectively denoted $\Delta c/c$) leads to roughly twice the
-relative \emph{decrease} (resp.~increasing) in the critical shear rate.  This points to an inverse-quadratic
-scaling in length. Figure \ref{fig:PramChange}(a) summarizes the 
-findings and suggest the scaling
+increase/decrease in critical shear rate (denoted $\Delta \dot
+\gamma_*/\dot \gamma_*$). This suggests that the critical shear rate
+scales linearly with the tension parameters. Conversely, increasing
+(resp.~decreasing) the length parameters $c$, $\rho$, and $\rho_0$ by up
+to 10\% (collectively denoted $\Delta c/c$) leads to roughly twice the
+relative \emph{decrease} (resp.~increase) in the critical shear rate.
+This points to an inverse-quadratic scaling in length.
+Figure~\ref{fig:PramChange}(a) summarizes the findings and suggest the
+scaling
 \begin{equation}
 \label{eq:CSR}
 \mu \dot\gamma_* = K_{\text{III}} \frac{\gamma L}{c^2}.
 \end{equation}
 The scalar $K_{\text{III}}$ is specific to the striated phase under
-shear flow.  Here $L$ is the diameter of the phase sample, which is
+shear flow. Here $L$ is the diameter of the phase sample, which is
 proportional to $\gamma^*$ since the striated phase tends to cleave
-during rupture (see Supplementary Movie S4).  Our previous
-work\cite{Fu2022_JFM} found the scaling $\mu \dot\gamma_* = K_{\text{I}}
-\gamma c^2/(\rho L^2)$ for vesicle BL in shear flow.
+during rupture (see Supplementary Movie S4). Our previous
+work~\cite{Fu2022_JFM} found the scaling $\mu \dot\gamma_* =
+K_{\text{I}} \gamma c^2/(\rho L^2)$ for a vesicle BL in shear flow.
 
 The Results section showed that variations in free energy and strain
 generally depend on the distribution of fluid stresses i.e., shear
@@ -1057,23 +1026,23 @@ versus TG flow. To further illustrate how fluid stresses interact with
 the geometry of the JP phases, we initialize a circular vesicle bilayer
 in various TG-flow cell sizes (Figure \ref{fig:PramChange}(b)--(e)). In
 all cases, the vesicle and TG flow reach a steady-state tank-treading
-motion, but the geometry and motion varies non-monotonically. For
-$\lambda$ ranging from $1$ nm to $4$ nm, the steady-state vesicle shape
-goes from an octagon, to a dimpled square, to a rounded diamond, to a
-rounded square. Surprisingly, the direction of rotation switches: for
-$\lambda = 2$ nm the rotation is clockwise, while for $\lambda = 4$ nm
-the rotation is counterclockwise. Finally, we calculate the vesicle area
-$A$ and length $L$. As shown in Figure~\ref{fig:PramChange}(f), the
-relative area $A/A_0$ achieves a steady-state that is greatest for
-$\lambda = 4$ nm yet least for $\lambda = 2$ nm. The relative length
-$L/L_0$, however, is constant in $t$ for all cell sizes
-(Figure~\ref{fig:PramChange}(e), inset). In other words, the flow
-pattern is non-monotonic in the cell size $\lambda$.
+motion \todo[inline]{no longer true}, but the geometry and motion varies
+non-monotonically. For $\lambda$ ranging from $1$ nm to $4$ nm, the
+steady-state vesicle shape goes from an octagon, to a dimpled square, to
+a rounded diamond, to a rounded square. Surprisingly, the direction of
+rotation switches: for $\lambda = 2$ nm the rotation is clockwise, while
+for $\lambda = 4$ nm the rotation is counterclockwise. Finally, we
+calculate the vesicle area $A$ and length $L$. As shown in
+Figure~\ref{fig:PramChange}(f), the relative area $A/A_0$ achieves a
+steady-state that is greatest for $\lambda = 4$ nm yet least for
+$\lambda = 2$ nm. The relative length $L/L_0$, however, is constant in
+$t$ for all cell sizes (Figure~\ref{fig:PramChange}(e), inset). In other
+words, the flow pattern is non-monotonic in the cell size $\lambda$.
 
 We have excluded thermal fluctuations because they are unresolved in the
-JP phases we consider.  For a tensionless, planar membrane, the spectrum
-of the Fourier coefficients for the profile height 
-$h(\xx) = \sum_{\kk} h(\kk)e^{i \kk \cdot \xx}$ satisfy\cite{Merath2006FluctuationSO}  
+JP phases we consider. For a tensionless, planar membrane, the Fourier
+coefficients for the profile height $h(\xx) = \sum_{\kk} h(\kk)e^{i \kk
+\cdot \xx}$ satisfy~\cite{Merath2006FluctuationSO}  
 \begin{equation}
 \label{eq:fourier_spectrum}
 \langle |h(\kk)|^2 \rangle = \frac{\kbt}{L_xL_y}\frac{1}{\kappa k^4},
