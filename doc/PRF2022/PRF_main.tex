@@ -151,7 +151,7 @@ $^4$Department of Mathematical Sciences, New Jersey Institute of Technology, New
   distribution on the JP-solvent interface to investigate the
   hydrodynamics that underlies the various morphologies and rheological
   properties of the JP assembly in the suspension. We find JPs assemble
-  into uni-lamella, multi-lamella, and striated structures. To introduce
+  into unilamellar, multilamellar, and striated structures. To introduce
   dynamics, we include a planar linear shear flow and a steady
   Taylor-Green mixing flow, and measure the collective dynamics of JP
   particles in terms of their (a) free energy from the hydrophobic
@@ -159,7 +159,7 @@ $^4$Department of Mathematical Sciences, New Jersey Institute of Technology, New
   JPs in terms of alignment of their directors, and (c) strain parameter
   that captures the deformation in the assembly. We characterize the
   effective material properties of the JP structures and find that the
-  uni-lamellar structures increases orientation order under shear flow,
+  unilamellar structures increases orientation order under shear flow,
   the multilamellar structure behaves as a shear thinning fluid, and the
   striated structure possesses a yield stress. These numerical results
   provide insights into dynamic control of non-equilibrium active
@@ -196,13 +196,12 @@ engineering applications~\cite{GheisariSahfieeAbbasiEtAl2021_DMR,
 LiuYangHuangEtAl2016_Angew, LiWangYaoEtAl2019_Nanoscale,
 Bradley2016,Zarzaretal2015, KirillovaMarschelkeSynytska2019}.
 
-
 When driven by an external flow, dynamic rearrangement of JPs emerges
 naturally from the interactions between particles and fluid in colloidal
-matter~\cite{RevModPhys.93.025008}. Such colloidal hydrodynamics
-belong to a wide class of nonequilibrium self-organization in physics,
-often with complexity and features similar to that of biological systems
-such as living cells, bacterial baths, and animal
+matter~\cite{RevModPhys.93.025008}. Such colloidal hydrodynamics belong
+to a wide class of nonequilibrium self-organization in physics, often
+with complexity and features similar to that of biological systems such
+as living cells, bacterial baths, and animal
 flocks~\cite{CollardGrosjeanVandewalle2020, Vutukuri2020}. A
 long-standing challenge in fluid mechanics and material science is to
 solve the ``inverse'' problem of creating a model colloidal system that
@@ -214,17 +213,16 @@ specific choices for the shapes or interactions of the
 particles~\cite{Manoharan2015_Science}.
 
 In this work we focus on collective hydrodynamics of immobile
-amphiphilic JPs in a
-viscous fluid under an imposed far-field flow. The amphiphilic JP has a
-hydrophobic surface on one side and a hydrophilic surface on the other
-side \cite{doi:10.1021/la503455h}.
-The many-body hydrodynamics of amphiphilic Janus particles assembled as
-vesicles (self-enclosed bilayers of JPs) suspended in a viscous fluid in the inertialess regime (zero
-Reynolds number) has been studied using boundary integral numerical
-simulations~\cite{Fu20,Fu2022_JFM}. The dynamics of the JP suspension
-results from the combination of long-range hydrodynamic interaction and
-non-local interactions between JPs through the distribution of a
-hydrophobic attraction potential (HAP).
+amphiphilic JPs in a viscous fluid under an imposed far-field flow. The
+amphiphilic JP has a hydrophobic surface on one side and a hydrophilic
+surface on the other side \cite{doi:10.1021/la503455h}. The many-body
+hydrodynamics of amphiphilic Janus particles assembled as vesicles
+(self-enclosed bilayers of JPs) suspended in a viscous fluid in the
+inertialess regime (zero Reynolds number) has been studied using
+boundary integral numerical simulations~\cite{Fu20,Fu2022_JFM}. The
+dynamics of the JP suspension results from the combination of long-range
+hydrodynamic interaction and non-local interactions between JPs through
+the distribution of a hydrophobic attraction potential (HAP).
 %
 In a quiescent flow, a JP suspension self-assembles into micelles and
 bilayers of JPs that provide an alternative means for computing the
@@ -249,7 +247,7 @@ problem for the molecular structure of water~\cite{Ma77, GoHaKo94,
 ErLjCl89, Lietal05, Israelachvili80}. Unlike in MD or Monte Carlo
 simulations, the HAP interactions are nonadditive~\cite{Fu20}, so that
 the interactions between a pair of JPs is affected by the presence of
-other particles.  As such, the HAP is a phase-field function that
+other particles. As such, the HAP is a phase-field function that
 represents the properties of the solvent in the presence of JPs. Such
 approach falls into the category of work that considers particles as a
 discretization of a continuum problem~\cite{HongWang2021_arXiv}.
@@ -957,7 +955,7 @@ viscosity is larger than for Type I. Finally, the striated phase is
 strongly shear-thinning. This further explains the rigid-like behavior
 of the striated phase found in the strain, shear-rate relationships from
 Figures~\ref{fig:s2esummary}(a) and (b) (triangles).
-\todo[inline]{RBC flow refereces}
+\todo[inline]{RBC flow references}
 
 \begin{figure}[t]
 \begin{center}
@@ -1112,12 +1110,12 @@ and right) for Type III.
 
 In this work, we employ the newly developed JP model using
 BIEs~\cite{Fu20, Fu2022_JFM} and tune the boundary conditions with
-energy normalization to study the collective dynamics of amphiphilic (BC
-I), biased hydrophobic (BC II), and bipolar (BC III) JPs under various
-flowing conditions (quiescent flow, linear shear flow, and Taylor-Green
-flow). Three quantities are computed to characterize the dynamics of the
-collective configurations of JPs: free energy $F$, strain parameter $E$,
-and scalar order parameter $S_2$. 
+energy normalization to study the collective dynamics of amphiphilic
+(Type I), biased hydrophobic (Type II), and bipolar (Type III) JPs under
+various flowing conditions (quiescent flow, linear shear flow, and
+Taylor-Green flow). Three quantities are computed to characterize the
+dynamics of the collective configurations of JPs: free energy $F$,
+strain parameter $E$, and scalar order parameter $S_2$. 
 %We quantify how
 %the collective hydrodynamics of JPs is affected by an external flow.
 Under a given flow, we use these three measures of deformations to
@@ -1125,45 +1123,45 @@ quantify the differences in the collective dynamics between the three
 types of JPs. These results, summarized below, provide general insight
 into the dynamic control of active particles in a viscous suspension.
 
-Within the framework of boundary integral equations, we derive a
-convenient expression for computing the free energy using the single
-layer potential (see equation~\eqref{eq:normal_deriv}). In a quiescent
-flow, the free energy profiles demonstrate that the relaxation process
-for particles confined in a certain size of box is independent of the
-number of particles. However, we find that the final configurations does
-depend on the initial distribution of particle directors $\dd_i$.
-Therefore, multiple patterns or local energy minimum states may appear
-depending on the initial setup.
+%Within the framework of boundary integral equations, we derive a
+%convenient expression for computing the free energy using the
+%single-layer potential (see equation~\eqref{eq:normal_deriv}).
+In a quiescent flow, the free energy profiles demonstrate that the
+relaxation process for particles confined in a certain size of box is
+independent of the number of particles. However, we find that the final
+configurations does depend on the initial distribution of particle
+directors $\dd_i$. Therefore, multiple patterns or local energy minimum
+states may appear depending on the initial setup.
 
 Under a relatively weak linear shear flow, the amphiphilic JPs behave as
 a unilamellar vesicle that elongates and tank-treads, with the scalar
-order parameter increasing over time. The assembly of multi-lamella and
+order parameter increasing over time. The assembly of multilamellar and
 striated JP structures resemble a rigid body motion with minimal
 deformation. The effective viscosity of the material quantitatively
 validates this result. High shear-rate cases provide a range of critical
 shear rates where the structures break apart and undergo topological
 changes. We further show that free energy, scalar order parameter, and
-strain are effective measures to quantitatively capture the collective hydrodynamics of
-JPs under a linear shear flow.
+strain are effective measures to quantitatively capture the collective
+hydrodynamics of JPs under a linear shear flow.
 
 Under a Taylor-Green flow, the amphiphilic JPs are the most interesting,
 exhibiting different vesicle shapes depending on the ratio of the size
 of the TG flow to the vesicle size. These results show that the shape of
 the vesicle, whether square or polygonal, can be controlled by adjusting
 the size of the cell in the TG flow. On the other hand, the assembly of
-multi-lamella JPs and the striated JPs behave more like a rigid body
+multilamellar JPs and the striated JPs behave more like a rigid body
 with connected subdomains, and the number of subdomains increases with
-increasing strength of the TG flow. Overall, the multilamellar (BC (ii))
-JP assembly behaves as a shear-thinning fluid, while the striated (BC
-(iii)) JP assembly  possesses a yield stress.
+increasing strength of the TG flow. Overall, the multilamellar (Type II)
+JP assembly behaves as a shear-thinning fluid, while the striated (Type
+III) JP assembly possesses a yield stress.
 
 The results reported here provide an inroad modeling framework for
 hydrodynamics of active colloids~\cite{Meredithetal2022,
 McGlassonBradley2021, Vutukuri2020, Mallory2017}. The present study also
-helps us understand the rheology of JP oligomers that may be realized in
-the experiments. We are extending this study to three dimensional
-systems with more realistic features such as size distributions of JPs
-and thermal fluctuations~\cite{kohl-cor-che-vee22}. From a numerical
+helps to understand the rheology of JP oligomers that may be realized in
+experiments. We are extending this study to three dimensional systems
+with more realistic features such as size distributions of JPs and
+thermal fluctuations~\cite{kohl-cor-che-vee22}. From a numerical
 perspective, it is straightforward to include random perturbations in
 the particle shape and boundary condition that mimic interfacial
 properties found in lab conditions~\cite{Bradley2016, Bradley2017,
@@ -1171,9 +1169,8 @@ Zarzaretal2015, doi:10.1021/la503455h}.
 
 \section{Appendix}
 \label{sec:appendix}
-The boundary integral calculation
-of \eqref{eq:free_energy2} relies
-on the following identity 
+The boundary integral calculation of~\eqref{eq:free_energy2} relies on
+the following identity 
 %
 \begin{equation}
 \label{eq:normal_deriv}
@@ -1183,13 +1180,12 @@ on the following identity
 + \frac{\dif}{\dif s}\SSS\left[\frac{\dif \sigma}{\dif s}\right](\xx), \quad \xx \in \partial \Omega.
 \end{equation}
 %
-Here, $\tt_\xx$ is the tangent vector and $\dif/\dif s$ is the
-arclength derivative.
-Substituting~\eqref{eq:normal_deriv}
+Here, $\tt_\xx$ is the tangent vector and $\dif/\dif s$ is the arclength
+derivative. Substituting~\eqref{eq:normal_deriv}
 into~\eqref{eq:free_energy2} for the normal derivative leads to the
-single layer, $\SSS$, which is more straightforward to evaluate.
-The arclength derivative is computed using
-the spectrally accurate Fourier differentiation.
+single layer, $\SSS$, which is more straightforward to evaluate. The
+arclength derivative is computed using the spectrally accurate Fourier
+differentiation.
 
 To prove ~\eqref{eq:normal_deriv}, let
 \begin{equation}
@@ -1198,12 +1194,11 @@ To prove ~\eqref{eq:normal_deriv}, let
 \end{equation}
 be the single layer potential for a density function $\sigma.$ Fix $\xx
 \in {\partial \Omega}$, let $\nnu_{\xx}$ and $\nnu_{\yy}$ be the unit
-normal at $\xx$, respectively $\yy$, in ${\partial \Omega}$, and let $\zz \in
-\Omega$. The subscripts in $\nabla_{\zz}$ and $\nabla_{\yy}$ denote
-differentiation with respect to $\zz$, respectively $\yy$.
+normal at $\xx$, respectively $\yy$, in ${\partial \Omega}$, and let
+$\zz \in \Omega$. The subscripts in $\nabla_{\zz}$ and $\nabla_{\yy}$
+denote differentiation with respect to $\zz$, respectively $\yy$.
 
-Recall from~\eqref{eq:SL_BIE} that $u = \mathcal{D}[\sigma]$.
-Then  
+Recall from~\eqref{eq:SL_BIE} that $u = \mathcal{D}[\sigma]$. Then
 \begin{align*}
 \nabla_{\zz} u(\zz) \cdot \nnu_{\xx}
 &=\nnu_\xx \cdot \nabla_\zz \int_{\partial \Omega} \frac{\partial G(\zz-\yy)}{\partial \nnu_\yy}\sigma(\yy) \,\dif s_\yy\\
@@ -1231,17 +1226,16 @@ by parts in arclength $s$, we obtain
 ({\bf t}_\xx \cdot \nabla_\zz)\int_{\partial \Omega} G(\zz-\yy)\frac{\dif }{\dif s} \sigma(\yy)  \dif s_\yy.
 \end{align*}
 %
-Letting $\zz\to\xx\in{\partial \Omega}$, and noting that both sides of the equation
-are continuous, we obtain~\eqref{eq:normal_deriv}.
+Letting $\zz\to\xx\in{\partial \Omega}$, and noting that both sides of
+the equation are continuous, we obtain~\eqref{eq:normal_deriv}.
 
 
 % If you have acknowledgments, this puts in the proper section head.
 \begin{acknowledgments}
-%We thank Dr.~S\'ebastien Michelin and Dr.~Cecile Cottin-Bizzonne from LadHyX - Ecole Polytechnique Institut Polytechnique de Paris for organizing the focus-session ``interfacial active matter'' in the conference APS-DFD 2021 and the invitation of submitting a special collection paper. 
 We thank useful conversations with E.~Corona, M.~Rachh, S.~Jiang, and
-  T.~Beck.  B.Q.~acknowledges support from the Simons Foundation,
+  T.~Beck. B.Q.~acknowledges support from the Simons Foundation,
   Mathematics and Physical Sciences-Collaboration Grants for
-  Mathematicians, Award No.~527139.  Y.-N.Y.~acknowledges support from
+  Mathematicians, Award No.~527139. Y.-N.Y.~acknowledges support from
   NSF (Grants No.~DMS 1614863 and No.~DMS 195160) and Flatiron
   Institute, part of Simons Foundation.
 
@@ -1607,21 +1601,19 @@ no longer remain well-separated.
 Rather, the bilayers form layers 
 as a consequence of the interfacial tension of exposed particle
 heads.%~\cite{Huetal19, deMeetal21}. 
-Fig~\ref{fig:relax}(c) shows the multilamellar structure with 8 layers when $N_b=60$. 
-The number of folds depends on several factors, for instances, number of
-particles and initial configurations.
+Figure~\ref{fig:relax}(c) shows the multilamellar structure with 8
+layers when $N_b=60$.  The number of folds depends on several factors,
+for instances, number of particles and initial configurations.
 
 
-Finally, boundary condition \eqref{eq:bcs}(iii) models 
-a particle whose head surface repels the tail surface as proposed in
-\cite{MaRa76, Ma77}.
-The particles initially form chains with their directors perpendicular to the
-length of the chain. The equilibrium structure
-resembles a checkerboard pattern
-where each particle coordinates
-its head with the head of three other particles and its tail with the
-tail of three other particles. % Fig~\ref{fig:self-assembly}(c).
-Fig~\ref{fig:relax}(d) gives an example that this boundary condition results a checker board/stripes equilibrium state.
+Finally, boundary condition \eqref{eq:bcs}(iii) models a particle whose
+head surface repels the tail surface as proposed in \cite{MaRa76, Ma77}.
+The particles initially form chains with their directors perpendicular
+to the length of the chain. The equilibrium structure resembles a
+checkerboard pattern where each particle coordinates its head with the
+head of three other particles and its tail with the tail of three other
+particles. Figure~\ref{fig:relax}(d) gives an example that this boundary
+condition results a checker board/stripes equilibrium state.
 
 
 Fig~\ref{fig:relax_energy} shows the energy profile of boundary conditions (i)--(iii) using 
@@ -1639,8 +1631,8 @@ Consider placing the equilibrium state of boundary condition \eqref{eq:bcs} (ii)
 \end{equation}
 %
 where $\dot\gamma$ is the shear rate. Fig~\ref{fig:shear_1} (a)--(c) show the snapshots of simulation results when $\dot\gamma=0.05$.
-We measure the ratio of major and minor axes $\lambda$ by adopting an ellipse fitting using the singular value decomposition and track this aspect ratio for this multi-lamellar structure when the flow is on. 
-The result is shown in panel (d) and we observe that the multi-lamellar structure will be slightly stretched and the aspect ratio $\lambda=3.5$ increases over time.
+We measure the ratio of major and minor axes $\lambda$ by adopting an ellipse fitting using the singular value decomposition and track this aspect ratio for this multilamellar structure when the flow is on. 
+The result is shown in panel (d) and we observe that the multilamellar structure will be slightly stretched and the aspect ratio $\lambda=3.5$ increases over time.
 %
 Notice that for this simulation, the center of mass position of the
 initial configuration is not at the origin and it is slightly to the
@@ -1715,8 +1707,8 @@ with $V_0=0.1$ and tune the sides of zero-velocity box to $\pi$, i.e.,
 $l=0.5$, Figure~\ref{fig:TG_1}(a)--(c) show three frames of simulation
 results and we track the aspect ratio $\lambda$ described in the
 previous section which is provided in panel (d).  The stiffness of the
-multi-lamellar structure is able to compete with the flow therefore the
-structure does not deform to any states other than multi-lamellar shape.
+multilamellar structure is able to compete with the flow therefore the
+structure does not deform to any states other than multilamellar shape.
 We also found that the flow strength coefficient above $V_0=0.1$ will
 result to clear group separations during the simulations.  Comparing
 with the case when $V_0=0.2$, we provide a frame in
@@ -1752,8 +1744,8 @@ higher total energy.
 \subsection{Steady-State Structure Confined in Narrow Channels}
 
 
-Here are demonstrations of having JP vesicle and multi-lamellar
-structure in a narrow channel under a shear flow.  Simulation results
+Here are demonstrations of having JP vesicle and multilamellar
+structure in a narrow channel under a shear flow. Simulation results
 and snapshots are shown in Figures~\ref{fig:confined_vesicle} and
 Figure~\ref{fig:confined_lamellar} where the JP vesicle has $N_b=25$
 particles and JP lamellar has $N_b=40$ particles, respectively. Both
@@ -1784,7 +1776,8 @@ units in the lamellar case.
   \includegraphics[width=0.4\textwidth]{MultConf_2400.png}
   \end{center}
   \vspace{-20pt}  
-  \caption{\label{fig:confined_lamellar} A JP multi-lamellar structure confined in a narrow channel where $N_b=40$ and $\dot\gamma=0.05$.  }
+  \caption{\label{fig:confined_lamellar} A JP multilamellar structure
+  confined in a narrow channel where $N_b=40$ and $\dot\gamma=0.05$.}
 \end{figure}
 
 
