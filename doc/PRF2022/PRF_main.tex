@@ -1052,74 +1052,72 @@ patch, $\kk = \left(2\pi m/L_x, 2\pi n/L_y\right)$ with $m,n \in
 \mathbb{Z}$, not both zero, and $\kappa$ is the membrane bending
 modulus.
 
-To estimate $h(\kk)$, 
-the $N_b = 60$ JP
-vesicle in Figure \ref{fig:s2esummary}(e) 
-has arclength $L_x \approx 50$ nm. 
-Our prior work\cite{Fu20,Fu2022_JFM} gave $\kappa  \approx 20$ $\kbt$.
-Since our simulations are two-dimensional, we restrict our attention
-to transversely invariant fluctuations where $n = 0$.
-Substituting these values gives 
+To estimate $h(\kk)$, the $N_b = 60$ JP vesicle in
+Figure~\ref{fig:s2esummary}(e) has arclength $L_x \approx 50$~nm. Our
+prior work~\cite{Fu20,Fu2022_JFM} gave $\kappa \approx 20$ $\kbt$. Since
+our simulations are two-dimensional, we restrict our attention to
+transversely invariant fluctuations where $n = 0$. Substituting these
+values gives 
 \begin{equation}
 \label{eq:fourier_spectrum_upper}
 \langle |h(\kk)|^2 \rangle \approx \frac{4 \text{ nm}^3}{L_y}\frac{1}{m^4}, \quad m = \pm 1, \pm 2, \dots
 \end{equation}
-For any moderate transverse depth, say $L_y > 4$ nm, the leading Fourier
-coefficient has a magnitude less than $1$ nm with the remaining
-coefficients dropping off to zero precipitously.  The expected
-amplitudes coming from thermal fluctuations are therefore negligible
-compared to particle size.  The elastic moduli for the Type II and
-Type III phases are greater by a factor of two and five, respectively,
-than for Type I (Figure~\ref{fig:fsummary}(c)), making thermal
-fluctuation even more negligible in these cases.
+For any moderate transverse depth, say $L_y > 4$~nm, the leading Fourier
+coefficient has a magnitude less than $1$~nm with the remaining
+coefficients dropping off to zero precipitously. The expected amplitudes
+coming from thermal fluctuations are therefore negligible compared to
+particle size. The elastic moduli for the Type II and Type III phases
+are greater by a factor of two and five, respectively, than for Type I
+(Figure~\ref{fig:fsummary}(c)), making thermal fluctuation even more
+negligible in these cases.
 
 The fact that the fluctuation amplitudes are small is not a consequence
-of stiffness. Quite the opposite, the value $\kappa = 20$ $\kbt$ agrees
+of stiffness. Quite the opposite, the value $\kappa = 20$~$\kbt$ agrees
 with the experimental literature where micron sized vesicles observably
-fluctuate.  Rather, larger energies are required to fluctuate membranes
+fluctuate. Rather, larger energies are required to fluctuate membranes
 over smaller wavelengths and these energies exceed available thermal
 energy when the wavelengths approach tens of nanometers as demonstrated
 above.
 
-The calculated viscosities---14 mPa s for Type I and 21 mPa s for Type
-II JP phases---are physically reasonable.  In two-dimensional dilute
-suspensions, the Einstein viscosity correction is $1 + 2 \phi + 4\phi^2 +
-O(\phi^3)$, where $\phi \ll 1$ is the volume
+The calculated viscosities---14~mPa~s for Type I and 21~mPa~s for Type
+II JP phases---are physically reasonable. In two-dimensional dilute
+suspensions, the Einstein viscosity correction is $1 + 2 \phi + 4\phi^2
++ O(\phi^3)$, where $\phi \ll 1$ is the volume
 fraction~\cite{PhysRevFluids.1.043301, Haines2011APO, Khair2006TheC,
-Brady1983TheEV}. In Figures \ref{fig:s2esummary}(e)--(h), the volume
+Brady1983TheEV}. In Figures~\ref{fig:s2esummary}(e)--(h), the volume
 fraction is $\phi \approx 0.5$, which would correspond to a effective
-shear viscosity of $4$ mPa s according to Einstein's viscosity
+shear viscosity of $4$~mPa~s according to Einstein's viscosity
 correction. Note, however, that since $\phi = 0.5$ is outside of the
-dilute limit, one expects viscosities ten or more times that of water
-\cite{Konijn2014ExperimentalSO}.
+dilute limit, one expects viscosities ten or more times greater than the
+viscosity of water~\cite{Konijn2014ExperimentalSO}.
 
 Nevertheless, further simulations are required to differentiate between
 purely suspension effects and particles' preferred alignments. For
-example, the difference between the values 14 mPa s for Type I and 21
-mPa s for Type II JPs can be explained by the fact that the
+example, the difference between the values 14~mPa~s for Type I and
+21~mPa~s for Type II JPs can be explained by the fact that the
 multilamellar phase is more tightly packed than the bilayer phase
-(Figure \ref{fig:s2esummary}(e)--(h)).  Furthermore, it seems that the
+(Figures \ref{fig:s2esummary}(e)--(h)). Furthermore, it seems that the
 viscosity, and the tendency toward shear thinning in the case of Type
 III JPs where viscosity is effectively infinite for low strain rates
 (Figure \ref{fig:rheologysummary}(c)), is related to particle
-coordination.  To leading order, a single particle coordinates with: one
+coordination. To leading order, a single particle coordinates with: one
 neighbor in the apposing bilayer for Type I, two neighbors at the tail
 and head interfaces for Type II, and four neighbors (front, back, left,
 and right) for Type III.
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
 \label{sec:conclusion}
 
 In this work, we employ the newly developed JP model using
 BIEs~\cite{Fu20, Fu2022_JFM} and tune the boundary conditions with
-energy normalization to study the collective dynamics of amphiphilic
-(BC(i)), biased hydrophobic (BC (ii)), and bipolar (BC(iii)) JPs under
-various flowing conditions (quiescent flow, linear shear flow, and
-Taylor-Green flow). Three quantities are computed to characterize the
-dynamics of the collective configurations of JPs: free energy $F$,
-strain parameter $E$, and scalar order parameter $S_2$. 
+energy normalization to study the collective dynamics of amphiphilic (BC
+I), biased hydrophobic (BC II), and bipolar (BC III) JPs under various
+flowing conditions (quiescent flow, linear shear flow, and Taylor-Green
+flow). Three quantities are computed to characterize the dynamics of the
+collective configurations of JPs: free energy $F$, strain parameter $E$,
+and scalar order parameter $S_2$. 
 %We quantify how
 %the collective hydrodynamics of JPs is affected by an external flow.
 Under a given flow, we use these three measures of deformations to
