@@ -65,8 +65,8 @@ adopted in simulations with hydrodynamic flows. \\
 {\bf Movie S2. Structures in a Shear Flow without Ruptures} 
 We adopt the relaxed configurations and place the JP structures in the
 shear flow. For the choices of the shear rate, we pick: $\dot\gamma =
-0.05$ for the vesicle, $\dot\gamma = 0.05$ for the bilayer, $\dot\gamma
-= 0.05$ for the multi-lamellar, and $\dot\gamma = 0.1$ for the striated
+0.05$ ns$^{-1}$ for the vesicle, $\dot\gamma = 0.05$ ns$^{-1}$ for the bilayer, $\dot\gamma
+= 0.05$ ns$^{-1}$ for the multi-lamellar, and $\dot\gamma = 0.1$ ns$^{-1}$ for the striated
 configurations. The vesicle case undergoes tank-treading whereas the
 initially disordered BC (i) case increases orientational order. The
 multilamellar assemply behaves as a rigid body, and the striated
@@ -78,8 +78,8 @@ configuration moreso. No ruptures occur. \\
 {\bf Movie S3. Structures in a Taylor-Green Flow without Ruptures} 
 We adopt the relaxed configurations and place the JP structures in the
 Taylor-Green flow at low flow rates. For the choices of the flow
-strength, we pick: $V_0 = 0.1$ for the vesicle, $V_0 = 0.1$ for the
-disordered bilayer, $V_0 = 0.1$ for the multi-lamellar, and $V_0 = 0.2$
+strength, we pick: $\dot\gamma = 0.05$ ns$^{-1}$ for the vesicle, $\dot\gamma = 0.05$ ns$^{-1}$ for the
+disordered bilayer, $\dot\gamma = 0.05$ ns$^{-1}$ for the multi-lamellar, and $\dot\gamma = 0.1$ ns$^{-1}$
 for the striated configurations. The vesicle stays inact, whereas the
 dissordered bilayer is pulled apart. Like in Supplementary Movie S2, the
 striated assembly is basically rigid. \\
@@ -89,10 +89,10 @@ striated assembly is basically rigid. \\
 {\bf Movie S4. Structures in a Shear Flow with Ruptures} 
 We adopt the relaxed configurations and place the JP structures in the
 shear flow at a higher shear rate. For the choices of the shear rate, we
-pick: $\dot\gamma = 0.075$ for the vesicle, $\dot\gamma = 0.1$ for the
-bilayer, $\dot\gamma = 0.15$ for the multi-lamellar, and $\dot\gamma =
-0.15$ for the striated configurations. The time step of all simulations
-is $\Delta t=0.2$. In this movie, some clear structural ruptures occur
+pick: $\dot\gamma = 0.075$ for the vesicle, $\dot\gamma = 0.1$ ns$^{-1}$ for the
+bilayer, $\dot\gamma = 0.15$ ns$^{-1}$ for the multi-lamellar, and $\dot\gamma =
+0.15$ ns$^{-1}$ for the striated configurations. The time step of all simulations
+is $\Delta t=0.2$ ns$^{-1}$. In this movie, some clear structural ruptures occur
 in each case. In order to observe the structure behaviors at later time,
 we stabilize the frame by tracking the center of mass position of all
 JP. \\
@@ -102,13 +102,22 @@ JP. \\
 {\bf Movie S5. Structures in a Taylor-Green Flow with Ruptures} 
 We adopt the relaxed configurations and place the JP structures in the
 Taylor-Green flow at higher flow rates. For the choices of the flow
-strength, we pick: $V_0 = 0.2$ for the vesicle, $V_0 = 0.2$ for the
-bilayer, $V_0 = 0.2$ for the multi-lamellar, and $V_0 = 0.3$ for the
+strength, we pick: $\dot\gamma = 0.1$ ns$^{-1}$ for the vesicle, $\dot\gamma = 0.1$ ns$^{-1}$ for the
+bilayer, $\dot\gamma = 0.1$ ns$^{-1}$ for the multi-lamellar, and $\dot\gamma = 0.15$ ns$^{-1}$ for the
 striated configurations. Clear structural ruptures occur in each case.
 In all cases, there is significant reduction in the orientational order
 of the assemblies. While the BC (i) cases are broken into several
 pieces, the main body of the BC (ii) and BC (iii) assemblies are not
-pulled apart by the background flow.
+pulled apart by the background flow.\\
+
+\noindent
+{\bf Movie S6. Single Vesicle in a Taylor-Green Flow with Various $\lambda$ Values} 
+The parameter $\lambda$ controls the cell size in Taylor-Green flow. 
+$\lambda$ values are varied from 1.0 to 4.0 while the flow rate $\lambda\dot\gamma=0.1$ is fixed. There is a rotation transition from counterclockwise ($\lambda=1$ nm and  2 nm) to clockwise ($\lambda=3$ nm and 4 nm). \\
+
+
+
+
 
 \section{Raw Data}
 The following figures plot the fully resolved simulation time-courses
@@ -119,7 +128,7 @@ Throughout, panels (a) are for relative free energy $F - F_0$,
 panels (b) for alignment $S_2$, and panels (c) for strain $E$ (as a percentage). 
 A common ordinate is used for each of the respective panels to facilitate
 comparison between data sets. 
-\newpage
+%\newpage
 
 \begin{figure}[h!]
 \begin{center}

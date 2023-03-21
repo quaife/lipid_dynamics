@@ -21,7 +21,7 @@
 %  Add 'draft' option to mark overfull boxes with black boxes
 %  Add 'showkeys' option to make keywords appear
 %\documentclass[aps,prl,preprint,groupedaddress]{revtex4-2}
-\documentclass[prb,preprint,showpacs,preprintnumbers,amsmath,amssymb,longbibliography]{revtex4-1}
+\documentclass[prb,preprint,showpacs,preprintnumbers,amsmath,amssymb,longbibliography]{revtex4-2}
 
 %\documentclass[aps,prl,preprint,superscriptaddress]{revtex4-2}
 %\documentclass[aps,prl,reprint,groupedaddress]{revtex4-2}
@@ -796,7 +796,7 @@ $\int_{A} \frac{1}{2}\mu |\nabla \uu + \nabla \uu^T|^2 \,\dif A$
 is the same for 
 $\uu = \uu_{\infty}^{\text{sh}}$ as for 
 $\uu = \uu_{\infty}^{\text{TG}}$
-when integrated over a $TG$ cell $A$. 
+when integrated over a TG cell $A$. 
 
 To obtain a range for $\dot \gamma$, 
 consider the capillary number 
@@ -850,7 +850,7 @@ particle trajectories in time. In each setup, we solved for $500$ time steps
 with $\Delta t = 2$ ns, yielding time courses for $t \in [0, T]$, $T = 1$ $\upmu$s.
 We then post-processed the trajectories.
 
-Supplementary Figures~\ref{fig:veshraw}--\ref{fig:sttgraw}
+Supplementary Figures~\ref{fig:ulshraw}--\ref{fig:sttgraw}
 contain the fully-resolved time courses for free energy $F$,
 alignment order $S_2$, and strain $E$. The eight setups
 correspond to the four JP phases---bilayer, vesicle BL, multilamellar,
@@ -860,11 +860,11 @@ comparisons between simulation setups.  Each setup considers
 a range of shear rates $\dot \gamma$ in the interval $[0, 0.2]$ ns$^{-1}$.
 
 The fully-resolved time courses
-in Supplementary Figures~\ref{fig:veshraw}--\ref{fig:sttgraw}
+in Supplementary Figures~\ref{fig:ulshraw}--\ref{fig:sttgraw}
 contain significant oscillations due to the particle-based formulation
 and tumbling inherent to the background flows.  To extract meaningful
 data, we further postprocessed the $F$, $S_2$, $E$ curves by taking
-their time averate over the interval $t \in [0, T]$. 
+their time average over the interval $t \in [0, T]$. 
 
 \subsection{Strain and alignment}
 \label{sec:strain-alignment}
@@ -988,7 +988,7 @@ Also, as a practical consideration,
 the rotation of non-isotropic JP phases in the background 
 flow leads to oscillation in the strain time courses 
 making systematic fitting challenging (see 
-Supplementary Material Figures \ref{fig:veshraw}--\ref{fig:sttgraw}). 
+Supplementary Material Figures \ref{fig:ulshraw}--\ref{fig:sttgraw}). 
 The integral in \eqref{eq:strainrate} averages out these oscillations
 and gives physically meaningful values.
 
