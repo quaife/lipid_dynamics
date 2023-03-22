@@ -49,74 +49,140 @@ $^{4}$Department of Mathematical Sciences, New Jersey Institute of Technology, N
 
 %\Phi_{\mathrm{rep}}
 
-\section{Movie Captions}\mbox{} \\
+\section{Movie Descriptions}
+We consider suspensions of JPs of radius 1.25~nm. The time step size for
+all simulations is $\Delta t = 0.2$~ns. The colors of the JPs are as
+follows: for Type I and Vesicles, red is hydrophobic ($\max g > 0$) and
+blue is hydrophilic ($\min g = 0$); for Type II, red is more hydrophobic
+($\max g >0$) than blue ($\min g > 0$); for Type III, red is positively
+charged ($\max g > 0$) and blue is negatively charged ($\min g < 0$).
+%\mbox{} \\
 
 \noindent
-{\bf Movie S1. Relaxation} 
-There are 60 circular particles with radius 1.25~nm that are initially
-confined in a square box. The simulation results show the relaxation
-with each of the three boundary conditions. The time step of all
-simulations is $\Delta t=0.2$. The color on the boundary from blue to
-red is for $\min g(\xx)$ to $\max g(\xx)$. All final configurations are
-adopted in simulations with hydrodynamic flows. \\
+{\bf Relaxation}: The relaxation of 60 circular JPs that are initialized
+with random locations and orientations. The JPs self-assemble into
+unilamellar (Type I), multilamellar (Type II), and striated (Type III)
+configurations. The final configurations are used as initial conditions
+for the simulations that include a background flow. 
 
-
-\noindent
-{\bf Movie S2. Structures in a Shear Flow without Ruptures} 
-We adopt the relaxed configurations and place the JP structures in the
-shear flow. For the choices of the shear rate, we pick: $\dot\gamma =
-0.05$ ns$^{-1}$ for the vesicle, $\dot\gamma = 0.05$ ns$^{-1}$ for the bilayer, $\dot\gamma
-= 0.05$ ns$^{-1}$ for the multi-lamellar, and $\dot\gamma = 0.1$ ns$^{-1}$ for the striated
-configurations. The vesicle case undergoes tank-treading whereas the
-initially disordered BC (i) case increases orientational order. The
-multilamellar assemply behaves as a rigid body, and the striated
-configuration moreso. No ruptures occur. \\
-
-
-
-\noindent
-{\bf Movie S3. Structures in a Taylor-Green Flow without Ruptures} 
-We adopt the relaxed configurations and place the JP structures in the
-Taylor-Green flow at low flow rates. For the choices of the flow
-strength, we pick: $\dot\gamma = 0.05$ ns$^{-1}$ for the vesicle, $\dot\gamma = 0.05$ ns$^{-1}$ for the
-disordered bilayer, $\dot\gamma = 0.05$ ns$^{-1}$ for the multi-lamellar, and $\dot\gamma = 0.1$ ns$^{-1}$
-for the striated configurations. The vesicle stays inact, whereas the
-dissordered bilayer is pulled apart. Like in Supplementary Movie S2, the
-striated assembly is basically rigid. \\
+%There are 60 circular particles with radius 1.25~nm that are initially
+%confined in a square box. The simulation results show the relaxation
+%with each of the three boundary conditions. The time step of all
+%simulations is $\Delta t=0.2$. The color on the boundary from blue to
+%red is for $\min g(\xx)$ to $\max g(\xx)$. All final configurations are
+%adopted in simulations with hydrodynamic flows. \\
 
 
 \noindent
-{\bf Movie S4. Structures in a Shear Flow with Ruptures} 
-We adopt the relaxed configurations and place the JP structures in the
-shear flow at a higher shear rate. For the choices of the shear rate, we
-pick: $\dot\gamma = 0.075$ for the vesicle, $\dot\gamma = 0.1$ ns$^{-1}$ for the
-bilayer, $\dot\gamma = 0.15$ ns$^{-1}$ for the multi-lamellar, and $\dot\gamma =
-0.15$ ns$^{-1}$ for the striated configurations. The time step of all simulations
-is $\Delta t=0.2$ ns$^{-1}$. In this movie, some clear structural ruptures occur
-in each case. In order to observe the structure behaviors at later time,
-we stabilize the frame by tracking the center of mass position of all
-JP. \\
+{\bf Structures in a Weak Shear Flow}:
+The relaxed configurations of the 60 JPs are subjected to a weak shear
+flow. The shear rate is $\dot{\gamma} = 0.05$~ns$^{-1}$ for the Vesicle,
+Type I, and Type II configurations, and $\dot{\gamma} = 0.1$~ns$^{-1}$
+for the Type III configuration. The vesicle undergoes tank-treading and
+the bilayer increases its orientational order. The multilamellar
+configuration resembles a rigid body motion, and the striated
+configuration has an even stronger resemblance to a rigid body motion.
+No ruptures occur in these examples. 
+
+%We adopt the relaxed configurations and place the JP structures in the
+%shear flow. For the choices of the shear rate, we pick: $\dot\gamma =
+%0.05$ ns$^{-1}$ for the vesicle, $\dot\gamma = 0.05$ ns$^{-1}$ for the
+%bilayer, $\dot\gamma = 0.05$ ns$^{-1}$ for the multi-lamellar, and
+%$\dot\gamma = 0.1$ ns$^{-1}$ for the striated configurations. The
+%vesicle case undergoes tank-treading whereas the initially disordered
+%BC (i) case increases orientational order. The multilamellar assemply
+%behaves as a rigid body, and the striated configuration moreso. No
+%ruptures occur. \\
+
+\noindent
+{\bf Structures in a Weak Taylor-Green Flow}:
+The relaxed configurations of the 60 JPs are subjected to a weak
+Taylor-Green flow. The flow rate is $\dot{\gamma} = 0.05$~ns$^{-1}$ for
+the Vesicle, Type I, and Type II configurations, and $\dot{\gamma} =
+0.1$~ns$^{-1}$ for the Type III configuration. The vesicle stays intact,
+whereas the bilayer is pulled apart into different TG cells. Like in the
+weak shear flow example, the multilamellar and striated configurations
+behave as rigid bodies.
+
+%For the choices of the flow strength, we pick: $\dot\gamma = 0.05$
+%ns$^{-1}$ for the vesicle, $\dot\gamma = 0.05$ ns$^{-1}$ for the
+%disordered bilayer, $\dot\gamma = 0.05$ ns$^{-1}$ for the
+%multi-lamellar, and $\dot\gamma = 0.1$ ns$^{-1}$ for the striated
+%configurations. The vesicle stays inact, whereas the dissordered
+%bilayer is pulled apart. Like in Supplementary Movie S2, the striated
+%assembly is basically rigid. \\
+
+%We adopt the relaxed configurations and place the JP structures in the
+%Taylor-Green flow at low flow rates. For the choices of the flow
+%strength, we pick: $\dot\gamma = 0.05$ ns$^{-1}$ for the vesicle,
+%$\dot\gamma = 0.05$ ns$^{-1}$ for the disordered bilayer, $\dot\gamma =
+%0.05$ ns$^{-1}$ for the multi-lamellar, and $\dot\gamma = 0.1$
+%ns$^{-1}$ for the striated configurations. The vesicle stays inact,
+%whereas the dissordered bilayer is pulled apart. Like in Supplementary
+%Movie S2, the striated assembly is basically rigid. \\
 
 
 \noindent
-{\bf Movie S5. Structures in a Taylor-Green Flow with Ruptures} 
-We adopt the relaxed configurations and place the JP structures in the
-Taylor-Green flow at higher flow rates. For the choices of the flow
-strength, we pick: $\dot\gamma = 0.1$ ns$^{-1}$ for the vesicle, $\dot\gamma = 0.1$ ns$^{-1}$ for the
-bilayer, $\dot\gamma = 0.1$ ns$^{-1}$ for the multi-lamellar, and $\dot\gamma = 0.15$ ns$^{-1}$ for the
-striated configurations. Clear structural ruptures occur in each case.
-In all cases, there is significant reduction in the orientational order
-of the assemblies. While the BC (i) cases are broken into several
-pieces, the main body of the BC (ii) and BC (iii) assemblies are not
-pulled apart by the background flow.\\
+{\bf Structures in a Strong Shear Flow}:
+The relaxed configurations of the 60 JPs are subjected to a strong shear
+flow. The shear rate is $\dot{\gamma} = 0.075$~ns$^{-1}$ for the Vesicle
+configuration, $\dot{\gamma} = 0.1$~ns$^{-1}$ for the Type I
+configuration, and $\dot{\gamma} = 0.15$~ns$^{-1}$ for the Type II and
+Type III configurations. In all cases, the structure is ruptured by the
+flow. The frames are stabilized by moving with the center of mass of all
+the JPs.
+
+%We adopt the relaxed configurations and place the JP structures in the
+%shear flow at a higher shear rate. For the choices of the shear rate, we
+%pick: $\dot\gamma = 0.075$ for the vesicle, $\dot\gamma = 0.1$ ns$^{-1}$
+%for the bilayer, $\dot\gamma = 0.15$ ns$^{-1}$ for the multi-lamellar,
+%and $\dot\gamma = 0.15$ ns$^{-1}$ for the striated configurations. The
+%time step of all simulations is $\Delta t=0.2$ ns$^{-1}$. In this movie,
+%some clear structural ruptures occur in each case. In order to observe
+%the structure behaviors at later time, we stabilize the frame by
+%tracking the center of mass position of all JP. \\
 
 \noindent
-{\bf Movie S6. Single Vesicle in a Taylor-Green Flow with Various $\lambda$ Values} 
-The parameter $\lambda$ controls the cell size in Taylor-Green flow. 
-$\lambda$ values are varied from 1.0 to 4.0 while the flow rate $\lambda\dot\gamma=0.1$ is fixed. There is a rotation transition from counterclockwise ($\lambda=1$ nm and  2 nm) to clockwise ($\lambda=3$ nm and 4 nm). \\
+{\bf Structures in a Strong Taylor-Green Flow}:
+The relaxed configurations of the 60 JPs are subjected to a strong
+Taylor-Green flow. The flow rate is $\dot{\gamma} = 0.1$~ns$^{-1}$ for
+the Vesicle, Type I, and Type II configurations, and $\dot{\gamma} =
+0.15$~ns$^{-1}$ for the Type III configuration. In all cases, the
+structure is ruptured by the flow and there is a significant reduction
+in the orientation order. While the Vesicle Type I configurations are
+broken into several pieces, the main body of the Type II and Type III
+configurations are not pulled apart by the background flow.
 
+%We adopt the relaxed configurations and place the JP structures in the
+%Taylor-Green flow at higher flow rates. For the choices of the flow
+%strength, we pick: $\dot\gamma = 0.1$ ns$^{-1}$ for the vesicle, $\dot\gamma = 0.1$ ns$^{-1}$ for the
+%bilayer, $\dot\gamma = 0.1$ ns$^{-1}$ for the multi-lamellar, and $\dot\gamma = 0.15$ ns$^{-1}$ for the
+%striated configurations. Clear structural ruptures occur in each case.
+%In all cases, there is significant reduction in the orientational order
+%of the assemblies. While the BC (i) cases are broken into several
+%pieces, the main body of the BC (ii) and BC (iii) assemblies are not
+%pulled apart by the background flow.\\
 
+\noindent
+%{\label{MovieS6}\bf JP Vesicle in a Taylor-Green Flow with Various
+%$\lambda$ Values}: 
+{\label{MovieS6}\bf JP Vesicle in Various Taylor-Green Flows}: A
+circular vesicle bilayer is placed in a Taylor-Green flow. The parameter
+$\lambda$ controls the TG cell size and the values are varied from 1~nm
+to 4~nm while the flow rate is chosen so that
+$\lambda\dot\gamma=0.1$~nm/ns. The parameter $\lambda$ determines the
+steady-state polygonal tank-treading shape. The rotation direction is
+clockwise for $\lambda=1$~nm and $\lambda=2$~nm, and counterclockwise
+for $\lambda=3$~nm and $\lambda=4$~nm. Streamlines of the flow are
+included.
 
+%A circular vesicle bilayer is placed in the Taylor-Green flow.  The
+%parameter $\lambda$ controls the cell size and the values are varied
+%from 1.0 nm to 4.0 nm while the flow rate $\lambda\dot\gamma=0.1$ is
+%fixed. There is a rotation transition from clockwise ($\lambda=1$ nm and
+%2 nm) to counterclockwise ($\lambda=3$ nm and 4 nm). Moreover, the
+%resulting steady shapes of all cases are different polygons. We plot the
+%streamlines in the background.\\
 
 
 \section{Raw Data}
