@@ -212,19 +212,19 @@ systems, could instead be used to design new, ordered systems, through
 specific choices for the shapes or interactions of the
 particles~\cite{Manoharan2015_Science}.
 
-In this work we focus on collective hydrodynamics of immobile
-amphiphilic JPs in a viscous fluid under an imposed far-field flow. The
+In this work we focus on collective hydrodynamics of immobile (non self-propelling)
+JPs in a viscous fluid under an imposed far-field flow. The
 amphiphilic JP has a hydrophobic surface on one side and a hydrophilic
 surface on the other side \cite{doi:10.1021/la503455h}. The many-body
 hydrodynamics of amphiphilic Janus particles assembled as vesicles
 (self-enclosed bilayers of JPs) suspended in a viscous fluid in the
 inertialess regime (zero Reynolds number) has been studied using
 boundary integral numerical simulations~\cite{Fu20,Fu2022_JFM}. The
-dynamics of the JP suspension results from the combination of long-range
+dynamics of the JP suspension arises spontaneously from the combination of long-range
 hydrodynamic interaction and non-local interactions between JPs through
 the distribution of a hydrophobic attraction potential (HAP).
 %
-In a quiescent flow, a JP suspension self-assembles into micelles and
+In a quiescent flow, an amphiphilic JP suspension self-assembles into micelles and
 bilayers of JPs that provide an alternative means for computing the
 mechanical moduli of a colloidal membrane in numerical
 simulations~\cite{NaTr00, Fu20, KrFiGuKaHa13}. Under background flows,
@@ -235,11 +235,11 @@ under shear flow~\cite{Fu2022_JFM, grandmaison_brancherie_salsac_2021,
 D2SM00179A,keller_skalak_1982, Finken08, Shaqfeh11}.
 
 Molecular dynamics (MD) and Monte Carlo simulations provide another
-avenue for simulating the interaction between JPs, solvents, and
+means for simulating the interaction between amphiphilic JPs, solvents, and
 substrates~\cite{Brandner2019, Baniketal2021,
 HongCacciutoLuijtenGranick2008, C9NR05885K}. In these methods
-pair-potentials are used to describe the interaction between JPs, for
-example by prescribing angle dependent forces and torques that bring the
+pair-potentials are used to describe the interaction between amphiphilic JPs
+by prescribing angle dependent forces and torques that bring the
 hydrophobic sides of two amphiphilic JPs into opposition. On the other
 hand, the HAP formulation of the present work has attractive, long-range
 forces and torques, and they are instead derived from a boundary value
@@ -284,12 +284,12 @@ provides a conclusion and discussion for future directions.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations: Hydrophobic Attraction Potential Mobility Problem} 
 \label{sec:governing_equations}
-The governing equations are a system for the position and orientation of
+The governing equations are a system of partial differential equations for the position and orientation of
 a collection of rigid JPs~\cite{Fu2022_JFM}. We first pose the Stokes
 equations for the mobility problem giving the hydrodynamic interactions
 for the particle suspension. The hydrophobic forces come from solving a
 screened Laplace equation. Particle collisions are avoided through a
-near-field, pair potential.
+near-field, pair potential for their steric interactions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Mobility problem}
@@ -484,7 +484,7 @@ possible~\cite{rac-gre2016, cor-gre-rac-vee2017}.
 
 We discretize~\eqref{eq:SL_BIE2}
 and~\eqref{eq:vel_BLM_rep}--\eqref{eq:vel_BLM_rep2} using high-order
-interpolation-based quadrature rules. Integrals that are smooth are
+interpolation-based quadrature rules. Smooth integrals are
 computed with the spectrally-accurate trapezoid rule, and
 nearly-singular integrals, caused by close contact between two
 particles, are computed with a high-order interpolation-based quadrature
@@ -768,7 +768,7 @@ where the orthonormal vectors $\ee_x$ and $\ee_y$ are the horizontal and
 vertical directions, respectively. The shear flow replicates the motion
 of a fluid between two parallel, moving plates excluding wall effects.
 In TG flow, $\lambda$ controls the size of the $2\pi \lambda \times 2\pi
-\lambda$ TG cells. Throughout, we use $\lambda = 2$ nm so that the JP
+\lambda$ TG cells. Throughout this section, we use $\lambda = 2$ nm so that the JP
 phases occupy about nine cells.
 
 In both cases, $\dot \gamma$ is the shear rate. The flow rate $\lambda
@@ -978,7 +978,7 @@ In panel (a), the relative change in $\dot \gamma_*$ is linear in the
   $-2$ with respect to the relative change in the length parameters $c$,
   $\rho$, and $\rho_0$. Panels (b)--(e) show the tank-treading
   configuration of a vesicle bilayer the configurations with streamlines
-  of a vesicle is in a TG flow at $t=1$ $\upmu$s with $l= 1,2,3,4$,
+  of a vesicle is in a TG flow at $t=1$ $\upmu$s with $\lambda= 1,2,3,4$,
   respectively. In panel (f),
   inset, the relative enclosed area $A/A_0$
   for the four cases in panels (b)--(e) decays to a steady state.
@@ -1054,8 +1054,11 @@ Finally, we calculated the vesicle area $A$ and length $L$. As shown in
 Figure~\ref{fig:PramChange}(f), the relative area achieves a
 steady state $A_{\infty}/A_0$ that is greatest for $\lambda = 4$~nm yet least for
 $\lambda = 2$~nm. The relative length $L/L_0$, however, is constant in
-$t$ for all cell sizes (data not shown). In other
-words, the flow pattern is non-monotonic in the cell size $\lambda$.
+$t$ for all cell sizes (data not shown). 
+In other words, the fluid-structure interactions of JPs give rise to 
+non-monotonic dependence of membrane permeability on the TG cell size $\lambda$.
+Such dynamic permeability due to fluid-structure interactions is also found in the clogging of
+spherical particles in a rectangular microfluidic channel \cite{MooreEtAl2023_PRL}.
 
 We have excluded thermal fluctuations because they are unresolved in the
 JP phases we consider. For a tensionless, planar membrane, the Fourier
@@ -1200,7 +1203,10 @@ Under a Taylor-Green flow, the amphiphilic JPs are the most interesting,
 exhibiting different vesicle shapes depending on the ratio of the size
 of the TG flow to the vesicle size. These results show that the shape of
 the vesicle, whether square or polygonal, can be controlled by adjusting
-the size of the cell in the TG flow. On the other hand, the assembly of
+the size of the cell in the TG flow. In addition the permeability of the JP bilayer
+varies non-monotonically with the TG cell size.
+%
+On the other hand, the assembly of
 multilamellar JPs and the striated JPs behave more like a rigid body
 with connected subdomains, and the number of subdomains increases with
 increasing strength of the TG flow. Overall, the multilamellar (Type II)
