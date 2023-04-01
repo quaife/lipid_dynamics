@@ -8,16 +8,18 @@
 \begin{document}
 
 \noindent
-Dear Prof.~Cecile Cottin-Bizonne,
+Dear Prof.~C\'ecile Cottin-Bizonne,
 \\ \\
-\noindent
-Thank you for handling the manuscript, and we would like to thank the
-reviewer for their positive and constructive comments. The attached
-manuscript addresses all the reviewer's comments and the result is what
-we believe is a stronger manuscript. An itemized list of the changes
-addressing the reviewer's comments are below. 
-%Changes to the manuscript from Reviewers 1 and 2 are colored in
-%\textcolor{red}{red} and \textcolor{magenta}{magenta}, respectively. 
+\noindent 
+We thank the Reviewer for their constructive feedback.
+A point-by-point list of changes to the manuscript 
+addressing the Reviewer's comments appears below.\\
+
+\noindent As a summary, we have undertaken a major revision of the manuscript
+that includes further detailed simulation data and analyses,
+reorganized figures, and a new ``Results and Discussion'' section
+written from scratch.  These changes address all the Reviewer's
+comments and we believe the result is a significantly stronger manuscript.
 \\ \\
 \noindent
 Sincerely,
@@ -26,6 +28,10 @@ Sincerely,
 Szu-Pei Fu, Rolf Ryham, Bryan Quaife, and Yuan-Nan Young
 
 \section*{Response to Reviewer 1}
+
+\noindent Changes appear in \textcolor{red}{red}.
+(Other changes specific to Reviewer 2 appear in \textcolor{magenta}{magenta}.)\\ \\
+
 \noindent
 \comment{The manuscript discusses the self-assembly of amphiphilic Janus
 particles and their dynamics in various flow conditions. Different
@@ -37,9 +43,8 @@ subjected to linear shear flow and Taylor-Green flow. The subject of
 study is interesting to soft matter community.}
 
 \begin{itemize}
-  \item {\bf Response to Summary}: We thank the Reviewer for the
-    positive assessment of our manuscript. We have addressed each of the
-    reviewer's comments which are summarized below.
+  \item {\bf Response to Summary}: We thank the Reviewer for their
+    positive assessment of our manuscript.  
 %  \begin{quotation}
 %    \noindent
 %    Can put verbatim change in this environment.
@@ -57,30 +62,79 @@ flow rate. But this is expected. What do all these results mean? I feel
 that a constructive message is missing.}
 
 \begin{itemize}
-  \item {\bf Response:}
-  Reviewer 1 pointed out that most of the simulation runs
-  corresponded to breakage in JP phases. The new Figure 3
-  now includes simulation runs for shear rates ranging
-  from $0$ ns$^{-1}$ to $0.1$ ns$^{-1}$ in shear flow
-  and from $0$ ns$^{-1}$ to $0.05$ ns$^{-1}$ in TG flow.
-  These additional data allowed us to plot pre-rupture
-  shear stress against shear rate in the new Figure 5
-  revealing the rheological properties of the distinct
-  JP phases.    
-\end{itemize}
+  \item[] {\bf Response:}
+      The Results Section V of our first submission
+    analyzed simulation data on a case-by-case basis. 
+    This made it unnecessarily difficult for the reader to
+    make meaningful connections and we agree with the Reviewer:
+    a constructive message was missing.  Moreover,
+    the large-shear-rate 
+    simulation runs for the most part corresponded to breakage in
+    JP phases.
 
+    To address these deficiencies,
+    we performed further simulations 
+    for moderate shear rates ranging
+    from $0$ ns$^{-1}$ to $0.1$ ns$^{-1}$ in shear flow
+    and from $0$ ns$^{-1}$ to $0.05$ ns$^{-1}$ in TG flow.
+    These additional data allowed us to examine 
+    material properties in greater detail: the new
+    \begin{itemize}
+      \item[$\bullet$] Figure 3 summarizes the strain and alignment data
+        under \emph{all} flow and JP-type conditions.
+      \item[$\bullet$] Figure 4 characterizes the change in free and binding energies.
+      \item[$\bullet$] Figure 5 plots pre-rupture
+        shear stress against shear rate revealing the rheological properties of
+        the three distinct JP phases.    
+    \end{itemize}
+    A constructive message---identification a critical shear rate,
+    relative binding strengths as a function of JP type,
+    and effective viscosities and presence of shear thinning---is
+    now formulated thanks to exploring the full range of
+    shear rates.
+
+    Finally, we normalized the TG flow rate (previously $V_0$)
+    so that we can compare the shear and TG flow in terms of the same
+    shear rate $\dot \gamma$.  See page 11, equation (24) and page 12,
+    top paragraph.
+\end{itemize}
 
 \noindent
 \comment{2. And the discussion section is not written well. Please write it
 properly.}
+    \begin{itemize}
+    \item[] {\bf Response:}
+      The address this,
+      we rewrote the Results section from scratch
+    to what is now Section V ``Results and Discussion''.
+    We highlighted the section heading on page 11 to indicate
+    that the entire section is rewritten.
 
-\begin{itemize}
-  \item Response:  
-  
-  \item Change: 
-  
-\end{itemize}
+    Starting on page 11, this section introduces the background flows,
+    characterizes the system's capillary and P\'eclet numbers.
+    As described in the previous response, Section V examines the data
+    as a whole and is divided into subsections A. Strain and alignment,
+    B. Free energy, and C. Rheology.
 
+    The raw data, which was previously shown in the
+    main text, has now been placed in Supplementary Material
+    and appropriately captioned.  We also combined
+    Figures 2 and 3 into a simpler, more readable Figure 2.    
+
+    Finally, we rewrote the previous Discussion Section VI from scratch
+    into Section V, subsection D. Here,
+    we perform a dimensional analysis of the critical shear rate $\dot \gamma_*$
+    for rupture, show how fluid-structure interactions
+    give rise to non-monotonic dependence, justify why
+    fluctuation can been omitted from the simulations, and
+    discuss the rheological data in the context of 
+    rheologies for classical and active suspensions.
+
+    We feel that these changes have significantly improved the readability
+    of the manuscript.  As an added advantage, the main text of the
+    revised manuscript is 21 pages, whereas the first submission's was
+    25 pages.  
+    \end{itemize}
 
 \noindent
 \comment{Minor comments: 1. Page 18: The section ends with 
@@ -90,11 +144,9 @@ vesicles in the context of shear background flow [53, 54]. “. I find
 the statement abrupt and not related to the earlier text.}
 
 \begin{itemize}
-  \item Response: 
-  
-\item Change: 
-
-
+  \item[] {\bf Response:}
+    We have omitted this sentence and rewritten the discussion
+    for vesicles in TG flow.  See second middle of page 18.   
 \end{itemize}
 
 \noindent
@@ -102,10 +154,10 @@ the statement abrupt and not related to the earlier text.}
 (d).}
 
 \begin{itemize}
-  \item Response: 
-  
-  \item Change:
-  
+\item[] {\bf Response:}
+  In our first submission, these arrows showed the clockwise or counterclockwise
+  vesicle motion in TG flow.  These arrows have been omitted in the new Figure 6,
+  and the motion is instead described in the middle of page 18. 
 \end{itemize}
 
 

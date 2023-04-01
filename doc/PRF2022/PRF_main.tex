@@ -733,8 +733,8 @@ rectangle) and an `X'-shaped alignment (Figure~\ref{fig:relax}(e), top
 left rectangle).
 
 %%%%%%%
-
-\section{Results and Discussion}
+{\color{red}
+\section{Results and Discussion}}
 \label{sec:results}
 \begin{figure}[t]
 \begin{center}
@@ -758,13 +758,15 @@ measure their material response. The background flows are a shear flow
 \dot\gamma (\ee_y \cdot \mathbf{x})\ee_x,
 \end{equation}
 and a Taylor-Green (TG) flow
-\begin{equation}
+{\color{red}
+  \begin{equation}
 \label{eq:tg_flow}
 \uu_\infty^{\text{TG}}(\xx) = 
 \lambda \dot \gamma \left(
 -\cos(\ee_x\cdot\xx/\lambda)\sin(\ee_y\cdot\xx/\lambda)\ee_x
 +\sin(\ee_x\cdot\xx/\lambda)\cos(\ee_y\cdot\xx/\lambda)\ee_y\right),
-\end{equation}
+  \end{equation}
+  }
 where the orthonormal vectors $\ee_x$ and $\ee_y$ are the horizontal and
 vertical directions, respectively. The shear flow replicates the motion
 of a fluid between two parallel, moving plates excluding wall effects.
@@ -772,23 +774,25 @@ In TG flow, $\lambda$ controls the size of the $\pi \lambda \times \pi
 \lambda$ TG cells. Throughout this section, we use $\lambda = 2$ nm so that the JP
 phases occupy about nine cells.
 
-In both cases, $\dot \gamma$ is the shear rate. The flow rate $\lambda
+{\color{red}
+  In both cases, $\dot \gamma$ is the shear rate. The flow rate $\lambda
 \dot \gamma$ is chosen so that~\eqref{eq:tg_flow} has the same rate of
 viscous dissipation per area as for~\eqref{eq:sh_flow}. In other words,
 $\int_{A} \frac{1}{2}\mu |\nabla \uu + \nabla \uu^T|^2 \,\dif A$ is the
 same for $\uu = \uu_{\infty}^{\text{sh}}$ as for $\uu =
 \uu_{\infty}^{\text{TG}}$ when integrated over a TG cell $A$. 
+}
 
 {\color{magenta}
 To obtain a range for $\dot \gamma$, consider the capillary number 
 \begin{equation}
 \label{eq:capillary}
-C_a = \frac{\mu \dot \gamma R^3}{\kappa}
+\mathrm{Ca} = \frac{\mu \dot \gamma R^3}{\kappa}
 \end{equation}
 where $R = 10$~nm and $\kappa = 20\;\kbt$ are the characteristic phase
 sample radius and bending rigidity, respectively. That is, $\kappa$
 gives the elastic stress for restoring the phase-sample shape. Shear
-stress overcomes elastic stress when $C_a > 1$ and this yields $\dot
+stress overcomes elastic stress when $\mathrm{Ca} > 1$ and this yields $\dot
 \gamma > 2 \cdot 10^{-2}$ ns$^{-1} = 2 \cdot 10^6$~s$^{-1}$. Thus our values
 for $\dot \gamma$ range between $0$ ns$^{-1}$ corresponding to quiescent
 flow up to $0.2$~ns$^{-1}$ capable of rupturing the sample. Such shear
@@ -1059,12 +1063,12 @@ Section~\ref{sec:movie_description} in the [Supplementary Material] for
 a movie showing the dynamics of the JP vesicle for the four different
 values of $\lambda$ in Figure~\ref{fig:PramChange}(b)--(e).
 
-For $\lambda=1$~nm and $\lambda=2$~nm, multiple TG cells are inside the
+{\color{red} For $\lambda=1$~nm and $\lambda=2$~nm, multiple TG cells are inside the
 JP vesicle as the inner leaflet of JPs move clockwise along the boundary
 faster than the outer leaflet. For $\lambda=3$~nm and $\lambda=4$~nm,
 there is only one TG cell inside the JP vesicle and the JPs in the
 bilayer tank-tread in the counter-clockwise direction (Figure
-\ref{fig:PramChange}(b)--(e)). 
+\ref{fig:PramChange}(b)--(e)). }
 %
 Finally, we calculated the vesicle area $A$ and length $L$. As shown in
 Figure~\ref{fig:PramChange}(f), the relative area achieves a
@@ -1073,8 +1077,8 @@ $\lambda = 2$~nm. The relative length $L/L_0$, however, is constant in
 $t$ for all cell sizes (data not shown). 
 In other words, the fluid-structure interactions of JPs give rise to 
 non-monotonic dependence of membrane permeability on the TG cell size $\lambda$.
-Such dynamic permeability due to fluid-structure interactions is also found in the clogging of
-spherical particles in a rectangular microfluidic channel \cite{MooreEtAl2023_PRL}.
+{\color{red}Such dynamic permeability due to fluid-structure interactions is also found in the clogging of
+spherical particles in a rectangular microfluidic channel \cite{MooreEtAl2023_PRL}.}
 
 {\color{magenta}
   We have excluded thermal fluctuations because they are unresolved in the
