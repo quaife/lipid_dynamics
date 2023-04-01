@@ -2,14 +2,14 @@
 
 % Here we translate Bryan's geometry class into extant variables 
 
-N = N;                 % number of points per componenet
-Nb = nb;               % number of rigid bodies
-x1 = X(1:N,:);         % grid points on curves 
-x2 = X(N+1:2*N,:);            
-pc = center;           % center of each rigid body
-orn = tau;             % orientation of each rigid body
-a = radii;             % radius of each rigid body
-rho = rho;             % screen length of particles
+N = prams.N;                 % number of points per componenet
+Nb = prams.nb;               % number of rigid bodies
+x1 = geom.X(1:N,:);         % grid points on curves 
+x2 = geom.X(N+1:2*N,:);            
+pc = geom.center;           % center of each rigid body
+orn = geom.tau;             % orientation of each rigid body
+a = geom.radii;             % radius of each rigid body
+rho = geom.rho;             % screen length of particles
 xt = geom.xt;          % tangent unit vector
 tau1 = xt(1:N,:);      
 tau2 = xt(N+1:2*N,:);

@@ -8,6 +8,12 @@ prams.gam = 1;
 prams.ar = [2 1.5];
 prams.RepulLength = 1;
 prams.RepulStrength = 1;
+prams.bcShift = 0;
+prams.bcType = 0;
+prams.bcType        = 'cosine';
+prams.NPeaks        = 1;
+prams.shape         = 'star'; % options: 'circle'; 'star'
+prams.petal         = 5;
 
 xc = [[+1;0] [-1;3]];
 tau = [-1 +1];

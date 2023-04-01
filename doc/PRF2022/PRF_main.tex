@@ -324,6 +324,7 @@ condition for a rigid body motion
 where $\vv_i$ is the translational velocity, $\omega_i$ is the angular
 velocity, and $\langle x, y \rangle^{\perp} = \langle -y, x\rangle$. 
 
+
 To obtain forces, define the free
 energy~\cite{Fu20, Fu2022_JFM}
 \begin{align}
@@ -767,7 +768,7 @@ and a Taylor-Green (TG) flow
 where the orthonormal vectors $\ee_x$ and $\ee_y$ are the horizontal and
 vertical directions, respectively. The shear flow replicates the motion
 of a fluid between two parallel, moving plates excluding wall effects.
-In TG flow, $\lambda$ controls the size of the $2\pi \lambda \times 2\pi
+In TG flow, $\lambda$ controls the size of the $\pi \lambda \times \pi
 \lambda$ TG cells. Throughout this section, we use $\lambda = 2$ nm so that the JP
 phases occupy about nine cells.
 
@@ -778,6 +779,7 @@ $\int_{A} \frac{1}{2}\mu |\nabla \uu + \nabla \uu^T|^2 \,\dif A$ is the
 same for $\uu = \uu_{\infty}^{\text{sh}}$ as for $\uu =
 \uu_{\infty}^{\text{TG}}$ when integrated over a TG cell $A$. 
 
+{\color{magenta}
 To obtain a range for $\dot \gamma$, consider the capillary number 
 \begin{equation}
 \label{eq:capillary}
@@ -787,13 +789,27 @@ where $R = 10$~nm and $\kappa = 20\;\kbt$ are the characteristic phase
 sample radius and bending rigidity, respectively. That is, $\kappa$
 gives the elastic stress for restoring the phase-sample shape. Shear
 stress overcomes elastic stress when $C_a > 1$ and this yields $\dot
-\gamma > 2 \cdot 10^{-2}$ ns$^{-1} = 2 \cdot 10^6$~s. Thus our values
+\gamma > 2 \cdot 10^{-2}$ ns$^{-1} = 2 \cdot 10^6$~s$^{-1}$. Thus our values
 for $\dot \gamma$ range between $0$ ns$^{-1}$ corresponding to quiescent
 flow up to $0.2$~ns$^{-1}$ capable of rupturing the sample. Such shear
 rates are compatible with molecular dynamics simulation
 \cite{Brandner2019}, those for large unilamellar vesicles (LUV),
 \cite{Bernard2005ShearinducedPA}, and shearing in blood capillary
 vessels \cite{Cho2011} where shear rates range over 100--2000 s$^{-1}$.
+From the particle diffusion time $D/L^2$  
+and advection time $L/u = (\dot\gamma)^{-1}$,
+$D = 0.17\cdot 10^{-9}$~m$^2$~s$^{-1}$ and $L \sim 10$~nm, we 
+obtain a P\'eclet number $\mathrm{Pe} = (D/L^2)/(L/u) \sim 60$,
+suggesting that advection dominates the particle transport.
+% L u = L^2 gammadot = 10 nm^2/ns 
+% D = kBT/(6 pi mu c) = kBT/(6 pi mPa s c) 
+%   = kBT/(6 pi 1e-3 N/m^2 1.25 nm) 
+%   = 4 1e-12 N nm/(6 pi 1.25e-3 m^{-2} s N nm) 
+%   = 0.17e-9 m^2/s
+%  
+% Pe = L u/D = 10 nm^2/ns/(0.17e-9 m^2/s)
+%    = 59e9 1e-18 1e9 = 59
+}
 
 For initial data, note that the steady-state Type I amphiphiles phase
 consists of a number of disjoint bilayer components
@@ -1060,13 +1076,14 @@ non-monotonic dependence of membrane permeability on the TG cell size $\lambda$.
 Such dynamic permeability due to fluid-structure interactions is also found in the clogging of
 spherical particles in a rectangular microfluidic channel \cite{MooreEtAl2023_PRL}.
 
-We have excluded thermal fluctuations because they are unresolved in the
+{\color{magenta}
+  We have excluded thermal fluctuations because they are unresolved in the
 JP phases we consider. For a tensionless, planar membrane, the Fourier
 coefficients for the profile height $h(\xx) = \sum_{\kk} h(\kk)e^{i \kk
 \cdot \xx}$ satisfy~\cite{Merath2006FluctuationSO}
 \begin{equation}
 \label{eq:fourier_spectrum}
-\langle |h(\kk)|^2 \rangle = \frac{\kbt}{L_xL_y}\frac{1}{\kappa k^4},
+\langle |h(\kk)|^2 \rangle = \frac{\kbt}{L_xL_y}\frac{1}{\kappa |\kk|^4},
 \end{equation}
 where $\xx$ is a point in an $L_x \times L_y$ rectangular membrane
 patch, $\kk = \left(2\pi m/L_x, 2\pi n/L_y\right)$ with $m,n \in
@@ -1095,10 +1112,14 @@ negligible in these cases.
 The fact that the fluctuation amplitudes are small is not a consequence
 of stiffness. Quite the opposite, the value $\kappa = 20$~$\kbt$ agrees
 with the experimental literature where micron sized vesicles observably
-fluctuate. Rather, larger energies are required to fluctuate membranes
+fluctuate \cite{D0SM00943A}.
+Rather, because the wave vector $\mathbf{k}$ is inversely proportional
+to the characteristic
+size of $L_x$ and $L_y$, larger energies are required to fluctuate membranes
 over smaller wavelengths and these energies exceed available thermal
 energy when the wavelengths approach tens of nanometers as demonstrated
 above.
+}
 
 The calculated viscosities---14~mPa~s for Type I and 21~mPa~s for Type
 II JP phases---are physically reasonable. In two-dimensional dilute
@@ -1290,8 +1311,11 @@ the equation are continuous, we obtain~\eqref{eq:normal_deriv}.
 
 % If you have acknowledgments, this puts in the proper section head.
 \begin{acknowledgments}
-We thank useful conversations with E.~Corona, M.~Rachh, S.~Jiang, and
-  T.~Beck. B.Q.~acknowledges support from the Simons Foundation,
+  We thank the anonymous referees for pointing out
+  the P\'eclet number, capillary number, and fluctuation analysis.
+  E.~Corona, M.~Rachh, S.~Jiang, and T.~Beck
+  provided useful insights.
+  B.Q.~acknowledges support from the Simons Foundation,
   Mathematics and Physical Sciences-Collaboration Grants for
   Mathematicians, Award No.~527139. Y.-N.Y.~acknowledges support from
   NSF (Grants No.~DMS 1614863 and No.~DMS 195160) and Flatiron
