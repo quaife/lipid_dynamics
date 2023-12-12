@@ -10,3 +10,8 @@ It the flag for tracers is turned on, then tracer files will be written.
 
 This script can be used for calculate fluid pressure, stress tensor, and velocity. 
 The script for calculating Yukawa solutions is included as well.
+
+MidArcLen.m
+-----------
+For a biayer structure, this script calculates the midplane configurations, midplane arc length, midplane enclosed area, and the reduced area by using fft. The test data file is included.
+
