@@ -2,6 +2,9 @@ function [Xfinal, trajectory] = rigid2D(options,prams,xc,tau)
 ttotal = tic; % start a timer
 
 om = monitor(options,prams);
+save("../output/data/frames/options.mat","options","prams");
+
+
 % build object for doing I/O
 
 tt = tstep(options,prams);
@@ -22,11 +25,6 @@ else
   walls.nb = 0;
   walls.X = [];
 end
-%clf; hold on;
-%plot(walls.X(1:end/2),walls.X(end/2+1:end),'k')
-%plot(geom.X(1:end/2,:),geom.X(end/2+1:end,:),'k')
-%axis equal
-%pause
 
 om.initializeFiles(geom,walls);
 
@@ -72,25 +70,21 @@ while step <= prams.m
 
       % write the velocity to a file
       om.writeVelData(time,Up0,wp0);
-      
+
+      % output Yukawa and Stokes densities
+      fileName = sprintf("../output/data/frames/N%d_%f_%d.mat", geom0.nb, options.shearRate, step+tt.sstep);
+      save(fileName, "etaS0","etaY0","force","torque");
+      % output particle velocities
+      xcvel = [xc0(1,:)' xc0(2,:)' Up0(1,:)' Up0(2,:)' wp0'];
+      fileName = sprintf("../output/data/frames/N%d_%f_%d.xcvel", geom0.nb, options.shearRate, step+tt.sstep);
+      save("-ascii", fileName, "xcvel");        
+
       % causes xc2, tau2 to be forward Euler, at step 0
       xc1  = xc0;
       tau1 = tau0;
 
       % update time
       time = time + tt.dt;
-
-      % write current time to console
-      %message = ['Completed time ', num2str(time,'%4.2e'), ...
-      %           ' of time horizon ' , num2str(prams.T,'%4.2e')];
-      %om.writeMessage(message);
-      
-      % write the shape to a file
-%       om.writeData(time,geom0.center,geom0.tau,geom0.X);
-
-      % write the velocity to a file
-%       om.writeVelData(time,Up0,wp0);
-      
       % update step counter
       step = step + 1;
     end
@@ -112,11 +106,6 @@ while step <= prams.m
   end
 
   om.plotData(geom2,walls.X);
-%  hold on;
-%%  clf
-%  surf(xx,yy,pot)
-%  view(2); shading interp; axis equal;
-%  pause
 
   % write the shape to a file
   om.writeData(time,geom2.center,geom2.tau,geom2.X);
@@ -159,58 +148,22 @@ while step <= prams.m
   fileName = sprintf("../output/data/frames/N%d_%f_%d.dat", geom2.nb, options.shearRate, step+tt.sstep);
   save("-ascii", fileName, "DATA");
  
+  % output Yukawa and Stokes densities
+  fileName = sprintf("../output/data/frames/N%d_%f_%d.mat", geom2.nb, options.shearRate, step+tt.sstep);
+  save(fileName, "etaS0","etaY0");
+  % output particle velocities
+  xcvel = [xc1(1,:)' xc1(2,:)' Up0(1,:)' Up0(2,:)' wp0'];
+  fileName = sprintf("../output/data/frames/N%d_%f_%d.xcvel", geom2.nb, options.shearRate, step+tt.sstep);
+  save("-ascii", fileName, "xcvel");        
+
   if options.tracer
     fileName = sprintf("../output/data/frames/N%d_%f_%d.tracer", ...
       geom2.nb, options.shearRate, step+tt.sstep);
     save("-ascii", fileName, "XX");  
   end
   
-  
-  % stress calculations
-% rad = 1.0;
-% H = rad + 4*2*pi*rad/geom2.N;
-% [xtar, ytar, tx, ty, nx, ny, ds, ka, dkas, ddkas]  = ...
-%                           geom2.StressTargets(xc1(1,:), xc1(2,:), H);
-% Xtar = [xtar;ytar];
-% Ntar = length(xtar);
-% [stress, pressure, velocity] = fluidstress(geom1,etaS0,force,torque,Xtar);
-% %   
-% SPV = [stress(1:Ntar) stress(Ntar+1:2*Ntar) stress(2*Ntar+1:end) ...
-%        pressure velocity(1:Ntar) velocity(Ntar+1:end)];
-% TARDATA = [xtar ytar tx ty nx ny ds ka dkas ddkas];
-%    
-% sxx = stress(1:Ntar);
-% sxy = stress(Ntar+1:2*Ntar);
-% syy = stress(2*Ntar+1:end);   
-%   
-%   StressNormalx = -pressure.*nx + sxx.*nx + sxy.*ny;
-%   StressNormaly = -pressure.*ny + sxy.*nx + syy.*ny;
-%   
-%   subplot(1,3,1)
-%   plot(StressNormalx)
-%   subplot(1,3,2)
-%   plot(StressNormaly)
-%   subplot(1,3,3)
-%   plot(xtar,ytar,'*'); 
-%   hold on
-%   quiver(xtar,ytar,tx,ty); hold off
-  
-% size(stress)   % 3*Ntar
-% size(pressure) % 1*Ntar
-% size(velocity) % 2*Ntar  
-
-%fileName = sprintf("../output/data/frames/N%d_%f_%d.stress", geom2.nb, options.shearRate, step+tt.sstep);
-%  save("-ascii", fileName, "SPV");  
-%fileName = sprintf("../output/data/frames/N%d_%f_%d.tardata", geom2.nb, options.shearRate, step+tt.sstep);
-%  save("-ascii", fileName, "TARDATA");  
-  
   % update step counter
   step = step + 1;
-
-%  figure(2);
-%  plot(Energy)
-%  figure(1);
-%  pause(0.01) 
 end
 
 % save final time step

@@ -63,6 +63,7 @@ ar    = 1.0*ones(1,prams.nb);
 
 if prams.sstep == 0
     data = load(['N' num2str(prams.nb) '_' num2str(prams.sstep) '.dat']);
+    data = [data 0*zeros(prams.nb,3)];
     fileName = sprintf("../output/data/frames/N%d_%f_%d.dat", ...
                    prams.nb, options.shearRate, prams.sstep);
     save("-ascii", fileName, "data");
