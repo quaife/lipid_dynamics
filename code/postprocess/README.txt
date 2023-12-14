@@ -13,8 +13,11 @@ The script for calculating Yukawa solutions is included as well.
 
 MidArcLen.m
 -----------
-For a biayer structure, this script calculates the midplane configurations, midplane arc length, midplane enclosed area, and the reduced area by using fft. The test data file is included.
+For a biayer structure, this script calculates the midplane configurations, midplane arc length, 
+midplane enclosed area, and the reduced area by using fft. The test data file is included.
 
 EllipsesTargets.m
 -----------------
-This function generates several curves in normal directions of the midplane curve that include interior and exterior curves.
+This function generates several curves in normal directions of the midplane curve that includes 
+interior and exterior curves.
+

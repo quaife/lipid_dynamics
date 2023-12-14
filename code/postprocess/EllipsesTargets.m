@@ -26,7 +26,7 @@ oc = curve;
 % scalar multiples: "-" interior; "+" exterior
 velind = [-2.0 -1.9 -1.8 -1.7 -1.6 -1.5 -1.4 -1.35 -1.3 -0.05 0 0.05 2.0 2.2 2.4 2.6 2.8 3.0 3.2 3.4 3.6];
 
-for k = 1:21
+for k = 1:length(velind)
 % generate curves in normal directions
     Xn = X + velind(k)*[n1 ; n2]; 
     figure(111); hold on
