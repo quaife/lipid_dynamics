@@ -12,6 +12,7 @@ function [Xmid, Area, Len, Ra] = MidArcLen(x,y,tau,Nout,Nin)
 % Len : Midplane arc length
 % Ra  : Reduced area
 
+addpath ../src
 
 distance  = zeros(Nin,Nout);
 
