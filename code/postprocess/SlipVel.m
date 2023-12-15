@@ -16,7 +16,7 @@ oc = curve;
 % load options and parameters
 load("../output/data/frames/options.mat");
 
-dt = prams.T/pram.m;
+dt = prams.T/prams.m;
 
 Tstart = StepI(1);
 Tend = StepI(end);
@@ -70,7 +70,7 @@ for i = Tstart:irate:Tend
         
 	slipv(k,:) = [ t(k)   mean(outerV)-mean(innerV)];
     k=k+1;
-    end
+end
 
     % save data
     save("SlipV.dat",'slipv','-ascii');
