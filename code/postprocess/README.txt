@@ -32,3 +32,6 @@ SlipVel.m
 This function uses all configuration data files to calculate the slip velocity of the 
 closed tank-treading vesicle.
 
+ForceJump.m
+-----------
+This function uses the generated target points in ellipses done by EllipseTargets.m to calculate the force jump at the midplane.

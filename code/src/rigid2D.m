@@ -150,7 +150,7 @@ while step <= prams.m
  
   % output Yukawa and Stokes densities
   fileName = sprintf("../output/data/frames/N%d_%f_%d.mat", geom2.nb, options.shearRate, step+tt.sstep);
-  save(fileName, "etaS0","etaY0");
+  save(fileName, "etaS0","etaY0","force","torque");
   % output particle velocities
   xcvel = [xc1(1,:)' xc1(2,:)' Up0(1,:)' Up0(2,:)' wp0'];
   fileName = sprintf("../output/data/frames/N%d_%f_%d.xcvel", geom2.nb, options.shearRate, step+tt.sstep);

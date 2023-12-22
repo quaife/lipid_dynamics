@@ -8,7 +8,7 @@ format compact
 % profile on
 
 prams.N = 24;      % number of point per body
-prams.nb = 5;      % number of bodies
+prams.nb = 58;      % number of bodies
 
 dt      = 0.2;
 prams.sstep = 0;   % starting step
@@ -52,7 +52,7 @@ prams.shape         = 'circle'; % options: 'circle'; 'star'
 prams.petal         = 4;
 % circle:  (x,y) = (ar*radii*cos(th), radii*sin(th))
 % star  :  (x,y) = radii + ar*cos(petal*th)
-radii = 1.0*ones(1,prams.nb);
+radii = 0.5*ones(1,prams.nb);
 ar    = 1.0*ones(1,prams.nb);
 
 
